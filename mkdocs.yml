@@ -36,4 +36,3 @@ plugins: []
 nav:
   - Home: index.md
   - Documentation: docs/index.md
-
