@@ -1,0 +1,38 @@
+site_name: BigFunctions
+site_description: 'Supercharge your BigQuery.'
+site_url: 'https://unytics.github.io/bigfunctions/'
+repo_name: 'unytics/bigfunctions'
+repo_url: 'https://github.com/unytics/bigfunctions'
+edit_uri: 'edit/main/site/content'
+copyright: 'Copyright &copy; 2022 Unytics'
+docs_dir: 'site/content'
+site_dir: 'docs'
+extra_css:
+  - stylesheets/extra.css
+theme:
+  name: material
+  custom_dir: site/overrides
+  logo: assets/logo.png
+  favicon: assets/logo.png
+  features:
+    - tabs
+    - instant
+    # - toc.integrate
+    - navigation.tabs
+    - navigation.indexes
+    - navigation.hide
+    # - navigation.expand
+
+
+markdown_extensions:
+  - attr_list
+  - tables
+  - admonition
+  - pymdownx.details
+  - pymdownx.superfences
+  - pymdownx.tabbed:
+      alternate_style: true
+plugins: []
+nav:
+  - Home: index.md
+  - Documentation: docs/index.md
