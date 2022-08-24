@@ -1,6 +1,6 @@
 site_name: BigFunctions
 site_description: 'Supercharge your BigQuery.'
-site_url: 'https://unytics.github.io/bigfunctions/'
+site_url: 'https://unytics.io/bigfunctions/'
 repo_name: 'unytics/bigfunctions'
 repo_url: 'https://github.com/unytics/bigfunctions'
 edit_uri: 'edit/main/site/content'
