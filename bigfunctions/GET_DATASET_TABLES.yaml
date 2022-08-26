@@ -1,0 +1,61 @@
+type: procedure
+samples:
+  - "GET_DATASET_TABLES(fully_qualified_dataset)"
+description: |-
+  Creates a temporary table called `GET_DATASET_TABLES_result` with tables of `fully_qualified_dataset` dataset
+arguments:
+  - name: fully_qualified_dataset
+    type: STRING
+    test_value: bigquery-public-data.samples
+output_value:
+  name: GET_DATASET_TABLES_result
+  type: TEMP TABLE
+example: |-
+  ``` sql
+  CALL {BIGFUNCTIONS_DATASET}.GET_DATASET_TABLES('bigquery-public-data.samples');
+  SELECT * FROM  GET_DATASET_TABLES_result;
+
+  +----------------------+--------------+-----------------+------------+--------------------+----------+--------------------------+-----+
+  | table_catalog        | table_schema | table_name      | table_type | is_insertable_into | is_typed | creation_time            | ... |
+  +----------------------+--------------+-----------------+------------+--------------------+----------+--------------------------+-----+
+  | bigquery-public-data | samples      | natality        | BASE TABLE | YES                | NO       | 2016-03-14T17:16:47.183Z | ... |
+  | bigquery-public-data | samples      | github_timeline | BASE TABLE | YES                | NO       | 2016-03-14T17:16:45.074Z | ... |
+  | bigquery-public-data | samples      | github_nested   | BASE TABLE | YES                | NO       | 2016-03-14T17:16:44.113Z | ... |
+  | bigquery-public-data | samples      | trigrams        | BASE TABLE | YES                | NO       | 2016-03-14T17:16:50.399Z | ... |
+  | ...                  | ...          | ...             | ...        | ...                | ...      | ...                      | ... |
+  +----------------------+--------------+-----------------+------------+--------------------+----------+--------------------------+-----+
+  ```
+code: |
+  declare project, dataset string;
+
+  declare parts array<string> default split(replace(fully_qualified_dataset, '`', ''), '.');
+  set project = parts[offset(0)];
+  set dataset = parts[offset(1)];
+
+
+  execute immediate replace(replace(
+    '''
+    create or replace temp table GET_DATASET_TABLES_result as
+    select
+      infos.*,
+      stats.last_modified_time,
+      stats.row_count,
+      stats.size_bytes,
+      (select option_value from `{{project}}.{{dataset}}.INFORMATION_SCHEMA.TABLE_OPTIONS` opts where opts.table_name = infos.table_name and option_name = 'partition_expiration_days') as partition_expiration_days,
+      (select option_value from `{{project}}.{{dataset}}.INFORMATION_SCHEMA.TABLE_OPTIONS` opts where opts.table_name = infos.table_name and option_name = 'expiration_timestamp') as expiration_timestamp,
+      (select option_value from `{{project}}.{{dataset}}.INFORMATION_SCHEMA.TABLE_OPTIONS` opts where opts.table_name = infos.table_name and option_name = 'kms_key_name') as kms_key_name,
+      (select option_value from `{{project}}.{{dataset}}.INFORMATION_SCHEMA.TABLE_OPTIONS` opts where opts.table_name = infos.table_name and option_name = 'friendly_name') as friendly_name,
+      (select option_value from `{{project}}.{{dataset}}.INFORMATION_SCHEMA.TABLE_OPTIONS` opts where opts.table_name = infos.table_name and option_name = 'description') as description,
+      (select option_value from `{{project}}.{{dataset}}.INFORMATION_SCHEMA.TABLE_OPTIONS` opts where opts.table_name = infos.table_name and option_name = 'labels') as labels,
+      (select option_value from `{{project}}.{{dataset}}.INFORMATION_SCHEMA.TABLE_OPTIONS` opts where opts.table_name = infos.table_name and option_name = 'require_partition_filter') as require_partition_filter,
+      (select option_value from `{{project}}.{{dataset}}.INFORMATION_SCHEMA.TABLE_OPTIONS` opts where opts.table_name = infos.table_name and option_name = 'enable_refresh') as enable_refresh,
+      (select option_value from `{{project}}.{{dataset}}.INFORMATION_SCHEMA.TABLE_OPTIONS` opts where opts.table_name = infos.table_name and option_name = 'refresh_interval_minutes') as refresh_interval_minutes,
+    from `{{project}}.{{dataset}}.INFORMATION_SCHEMA.TABLES` infos
+    inner join `{{project}}.{{dataset}}.__TABLES__` stats on (infos.table_name = stats.table_id)
+    ''',
+    '{{project}}', project),
+    '{{dataset}}', dataset
+  );
+
+
+

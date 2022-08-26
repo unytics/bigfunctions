@@ -13,6 +13,93 @@ We are introducing today the first two functions. [Tell us what you think](https
 ---
 
 
+## GET_DATASET_TABLES
+
+> Creates a temporary table called `GET_DATASET_TABLES_result` with tables of `fully_qualified_dataset` dataset
+```
+GET_DATASET_TABLES(fully_qualified_dataset)
+```
+> **Returns** ➜ `TEMP TABLE`
+
+<h3>Example</h3>
+
+
+=== "EU"
+
+    ``` sql
+    CALL bigfunctions.eu.GET_DATASET_TABLES('bigquery-public-data.samples');
+    SELECT * FROM  GET_DATASET_TABLES_result;
+    
+    +----------------------+--------------+-----------------+------------+--------------------+----------+--------------------------+-----+
+    | table_catalog        | table_schema | table_name      | table_type | is_insertable_into | is_typed | creation_time            | ... |
+    +----------------------+--------------+-----------------+------------+--------------------+----------+--------------------------+-----+
+    | bigquery-public-data | samples      | natality        | BASE TABLE | YES                | NO       | 2016-03-14T17:16:47.183Z | ... |
+    | bigquery-public-data | samples      | github_timeline | BASE TABLE | YES                | NO       | 2016-03-14T17:16:45.074Z | ... |
+    | bigquery-public-data | samples      | github_nested   | BASE TABLE | YES                | NO       | 2016-03-14T17:16:44.113Z | ... |
+    | bigquery-public-data | samples      | trigrams        | BASE TABLE | YES                | NO       | 2016-03-14T17:16:50.399Z | ... |
+    | ...                  | ...          | ...             | ...        | ...                | ...      | ...                      | ... |
+    +----------------------+--------------+-----------------+------------+--------------------+----------+--------------------------+-----+
+    ```
+
+=== "US"
+
+    ``` sql
+    CALL bigfunctions.us.GET_DATASET_TABLES('bigquery-public-data.samples');
+    SELECT * FROM  GET_DATASET_TABLES_result;
+    
+    +----------------------+--------------+-----------------+------------+--------------------+----------+--------------------------+-----+
+    | table_catalog        | table_schema | table_name      | table_type | is_insertable_into | is_typed | creation_time            | ... |
+    +----------------------+--------------+-----------------+------------+--------------------+----------+--------------------------+-----+
+    | bigquery-public-data | samples      | natality        | BASE TABLE | YES                | NO       | 2016-03-14T17:16:47.183Z | ... |
+    | bigquery-public-data | samples      | github_timeline | BASE TABLE | YES                | NO       | 2016-03-14T17:16:45.074Z | ... |
+    | bigquery-public-data | samples      | github_nested   | BASE TABLE | YES                | NO       | 2016-03-14T17:16:44.113Z | ... |
+    | bigquery-public-data | samples      | trigrams        | BASE TABLE | YES                | NO       | 2016-03-14T17:16:50.399Z | ... |
+    | ...                  | ...          | ...             | ...        | ...                | ...      | ...                      | ... |
+    +----------------------+--------------+-----------------+------------+--------------------+----------+--------------------------+-----+
+    ```
+
+=== "europe-west1"
+
+    ``` sql
+    CALL bigfunctions.europe_west1.GET_DATASET_TABLES('bigquery-public-data.samples');
+    SELECT * FROM  GET_DATASET_TABLES_result;
+    
+    +----------------------+--------------+-----------------+------------+--------------------+----------+--------------------------+-----+
+    | table_catalog        | table_schema | table_name      | table_type | is_insertable_into | is_typed | creation_time            | ... |
+    +----------------------+--------------+-----------------+------------+--------------------+----------+--------------------------+-----+
+    | bigquery-public-data | samples      | natality        | BASE TABLE | YES                | NO       | 2016-03-14T17:16:47.183Z | ... |
+    | bigquery-public-data | samples      | github_timeline | BASE TABLE | YES                | NO       | 2016-03-14T17:16:45.074Z | ... |
+    | bigquery-public-data | samples      | github_nested   | BASE TABLE | YES                | NO       | 2016-03-14T17:16:44.113Z | ... |
+    | bigquery-public-data | samples      | trigrams        | BASE TABLE | YES                | NO       | 2016-03-14T17:16:50.399Z | ... |
+    | ...                  | ...          | ...             | ...        | ...                | ...      | ...                      | ... |
+    +----------------------+--------------+-----------------+------------+--------------------+----------+--------------------------+-----+
+    ```
+
+=== "your-region2"
+
+    ``` sql
+    CALL bigfunctions.your_region2.GET_DATASET_TABLES('bigquery-public-data.samples');
+    SELECT * FROM  GET_DATASET_TABLES_result;
+    
+    +----------------------+--------------+-----------------+------------+--------------------+----------+--------------------------+-----+
+    | table_catalog        | table_schema | table_name      | table_type | is_insertable_into | is_typed | creation_time            | ... |
+    +----------------------+--------------+-----------------+------------+--------------------+----------+--------------------------+-----+
+    | bigquery-public-data | samples      | natality        | BASE TABLE | YES                | NO       | 2016-03-14T17:16:47.183Z | ... |
+    | bigquery-public-data | samples      | github_timeline | BASE TABLE | YES                | NO       | 2016-03-14T17:16:45.074Z | ... |
+    | bigquery-public-data | samples      | github_nested   | BASE TABLE | YES                | NO       | 2016-03-14T17:16:44.113Z | ... |
+    | bigquery-public-data | samples      | trigrams        | BASE TABLE | YES                | NO       | 2016-03-14T17:16:50.399Z | ... |
+    | ...                  | ...          | ...             | ...        | ...                | ...      | ...                      | ... |
+    +----------------------+--------------+-----------------+------------+--------------------+----------+--------------------------+-----+
+    ```
+
+
+<a href="https://github.com/unytics/bigfunctions/blob/main/bigfunctions/GET_DATASET_TABLES.yaml" target="_blank">Source Code</a>
+
+---
+
+
+
+
 ## RENDER_TEMPLATE
 
 > Replaces the variables surrounded by brackets such as `{{variable_name}}` in `template` by their values defined in `context`.
@@ -35,7 +122,6 @@ RENDER_TEMPLATE(template, context)
     +-------------+
     | Hello World |
     +-------------+
-    
     ```
 
 === "US"
@@ -48,7 +134,6 @@ RENDER_TEMPLATE(template, context)
     +-------------+
     | Hello World |
     +-------------+
-    
     ```
 
 === "europe-west1"
@@ -61,7 +146,6 @@ RENDER_TEMPLATE(template, context)
     +-------------+
     | Hello World |
     +-------------+
-    
     ```
 
 === "your-region2"
@@ -74,7 +158,6 @@ RENDER_TEMPLATE(template, context)
     +-------------+
     | Hello World |
     +-------------+
-    
     ```
 
 

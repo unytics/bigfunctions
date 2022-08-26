@@ -7,11 +7,15 @@ description: |-
 arguments:
   - name: template
     type: STRING
+    test_value: Hello {{who}}
   - name: context
     type: STRING
+    test_value: '{"who": "world"}'
 output_value:
   name: rendered_content
   type: STRING
+  expected_value: Hello World
+  expected_value_name: content
 example: |-
   ``` sql
   SELECT {BIGFUNCTIONS_DATASET}.RENDER_TEMPLATE('Hello {{who}}', '{"who": "world"}') as content;
