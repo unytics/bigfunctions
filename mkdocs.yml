@@ -16,6 +16,7 @@ theme:
   favicon: assets/logo.png
   features:
     - tabs
+    - content.tabs.link
     - instant
     # - toc.integrate
     - navigation.tabs

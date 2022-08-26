@@ -1,9 +1,15 @@
-dataset_description: Contains all BigFunctions
-environments:
-  prod:
-    dataset_prefix: ""
-  test:
-    dataset_prefix: tests_
+project: bigfunctions
+repo: https://github.com/unytics/bigfunctions
+datasets:
+  - name: "{region__lowercase_and_wo_hyphens}"
+    env: prod
+    description: |-
+      Contains public and open-source BigFunctions to supercharge Biguery
+
+      (source code --> {repo})
+  - name: "test_{region__lowercase_and_wo_hyphens}"
+    env: test
+    description: Contains private BigFunctions for testing purpose before deployment
 tables:
   deployments:
     name: deployments

@@ -1,21 +1,29 @@
-description: Replaces variables in template
-type: bigquery_udf_js
+type: function_js
+samples:
+  - "RENDER_TEMPLATE(template, context)"
+description: |-
+  Replaces the variables surrounded by brackets such as `{{variable_name}}` in `template` by their values defined in `context`.
+  Beware that `context` keys and string values must be surrounded by double-quotes `"` and not single-quotes `'`.
 arguments:
   - name: template
     type: STRING
-    description: Content from which context variables will be replaced
-    example: Bigfunctions is {{what}}
   - name: context
     type: STRING
     description: |
-      key-value json object casted as string (as js function do not accept json arguments)
-      Keys are the variable names which will be replaced by values in content.
-    example: '{"what": "awesome"}'
 output_value:
   name: rendered_content
   type: STRING
-  description: content with variables replaced with their values
-  example: Bigfunctions is awesome
+example: |-
+  ``` sql
+  SELECT {BIGFUNCTIONS_DATASET}.RENDER_TEMPLATE('Hello {{who}}', '{"who": "world"}') as content;
+
+  +-------------+
+  | content     |
+  +-------------+
+  | Hello World |
+  +-------------+
+
+  ```
 code: |
   context = JSON.parse(context);
   const regex = new RegExp('{{(' + Object.keys(context).join('|') + ')}}', 'g');
