@@ -33,7 +33,7 @@ tables:
         default: current_timestamp()
       - name: bigfunction_name
         type: STRING
-        description: name of deployed BigFunction
+        description: BigFunction name
 bigquery_regions:
   - EU
   - US
