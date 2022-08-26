@@ -9,7 +9,6 @@ arguments:
     type: STRING
   - name: context
     type: STRING
-    description: |
 output_value:
   name: rendered_content
   type: STRING
@@ -22,7 +21,6 @@ example: |-
   +-------------+
   | Hello World |
   +-------------+
-
   ```
 code: |
   context = JSON.parse(context);
