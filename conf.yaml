@@ -1,0 +1,68 @@
+dataset_description: Contains all BigFunctions
+environments:
+  prod:
+    dataset_prefix: ""
+  test:
+    dataset_prefix: tests_
+tables:
+  deployments:
+    name: deployments
+    description: Logs of BigFunctions deployments
+    schema:
+      - name: deployed_at
+        type: TIMESTAMP
+        description: timestamp of deployment
+        default: current_timestamp()
+      - name: bigfunction_name
+        type: STRING
+        description: name of deployed BigFunction
+      - name: bigfunction_type
+        type: STRING
+        description: type of deployed BigFunction among [bigquery_udf_sql, bigquery_udf_js]
+      - name: bigfunction_conf
+        type: STRING
+        description: conf of deployed BigFunction (as defined in yaml)
+  logs:
+    name: logs
+    description: Logs of BigFunctions executions
+    partition_column: executed_at
+    schema:
+      - name: executed_at
+        type: TIMESTAMP
+        description: timestamp of execution
+        default: current_timestamp()
+      - name: bigfunction_name
+        type: STRING
+        description: name of deployed BigFunction
+bigquery_regions:
+  - EU
+  - US
+  - asia-east1
+  - asia-east2
+  - asia-northeast1
+  - asia-northeast2
+  - asia-northeast3
+  - asia-south1
+  - asia-south2
+  - asia-southeast1
+  - asia-southeast2
+  - australia-southeast1
+  - australia-southeast2
+  - europe-central2
+  - europe-north1
+  - europe-west1
+  - europe-west2
+  - europe-west3
+  - europe-west4
+  - europe-west6
+  - northamerica-northeast1
+  - northamerica-northeast2
+  - southamerica-east1
+  - southamerica-west1
+  - us-central1
+  - us-east1
+  - us-east4
+  - us-west1
+  - us-west2
+  - us-west3
+  - us-west4
