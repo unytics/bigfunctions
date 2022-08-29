@@ -8,6 +8,7 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
+
       - uses: actions/checkout@v2
       - uses: actions/setup-python@v2
         with:
@@ -16,8 +17,18 @@ jobs:
         with:
           node-version: 16
       - run: pip install pyyaml
-      - run: python scripts/deploy_js_libs.py --generate-js-libs-package-json
+      - run: python scripts/build_js_libs.py --generate-js-libs-package-json
       - run: npm install
-      - run: python scripts/deploy_js_libs.py --generate-webpack-configs
+      - run: python scripts/build_js_libs.py --generate-webpack-configs
       - run: npm run-script build-all-libs
-      # - run: gsutil cp js_builds/* gs://bigfunctions_js_libs/
+      - id: 'auth'
+        uses: 'google-github-actions/auth@v0'
+        with:
+          credentials_json: '${{ secrets.GCP_CREDENTIALS }}'
+
+      - name: 'Set up Cloud SDK'
+        uses: 'google-github-actions/setup-gcloud@v0'
+
+      - name: 'Use gcloud CLI'
+        run: 'gcloud info'
+      - run: gsutil cp js_builds/* gs://bigfunctions_js_libs/
