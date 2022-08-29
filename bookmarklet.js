@@ -1,10 +1,12 @@
 function renderHTML() {
-    document.querySelectorAll('td [sandboxuid]').forEach(div => {
-        const td = div.parentNode;
-        const new_td = document.createElement("div");
-        new_td.innerHTML = "foo";
-        td.replaceChild(new_td, div);
-        console.log('fired');
+    document.querySelectorAll('.bq-results-table thead th:nth-child(2)').forEach(element => element.style = "width: 100%;");
+
+    document.querySelectorAll('.bq-results-table td [sandboxuid]').forEach(div => {
+        const html = div.innerText;
+        document.querySelector('bq-results-table').innerHTML = html;
     });
 }
+renderHTML();
+
+
 setInterval(renderHTML,1000);

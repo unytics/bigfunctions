@@ -40,7 +40,7 @@ for filename in os.listdir('bigfunctions'):
     filename = f'bigfunctions/{filename}'
     conf = yaml.safe_load(open(filename, encoding='utf-8').read())
     if not conf or not isinstance(conf, dict):
-        break
+        continue
     conf['name'] = name
     conf['filename'] = filename
     conf['description'] = '> ' + conf['description'].replace('\n', '\n> ')

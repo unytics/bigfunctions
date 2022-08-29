@@ -20,11 +20,12 @@ parser = argparse.ArgumentParser(description='Deploy BigQuery asset among [datas
 parser.add_argument('environment', choices=ENVIRONMENTS)
 parser.add_argument('asset_type', choices=['dataset', 'table', 'bigfunction'])
 parser.add_argument('--name')
+parser.add_argument('--region')
 args = parser.parse_args()
 assert args.asset_type == 'dataset' or args.name, 'a name argument must be given if asset_type != dataset. Run `python scripts/deploy_bigquery.py --help`'
 
 
-for region in CONF['bigquery_regions']:
+for region in [args.region] if args.region else CONF['bigquery_regions']:
     CONF['region__lowercase_and_wo_hyphens'] = region.lower().replace('-', '_')
 
     dataset = {**[dataset for dataset in CONF['datasets'] if dataset['env'] == args.environment][0]}
@@ -46,6 +47,12 @@ for region in CONF['bigquery_regions']:
             sample.replace('{BIGFUNCTIONS_DATASET}', full_dataset_name)
             for sample in conf['samples']
         ]
+        if 'template' in conf:
+            conf['code'] += f'''
+                set output_html = {full_dataset_name}.render_string("""
+                    {conf['template']}
+                """, to_json_string(output));
+            '''
         template_file_wo_ext = f'scripts/templates/{conf["type"]}'
         template_documentation = f'{template_file_wo_ext}.md'
         template_file = f'{template_file_wo_ext}.sql'
@@ -62,7 +69,7 @@ for region in CONF['bigquery_regions']:
                 # 'filename': library.replace('https://', '').replace('http://', '').split('/', 1)[1],
                 'cloudstorage_url': f"gs://{CONF['js_libs_bucket']}/{library}",
             }
-            for library in conf.get('libraries')
+            for library in conf.get('libraries', [])
         ]
 
     template = jinja2.Template(open(template_file, encoding='utf-8').read())

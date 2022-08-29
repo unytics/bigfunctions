@@ -14,10 +14,10 @@ arguments:
 output:
   name: rendered_content
   type: STRING
-  expected_value: Hello World
+  expected_value: Hello James
 example: |-
   ``` sql
-  SELECT {BIGFUNCTIONS_DATASET}.render_string('Hello {{who}}', '{"username": "James"}') as rendered_content;
+  SELECT {BIGFUNCTIONS_DATASET}.render_string('Hello {{username}}', '{"username": "James"}') as rendered_content;
 
   +-------------+
   | rendered_content     |
@@ -29,4 +29,4 @@ code: |
   context = JSON.parse(context);
   return nunjucks.renderString(template, context);
 libraries:
-  - nunjucks-v3.2.2.min.js
+  - nunjucks.min.js
