@@ -29,4 +29,4 @@ code: |
   context = JSON.parse(context);
   return nunjucks.renderString(template, context);
 libraries:
-  - nunjucks-v3.2.3.min.js
+  - nunjucks-v3.2.2.min.js
