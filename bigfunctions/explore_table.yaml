@@ -1,0 +1,24 @@
+declare fully_qualified_table string default 'bigquery-public-data.samples.natality';
+
+
+declare project, dataset, table string;
+
+declare parts array<string> default split(replace(fully_qualified_table, '`', ''), '.');
+set project = parts[offset(0)];
+set dataset = parts[offset(1)];
+set table = parts[offset(2)];
+
+
+call bigfunctions.us.EXPLORE_DATASET(project || '.' || dataset);
+
+create temp table table_infos as
+select columns.*
+from EXPLORE_DATASET_result tables,
+unnest(columns) columns
+where tables.table_name = table;
+
+
+-- for column in (select columns from table_infos, )
+-- do
+--   select column.column_name;
+-- end for;

@@ -4,7 +4,7 @@
 {{ sample }}
 {% endfor -%}
 ```
-> **Returns** ➜ `{{ output_value.type }}`
+> **Returns** ➜ {% for output in outputs %}`{{ output.name }} {{ output.type}}`{% if not loop.last %}, {% endif %}{% endfor %}
 
 ### Example
 

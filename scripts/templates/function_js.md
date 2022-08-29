@@ -4,7 +4,7 @@
 {{ sample }}
 {% endfor -%}
 ```
-> **Returns** ➜ `{{ output_value.type }}`
+> **Returns** ➜ `{{ output.type }}`
 
 ### Example
 

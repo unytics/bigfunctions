@@ -1,4 +1,16 @@
 project: bigfunctions
+js_libs:
+  compromise:
+    versions:
+      - 11.14.3
+  js-levenshtein:
+    versions:
+      - 1.1.6
+  jstat:
+    versions:
+      - 1.9.3
+      - 1.9.4
+js_libs_bucket: bigfunctions_js_libs
 repo: https://github.com/unytics/bigfunctions
 datasets:
   - name: "{region__lowercase_and_wo_hyphens}"

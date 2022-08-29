@@ -1,0 +1,68 @@
+type: procedure
+samples:
+  - "explore_dataset(fully_qualified_dataset, result)"
+description: |-
+  Returns infos about dataset tables as a json output
+arguments:
+  - name: fully_qualified_dataset
+    type: STRING
+    test_value: bigquery-public-data.samples
+outputs:
+  - name: result
+    type: JSON
+example: |-
+  ``` sql
+  DECLARE result JSON;
+  CALL {BIGFUNCTIONS_DATASET}.explore_dataset('bigquery-public-data.samples', result);
+  SELECT result;
+
+  +----------------------+--------------+-----------------+------------+--------------------+----------+--------------------------+-----+
+  | table_catalog        | table_schema | table_name      | table_type | is_insertable_into | is_typed | creation_time            | ... |
+  +----------------------+--------------+-----------------+------------+--------------------+----------+--------------------------+-----+
+  | bigquery-public-data | samples      | natality        | BASE TABLE | YES                | NO       | 2016-03-14T17:16:47.183Z | ... |
+  | bigquery-public-data | samples      | github_timeline | BASE TABLE | YES                | NO       | 2016-03-14T17:16:45.074Z | ... |
+  | bigquery-public-data | samples      | github_nested   | BASE TABLE | YES                | NO       | 2016-03-14T17:16:44.113Z | ... |
+  | bigquery-public-data | samples      | trigrams        | BASE TABLE | YES                | NO       | 2016-03-14T17:16:50.399Z | ... |
+  | ...                  | ...          | ...             | ...        | ...                | ...      | ...                      | ... |
+  +----------------------+--------------+-----------------+------------+--------------------+----------+--------------------------+-----+
+  ```
+code: |
+  declare project, dataset string;
+
+  declare parts array<string> default split(replace(fully_qualified_dataset, '`', ''), '.');
+  set project = parts[offset(0)];
+  set dataset = parts[offset(1)];
+
+
+  execute immediate replace(replace(
+    '''
+      with tables as (
+        select
+          infos.*,
+          stats.last_modified_time,
+          stats.row_count,
+          stats.size_bytes,
+          (select option_value from `{{project}}.{{dataset}}.INFORMATION_SCHEMA.TABLE_OPTIONS` opts where opts.table_name = infos.table_name and option_name = 'partition_expiration_days') as partition_expiration_days,
+          (select option_value from `{{project}}.{{dataset}}.INFORMATION_SCHEMA.TABLE_OPTIONS` opts where opts.table_name = infos.table_name and option_name = 'expiration_timestamp') as expiration_timestamp,
+          (select option_value from `{{project}}.{{dataset}}.INFORMATION_SCHEMA.TABLE_OPTIONS` opts where opts.table_name = infos.table_name and option_name = 'kms_key_name') as kms_key_name,
+          (select option_value from `{{project}}.{{dataset}}.INFORMATION_SCHEMA.TABLE_OPTIONS` opts where opts.table_name = infos.table_name and option_name = 'friendly_name') as friendly_name,
+          (select option_value from `{{project}}.{{dataset}}.INFORMATION_SCHEMA.TABLE_OPTIONS` opts where opts.table_name = infos.table_name and option_name = 'description') as description,
+          (select option_value from `{{project}}.{{dataset}}.INFORMATION_SCHEMA.TABLE_OPTIONS` opts where opts.table_name = infos.table_name and option_name = 'labels') as labels,
+          (select option_value from `{{project}}.{{dataset}}.INFORMATION_SCHEMA.TABLE_OPTIONS` opts where opts.table_name = infos.table_name and option_name = 'require_partition_filter') as require_partition_filter,
+          (select option_value from `{{project}}.{{dataset}}.INFORMATION_SCHEMA.TABLE_OPTIONS` opts where opts.table_name = infos.table_name and option_name = 'enable_refresh') as enable_refresh,
+          (select option_value from `{{project}}.{{dataset}}.INFORMATION_SCHEMA.TABLE_OPTIONS` opts where opts.table_name = infos.table_name and option_name = 'refresh_interval_minutes') as refresh_interval_minutes,
+          (select array_agg(struct(columns).columns)  from `{{project}}.{{dataset}}.INFORMATION_SCHEMA.COLUMNS` columns where columns.table_name = infos.table_name) as columns,
+        from `{{project}}.{{dataset}}.INFORMATION_SCHEMA.TABLES` infos
+        inner join `{{project}}.{{dataset}}.__TABLES__` stats on (infos.table_name = stats.table_id)
+      )
+
+      select to_json (struct(
+        (select array_agg(struct(tables).tables) from tables) as tables
+      )) as context
+    ''',
+    '{{project}}', project),
+    '{{dataset}}', dataset
+  ) into result;
+
+
+

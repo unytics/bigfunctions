@@ -1,16 +1,22 @@
 import argparse
 
-from google.cloud import bigquery
+import requests
+import google.cloud.bigquery
+import google.cloud.storage
 import yaml
 import jinja2
 
 
 CONF = yaml.safe_load(open('conf.yaml', encoding='utf-8').read())
 ENVIRONMENTS = [dataset['env'] for dataset in CONF['datasets']]
-BQ = bigquery.Client()
+BQ = google.cloud.bigquery.Client()
+STORAGE = google.cloud.storage.Client()
+
+JS_LIBS_BUCKET = STORAGE.get_bucket(CONF['js_libs_bucket'])
 
 
-parser = argparse.ArgumentParser(description='Deploy BigQuery asset among [dataset, table, function_js]')
+
+parser = argparse.ArgumentParser(description='Deploy BigQuery asset among [dataset, table, bigfunction]')
 parser.add_argument('environment', choices=ENVIRONMENTS)
 parser.add_argument('asset_type', choices=['dataset', 'table', 'bigfunction'])
 parser.add_argument('--name')
@@ -50,6 +56,14 @@ for region in CONF['bigquery_regions']:
             **CONF,
             **conf,
         )
+        conf['libraries'] = [
+            {
+                'source_url': library,
+                'filename': library.replace('https://', '').replace('http://', '').split('/', 1)[1],
+                'cloudstorage_url': 'gs://' + CONF['js_libs_bucket'] + '/' + library.replace('https://', '').replace('http://', '').split('/', 1)[1],
+            }
+            for library in conf.get('libraries')
+        ]
 
     template = jinja2.Template(open(template_file, encoding='utf-8').read())
     query = template.render(
@@ -59,7 +73,13 @@ for region in CONF['bigquery_regions']:
         **CONF,
         **conf,
     )
-    print(query)
+
+    for library in conf['libraries']:
+        js = requests.get(library['source_url']).content
+        # destination_filename =
+        blob = google.cloud.storage.Blob(library['filename'], JS_LIBS_BUCKET)
+        blob.upload_from_string(js)
+
     BQ.query(query, location=region).result()
     print('successfully created', args.asset_type, 'for region', region, 'and environment', args.environment)
 
