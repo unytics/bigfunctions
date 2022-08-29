@@ -12,6 +12,10 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+# File taken from here with minimal modifications:
+# --> https://github.com/GoogleCloudPlatform/bigquery-utils/blob/master/udfs/tests/udf_test_utils.py
+
+
 import argparse
 import glob
 
@@ -27,19 +31,6 @@ from yaml import SafeLoader
 NO_MINIFY_JS_LIBS = {
     'js-levenshtein',
 }
-
-
-def get_dir_to_dataset_mappings():
-    bq_datasets_yaml_path = Path('./dir_to_dataset_map.yaml')
-    if bq_datasets_yaml_path.is_file():
-        with open(bq_datasets_yaml_path, 'r') as yaml_file:
-            return load(yaml_file, Loader=SafeLoader)
-    else:
-        return None
-
-
-def get_all_udf_paths():
-    return glob.glob('./**/*.sql', recursive=True)
 
 
 def get_all_npm_package_config_paths(node_modules_path):

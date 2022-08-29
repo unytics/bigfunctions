@@ -1,0 +1,23 @@
+name: deploy
+on:
+  push:
+    branches:
+      - master
+      - main
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-python@v2
+        with:
+          python-version: 3.x
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16
+      - run: pip install pyyaml
+      - run: python scripts/deploy_js_libs.py --generate-js-libs-package-json
+      - run: npm install
+      - run: python scripts/deploy_js_libs.py --generate-webpack-configs
+      - run: npm run-script build-all-libs
+      # - run: gsutil cp js_builds/* gs://bigfunctions_js_libs/

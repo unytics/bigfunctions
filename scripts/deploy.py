@@ -59,8 +59,8 @@ for region in CONF['bigquery_regions']:
         conf['libraries'] = [
             {
                 'source_url': library,
-                'filename': library.replace('https://', '').replace('http://', '').split('/', 1)[1],
-                'cloudstorage_url': 'gs://' + CONF['js_libs_bucket'] + '/' + library.replace('https://', '').replace('http://', '').split('/', 1)[1],
+                # 'filename': library.replace('https://', '').replace('http://', '').split('/', 1)[1],
+                'cloudstorage_url': f"gs://{CONF['js_libs_bucket']}/{library}",
             }
             for library in conf.get('libraries')
         ]
@@ -74,11 +74,11 @@ for region in CONF['bigquery_regions']:
         **conf,
     )
 
-    for library in conf['libraries']:
-        js = requests.get(library['source_url']).content
-        # destination_filename =
-        blob = google.cloud.storage.Blob(library['filename'], JS_LIBS_BUCKET)
-        blob.upload_from_string(js)
+    # for library in conf['libraries']:
+    #     js = requests.get(library['source_url']).content
+    #     # destination_filename =
+    #     blob = google.cloud.storage.Blob(library['filename'], JS_LIBS_BUCKET)
+    #     blob.upload_from_string(js)
 
     BQ.query(query, location=region).result()
     print('successfully created', args.asset_type, 'for region', region, 'and environment', args.environment)

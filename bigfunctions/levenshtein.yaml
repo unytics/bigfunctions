@@ -26,6 +26,6 @@ example: |-
   +-------------+
   ```
 code: |
-  return levenshtein.get(string1 || '', string2 || '')
+  return js_levenshtein(string1 || '', string2 || '');
 libraries:
-  - https://cdn.jsdelivr.net/npm/js-levenshtein@1.1.6/index.js
+  - js-levenshtein-v1.1.6.js
