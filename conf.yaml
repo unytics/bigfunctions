@@ -1,5 +1,8 @@
 project: bigfunctions
 js_libs:
+  nunjucks:
+    versions:
+      - 3.2.3
   compromise:
     versions:
       - 11.14.3
