@@ -42,6 +42,7 @@ for region in [args.region] if args.region else CONF['bigquery_regions']:
         conf = yaml.safe_load(open(filename, encoding='utf-8').read())
         conf['name'] = args.name
         conf['filename'] = filename
+        conf['description'] = conf['description'] + f'\n\nSee full documentation --> "{CONF["doc_base_url"]}#{args.name}"'
         conf['example'] = conf['example'].replace('{BIGFUNCTIONS_DATASET}', full_dataset_name)
         conf['samples'] = [
             sample.replace('{BIGFUNCTIONS_DATASET}', full_dataset_name)
@@ -53,16 +54,7 @@ for region in [args.region] if args.region else CONF['bigquery_regions']:
                     {conf['template']}
                 """, to_json_string(output));
             '''
-        template_file_wo_ext = f'scripts/templates/{conf["type"]}'
-        template_documentation = f'{template_file_wo_ext}.md'
-        template_file = f'{template_file_wo_ext}.sql'
-        conf['documentation'] = jinja2.Template(open(template_documentation, encoding='utf-8').read()).render(
-            environment=args.environment,
-            region=region,
-            dataset=dataset,
-            **CONF,
-            **conf,
-        )
+        template_file = f'scripts/templates/{conf["type"]}.sql'
         conf['libraries'] = [
             {
                 'source_url': library,
