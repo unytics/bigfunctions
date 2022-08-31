@@ -2,7 +2,7 @@ create or replace function {{ dataset.name }}.{{ name }}({% for argument in argu
 returns {{ output.type }}
 language js
 as
-'''
+r'''
 {{ code }}
 '''
 options(

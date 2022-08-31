@@ -1,0 +1,128 @@
+type: procedure
+samples:
+  - "explore_column(fully_qualified_column, output)"
+description: |-
+  Returns statistics about column
+arguments:
+  - name: fully_qualified_column
+    type: STRING
+    test_value: bigquery-public-data.samples.natality.day
+outputs:
+  - name: output
+    type: JSON
+  - name: output_html
+    type: STRING
+example: |-
+  ``` sql
+  DECLARE output JSON;
+  DECLARE output_html string;
+  CALL {BIGFUNCTIONS_DATASET}.explore_column('bigquery-public-data.samples', output, output_html);
+  SELECT output;
+  SELECT output_html;
+
+  +----------------------+--------------+-----------------+------------+--------------------+----------+--------------------------+-----+
+  | table_catalog        | table_schema | table_name      | table_type | is_insertable_into | is_typed | creation_time            | ... |
+  +----------------------+--------------+-----------------+------------+--------------------+----------+--------------------------+-----+
+  | bigquery-public-data | samples      | natality        | BASE TABLE | YES                | NO       | 2016-03-14T17:16:47.183Z | ... |
+  | bigquery-public-data | samples      | github_timeline | BASE TABLE | YES                | NO       | 2016-03-14T17:16:45.074Z | ... |
+  | bigquery-public-data | samples      | github_nested   | BASE TABLE | YES                | NO       | 2016-03-14T17:16:44.113Z | ... |
+  | bigquery-public-data | samples      | trigrams        | BASE TABLE | YES                | NO       | 2016-03-14T17:16:50.399Z | ... |
+  | ...                  | ...          | ...             | ...        | ...                | ...      | ...                      | ... |
+  +----------------------+--------------+-----------------+------------+--------------------+----------+--------------------------+-----+
+  ```
+code: |
+  declare project, dataset, table, column string;
+
+  declare parts array<string> default split(replace(fully_qualified_column, '`', ''), '.');
+  set project = parts[offset(0)];
+  set dataset = parts[offset(1)];
+  set table = parts[offset(2)];
+  set column = parts[offset(3)];
+
+  execute immediate replace(replace(replace(replace(
+    '''
+    with
+
+    stats as (
+      select
+        count(*) as row_count,
+        count(distinct {{column}}) as distinct_count,
+        count(distinct {{column}}) / count(*) as distinct_ratio,
+        count(*) - count({{column}}) as missing_count,
+        (count(*) - count({{column}})) / count(*) as missing_ratio,
+        min({{column}}) as min,
+        avg({{column}}) as mean,
+        max({{column}}) as max
+      from `{{project}}.{{dataset}}.{{table}}`
+    ),
+
+    top_values as (
+      select
+        cast({{column}} as string) as value,
+        count(*) as value_count,
+        count(*) * 1. / (select row_count from stats) as value_ratio,
+      from `{{project}}.{{dataset}}.{{table}}`
+      group by 1
+      limit 10
+    )
+
+    select
+      to_json(struct(
+        (select struct('{{column}}' as column)) as infos,
+        (select stats from stats) as stats,
+        (select array_agg(struct(top_values).top_values) from top_values) as top_values
+      ))
+    ''',
+    '{{project}}', project),
+    '{{dataset}}', dataset),
+    '{{table}}', table),
+    '{{column}}', column
+  ) into output;
+template:
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+  <p class="is-size-4">Column <code>{{ infos.column }}</code></p>
+  <div class="columns">
+    <div class="column">
+      <div class="box">
+        <table class="table is-narrow">
+          <thead>
+            <tr>
+              <th>Infos</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for label, value in stats -%}
+              <tr>
+                <th class="has-text-weight-bold">{{ label }}</th>
+                <td>{% if 'ratio' in label%}{{ value | as_percentage }}{% else %}{{ value | add_thousands_separators_to_integers }}{% endif %}</td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="column">
+      <div class="box">
+        <table class="table is-narrow">
+          <thead>
+            <tr>
+              <th>Top Values</th>
+              <th>Nb Occurences</th>
+              <th>Ratio</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for top_value in top_values|sort(true, false, 'value_count') -%}
+              <tr>
+                <th class="has-text-weight-bold">{{ top_value.value }}</th>
+                <td>{{ top_value.value_count | add_thousands_separators_to_integers }}</td>
+                <td>{{ top_value.value_ratio | as_percentage }}</td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <hr>

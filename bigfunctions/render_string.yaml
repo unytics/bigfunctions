@@ -27,6 +27,22 @@ example: |-
   ```
 code: |
   context = JSON.parse(context);
-  return nunjucks.renderString(template, context);
+  var env = nunjucks.configure();
+
+  env.addFilter('add_thousands_separators_to_integers', function(x) {
+      if (Number.isInteger(x)) {
+        return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+      }
+      return x;
+  });
+
+  env.addFilter('as_percentage', function(x) {
+      if (x > 0.01) {
+        return Math.round(x * 100).toString() + ' %';
+      }
+      return (0.1 * Math.round(x * 1000)).toString() + ' %';
+  });
+
+  return env.renderString(template, context);
 libraries:
   - nunjucks.min.js
