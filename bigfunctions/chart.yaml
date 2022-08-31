@@ -1,82 +1,58 @@
-type: procedure
+type: function_sql
 samples:
-  - "chart(query, chart_type)"
+  - "chart(data, chart_type, ylabel)"
 description: |-
-  Show a chart
+  Replaces the variables surrounded by brackets such as `{{variable_name}}` in `template` by their values defined in `context`.
+  Beware that `context` keys and string values must be surrounded by double-quotes `"` and not single-quotes `'`.
 arguments:
-  - name: query
-    type: STRING
-    test_value: bigquery-public-data.samples.natality.day
+  - name: data
+    type: ARRAY<STRUCT<x STRING, y FLOAT64>>
+    test_value: Hello {{username}}
   - name: chart_type
     type: STRING
-    test_value: line
-outputs:
-  - name: html
+    test_value: '{"username": "James"}'
+  - name: ylabel
     type: STRING
+output:
+  name: html
+  type: STRING
+  expected_value: Hello James
 example: |-
-  code
-  cd
+  ``` sql
+  SELECT {BIGFUNCTIONS_DATASET}.chart([
+    ('2022-08-01', 10000),
+    ('2022-08-02', 20000),
+    ('2022-08-03', 40000),
+    ('2022-08-04', 80000)
+  ], 'bar', 'sales') as html
+  ```
 code: |
-  execute immediate replace(replace(r"""
-
-    with
-
-    x_and_data as (
-
-      select
-        x,
-        to_json_string((select as struct user_query_result.*)) as data,
-      from (
-        %USER_QUERY%
-      ) user_query_result
-      limit 1000
-    ),
-
-    columns as (
-      select regexp_extract_all(data, r'"(\w+)"\:') as column
-      from x_and_data
-      limit 1
-    ),
-
-    datasets as (
-      select
-        replace(
-          "{label: '%COLUMN%', data: data, parsing: {yAxisKey: '%COLUMN%'}, backgroundColor: 'rgb(255, 99, 132)', borderColor: 'rgb(255, 99, 132)'}",
-          '%COLUMN%', column
-        ) as dataset
-      from unnest((select column from columns)) column
-      where column != 'x'
-    )
-
-
-    select replace(replace(replace(replace('''
-      <div>
-        <canvas id="%ID%"></canvas>
-      </div>
-      <script>
-        (function() {
-          const data = [%DATA%];
-          new Chart(
-            document.getElementById('%ID%'),
-            {
-                type: '%CHART_TYPE%',
-                data: {
-                  labels: [%X%],
-                  datasets: [%DATASETS%]
-                },
-                options: {}
-              }
-          );
-        })();
-      </script>
-    ''',
-    '%ID%', generate_uuid()),
-    '%DATA%', (select array_to_string(array_agg(data order by x), ',') from x_and_data)),
-    '%X%', (select array_to_string(array_agg(format('"%s"', x) order by x), ',') from x_and_data)),
-    '%DATASETS%', (select array_to_string(array_agg(dataset), ',') from datasets)
-    )
-
-
+  replace(replace(replace(replace(replace("""
+    <div><canvas id="%ID%"></canvas></div>
+    <script>
+      (function() {
+        new Chart(
+          document.getElementById('%ID%'),
+          {
+              type: '%CHART_TYPE%',
+              data: {
+                labels: [%X%],
+                datasets: [{
+                  label: '%YLABEL%',
+                  data: [%Y%],
+                  borderColor: 'rgb(75, 192, 192)',
+                  backgroundColor: 'rgb(75, 192, 192)',
+                }]
+              },
+              options: {}
+            }
+        );
+      })();
+    </script>
   """,
-  '%USER_QUERY%', query),
-  '%CHART_TYPE%', chart_type) into html;
+  '%ID%', generate_uuid()),
+  '%CHART_TYPE%', chart_type),
+  '%YLABEL%', ylabel),
+  '%X%', (select array_to_string(array_agg(format('"%s"', data.x) order by data.x), ',') from unnest(data) data)),
+  '%Y%', (select array_to_string(array_agg(cast(data.y as string) order by data.x), ',') from unnest(data) data)
+  )

@@ -2,7 +2,7 @@ import argparse
 
 import requests
 import google.cloud.bigquery
-import google.cloud.storage
+# import google.cloud.storage
 import yaml
 import jinja2
 
@@ -10,9 +10,9 @@ import jinja2
 CONF = yaml.safe_load(open('conf.yaml', encoding='utf-8').read())
 ENVIRONMENTS = [dataset['env'] for dataset in CONF['datasets']]
 BQ = google.cloud.bigquery.Client()
-STORAGE = google.cloud.storage.Client()
+# STORAGE = google.cloud.storage.Client()
 
-JS_LIBS_BUCKET = STORAGE.get_bucket(CONF['js_libs_bucket'])
+# JS_LIBS_BUCKET = STORAGE.get_bucket(CONF['js_libs_bucket'])
 
 
 
