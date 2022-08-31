@@ -19,16 +19,6 @@ example: |-
   CALL {BIGFUNCTIONS_DATASET}.explore_dataset('bigquery-public-data.samples', output, output_html);
   SELECT output;
   SELECT output_html;
-
-  +----------------------+--------------+-----------------+------------+--------------------+----------+--------------------------+-----+
-  | table_catalog        | table_schema | table_name      | table_type | is_insertable_into | is_typed | creation_time            | ... |
-  +----------------------+--------------+-----------------+------------+--------------------+----------+--------------------------+-----+
-  | bigquery-public-data | samples      | natality        | BASE TABLE | YES                | NO       | 2016-03-14T17:16:47.183Z | ... |
-  | bigquery-public-data | samples      | github_timeline | BASE TABLE | YES                | NO       | 2016-03-14T17:16:45.074Z | ... |
-  | bigquery-public-data | samples      | github_nested   | BASE TABLE | YES                | NO       | 2016-03-14T17:16:44.113Z | ... |
-  | bigquery-public-data | samples      | trigrams        | BASE TABLE | YES                | NO       | 2016-03-14T17:16:50.399Z | ... |
-  | ...                  | ...          | ...             | ...        | ...                | ...      | ...                      | ... |
-  +----------------------+--------------+-----------------+------------+--------------------+----------+--------------------------+-----+
   ```
 code: |
   declare project, dataset string;

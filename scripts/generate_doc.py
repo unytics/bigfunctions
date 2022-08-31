@@ -31,7 +31,7 @@ CONF = yaml.safe_load(open('conf.yaml', encoding='utf-8').read())
 
 
 documentations = []
-for filename in os.listdir('bigfunctions'):
+for filename in sorted(os.listdir('bigfunctions')):
     if not filename.endswith('.yaml'):
         pass
 

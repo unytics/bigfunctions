@@ -19,8 +19,10 @@ example: |-
   CALL {BIGFUNCTIONS_DATASET}.explore_table('bigquery-public-data.samples.natality', output, output_html);
   SELECT output;
   SELECT output_html;
-
   ```
+
+  ![output_html](https://unytics.io/bigfunctions/assets/images/explore_table.png)
+
 code: |
   declare project, dataset, table, columns_stats_query, query string;
   declare ite int64;

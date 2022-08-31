@@ -7,10 +7,8 @@ description: |-
 arguments:
   - name: data
     type: ARRAY<STRUCT<x STRING, y FLOAT64>>
-    test_value: Hello {{username}}
   - name: chart_type
     type: STRING
-    test_value: '{"username": "James"}'
   - name: ylabel
     type: STRING
 output:
