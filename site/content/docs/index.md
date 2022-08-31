@@ -97,105 +97,6 @@ cd
 
 
 
-## explore_column
-
-> Returns statistics about column
-```
-explore_column(fully_qualified_column, output)
-```
-> **Returns** ➜ `output JSON`, `output_html STRING`
-
-<h3>Example</h3>
-
-
-=== "EU"
-
-    ``` sql
-    DECLARE output JSON;
-    DECLARE output_html string;
-    CALL bigfunctions.eu.explore_column('bigquery-public-data.samples', output, output_html);
-    SELECT output;
-    SELECT output_html;
-    
-    +----------------------+--------------+-----------------+------------+--------------------+----------+--------------------------+-----+
-    | table_catalog        | table_schema | table_name      | table_type | is_insertable_into | is_typed | creation_time            | ... |
-    +----------------------+--------------+-----------------+------------+--------------------+----------+--------------------------+-----+
-    | bigquery-public-data | samples      | natality        | BASE TABLE | YES                | NO       | 2016-03-14T17:16:47.183Z | ... |
-    | bigquery-public-data | samples      | github_timeline | BASE TABLE | YES                | NO       | 2016-03-14T17:16:45.074Z | ... |
-    | bigquery-public-data | samples      | github_nested   | BASE TABLE | YES                | NO       | 2016-03-14T17:16:44.113Z | ... |
-    | bigquery-public-data | samples      | trigrams        | BASE TABLE | YES                | NO       | 2016-03-14T17:16:50.399Z | ... |
-    | ...                  | ...          | ...             | ...        | ...                | ...      | ...                      | ... |
-    +----------------------+--------------+-----------------+------------+--------------------+----------+--------------------------+-----+
-    ```
-
-=== "US"
-
-    ``` sql
-    DECLARE output JSON;
-    DECLARE output_html string;
-    CALL bigfunctions.us.explore_column('bigquery-public-data.samples', output, output_html);
-    SELECT output;
-    SELECT output_html;
-    
-    +----------------------+--------------+-----------------+------------+--------------------+----------+--------------------------+-----+
-    | table_catalog        | table_schema | table_name      | table_type | is_insertable_into | is_typed | creation_time            | ... |
-    +----------------------+--------------+-----------------+------------+--------------------+----------+--------------------------+-----+
-    | bigquery-public-data | samples      | natality        | BASE TABLE | YES                | NO       | 2016-03-14T17:16:47.183Z | ... |
-    | bigquery-public-data | samples      | github_timeline | BASE TABLE | YES                | NO       | 2016-03-14T17:16:45.074Z | ... |
-    | bigquery-public-data | samples      | github_nested   | BASE TABLE | YES                | NO       | 2016-03-14T17:16:44.113Z | ... |
-    | bigquery-public-data | samples      | trigrams        | BASE TABLE | YES                | NO       | 2016-03-14T17:16:50.399Z | ... |
-    | ...                  | ...          | ...             | ...        | ...                | ...      | ...                      | ... |
-    +----------------------+--------------+-----------------+------------+--------------------+----------+--------------------------+-----+
-    ```
-
-=== "europe-west1"
-
-    ``` sql
-    DECLARE output JSON;
-    DECLARE output_html string;
-    CALL bigfunctions.europe_west1.explore_column('bigquery-public-data.samples', output, output_html);
-    SELECT output;
-    SELECT output_html;
-    
-    +----------------------+--------------+-----------------+------------+--------------------+----------+--------------------------+-----+
-    | table_catalog        | table_schema | table_name      | table_type | is_insertable_into | is_typed | creation_time            | ... |
-    +----------------------+--------------+-----------------+------------+--------------------+----------+--------------------------+-----+
-    | bigquery-public-data | samples      | natality        | BASE TABLE | YES                | NO       | 2016-03-14T17:16:47.183Z | ... |
-    | bigquery-public-data | samples      | github_timeline | BASE TABLE | YES                | NO       | 2016-03-14T17:16:45.074Z | ... |
-    | bigquery-public-data | samples      | github_nested   | BASE TABLE | YES                | NO       | 2016-03-14T17:16:44.113Z | ... |
-    | bigquery-public-data | samples      | trigrams        | BASE TABLE | YES                | NO       | 2016-03-14T17:16:50.399Z | ... |
-    | ...                  | ...          | ...             | ...        | ...                | ...      | ...                      | ... |
-    +----------------------+--------------+-----------------+------------+--------------------+----------+--------------------------+-----+
-    ```
-
-=== "your-region2"
-
-    ``` sql
-    DECLARE output JSON;
-    DECLARE output_html string;
-    CALL bigfunctions.your_region2.explore_column('bigquery-public-data.samples', output, output_html);
-    SELECT output;
-    SELECT output_html;
-    
-    +----------------------+--------------+-----------------+------------+--------------------+----------+--------------------------+-----+
-    | table_catalog        | table_schema | table_name      | table_type | is_insertable_into | is_typed | creation_time            | ... |
-    +----------------------+--------------+-----------------+------------+--------------------+----------+--------------------------+-----+
-    | bigquery-public-data | samples      | natality        | BASE TABLE | YES                | NO       | 2016-03-14T17:16:47.183Z | ... |
-    | bigquery-public-data | samples      | github_timeline | BASE TABLE | YES                | NO       | 2016-03-14T17:16:45.074Z | ... |
-    | bigquery-public-data | samples      | github_nested   | BASE TABLE | YES                | NO       | 2016-03-14T17:16:44.113Z | ... |
-    | bigquery-public-data | samples      | trigrams        | BASE TABLE | YES                | NO       | 2016-03-14T17:16:50.399Z | ... |
-    | ...                  | ...          | ...             | ...        | ...                | ...      | ...                      | ... |
-    +----------------------+--------------+-----------------+------------+--------------------+----------+--------------------------+-----+
-    ```
-
-
-<a href="https://github.com/unytics/bigfunctions/blob/main/bigfunctions/explore_column.yaml" target="_blank">Source Code</a>
-
----
-
-
-
-
 ## explore_dataset
 
 > Returns infos about dataset tables as a json output
@@ -289,6 +190,69 @@ explore_dataset(fully_qualified_dataset, output)
 
 
 <a href="https://github.com/unytics/bigfunctions/blob/main/bigfunctions/explore_dataset.yaml" target="_blank">Source Code</a>
+
+---
+
+
+
+
+## explore_table
+
+> Returns statistics about column
+```
+explore_table(fully_qualified_table, output)
+```
+> **Returns** ➜ `output JSON`, `output_html STRING`
+
+<h3>Example</h3>
+
+
+=== "EU"
+
+    ``` sql
+    DECLARE output JSON;
+    DECLARE output_html string;
+    CALL bigfunctions.eu.explore_table('bigquery-public-data.samples.natality', output, output_html);
+    SELECT output;
+    SELECT output_html;
+    
+    ```
+
+=== "US"
+
+    ``` sql
+    DECLARE output JSON;
+    DECLARE output_html string;
+    CALL bigfunctions.us.explore_table('bigquery-public-data.samples.natality', output, output_html);
+    SELECT output;
+    SELECT output_html;
+    
+    ```
+
+=== "europe-west1"
+
+    ``` sql
+    DECLARE output JSON;
+    DECLARE output_html string;
+    CALL bigfunctions.europe_west1.explore_table('bigquery-public-data.samples.natality', output, output_html);
+    SELECT output;
+    SELECT output_html;
+    
+    ```
+
+=== "your-region2"
+
+    ``` sql
+    DECLARE output JSON;
+    DECLARE output_html string;
+    CALL bigfunctions.your_region2.explore_table('bigquery-public-data.samples.natality', output, output_html);
+    SELECT output;
+    SELECT output_html;
+    
+    ```
+
+
+<a href="https://github.com/unytics/bigfunctions/blob/main/bigfunctions/explore_table.yaml" target="_blank">Source Code</a>
 
 ---
 
