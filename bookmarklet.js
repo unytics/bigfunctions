@@ -14,19 +14,25 @@ const setInnerHTML = function(elm, html) {
   });
 };
 
+
 const renderHTML = function() {
-    const bq_results_table = document.querySelector('.bq-results-table');
-    if (!bq_results_table) { return; }
-
-    const cells_div = bq_results_table.querySelectorAll('td div');
-    if (cells_div.length > 1) { return; }
-
-    const html = cells_div[0].innerText;
-
+    const divs = document.querySelectorAll('bq-results-table td div');
+    if (divs.length !== 1) {
+        console.log(`divs.length = ${divs.length} != 1`);
+        return;
+    }
+    const div = divs[0];
+    const bq_results_table = div.closest('bq-results-table');
+    if (!bq_results_table) {
+        console.log('bq_results_table not found');
+        return;
+    }
+    const html = div.innerText;
     document.querySelector('.bq-results-table thead th:nth-child(2)').style = "width: 100%;";
     setInnerHTML(bq_results_table, html);
     console.log('bigfunctions: successfully replaced table content');
 };
+renderHTML();
 
 
 setInterval(renderHTML, 1000);

@@ -1,0 +1,82 @@
+type: procedure
+samples:
+  - "chart(query, chart_type)"
+description: |-
+  Show a chart
+arguments:
+  - name: query
+    type: STRING
+    test_value: bigquery-public-data.samples.natality.day
+  - name: chart_type
+    type: STRING
+    test_value: line
+outputs:
+  - name: html
+    type: STRING
+example: |-
+  code
+  cd
+code: |
+  execute immediate replace(replace(r"""
+
+    with
+
+    x_and_data as (
+
+      select
+        x,
+        to_json_string((select as struct user_query_result.*)) as data,
+      from (
+        %USER_QUERY%
+      ) user_query_result
+      limit 1000
+    ),
+
+    columns as (
+      select regexp_extract_all(data, r'"(\w+)"\:') as column
+      from x_and_data
+      limit 1
+    ),
+
+    datasets as (
+      select
+        replace(
+          "{label: '%COLUMN%', data: data, parsing: {yAxisKey: '%COLUMN%'}, backgroundColor: 'rgb(255, 99, 132)', borderColor: 'rgb(255, 99, 132)'}",
+          '%COLUMN%', column
+        ) as dataset
+      from unnest((select column from columns)) column
+      where column != 'x'
+    )
+
+
+    select replace(replace(replace(replace('''
+      <div>
+        <canvas id="%ID%"></canvas>
+      </div>
+      <script>
+        (function() {
+          const data = [%DATA%];
+          new Chart(
+            document.getElementById('%ID%'),
+            {
+                type: '%CHART_TYPE%',
+                data: {
+                  labels: [%X%],
+                  datasets: [%DATASETS%]
+                },
+                options: {}
+              }
+          );
+        })();
+      </script>
+    ''',
+    '%ID%', generate_uuid()),
+    '%DATA%', (select array_to_string(array_agg(data order by x), ',') from x_and_data)),
+    '%X%', (select array_to_string(array_agg(format('"%s"', x) order by x), ',') from x_and_data)),
+    '%DATASETS%', (select array_to_string(array_agg(dataset), ',') from datasets)
+    )
+
+
+  """,
+  '%USER_QUERY%', query),
+  '%CHART_TYPE%', chart_type) into html;
