@@ -79,6 +79,7 @@ for region in [args.region] if args.region else CONF['bigquery_regions']:
     #     blob = google.cloud.storage.Blob(library['filename'], JS_LIBS_BUCKET)
     #     blob.upload_from_string(js)
 
+    print(query)
     BQ.query(query, location=region).result()
     print('successfully created', args.asset_type, 'for region', region, 'and environment', args.environment)
 

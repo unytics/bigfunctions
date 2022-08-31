@@ -53,6 +53,6 @@ code: |
   '%ID%', generate_uuid()),
   '%CHART_TYPE%', chart_type),
   '%YLABEL%', ylabel),
-  '%X%', (select array_to_string(array_agg(format('"%s"', data.x) order by data.x), ',') from unnest(data) data)),
-  '%Y%', (select array_to_string(array_agg(cast(data.y as string) order by data.x), ',') from unnest(data) data)
+  '%X%', (select array_to_string(array_agg(format('"%s"', data.x) order by offset), ',') from unnest(data) data with offset as offset)),
+  '%Y%', (select array_to_string(array_agg(cast(data.y as string) order by offset), ',') from unnest(data) data with offset as offset)
   )
