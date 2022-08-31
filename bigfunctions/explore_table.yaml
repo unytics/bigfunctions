@@ -23,6 +23,7 @@ example: |-
   ```
 code: |
   declare project, dataset, table, columns_stats_query, query string;
+  declare ite int64;
 
   declare parts array<string> default split(replace(fully_qualified_table, '`', ''), '.');
   set project = parts[offset(0)];
@@ -33,93 +34,7 @@ code: |
   create or replace temp table columns as
     select *
     from `{{project}}.{{dataset}}.INFORMATION_SCHEMA.COLUMNS`
-    where table_name = '{{table}}' and data_type in ('FLOAT64')
-  ''',
-  '{{project}}', project),
-  '{{dataset}}', dataset),
-  '{{table}}', table
-  );
-
-  set columns_stats_query = replace(replace(replace('''
-    (
-    with
-
-    stats as (
-      select
-        count(*) as row_count,
-        count(distinct {{column}}) as distinct_count,
-        count(distinct {{column}}) / count(*) as distinct_ratio,
-        count(*) - count({{column}}) as missing_count,
-        (count(*) - count({{column}})) / count(*) as missing_ratio,
-        cast(min({{column_if_numeric}}) as float64) as min,
-        cast(avg({{column_if_numeric}}) as float64) as mean,
-        cast(max({{column_if_numeric}}) as float64) as max,
-      from `{{project}}.{{dataset}}.{{table}}`
-    ),
-
-    hist_buckets as (
-      select
-        '[' || cast(round(`min`                        , 2) as string) || ', ' || cast(round(`min` + 0.1 * (`max` - `min`), 2) as string) || '[' as bucket0,
-        '[' || cast(round(`min` + 0.1 * (`max` - `min`), 2) as string) || ', ' || cast(round(`min` + 0.2 * (`max` - `min`), 2) as string) || '[' as bucket1,
-        '[' || cast(round(`min` + 0.2 * (`max` - `min`), 2) as string) || ', ' || cast(round(`min` + 0.3 * (`max` - `min`), 2) as string) || '[' as bucket2,
-        '[' || cast(round(`min` + 0.3 * (`max` - `min`), 2) as string) || ', ' || cast(round(`min` + 0.4 * (`max` - `min`), 2) as string) || '[' as bucket3,
-        '[' || cast(round(`min` + 0.4 * (`max` - `min`), 2) as string) || ', ' || cast(round(`min` + 0.5 * (`max` - `min`), 2) as string) || '[' as bucket4,
-        '[' || cast(round(`min` + 0.5 * (`max` - `min`), 2) as string) || ', ' || cast(round(`min` + 0.6 * (`max` - `min`), 2) as string) || '[' as bucket5,
-        '[' || cast(round(`min` + 0.6 * (`max` - `min`), 2) as string) || ', ' || cast(round(`min` + 0.7 * (`max` - `min`), 2) as string) || '[' as bucket6,
-        '[' || cast(round(`min` + 0.7 * (`max` - `min`), 2) as string) || ', ' || cast(round(`min` + 0.8 * (`max` - `min`), 2) as string) || '[' as bucket7,
-        '[' || cast(round(`min` + 0.8 * (`max` - `min`), 2) as string) || ', ' || cast(round(`min` + 0.9 * (`max` - `min`), 2) as string) || '[' as bucket8,
-        '[' || cast(round(`min` + 0.9 * (`max` - `min`), 2) as string) || ', ' || cast(round(`max`                        , 2) as string) || ']' as bucket9,
-      from stats
-    ),
-
-    hist_counts as (
-      select
-        cast(countif(                                                           {{column_if_numeric}} < `min` + 0.1 * (`max` - `min`)) as float64) as bucket0_count,
-        cast(countif({{column_if_numeric}} >= `min` + 0.1 * (`max` - `min`) and {{column_if_numeric}} < `min` + 0.2 * (`max` - `min`)) as float64) as bucket1_count,
-        cast(countif({{column_if_numeric}} >= `min` + 0.2 * (`max` - `min`) and {{column_if_numeric}} < `min` + 0.3 * (`max` - `min`)) as float64) as bucket2_count,
-        cast(countif({{column_if_numeric}} >= `min` + 0.3 * (`max` - `min`) and {{column_if_numeric}} < `min` + 0.4 * (`max` - `min`)) as float64) as bucket3_count,
-        cast(countif({{column_if_numeric}} >= `min` + 0.4 * (`max` - `min`) and {{column_if_numeric}} < `min` + 0.5 * (`max` - `min`)) as float64) as bucket4_count,
-        cast(countif({{column_if_numeric}} >= `min` + 0.5 * (`max` - `min`) and {{column_if_numeric}} < `min` + 0.6 * (`max` - `min`)) as float64) as bucket5_count,
-        cast(countif({{column_if_numeric}} >= `min` + 0.6 * (`max` - `min`) and {{column_if_numeric}} < `min` + 0.7 * (`max` - `min`)) as float64) as bucket6_count,
-        cast(countif({{column_if_numeric}} >= `min` + 0.7 * (`max` - `min`) and {{column_if_numeric}} < `min` + 0.8 * (`max` - `min`)) as float64) as bucket7_count,
-        cast(countif({{column_if_numeric}} >= `min` + 0.8 * (`max` - `min`) and {{column_if_numeric}} < `min` + 0.9 * (`max` - `min`)) as float64) as bucket8_count,
-        cast(countif({{column_if_numeric}} >= `min` + 0.9 * (`max` - `min`)                                                          ) as float64) as bucket9_count,
-      from `{{project}}.{{dataset}}.{{table}}`, stats
-    ),
-
-    hist as (
-      select [
-        struct((select bucket0 from hist_buckets) as x, (select bucket0_count from hist_counts) as y),
-        struct((select bucket1 from hist_buckets) as x, (select bucket1_count from hist_counts) as y),
-        struct((select bucket2 from hist_buckets) as x, (select bucket2_count from hist_counts) as y),
-        struct((select bucket3 from hist_buckets) as x, (select bucket3_count from hist_counts) as y),
-        struct((select bucket4 from hist_buckets) as x, (select bucket4_count from hist_counts) as y),
-        struct((select bucket5 from hist_buckets) as x, (select bucket5_count from hist_counts) as y),
-        struct((select bucket6 from hist_buckets) as x, (select bucket6_count from hist_counts) as y),
-        struct((select bucket7 from hist_buckets) as x, (select bucket7_count from hist_counts) as y),
-        struct((select bucket8 from hist_buckets) as x, (select bucket8_count from hist_counts) as y),
-        struct((select bucket9 from hist_buckets) as x, (select bucket9_count from hist_counts) as y)
-      ] as hist
-    ),
-
-    top_values as (
-      select
-        cast({{column}} as string) as value,
-        count(*) as value_count,
-        count(*) * 1. / (select row_count from stats) as value_ratio,
-      from `{{project}}.{{dataset}}.{{table}}`
-      group by 1
-      limit 10
-    )
-
-    select
-      '{{column}}' as name,
-      '{{data_type}}' as data_type,
-      (select stats from stats) as stats,
-      (select hist.hist from hist) as hist,
-      (select bigfunctions.us.chart(hist.hist, 'bar', 'value_count') from hist) as hist_html,
-      (select array_agg(struct(top_values).top_values) from top_values) as top_values
-    )
+    where table_name = '{{table}}' and data_type in ('FLOAT64', 'INT64')
   ''',
   '{{project}}', project),
   '{{dataset}}', dataset),
@@ -127,16 +42,109 @@ code: |
   );
 
 
-  set query = (select array_to_string(array_agg(replace(replace(replace(
-      columns_stats_query,
-      '{{column}}', column_name),
-      '{{data_type}}', data_type),
-      '{{column_if_numeric}}', if(lower(data_type) in ('float64', 'int64', 'numeric'), column_name , '0')
-    ) limit 2), ' union all ')
-  from columns);
+  set ite = 0;
+  for column in (select * from columns)
+  do
+
+    set query = replace(replace(replace(replace(replace(replace(replace('''
+      {{create_or_insert}}
+      (
+        with
+
+        stats as (
+          select
+            count(*) as row_count,
+            count(distinct {{column}}) as distinct_count,
+            count(distinct {{column}}) / count(*) as distinct_ratio,
+            count(*) - count({{column}}) as missing_count,
+            (count(*) - count({{column}})) / count(*) as missing_ratio,
+            cast(min({{column_if_numeric}}) as float64) as min,
+            cast(avg({{column_if_numeric}}) as float64) as mean,
+            cast(max({{column_if_numeric}}) as float64) as max,
+          from `{{project}}.{{dataset}}.{{table}}`
+        ),
+
+        hist_buckets as (
+          select
+            '[' || cast(round(`min`                        , 2) as string) || ', ' || cast(round(`min` + 0.1 * (`max` - `min`), 2) as string) || '[' as bucket0,
+            '[' || cast(round(`min` + 0.1 * (`max` - `min`), 2) as string) || ', ' || cast(round(`min` + 0.2 * (`max` - `min`), 2) as string) || '[' as bucket1,
+            '[' || cast(round(`min` + 0.2 * (`max` - `min`), 2) as string) || ', ' || cast(round(`min` + 0.3 * (`max` - `min`), 2) as string) || '[' as bucket2,
+            '[' || cast(round(`min` + 0.3 * (`max` - `min`), 2) as string) || ', ' || cast(round(`min` + 0.4 * (`max` - `min`), 2) as string) || '[' as bucket3,
+            '[' || cast(round(`min` + 0.4 * (`max` - `min`), 2) as string) || ', ' || cast(round(`min` + 0.5 * (`max` - `min`), 2) as string) || '[' as bucket4,
+            '[' || cast(round(`min` + 0.5 * (`max` - `min`), 2) as string) || ', ' || cast(round(`min` + 0.6 * (`max` - `min`), 2) as string) || '[' as bucket5,
+            '[' || cast(round(`min` + 0.6 * (`max` - `min`), 2) as string) || ', ' || cast(round(`min` + 0.7 * (`max` - `min`), 2) as string) || '[' as bucket6,
+            '[' || cast(round(`min` + 0.7 * (`max` - `min`), 2) as string) || ', ' || cast(round(`min` + 0.8 * (`max` - `min`), 2) as string) || '[' as bucket7,
+            '[' || cast(round(`min` + 0.8 * (`max` - `min`), 2) as string) || ', ' || cast(round(`min` + 0.9 * (`max` - `min`), 2) as string) || '[' as bucket8,
+            '[' || cast(round(`min` + 0.9 * (`max` - `min`), 2) as string) || ', ' || cast(round(`max`                        , 2) as string) || ']' as bucket9,
+          from stats
+        ),
+
+        hist_counts as (
+          select
+            cast(countif(                                                           {{column_if_numeric}} < `min` + 0.1 * (`max` - `min`)) as float64) as bucket0_count,
+            cast(countif({{column_if_numeric}} >= `min` + 0.1 * (`max` - `min`) and {{column_if_numeric}} < `min` + 0.2 * (`max` - `min`)) as float64) as bucket1_count,
+            cast(countif({{column_if_numeric}} >= `min` + 0.2 * (`max` - `min`) and {{column_if_numeric}} < `min` + 0.3 * (`max` - `min`)) as float64) as bucket2_count,
+            cast(countif({{column_if_numeric}} >= `min` + 0.3 * (`max` - `min`) and {{column_if_numeric}} < `min` + 0.4 * (`max` - `min`)) as float64) as bucket3_count,
+            cast(countif({{column_if_numeric}} >= `min` + 0.4 * (`max` - `min`) and {{column_if_numeric}} < `min` + 0.5 * (`max` - `min`)) as float64) as bucket4_count,
+            cast(countif({{column_if_numeric}} >= `min` + 0.5 * (`max` - `min`) and {{column_if_numeric}} < `min` + 0.6 * (`max` - `min`)) as float64) as bucket5_count,
+            cast(countif({{column_if_numeric}} >= `min` + 0.6 * (`max` - `min`) and {{column_if_numeric}} < `min` + 0.7 * (`max` - `min`)) as float64) as bucket6_count,
+            cast(countif({{column_if_numeric}} >= `min` + 0.7 * (`max` - `min`) and {{column_if_numeric}} < `min` + 0.8 * (`max` - `min`)) as float64) as bucket7_count,
+            cast(countif({{column_if_numeric}} >= `min` + 0.8 * (`max` - `min`) and {{column_if_numeric}} < `min` + 0.9 * (`max` - `min`)) as float64) as bucket8_count,
+            cast(countif({{column_if_numeric}} >= `min` + 0.9 * (`max` - `min`)                                                          ) as float64) as bucket9_count,
+          from `{{project}}.{{dataset}}.{{table}}`, stats
+        ),
+
+        hist as (
+          select [
+            struct((select bucket0 from hist_buckets) as x, (select bucket0_count from hist_counts) as y),
+            struct((select bucket1 from hist_buckets) as x, (select bucket1_count from hist_counts) as y),
+            struct((select bucket2 from hist_buckets) as x, (select bucket2_count from hist_counts) as y),
+            struct((select bucket3 from hist_buckets) as x, (select bucket3_count from hist_counts) as y),
+            struct((select bucket4 from hist_buckets) as x, (select bucket4_count from hist_counts) as y),
+            struct((select bucket5 from hist_buckets) as x, (select bucket5_count from hist_counts) as y),
+            struct((select bucket6 from hist_buckets) as x, (select bucket6_count from hist_counts) as y),
+            struct((select bucket7 from hist_buckets) as x, (select bucket7_count from hist_counts) as y),
+            struct((select bucket8 from hist_buckets) as x, (select bucket8_count from hist_counts) as y),
+            struct((select bucket9 from hist_buckets) as x, (select bucket9_count from hist_counts) as y)
+          ] as hist
+        ),
+
+        top_values as (
+          select
+            cast({{column}} as string) as value,
+            count(*) as value_count,
+            count(*) * 1. / (select row_count from stats) as value_ratio,
+          from `{{project}}.{{dataset}}.{{table}}`
+          group by 1
+          limit 10
+        )
+
+        select
+          '{{column}}' as name,
+          '{{data_type}}' as data_type,
+          (select stats from stats) as stats,
+          (select hist.hist from hist) as hist,
+          (select bigfunctions.us.chart(hist.hist, 'bar', 'value_count') from hist) as hist_html,
+          (select array_agg(struct(top_values).top_values order by top_values.value_count desc) from top_values) as top_values
+      );
+    ''',
+    '{{create_or_insert}}', if(ite = 0, 'create or replace temp table results as', 'insert results')),
+    '{{project}}', project),
+    '{{dataset}}', dataset),
+    '{{table}}', table),
+    '{{column}}', column.column_name),
+    '{{column_if_numeric}}', if(lower(column.data_type) in ('float64', 'int64', 'numeric'), column.column_name , '0')),
+    '{{data_type}}', column.data_type
+    );
+
+    select query;
+    execute immediate query;
+
+    set ite = ite + 1;
+  end for;
 
 
-  set query = replace(replace(replace(replace("""
+  set query = replace(replace(replace("""
     select to_json(struct(
       (
         select struct(
@@ -150,11 +158,8 @@ code: |
       ) as table,
       array_agg((select as struct columns.*)) as columns
     ))
-    from (
-      {{query}}
-    ) as columns
+    from results as columns
   """,
-  '{{query}}', query),
   '{{project}}', project),
   '{{dataset}}', dataset),
   '{{table}}', table
@@ -163,3 +168,41 @@ code: |
   select query;
 
   execute immediate query into output;
+template: |
+  <div class="container">
+    <div class="columns">
+      <div class="column">
+        <section class="hero">
+          <div class="hero-body">
+            <p class="is-size-3" style="max-width: none">Table <code>{{ table.name }}</code></p>
+            <p class="is-size-5 mt-4" style="max-width: none;">
+              {{ table.row_count | add_thousands_separators_to_integers }} rows<br>
+              {{ table.size_bytes | size_bytes_pretty }}<br>
+              last updated on {{ table.last_modified_time }}
+            </p>
+            <p class="mt-4" style="max-width: none; color: #3367d6;"><i>Generated by bigfunctions.io</i></p>
+          </div>
+        </section>
+      </div>
+    </div>
+    {% for column in columns -%}
+      <div class="box">
+        <p class="is-size-4 mb-6 mt-4">Column <code>{{ column.name }}</code> <code>{{ column.data_type }}</code></p>
+        <div class="columns">
+          <div class="column is-one-quarter">
+            <table class="table is-narrow">
+              {% for label, value in column.stats -%}
+                <tr>
+                  <th class="has-text-weight-bold">{{ label }}</th>
+                  <td>{% if 'ratio' in label%}{{ value | as_percentage }}{% else %}{{ value | add_thousands_separators_to_integers }}{% endif %}</td>
+                </tr>
+              {% endfor %}
+            </table>
+          </div>
+          <div class="column">
+            {{ column.hist_html|safe }}
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+  </div>

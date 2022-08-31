@@ -40,7 +40,23 @@ code: |
       if (x > 0.01) {
         return Math.round(x * 100).toString() + ' %';
       }
+      if (x < 0.001) {
+        return '< 0.1 %';
+      }
       return (0.1 * Math.round(x * 1000)).toString() + ' %';
+  });
+
+  env.addFilter('size_bytes_pretty', function(x) {
+      if (x > 1e12) {
+        return Math.round(x / (1024*1024*1024*1024)).toString() + ' TB';
+      }
+      if (x > 1e9) {
+        return Math.round(x / (1024*1024*1024)).toString() + ' GB';
+      }
+      if (x > 1e6) {
+        return Math.round(x / (1024*1024)).toString() + ' MB';
+      }
+      return Math.round(x / (1024)).toString() + ' KB';
   });
 
   return env.renderString(template, context);
