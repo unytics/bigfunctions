@@ -39,15 +39,10 @@ for region in [args.region] if args.region else CONF['bigquery_regions']:
         conf = CONF['tables'][args.name]
     elif args.asset_type == 'bigfunction':
         filename = f'bigfunctions/{args.name}.yaml'
-        conf = yaml.safe_load(open(filename, encoding='utf-8').read())
+        conf = yaml.safe_load(open(filename, encoding='utf-8').read().replace('{BIGFUNCTIONS_DATASET}', full_dataset_name))
         conf['name'] = args.name
         conf['filename'] = filename
         conf['description'] = conf['description'] + f'\n\nSee full documentation --> "{CONF["doc_base_url"]}#{args.name}"'
-        conf['example'] = conf['example'].replace('{BIGFUNCTIONS_DATASET}', full_dataset_name)
-        conf['samples'] = [
-            sample.replace('{BIGFUNCTIONS_DATASET}', full_dataset_name)
-            for sample in conf['samples']
-        ]
         if 'template' in conf:
             conf['code'] += f'''
                 set output = to_json(struct(

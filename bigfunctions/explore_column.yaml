@@ -25,6 +25,7 @@ code: |
   set table = parts[offset(2)];
   set column = parts[offset(3)];
 
+
   execute immediate replace(replace(replace(replace(
     '''
     select data_type
@@ -39,7 +40,8 @@ code: |
     '{{column}}', column
   ) into data_type;
 
-  set query = replace(replace(replace(replace(replace(replace(replace('''
+
+  execute immediate replace(replace(replace(replace(replace(replace(replace('''
     with
 
     stats as (
@@ -104,7 +106,7 @@ code: |
       '{{data_type}}' as data_type,
       (select stats from stats) as stats,
       (select hist.hist from hist) as hist,
-      (select bigfunctions.us.chart(hist.hist, 'bar', 'value_count') from hist) as hist_html,
+      (select {BIGFUNCTIONS_DATASET}.chart(hist.hist, 'bar', 'value_count') from hist) as hist_html,
       (select array_agg(struct(top_values).top_values order by top_values.value_count desc) from top_values) as top_values
     ))
   ''',
@@ -115,10 +117,7 @@ code: |
   '{{column_if_numeric}}', if(lower(data_type) in ('float64', 'int64', 'numeric'), column , '0')),
   '{{data_type}}', data_type),
   '{{nbins}}', nbins
-  );
-
-  select query;
-  execute immediate query into output;
+  ) into output;
 template: |
   <div class="container">
     <div class="box">
