@@ -50,9 +50,15 @@ for region in [args.region] if args.region else CONF['bigquery_regions']:
         ]
         if 'template' in conf:
             conf['code'] += f'''
-                set output_html = {full_dataset_name}.render_string("""
-                    {conf['template']}
-                """, to_json_string(output));
+                set output = to_json(struct(
+                    output as json,
+                    {full_dataset_name}.render_string(
+                        """
+                        {conf['template']}
+                        """,
+                        to_json_string(output)
+                    ) as html
+                ));
             '''
         template_file = f'scripts/templates/{conf["type"]}.sql'
         conf['libraries'] = [

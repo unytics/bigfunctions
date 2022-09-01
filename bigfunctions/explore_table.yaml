@@ -1,8 +1,7 @@
 type: procedure
 samples:
   - "explore_table(fully_qualified_table, output)"
-description: |-
-  Returns statistics about column
+description: Show table infos and statistics
 arguments:
   - name: fully_qualified_table
     type: STRING
@@ -10,19 +9,12 @@ arguments:
 outputs:
   - name: output
     type: JSON
-  - name: output_html
-    type: STRING
 example: |-
   ``` sql
   DECLARE output JSON;
-  DECLARE output_html string;
-  CALL {BIGFUNCTIONS_DATASET}.explore_table('bigquery-public-data.samples.natality', output, output_html);
-  SELECT output;
-  SELECT output_html;
+  CALL {BIGFUNCTIONS_DATASET}.explore_table('bigquery-public-data.samples.natality', output);
+  select string(output.html)
   ```
-
-  ![output_html](https://unytics.io/bigfunctions/assets/images/explore_table.png)
-
 code: |
   declare project, dataset, table, columns_stats_query, query string;
   declare ite int64;
@@ -37,6 +29,7 @@ code: |
     select *
     from `{{project}}.{{dataset}}.INFORMATION_SCHEMA.COLUMNS`
     where table_name = '{{table}}' and data_type in ('FLOAT64', 'INT64')
+    limit 2
   ''',
   '{{project}}', project),
   '{{dataset}}', dataset),
@@ -208,3 +201,5 @@ template: |
       </div>
     {% endfor %}
   </div>
+output_screenshot:
+  - https://unytics.io/bigfunctions/assets/images/explore_table.png
