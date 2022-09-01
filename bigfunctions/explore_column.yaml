@@ -1,6 +1,6 @@
 type: procedure
 samples:
-  - "explore_column(fully_qualified_table, output)"
+  - "explore_column(fully_qualified_column, output)"
 description: Show table infos and statistics
 arguments:
   - name: fully_qualified_column
@@ -99,6 +99,14 @@ code: |
       from `{{project}}.{{dataset}}.{{table}}`
       group by 1
       limit {{nbins}}
+    ),
+
+    top_values_hist as (
+      select array_agg(
+        struct(value as x, cast(value_count as float64) as y)
+        order by value_count desc
+      ) hist
+      from top_values
     )
 
     select to_json(struct(
@@ -107,6 +115,7 @@ code: |
       (select stats from stats) as stats,
       (select hist.hist from hist) as hist,
       (select {BIGFUNCTIONS_DATASET}.chart(hist.hist, 'bar', 'value_count') from hist) as hist_html,
+      (select {BIGFUNCTIONS_DATASET}.chart(top_values_hist.hist, 'bar', 'value_count') from top_values_hist) as top_values_hist_html,
       (select array_agg(struct(top_values).top_values order by top_values.value_count desc) from top_values) as top_values
     ))
   ''',
@@ -122,20 +131,38 @@ template: |
   <div class="container">
     <div class="box">
       <p class="is-size-4 mb-6 mt-4">Column <code>{{ name }}</code> <code>{{ data_type }}</code></p>
-      <div class="columns">
-        <div class="column is-one-quarter">
-          <table class="table is-narrow">
-            {% for label, value in stats -%}
-              <tr>
-                <th class="has-text-weight-bold">{{ label }}</th>
-                <td>{% if 'ratio' in label%}{{ value | as_percentage }}{% else %}{{ value | add_thousands_separators_to_integers }}{% endif %}</td>
-              </tr>
-            {% endfor %}
-          </table>
+      {% if stats.distinct_count <= 10 or data_type in ['STRING', 'BOOL'] %}
+        <div class="columns">
+          <div class="column is-one-quarter">
+            <table class="table is-narrow">
+              {% for label, value in stats -%}
+                <tr>
+                  <th class="has-text-weight-bold">{{ label }}</th>
+                  <td>{% if 'ratio' in label%}{{ value | as_percentage }}{% else %}{{ value | add_thousands_separators_to_integers }}{% endif %}</td>
+                </tr>
+              {% endfor %}
+            </table>
+          </div>
+          <div class="column">
+            {{ top_values_hist_html|safe }}
+          </div>
         </div>
-        <div class="column">
-          {{ hist_html|safe }}
+      {% else %}
+        <div class="columns">
+          <div class="column is-one-quarter">
+            <table class="table is-narrow">
+              {% for label, value in stats -%}
+                <tr>
+                  <th class="has-text-weight-bold">{{ label }}</th>
+                  <td>{% if 'ratio' in label%}{{ value | as_percentage }}{% else %}{{ value | add_thousands_separators_to_integers }}{% endif %}</td>
+                </tr>
+              {% endfor %}
+            </table>
+          </div>
+          <div class="column">
+            {{ hist_html|safe }}
+          </div>
         </div>
-      </div>
+      {% endif %}
     </div>
   </div>
