@@ -17,6 +17,7 @@ example: |-
   ```
 code: |
   declare project, dataset, table, column, data_type, query string;
+  declare nbins string default '10';
 
   declare parts array<string> default split(replace(fully_qualified_column, '`', ''), '.');
   set project = parts[offset(0)];
@@ -38,7 +39,7 @@ code: |
     '{{column}}', column
   ) into data_type;
 
-  set query = replace(replace(replace(replace(replace(replace('''
+  set query = replace(replace(replace(replace(replace(replace(replace('''
     with
 
     stats as (
@@ -57,16 +58,16 @@ code: |
     hist_bins as (
       select
         i,
-        `min` + i/10. * (`max`-`min`)  as low,
-        `min` + (i+1)/10. * (`max`-`min`) + if(i=10-1, 1, 0)  as up,
+        `min` + i/{{nbins}}. * (`max`-`min`)  as low,
+        `min` + (i+1)/{{nbins}}. * (`max`-`min`) + if(i={{nbins}}-1, 1, 0)  as up,
         (
           '[' ||
-            cast(round(`min` + i/10. * (`max`-`min`), 2) as string) || ', ' ||
-            cast(round(`min` + (i+1)/10. * (`max`-`min`), 2) as string) ||
-          if(i=10-1, ']', '[')
+            cast(round(`min` + i/{{nbins}}. * (`max`-`min`), 2) as string) || ', ' ||
+            cast(round(`min` + (i+1)/{{nbins}}. * (`max`-`min`), 2) as string) ||
+          if(i={{nbins}}-1, ']', '[')
         ) as label,
-      from stats, unnest(generate_array(0, 10)) i
-      where i < 10
+      from stats, unnest(generate_array(0, {{nbins}})) i
+      where i < {{nbins}}
     ),
 
     hist_counts as (
@@ -95,7 +96,7 @@ code: |
         count(*) * 1. / (select row_count from stats) as value_ratio,
       from `{{project}}.{{dataset}}.{{table}}`
       group by 1
-      limit 10
+      limit {{nbins}}
     )
 
     select to_json(struct(
@@ -112,7 +113,8 @@ code: |
   '{{table}}', table),
   '{{column}}', column),
   '{{column_if_numeric}}', if(lower(data_type) in ('float64', 'int64', 'numeric'), column , '0')),
-  '{{data_type}}', data_type
+  '{{data_type}}', data_type),
+  '{{nbins}}', nbins
   );
 
   select query;
