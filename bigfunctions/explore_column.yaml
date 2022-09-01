@@ -128,3 +128,24 @@ code: |
 
   select query;
   execute immediate query into output;
+template: |
+  <div class="container">
+    <div class="box">
+      <p class="is-size-4 mb-6 mt-4">Column <code>{{ name }}</code> <code>{{ data_type }}</code></p>
+      <div class="columns">
+        <div class="column is-one-quarter">
+          <table class="table is-narrow">
+            {% for label, value in stats -%}
+              <tr>
+                <th class="has-text-weight-bold">{{ label }}</th>
+                <td>{% if 'ratio' in label%}{{ value | as_percentage }}{% else %}{{ value | add_thousands_separators_to_integers }}{% endif %}</td>
+              </tr>
+            {% endfor %}
+          </table>
+        </div>
+        <div class="column">
+          {{ hist_html|safe }}
+        </div>
+      </div>
+    </div>
+  </div>
