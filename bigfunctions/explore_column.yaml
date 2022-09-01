@@ -54,49 +54,38 @@ code: |
       from `{{project}}.{{dataset}}.{{table}}`
     ),
 
-    hist_buckets as (
+    hist_bins as (
       select
-        '[' || cast(round(`min`                        , 2) as string) || ', ' || cast(round(`min` + 0.1 * (`max` - `min`), 2) as string) || '[' as bucket0,
-        '[' || cast(round(`min` + 0.1 * (`max` - `min`), 2) as string) || ', ' || cast(round(`min` + 0.2 * (`max` - `min`), 2) as string) || '[' as bucket1,
-        '[' || cast(round(`min` + 0.2 * (`max` - `min`), 2) as string) || ', ' || cast(round(`min` + 0.3 * (`max` - `min`), 2) as string) || '[' as bucket2,
-        '[' || cast(round(`min` + 0.3 * (`max` - `min`), 2) as string) || ', ' || cast(round(`min` + 0.4 * (`max` - `min`), 2) as string) || '[' as bucket3,
-        '[' || cast(round(`min` + 0.4 * (`max` - `min`), 2) as string) || ', ' || cast(round(`min` + 0.5 * (`max` - `min`), 2) as string) || '[' as bucket4,
-        '[' || cast(round(`min` + 0.5 * (`max` - `min`), 2) as string) || ', ' || cast(round(`min` + 0.6 * (`max` - `min`), 2) as string) || '[' as bucket5,
-        '[' || cast(round(`min` + 0.6 * (`max` - `min`), 2) as string) || ', ' || cast(round(`min` + 0.7 * (`max` - `min`), 2) as string) || '[' as bucket6,
-        '[' || cast(round(`min` + 0.7 * (`max` - `min`), 2) as string) || ', ' || cast(round(`min` + 0.8 * (`max` - `min`), 2) as string) || '[' as bucket7,
-        '[' || cast(round(`min` + 0.8 * (`max` - `min`), 2) as string) || ', ' || cast(round(`min` + 0.9 * (`max` - `min`), 2) as string) || '[' as bucket8,
-        '[' || cast(round(`min` + 0.9 * (`max` - `min`), 2) as string) || ', ' || cast(round(`max`                        , 2) as string) || ']' as bucket9,
-      from stats
+        i,
+        `min` + i/10. * (`max`-`min`)  as low,
+        `min` + (i+1)/10. * (`max`-`min`) + if(i=10-1, 1, 0)  as up,
+        (
+          '[' ||
+            cast(round(`min` + i/10. * (`max`-`min`), 2) as string) || ', ' ||
+            cast(round(`min` + (i+1)/10. * (`max`-`min`), 2) as string) ||
+          if(i=10-1, ']', '[')
+        ) as label,
+      from stats, unnest(generate_array(0, 10)) i
+      where i < 10
     ),
 
     hist_counts as (
       select
-        cast(countif(                                                           {{column_if_numeric}} < `min` + 0.1 * (`max` - `min`)) as float64) as bucket0_count,
-        cast(countif({{column_if_numeric}} >= `min` + 0.1 * (`max` - `min`) and {{column_if_numeric}} < `min` + 0.2 * (`max` - `min`)) as float64) as bucket1_count,
-        cast(countif({{column_if_numeric}} >= `min` + 0.2 * (`max` - `min`) and {{column_if_numeric}} < `min` + 0.3 * (`max` - `min`)) as float64) as bucket2_count,
-        cast(countif({{column_if_numeric}} >= `min` + 0.3 * (`max` - `min`) and {{column_if_numeric}} < `min` + 0.4 * (`max` - `min`)) as float64) as bucket3_count,
-        cast(countif({{column_if_numeric}} >= `min` + 0.4 * (`max` - `min`) and {{column_if_numeric}} < `min` + 0.5 * (`max` - `min`)) as float64) as bucket4_count,
-        cast(countif({{column_if_numeric}} >= `min` + 0.5 * (`max` - `min`) and {{column_if_numeric}} < `min` + 0.6 * (`max` - `min`)) as float64) as bucket5_count,
-        cast(countif({{column_if_numeric}} >= `min` + 0.6 * (`max` - `min`) and {{column_if_numeric}} < `min` + 0.7 * (`max` - `min`)) as float64) as bucket6_count,
-        cast(countif({{column_if_numeric}} >= `min` + 0.7 * (`max` - `min`) and {{column_if_numeric}} < `min` + 0.8 * (`max` - `min`)) as float64) as bucket7_count,
-        cast(countif({{column_if_numeric}} >= `min` + 0.8 * (`max` - `min`) and {{column_if_numeric}} < `min` + 0.9 * (`max` - `min`)) as float64) as bucket8_count,
-        cast(countif({{column_if_numeric}} >= `min` + 0.9 * (`max` - `min`)                                                          ) as float64) as bucket9_count,
-      from `{{project}}.{{dataset}}.{{table}}`, stats
+        bin.i,
+        count(*) as row_count,
+      from `{{project}}.{{dataset}}.{{table}}`
+      inner join hist_bins as bin
+      on {{column_if_numeric}} >= bin.low and {{column_if_numeric}} < bin.up
+      group by i
     ),
 
     hist as (
-      select [
-        struct((select bucket0 from hist_buckets) as x, (select bucket0_count from hist_counts) as y),
-        struct((select bucket1 from hist_buckets) as x, (select bucket1_count from hist_counts) as y),
-        struct((select bucket2 from hist_buckets) as x, (select bucket2_count from hist_counts) as y),
-        struct((select bucket3 from hist_buckets) as x, (select bucket3_count from hist_counts) as y),
-        struct((select bucket4 from hist_buckets) as x, (select bucket4_count from hist_counts) as y),
-        struct((select bucket5 from hist_buckets) as x, (select bucket5_count from hist_counts) as y),
-        struct((select bucket6 from hist_buckets) as x, (select bucket6_count from hist_counts) as y),
-        struct((select bucket7 from hist_buckets) as x, (select bucket7_count from hist_counts) as y),
-        struct((select bucket8 from hist_buckets) as x, (select bucket8_count from hist_counts) as y),
-        struct((select bucket9 from hist_buckets) as x, (select bucket9_count from hist_counts) as y)
-      ] as hist
+      select array_agg(
+        struct(hist_bins.label as x, cast(ifnull(row_count, 0) as float64) as y)
+        order by i
+      ) hist
+      from hist_bins
+      left join hist_counts using(i)
     ),
 
     top_values as (
