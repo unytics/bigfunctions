@@ -79,15 +79,15 @@ code: |
         i + 0.5  as up,
         cast(i as string) as label,
         'integer' as bin_mode,
-      from stats, unnest(generate_array(stats.min, least(stats.max, stats.min + 100))) i
+      from stats, unnest(generate_array(stats.min, least(stats.max, stats.min + 50))) i
     ),
 
     hist_bins as (
       select * from hist_bins_for_reals
-      where bin_mode = if('{{data_type}}' = 'INT64' and (select distinct_count from stats) <= 101, 'integer', 'real')
+      where bin_mode = if('{{data_type}}' = 'INT64' and (select distinct_count from stats) <= 51, 'integer', 'real')
       union all
       select * from hist_bins_for_integers
-      where bin_mode = if('{{data_type}}' = 'INT64' and (select distinct_count from stats) <= 101, 'integer', 'real')
+      where bin_mode = if('{{data_type}}' = 'INT64' and (select distinct_count from stats) <= 51, 'integer', 'real')
     ),
 
     hist_counts as (

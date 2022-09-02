@@ -37,11 +37,14 @@ code: |
   });
 
   env.addFilter('as_percentage', function(x) {
-      if (x > 0.01) {
-        return Math.round(x * 100).toString() + ' %';
+      if (x == 0) {
+        return '0 %';
       }
       if (x < 0.001) {
         return '< 0.1 %';
+      }
+      if (x > 0.01) {
+        return Math.round(x * 100).toString() + ' %';
       }
       return (0.1 * Math.round(x * 1000)).toString() + ' %';
   });
