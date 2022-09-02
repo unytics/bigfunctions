@@ -18,7 +18,8 @@ example: |-
 code: |
   declare project, dataset, table, query string;
   declare column_result json;
-  declare columns_results array<json> default [];
+  declare columns_json array<json> default [];
+  declare columns_html array<string> default [];
   declare table_infos json;
 
   declare parts array<string> default split(replace(fully_qualified_table, '`', ''), '.');
@@ -30,8 +31,7 @@ code: |
   create or replace temp table columns as
     select *
     from `{{project}}.{{dataset}}.INFORMATION_SCHEMA.COLUMNS`
-    where table_name = '{{table}}' and data_type in ('FLOAT64', 'INT64')
-    limit 3
+    where table_name = '{{table}}'
   ''',
   '{{project}}', project),
   '{{dataset}}', dataset),
@@ -51,7 +51,8 @@ code: |
         column_result
       );
 
-      set columns_results = array_concat(columns_results, [column_result.json]);
+      set columns_json = array_concat(columns_json, [column_result.json]);
+      set columns_html = array_concat(columns_html, [string(column_result.html)]);
   end for;
 
 
@@ -72,7 +73,8 @@ code: |
 
   set output = to_json(struct(
     table_infos as table,
-    columns_results as columns
+    columns_json as columns,
+    array_to_string(columns_html, '') as columns_html
   ));
 template: |
   <div class="container">
@@ -91,26 +93,7 @@ template: |
         </section>
       </div>
     </div>
-    {% for column in columns -%}
-      <div class="box">
-        <p class="is-size-4 mb-6 mt-4">Column <code>{{ column.name }}</code> <code>{{ column.data_type }}</code></p>
-        <div class="columns">
-          <div class="column is-one-quarter">
-            <table class="table is-narrow">
-              {% for label, value in column.stats -%}
-                <tr>
-                  <th class="has-text-weight-bold">{{ label }}</th>
-                  <td>{% if 'ratio' in label%}{{ value | as_percentage }}{% else %}{{ value | add_thousands_separators_to_integers }}{% endif %}</td>
-                </tr>
-              {% endfor %}
-            </table>
-          </div>
-          <div class="column">
-            {{ column.hist_html|safe }}
-          </div>
-        </div>
-      </div>
-    {% endfor %}
+    {{ columns_html|safe }}
   </div>
 output_screenshot:
   - https://unytics.io/bigfunctions/assets/images/explore_table.png
