@@ -56,7 +56,7 @@ code: |
       from `{{project}}.{{dataset}}.{{table}}`
     ),
 
-    hist_bins as (
+    hist_bins_for_reals as (
       select
         i,
         `min` + i/{{nbins}}. * (`max`-`min`)  as low,
@@ -67,8 +67,27 @@ code: |
             cast(round(`min` + (i+1)/{{nbins}}. * (`max`-`min`), 2) as string) ||
           if(i={{nbins}}-1, ']', '[')
         ) as label,
+        'real' as bin_mode,
       from stats, unnest(generate_array(0, {{nbins}})) i
       where i < {{nbins}}
+    ),
+
+    hist_bins_for_integers as (
+      select
+        i,
+        i - 0.5  as low,
+        i + 0.5  as up,
+        cast(i as string) as label,
+        'integer' as bin_mode,
+      from stats, unnest(generate_array(stats.min, least(stats.max, stats.min + 100))) i
+    ),
+
+    hist_bins as (
+      select * from hist_bins_for_reals
+      where bin_mode = if('{{data_type}}' = 'INT64' and (select distinct_count from stats) <= 101, 'integer', 'real')
+      union all
+      select * from hist_bins_for_integers
+      where bin_mode = if('{{data_type}}' = 'INT64' and (select distinct_count from stats) <= 101, 'integer', 'real')
     ),
 
     hist_counts as (
@@ -131,7 +150,7 @@ template: |
   <div class="container">
     <div class="box">
       <p class="is-size-4 mb-6 mt-4">Column <code>{{ name }}</code> <code>{{ data_type }}</code></p>
-      {% if stats.distinct_count <= 100 or data_type in ['STRING', 'BOOL'] %}
+      {% if data_type in ['STRING', 'BOOL'] %}
         <div class="columns">
           <div class="column is-one-quarter">
             <table class="table is-narrow">

@@ -8,6 +8,8 @@
 
 The functions make computations on BigQuery and enable you to display results as data-vizualizations directly in BigQuery console.
 
+⚠️ *To see the data-vizualisation in BigQuery Console make sure you read [Getting Started](/docs/get_started/) to set up the environment!*
+
 ---
 
 
@@ -41,7 +43,7 @@ select string(output.html);
 ```
 
 
-<a href="../../assets/images/explore_column.png"><img alt="screenshot" src="../../assets/images/explore_column.png" style="border: var(--md-code-bg-color) solid 1rem; margin-top: -1rem;"></a>
+<a href="../../assets/images/explore_column.png"><img alt="screenshot" src="../../assets/images/explore_column.png" style="border: var(--md-code-bg-color) solid 1rem; margin-top: -1rem; width: 100%"></a>
 
 
 
@@ -76,7 +78,7 @@ select string(output.html);
 ```
 
 
-<a href="../../assets/images/explore_column.png"><img alt="screenshot" src="../../assets/images/explore_column.png" style="border: var(--md-code-bg-color) solid 1rem; margin-top: -1rem;"></a>
+<a href="../../assets/images/explore_dataset.png"><img alt="screenshot" src="../../assets/images/explore_dataset.png" style="border: var(--md-code-bg-color) solid 1rem; margin-top: -1rem; width: 100%"></a>
 
 
 
@@ -111,5 +113,5 @@ select string(output.html);
 ```
 
 
-<a href="../../assets/images/explore_column.png"><img alt="screenshot" src="../../assets/images/explore_column.png" style="border: var(--md-code-bg-color) solid 1rem; margin-top: -1rem;"></a>
+<a href="../../assets/images/explore_column.png"><img alt="screenshot" src="../../assets/images/explore_column.png" style="border: var(--md-code-bg-color) solid 1rem; margin-top: -1rem; width: 100%"></a>
 
