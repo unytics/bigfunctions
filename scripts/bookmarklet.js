@@ -5,8 +5,8 @@ const bulma = document.createElement('link'); bulma.setAttribute('rel', 'stylesh
 
 const setInnerHTML = function(elm, html) {
   elm.innerHTML = html;
-  Array.from(elm.querySelectorAll("script")).forEach( oldScript => {
-    const newScript = document.createElement("script");
+  Array.from(elm.querySelectorAll('script')).forEach( oldScript => {
+    const newScript = document.createElement('script');
     Array.from(oldScript.attributes)
       .forEach( attr => newScript.setAttribute(attr.name, attr.value) );
     newScript.appendChild(document.createTextNode(oldScript.innerHTML));
@@ -28,7 +28,7 @@ const renderHTML = function() {
         return;
     }
     const html = div.innerText;
-    document.querySelector('.bq-results-table thead th:nth-child(2)').style = "width: 100%;";
+    document.querySelector('.bq-results-table thead th:nth-child(2)').style = 'width: 100%;';
     setInnerHTML(bq_results_table, html);
     console.log('bigfunctions: successfully replaced table content');
 };
