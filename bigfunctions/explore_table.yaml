@@ -1,20 +1,18 @@
 type: procedure
-samples:
-  - "explore_table(fully_qualified_table, output)"
-description: Show table infos and statistics
+usage: explore_table(fully_qualified_table, output)
+description: Show table infos and columns statistics
 arguments:
   - name: fully_qualified_table
     type: STRING
-    test_value: bigquery-public-data.samples.natality
 outputs:
   - name: output
     type: JSON
-example: |-
-  ``` sql
-  DECLARE output JSON;
-  CALL {BIGFUNCTIONS_DATASET}.explore_table('bigquery-public-data.samples.natality', output);
-  select string(output.html)
-  ```
+examples:
+  - description: ""
+    arguments:
+      - '"bigquery-public-data.samples.natality"'
+    region: US
+    screenshot: explore_column.png
 code: |
   declare project, dataset, table, query string;
   declare column_result json;
@@ -95,5 +93,3 @@ template: |
     </div>
     {{ columns_html|safe }}
   </div>
-output_screenshot:
-  - https://unytics.io/bigfunctions/assets/images/explore_table.png

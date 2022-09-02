@@ -1,25 +1,19 @@
 type: procedure
-samples:
-  - "explore_dataset(fully_qualified_dataset, output)"
+usage: explore_dataset(fully_qualified_dataset, output)
 description: |-
-  Returns infos about dataset tables as a json output
+  Shows infos about dataset tables
 arguments:
   - name: fully_qualified_dataset
     type: STRING
-    test_value: bigquery-public-data.samples
 outputs:
   - name: output
     type: JSON
-  - name: output_html
-    type: STRING
-example: |-
-  ``` sql
-  DECLARE output JSON;
-  DECLARE output_html string;
-  CALL {BIGFUNCTIONS_DATASET}.explore_dataset('bigquery-public-data.samples', output, output_html);
-  SELECT output;
-  SELECT output_html;
-  ```
+examples:
+  - description: ""
+    arguments:
+      - '"bigquery-public-data.samples"'
+    region: US
+    screenshot: explore_dataset.png
 code: |
   declare project, dataset string;
 

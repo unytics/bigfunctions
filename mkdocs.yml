@@ -18,11 +18,12 @@ theme:
     - tabs
     - content.tabs.link
     - instant
-    # - toc.integrate
+    - toc.integrate
     - navigation.tabs
-    - navigation.indexes
+    - navigation.tracking
+    # - navigation.indexes
     - navigation.hide
-    # - navigation.expand
+    - navigation.expand
 
 
 markdown_extensions:
@@ -36,4 +37,9 @@ markdown_extensions:
 plugins: []
 nav:
   - Home: index.md
-  - Documentation: docs/index.md
+  - Documentation:
+    - Getting Started: docs/get_started.md
+    - Explore: docs/explore.md
+    - Utils: docs/utils.md
+    - Troubleshooting: docs/troubleshooting.md
+
