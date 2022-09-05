@@ -70,7 +70,7 @@ def deploy(asset_type, name, region, environment):
     #     # destination_filename =
     #     blob = google.cloud.storage.Blob(library['filename'], JS_LIBS_BUCKET)
     #     blob.upload_from_string(js)
-
+    print(query)
     BQ.query(query, location=region).result()
     print('successfully created', asset_type, name, 'for region', region, 'and environment', environment)
 

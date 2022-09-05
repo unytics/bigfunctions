@@ -1,30 +1,14 @@
-BEGIN
-
-  create or replace table {{ dataset }}.{{ name }}(
-    {% for column in schema -%}
-    {{ column.name }} {{ column.type }} {% if column.default %}default {{column.default}}{% endif %} options (description = "{{ column.description }}"){% if not loop.last %}, {% endif %}
-    {% endfor %}
-  )
-  {% if partition_column %}partition by date({{ partition_column }}){% endif %}
-  options (description = "{{ description }}")
-  as
-  select
-    {% for column in schema -%}
-      {{ column.name }},
-    {% endfor %}
-  from {{ dataset }}.{{ name }};
+create table if not exists {{ dataset.name }}.{{ name }}(
+  {% for column in schema -%}
+  {{ column.name }} {{ column.type }} {% if column.default %}default {{column.default}}{% endif %} options (description = "{{ column.description }}"){% if not loop.last %}, {% endif %}
+  {% endfor %}
+)
+{% if partition_column %}partition by date({{ partition_column }}){% endif %}
+options (description = "{{ description }}");
 
 
-EXCEPTION WHEN ERROR THEN
-
-  create table {{ dataset }}.{{ name }}(
-    {% for column in schema -%}
-    {{ column.name }} {{ column.type }} {% if column.default %}default {{column.default}}{% endif %} options (description = "{{ column.description }}"){% if not loop.last %}, {% endif %}
-    {% endfor %}
-  )
-  {% if partition_column %}partition by date({{ partition_column }}){% endif %}
-  options (description = "{{ description }}");
-
-END
-
-
+{% for permission in permissions %}
+grant `{{ permission.permission }}`
+ON TABLE {{ dataset.name }}.{{ name }}
+TO '{{ permission.who }}';
+{% endfor %}

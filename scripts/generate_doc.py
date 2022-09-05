@@ -13,7 +13,7 @@ HEADER = '''
 
 **"Explore" BigFunctions are great for data-analysts to explore data**.
 
-The functions make computations on BigQuery and enable you to display results as data-vizualizations directly in BigQuery console.
+They make computations on BigQuery and display the results as data-vizualizations directly in BigQuery console.
 
 ⚠️ *To see the data-vizualisation in BigQuery Console make sure you read [Getting Started](/docs/get_started/) to set up the environment!*
 

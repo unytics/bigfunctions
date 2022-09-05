@@ -24,6 +24,9 @@ datasets:
   - name: "test_{region__lowercase_and_wo_hyphens}"
     env: test
     description: Contains private BigFunctions for testing purpose before deployment
+  - name: "{region__lowercase_and_wo_hyphens}_foo"
+    env: foo
+    description: Contains private BigFunctions for testing purpose before deployment
 tables:
   deployments:
     name: deployments
@@ -46,11 +49,18 @@ tables:
     name: logs
     description: Logs of BigFunctions executions
     partition_column: executed_at
+    permissions:
+      - who: allAuthenticatedUsers
+        permission: projects/bigfunctions/roles/bigquery_table_write
     schema:
       - name: executed_at
         type: TIMESTAMP
         description: timestamp of execution
         default: current_timestamp()
+      - name: user
+        type: STRING
+        description: email of user who called the function
+        default: session_user()
       - name: bigfunction_name
         type: STRING
         description: BigFunction name

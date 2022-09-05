@@ -4,6 +4,6 @@ options (location = "{{ region }}");
 alter schema {{ dataset.name }}
 set options (description = """{{ dataset.description }}""");
 
-grant `roles/bigquery.dataViewer`
+grant `projects/bigfunctions/roles/bigquery_routine_get`
 ON SCHEMA {{ dataset.name }}
 TO 'specialGroup:allAuthenticatedUsers';
