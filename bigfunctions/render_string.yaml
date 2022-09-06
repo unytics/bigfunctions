@@ -1,30 +1,26 @@
 type: function_js
-samples:
-  - "render_string(template, context)"
-description: |-
-  Replaces the variables surrounded by brackets such as `{{variable_name}}` in `template` by their values defined in `context`.
-  Beware that `context` keys and string values must be surrounded by double-quotes `"` and not single-quotes `'`.
+usage: render_string(template, context)
+description: Render template with context json object using nunjucks.js templating library
 arguments:
   - name: template
     type: STRING
-    test_value: Hello {{username}}
   - name: context
     type: STRING
-    test_value: '{"username": "James"}'
 output:
   name: rendered_content
   type: STRING
-  expected_value: Hello James
-example: |-
-  ``` sql
-  SELECT {BIGFUNCTIONS_DATASET}.render_string('Hello {{username}}', '{"username": "James"}') as rendered_content;
-
-  +-------------+
-  | rendered_content     |
-  +-------------+
-  | Hello World |
-  +-------------+
-  ```
+examples:
+  - description: ""
+    arguments:
+      - "'Hello {{ username }}'"
+      - "'{\"username\": \"James\"}'"
+    output: |
+      +------------------+
+      | rendered_content |
+      +------------------+
+      | Hello James      |
+      +------------------+
+    region: ALL
 code: |
   context = JSON.parse(context);
   var env = nunjucks.configure();

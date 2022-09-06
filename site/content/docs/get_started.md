@@ -2,22 +2,23 @@
 
 <img src="../../assets/logo_and_name.png" alt="drawing" width="300"/>
 
-BigFunctions are public BigQuery routines that give you new *SQL powers* in BigQuery 💪.
-
-There are **6 must know** to use them:
-
-1. **Must know #1**: Invoke a BigFunction at the same location as your data (see below for details)
-2. **Must know #2**: Enable BigFunctions bookmarklet to see BigFunctions results as data-vizualizations in BigQuery console (see below for details).
-3. **Must know #3**: BigFunctions make BigQuery queries from your project. They incur costs to your project like any BigQuery query. For instance, `explore_table` function incurrs a full-scan of your table. Consider creating smaller tables by sampling large ones if needed to use them with BigFunctions.
-4. **Must know #4**: We log BigFunctions executions with: timestamp of execution, name of executed BigFunction and the user email who executed them. We may use these data to know about service usage, for troubleshooting and to send emails with news about the project. We will never share these emails to anyone. If this seem unfair to you please contact contact@unytics.io.
-5. **Must know #5**: You can inspect the source code of any deployed SQL and js function at any time by pinning the `bigfunctions` project in BigQuery console and exploring routines.
-6. **Must know #6**: Please let us know what you think and make suggestions --> contact@unytics.io
+> BigFunctions are public BigQuery routines that give you **super-SQL-powers** in BigQuery 💪.
+>
+> Below are **7 must know** to use them:
+>
+> 1. BigFunctions location is important
+> 2. Use BigFunctions button to see results as data-vizualizations
+> 3. BigFunctions can take some time
+> 4. Beware of BigQuery costs
+> 5. We log BigFunctions executions
+> 6. BigFunctions are open
+> 7. Please help us & make suggestions --> contact@unytics.io
 
 
 ---
 
 
-## **Must know #1**: Invoke a BigFunction at the same location as your data
+## 1. BigFunctions location is important.
 
 BigQuery routines must be located at the same location as your data. Otherwise the BigFunction OR your data will not be found by BigQuery. To explore your table `your-project.your_dataset.your_table` use one of the following commands regarding the location of `your_dataset`:
 
@@ -306,19 +307,15 @@ BigQuery routines must be located at the same location as your data. Otherwise t
 ---
 
 
-## **Must know #2**: Enable BigFunctions bookmarklet to see BigFunctions results as data-vizualizations in BigQuery console.
+## 2. Use BigFunctions button to see results as data-vizualizations
 
 Some BigFunctions return some html that can be transformed in data-vizualizations. To see the data-vizualization you must:
 
 1. Drag and drop BigFunctions button in your bookmark bar.
-2. Click on the created bookmark to transform BigFunctions html result into data-vizualisations when in BigQuery Console.
+2. Click on the created bookmark when in BigQuery Console.
 
 
-> The first step has to be done once whereas you must click on the bookmark each time you open or refresh bigquery console webpage.
->
-> When you click on the bookmark what happens is that some javascript will look periodically into the webpage if it contains a bigquery results table with only one cell. In that case, it will take the text content of the cell and render is as html.
-
-**1. Drag and drop BigFunctions button in your bookmark bar**
+*1. Drag and drop BigFunctions button in your bookmark bar*
 
 
 <div style="width: 100%; text-align: center;"><a href="javascript:fetch('https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js').then((response) => response.text()).then((text) => {const script = document.createElement('script'); script.text = text; document.head.appendChild(script);});  const bulma = document.createElement('link'); bulma.setAttribute('rel', 'stylesheet'); bulma.setAttribute('href', 'https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css'); document.head.appendChild(bulma);   const setInnerHTML = function(elm, html) {   elm.innerHTML = html;   Array.from(elm.querySelectorAll('script')).forEach( oldScript => {     const newScript = document.createElement('script');     Array.from(oldScript.attributes)       .forEach( attr => newScript.setAttribute(attr.name, attr.value) );     newScript.appendChild(document.createTextNode(oldScript.innerHTML));     oldScript.parentNode.replaceChild(newScript, oldScript);   }); };   const renderHTML = function() {     const divs = document.querySelectorAll('bq-results-table td div');     if (divs.length !== 1) {         console.log(`divs.length = ${divs.length} != 1`);         return;     }     const div = divs[0];     const bq_results_table = div.closest('bq-results-table');     if (!bq_results_table) {         console.log('bq_results_table not found');         return;     }     const html = div.innerText;     document.querySelector('.bq-results-table thead th:nth-child(2)').style = 'width: 100%;';     setInnerHTML(bq_results_table, html);     console.log('bigfunctions: successfully replaced table content'); }; renderHTML();   setInterval(renderHTML, 1000); " class="md-button md-button--primary">BigFunctions</a></div>
@@ -328,9 +325,26 @@ Some BigFunctions return some html that can be transformed in data-vizualization
 
 
 
-### 2. Click on the created bookmark to transform BigFunctions html result into data-vizualisations when in BigQuery Console.
+*2. Click on the created bookmark to transform BigFunctions html result into data-vizualisations when in BigQuery Console*
 
 <a href="../../assets/images/bookmarklet_use.gif"><img alt="install_bookmarklet" src="../../assets/images/bookmarklet_use.gif" style="border: var(--md-code-bg-color) solid 1rem; width: 100%; margin-top: 2rem;"></a>
 
 
+## 3. BigFunctions can take some time
 
+For instance `explore_table` can take several minutes to compute the statistics of the table. The reason is that it computes multiple queries for each column.
+
+
+## 4. Beware of BigQuery costs
+
+BigFunctions make BigQuery queries from your project so incur costs like any BigQuery query. For instance, `explore_table` function incurs a full-scan of your table. Consider creating smaller tables by sampling large ones if needed to use them with BigFunctions.
+
+
+## 5. We log BigFunctions executions
+
+We log BigFunctions executions with: timestamp of execution, name of executed BigFunction and the user email who executed them. We may use these data to know about service usage, for troubleshooting and to send emails with news about the project. We will never share these emails to anyone. If this seem unfair to you please contact contact@unytics.io.
+
+
+## 6. BigFunctions are open
+
+You can inspect the source code of any deployed SQL and js function at any time by pinning the `bigfunctions` project in BigQuery console and exploring routines. What's more you will find the github link to each BigFunction configuration file in the documentation.

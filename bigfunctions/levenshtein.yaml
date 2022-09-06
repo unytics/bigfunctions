@@ -1,29 +1,26 @@
 type: function_js
-usage: levenshtein(template, context)
-description: |-
-  Replaces the variables surrounded by brackets such as `{{variable_name}}` in `template` by their values defined in `context`.
-  Beware that `context` keys and string values must be surrounded by double-quotes `"` and not single-quotes `'`.
+usage: levenshtein(string1, string2)
+description: Computes levenshtein distance between `string1` and `string2`
 arguments:
   - name: string1
     type: STRING
-    test_value: back
   - name: string2
     type: STRING
-    test_value: book
 output:
   name: distance
   type: INT64
-  expected_value: 2
-example: |-
-  ``` sql
-  SELECT {BIGFUNCTIONS_DATASET}.levenshtein('back', 'book') as distance;
-
-  +-------------+
-  | distance    |
-  +-------------+
-  | 2           |
-  +-------------+
-  ```
+examples:
+  - description: ""
+    arguments:
+      - "'bak'"
+      - "'book'"
+    output: |
+      +-------------+
+      | distance    |
+      +-------------+
+      | 2           |
+      +-------------+
+    region: ALL
 code: |
   return js_levenshtein(string1 || '', string2 || '');
 libraries:
