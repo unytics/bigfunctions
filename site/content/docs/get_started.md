@@ -303,13 +303,34 @@ BigQuery routines must be located at the same location as your data. Otherwise t
 
 
 
+---
+
 
 ## **Must know #2**: Enable BigFunctions bookmarklet to see BigFunctions results as data-vizualizations in BigQuery console.
 
 Some BigFunctions return some html that can be transformed in data-vizualizations. To see the data-vizualization you must:
 
-1. drag and drop the following button in your bookmark bar.
-2. When you are in BigQuery console, you must click on the created bookmark to automatically transform BigFunctions html result in data-vizualisations.
+1. Drag and drop BigFunctions button in your bookmark bar.
+2. Click on the created bookmark to transform BigFunctions html result into data-vizualisations when in BigQuery Console.
 
 
-<div><a href="javascript:fetch('https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js').then((response) => response.text()).then((text) => {const script = document.createElement('script'); script.text = text; document.head.appendChild(script);});  const bulma = document.createElement('link'); bulma.setAttribute('rel', 'stylesheet'); bulma.setAttribute('href', 'https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css'); document.head.appendChild(bulma);   const setInnerHTML = function(elm, html) {   elm.innerHTML = html;   Array.from(elm.querySelectorAll('script')).forEach( oldScript => {     const newScript = document.createElement('script');     Array.from(oldScript.attributes)       .forEach( attr => newScript.setAttribute(attr.name, attr.value) );     newScript.appendChild(document.createTextNode(oldScript.innerHTML));     oldScript.parentNode.replaceChild(newScript, oldScript);   }); };   const renderHTML = function() {     const divs = document.querySelectorAll('bq-results-table td div');     if (divs.length !== 1) {         console.log(`divs.length = ${divs.length} != 1`);         return;     }     const div = divs[0];     const bq_results_table = div.closest('bq-results-table');     if (!bq_results_table) {         console.log('bq_results_table not found');         return;     }     const html = div.innerText;     document.querySelector('.bq-results-table thead th:nth-child(2)').style = 'width: 100%;';     setInnerHTML(bq_results_table, html);     console.log('bigfunctions: successfully replaced table content'); }; renderHTML();   setInterval(renderHTML, 1000); " class="md-button md-button--primary">BigFunctions</a><div>
+> The first step has to be done once whereas you must click on the bookmark each time you open or refresh bigquery console webpage.
+>
+> When you click on the bookmark what happens is that some javascript will look periodically into the webpage if it contains a bigquery results table with only one cell. In that case, it will take the text content of the cell and render is as html.
+
+**1. Drag and drop BigFunctions button in your bookmark bar**
+
+
+<div style="width: 100%; text-align: center;"><a href="javascript:fetch('https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js').then((response) => response.text()).then((text) => {const script = document.createElement('script'); script.text = text; document.head.appendChild(script);});  const bulma = document.createElement('link'); bulma.setAttribute('rel', 'stylesheet'); bulma.setAttribute('href', 'https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css'); document.head.appendChild(bulma);   const setInnerHTML = function(elm, html) {   elm.innerHTML = html;   Array.from(elm.querySelectorAll('script')).forEach( oldScript => {     const newScript = document.createElement('script');     Array.from(oldScript.attributes)       .forEach( attr => newScript.setAttribute(attr.name, attr.value) );     newScript.appendChild(document.createTextNode(oldScript.innerHTML));     oldScript.parentNode.replaceChild(newScript, oldScript);   }); };   const renderHTML = function() {     const divs = document.querySelectorAll('bq-results-table td div');     if (divs.length !== 1) {         console.log(`divs.length = ${divs.length} != 1`);         return;     }     const div = divs[0];     const bq_results_table = div.closest('bq-results-table');     if (!bq_results_table) {         console.log('bq_results_table not found');         return;     }     const html = div.innerText;     document.querySelector('.bq-results-table thead th:nth-child(2)').style = 'width: 100%;';     setInnerHTML(bq_results_table, html);     console.log('bigfunctions: successfully replaced table content'); }; renderHTML();   setInterval(renderHTML, 1000); " class="md-button md-button--primary">BigFunctions</a></div>
+
+
+<a href="../../assets/images/bookmarklet_install.gif"><img alt="install_bookmarklet" src="../../assets/images/bookmarklet_install.gif" style="border: var(--md-code-bg-color) solid 1rem; margin-top: -1rem; width: 100%"></a>
+
+
+
+### 2. Click on the created bookmark to transform BigFunctions html result into data-vizualisations when in BigQuery Console.
+
+<a href="../../assets/images/bookmarklet_use.gif"><img alt="install_bookmarklet" src="../../assets/images/bookmarklet_use.gif" style="border: var(--md-code-bg-color) solid 1rem; width: 100%; margin-top: 2rem;"></a>
+
+
+
