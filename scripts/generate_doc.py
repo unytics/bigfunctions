@@ -36,7 +36,6 @@ HEADER_UTILS = '''
 '''
 
 
-CONF = yaml.safe_load(open('conf.yaml', encoding='utf-8').read())
 
 
 def generate_doc(bigfunctions_filenames, output_header, output_filename):
@@ -56,7 +55,6 @@ def generate_doc(bigfunctions_filenames, output_header, output_filename):
         template = f'scripts/templates/{conf["type"]}.md'
         documentation = jinja2.Template(open(template, encoding='utf-8').read()).render(
             regions=REGIONS_TO_DISPLAY,
-            **CONF,
             **conf,
         )
         documentation = re.sub(r'###\s*(.*)', r'<h3>\g<1></h3>', documentation)
