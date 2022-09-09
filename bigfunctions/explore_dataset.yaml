@@ -1,13 +1,10 @@
 type: procedure
-usage: explore_dataset(fully_qualified_dataset, output)
+usage: explore_dataset(fully_qualified_dataset)
 description: |-
   Shows infos about dataset tables
 arguments:
   - name: fully_qualified_dataset
     type: STRING
-outputs:
-  - name: output
-    type: JSON
 examples:
   - description: ""
     arguments:
@@ -24,6 +21,7 @@ code: |
 
   execute immediate replace(replace(
     '''
+      create or replace temp table bigfunction_result as
       with tables as (
         select
           infos.* except(is_typed, is_insertable_into),
@@ -46,11 +44,11 @@ code: |
 
       select to_json (struct(
         (select array_agg(struct(tables).tables) from tables) as tables
-      )) as context
+      )) as output_json
     ''',
     '{{project}}', project),
     '{{dataset}}', dataset
-  ) into output;
+  );
 template: |-
   <div class="container">
     <section class="hero">

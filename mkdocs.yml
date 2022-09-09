@@ -39,7 +39,6 @@ markdown_extensions:
 plugins: []
 nav:
   - Home: index.md
-  - BigFunctions: reference/index.md
-  - Getting Started:
-    - getting_started/index.md
+  - BigFunctions: reference.md
+  - Getting Started: getting_started.md
 

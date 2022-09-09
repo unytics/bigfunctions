@@ -37,8 +37,8 @@ hide:
 
 
 CATEGORY_PAGE_HEADER_TEMPLATE = jinja2.Template('''
+<div style="margin-top: 6rem;"></div>
 
----
 
 ## {{ category_emoticon }} {{ category|title }}
 
@@ -73,7 +73,7 @@ CATEGORIES = {
 
 
 def generate_bigfunctions_index_page():
-    output_filename = f'site/content/reference/index.md'
+    output_filename = f'site/content/reference.md'
     content = INDEX_PAGE_TEMPLATE.render(categories=CATEGORIES)
     with open(output_filename, 'w', encoding='utf-8') as out:
         out.write(content)
@@ -96,7 +96,7 @@ def generate_bigfunctions_category_page(category, category_emoticon, category_de
 
 
     header = CATEGORY_PAGE_HEADER_TEMPLATE.render(category=category, category_emoticon=category_emoticon, category_description=category_description)
-    with open('site/content/reference/index.md', 'a', encoding='utf-8') as out:
+    with open('site/content/reference.md', 'a', encoding='utf-8') as out:
         out.write(header)
         out.write('\n\n\n'.join(documentations))
 
