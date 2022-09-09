@@ -62,25 +62,18 @@ def get_js_libs_from_yaml():
 
     :return: dict representation of the js_libs.yaml file
     """
-    js_libs_yaml_path = Path('./conf.yaml')
-    if js_libs_yaml_path.is_file():
-        with open(js_libs_yaml_path, 'r') as yaml_file:
-            conf = load('''
-js_libs:
-  compromise:
-    versions:
-      - 11.14.3
-  js-levenshtein:
-    versions:
-      - 1.1.6
-  jstat:
-    versions:
-      - 1.9.3
-      - 1.9.4
-            ''', Loader=SafeLoader)
-            return conf['js_libs']
-    else:
-        return None
+    return load('''
+compromise:
+  versions:
+    - 11.14.3
+js-levenshtein:
+  versions:
+    - 1.1.6
+jstat:
+  versions:
+    - 1.9.3
+    - 1.9.4
+    ''', Loader=SafeLoader)
 
 
 def generate_js_libs_package_json():
