@@ -18,7 +18,7 @@ theme:
     - tabs
     - content.tabs.link
     - instant
-    - toc.integrate
+    # - toc.integrate
     - navigation.tabs
     - navigation.tracking
     - navigation.indexes
@@ -28,6 +28,9 @@ theme:
 markdown_extensions:
   - attr_list
   - tables
+  - toc:
+      toc_depth: 4
+      permalink: "¶"
   - admonition
   - pymdownx.details
   - pymdownx.superfences
@@ -36,11 +39,7 @@ markdown_extensions:
 plugins: []
 nav:
   - Home: index.md
-  - BigFunctions:
-    - reference/index.md
-    - Explore: reference/explore.md
-    - Utils: reference/utils.md
-    - Troubleshooting: reference/troubleshooting.md
+  - BigFunctions: reference/index.md
   - Getting Started:
     - getting_started/index.md
 

@@ -52,3 +52,7 @@ span.version {
 .md-typeset__table {
    min-width: 100%;
 }
+
+.admonition.note {
+  font-size: .8rem;
+}

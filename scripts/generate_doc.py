@@ -7,27 +7,32 @@ import jinja2
 REGIONS_TO_DISPLAY = ['EU', 'US', 'europe-west1', 'your-region2']
 
 
-INDEX_PAGE_TEMPLATE= jinja2.Template('''
-# BigFunctions
-
-
-<img src="../assets/logo_and_name.png" alt="drawing" width="300"/>
-
-BigFunctions are public BigQuery routines that give you **super-SQL-powers** in BigQuery 💪.
-
+INDEX_PAGE_TEMPLATE= jinja2.Template('''---
+hide:
+  - navigation
 ---
 
-{% for category, category_conf in categories.items() %}
+#
 
-## {{ category_conf.emoticon }} {{ category|title }}
+!!! note ""
 
-> {{ category_conf.description|replace('\n', '')|replace('*', '') }}
 
-{% for name, conf in category_conf.bigfunctions.items() -%}
-- [<code>{{ conf.usage }}</code>]({{ category }}/#{{ name }}): {{ conf.description }}
-{% endfor %}
+    <img src="../assets/logo_and_name.png" alt="drawing" width="300"/>
 
-{% endfor %}
+    BigFunctions are public BigQuery routines that give you **super-SQL-powers** in BigQuery 💪.
+
+
+    {% for category, category_conf in categories.items() %}
+
+    **{{ category_conf.emoticon }} {{ category|title }}**
+
+    {{ category_conf.description|replace('\n', '')|replace('*', '') }}
+
+    {% for name, conf in category_conf.bigfunctions.items() -%}
+    - [<code>{{ conf.usage }}</code>]({{ category }}/#{{ name }}): {{ conf.description }}
+    {% endfor %}
+
+    {% endfor %}
 
 ''')
 
@@ -35,15 +40,15 @@ BigFunctions are public BigQuery routines that give you **super-SQL-powers** in 
 
 CATEGORY_PAGE_HEADER_TEMPLATE = jinja2.Template('''
 
-# {{ category_emoticon }} {{ category|title }}
-
-<img src="../../assets/logo_and_name.png" alt="drawing" width="300"/>
-
-{{ category_description }}
-
-🔴 Read [Getting Started](/bigfunctions/getting_started/) before using! 🔴
-
 ---
+
+## {{ category_emoticon }} {{ category|title }}
+
+!!! note ""
+
+    {{ category_description|replace('\n', '\n    ') }}
+
+    🔴 Read [Getting Started](/bigfunctions/getting_started/) before using! 🔴
 
 ''')
 
@@ -90,12 +95,12 @@ def generate_bigfunctions_category_page(category, category_emoticon, category_de
             regions=REGIONS_TO_DISPLAY,
             **conf,
         )
-        documentation = re.sub(r'###\s*(.*)', r'<h3>\g<1></h3>', documentation)
+        # documentation = re.sub(r'###\s*(.*)', r'<h3>\g<1></h3>', documentation)
         documentations.append(documentation)
 
 
     header = CATEGORY_PAGE_HEADER_TEMPLATE.render(category=category, category_emoticon=category_emoticon, category_description=category_description)
-    with open(output_filename, 'w', encoding='utf-8') as out:
+    with open('site/content/reference/index.md', 'a', encoding='utf-8') as out:
         out.write(header)
         out.write('\n\n\n'.join(documentations))
 
