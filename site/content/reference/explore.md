@@ -8,7 +8,7 @@
 
 They make computations on BigQuery and display the results as data-vizualizations directly in BigQuery console.
 
-⚠️ *To see the data-vizualisation in BigQuery Console make sure you read [Getting Started](/docs/get_started/)!*
+⚠️ *To see the data-vizualisation in BigQuery Console make sure you read [Getting Started](/getting_started/)!*
 
 ---
 

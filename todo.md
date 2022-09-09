@@ -1,8 +1,0 @@
-- Bouton export
-- pouvoir choisir tes colonnes
-- tuto bookmarlet
-- fonctions pour null, duplicates
-- ouvrir dans un nouvel onglet
-- pérenniser l'affichage dans bigquery
-- pouvoir partager à d'autres personnes.
-- nunjucks calculé dans l'outil

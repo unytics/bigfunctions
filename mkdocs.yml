@@ -21,7 +21,7 @@ theme:
     - toc.integrate
     - navigation.tabs
     - navigation.tracking
-    # - navigation.indexes
+    - navigation.indexes
     - navigation.hide
     - navigation.expand
 
@@ -37,9 +37,11 @@ markdown_extensions:
 plugins: []
 nav:
   - Home: index.md
-  - Documentation:
-    - Getting Started: docs/get_started.md
-    - Explore: docs/explore.md
-    - Utils: docs/utils.md
-    - Troubleshooting: docs/troubleshooting.md
+  - BigFunctions:
+    - reference/index.md
+    - Explore: reference/explore.md
+    - Utils: reference/utils.md
+    - Troubleshooting: reference/troubleshooting.md
+  - Getting Started:
+    - getting_started/index.md
 

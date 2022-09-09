@@ -15,7 +15,7 @@ HEADER_EXPLORE = '''
 
 They make computations on BigQuery and display the results as data-vizualizations directly in BigQuery console.
 
-⚠️ *To see the data-vizualisation in BigQuery Console make sure you read [Getting Started](/docs/get_started/)!*
+⚠️ *To see the data-vizualisation in BigQuery Console make sure you read [Getting Started](/getting_started/)!*
 
 ---
 
@@ -29,7 +29,7 @@ HEADER_UTILS = '''
 
 **"Utils" BigFunctions** used by other BigFunctions.
 
-⚠️ *To see the data-vizualisation in BigQuery Console make sure you read [Getting Started](/docs/get_started/)!*
+⚠️ *To see the data-vizualisation in BigQuery Console make sure you read [Getting Started](/getting_started/)!*
 
 ---
 
@@ -68,5 +68,5 @@ def generate_doc(bigfunctions_filenames, output_header, output_filename):
         out.write(documentation)
 
 
-generate_doc(sorted([f for f in os.listdir('bigfunctions') if f.startswith('explore_')]), HEADER_EXPLORE, 'site/content/docs/explore.md')
-generate_doc(sorted([f for f in os.listdir('bigfunctions') if not f.startswith('explore_')]), HEADER_UTILS, 'site/content/docs/utils.md')
+generate_doc(sorted([f for f in os.listdir('bigfunctions') if f.startswith('explore_')]), HEADER_EXPLORE, 'site/content/reference/explore.md')
+generate_doc(sorted([f for f in os.listdir('bigfunctions') if not f.startswith('explore_')]), HEADER_UTILS, 'site/content/reference/utils.md')

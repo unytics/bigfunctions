@@ -1,6 +1,8 @@
+# Getting Started
+
 ---
 
-<img src="../../assets/logo_and_name.png" alt="drawing" width="300"/>
+<img src="../assets/logo_and_name.png" alt="drawing" width="300"/>
 
 > BigFunctions are public BigQuery routines that give you **super-SQL-powers** in BigQuery 💪.
 >

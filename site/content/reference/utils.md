@@ -6,7 +6,7 @@
 
 **"Utils" BigFunctions** used by other BigFunctions.
 
-⚠️ *To see the data-vizualisation in BigQuery Console make sure you read [Getting Started](/docs/get_started/)!*
+⚠️ *To see the data-vizualisation in BigQuery Console make sure you read [Getting Started](/getting_started/)!*
 
 ---
 
