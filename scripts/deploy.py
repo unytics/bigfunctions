@@ -19,12 +19,12 @@ def deploy(fully_qualified_bigfunction):
         conf['code'] += f'''
             create or replace temp table bigfunction_result as
             select
-                (select output_json from bigfunction_result) as output_json,
+                (select json from bigfunction_result) as json,
                 (select {dataset}.render_string(
                     """
                     {conf['template']}
                     """,
-                    to_json_string(output_json)
+                    to_json_string(json)
                 )
                 from bigfunction_result) as html
             ;

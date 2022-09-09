@@ -30,7 +30,7 @@ code: |
   '{{table}}', table
   );
 
-  create or replace temp table column_results (output_json JSON, html STRING);
+  create or replace temp table column_results (json JSON, html STRING);
 
   for column in (select * from columns)
   do
@@ -43,7 +43,7 @@ code: |
           '{{column}}', column.column_name
         )
       );
-      insert into column_results select output_json, html from bigfunction_result;
+      insert into column_results select json, html from bigfunction_result;
   end for;
 
 
@@ -65,9 +65,9 @@ code: |
   create or replace temp table bigfunction_result as
   select to_json(struct(
     table_infos as table,
-    (select array_agg(output_json) from column_results) as columns,
+    (select array_agg(json) from column_results) as columns,
     (select array_to_string(array_agg(html), '') from column_results) as columns_html
-  )) as output_json;
+  )) as json;
 template: |
   <div class="container">
     <div class="columns">

@@ -44,7 +44,7 @@ code: |
 
       select to_json (struct(
         (select array_agg(struct(tables).tables) from tables) as tables
-      )) as output_json
+      )) as json
     ''',
     '{{project}}', project),
     '{{dataset}}', dataset

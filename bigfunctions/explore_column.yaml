@@ -134,7 +134,7 @@ code: |
       (select {BIGFUNCTIONS_DATASET}.chart(hist.hist, 'bar', 'value_count') from hist) as hist_html,
       (select {BIGFUNCTIONS_DATASET}.chart(top_values_hist.hist, 'bar', 'value_count') from top_values_hist) as top_values_hist_html,
       (select array_agg(struct(top_values).top_values order by top_values.value_count desc) from top_values) as top_values
-    )) as output_json;
+    )) as json;
   ''',
   '{{project}}', project),
   '{{dataset}}', dataset),
