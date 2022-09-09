@@ -29,280 +29,218 @@ BigQuery routines must be located at the same location as your data. Otherwise t
 === "`your_dataset` is in EU"
 
     ```sql
-    declare output JSON;
-
-    call bigfunctions.eu.explore_table("your-project.your_dataset.your_table", output);
-    select string(output.html);
+    call bigfunctions.eu.explore_table("your-project.your_dataset.your_table");
+    select html from bigfunction_result;
     ```
 
 === "`your_dataset` is in US"
 
     ```sql
-    declare output JSON;
-
-    call bigfunctions.us.explore_table("your-project.your_dataset.your_table", output);
-    select string(output.html);
+    call bigfunctions.us.explore_table("your-project.your_dataset.your_table");
+    select html from bigfunction_result;
     ```
 
 === "`your_dataset` is in asia-east1"
 
     ```sql
-    declare output JSON;
-
-    call bigfunctions.asia_east1.explore_table("your-project.your_dataset.your_table", output);
-    select string(output.html);
+    call bigfunctions.asia_east1.explore_table("your-project.your_dataset.your_table");
+    select html from bigfunction_result;
     ```
 
 === "`your_dataset` is in asia-east2"
 
     ```sql
-    declare output JSON;
-
-    call bigfunctions.asia_east2.explore_table("your-project.your_dataset.your_table", output);
-    select string(output.html);
+    call bigfunctions.asia_east2.explore_table("your-project.your_dataset.your_table");
+    select html from bigfunction_result;
     ```
 
 === "`your_dataset` is in asia-northeast1"
 
     ```sql
-    declare output JSON;
-
-    call bigfunctions.asia_northeast1.explore_table("your-project.your_dataset.your_table", output);
-    select string(output.html);
+    call bigfunctions.asia_northeast1.explore_table("your-project.your_dataset.your_table");
+    select html from bigfunction_result;
     ```
 
 === "`your_dataset` is in asia-northeast2"
 
     ```sql
-    declare output JSON;
-
-    call bigfunctions.asia_northeast2.explore_table("your-project.your_dataset.your_table", output);
-    select string(output.html);
+    call bigfunctions.asia_northeast2.explore_table("your-project.your_dataset.your_table");
+    select html from bigfunction_result;
     ```
 
 === "`your_dataset` is in asia-northeast3"
 
     ```sql
-    declare output JSON;
-
-    call bigfunctions.asia_northeast3.explore_table("your-project.your_dataset.your_table", output);
-    select string(output.html);
+    call bigfunctions.asia_northeast3.explore_table("your-project.your_dataset.your_table");
+    select html from bigfunction_result;
     ```
 
 === "`your_dataset` is in asia-south1"
 
     ```sql
-    declare output JSON;
-
-    call bigfunctions.asia_south1.explore_table("your-project.your_dataset.your_table", output);
-    select string(output.html);
+    call bigfunctions.asia_south1.explore_table("your-project.your_dataset.your_table");
+    select html from bigfunction_result;
     ```
 
 === "`your_dataset` is in asia-south2"
 
     ```sql
-    declare output JSON;
-
-    call bigfunctions.asia_south2.explore_table("your-project.your_dataset.your_table", output);
-    select string(output.html);
+    call bigfunctions.asia_south2.explore_table("your-project.your_dataset.your_table");
+    select html from bigfunction_result;
     ```
 
 === "`your_dataset` is in asia-southeast1"
 
     ```sql
-    declare output JSON;
-
-    call bigfunctions.asia_southeast1.explore_table("your-project.your_dataset.your_table", output);
-    select string(output.html);
+    call bigfunctions.asia_southeast1.explore_table("your-project.your_dataset.your_table");
+    select html from bigfunction_result;
     ```
 
 === "`your_dataset` is in asia-southeast2"
 
     ```sql
-    declare output JSON;
-
-    call bigfunctions.asia_southeast2.explore_table("your-project.your_dataset.your_table", output);
-    select string(output.html);
+    call bigfunctions.asia_southeast2.explore_table("your-project.your_dataset.your_table");
+    select html from bigfunction_result;
     ```
 
 === "`your_dataset` is in australia-southeast1"
 
     ```sql
-    declare output JSON;
-
-    call bigfunctions.australia_southeast1.explore_table("your-project.your_dataset.your_table", output);
-    select string(output.html);
+    call bigfunctions.australia_southeast1.explore_table("your-project.your_dataset.your_table");
+    select html from bigfunction_result;
     ```
 
 === "`your_dataset` is in australia-southeast2"
 
     ```sql
-    declare output JSON;
-
-    call bigfunctions.australia_southeast2.explore_table("your-project.your_dataset.your_table", output);
-    select string(output.html);
+    call bigfunctions.australia_southeast2.explore_table("your-project.your_dataset.your_table");
+    select html from bigfunction_result;
     ```
 
 === "`your_dataset` is in europe-central2"
 
     ```sql
-    declare output JSON;
-
-    call bigfunctions.europe_central2.explore_table("your-project.your_dataset.your_table", output);
-    select string(output.html);
+    call bigfunctions.europe_central2.explore_table("your-project.your_dataset.your_table");
+    select html from bigfunction_result;
     ```
 
 === "`your_dataset` is in europe-north1"
 
     ```sql
-    declare output JSON;
-
-    call bigfunctions.europe_north1.explore_table("your-project.your_dataset.your_table", output);
-    select string(output.html);
+    call bigfunctions.europe_north1.explore_table("your-project.your_dataset.your_table");
+    select html from bigfunction_result;
     ```
 
 === "`your_dataset` is in europe-west1"
 
     ```sql
-    declare output JSON;
-
-    call bigfunctions.europe_west1.explore_table("your-project.your_dataset.your_table", output);
-    select string(output.html);
+    call bigfunctions.europe_west1.explore_table("your-project.your_dataset.your_table");
+    select html from bigfunction_result;
     ```
 
 === "`your_dataset` is in europe-west2"
 
     ```sql
-    declare output JSON;
-
-    call bigfunctions.europe_west2.explore_table("your-project.your_dataset.your_table", output);
-    select string(output.html);
+    call bigfunctions.europe_west2.explore_table("your-project.your_dataset.your_table");
+    select html from bigfunction_result;
     ```
 
 === "`your_dataset` is in europe-west3"
 
     ```sql
-    declare output JSON;
-
-    call bigfunctions.europe_west3.explore_table("your-project.your_dataset.your_table", output);
-    select string(output.html);
+    call bigfunctions.europe_west3.explore_table("your-project.your_dataset.your_table");
+    select html from bigfunction_result;
     ```
 
 === "`your_dataset` is in europe-west4"
 
     ```sql
-    declare output JSON;
-
-    call bigfunctions.europe_west4.explore_table("your-project.your_dataset.your_table", output);
-    select string(output.html);
+    call bigfunctions.europe_west4.explore_table("your-project.your_dataset.your_table");
+    select html from bigfunction_result;
     ```
 
 === "`your_dataset` is in europe-west6"
 
     ```sql
-    declare output JSON;
-
-    call bigfunctions.europe_west6.explore_table("your-project.your_dataset.your_table", output);
-    select string(output.html);
+    call bigfunctions.europe_west6.explore_table("your-project.your_dataset.your_table");
+    select html from bigfunction_result;
     ```
 
 === "`your_dataset` is in northamerica-northeast1"
 
     ```sql
-    declare output JSON;
-
-    call bigfunctions.northamerica_northeast1.explore_table("your-project.your_dataset.your_table", output);
-    select string(output.html);
+    call bigfunctions.northamerica_northeast1.explore_table("your-project.your_dataset.your_table");
+    select html from bigfunction_result;
     ```
 
 === "`your_dataset` is in northamerica-northeast2"
 
     ```sql
-    declare output JSON;
-
-    call bigfunctions.northamerica_northeast2.explore_table("your-project.your_dataset.your_table", output);
-    select string(output.html);
+    call bigfunctions.northamerica_northeast2.explore_table("your-project.your_dataset.your_table");
+    select html from bigfunction_result;
     ```
 
 === "`your_dataset` is in southamerica-east1"
 
     ```sql
-    declare output JSON;
-
-    call bigfunctions.southamerica_east1.explore_table("your-project.your_dataset.your_table", output);
-    select string(output.html);
+    call bigfunctions.southamerica_east1.explore_table("your-project.your_dataset.your_table");
+    select html from bigfunction_result;
     ```
 
 === "`your_dataset` is in southamerica-west1"
 
     ```sql
-    declare output JSON;
-
-    call bigfunctions.southamerica_west1.explore_table("your-project.your_dataset.your_table", output);
-    select string(output.html);
+    call bigfunctions.southamerica_west1.explore_table("your-project.your_dataset.your_table");
+    select html from bigfunction_result;
     ```
 
 === "`your_dataset` is in us-central1"
 
     ```sql
-    declare output JSON;
-
-    call bigfunctions.us_central1.explore_table("your-project.your_dataset.your_table", output);
-    select string(output.html);
+    call bigfunctions.us_central1.explore_table("your-project.your_dataset.your_table");
+    select html from bigfunction_result;
     ```
 
 === "`your_dataset` is in us-east1"
 
     ```sql
-    declare output JSON;
-
-    call bigfunctions.us_east1.explore_table("your-project.your_dataset.your_table", output);
-    select string(output.html);
+    call bigfunctions.us_east1.explore_table("your-project.your_dataset.your_table");
+    select html from bigfunction_result;
     ```
 
 === "`your_dataset` is in us-east4"
 
     ```sql
-    declare output JSON;
-
-    call bigfunctions.us_east4.explore_table("your-project.your_dataset.your_table", output);
-    select string(output.html);
+    call bigfunctions.us_east4.explore_table("your-project.your_dataset.your_table");
+    select html from bigfunction_result;
     ```
 
 === "`your_dataset` is in us-west1"
 
     ```sql
-    declare output JSON;
-
-    call bigfunctions.us_west1.explore_table("your-project.your_dataset.your_table", output);
-    select string(output.html);
+    call bigfunctions.us_west1.explore_table("your-project.your_dataset.your_table");
+    select html from bigfunction_result;
     ```
 
 === "`your_dataset` is in us-west2"
 
     ```sql
-    declare output JSON;
-
-    call bigfunctions.us_west2.explore_table("your-project.your_dataset.your_table", output);
-    select string(output.html);
+    call bigfunctions.us_west2.explore_table("your-project.your_dataset.your_table");
+    select html from bigfunction_result;
     ```
 
 === "`your_dataset` is in us-west3"
 
     ```sql
-    declare output JSON;
-
-    call bigfunctions.us_west3.explore_table("your-project.your_dataset.your_table", output);
-    select string(output.html);
+    call bigfunctions.us_west3.explore_table("your-project.your_dataset.your_table");
+    select html from bigfunction_result;
     ```
 
 === "`your_dataset` is in us-west4"
 
     ```sql
-    declare output JSON;
-
-    call bigfunctions.us_west4.explore_table("your-project.your_dataset.your_table", output);
-    select string(output.html);
+    call bigfunctions.us_west4.explore_table("your-project.your_dataset.your_table");
+    select html from bigfunction_result;
     ```
 
 

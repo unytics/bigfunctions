@@ -20,11 +20,8 @@
 {% if regions|length > 1 %}=== "{{ region }}"{% endif %}
 
 {% if regions|length > 1 %}    {% endif %}```sql
-{% for output in outputs %}
-{% if regions|length > 1 %}    {% endif %}declare {{ output.name }} {{ output.type }};
-{% endfor %}
-{% if regions|length > 1 %}    {% endif %}call bigfunctions.{{region | replace('-', '_') | lower }}.{{ name }}({% for argument in example.arguments %}{{ argument | replace('{{region}}', region) }}{% if not loop.last %}, {% endif %}{% endfor %}{% for output in outputs %}, {{ output.name }}{% endfor %});
-{% if regions|length > 1 %}    {% endif %}{% if template %}select string(output.html);{% endif %}
+{% if regions|length > 1 %}    {% endif %}call bigfunctions.{{region | replace('-', '_') | lower }}.{{ name }}({% for argument in example.arguments %}{{ argument | replace('{{region}}', region) }}{% if not loop.last %}, {% endif %}{% endfor %});
+{% if regions|length > 1 %}    {% endif %}{% if template %}select html from bigfunction_result;{% endif %}
 {% if regions|length > 1 %}    {% endif %}```
 
 {% endfor %}

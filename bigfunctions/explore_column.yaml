@@ -1,12 +1,9 @@
 type: procedure
-usage: explore_column(fully_qualified_column, output)
+usage: explore_column(fully_qualified_column)
 description: Show column statistics
 arguments:
   - name: fully_qualified_column
     type: STRING
-outputs:
-  - name: output
-    type: JSON
 examples:
   - description: ""
     arguments:
@@ -41,6 +38,8 @@ code: |
 
 
   execute immediate replace(replace(replace(replace(replace(replace(replace(replace('''
+    create or replace temp table bigfunction_result as
+
     with
 
     stats as (
@@ -135,7 +134,7 @@ code: |
       (select {BIGFUNCTIONS_DATASET}.chart(hist.hist, 'bar', 'value_count') from hist) as hist_html,
       (select {BIGFUNCTIONS_DATASET}.chart(top_values_hist.hist, 'bar', 'value_count') from top_values_hist) as top_values_hist_html,
       (select array_agg(struct(top_values).top_values order by top_values.value_count desc) from top_values) as top_values
-    ))
+    )) as output_json;
   ''',
   '{{project}}', project),
   '{{dataset}}', dataset),
@@ -145,7 +144,7 @@ code: |
   '{{data_type}}', data_type),
   '{{nbins}}', nbins),
   '{{nbins_top_values}}', nbins_top_values
-  ) into output;
+  );
 template: |
   <div class="container">
     <div class="box">

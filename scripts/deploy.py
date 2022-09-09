@@ -17,15 +17,17 @@ def deploy(fully_qualified_bigfunction):
 
     if 'template' in conf:
         conf['code'] += f'''
-            set output = to_json(struct(
-                output as json,
-                {dataset}.render_string(
+            create or replace temp table bigfunction_result as
+            select
+                (select output_json from bigfunction_result) as output_json,
+                (select {dataset}.render_string(
                     """
                     {conf['template']}
                     """,
-                    to_json_string(output)
-                ) as html
-            ));
+                    to_json_string(output_json)
+                )
+                from bigfunction_result) as html
+            ;
         '''
     conf['libraries'] = [
         {
@@ -44,6 +46,7 @@ def deploy(fully_qualified_bigfunction):
         filename=filename,
         **conf,
     )
+    print(query)
     BQ.query(query).result()
     print('successfully created', fully_qualified_bigfunction)
 
