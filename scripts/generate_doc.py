@@ -12,12 +12,7 @@ hide:
   - navigation
 ---
 
-#
-
 !!! note ""
-
-
-    <img src="../assets/logo_and_name.png" alt="drawing" width="300"/>
 
     BigFunctions are public BigQuery routines that give you **super-SQL-powers** in BigQuery 💪.
 
@@ -29,10 +24,13 @@ hide:
     {{ category_conf.description|replace('\n', '')|replace('*', '') }}
 
     {% for name, conf in category_conf.bigfunctions.items() -%}
-    - [<code>{{ conf.usage }}</code>]({{ category }}/#{{ name }}): {{ conf.description }}
+    - [<code>{{ conf.usage }}</code>](#{{ name }}): {{ conf.description }}
     {% endfor %}
 
     {% endfor %}
+
+    **🔴 Before using see --> [Getting Started](/bigfunctions/getting_started/)**
+
 
 ''')
 
@@ -47,8 +45,6 @@ CATEGORY_PAGE_HEADER_TEMPLATE = jinja2.Template('''
 !!! note ""
 
     {{ category_description|replace('\n', '\n    ') }}
-
-    🔴 Read [Getting Started](/bigfunctions/getting_started/) before using! 🔴
 
 ''')
 
@@ -67,7 +63,7 @@ CATEGORIES = {
     },
     'utils': {
         'emoticon': '🔨',
-        'description': '**"Utils" BigFunctions** used by other BigFunctions.',
+        'description': '**"Utils" BigFunctions** are tools used by other BigFunctions.',
         'bigfunctions': {
             f.replace('.yaml', ''): yaml.safe_load(open(f'bigfunctions/{f}', encoding='utf-8').read())
             for f in sorted([f for f in os.listdir('bigfunctions') if not f.startswith('explore_')])

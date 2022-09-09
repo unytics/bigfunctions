@@ -1,26 +1,27 @@
+---
+hide:
+  - navigation
+---
+
 # Getting Started
 
----
+!!! note ""
 
-<img src="../assets/logo_and_name.png" alt="drawing" width="300"/>
+    BigFunctions are public BigQuery routines that give you **super-SQL-powers** in BigQuery 💪.
 
-> BigFunctions are public BigQuery routines that give you **super-SQL-powers** in BigQuery 💪.
->
-> Below are **7 must know** to use them:
->
-> 1. BigFunctions location is important
-> 2. Use BigFunctions button to see results as data-vizualizations
-> 3. BigFunctions can take some time
-> 4. Beware of BigQuery costs
-> 5. We log BigFunctions executions
-> 6. BigFunctions are open
-> 7. Please help us & make suggestions --> contact@unytics.io
+    There are **7 must know** to use them:
+
+    1. Location is important
+    2. Unlock data-vizualizations!
+    3. Be patient
+    4. Beware of BigQuery costs
+    5. We log executions
+    6. BigFunctions are open
+    7. Please help us & make suggestions --> contact@unytics.io
 
 
----
 
-
-## 1. BigFunctions location is important.
+## 🌍 Location is important
 
 BigQuery routines must be located at the same location as your data. Otherwise the BigFunction OR your data will not be found by BigQuery. To explore your table `your-project.your_dataset.your_table` use one of the following commands regarding the location of `your_dataset`:
 
@@ -309,7 +310,7 @@ BigQuery routines must be located at the same location as your data. Otherwise t
 ---
 
 
-## 2. Use BigFunctions button to see results as data-vizualizations
+## 👀 Unlock data-vizualizations!
 
 Some BigFunctions return some html that can be transformed in data-vizualizations. To see the data-vizualization you must:
 
@@ -332,21 +333,21 @@ Some BigFunctions return some html that can be transformed in data-vizualization
 <a href="../../assets/images/bookmarklet_use.gif"><img alt="install_bookmarklet" src="../../assets/images/bookmarklet_use.gif" style="border: var(--md-code-bg-color) solid 1rem; width: 100%; margin-top: 2rem;"></a>
 
 
-## 3. BigFunctions can take some time
+## ⌛ Be patient
 
 For instance `explore_table` can take several minutes to compute the statistics of the table. The reason is that it computes multiple queries for each column.
 
 
-## 4. Beware of BigQuery costs
+## 💰 Beware of BigQuery costs
 
 BigFunctions make BigQuery queries from your project so incur costs like any BigQuery query. For instance, `explore_table` function incurs a full-scan of your table. Consider creating smaller tables by sampling large ones if needed to use them with BigFunctions.
 
 
-## 5. We log BigFunctions executions
+## 📝 We log executions
 
-We log BigFunctions executions with: timestamp of execution, name of executed BigFunction and the user email who executed them. We may use these data to know about service usage, for troubleshooting and to send emails with news about the project. We will never share these emails to anyone. If this seem unfair to you please contact contact@unytics.io.
+We log executions with: timestamp of execution, name of executed BigFunction and the user email who executed them. We may use these data to know about service usage, for troubleshooting and to send emails with news about the project. We will never share these emails to anyone. If this seem unfair to you please contact contact@unytics.io.
 
 
-## 6. BigFunctions are open
+## 😮 BigFunctions are open
 
 You can inspect the source code of any deployed SQL and js function at any time by pinning the `bigfunctions` project in BigQuery console and exploring routines. What's more you will find the github link to each BigFunction configuration file in the documentation.

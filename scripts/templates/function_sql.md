@@ -27,3 +27,5 @@
 {% if example.screenshot %}<a href="../assets/images/{{ example.screenshot }}"><img alt="screenshot" src="../assets/images/{{ example.screenshot }}" style="border: var(--md-code-bg-color) solid 1rem; margin-top: -1rem; width: 100%"></a>{% endif %}
 {% endfor %}
 
+
+---
