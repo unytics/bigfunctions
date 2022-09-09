@@ -1,5 +1,5 @@
 site_name: BigFunctions
-site_description: 'Supercharge your BigQuery.'
+site_description: 'Supercharge BigQuery with BigFunctions.'
 site_url: 'https://unytics.io/bigfunctions/'
 repo_name: 'unytics/bigfunctions'
 repo_url: 'https://github.com/unytics/bigfunctions'
@@ -24,7 +24,6 @@ theme:
     - navigation.indexes
     - navigation.hide
     - navigation.expand
-
 
 markdown_extensions:
   - attr_list

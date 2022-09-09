@@ -48,3 +48,7 @@ span.version {
   -webkit-mask-image: var(--md-admonition-icon--abstract);
           mask-image: var(--md-admonition-icon--abstract);
 }
+
+.md-typeset__table {
+   min-width: 100%;
+}
