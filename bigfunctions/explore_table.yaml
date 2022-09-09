@@ -1,12 +1,9 @@
 type: procedure
-usage: explore_table(fully_qualified_table, output)
+usage: explore_table(fully_qualified_table)
 description: Show table infos and columns statistics
 arguments:
   - name: fully_qualified_table
     type: STRING
-outputs:
-  - name: output
-    type: JSON
 examples:
   - description: ""
     arguments:
@@ -15,9 +12,6 @@ examples:
     screenshot: explore_column.png
 code: |
   declare project, dataset, table, query string;
-  declare column_result json;
-  declare columns_json array<json> default [];
-  declare columns_html array<string> default [];
   declare table_infos json;
 
   declare parts array<string> default split(replace(fully_qualified_table, '`', ''), '.');
@@ -36,6 +30,8 @@ code: |
   '{{table}}', table
   );
 
+  create or replace temp table column_results (output_json JSON, html STRING);
+
   for column in (select * from columns)
   do
       call {BIGFUNCTIONS_DATASET}.explore_column(
@@ -45,12 +41,9 @@ code: |
           '{{dataset}}', dataset),
           '{{table}}', table),
           '{{column}}', column.column_name
-        ),
-        column_result
+        )
       );
-
-      set columns_json = array_concat(columns_json, [column_result.json]);
-      set columns_html = array_concat(columns_html, [string(column_result.html)]);
+      insert into column_results select output_json, html from bigfunction_result;
   end for;
 
 
@@ -69,11 +62,12 @@ code: |
   '{{table}}', table
   ) into table_infos;
 
-  set output = to_json(struct(
+  create or replace temp table bigfunction_result as
+  select to_json(struct(
     table_infos as table,
-    columns_json as columns,
-    array_to_string(columns_html, '') as columns_html
-  ));
+    (select array_agg(output_json) from column_results) as columns,
+    (select array_to_string(array_agg(html), '') from column_results) as columns_html
+  )) as output_json;
 template: |
   <div class="container">
     <div class="columns">
