@@ -1,6 +1,6 @@
 type: procedure
-usage: explore_table(fully_qualified_table)
-description: Show table infos and columns statistics
+usage: explore_table_fast(fully_qualified_table)
+description: Same as explore_table but much faster though and with code less readable
 arguments:
   - name: fully_qualified_table
     type: STRING
@@ -194,26 +194,26 @@ template: |
       <div class="columns">
         <div class="column is-one-quarter">
           <table class="table is-narrow">
-            {% if data_type not in ['STRING', 'BOOL'] %}
+            {% if col.data_type not in ['STRING', 'BOOL'] %}
               <tr><th class="has-text-weight-bold">min           </th><td>{{ col.stats.min            | add_thousands_separators_to_integers }}</td></tr>
               <tr><th class="has-text-weight-bold">mean          </th><td>{{ col.stats.mean           | add_thousands_separators_to_integers }}</td></tr>
               <tr><th class="has-text-weight-bold">max           </th><td>{{ col.stats.max            | add_thousands_separators_to_integers }}</td></tr>
             {% endif %}
-            {% if data_type != 'BOOL' %}
+            {% if col.data_type != 'BOOL' %}
               <tr><th class="has-text-weight-bold">distinct_count</th><td>{{ col.stats.distinct_count | add_thousands_separators_to_integers }}</td></tr>
-              {% if stats.distinct_ratio > 0.001 %}
-                <tr><th class="has-text-weight-bold">distinct_ratio</th><td {% if stats.distinct_ratio == 1 %}class="has-background-success-light"{% elif stats.distinct_ratio > 0.9 %}class="has-background-danger-light"{% endif %}>{{ col.stats.distinct_ratio | as_percentage }}</td></tr>
+              {% if col.stats.distinct_ratio > 0.001 %}
+                <tr><th class="has-text-weight-bold">distinct_ratio</th><td {% if col.stats.distinct_ratio == 1 %}class="has-background-success-light"{% elif stats.distinct_ratio > 0.9 %}class="has-background-danger-light"{% endif %}>{{ col.stats.distinct_ratio | as_percentage }}</td></tr>
               {% endif %}
             {% endif %}
-            <tr><th class="has-text-weight-bold">missing_count </th><td {% if stats.missing_ratio == 0 %}class="has-background-success-light"{% endif %}>{{ col.stats.missing_count  | add_thousands_separators_to_integers }}</td></tr>
-            {% if stats.missing_count != 0 %}
+            <tr><th class="has-text-weight-bold">missing_count </th><td {% if col.stats.missing_ratio == 0 %}class="has-background-success-light"{% endif %}>{{ col.stats.missing_count  | add_thousands_separators_to_integers }}</td></tr>
+            {% if col.stats.missing_count != 0 %}
               <tr><th class="has-text-weight-bold">missing_ratio </th><td class="has-background-danger-light">{{ col.stats.missing_ratio  | as_percentage }}</td></tr>
             {% endif %}
             <tr><th class="has-text-weight-bold">row_count     </th><td>{{ col.stats.row_count      | add_thousands_separators_to_integers }}</td></tr>
           </table>
         </div>
         <div class="column">
-          {% if data_type in ['STRING', 'BOOL'] %}
+          {% if col.data_type in ['STRING', 'BOOL'] %}
             {{ col.top_values_hist_html|safe }}
           {% else %}
             {{ col.hist_html|safe }}
