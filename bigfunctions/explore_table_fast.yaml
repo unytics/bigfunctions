@@ -143,11 +143,11 @@ code: |
       (
         select array_agg(column_query) 
         from unnest(columns_queries) column_query 
-        with offset as off where off >= ite * 5 and off < (ite + 1) * 5
+        with offset as off where off >= ite * 4 and off < (ite + 1) * 4
       ), 
       '\n union all \n'
     );
-    if (ite + 1) * 5 > array_length(columns_queries) then leave; end if;
+    if (ite + 1) * 4 > array_length(columns_queries) then leave; end if;
     set ite = ite + 1;
   end loop;
 
