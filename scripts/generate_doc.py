@@ -61,12 +61,23 @@ CATEGORIES = {
             for f in sorted([f for f in os.listdir('bigfunctions') if f.startswith('explore_')])
         },
     },
+    'transform': {
+        'emoticon': '✨',
+        'description': (
+            '**"Transform" BigFunctions transform data**.\n\n'
+            'Get ready to be amazed.'
+        ),
+        'bigfunctions': {
+            f.replace('.yaml', ''): yaml.safe_load(open(f'bigfunctions/{f}', encoding='utf-8').read())
+            for f in sorted([f for f in os.listdir('bigfunctions') if f.startswith('transform_')])
+        },
+    },
     'utils': {
         'emoticon': '🔨',
         'description': '**"Utils" BigFunctions** are tools used by other BigFunctions.',
         'bigfunctions': {
             f.replace('.yaml', ''): yaml.safe_load(open(f'bigfunctions/{f}', encoding='utf-8').read())
-            for f in sorted([f for f in os.listdir('bigfunctions') if not f.startswith('explore_')])
+            for f in sorted([f for f in os.listdir('bigfunctions') if not f.startswith('explore_') and not f.startswith('transform_')])
         },
     },
 }
