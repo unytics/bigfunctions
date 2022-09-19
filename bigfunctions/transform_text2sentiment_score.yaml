@@ -1,0 +1,29 @@
+type: function_py
+usage: transform_text2sentiment_score(content)
+description: Compute text sentiment score
+arguments:
+  - name: content
+    type: STRING
+output:
+  name: sentiment_score
+  type: FLOAT64
+examples:
+  - description: ""
+    arguments:
+      - "'BigFunctions Rock!'"
+    output: |
+      +------------------+
+      | sentiment_score  |
+      +------------------+
+      | 0.945            |
+      +------------------+
+    region: ALL
+code: |
+  import google.cloud.language_v1 as language
+  language_client = language.LanguageServiceClient()
+  document = language.Document(content=content, type_=language.Document.Type.PLAIN_TEXT)
+  request = language.AnalyzeSentimentRequest(document=document)
+  sentiment = language_client.analyze_sentiment(request=request).document_sentiment
+  return sentiment.score
+requirements: |
+  google-cloud-language
