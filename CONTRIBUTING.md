@@ -1,6 +1,6 @@
 # Contribute to BigFunctions
 
-BigFunctions is an open-source project administered by the Unytics team. We appreciate your interest and efforts to contribute to BigFunctions. See the [LICENSE](https://github.com/unytics/bigfunctions/blob/main/LICENCE) licensing information. All work done is available on GitHub.
+BigFunctions is an open-source project administered by the Unytics team. We appreciate your interest and efforts to contribute to BigFunctions. See the [LICENSE](https://github.com/unytics/bigfunctions/blob/main/LICENSE) licensing information. All work done is available on GitHub.
 
 We highly appreciate your effort to contribute, but we recommend you talk to us through [slack](https://join.slack.com/t/bigfunctions/shared_invite/zt-1gbv491mu-cs03EJbQ1fsHdQMcFN7E1Q) before spending a lot of time making a pull request that may not align with the project roadmap. If slack does not work, contact us at [contact@unytics.io](mailto:contact@unytics.io).
 
