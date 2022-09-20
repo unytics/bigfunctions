@@ -5,6 +5,7 @@ import yaml
 import jinja2
 
 REGIONS_TO_DISPLAY = ['EU', 'US', 'europe-west1', 'your-region2']
+REPO = 'https://github.com/unytics/bigfunctions'
 
 
 INDEX_PAGE_TEMPLATE= jinja2.Template('''---
@@ -100,6 +101,7 @@ def generate_bigfunctions_category_page(category, category_emoticon, category_de
         template = f'scripts/templates/{conf["type"]}.md'
         documentation = jinja2.Template(open(template, encoding='utf-8').read()).render(
             regions=REGIONS_TO_DISPLAY,
+            repo=REPO,
             **conf,
         )
         # documentation = re.sub(r'###\s*(.*)', r'<h3>\g<1></h3>', documentation)
