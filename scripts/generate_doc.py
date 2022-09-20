@@ -73,12 +73,23 @@ CATEGORIES = {
             for f in sorted([f for f in os.listdir('bigfunctions') if f.startswith('transform_')])
         },
     },
+    'notify': {
+        'emoticon': '✨',
+        'description': (
+            '**"Notify" BigFunctions send notifications such as emails, chats, sms, etc**.\n\n'
+            'Spread the word to the world!'
+        ),
+        'bigfunctions': {
+            f.replace('.yaml', ''): yaml.safe_load(open(f'bigfunctions/{f}', encoding='utf-8').read())
+            for f in sorted([f for f in os.listdir('bigfunctions') if f.startswith('notify_')])
+        },
+    },
     'utils': {
         'emoticon': '🔨',
         'description': '**"Utils" BigFunctions** are tools used by other BigFunctions.',
         'bigfunctions': {
             f.replace('.yaml', ''): yaml.safe_load(open(f'bigfunctions/{f}', encoding='utf-8').read())
-            for f in sorted([f for f in os.listdir('bigfunctions') if not f.startswith('explore_') and not f.startswith('transform_')])
+            for f in sorted([f for f in os.listdir('bigfunctions') if not f.startswith('explore_') and not f.startswith('transform_') and not f.startswith('notify_')])
         },
     },
 }
