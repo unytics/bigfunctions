@@ -74,7 +74,7 @@ CATEGORIES = {
         },
     },
     'notify': {
-        'emoticon': '✨',
+        'emoticon': '💬',
         'description': (
             '**"Notify" BigFunctions send notifications such as emails, chats, sms, etc**.\n\n'
             'Spread the word to the world!'
