@@ -15,6 +15,11 @@ Feature Requests may concern the whole repo including:
 - improving the way the documentation is generated
 
 
+## BigFunctions Contribution Guidelines
+
+[TODO]
+
+
 ## Contributor License Agreement (CLA)
 
 ### Individual contribution
