@@ -64,9 +64,11 @@ def deploy(fully_qualified_bigfunction):
         os.system(deploy_command)
 
         add_invoker_role_command = f'gcloud run services add-iam-policy-binding {bigfunction.replace("_", "-")} --region europe-west1 --member=serviceAccount:bqcx-749389685934-ielt@gcp-sa-bigquery-condel.iam.gserviceaccount.com --role=roles/run.invoker'
+        print(f'giving invoker permission to connection service account with command `{add_invoker_role_command}`')
+        os.system(add_invoker_role_command)
 
         conf['remote_connection'] = '749389685934.eu.remote-bigfunctions'
-        conf['remote_endpoint'] = 'https://transform-text2sentiment-score-ccbxjzt67q-ew.a.run.app'
+        conf['remote_endpoint'] = f'https://{bigfunction.replace("_", "-")}-ccbxjzt67q-ew.a.run.app'
 
     template_file = f'scripts/templates/{conf["type"]}.sql'
     template = jinja2.Template(open(template_file, encoding='utf-8').read())
