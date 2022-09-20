@@ -7,7 +7,7 @@ We highly appreciate your effort to contribute, but we recommend you talk to us 
 
 ## Feature Requests
 
-Feature Requests by the community are highly encouraged. Feel free to submit a new one or upvote an existing feature request on ProductBoard (to come).
+Feature Requests by the community are highly encouraged. Feel free to submit a new one or upvote an existing feature request on ProductBoard [TODO].
 Feature Requests may concern the whole repo including:
 
 - creating or updating a BigFunction
@@ -19,7 +19,7 @@ Feature Requests may concern the whole repo including:
 
 ### Individual contribution
 
-You need to sign a Contributor License Agreement (CLA) to accept your pull request. You only need to do this once. If you submit a pull request for the first time, you can complete your CLA here (to come), or our CLA bot will automatically ask you to sign before merging the pull request.
+You need to sign a Contributor License Agreement (CLA) to accept your pull request. You only need to do this once. If you submit a pull request for the first time, you can complete your CLA here [TODO], or our CLA bot will automatically ask you to sign before merging the pull request.
 
 ### Company contribution
 
