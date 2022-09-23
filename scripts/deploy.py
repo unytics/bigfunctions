@@ -100,4 +100,3 @@ elif args.bigfunction.startswith('*.'):
 else:
     deploy(args.bigfunction)
 
-
