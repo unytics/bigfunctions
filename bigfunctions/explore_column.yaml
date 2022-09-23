@@ -151,13 +151,14 @@ code: |
       top_values as (
         select
           {% if data_type in ['TIMESTAMP', 'DATETIME'] %}
-            ifnull(cast(date(`{{column}}`) as string), 'NULL') as value,
+            cast(date(`{{column}}`) as string) as value,
           {% else %}
-            ifnull(cast(`{{column}}` as string), 'NULL') as value,
+            cast(`{{column}}` as string) as value,
           {% endif %}
           count(*) as value_count,
           count(*) * 1. / (select row_count from stats) as value_ratio,
         from `{{project}}.{{dataset}}.{{table}}`
+        where {{column}} is not null
         group by 1
         limit {{nbins_top_values}}
       ),
