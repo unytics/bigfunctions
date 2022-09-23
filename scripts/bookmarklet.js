@@ -1,8 +1,3 @@
-fetch('https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js').then((response) => response.text()).then((text) => {const script = document.createElement('script'); script.text = text; document.head.appendChild(script);});
-
-const bulma = document.createElement('link'); bulma.setAttribute('rel', 'stylesheet'); bulma.setAttribute('href', 'https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css'); document.head.appendChild(bulma);
-
-
 const setInnerHTML = function(elm, html) {
   elm.innerHTML = html;
   Array.from(elm.querySelectorAll('script')).forEach( oldScript => {
@@ -32,7 +27,8 @@ const renderHTML = function() {
     setInnerHTML(bq_results_table, html);
     console.log('bigfunctions: successfully replaced table content');
 };
-renderHTML();
 
 
-setInterval(renderHTML, 1000);
+fetch('https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js').then((response) => response.text()).then((text) => {const script = document.createElement('script'); script.text = text; document.head.appendChild(script); setInterval(renderHTML, 1000); });
+
+const bulma = document.createElement('link'); bulma.setAttribute('rel', 'stylesheet'); bulma.setAttribute('href', 'https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css'); document.head.appendChild(bulma);
