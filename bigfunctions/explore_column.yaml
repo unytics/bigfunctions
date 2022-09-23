@@ -151,9 +151,9 @@ code: |
       top_values as (
         select
           {% if data_type in ['TIMESTAMP', 'DATETIME'] %}
-            cast(date(`{{column}}`) as string) as value,
+            ifnull(cast(date(`{{column}}`) as string), 'NULL') as value,
           {% else %}
-            cast(`{{column}}` as string) as value,
+            ifnull(cast(`{{column}}` as string), 'NULL') as value,
           {% endif %}
           count(*) as value_count,
           count(*) * 1. / (select row_count from stats) as value_ratio,
