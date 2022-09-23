@@ -1,5 +1,4 @@
 type: procedure
-usage: explore_dataset(fully_qualified_dataset)
 description: |-
   Shows infos about dataset tables
 arguments:

@@ -1,5 +1,4 @@
 type: function_py
-usage: notify_gmail(to, subject, body)
 description: Send email via gmail
 arguments:
   - name: to

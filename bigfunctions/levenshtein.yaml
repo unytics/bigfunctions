@@ -1,5 +1,4 @@
 type: function_js
-usage: levenshtein(string1, string2)
 description: Computes levenshtein distance between `string1` and `string2`
 arguments:
   - name: string1

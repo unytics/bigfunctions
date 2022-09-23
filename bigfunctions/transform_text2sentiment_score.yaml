@@ -1,5 +1,4 @@
 type: function_py
-usage: transform_text2sentiment_score(content)
 description: Compute sentiment score of text
 arguments:
   - name: content

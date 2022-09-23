@@ -1,5 +1,4 @@
 type: function_js
-usage: render_string(template, context)
 description: Render template with context json object using nunjucks.js templating library
 arguments:
   - name: template

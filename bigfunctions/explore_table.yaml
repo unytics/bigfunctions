@@ -1,6 +1,5 @@
 type: procedure
-usage: explore_table_fast(fully_qualified_table)
-description: Same as explore_table but much faster and with code less readable
+description: Show table infos and column statistics
 arguments:
   - name: fully_qualified_table
     type: STRING

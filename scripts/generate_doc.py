@@ -13,6 +13,8 @@ hide:
   - navigation
 ---
 
+## 📄 Overview
+
 !!! note ""
 
     BigFunctions are public BigQuery routines that give you **super-SQL-powers** in BigQuery 💪.
@@ -25,7 +27,7 @@ hide:
     {{ category_conf.description|replace('\n', '')|replace('*', '') }}
 
     {% for name, conf in category_conf.bigfunctions.items() -%}
-    - [<code>{{ conf.usage }}</code>](#{{ name }}): {{ conf.description }}
+    - [<code>{{ name }}({% for argument in conf.arguments %}{{ argument.name | replace('{{region}}', region) }}{% if not loop.last %}, {% endif %}{% endfor %})</code>](#{{ name }}): {{ conf.description }}
     {% endfor %}
 
     {% endfor %}

@@ -1,5 +1,4 @@
 type: function_sql
-usage: chart(data, chart_type, ylabel)
 description: |-
   Returns html with a chartjs chart
 arguments:
