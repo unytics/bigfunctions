@@ -12,6 +12,7 @@ examples:
     screenshot: explore_column.png
 code: |
   declare project, dataset, table, column, data_type, query string;
+  declare context json;
   declare nbins string default '10';
   declare nbins_top_values string default '100';
 
@@ -20,6 +21,7 @@ code: |
   set dataset = parts[offset(1)];
   set table = parts[offset(2)];
   set column = parts[offset(3)];
+
 
 
   execute immediate replace(replace(replace(replace(
@@ -36,8 +38,7 @@ code: |
     '{{column}}', column
   ) into data_type;
 
-
-  execute immediate replace(replace(replace(replace(replace(replace(replace(replace('''
+  set query = '''
     create or replace temp table bigfunction_result as
 
     with
@@ -135,16 +136,21 @@ code: |
       (select {BIGFUNCTIONS_DATASET}.chart(top_values_hist.hist, 'bar', 'value_count') from top_values_hist) as top_values_hist_html,
       (select array_agg(struct(top_values).top_values order by top_values.value_count desc) from top_values) as top_values
     )) as json;
-  ''',
-  '{{project}}', project),
-  '{{dataset}}', dataset),
-  '{{table}}', table),
-  '{{column}}', column),
-  '{{column_if_numeric}}', if(lower(data_type) in ('float64', 'int64', 'numeric'), column , '0')),
-  '{{data_type}}', data_type),
-  '{{nbins}}', nbins),
-  '{{nbins_top_values}}', nbins_top_values
-  );
+  ''';
+
+  set context = to_json(struct(
+    project as project,
+    dataset as dataset,
+    table as table,
+    column as column,
+    if(lower(data_type) in ('float64', 'int64', 'numeric'), column , '0') as column_if_numeric,
+    data_type as data_type,
+    nbins as nbins,
+    nbins_top_values as nbins_top_values
+  ));
+
+  set query = (select {BIGFUNCTIONS_DATASET}.render_string(query, to_json_string(context)));
+  execute immediate query;
 template: |
   <div class="container">
     <div class="box">
