@@ -150,7 +150,11 @@ code: |
     {% else %}
       top_values as (
         select
-          cast(`{{column}}` as string) as value,
+          {% if data_type in ['TIMESTAMP', 'DATETIME'] %}
+            cast(date(`{{column}}`) as string) as value,
+          {% else %}
+            cast(`{{column}}` as string) as value,
+          {% endif %}
           count(*) as value_count,
           count(*) * 1. / (select row_count from stats) as value_ratio,
         from `{{project}}.{{dataset}}.{{table}}`
