@@ -131,3 +131,5 @@ dmypy.json
 build_python/
 
 SECRET
+meetups/
+emails/
