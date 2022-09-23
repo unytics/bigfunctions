@@ -46,95 +46,133 @@ code: |
     stats as (
       select
         count(*) as row_count,
-        count(distinct {{column}}) as distinct_count,
-        count(distinct {{column}}) / count(*) as distinct_ratio,
-        count(*) - count({{column}}) as missing_count,
-        (count(*) - count({{column}})) / count(*) as missing_ratio,
-        cast(min({{column_if_numeric}}) as float64) as min,
-        cast(avg({{column_if_numeric}}) as float64) as mean,
-        cast(max({{column_if_numeric}}) as float64) as max,
+        count(distinct `{{column}}`) as distinct_count,
+        count(distinct `{{column}}`) / count(*) as distinct_ratio,
+        count(*) - count(`{{column}}`) as missing_count,
+        (count(*) - count(`{{column}}`)) / count(*) as missing_ratio,
+        {% if data_type in ['FLOAT64', 'INT64', 'NUMERIC'] %}cast(min(`{{column}}`) as float64){% else %}null{% endif %} as min,
+        {% if data_type in ['FLOAT64', 'INT64', 'NUMERIC'] %}cast(avg(`{{column}}`) as float64){% else %}null{% endif %} as mean,
+        {% if data_type in ['FLOAT64', 'INT64', 'NUMERIC'] %}cast(max(`{{column}}`) as float64){% else %}null{% endif %} as max,
       from `{{project}}.{{dataset}}.{{table}}`
     ),
 
-    hist_bins_for_reals as (
-      select
-        i,
-        `min` + i/{{nbins}}. * (`max`-`min`)  as low,
-        `min` + (i+1)/{{nbins}}. * (`max`-`min`) + if(i={{nbins}}-1, 1, 0)  as up,
-        (
-          '[' ||
-            cast(round(`min` + i/{{nbins}}. * (`max`-`min`), 2) as string) || ', ' ||
-            cast(round(`min` + (i+1)/{{nbins}}. * (`max`-`min`), 2) as string) ||
-          if(i={{nbins}}-1, ']', '[')
-        ) as label,
-        'real' as bin_mode,
-      from stats, unnest(generate_array(0, {{nbins}})) i
-      where i < {{nbins}}
-    ),
+    {% if data_type in ('FLOAT64', 'NUMERIC') %}
+      hist_bins as (
+        select
+          i,
+          `min` + i/{{nbins}}. * (`max`-`min`)  as low,
+          `min` + (i+1)/{{nbins}}. * (`max`-`min`) + if(i={{nbins}}-1, 1, 0)  as up,
+          (
+            '[' ||
+              cast(round(`min` + i/{{nbins}}. * (`max`-`min`), 2) as string) || ', ' ||
+              cast(round(`min` + (i+1)/{{nbins}}. * (`max`-`min`), 2) as string) ||
+            if(i={{nbins}}-1, ']', '[')
+          ) as label,
+          'real' as bin_mode,
+        from stats, unnest(generate_array(0, {{nbins}})) i
+        where i < {{nbins}}
+      ),
 
-    hist_bins_for_integers as (
-      select
-        i,
-        i - 0.5  as low,
-        i + 0.5  as up,
-        cast(i as string) as label,
-        'integer' as bin_mode,
-      from stats, unnest(generate_array(stats.min, least(stats.max, stats.min + 60))) i
-    ),
+      hist_counts as (
+        select
+          bin.i,
+          count(*) as row_count,
+        from `{{project}}.{{dataset}}.{{table}}`
+        inner join hist_bins as bin
+        on `{{column}}` >= bin.low and `{{column}}` < bin.up
+        group by i
+      ),
 
-    hist_bins as (
-      select * from hist_bins_for_reals
-      where bin_mode = if('{{data_type}}' = 'INT64' and (select count(*) from hist_bins_for_integers) <= 60, 'integer', 'real')
-      union all
-      select * from hist_bins_for_integers
-      where bin_mode = if('{{data_type}}' = 'INT64' and (select count(*) from hist_bins_for_integers) <= 60, 'integer', 'real')
-    ),
+      hist as (
+        select array_agg(
+          struct(hist_bins.label as x, cast(ifnull(row_count, 0) as float64) as y)
+          order by i
+        ) hist
+        from hist_bins
+        left join hist_counts using(i)
+      )
 
-    hist_counts as (
-      select
-        bin.i,
-        count(*) as row_count,
-      from `{{project}}.{{dataset}}.{{table}}`
-      inner join hist_bins as bin
-      on {{column_if_numeric}} >= bin.low and {{column_if_numeric}} < bin.up
-      group by i
-    ),
+    {% elif data_type == 'INT64' %}
+      hist_bins_for_reals as (
+        select
+          i,
+          `min` + i/{{nbins}}. * (`max`-`min`)  as low,
+          `min` + (i+1)/{{nbins}}. * (`max`-`min`) + if(i={{nbins}}-1, 1, 0)  as up,
+          (
+            '[' ||
+              cast(round(`min` + i/{{nbins}}. * (`max`-`min`), 2) as string) || ', ' ||
+              cast(round(`min` + (i+1)/{{nbins}}. * (`max`-`min`), 2) as string) ||
+            if(i={{nbins}}-1, ']', '[')
+          ) as label,
+          'real' as bin_mode,
+        from stats, unnest(generate_array(0, {{nbins}})) i
+        where i < {{nbins}}
+      ),
 
-    hist as (
-      select array_agg(
-        struct(hist_bins.label as x, cast(ifnull(row_count, 0) as float64) as y)
-        order by i
-      ) hist
-      from hist_bins
-      left join hist_counts using(i)
-    ),
+      hist_bins_for_integers as (
+        select
+          i,
+          i - 0.5  as low,
+          i + 0.5  as up,
+          cast(i as string) as label,
+          'integer' as bin_mode,
+        from stats, unnest(generate_array(stats.min, least(stats.max, stats.min + 60))) i
+      ),
 
-    top_values as (
-      select
-        cast({{column}} as string) as value,
-        count(*) as value_count,
-        count(*) * 1. / (select row_count from stats) as value_ratio,
-      from `{{project}}.{{dataset}}.{{table}}`
-      group by 1
-      limit {{nbins_top_values}}
-    ),
+      hist_bins as (
+        select * from hist_bins_for_reals
+        where bin_mode = if('{{data_type}}' = 'INT64' and (select count(*) from hist_bins_for_integers) <= 60, 'integer', 'real')
+        union all
+        select * from hist_bins_for_integers
+        where bin_mode = if('{{data_type}}' = 'INT64' and (select count(*) from hist_bins_for_integers) <= 60, 'integer', 'real')
+      ),
 
-    top_values_hist as (
-      select array_agg(
-        struct(value as x, cast(value_count as float64) as y)
-        order by value_count desc
-      ) hist
-      from top_values
-    )
+      hist_counts as (
+        select
+          bin.i,
+          count(*) as row_count,
+        from `{{project}}.{{dataset}}.{{table}}`
+        inner join hist_bins as bin
+        on `{{column}}` >= bin.low and `{{column}}` < bin.up
+        group by i
+      ),
+
+      hist as (
+        select array_agg(
+          struct(hist_bins.label as x, cast(ifnull(row_count, 0) as float64) as y)
+          order by i
+        ) hist
+        from hist_bins
+        left join hist_counts using(i)
+      )
+
+
+    {% else %}
+      top_values as (
+        select
+          cast(`{{column}}` as string) as value,
+          count(*) as value_count,
+          count(*) * 1. / (select row_count from stats) as value_ratio,
+        from `{{project}}.{{dataset}}.{{table}}`
+        group by 1
+        limit {{nbins_top_values}}
+      ),
+
+      hist as (
+        select array_agg(
+          struct(value as x, cast(value_count as float64) as y)
+          order by value_count desc
+        ) hist
+        from top_values
+      )
+    {% endif %}
 
     select to_json(struct(
       '{{column}}' as name,
       '{{data_type}}' as data_type,
       (select stats from stats) as stats,
       (select hist.hist from hist) as hist,
-      (select {BIGFUNCTIONS_DATASET}.chart(hist.hist, 'bar', 'value_count') from hist) as hist_html,
-      (select {BIGFUNCTIONS_DATASET}.chart(top_values_hist.hist, 'bar', 'value_count') from top_values_hist) as top_values_hist_html,
-      (select array_agg(struct(top_values).top_values order by top_values.value_count desc) from top_values) as top_values
+      (select {BIGFUNCTIONS_DATASET}.chart(hist.hist, 'bar', 'value_count') from hist) as hist_html
     )) as json;
   ''';
 
@@ -143,7 +181,6 @@ code: |
     dataset as dataset,
     table as table,
     column as column,
-    if(lower(data_type) in ('float64', 'int64', 'numeric'), column , '0') as column_if_numeric,
     data_type as data_type,
     nbins as nbins,
     nbins_top_values as nbins_top_values
@@ -177,11 +214,7 @@ template: |
             </table>
           </div>
           <div class="column">
-            {% if data_type in ['STRING', 'BOOL'] %}
-              {{ top_values_hist_html|safe }}
-            {% else %}
-              {{ hist_html|safe }}
-            {% endif %}
+            {{ hist_html|safe }}
           </div>
         </div>
     </div>
