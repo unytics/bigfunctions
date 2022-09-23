@@ -1,6 +1,6 @@
 type: procedure
-usage: explore_table(fully_qualified_table)
-description: Show table infos and columns statistics
+usage: explore_table_fast(fully_qualified_table)
+description: Same as explore_table but much faster and with code less readable
 arguments:
   - name: fully_qualified_table
     type: STRING
@@ -13,39 +13,189 @@ examples:
 code: |
   declare project, dataset, table, query string;
   declare table_infos json;
+  declare columns_queries array<string>;
+  declare ite int64 default 0;
 
   declare parts array<string> default split(replace(fully_qualified_table, '`', ''), '.');
   set project = parts[offset(0)];
   set dataset = parts[offset(1)];
   set table = parts[offset(2)];
 
+
   execute immediate replace(replace(replace('''
-  create or replace temp table columns as
-    select *
+    select array_agg(
+
+      {BIGFUNCTIONS_DATASET}.render_string(
+        """(
+        with
+
+        stats as (
+          select
+            count(*) as row_count,
+            count(distinct `{{column}}`) as distinct_count,
+            count(distinct `{{column}}`) / count(*) as distinct_ratio,
+            count(*) - count(`{{column}}`) as missing_count,
+            (count(*) - count(`{{column}}`)) / count(*) as missing_ratio,
+            {% if data_type in ['FLOAT64', 'INT64', 'NUMERIC'] %}cast(min(`{{column}}`) as float64){% else %}null{% endif %} as min,
+            {% if data_type in ['FLOAT64', 'INT64', 'NUMERIC'] %}cast(avg(`{{column}}`) as float64){% else %}null{% endif %} as mean,
+            {% if data_type in ['FLOAT64', 'INT64', 'NUMERIC'] %}cast(max(`{{column}}`) as float64){% else %}null{% endif %} as max,
+          from `{{project}}.{{dataset}}.{{table}}`
+        ),
+
+        {% if data_type in ('FLOAT64', 'NUMERIC') %}
+          hist_bins as (
+            select
+              i,
+              `min` + i/{{nbins}}. * (`max`-`min`)  as low,
+              `min` + (i+1)/{{nbins}}. * (`max`-`min`) + if(i={{nbins}}-1, 1, 0)  as up,
+              (
+                '[' ||
+                  cast(round(`min` + i/{{nbins}}. * (`max`-`min`), 2) as string) || ', ' ||
+                  cast(round(`min` + (i+1)/{{nbins}}. * (`max`-`min`), 2) as string) ||
+                if(i={{nbins}}-1, ']', '[')
+              ) as label,
+              'real' as bin_mode,
+            from stats, unnest(generate_array(0, {{nbins}})) i
+            where i < {{nbins}}
+          ),
+
+          hist_counts as (
+            select
+              bin.i,
+              count(*) as row_count,
+            from `{{project}}.{{dataset}}.{{table}}`
+            inner join hist_bins as bin
+            on `{{column}}` >= bin.low and `{{column}}` < bin.up
+            group by i
+          ),
+
+          hist as (
+            select array_agg(
+              struct(hist_bins.label as x, cast(ifnull(row_count, 0) as float64) as y)
+              order by i
+            ) hist
+            from hist_bins
+            left join hist_counts using(i)
+          )
+
+        {% elif data_type == 'INT64' %}
+          hist_bins_for_reals as (
+            select
+              i,
+              `min` + i/{{nbins}}. * (`max`-`min`)  as low,
+              `min` + (i+1)/{{nbins}}. * (`max`-`min`) + if(i={{nbins}}-1, 1, 0)  as up,
+              (
+                '[' ||
+                  cast(round(`min` + i/{{nbins}}. * (`max`-`min`), 2) as string) || ', ' ||
+                  cast(round(`min` + (i+1)/{{nbins}}. * (`max`-`min`), 2) as string) ||
+                if(i={{nbins}}-1, ']', '[')
+              ) as label,
+              'real' as bin_mode,
+            from stats, unnest(generate_array(0, {{nbins}})) i
+            where i < {{nbins}}
+          ),
+
+          hist_bins_for_integers as (
+            select
+              i,
+              i - 0.5  as low,
+              i + 0.5  as up,
+              cast(i as string) as label,
+              'integer' as bin_mode,
+            from stats, unnest(generate_array(stats.min, least(stats.max, stats.min + 60))) i
+          ),
+
+          hist_bins as (
+            select * from hist_bins_for_reals
+            where bin_mode = if('{{data_type}}' = 'INT64' and (select count(*) from hist_bins_for_integers) <= 60, 'integer', 'real')
+            union all
+            select * from hist_bins_for_integers
+            where bin_mode = if('{{data_type}}' = 'INT64' and (select count(*) from hist_bins_for_integers) <= 60, 'integer', 'real')
+          ),
+
+          hist_counts as (
+            select
+              bin.i,
+              count(*) as row_count,
+            from `{{project}}.{{dataset}}.{{table}}`
+            inner join hist_bins as bin
+            on `{{column}}` >= bin.low and `{{column}}` < bin.up
+            group by i
+          ),
+
+          hist as (
+            select array_agg(
+              struct(hist_bins.label as x, cast(ifnull(row_count, 0) as float64) as y)
+              order by i
+            ) hist
+            from hist_bins
+            left join hist_counts using(i)
+          )
+
+
+        {% else %}
+          top_values as (
+            select
+              {% if data_type in ['TIMESTAMP', 'DATETIME'] %}
+                cast(date(`{{column}}`) as string) as value,
+              {% else %}
+                cast(`{{column}}` as string) as value,
+              {% endif %}
+              count(*) as value_count,
+              count(*) * 1. / (select row_count from stats) as value_ratio,
+            from `{{project}}.{{dataset}}.{{table}}`
+            where {{column}} is not null
+            group by 1
+            limit {{nbins_top_values}}
+          ),
+
+          hist as (
+            select array_agg(
+              struct(value as x, cast(value_count as float64) as y)
+              order by value_count desc
+            ) hist
+            from top_values
+          )
+        {% endif %}
+
+        select to_json(struct(
+          '{{column}}' as name,
+          '{{data_type}}' as data_type,
+          (select stats from stats) as stats,
+          (select hist.hist from hist) as hist,
+          (select {BIGFUNCTIONS_DATASET}.chart(hist.hist, 'bar', 'value_count') from hist) as hist_html
+        )) as json
+        )""",
+        to_json_string(to_json(struct(
+          column_name as column,
+          data_type as data_type,
+          10 as nbins,
+          100 as nbins_top_values
+        )))
+      )
+    )
+
     from `{{project}}.{{dataset}}.INFORMATION_SCHEMA.COLUMNS`
     where table_name = '{{table}}'
   ''',
   '{{project}}', project),
   '{{dataset}}', dataset),
   '{{table}}', table
-  );
+  ) into columns_queries;
 
-  create or replace temp table column_results (json JSON, html STRING);
-
-  for column in (select * from columns)
-  do
-      call {BIGFUNCTIONS_DATASET}.explore_column(
-        replace(replace(replace(replace(
-          '{{project}}.{{dataset}}.{{table}}.{{column}}',
-          '{{project}}', project),
-          '{{dataset}}', dataset),
-          '{{table}}', table),
-          '{{column}}', column.column_name
-        )
-      );
-      insert into column_results select json, html from bigfunction_result;
-  end for;
-
+  create or replace temp table columns (context json);
+  loop
+    execute immediate 'insert into columns \n' || array_to_string(
+      (
+        select array_agg(column_query) 
+        from unnest(columns_queries) column_query 
+        with offset as off where off >= ite * 4 and off < (ite + 1) * 4
+      ), 
+      '\n union all \n'
+    );
+    if (ite + 1) * 4 > array_length(columns_queries) then leave; end if;
+    set ite = ite + 1;
+  end loop;
 
   execute immediate replace(replace(replace("""
     select to_json(struct(
@@ -65,8 +215,7 @@ code: |
   create or replace temp table bigfunction_result as
   select to_json(struct(
     table_infos as table,
-    (select array_agg(json) from column_results) as columns,
-    (select array_to_string(array_agg(html), '') from column_results) as columns_html
+    (select array_agg(context) from columns) as columns
   )) as json;
 template: |
   <div class="container">
@@ -85,5 +234,34 @@ template: |
         </section>
       </div>
     </div>
-    {{ columns_html|safe }}
+    {% for col in columns %}
+    <div class="box">
+      <p class="is-size-4 mb-6 mt-4">Column <code>{{ col.name }}</code> <code>{{ col.data_type }}</code></p>
+      <div class="columns">
+        <div class="column is-one-quarter">
+          <table class="table is-narrow">
+            {% if col.data_type not in ['STRING', 'BOOL'] %}
+              <tr><th class="has-text-weight-bold">min           </th><td>{{ col.stats.min            | add_thousands_separators_to_integers }}</td></tr>
+              <tr><th class="has-text-weight-bold">mean          </th><td>{{ col.stats.mean           | add_thousands_separators_to_integers }}</td></tr>
+              <tr><th class="has-text-weight-bold">max           </th><td>{{ col.stats.max            | add_thousands_separators_to_integers }}</td></tr>
+            {% endif %}
+            {% if col.data_type != 'BOOL' %}
+              <tr><th class="has-text-weight-bold">distinct_count</th><td>{{ col.stats.distinct_count | add_thousands_separators_to_integers }}</td></tr>
+              {% if col.stats.distinct_ratio > 0.001 %}
+                <tr><th class="has-text-weight-bold">distinct_ratio</th><td {% if col.stats.distinct_ratio == 1 %}class="has-background-success-light"{% elif stats.distinct_ratio > 0.9 %}class="has-background-danger-light"{% endif %}>{{ col.stats.distinct_ratio | as_percentage }}</td></tr>
+              {% endif %}
+            {% endif %}
+            <tr><th class="has-text-weight-bold">missing_count </th><td {% if col.stats.missing_ratio == 0 %}class="has-background-success-light"{% endif %}>{{ col.stats.missing_count  | add_thousands_separators_to_integers }}</td></tr>
+            {% if col.stats.missing_count != 0 %}
+              <tr><th class="has-text-weight-bold">missing_ratio </th><td class="has-background-danger-light">{{ col.stats.missing_ratio  | as_percentage }}</td></tr>
+            {% endif %}
+            <tr><th class="has-text-weight-bold">row_count     </th><td>{{ col.stats.row_count      | add_thousands_separators_to_integers }}</td></tr>
+          </table>
+        </div>
+        <div class="column">
+          {{ col.hist_html|safe }}
+        </div>
+      </div>
+    </div>
+    {% endfor %}
   </div>
