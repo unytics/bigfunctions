@@ -93,6 +93,10 @@ if args.bigfunction == '*':
     for dataset in DATASETS:
         for bigfunction in BIGFUNCTIONS:
             deploy(f'{dataset}.{bigfunction}')
+elif args.bigfunction.startswith('*.'):
+    bigfunction = args.bigfunction[2:]
+    for dataset in DATASETS:
+        deploy(f'{dataset}.{bigfunction}')
 else:
     deploy(args.bigfunction)
 
