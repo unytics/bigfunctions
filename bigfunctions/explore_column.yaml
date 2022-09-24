@@ -55,7 +55,7 @@ code: |
       from `{{project}}.{{dataset}}.{{table}}`
     ),
 
-    {% if data_type in ('FLOAT64', 'NUMERIC') %}
+    {% if data_type in ['FLOAT64', 'NUMERIC'] %}
       hist_bins as (
         select
           i,
