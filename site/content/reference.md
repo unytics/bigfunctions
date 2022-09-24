@@ -92,12 +92,14 @@ select html from bigfunction_result;
 ```
 
 
+
+
+
 <a href="../assets/images/explore_column.png"><img alt="screenshot" src="../assets/images/explore_column.png" style="border: var(--md-code-bg-color) solid 1rem; margin-top: -1rem; width: 100%"></a>
 
 
 
 ---
-
 
 
 ### explore_dataset
@@ -127,12 +129,14 @@ select html from bigfunction_result;
 ```
 
 
+
+
+
 <a href="../assets/images/explore_dataset.png"><img alt="screenshot" src="../assets/images/explore_dataset.png" style="border: var(--md-code-bg-color) solid 1rem; margin-top: -1rem; width: 100%"></a>
 
 
 
 ---
-
 
 
 ### explore_table
@@ -162,12 +166,14 @@ select html from bigfunction_result;
 ```
 
 
+
+
+
 <a href="../assets/images/explore_column.png"><img alt="screenshot" src="../assets/images/explore_column.png" style="border: var(--md-code-bg-color) solid 1rem; margin-top: -1rem; width: 100%"></a>
 
 
 
 ---
-
 <div style="margin-top: 6rem;"></div>
 
 
@@ -201,6 +207,7 @@ Compute sentiment score of text
 
     ```sql
     select bigfunctions.eu.transform_text2sentiment_score('BigFunctions Rock!') as sentiment_score
+
     ```
 
 
@@ -208,6 +215,7 @@ Compute sentiment score of text
 
     ```sql
     select bigfunctions.us.transform_text2sentiment_score('BigFunctions Rock!') as sentiment_score
+
     ```
 
 
@@ -215,6 +223,7 @@ Compute sentiment score of text
 
     ```sql
     select bigfunctions.europe_west1.transform_text2sentiment_score('BigFunctions Rock!') as sentiment_score
+
     ```
 
 
@@ -222,6 +231,7 @@ Compute sentiment score of text
 
     ```sql
     select bigfunctions.your_region2.transform_text2sentiment_score('BigFunctions Rock!') as sentiment_score
+
     ```
 
 
@@ -279,6 +289,7 @@ Send email via gmail
 
     ```sql
     select bigfunctions.eu.notify_gmail('contact@unytics.io', 'I love BigFunctions', 'Hey Paul, could you deploy more BigFunctions 🙏?') as success
+
     ```
 
 
@@ -286,6 +297,7 @@ Send email via gmail
 
     ```sql
     select bigfunctions.us.notify_gmail('contact@unytics.io', 'I love BigFunctions', 'Hey Paul, could you deploy more BigFunctions 🙏?') as success
+
     ```
 
 
@@ -293,6 +305,7 @@ Send email via gmail
 
     ```sql
     select bigfunctions.europe_west1.notify_gmail('contact@unytics.io', 'I love BigFunctions', 'Hey Paul, could you deploy more BigFunctions 🙏?') as success
+
     ```
 
 
@@ -300,6 +313,7 @@ Send email via gmail
 
     ```sql
     select bigfunctions.your_region2.notify_gmail('contact@unytics.io', 'I love BigFunctions', 'Hey Paul, could you deploy more BigFunctions 🙏?') as success
+
     ```
 
 
@@ -355,6 +369,7 @@ Returns html with a chartjs chart
 
     ```sql
     select bigfunctions.eu.chart([('2022-08-01', 10000.), ('2022-08-02', 20000.), ('2022-08-03', 40000.), ('2022-08-04', 80000.)], 'bar', 'sales') as html
+
     ```
 
 
@@ -362,6 +377,7 @@ Returns html with a chartjs chart
 
     ```sql
     select bigfunctions.us.chart([('2022-08-01', 10000.), ('2022-08-02', 20000.), ('2022-08-03', 40000.), ('2022-08-04', 80000.)], 'bar', 'sales') as html
+
     ```
 
 
@@ -369,6 +385,7 @@ Returns html with a chartjs chart
 
     ```sql
     select bigfunctions.europe_west1.chart([('2022-08-01', 10000.), ('2022-08-02', 20000.), ('2022-08-03', 40000.), ('2022-08-04', 80000.)], 'bar', 'sales') as html
+
     ```
 
 
@@ -376,7 +393,11 @@ Returns html with a chartjs chart
 
     ```sql
     select bigfunctions.your_region2.chart([('2022-08-01', 10000.), ('2022-08-02', 20000.), ('2022-08-03', 40000.), ('2022-08-04', 80000.)], 'bar', 'sales') as html
+
     ```
+
+
+
 
 
 <a href="../assets/images/chart.png"><img alt="screenshot" src="../assets/images/chart.png" style="border: var(--md-code-bg-color) solid 1rem; margin-top: -1rem; width: 100%"></a>
@@ -409,6 +430,7 @@ Computes levenshtein distance between `string1` and `string2`
 
     ```sql
     select bigfunctions.eu.levenshtein('bak', 'book') as distance
+
     ```
 
 
@@ -416,6 +438,7 @@ Computes levenshtein distance between `string1` and `string2`
 
     ```sql
     select bigfunctions.us.levenshtein('bak', 'book') as distance
+
     ```
 
 
@@ -423,6 +446,7 @@ Computes levenshtein distance between `string1` and `string2`
 
     ```sql
     select bigfunctions.europe_west1.levenshtein('bak', 'book') as distance
+
     ```
 
 
@@ -430,6 +454,7 @@ Computes levenshtein distance between `string1` and `string2`
 
     ```sql
     select bigfunctions.your_region2.levenshtein('bak', 'book') as distance
+
     ```
 
 
@@ -479,6 +504,7 @@ Render template with context json object using nunjucks.js templating library
 
     ```sql
     select bigfunctions.eu.render_string('Hello {{ username }}', '{"username": "James"}') as rendered_content
+
     ```
 
 
@@ -486,6 +512,7 @@ Render template with context json object using nunjucks.js templating library
 
     ```sql
     select bigfunctions.us.render_string('Hello {{ username }}', '{"username": "James"}') as rendered_content
+
     ```
 
 
@@ -493,6 +520,7 @@ Render template with context json object using nunjucks.js templating library
 
     ```sql
     select bigfunctions.europe_west1.render_string('Hello {{ username }}', '{"username": "James"}') as rendered_content
+
     ```
 
 
@@ -500,6 +528,7 @@ Render template with context json object using nunjucks.js templating library
 
     ```sql
     select bigfunctions.your_region2.render_string('Hello {{ username }}', '{"username": "James"}') as rendered_content
+
     ```
 
 

@@ -20,14 +20,24 @@
 {% if regions|length > 1 %}=== "{{ region }}"{% endif %}
 
 {% if regions|length > 1 %}    {% endif %}```sql
-{% if regions|length > 1 %}    {% endif %}call bigfunctions.{{region | replace('-', '_') | lower }}.{{ name }}({% for argument in example.arguments %}{{ argument | replace('{{region}}', region) }}{% if not loop.last %}, {% endif %}{% endfor %});
-{% if regions|length > 1 %}    {% endif %}{% if template %}select html from bigfunction_result;{% endif %}
+{% if regions|length > 1 %}    {% endif %}{% if type == 'procedure' %}call{% else %}select{% endif %} bigfunctions.{{region | replace('-', '_') | lower }}.{{ name }}({% for argument in example.arguments %}{{ argument | replace('{{region}}', region) }}{% if not loop.last %}, {% endif %}{% endfor %}){% if type == 'procedure' %};{% else %} as {{ output.name }}{% endif %}
+{% if type == 'procedure' %}{% if regions|length > 1 %}    {% endif %}{% if template %}select html from bigfunction_result;{% endif %}{% endif %}
 {% if regions|length > 1 %}    {% endif %}```
 
 {% endfor %}
+
+{% if example.output %}
+
+<pre style="margin-top: -1rem;">
+<code style="padding-top: 0px; padding-bottom: 0px;">
+{{ example.output }}
+</code>
+</pre>
+
+{% endif %}
+
 {% if example.screenshot %}<a href="../assets/images/{{ example.screenshot }}"><img alt="screenshot" src="../assets/images/{{ example.screenshot }}" style="border: var(--md-code-bg-color) solid 1rem; margin-top: -1rem; width: 100%"></a>{% endif %}
 {% endfor %}
 
 
 ---
-
