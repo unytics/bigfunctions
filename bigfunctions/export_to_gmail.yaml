@@ -1,0 +1,52 @@
+type: procedure
+description: Send email (via gmail) with data attached as excel file
+arguments:
+  - name: table_or_view_or_query
+    type: STRING
+  - name: recipients
+    type: STRING
+  - name: email_subject
+    type: STRING
+  - name: email_body
+    type: STRING
+examples:
+  - description: ""
+    arguments:
+      - "'bigfunctions.samples.natality'"
+      - "'contact@unytics.io'"
+      - "'Finance Figures for Today'"
+      - "'Hey Paul, you fill find the figures in the attached excel file. Enjoy 🔥'"
+    region: EU
+code: |
+  execute immediate replace(replace(replace(replace(
+    '''
+    with
+
+    query_result as (
+      select
+        array_agg(struct(res).res limit 1000) as data
+      from {{table_or_view_or_query}} res
+    ),
+
+    excel_base64 as (
+      select {BIGFUNCTIONS_DATASET}.dump_to_excel((
+        to_json_string(to_json(data))
+      )) as content
+      from query_result
+    )
+
+    select {BIGFUNCTIONS_DATASET}.notify_gmail(
+      '{{recipients}}',
+      '{{email_subject}}',
+      """
+      {{email_body}}
+      """,
+      'report.xlsx',
+      (select content from excel_base64)
+    );
+    ''',
+    '{{recipients}}', recipients),
+    '{{email_subject}}', email_subject),
+    '{{email_body}}', email_body),
+    '{{table_or_view_or_query}}', table_or_view_or_query
+  );

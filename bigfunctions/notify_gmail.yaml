@@ -1,7 +1,7 @@
 type: function_py
 description: Send email via gmail
 arguments:
-  - name: to
+  - name: recipients
     type: STRING
   - name: subject
     type: STRING
@@ -78,7 +78,7 @@ code: |
 
   msg = MIMEMultipart()
   msg['From'] = username
-  msg['To'] = to
+  msg['To'] = recipients
   msg['Subject'] = subject
   msg.attach(MIMEText(body, 'html'))
 
