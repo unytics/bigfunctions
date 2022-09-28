@@ -12,7 +12,7 @@
 
 {% for example in examples %}
 
-{{ example.description }}
+{% if example.description %}<span style="color: var(--md-typeset-a-color);">{{ loop.index }}. {{ example.description }}</span>{% endif %}
 
 {% set regions = regions if example.region == 'ALL' else [example.region] %}
 
