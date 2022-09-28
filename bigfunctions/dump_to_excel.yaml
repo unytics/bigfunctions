@@ -1,0 +1,27 @@
+type: function_js
+description: Dump data to excel file returned as base64
+arguments:
+  - name: data
+    type: STRING
+output:
+  name: excel_base64
+  type: STRING
+examples:
+  - description: ""
+    arguments:
+      - "'[{\"col1\": \"row1\", \"col2\": 1}, {\"col1\": \"row2\", \"col2\": 2}]'"
+    output: |
+      +------------------+
+      | excel_base64     |
+      +------------------+
+      | UEsDBBQAAAAAA... |
+      +------------------+
+    region: ALL
+code: |
+  data = JSON.parse(data);
+  var wb = XLSX.utils.book_new();
+  var ws = XLSX.utils.json_to_sheet(data);
+  XLSX.utils.book_append_sheet(wb, ws, "Sheet1");
+  return XLSX.write(wb, {type: "base64", bookType: "xlsx"});
+libraries:
+  - xlsx.full.min.js
