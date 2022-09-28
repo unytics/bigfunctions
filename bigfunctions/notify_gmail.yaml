@@ -7,15 +7,49 @@ arguments:
     type: STRING
   - name: body
     type: STRING
+  - name: attachment_filename
+    type: STRING
+  - name: attachment_content
+    type: STRING
 output:
   name: success
   type: BOOL
 examples:
-  - description: ""
+  - description: "Send email without file attached"
     arguments:
       - "'contact@unytics.io'"
       - "'I love BigFunctions'"
       - "'Hey Paul, could you deploy more BigFunctions 🙏?'"
+      - "null"
+      - "null"
+    output: |
+      +---------+
+      | success |
+      +---------+
+      | true    |
+      +---------+
+    region: ALL
+  - description: "Send email with plain text file attached"
+    arguments:
+      - "'contact@unytics.io'"
+      - "'I love BigFunctions'"
+      - "'Hey Paul, could you deploy more BigFunctions 🙏?'"
+      - "'report.csv'"
+      - "'col1,col2\\nval1,val2\\nval3,val4'"
+    output: |
+      +---------+
+      | success |
+      +---------+
+      | true    |
+      +---------+
+    region: ALL
+  - description: "Send email with excel file attached"
+    arguments:
+      - "'contact@unytics.io'"
+      - "'I love BigFunctions'"
+      - "'Hey Paul, could you deploy more BigFunctions 🙏?'"
+      - "'report.xlsx'"
+      - "(select bigfunctions.eu.dump_to_excel('[{\"col1\": \"val1\", \"col2\": \"val2\"}, {\"col1\": \"val3\", \"col2\": \"val4\"}]'))"
     output: |
       +---------+
       | success |
@@ -24,9 +58,14 @@ examples:
       +---------+
     region: ALL
 code: |
+  import base64
   import smtplib
   from email.mime.multipart import MIMEMultipart
   from email.mime.text import MIMEText
+  from email.mime.base import MIMEBase
+  from email.mime.application import MIMEApplication
+  from email import encoders
+
   import google.cloud.secretmanager
   secret_manager = google.cloud.secretmanager.SecretManagerServiceClient()
 
@@ -37,12 +76,28 @@ code: |
   smtp_server = 'smtp.gmail.com'
   smtp_port = 587
 
-
   msg = MIMEMultipart()
   msg['From'] = username
   msg['To'] = to
   msg['Subject'] = subject
   msg.attach(MIMEText(body, 'html'))
+
+  if attachment_content:
+      try:
+          content_is_base64 = base64.b64encode(base64.b64decode(attachment_content)) == attachment_content.encode()
+      except:
+          content_is_base64 = False
+
+      if content_is_base64:
+          part = MIMEBase('application', "octet-stream")
+          part.set_payload(base64.b64decode(attachment_content))
+          encoders.encode_base64(part)
+          part.add_header('Content-Disposition', f'attachment; filename={attachment_filename}')
+          msg.attach(part)
+      else:
+          part = MIMEApplication(attachment_content.encode(), Name=attachment_filename)
+          part['Content-Disposition'] = f'attachment; filename="{attachment_filename}"'
+          msg.attach(part)
 
   smtpObj = smtplib.SMTP(smtp_server, smtp_port)
   smtpObj.ehlo()
