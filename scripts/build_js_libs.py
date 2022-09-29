@@ -73,6 +73,9 @@ jstat:
   versions:
     - 1.9.3
     - 1.9.4
+date-holidays:
+  versions:
+    - 3.16.17
     ''', Loader=SafeLoader)
 
 
