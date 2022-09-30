@@ -1,4 +1,5 @@
 type: function_py
+category: tranform_string
 description: Compute sentiment score of text
 arguments:
   - name: content
@@ -10,12 +11,7 @@ examples:
   - description: ""
     arguments:
       - "'BigFunctions Rock!'"
-    output: |
-      +------------------+
-      | sentiment_score  |
-      +------------------+
-      | 0.945            |
-      +------------------+
+    output: "0.945"
     region: ALL
 code: |
   import google.cloud.language_v1 as language

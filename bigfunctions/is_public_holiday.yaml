@@ -1,4 +1,5 @@
 type: function_sql
+category: transform_string
 description: |
   Returns true is `date` is the date of a national public holiday (between year 1974 and 2076) in this `country_code`
 
@@ -18,12 +19,7 @@ examples:
     arguments:
       - "date('2022-07-14')"
       - "'FR'"
-    output: |
-      +-------------------+
-      | is_public_holiday |
-      +-------------------+
-      | true              |
-      +-------------------+
+    output: "true"
     region: ALL
 code: |
   date in (select holidays.date from {BIGFUNCTIONS_DATASET}.holidays where holidays.country = country_code)

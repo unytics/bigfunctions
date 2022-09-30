@@ -1,4 +1,5 @@
 type: procedure
+category: explore
 description: Show column statistics
 arguments:
   - name: fully_qualified_column

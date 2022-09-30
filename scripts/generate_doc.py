@@ -24,8 +24,6 @@ hide:
 
     **{{ category_conf.emoticon }} {{ category|title }}**
 
-    {{ category_conf.description|replace('\n', ' ')|replace('*', '') }}
-
     {% for name, conf in category_conf.bigfunctions.items() -%}
     {% set bigfunction_description_lines = conf.description.split('\n') %}
     - [<code>{{ name }}({% for argument in conf.arguments %}{{ argument.name | replace('{{region}}', region) }}{% if not loop.last %}, {% endif %}{% endfor %})</code>](#{{ name }}): {{ bigfunction_description_lines[0] }}
@@ -47,8 +45,9 @@ CATEGORY_PAGE_HEADER_TEMPLATE = jinja2.Template('''
 ## {{ category_emoticon }} {{ category|title }}
 
 !!! note ""
+    **{{ category_title }} **
 
-    {{ category_description|replace('\n', '\n    ') }}
+    {{ category_subtitle }}
 
 ''')
 
@@ -56,21 +55,17 @@ CATEGORY_PAGE_HEADER_TEMPLATE = jinja2.Template('''
 CATEGORIES = {
     'explore': {
         'emoticon': '👀',
-        'description': (
-            '**"Explore" BigFunctions are great for data-analysts to explore data**.\n\n'
-            'They make computations on BigQuery and display the results as data-vizualizations directly in BigQuery console.'
-        ),
+        'title': 'Explore data within BigQuery console',
+        'subtitle': 'Make computations on BigQuery and display the results as data-vizualizations directly in BigQuery console.',
         'bigfunctions': {
             f.replace('.yaml', ''): yaml.safe_load(open(f'bigfunctions/{f}', encoding='utf-8').read())
             for f in sorted([f for f in os.listdir('bigfunctions') if f.startswith('explore_')])
         },
     },
-    'transform': {
+    'transform text': {
         'emoticon': '✨',
-        'description': (
-            '**"Transform" BigFunctions transform data**.\n\n'
-            'Get ready to be amazed.'
-        ),
+        'title': 'Transform data creatively',
+        'subtitle': 'Be amazed with your new SQL powers.',
         'bigfunctions': {
             f.replace('.yaml', ''): yaml.safe_load(open(f'bigfunctions/{f}', encoding='utf-8').read())
             for f in sorted([f for f in os.listdir('bigfunctions') if f.startswith('transform_')])
@@ -78,10 +73,8 @@ CATEGORIES = {
     },
     'notify': {
         'emoticon': '💬',
-        'description': (
-            '**"Notify" BigFunctions send notifications such as emails, chats, sms, etc**.\n\n'
-            'Spread the word to the world!'
-        ),
+        'title': 'Send infos to your customers, alert the operations teams, send reportings to business',
+        'subtitle': 'Spread the word to the world!',
         'bigfunctions': {
             f.replace('.yaml', ''): yaml.safe_load(open(f'bigfunctions/{f}', encoding='utf-8').read())
             for f in sorted([f for f in os.listdir('bigfunctions') if f.startswith('notify_')])
@@ -89,10 +82,8 @@ CATEGORIES = {
     },
     'export': {
         'emoticon': '🚀',
-        'description': (
-            '**"Export" BigFunctions send data to external services**.\n\n'
-            'Make BigQuery the golden source of all your SAAS and for all your usages'
-        ),
+        'title': 'Get the data out to the outside world',
+        'subtitle': 'Make BigQuery as the golden source of all your SAAS and for all your usages',
         'bigfunctions': {
             f.replace('.yaml', ''): yaml.safe_load(open(f'bigfunctions/{f}', encoding='utf-8').read())
             for f in sorted([f for f in os.listdir('bigfunctions') if f.startswith('export_')])
@@ -100,7 +91,8 @@ CATEGORIES = {
     },
     'utils': {
         'emoticon': '🔨',
-        'description': '**"Utils" BigFunctions**.',
+        'title': '"Utils" BigFunctions',
+        'subtitle': '',
         'bigfunctions': {
             f.replace('.yaml', ''): yaml.safe_load(open(f'bigfunctions/{f}', encoding='utf-8').read())
             for f in sorted([f for f in os.listdir('bigfunctions') if not any(f.startswith(prefix) for prefix in ['explore_', 'transform_', 'notify_', 'export_'])])
@@ -116,7 +108,7 @@ def generate_bigfunctions_index_page():
         out.write(content)
 
 
-def generate_bigfunctions_category_page(category, category_emoticon, category_description, bigfunctions):
+def generate_bigfunctions_category_page(category, category_emoticon, category_title, category_subtitle, bigfunctions):
     output_filename = f'site/content/reference/{category}.md'
     documentations = []
     for name, conf in bigfunctions.items():
@@ -132,7 +124,7 @@ def generate_bigfunctions_category_page(category, category_emoticon, category_de
         documentations.append(documentation)
 
 
-    header = CATEGORY_PAGE_HEADER_TEMPLATE.render(category=category, category_emoticon=category_emoticon, category_description=category_description)
+    header = CATEGORY_PAGE_HEADER_TEMPLATE.render(category=category, category_emoticon=category_emoticon, category_title=category_title, category_subtitle=category_subtitle)
     with open('site/content/reference.md', 'a', encoding='utf-8') as out:
         out.write(header)
         out.write('\n\n\n'.join(documentations))
@@ -141,4 +133,4 @@ def generate_bigfunctions_category_page(category, category_emoticon, category_de
 if __name__ == '__main__':
     generate_bigfunctions_index_page()
     for category, category_conf in CATEGORIES.items():
-        generate_bigfunctions_category_page(category, category_conf['emoticon'], category_conf['description'], category_conf['bigfunctions'])
+        generate_bigfunctions_category_page(category, category_conf['emoticon'], category_conf['title'], category_conf['subtitle'], category_conf['bigfunctions'])

@@ -7,7 +7,7 @@ import yaml
 import jinja2
 
 PYTHON_BUILD_DIR = 'build_python'
-DATASETS = ['bigfunctions.eu', 'bigfunctions.us', 'bigfunctions.asia_east1', 'bigfunctions.asia_east2', 'bigfunctions.asia_northeast1', 'bigfunctions.asia_northeast2', 'bigfunctions.asia_northeast3', 'bigfunctions.asia_south1', 'bigfunctions.asia_southeast1', 'bigfunctions.australia_southeast1', 'bigfunctions.europe_north1', 'bigfunctions.europe_west1', 'bigfunctions.europe_west2', 'bigfunctions.europe_west3', 'bigfunctions.europe_west4', 'bigfunctions.europe_west6', 'bigfunctions.northamerica_northeast1', 'bigfunctions.southamerica_east1', 'bigfunctions.us_central1', 'bigfunctions.us_east1', 'bigfunctions.us_east4', 'bigfunctions.us_west1', 'bigfunctions.us_west2']
+DATASETS = os.environ.get('BIGFUNCTIONS_DATASETS', '').split(',')
 BIGFUNCTIONS = [f.replace('.yaml', '') for f in os.listdir('bigfunctions')]
 
 BQ = google.cloud.bigquery.Client()
@@ -93,10 +93,9 @@ if args.bigfunction == '*':
     for dataset in DATASETS:
         for bigfunction in BIGFUNCTIONS:
             deploy(f'{dataset}.{bigfunction}')
-elif args.bigfunction.startswith('*.'):
-    bigfunction = args.bigfunction[2:]
+elif '.' in args.bigfunction:
+    deploy(args.bigfunction)
+else:
     for dataset in DATASETS:
         deploy(f'{dataset}.{bigfunction}')
-else:
-    deploy(args.bigfunction)
 

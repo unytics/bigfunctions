@@ -1,4 +1,5 @@
 type: procedure
+category: export
 description: Send email (via gmail) with data attached as excel file
 arguments:
   - name: table_or_view_or_query

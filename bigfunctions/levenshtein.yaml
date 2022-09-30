@@ -1,4 +1,5 @@
 type: function_js
+category: transform_string
 description: Computes levenshtein distance between `string1` and `string2`
 arguments:
   - name: string1
@@ -13,12 +14,7 @@ examples:
     arguments:
       - "'bak'"
       - "'book'"
-    output: |
-      +-------------+
-      | distance    |
-      +-------------+
-      | 2           |
-      +-------------+
+    output: "2"
     region: ALL
 code: |
   return js_levenshtein(string1 || '', string2 || '');

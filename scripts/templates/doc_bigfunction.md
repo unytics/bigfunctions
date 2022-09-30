@@ -30,7 +30,19 @@
 
 <pre style="margin-top: -1rem;">
 <code style="padding-top: 0px; padding-bottom: 0px;">
-{{ example.output }}
+{%- set output_name_length = output.name | length -%}
+{%- set output_length = example.output | length -%}
+{%- set hyphens_length = [output_name_length, output_length] | max -%}
+{%- set hyphens = '-' * hyphens_length -%}
+{%- set name_padding_length = [0, output_length - output_name_length] | max -%}
+{%- set name_padding = ' ' * name_padding_length -%}
+{%- set value_padding_length = [0, output_name_length - output_length] | max -%}
+{%- set value_padding = ' ' * value_padding_length -%}
++-{{ hyphens }}-+
+| {{ output.name }}{{ name_padding }} |
++-{{ hyphens }}-+
+| {{ example.output }}{{ value_padding }} |
++-{{ hyphens }}-+
 </code>
 </pre>
 

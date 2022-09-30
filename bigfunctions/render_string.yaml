@@ -1,4 +1,5 @@
 type: function_js
+category: tranform_string
 description: Render template with context json object using nunjucks.js templating library
 arguments:
   - name: template
@@ -13,12 +14,7 @@ examples:
     arguments:
       - "'Hello {{ username }}'"
       - "'{\"username\": \"James\"}'"
-    output: |
-      +------------------+
-      | rendered_content |
-      +------------------+
-      | Hello James      |
-      +------------------+
+    output: Hello James
     region: ALL
 code: |
   context = JSON.parse(context);
