@@ -117,24 +117,19 @@ def generate_bigfunctions_index_page():
 
 
 def generate_bigfunctions_category_page(category, category_emoticon, category_title, category_subtitle, bigfunctions):
-    documentations = []
-    for name, conf in bigfunctions.items():
-        if not conf or not isinstance(conf, dict):
-            continue
-        conf['name'] = name
-        template = f'scripts/templates/doc_reference.md'
-        documentation = jinja2.Template(open(template, encoding='utf-8').read()).render(
-            regions=REGIONS_TO_DISPLAY,
-            repo=REPO,
-            **conf,
-        )
-        documentations.append(documentation)
+    bigfunctions = [{**conf, **{'name': name}} for name, conf in bigfunctions.items()]
+    template = f'scripts/templates/doc_reference.md'
+    documentation = jinja2.Template(open(template, encoding='utf-8').read()).render(
+        regions=REGIONS_TO_DISPLAY,
+        repo=REPO,
+        bigfunctions=bigfunctions,
+    )
 
 
     header = CATEGORY_PAGE_HEADER_TEMPLATE.render(category=category, category_emoticon=category_emoticon, category_title=category_title, category_subtitle=category_subtitle)
     with open('site/content/reference.md', 'a', encoding='utf-8') as out:
         out.write(header)
-        out.write('\n\n\n'.join(documentations))
+        out.write(documentation)
 
 
 if __name__ == '__main__':
