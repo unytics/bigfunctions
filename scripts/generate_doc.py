@@ -15,44 +15,47 @@ BIGFUNCTIONS = [
 ]
 
 
-CATEGORIES = {
-    'explore': {
+CATEGORIES = [
+    {
+        'name': 'explore',
         'emoticon': '👀',
         'title': 'Explore data within BigQuery console',
         'subtitle': 'Make computations on BigQuery and display the results as data-vizualizations directly in BigQuery console.',
-        'bigfunctions': [bigfunction for bigfunction in BIGFUNCTIONS if bigfunction['category'] == 'explore'],
     },
-    'transform_string': {
+    {
+        'name': 'transform_string',
         'emoticon': '✨',
         'title': 'Transform data creatively',
         'subtitle': 'Be amazed with your new SQL powers.',
-        'bigfunctions': [bigfunction for bigfunction in BIGFUNCTIONS if bigfunction['category'] == 'transform_string'],
     },
-    'transform_date': {
+    {
+        'name': 'transform_date',
         'emoticon': '📆',
         'title': 'Transform data creatively',
         'subtitle': 'Be amazed with your new SQL powers.',
-        'bigfunctions': [bigfunction for bigfunction in BIGFUNCTIONS if bigfunction['category'] == 'transform_date'],
     },
-    'notify': {
+    {
+        'name': 'notify',
         'emoticon': '💬',
         'title': 'Send infos to your customers, alert the operations teams, send reportings to business',
         'subtitle': 'Spread the word to the world!',
-        'bigfunctions': [bigfunction for bigfunction in BIGFUNCTIONS if bigfunction['category'] == 'notify'],
     },
-    'export': {
+    {
+        'name': 'export',
         'emoticon': '🚀',
         'title': 'Get the data out to the outside world',
         'subtitle': 'Make BigQuery as the golden source of all your SAAS and for all your usages',
-        'bigfunctions': [bigfunction for bigfunction in BIGFUNCTIONS if bigfunction['category'] == 'export'],
     },
-    'utils': {
+    {
+        'name': 'utils',
         'emoticon': '🔨',
         'title': '"Utils" BigFunctions',
         'subtitle': '',
-        'bigfunctions': [bigfunction for bigfunction in BIGFUNCTIONS if bigfunction['category'] == 'utils'],
     },
-}
+]
+
+for category in CATEGORIES:
+    category['bigfunctions'] = [bigfunction for bigfunction in BIGFUNCTIONS if bigfunction['category'] == category['name']]
 
 
 def generate_bigfunctions_category_page():

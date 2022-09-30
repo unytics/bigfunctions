@@ -5,9 +5,10 @@ hide:
 
 ## 📄 Overview
 
+BigFunctions are public BigQuery routines that give you **super-SQL-powers** in BigQuery 💪.
+
 !!! note ""
 
-    BigFunctions are public BigQuery routines that give you **super-SQL-powers** in BigQuery 💪.
 
 
     
