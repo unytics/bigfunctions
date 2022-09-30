@@ -87,12 +87,23 @@ CATEGORIES = {
             for f in sorted([f for f in os.listdir('bigfunctions') if f.startswith('notify_')])
         },
     },
+    'export': {
+        'emoticon': '🚀',
+        'description': (
+            '**"Export" BigFunctions send data to external services**.\n\n'
+            'Make BigQuery the golden source of all your SAAS and for all your usages'
+        ),
+        'bigfunctions': {
+            f.replace('.yaml', ''): yaml.safe_load(open(f'bigfunctions/{f}', encoding='utf-8').read())
+            for f in sorted([f for f in os.listdir('bigfunctions') if f.startswith('export_')])
+        },
+    },
     'utils': {
         'emoticon': '🔨',
         'description': '**"Utils" BigFunctions**.',
         'bigfunctions': {
             f.replace('.yaml', ''): yaml.safe_load(open(f'bigfunctions/{f}', encoding='utf-8').read())
-            for f in sorted([f for f in os.listdir('bigfunctions') if not f.startswith('explore_') and not f.startswith('transform_') and not f.startswith('notify_')])
+            for f in sorted([f for f in os.listdir('bigfunctions') if not any(f.startswith(prefix) for prefix in ['explore_', 'transform_', 'notify_', 'export_'])])
         },
     },
 }
