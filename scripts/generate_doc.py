@@ -19,7 +19,7 @@ def generate_bigfunctions_category_page():
     for category in categories:
         category['bigfunctions'] = [bigfunction for bigfunction in BIGFUNCTIONS if bigfunction['category'] == category['name']]
     documentation = jinja2.Template(open(template, encoding='utf-8').read()).render(
-        regions=CONF['bigfunctions_regions'],
+        datasets=CONF['bigfunctions_datasets'],
         repo_url=CONF['repo_url'],
         categories=categories,
     )

@@ -109,14 +109,12 @@ Show column statistics
 
 
 
+=== "US"
 
+    ```sql
+    select bigfunctions.us.explore_column("bigquery-public-data.samples.natality.weight_pounds")
 
-
-
-```sql
-select bigfunctions.us.explore_column("bigquery-public-data.samples.natality.weight_pounds")
-
-```
+    ```
 
 
 
@@ -148,14 +146,12 @@ Shows infos about dataset tables
 
 
 
+=== "US"
 
+    ```sql
+    select bigfunctions.us.explore_dataset("bigquery-public-data.samples")
 
-
-
-```sql
-select bigfunctions.us.explore_dataset("bigquery-public-data.samples")
-
-```
+    ```
 
 
 
@@ -187,14 +183,12 @@ Show table infos and column statistics
 
 
 
+=== "US"
 
+    ```sql
+    select bigfunctions.us.explore_table("bigquery-public-data.samples.natality")
 
-
-
-```sql
-select bigfunctions.us.explore_table("bigquery-public-data.samples.natality")
-
-```
+    ```
 
 
 
@@ -239,8 +233,6 @@ levenshtein(string1, string2)
 Computes levenshtein distance between `string1` and `string2`
 
 **Examples**
-
-
 
 
 
@@ -313,8 +305,6 @@ sentiment_score(content)
 Compute sentiment score of text
 
 **Examples**
-
-
 
 
 
@@ -417,8 +407,6 @@ Returns true is `date` is the date of a public holiday for `country_code`
 
 
 
-
-
 === "EU"
 
     ```sql
@@ -510,8 +498,6 @@ Send email via gmail
 <span style="color: var(--md-typeset-a-color);">1. Send email without file attached</span>
 
 
-
-
 === "EU"
 
     ```sql
@@ -564,8 +550,6 @@ Send email via gmail
 <span style="color: var(--md-typeset-a-color);">2. Send email with plain text file attached</span>
 
 
-
-
 === "EU"
 
     ```sql
@@ -616,8 +600,6 @@ Send email via gmail
 
 
 <span style="color: var(--md-typeset-a-color);">3. Send email with excel file attached</span>
-
-
 
 
 === "EU"
@@ -711,14 +693,12 @@ Send email (via gmail) with data attached as excel file
 
 
 
+=== "EU"
 
+    ```sql
+    select bigfunctions.eu.export_to_gmail('bigfunctions.samples.natality', 'contact@unytics.io', 'Finance Figures for Today', 'Hey Paul, you fill find the figures in the attached excel file. Enjoy 🔥')
 
-
-
-```sql
-select bigfunctions.eu.export_to_gmail('bigfunctions.samples.natality', 'contact@unytics.io', 'Finance Figures for Today', 'Hey Paul, you fill find the figures in the attached excel file. Enjoy 🔥')
-
-```
+    ```
 
 
 
@@ -763,8 +743,6 @@ chart(data, chart_type, ylabel)
 Returns html with a chartjs chart
 
 **Examples**
-
-
 
 
 
@@ -826,8 +804,6 @@ dump_to_excel(data)
 Dump data to excel file returned as base64
 
 **Examples**
-
-
 
 
 
@@ -900,8 +876,6 @@ render_string(template, context)
 Render template with context json object using nunjucks.js templating library
 
 **Examples**
-
-
 
 
 
