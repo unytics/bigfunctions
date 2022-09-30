@@ -1,5 +1,5 @@
 type: function_py
-category: tranform_string
+category: transform_string
 description: Compute sentiment score of text
 arguments:
   - name: content

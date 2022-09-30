@@ -6,6 +6,11 @@ import jinja2
 
 REGIONS_TO_DISPLAY = ['EU', 'US', 'europe-west1', 'your-region2']
 REPO = 'https://github.com/unytics/bigfunctions'
+BIGFUNCTIONS = {
+    f.replace('.yaml', ''): yaml.safe_load(open(f'bigfunctions/{f}', encoding='utf-8').read())
+    for f in os.listdir('bigfunctions')
+}
+
 
 
 INDEX_PAGE_TEMPLATE= jinja2.Template('''---
@@ -58,45 +63,40 @@ CATEGORIES = {
         'title': 'Explore data within BigQuery console',
         'subtitle': 'Make computations on BigQuery and display the results as data-vizualizations directly in BigQuery console.',
         'bigfunctions': {
-            f.replace('.yaml', ''): yaml.safe_load(open(f'bigfunctions/{f}', encoding='utf-8').read())
-            for f in sorted([f for f in os.listdir('bigfunctions') if f.startswith('explore_')])
-        },
+            name: conf
+            for name, conf in BIGFUNCTIONS.items() if conf['category'] == 'explore'},
     },
-    'transform text': {
+    'transform_string': {
         'emoticon': '✨',
         'title': 'Transform data creatively',
         'subtitle': 'Be amazed with your new SQL powers.',
         'bigfunctions': {
-            f.replace('.yaml', ''): yaml.safe_load(open(f'bigfunctions/{f}', encoding='utf-8').read())
-            for f in sorted([f for f in os.listdir('bigfunctions') if f.startswith('transform_')])
-        },
+            name: conf
+            for name, conf in BIGFUNCTIONS.items() if conf['category'] == 'transform_string'},
     },
     'notify': {
         'emoticon': '💬',
         'title': 'Send infos to your customers, alert the operations teams, send reportings to business',
         'subtitle': 'Spread the word to the world!',
         'bigfunctions': {
-            f.replace('.yaml', ''): yaml.safe_load(open(f'bigfunctions/{f}', encoding='utf-8').read())
-            for f in sorted([f for f in os.listdir('bigfunctions') if f.startswith('notify_')])
-        },
+            name: conf
+            for name, conf in BIGFUNCTIONS.items() if conf['category'] == 'notify'},
     },
     'export': {
         'emoticon': '🚀',
         'title': 'Get the data out to the outside world',
         'subtitle': 'Make BigQuery as the golden source of all your SAAS and for all your usages',
         'bigfunctions': {
-            f.replace('.yaml', ''): yaml.safe_load(open(f'bigfunctions/{f}', encoding='utf-8').read())
-            for f in sorted([f for f in os.listdir('bigfunctions') if f.startswith('export_')])
-        },
+            name: conf
+            for name, conf in BIGFUNCTIONS.items() if conf['category'] == 'export'},
     },
     'utils': {
         'emoticon': '🔨',
         'title': '"Utils" BigFunctions',
         'subtitle': '',
         'bigfunctions': {
-            f.replace('.yaml', ''): yaml.safe_load(open(f'bigfunctions/{f}', encoding='utf-8').read())
-            for f in sorted([f for f in os.listdir('bigfunctions') if not any(f.startswith(prefix) for prefix in ['explore_', 'transform_', 'notify_', 'export_'])])
-        },
+            name: conf
+            for name, conf in BIGFUNCTIONS.items() if conf['category'] == 'utils'},
     },
 }
 

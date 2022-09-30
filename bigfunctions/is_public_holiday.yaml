@@ -1,5 +1,5 @@
 type: function_sql
-category: transform_string
+category: transform_date
 description: |
   Returns true is `date` is the date of a national public holiday (between year 1974 and 2076) in this `country_code`
 
