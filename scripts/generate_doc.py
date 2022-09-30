@@ -122,7 +122,7 @@ def generate_bigfunctions_category_page(category, category_emoticon, category_ti
         if not conf or not isinstance(conf, dict):
             continue
         conf['name'] = name
-        template = f'scripts/templates/doc_bigfunction.md'
+        template = f'scripts/templates/doc_reference.md'
         documentation = jinja2.Template(open(template, encoding='utf-8').read()).render(
             regions=REGIONS_TO_DISPLAY,
             repo=REPO,
