@@ -34,7 +34,7 @@ hide:
 
     
 
-    **✨ Transform date**
+    **📆 Transform date**
 
     
     - [<code>is_public_holiday(date, country_code)</code>](#is_public_holiday): Returns true is `date` is the date of a public holiday for `country_code`
@@ -345,7 +345,7 @@ Compute sentiment score of text
 <div style="margin-top: 6rem;"></div>
 
 
-## ✨ Transform date
+## 📆 Transform date
 
 !!! note ""
     **Transform data creatively **

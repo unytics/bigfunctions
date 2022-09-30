@@ -75,7 +75,7 @@ CATEGORIES = {
             for name, conf in BIGFUNCTIONS.items() if conf['category'] == 'transform_string'},
     },
     'transform_date': {
-        'emoticon': '✨',
+        'emoticon': '📆',
         'title': 'Transform data creatively',
         'subtitle': 'Be amazed with your new SQL powers.',
         'bigfunctions': {
@@ -117,7 +117,6 @@ def generate_bigfunctions_index_page():
 
 
 def generate_bigfunctions_category_page(category, category_emoticon, category_title, category_subtitle, bigfunctions):
-    output_filename = f'site/content/reference/{category}.md'
     documentations = []
     for name, conf in bigfunctions.items():
         if not conf or not isinstance(conf, dict):
