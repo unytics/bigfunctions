@@ -27,7 +27,7 @@ hide:
 
     {% for category, category_conf in categories.items() %}
 
-    **{{ category_conf.emoticon }} {{ category|title }}**
+    **{{ category_conf.emoticon }} {{ category | replace('_', ' ') | capitalize }}**
 
     {% for name, conf in category_conf.bigfunctions.items() -%}
     {% set bigfunction_description_lines = conf.description.split('\n') %}
@@ -47,7 +47,7 @@ CATEGORY_PAGE_HEADER_TEMPLATE = jinja2.Template('''
 <div style="margin-top: 6rem;"></div>
 
 
-## {{ category_emoticon }} {{ category|title }}
+## {{ category_emoticon }} {{ category | replace('_', ' ') | capitalize }}
 
 !!! note ""
     **{{ category_title }} **
@@ -73,6 +73,14 @@ CATEGORIES = {
         'bigfunctions': {
             name: conf
             for name, conf in BIGFUNCTIONS.items() if conf['category'] == 'transform_string'},
+    },
+    'transform_date': {
+        'emoticon': '✨',
+        'title': 'Transform data creatively',
+        'subtitle': 'Be amazed with your new SQL powers.',
+        'bigfunctions': {
+            name: conf
+            for name, conf in BIGFUNCTIONS.items() if conf['category'] == 'transform_date'},
     },
     'notify': {
         'emoticon': '💬',

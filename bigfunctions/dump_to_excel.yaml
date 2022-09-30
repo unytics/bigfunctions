@@ -1,5 +1,5 @@
 type: function_js
-category: transform_array
+category: utils
 description: Dump data to excel file returned as base64
 arguments:
   - name: data

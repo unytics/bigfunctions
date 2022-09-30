@@ -1,5 +1,5 @@
 type: function_sql
-category: explore
+category: utils
 description: |-
   Returns html with a chartjs chart
 arguments:
