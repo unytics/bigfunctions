@@ -40,7 +40,7 @@ examples:
       - "'I love BigFunctions'"
       - "'Hey Paul, could you deploy more BigFunctions 🙏?'"
       - "'report.xlsx'"
-      - "(select bigfunctions.eu.dump_to_excel('[{\"col1\": \"val1\", \"col2\": \"val2\"}, {\"col1\": \"val3\", \"col2\": \"val4\"}]'))"
+      - "(select {BIGFUNCTIONS_DATASET}.dump_to_excel('[{\"col1\": \"val1\", \"col2\": \"val2\"}, {\"col1\": \"val3\", \"col2\": \"val4\"}]'))"
     output: "true"
     region: ALL
 code: |
