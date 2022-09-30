@@ -1,0 +1,19 @@
+description: |
+  Contains national public holidays for every country
+  Dates are issued from python-holidays python package with:
+
+  ```
+  import holidays
+  countries = holidays.utils.list_supported_countries()
+  for country in countries:
+      dates = holidays.country_holidays(country, years=range(1975, 2077))
+      dates = sorted([str(date) for date in dates.keys()])
+      print('\\n'.join(f'{country},{date}' for date in dates))
+  ```
+schema:
+  - name: country
+    type: STRING
+    description: "country code"
+  - name: date
+    type: DATE
+    description: "public holiday local date"
