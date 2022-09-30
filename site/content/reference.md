@@ -744,7 +744,7 @@ select bigfunctions.eu.export_to_gmail('bigfunctions.samples.natality', 'contact
 ## 🔨 Utils
 
 !!! note ""
-    **"Utils" BigFunctions **
+    **Utils BigFunctions **
 
     
 
