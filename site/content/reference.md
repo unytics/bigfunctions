@@ -656,7 +656,7 @@ Returns true is `date` is the date of a national public holiday (between year 19
 
 `country_code` must be among `[AO, AR, AW, AU, AT, AZ, BD, BY, BE, BO, BW, BR, BG, BI, CA, CL, CN, CO, HR, CU, CW, CY, CZ, DK, DJ, DO, EG, EE, ET, FI, FR, GE, DE, GR, HN, HK, HU, IS, IN, IE, IL, IT, JM, JP, KZ, KE, KR, LV, LS, LT, LU, MG, MW, MY, MT, MX, MD, MA, MZ, NA, NL, NZ, NI, NG, MK, NO, PY, PE, PL, PT, RO, RU, SA, RS, SG, SK, SI, ZA, ES, SZ, SE, CH, TW, TN, TR, UA, AE, GB, US, UY, UZ, VE, VN, ZM, ZW]`
 
-Dates are issued from [`python-holidays` python package](https://python-holidays.readthedocs.io/).
+Dates are issued from <a href="https://python-holidays.readthedocs.io/" target="_blank">`python-holidays`</a>.
 
 
 **Examples**
