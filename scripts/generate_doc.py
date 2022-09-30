@@ -43,20 +43,6 @@ hide:
 
 
 
-CATEGORY_PAGE_HEADER_TEMPLATE = jinja2.Template('''
-<div style="margin-top: 6rem;"></div>
-
-
-## {{ category_emoticon }} {{ category | replace('_', ' ') | capitalize }}
-
-!!! note ""
-    **{{ category_title }} **
-
-    {{ category_subtitle }}
-
-''')
-
-
 CATEGORIES = {
     'explore': {
         'emoticon': '👀',
@@ -122,13 +108,13 @@ def generate_bigfunctions_category_page(category, category_emoticon, category_ti
     documentation = jinja2.Template(open(template, encoding='utf-8').read()).render(
         regions=REGIONS_TO_DISPLAY,
         repo=REPO,
+        category=category,
+        category_emoticon=category_emoticon,
+        category_title=category_title,
+        category_subtitle=category_subtitle,
         bigfunctions=bigfunctions,
     )
-
-
-    header = CATEGORY_PAGE_HEADER_TEMPLATE.render(category=category, category_emoticon=category_emoticon, category_title=category_title, category_subtitle=category_subtitle)
     with open('site/content/reference.md', 'a', encoding='utf-8') as out:
-        out.write(header)
         out.write(documentation)
 
 

@@ -1,3 +1,15 @@
+<div style="margin-top: 6rem;"></div>
+
+
+## {{ category_emoticon }} {{ category | replace('_', ' ') | capitalize }}
+
+!!! note ""
+    **{{ category_title }} **
+
+    {{ category_subtitle }}
+
+---
+
 {% for bigfunction in bigfunctions %}
 
 ### {{ bigfunction.name }}

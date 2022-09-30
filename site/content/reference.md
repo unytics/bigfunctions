@@ -72,7 +72,6 @@ hide:
 
     **🔴 Before using see --> [Getting Started](/bigfunctions/getting_started/)**
 
-
 <div style="margin-top: 6rem;"></div>
 
 
@@ -82,6 +81,9 @@ hide:
     **Explore data within BigQuery console **
 
     Make computations on BigQuery and display the results as data-vizualizations directly in BigQuery console.
+
+---
+
 
 
 ### explore_column
@@ -199,7 +201,6 @@ select bigfunctions.us.explore_table("bigquery-public-data.samples.natality")
 ---
 
 
-
 <div style="margin-top: 6rem;"></div>
 
 
@@ -209,6 +210,9 @@ select bigfunctions.us.explore_table("bigquery-public-data.samples.natality")
     **Transform data creatively **
 
     Be amazed with your new SQL powers.
+
+---
+
 
 
 ### levenshtein
@@ -357,7 +361,6 @@ Compute sentiment score of text
 ---
 
 
-
 <div style="margin-top: 6rem;"></div>
 
 
@@ -367,6 +370,9 @@ Compute sentiment score of text
     **Transform data creatively **
 
     Be amazed with your new SQL powers.
+
+---
+
 
 
 ### is_public_holiday
@@ -446,7 +452,6 @@ Returns true is `date` is the date of a public holiday for `country_code`
 ---
 
 
-
 <div style="margin-top: 6rem;"></div>
 
 
@@ -456,6 +461,9 @@ Returns true is `date` is the date of a public holiday for `country_code`
     **Send infos to your customers, alert the operations teams, send reportings to business **
 
     Spread the word to the world!
+
+---
+
 
 
 ### notify_gmail
@@ -638,7 +646,6 @@ Send email via gmail
 ---
 
 
-
 <div style="margin-top: 6rem;"></div>
 
 
@@ -648,6 +655,9 @@ Send email via gmail
     **Get the data out to the outside world **
 
     Make BigQuery as the golden source of all your SAAS and for all your usages
+
+---
+
 
 
 ### export_to_gmail
@@ -687,7 +697,6 @@ select bigfunctions.eu.export_to_gmail('bigfunctions.samples.natality', 'contact
 ---
 
 
-
 <div style="margin-top: 6rem;"></div>
 
 
@@ -697,6 +706,9 @@ select bigfunctions.eu.export_to_gmail('bigfunctions.samples.natality', 'contact
     **"Utils" BigFunctions **
 
     
+
+---
+
 
 
 ### chart
