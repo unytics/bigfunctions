@@ -67,3 +67,8 @@ bigfunctions_categories:
     emoticon: "🔨"
     title: "Utils BigFunctions"
     subtitle: ""
+bigfunctions_regions:
+  - "EU"
+  - "US"
+  - "europe-west1"
+  - "your-region2"
