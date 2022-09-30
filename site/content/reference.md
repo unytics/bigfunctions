@@ -72,6 +72,11 @@ hide:
 
     **🔴 Before using see --> [Getting Started](/bigfunctions/getting_started/)**
 
+
+
+
+
+
 <div style="margin-top: 6rem;"></div>
 
 
@@ -199,6 +204,13 @@ select bigfunctions.us.explore_table("bigquery-public-data.samples.natality")
 
 
 ---
+
+
+
+
+
+
+
 
 
 <div style="margin-top: 6rem;"></div>
@@ -361,6 +373,13 @@ Compute sentiment score of text
 ---
 
 
+
+
+
+
+
+
+
 <div style="margin-top: 6rem;"></div>
 
 
@@ -450,6 +469,13 @@ Returns true is `date` is the date of a public holiday for `country_code`
 
 
 ---
+
+
+
+
+
+
+
 
 
 <div style="margin-top: 6rem;"></div>
@@ -646,6 +672,13 @@ Send email via gmail
 ---
 
 
+
+
+
+
+
+
+
 <div style="margin-top: 6rem;"></div>
 
 
@@ -695,6 +728,13 @@ select bigfunctions.eu.export_to_gmail('bigfunctions.samples.natality', 'contact
 
 
 ---
+
+
+
+
+
+
+
 
 
 <div style="margin-top: 6rem;"></div>
@@ -918,5 +958,9 @@ Render template with context json object using nunjucks.js templating library
 
 
 ---
+
+
+
+
 
 

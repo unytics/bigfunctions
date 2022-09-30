@@ -6,41 +6,13 @@ import jinja2
 
 REGIONS_TO_DISPLAY = ['EU', 'US', 'europe-west1', 'your-region2']
 REPO = 'https://github.com/unytics/bigfunctions'
-BIGFUNCTIONS = {
-    f.replace('.yaml', ''): yaml.safe_load(open(f'bigfunctions/{f}', encoding='utf-8').read())
+BIGFUNCTIONS = [
+    {
+        **yaml.safe_load(open(f'bigfunctions/{f}', encoding='utf-8').read()),
+        **{'name': f.replace('.yaml', '')},
+    }
     for f in os.listdir('bigfunctions')
-}
-
-
-
-INDEX_PAGE_TEMPLATE= jinja2.Template('''---
-hide:
-  - navigation
----
-
-## 📄 Overview
-
-!!! note ""
-
-    BigFunctions are public BigQuery routines that give you **super-SQL-powers** in BigQuery 💪.
-
-
-    {% for category, category_conf in categories.items() %}
-
-    **{{ category_conf.emoticon }} {{ category | replace('_', ' ') | capitalize }}**
-
-    {% for name, conf in category_conf.bigfunctions.items() -%}
-    {% set bigfunction_description_lines = conf.description.split('\n') %}
-    - [<code>{{ name }}({% for argument in conf.arguments %}{{ argument.name | replace('{{region}}', region) }}{% if not loop.last %}, {% endif %}{% endfor %})</code>](#{{ name }}): {{ bigfunction_description_lines[0] }}
-    {% endfor %}
-
-    {% endfor %}
-
-    **🔴 Before using see --> [Getting Started](/bigfunctions/getting_started/)**
-
-
-''')
-
+]
 
 
 CATEGORIES = {
@@ -48,77 +20,51 @@ CATEGORIES = {
         'emoticon': '👀',
         'title': 'Explore data within BigQuery console',
         'subtitle': 'Make computations on BigQuery and display the results as data-vizualizations directly in BigQuery console.',
-        'bigfunctions': {
-            name: conf
-            for name, conf in BIGFUNCTIONS.items() if conf['category'] == 'explore'},
+        'bigfunctions': [bigfunction for bigfunction in BIGFUNCTIONS if bigfunction['category'] == 'explore'],
     },
     'transform_string': {
         'emoticon': '✨',
         'title': 'Transform data creatively',
         'subtitle': 'Be amazed with your new SQL powers.',
-        'bigfunctions': {
-            name: conf
-            for name, conf in BIGFUNCTIONS.items() if conf['category'] == 'transform_string'},
+        'bigfunctions': [bigfunction for bigfunction in BIGFUNCTIONS if bigfunction['category'] == 'transform_string'],
     },
     'transform_date': {
         'emoticon': '📆',
         'title': 'Transform data creatively',
         'subtitle': 'Be amazed with your new SQL powers.',
-        'bigfunctions': {
-            name: conf
-            for name, conf in BIGFUNCTIONS.items() if conf['category'] == 'transform_date'},
+        'bigfunctions': [bigfunction for bigfunction in BIGFUNCTIONS if bigfunction['category'] == 'transform_date'],
     },
     'notify': {
         'emoticon': '💬',
         'title': 'Send infos to your customers, alert the operations teams, send reportings to business',
         'subtitle': 'Spread the word to the world!',
-        'bigfunctions': {
-            name: conf
-            for name, conf in BIGFUNCTIONS.items() if conf['category'] == 'notify'},
+        'bigfunctions': [bigfunction for bigfunction in BIGFUNCTIONS if bigfunction['category'] == 'notify'],
     },
     'export': {
         'emoticon': '🚀',
         'title': 'Get the data out to the outside world',
         'subtitle': 'Make BigQuery as the golden source of all your SAAS and for all your usages',
-        'bigfunctions': {
-            name: conf
-            for name, conf in BIGFUNCTIONS.items() if conf['category'] == 'export'},
+        'bigfunctions': [bigfunction for bigfunction in BIGFUNCTIONS if bigfunction['category'] == 'export'],
     },
     'utils': {
         'emoticon': '🔨',
         'title': '"Utils" BigFunctions',
         'subtitle': '',
-        'bigfunctions': {
-            name: conf
-            for name, conf in BIGFUNCTIONS.items() if conf['category'] == 'utils'},
+        'bigfunctions': [bigfunction for bigfunction in BIGFUNCTIONS if bigfunction['category'] == 'utils'],
     },
 }
 
 
-def generate_bigfunctions_index_page():
-    output_filename = f'site/content/reference.md'
-    content = INDEX_PAGE_TEMPLATE.render(categories=CATEGORIES)
-    with open(output_filename, 'w', encoding='utf-8') as out:
-        out.write(content)
-
-
-def generate_bigfunctions_category_page(category, category_emoticon, category_title, category_subtitle, bigfunctions):
-    bigfunctions = [{**conf, **{'name': name}} for name, conf in bigfunctions.items()]
+def generate_bigfunctions_category_page():
     template = f'scripts/templates/doc_reference.md'
     documentation = jinja2.Template(open(template, encoding='utf-8').read()).render(
         regions=REGIONS_TO_DISPLAY,
         repo=REPO,
-        category=category,
-        category_emoticon=category_emoticon,
-        category_title=category_title,
-        category_subtitle=category_subtitle,
-        bigfunctions=bigfunctions,
+        categories=CATEGORIES,
     )
-    with open('site/content/reference.md', 'a', encoding='utf-8') as out:
+    with open('site/content/reference.md', 'w', encoding='utf-8') as out:
         out.write(documentation)
 
 
 if __name__ == '__main__':
-    generate_bigfunctions_index_page()
-    for category, category_conf in CATEGORIES.items():
-        generate_bigfunctions_category_page(category, category_conf['emoticon'], category_conf['title'], category_conf['subtitle'], category_conf['bigfunctions'])
+    generate_bigfunctions_category_page()
