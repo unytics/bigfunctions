@@ -6,26 +6,50 @@ import jinja2
 CONF = yaml.safe_load(open(f'mkdocs.yml', encoding='utf-8').read())
 
 
-def generate_bigfunctions_category_page():
-    template = f'scripts/templates/doc_reference.md'
-    bigfunctions = [
-        {
-            **yaml.safe_load(open(f'bigfunctions/{f}', encoding='utf-8').read()),
-            **{'name': f.replace('.yaml', '')},
+class Page:
+    name = ''
+
+    def generate(self):
+        context = self.get_context()
+        template = f'scripts/templates/doc_{self.name}.md'
+        content = jinja2.Template(open(template, encoding='utf-8').read()).render(**context)
+        with open(f'site/content/{self.name}.md', 'w', encoding='utf-8') as out:
+            out.write(content)
+
+    def get_context(self):
+        raise NotImplementedError()
+
+
+class GettingStartedPage(Page):
+    name = 'getting_started'
+
+    def get_context(self):
+        bookmarklet = open('scripts/bookmarklet.js', encoding='utf-8').read()
+        bookmarklet = 'javascript:' + bookmarklet.replace('\n', ' ')
+        return {'bookmarklet': bookmarklet}
+
+
+class ReferencePage(Page):
+    name = 'reference'
+
+    def get_context(self):
+        bigfunctions = [
+            {
+                **yaml.safe_load(open(f'bigfunctions/{f}', encoding='utf-8').read()),
+                **{'name': f.replace('.yaml', '')},
+            }
+            for f in os.listdir('bigfunctions')
+        ]
+        categories = CONF['bigfunctions_categories']
+        for category in categories:
+            category['bigfunctions'] = [bigfunction for bigfunction in bigfunctions if bigfunction['category'] == category['name']]
+        return {
+            'datasets': CONF['bigfunctions_datasets'],
+            'repo_url': CONF['repo_url'],
+            'categories': categories,
         }
-        for f in os.listdir('bigfunctions')
-    ]
-    categories = CONF['bigfunctions_categories']
-    for category in categories:
-        category['bigfunctions'] = [bigfunction for bigfunction in bigfunctions if bigfunction['category'] == category['name']]
-    documentation = jinja2.Template(open(template, encoding='utf-8').read()).render(
-        datasets=CONF['bigfunctions_datasets'],
-        repo_url=CONF['repo_url'],
-        categories=categories,
-    )
-    with open('site/content/reference.md', 'w', encoding='utf-8') as out:
-        out.write(documentation)
 
 
 if __name__ == '__main__':
-    generate_bigfunctions_category_page()
+    GettingStartedPage().generate()
+    ReferencePage().generate()
