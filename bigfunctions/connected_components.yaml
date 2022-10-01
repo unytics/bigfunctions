@@ -1,0 +1,181 @@
+type: procedure
+category: graph
+description: |
+  Compute the connected components of a non-directed graph.
+
+  Given a table with two columns of the same type STRING or INTEGER representing the edges of a graph,
+  this computes a new temporary table called `bigfunction_result` containing two columns of the same type 
+  named `node_id` and `connected_component_id`.
+
+  This is an implementation of the Alternating Algorithm (large-star, small-star) described in the 2014 paper
+  "Connected Components in MapReduce and Beyond" written by {rkiveris, silviol, mirrokni, rvibhor, sergeiv} @google.com
+
+  PERFORMANCE AND COST CONSIDERATIONS
+  -----------------------------------
+  This algorithm has been proved to converge in O(log(n)²) and is conjectured to converge in O(log(n)), where n
+  is the number of nodes in the graph. It was the most performant known distributed connected component algorithm
+  last time I checked (in 2017).
+
+  This implementation persists temporary results at each iteration loop: for the BigQuery pricing, you should
+  be expecting it to cost the equivalent of 15 to 30 scans on your input table. Since the input table has only
+  two columns, this should be reasonable, and we recommend using INTEGER columns rather than STRING when possible.
+
+  If your graph contains nodes with a very high number of neighbors, the algorithm may crash. It is recommended
+  to apply a pre-filtering on your nodes and remove nodes with a pathologically high cardinality. 
+  You should also monitor actively the number of nodes filtered this way and their cardinality, as this could help 
+  you detect a data quality deterioration in your input graph.
+  If the input graph contains duplicate edges, they will be automatically removed by the algorithm.
+  
+  If you want to have isolated nodes (nodes that have no neighbors) in the resulting graph, there is two possible
+  ways to achieve this: 
+  A. Add self-loops edges to all your nodes in your input graph (it also works if you add edges between all the graph
+     nodes and a fictitious node with id NULL)
+  B. Only add edges between distinct nodes to your input, and perform a join between your input graph and the 
+     algorithm's output to find all the nodes that have disappeared. These will be the isolated nodes.
+  Method B. requires a little more work but it should also be cheaper.
+
+arguments:
+  - name: fully_qualified_input_table
+    type: STRING
+examples:
+  - description: ""
+    arguments:
+      - "bigfunctions.eu.test_connected_components_input_1"
+    region: EU
+code: |
+  declare query, loop_query, count_new_rows_query, output_query string;
+  declare old_table, new_table, temp_table string;
+  declare nb_rows_added_at_this_iteration int64;
+  declare columns array<struct<column_name string, data_type string>>;
+  call {BIGFUNCTIONS_DATASET}.get_table_columns(fully_qualified_input_table);
+  set columns = (select array_agg(struct(column_name, data_type)) from bigfunction_result) ;
+
+  assert(array_length(columns) = 2) 
+    as 'input table must have two columns' ;
+  assert(columns[offset(0)].data_type = columns[offset(1)].data_type) 
+    as 'the two columns of the input table must have the same type';
+  assert(columns[offset(0)].data_type in ("STRING", "INT64")) 
+    as 'the two columns of the input table must be of type STRING or INT64';
+
+  set query = '''
+    create or replace temp table working_table_1 as
+    select {{col_1}} as l_node, {{col_2}} as r_node
+    from {{fully_qualified_input_table}}
+  ''';
+  execute immediate replace(replace(replace(query, 
+      "{{col_1}}", columns[offset(0)].column_name), 
+      "{{col_2}}", columns[offset(1)].column_name), 
+      "{{fully_qualified_input_table}}", fully_qualified_input_table) 
+  ;
+
+  set loop_query = '''
+    create or replace temp table {{new_table}} as
+    with large_star as (
+        with input as (select * from {{old_table}}),
+        generic_star as (
+            with edges as (
+                select l_node, r_node from input
+                union all
+                select r_node, l_node from input
+                union all
+                select l_node, l_node from input
+                union all
+                select r_node, r_node from input
+            ),
+            neighborhood as (
+                select
+                    l_node,
+                    array_agg(distinct r_node) as neighbors_and_self
+                from edges
+                where l_node is not null and r_node is not null
+                group by l_node
+            )
+            select
+                l_node,
+                (select min(neighbor) from unnest(neighbors_and_self) as neighbor) as min_neighbors_and_self,
+                array(select * from unnest(neighbors_and_self) as neighbor where neighbor > l_node) as larger_neighbors,
+                array(select * from unnest(neighbors_and_self) as neighbor where neighbor <= l_node) as smaller_neighbors_and_self
+            from neighborhood
+        )
+        select
+            min_neighbors_and_self as l_node,
+            r_node
+        from generic_star
+        join unnest(larger_neighbors) as r_node
+        /* This adds back self-loop (N <=> N) relations */
+        union all
+        select
+            l_node as l_node,
+            l_node as r_node
+        from generic_star
+    ),
+    small_star as (
+        with input as (select * from large_star),
+        generic_star as (
+            with edges as (
+                select l_node, r_node from input
+                union all
+                select r_node, l_node from input
+                union all
+                select l_node, l_node from input
+                union all
+                select r_node, r_node from input
+            ),
+            neighborhood as (
+                select
+                    l_node,
+                    array_agg(distinct r_node) as neighbors_and_self
+                from edges
+                where l_node is not null and r_node is not null
+                group by l_node
+            )
+            select
+                l_node,
+                (select min(neighbor) from unnest(neighbors_and_self) as neighbor) as min_neighbors_and_self,
+                array(select * from unnest(neighbors_and_self) as neighbor where neighbor > l_node) as larger_neighbors,
+                array(select * from unnest(neighbors_and_self) as neighbor where neighbor <= l_node) as smaller_neighbors_and_self
+            from neighborhood
+        )
+        select
+            min_neighbors_and_self as l_node,
+            r_node
+        from generic_star
+        join unnest(smaller_neighbors_and_self) as r_node
+        /* This makes sure that self-loops (N <=> N) relations are only added once */
+        where min_neighbors_and_self <> r_node or l_node = min_neighbors_and_self
+    )
+    select * from small_star
+  ''';
+
+  set count_new_rows_query = '''
+      select count(1)
+      from {{new_table}} new_table
+      where not exists (
+        select 1 
+        from {{old_table}} old_table 
+        where new_table.l_node = old_table.l_node 
+        and new_table.r_node = old_table.r_node
+      )
+  ''';
+
+  set output_query = '''
+    create or replace temp table bigfunction_result as
+    select r_node as node_id, l_node as connected_component_id, from {{new_table}}
+  ''';
+
+  set old_table = "working_table_1";
+  set new_table = "working_table_2";
+  loop
+    execute immediate replace(replace(loop_query, "{{old_table}}", old_table), "{{new_table}}", new_table);
+    execute immediate replace(replace(count_new_rows_query, 
+      "{{old_table}}", old_table), 
+      "{{new_table}}", new_table) 
+      into nb_rows_added_at_this_iteration 
+    ;
+    if nb_rows_added_at_this_iteration = 0 then leave; end if;
+    set temp_table = new_table ;
+    set new_table = old_table ;
+    set old_table = temp_table ;
+  end loop ;
+
+  execute immediate replace(output_query, "{{new_table}}", new_table);
