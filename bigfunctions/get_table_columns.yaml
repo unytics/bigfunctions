@@ -1,0 +1,29 @@
+type: procedure
+category: utils
+description: |
+  Get the column information of the given table from `INFORMATION_SCHEMA.COLUMNS` 
+  and put them in a temporary table called `bigfunction_result`.
+arguments:
+  - name: fully_qualified_table
+    type: STRING
+examples:
+  - description: | 
+      call `bigfunctions.eu._get_columns`("bigfunctions.samples.natality");
+      select column_name, data_type from bigfunction_result ;
+    arguments:
+      - "'bigfunctions.samples.natality'"
+    region: EU
+code: |
+  declare project, dataset, table, query string;
+  declare parts array<string> default split(replace(fully_qualified_table, '`', ''), '.');
+  set project = parts[offset(0)];
+  set dataset = parts[offset(1)];
+  set table = parts[offset(2)];
+
+  set query = '''
+    create or replace temp table bigfunction_result as
+    select *
+    from `{{project}}.{{dataset}}.INFORMATION_SCHEMA.COLUMNS`
+    where table_name = '{{table}}'
+  ''' ;
+  execute immediate replace(replace(replace(query, "{{project}}", project), "{{dataset}}", dataset), "{{table}}", table);
