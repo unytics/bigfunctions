@@ -117,5 +117,5 @@ elif '.' in args.bigfunction:
     deploy(args.bigfunction)
 else:
     for dataset in DATASETS:
-        deploy(f'{dataset}.{bigfunction}')
+        deploy(f'{dataset}.{args.bigfunction}')
 
