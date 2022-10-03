@@ -7,7 +7,7 @@ arguments:
   - name: fully_qualified_table
     type: STRING
 examples:
-  - description: | 
+  - description: |
       call `bigfunctions.eu._get_columns`("bigfunctions.samples.natality");
       select column_name, data_type from bigfunction_result ;
     arguments:

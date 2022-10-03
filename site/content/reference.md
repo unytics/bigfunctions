@@ -122,8 +122,8 @@ Show column statistics
 === "US"
 
     ```sql
-    select bigfunctions.us.explore_column("bigquery-public-data.samples.natality.weight_pounds")
-
+    call bigfunctions.us.explore_column("bigquery-public-data.samples.natality.weight_pounds");
+    select html from bigfunction_result;
     ```
 
 
@@ -159,8 +159,8 @@ Shows infos about dataset tables
 === "US"
 
     ```sql
-    select bigfunctions.us.explore_dataset("bigquery-public-data.samples")
-
+    call bigfunctions.us.explore_dataset("bigquery-public-data.samples");
+    select html from bigfunction_result;
     ```
 
 
@@ -196,8 +196,8 @@ Show table infos and column statistics
 === "US"
 
     ```sql
-    select bigfunctions.us.explore_table("bigquery-public-data.samples.natality")
-
+    call bigfunctions.us.explore_table("bigquery-public-data.samples.natality");
+    select html from bigfunction_result;
     ```
 
 
@@ -542,8 +542,8 @@ in the resulting graph, there is two possible ways to achieve this:
 === "EU"
 
     ```sql
-    select bigfunctions.eu.connected_components(bigfunctions.eu.test_connected_components_input_1)
-
+    call bigfunctions.eu.connected_components(bigfunctions.eu.test_connected_components_input_1);
+    
     ```
 
 
@@ -793,8 +793,8 @@ Send email (via gmail) with data attached as excel file
 === "EU"
 
     ```sql
-    select bigfunctions.eu.export_to_gmail('bigfunctions.samples.natality', 'contact@unytics.io', 'Finance Figures for Today', 'Hey Paul, you fill find the figures in the attached excel file. Enjoy 🔥')
-
+    call bigfunctions.eu.export_to_gmail('bigfunctions.samples.natality', 'contact@unytics.io', 'Finance Figures for Today', 'Hey Paul, you fill find the figures in the attached excel file. Enjoy 🔥');
+    
     ```
 
 
@@ -986,8 +986,8 @@ select column_name, data_type from bigfunction_result ;
 === "EU"
 
     ```sql
-    select bigfunctions.eu.get_table_columns('bigfunctions.samples.natality')
-
+    call bigfunctions.eu.get_table_columns('bigfunctions.samples.natality');
+    
     ```
 
 

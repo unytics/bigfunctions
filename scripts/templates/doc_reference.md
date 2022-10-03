@@ -63,8 +63,8 @@ BigFunctions are public BigQuery routines that give you **super-SQL-powers** in 
 {% if datasets|length > 1 %}=== "{{ dataset.region }}"{% endif %}
 
 {% if datasets|length > 1 %}    {% endif %}```sql
-{% if datasets|length > 1 %}    {% endif %}{% if type == 'procedure' %}call{% else %}select{% endif %} {{ dataset.name }}.{{ bigfunction.name }}({% for argument in example.arguments %}{{ argument | replace('{BIGFUNCTIONS_DATASET}', dataset.name) }}{% if not loop.last %}, {% endif %}{% endfor %}){% if type == 'procedure' %};{% elif 'output' in bigfunction %} as {{ bigfunction.output.name }}{% endif %}
-{% if type == 'procedure' %}{% if datasets|length > 1 %}    {% endif %}{% if template %}select html from bigfunction_result;{% endif %}{% endif %}
+{% if datasets|length > 1 %}    {% endif %}{% if bigfunction.type == 'procedure' %}call{% else %}select{% endif %} {{ dataset.name }}.{{ bigfunction.name }}({% for argument in example.arguments %}{{ argument | replace('{BIGFUNCTIONS_DATASET}', dataset.name) }}{% if not loop.last %}, {% endif %}{% endfor %}){% if bigfunction.type == 'procedure' %};{% elif 'output' in bigfunction %} as {{ bigfunction.output.name }}{% endif %}
+{% if bigfunction.type == 'procedure' %}{% if datasets|length > 1 %}    {% endif %}{% if bigfunction.template %}select html from bigfunction_result;{% endif %}{% endif %}
 {% if datasets|length > 1 %}    {% endif %}```
 
 {% endfor %}
