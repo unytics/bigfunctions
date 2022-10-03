@@ -1,7 +1,9 @@
 import os
 import shutil
 import argparse
+import math
 
+from google.api_core.exceptions import BadRequest
 import google.cloud.bigquery
 import yaml
 import jinja2
@@ -11,6 +13,20 @@ DATASETS = os.environ.get('BIGFUNCTIONS_DATASETS', '').split(',')
 BIGFUNCTIONS = [f.replace('.yaml', '') for f in os.listdir('bigfunctions')]
 
 BQ = google.cloud.bigquery.Client()
+
+
+def prefix_lines_with_line_number(string: str, starting_index: int = 1) -> str:
+    """Example:
+
+    >>> print(prefix_lines_with_line_number('Hello\\nWorld!'))
+    1: Hello
+    2: World!
+    """
+    lines = string.split("\n")
+    max_index = starting_index + len(lines) - 1
+    nb_zeroes = int(math.log10(max_index)) + 1
+    numbered_lines = [str(index + starting_index).zfill(nb_zeroes) + ": " + line for index, line in enumerate(lines)]
+    return "\n".join(numbered_lines)
 
 
 def deploy(fully_qualified_bigfunction):
@@ -78,7 +94,11 @@ def deploy(fully_qualified_bigfunction):
         filename=filename,
         **conf,
     )
-    BQ.query(query).result()
+    try:
+        BQ.query(query).result()
+    except BadRequest as e:
+        e.message += "\nQuery:\n" + prefix_lines_with_line_number(query)
+        raise e
     print('successfully created', fully_qualified_bigfunction)
 
 
