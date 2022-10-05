@@ -22,7 +22,7 @@ BigFunctions project is two fold:
 Then,
 
 - If you are interested in calling common BigFunctions, best is to see the [online documentation](https://unytics.github.io/bigfunctions/).
-- Otherwise if you wish to develop BigFunctions, contribute to this repo, or if you wish to deploy the common BigFunctions in your own GCP project, you may be interested in the following.
+- Otherwise if you wish to develop BigFunctions, contribute to this repo, or if you wish to deploy BigFunctions in your own GCP project, you may be interested in the following.
 
 
 ## `bigfun` CLI
