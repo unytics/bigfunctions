@@ -13,8 +13,8 @@
 ## BigFunctions project is two fold
 
 
-1. **offer a framework to easily develop, test and deploy routines called BigFunctions to BigQuery.**
-2. **share common useful BigFunctions among the data-community.** <br>BigFunctions defined in 'bigfunctions' folder are all deployed and callable from any BigQuery project without installation.
+1. **Offer a framework to easily develop, test and deploy routines called BigFunctions to BigQuery.**
+2. **Share common useful BigFunctions among the data-community.** <br>BigFunctions defined in 'bigfunctions' folder are all deployed and callable from any BigQuery project without installation.
 
 Then,
 
