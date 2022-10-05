@@ -57,7 +57,7 @@ pip install --editable .
 ### Usage
 
 ``` sh
-bigfun --help
+$ bigfun --help
 Usage: bigfun [OPTIONS] COMMAND [ARGS]...
 
 Options:
