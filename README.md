@@ -13,12 +13,14 @@
 ## BigFunctions project is two fold
 
 
-1. **Offer a framework to easily develop, test and deploy routines called BigFunctions to BigQuery.**
-2. **Share common useful BigFunctions among the data-community.** <br>BigFunctions defined in 'bigfunctions' folder are all deployed and callable from any BigQuery project without installation.
+1. **Share common useful BigFunctions among the data-community.** <br>BigFunctions defined in 'bigfunctions' folder are all deployed and callable from any BigQuery project without installation. They give you new SQL-superpowers with
+  - advanced transforms such as computing sentiment score of a text, or computing the latitude, longitude of an address.
+  - advanced data-explorations/vizualisations from your BigQuery console, your notebooks, your IDE.
+  - communication with all your SAAS to make you able to bring common logic to all your SAAS from your data-warehouse and optionnaly from dbt.
+2. **Define a framework to easily develop, test and deploy routines called BigFunctions to BigQuery.**
 
-Then,
 
-- If you are interested in calling common BigFunctions, best is to see the [online documentation](https://unytics.github.io/bigfunctions/).
+- If you are interested in calling common BigFunctions, go [here](https://unytics.github.io/bigfunctions/).
 - Otherwise if you wish to develop BigFunctions, contribute to this repo, or if you wish to deploy BigFunctions in your own GCP project, keep reading!
 
 
