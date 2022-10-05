@@ -10,4 +10,3 @@
 ---
 
 BigFunctions are open BigQuery routines that give you new *SQL powers* in BigQuery 💪.
-
