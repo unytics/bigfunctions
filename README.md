@@ -35,20 +35,36 @@ This repo contains a CLI called `bigfun` to facilitate BigFunctions development,
 
 **Install and init dependencies**
 
-As `bigfun` uses `gcloud` under the hood be sure to: 
+As `bigfun` uses `gcloud` under the hood: 
 
 - install `gcloud`
 - authenticate `gcloud` with `gcloud init`
 - authenticate `gcloud` for python by running `gcloud auth application-default login`
 
 
-
 **Install `bigfun`**
 
-```sh
+``` sh
 virtualenv venv
 . venv/bin/activate
 pip install --editable .
 ```
 
 
+### Needed permissions
+
+
+### Usage
+
+``` sh
+bigfun --help
+Usage: bigfun [OPTIONS] COMMAND [ARGS]...
+
+Options:
+  --help  Show this message and exit.
+
+Commands:
+  deploy  Deploy BIGFUNCTION
+  doc     Generate, serve and publish documentation
+  test    Test BIGFUNCTION
+```

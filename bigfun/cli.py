@@ -78,8 +78,29 @@ def deploy(bigfunction):
             deploy(f'{project}.{dataset}.{bigfunction}')
 
 
+@cli.command()
+@click.argument('bigfunction')
+def test(bigfunction):
+    '''
+    Test BIGFUNCTION
+
+    - If BIGFFUNCTION = '{project}.{dataset}.{name}' then bigfunction of name {name} in bigfunctions folder will be deployed in dataset {dataset} of project {project}
+
+    - If BIGFFUNCTION = '{dataset}.{name}' then bigfunction of name {name} in bigfunctions folder will be deployed in dataset {dataset} of default project defined in `config.yaml` file. If no default dataset is defined yet, it will be prompted and saved in `config.yaml`.
+
+    - If BIGFFUNCTION = '{name}' then bigfunction of name {name} in bigfunctions folder will be deployed in default dataset of default project defined in `config.yaml` file. If these default values are not defined yet, they will be prompted and saved in `config.yaml`.
+
+    - If BIGFUNCTION = '*' then all bigfunctions contained in bigfunctions folder will be deployed in default datasets of default project in `config.yaml` file. If these default values are not defined yet, they will be prompted and saved in `config.yaml`.
+    '''
+    deploy(bigfunction)         
+    # [TODO] make some tests
+
+
 @cli.group()
 def doc():
+    '''
+    Generate, serve and publish documentation
+    '''
     pass
 
 @doc.command()
