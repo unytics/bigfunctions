@@ -84,4 +84,7 @@ def doc():
 
 @doc.command()
 def generate():
-    print('ye')
+    '''
+    Generate markdown files for documentation from yaml bigfunctions files
+    '''
+    from .generate_doc import generate_doc

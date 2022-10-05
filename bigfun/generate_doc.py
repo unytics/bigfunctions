@@ -5,13 +5,16 @@ import jinja2
 
 CONF = yaml.safe_load(open(f'mkdocs.yml', encoding='utf-8').read())
 
+THIS_FOLDER = os.path.dirname(os.path.realpath(__file__)).replace('\\', '/')
+TEMPLATE_FOLDER = THIS_FOLDER + '/templates'
+
 
 class Page:
     name = ''
 
     def generate(self):
         context = self.get_context()
-        template = f'scripts/templates/doc_{self.name}.md'
+        template = f'{TEMPLATE_FOLDER}/doc_{self.name}.md'
         content = jinja2.Template(open(template, encoding='utf-8').read()).render(**context)
         with open(f'site/content/{self.name}.md', 'w', encoding='utf-8') as out:
             out.write(content)
@@ -24,7 +27,7 @@ class GettingStartedPage(Page):
     name = 'getting_started'
 
     def get_context(self):
-        bookmarklet = open('scripts/bookmarklet.js', encoding='utf-8').read()
+        bookmarklet = open(f'{THIS_FOLDER}/bookmarklet.js', encoding='utf-8').read()
         bookmarklet = 'javascript:' + bookmarklet.replace('\n', ' ')
         return {'bookmarklet': bookmarklet}
 
@@ -50,6 +53,6 @@ class ReferencePage(Page):
         }
 
 
-if __name__ == '__main__':
+def generate_doc():
     GettingStartedPage().generate()
     ReferencePage().generate()
