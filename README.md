@@ -43,7 +43,7 @@ As `bigfun` uses `gcloud` under the hood be sure to:
 
 
 
-**Install `bigfun`
+**Install `bigfun`**
 
 ```sh
 virtualenv venv
