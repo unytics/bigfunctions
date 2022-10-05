@@ -9,12 +9,9 @@
 
 ---
 
-BigFunctions are open BigQuery routines that give you new *SQL powers* in BigQuery 💪.
 
+## BigFunctions project is two fold
 
-## What is BigFunctions ?
-
-BigFunctions project is two fold:
 
 1. offer a framework to easily develop, test and deploy routines called BigFunctions to BigQuery.
 2. share common useful BigFunctions among the data-community. All BigFunctions defined in 'bigfunctions' folder are deployed publicly and callable from any BigQuery project without installation.
@@ -22,7 +19,10 @@ BigFunctions project is two fold:
 Then,
 
 - If you are interested in calling common BigFunctions, best is to see the [online documentation](https://unytics.github.io/bigfunctions/).
-- Otherwise if you wish to develop BigFunctions, contribute to this repo, or if you wish to deploy BigFunctions in your own GCP project, you may be interested in the following.
+- Otherwise if you wish to develop BigFunctions, contribute to this repo, or if you wish to deploy BigFunctions in your own GCP project, keep reading!
+
+
+---
 
 
 ## `bigfun` CLI
