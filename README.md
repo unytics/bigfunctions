@@ -13,10 +13,10 @@
 ## BigFunctions project is two fold
 
 
-1. **Share common useful BigFunctions among the data-community.** <br>BigFunctions defined in 'bigfunctions' folder are all deployed and callable from any BigQuery project without installation. They give you new SQL-superpowers with
-    - advanced transforms such as computing sentiment score of a text, or computing the latitude, longitude of an address.
+1. **Share common useful BigFunctions among the data-community.** <br>BigFunctions defined in 'bigfunctions' folder are all deployed and callable from any BigQuery project without installation. They literally give you **SQL-superpowers** with
+    - advanced transforms such as computing sentiment score of a text, or computing the latitude, longitude of an address, graph algorithms, etc
     - advanced data-explorations/vizualisations from your BigQuery console, your notebooks, your IDE.
-    - communication with all your SAAS to make you able to bring common logic to all your SAAS from your data-warehouse and optionnaly from dbt.
+    - communication with all your SAAS to bring a common logic orchestrated from your data-warehouse and optionnaly from dbt.
 2. **Define a framework to easily develop, test and deploy routines called BigFunctions to BigQuery.**
 
 
