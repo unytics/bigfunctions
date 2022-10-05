@@ -14,7 +14,7 @@
 
 
 1. **offer a framework to easily develop, test and deploy routines called BigFunctions to BigQuery.**
-2. **share common useful BigFunctions among the data-community.** All BigFunctions defined in 'bigfunctions' folder are deployed publicly and callable from any BigQuery project without installation.
+2. **share common useful BigFunctions among the data-community.** <br>BigFunctions defined in 'bigfunctions' folder are all deployed and callable from any BigQuery project without installation.
 
 Then,
 
