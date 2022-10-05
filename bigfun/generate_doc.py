@@ -56,3 +56,7 @@ class ReferencePage(Page):
 def generate_doc():
     GettingStartedPage().generate()
     ReferencePage().generate()
+
+
+if __name__ == '__main__':
+    generate_doc()

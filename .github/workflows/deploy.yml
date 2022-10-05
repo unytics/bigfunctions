@@ -17,9 +17,9 @@ jobs:
         with:
           node-version: 16
       - run: pip install pyyaml
-      - run: python scripts/build_js_libs.py --generate-js-libs-package-json
+      - run: python bigfun/build_js_libs.py --generate-js-libs-package-json
       - run: npm install
-      - run: python scripts/build_js_libs.py --generate-webpack-configs
+      - run: python bigfun/build_js_libs.py --generate-webpack-configs
       - run: npm run-script build-all-libs
       - id: 'auth'
         uses: 'google-github-actions/auth@v0'
