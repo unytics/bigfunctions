@@ -8,8 +8,9 @@ setup(
     install_requires=[
         'google-cloud-bigquery',
         'pyyaml',
-        'click',
         'jinja2',
+        'click',
+        'click-help-colors',
     ],
     entry_points={
         'console_scripts': [

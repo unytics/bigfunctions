@@ -3,16 +3,24 @@ import shutil
 import argparse
 import math
 
-from google.api_core.exceptions import BadRequest
+import google.api_core.exceptions
+import google.auth.exceptions
 import google.cloud.bigquery
 import yaml
 import jinja2
 
-PYTHON_BUILD_DIR = 'build_python'
-DATASETS = os.environ.get('BIGFUNCTIONS_DATASETS', '').split(',')
-BIGFUNCTIONS = [f.replace('.yaml', '') for f in os.listdir('bigfunctions')]
+from .utils import handle_error, print_success
 
-BQ = google.cloud.bigquery.Client()
+
+PYTHON_BUILD_DIR = 'build_python'
+TEMPLATE_FOLDER = os.path.dirname(os.path.realpath(__file__)).replace('\\', '/') + '/templates'
+
+
+try:
+    BQ = google.cloud.bigquery.Client()
+except google.auth.exceptions.DefaultCredentialsError as e:
+    handle_error('Google Cloud not Authenticated. Authenticate with `gcloud auth application-default login` and retry')
+        
 
 
 def prefix_lines_with_line_number(string: str, starting_index: int = 1) -> str:
@@ -64,7 +72,7 @@ def deploy(fully_qualified_bigfunction):
             shutil.rmtree(PYTHON_BUILD_DIR)
         os.makedirs(PYTHON_BUILD_DIR)
 
-        template_file = f'scripts/templates/{conf["type"]}.py'
+        template_file = f'{TEMPLATE_FOLDER}/{conf["type"]}.py'
         template = jinja2.Template(open(template_file, encoding='utf-8').read())
         python_code = template.render(**conf)
         with open(f'{PYTHON_BUILD_DIR}/main.py', 'w', encoding='utf-8') as out:
@@ -73,7 +81,7 @@ def deploy(fully_qualified_bigfunction):
         with open(f'{PYTHON_BUILD_DIR}/requirements.txt', 'w', encoding='utf-8') as out:
             out.write('gunicorn\nflask\ngoogle-cloud-error-reporting\n' + conf['requirements'])
 
-        shutil.copy('scripts/templates/Dockerfile', PYTHON_BUILD_DIR)
+        shutil.copy('{TEMPLATE_FOLDER}/Dockerfile', PYTHON_BUILD_DIR)
 
         deploy_command = f'gcloud run deploy {bigfunction.replace("_", "-")} --source {PYTHON_BUILD_DIR} --region europe-west1 --project {project} --no-allow-unauthenticated'
         print(f'deploying cloud run {bigfunction} with command `{deploy_command}`')
@@ -86,7 +94,7 @@ def deploy(fully_qualified_bigfunction):
         conf['remote_connection'] = '749389685934.eu.remote-bigfunctions'
         conf['remote_endpoint'] = f'https://{bigfunction.replace("_", "-")}-ccbxjzt67q-ew.a.run.app'
 
-    template_file = f'scripts/templates/{conf["type"]}.sql'
+    template_file = f'{TEMPLATE_FOLDER}/{conf["type"]}.sql'
     template = jinja2.Template(open(template_file, encoding='utf-8').read())
     query = template.render(
         dataset=fully_qualified_dataset,
@@ -96,26 +104,9 @@ def deploy(fully_qualified_bigfunction):
     )
     try:
         BQ.query(query).result()
-    except BadRequest as e:
+    except google.api_core.exceptions.BadRequest as e:
         e.message += "\nQuery:\n" + prefix_lines_with_line_number(query)
         raise e
-    print('successfully created', fully_qualified_bigfunction)
+    print_success('successfully created', fully_qualified_bigfunction)
 
-
-
-
-
-parser = argparse.ArgumentParser(description='Deploy BigFunction')
-parser.add_argument('bigfunction')
-args = parser.parse_args()
-
-if args.bigfunction == '*':
-    for dataset in DATASETS:
-        for bigfunction in BIGFUNCTIONS:
-            deploy(f'{dataset}.{bigfunction}')
-elif '.' in args.bigfunction:
-    deploy(args.bigfunction)
-else:
-    for dataset in DATASETS:
-        deploy(f'{dataset}.{args.bigfunction}')
 

@@ -19,3 +19,10 @@ virtualenv venv
 . venv/bin/activate
 pip install --editable .
 ```
+
+**Install gcloud**
+
+**Authenticate Google Cloud for python**
+
+```sh
+gcloud auth application-default login
