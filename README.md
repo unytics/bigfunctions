@@ -37,8 +37,9 @@ virtualenv venv
 pip install --editable .
 ```
 
-For **bigfun** to work correctly, you will have to:
+As `bigfun` uses `gcloud` under the hood be sure to: 
 
 - install `gcloud` command line
+- authenticate `gcloud` with `gcloud init`
 - authenticate `gcloud` for python by running `gcloud auth application-default login`
 
