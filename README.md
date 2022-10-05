@@ -20,8 +20,8 @@
 2. **Define a framework to easily develop, test and deploy routines called BigFunctions to BigQuery.**
 
 
-- If you are interested in calling common BigFunctions, go [here](https://unytics.github.io/bigfunctions/).
-- Otherwise if you wish to develop BigFunctions, contribute to this repo, or if you wish to deploy BigFunctions in your own GCP project, keep reading!
+👉 If you are interested in calling great BigFunctions, go [here](https://unytics.github.io/bigfunctions/).
+👉 Otherwise if you wish to contribute or if you wish to deploy BigFunctions in your own GCP project, keep reading!
 
 
 ---
