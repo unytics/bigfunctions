@@ -29,7 +29,21 @@ Then,
 
 This repo contains a CLI called `bigfun` to facilitate BigFunctions development, test and deployment. 
 
-**To install it**, run the following from inside the repo:
+
+### Install
+
+
+**Install and init dependencies**
+
+As `bigfun` uses `gcloud` under the hood be sure to: 
+
+- install `gcloud`
+- authenticate `gcloud` with `gcloud init`
+- authenticate `gcloud` for python by running `gcloud auth application-default login`
+
+
+
+**Install `bigfun`
 
 ```sh
 virtualenv venv
@@ -37,9 +51,4 @@ virtualenv venv
 pip install --editable .
 ```
 
-As `bigfun` uses `gcloud` under the hood be sure to: 
-
-- install `gcloud` command line
-- authenticate `gcloud` with `gcloud init`
-- authenticate `gcloud` for python by running `gcloud auth application-default login`
 
