@@ -12,20 +12,24 @@
 BigFunctions are open BigQuery routines that give you new *SQL powers* in BigQuery 💪.
 
 
-## What is BigFunctions
+## What is BigFunctions ?
 
 BigFunctions project is two fold:
 
 - offer a framework to easily develop, test and deploy routines called BigFunctions to BigQuery.
-- define common useful BigFunctions to share among the data-community. All BigFunctions defined in 'bigfunctions' folder are deployed publicly and callable from any BigQuery project without installation.
+- share common useful BigFunctions among the data-community. All BigFunctions defined in 'bigfunctions' folder are deployed publicly and callable from any BigQuery project without installation.
 
-If you are interested in calling common BigFunctions, best is to see the [online documentation](https://unytics.github.io/bigfunctions/).
-Otherwise if you wish to develop BigFunctions for yourself or to contribute to this repo OR if you wish to deploy the common BigFunctions in your own GCP project, you may be interested in the following.
+Then,
+
+- If you are interested in calling common BigFunctions, best is to see the [online documentation](https://unytics.github.io/bigfunctions/).
+- Otherwise if you wish to develop BigFunctions for yourself or to contribute to this repo OR if you wish to deploy the common BigFunctions in your own GCP project, you may be interested in the following.
 
 
-## Install `bigfun` command line
+## `bigfun` command line
 
-After cloning the repo run:
+This repo contains a CLI called `bigfun` to facilitate BigFunctions development, test and deployment. 
+
+**To install it**, run the following from inside the repo:
 
 ```sh
 virtualenv venv
@@ -33,9 +37,8 @@ virtualenv venv
 pip install --editable .
 ```
 
-**Install gcloud**
+For **bigfun** to work correctly, you will have to:
 
-**Authenticate Google Cloud for python**
+- install `gcloud` command line
+- authenticate `gcloud` for python by running `gcloud auth application-default login`
 
-```sh
-gcloud auth application-default login
