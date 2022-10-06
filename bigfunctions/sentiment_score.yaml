@@ -1,5 +1,9 @@
 type: function_py
 category: transform_string
+author:
+  name: Paul Marcombes
+  url: https://www.linkedin.com/in/paul-marcombes
+  avatar_url: "https://media-exp1.licdn.com/dms/image/C4E03AQF92ENRMYC3Mw/profile-displayphoto-shrink_200_200/0/1656924490995?e=1670457600&v=beta&t=JDu8feKR5-bKs4xbHdmsiatSwOgE2BY31KHJcVHhUYI"
 description: Compute sentiment score of text
 arguments:
   - name: content

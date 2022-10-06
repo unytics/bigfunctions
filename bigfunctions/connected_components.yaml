@@ -1,10 +1,14 @@
 type: procedure
 category: graph
+author:
+  name: Furcy Pin
+  url: https://www.linkedin.com/in/furcy-pin-3790b028/
+  avatar_url: "https://media-exp1.licdn.com/dms/image/C4D03AQFK5YDJyod_3A/profile-displayphoto-shrink_200_200/0/1590431668428?e=1670457600&v=beta&t=f0Fd9bV-sSssoLBQ2R03WgEUvP52gdBLv120z-Q-OGc"
 description: |
   Compute the connected components of a non-directed graph.
 
   Given a table with two columns of the same type STRING or INTEGER representing the edges of a graph,
-  this computes a new temporary table called `bigfunction_result` containing two columns of the same type 
+  this computes a new temporary table called `bigfunction_result` containing two columns of the same type
   named `node_id` and `connected_component_id`.
 
   This is an implementation of the Alternating Algorithm (large-star, small-star) described in the 2014 paper
@@ -19,11 +23,11 @@ description: |
   be expecting it to cost the equivalent of 15 to 30 scans on your input table. Since the input table has only
   two columns, this should be reasonable, and we recommend using INTEGER columns rather than STRING when possible.
   - If your graph contains nodes with a very high number of neighbors, the algorithm may crash. It is recommended
-  to apply a pre-filtering on your nodes and remove nodes with a pathologically high cardinality. 
-  You should also monitor actively the number of nodes filtered this way and their cardinality, as this could help 
+  to apply a pre-filtering on your nodes and remove nodes with a pathologically high cardinality.
+  You should also monitor actively the number of nodes filtered this way and their cardinality, as this could help
   you detect a data quality deterioration in your input graph.
   If the input graph contains duplicate edges, they will be automatically removed by the algorithm.
-  
+
   ISOLATED NODES: If you want to have isolated nodes (nodes that have no neighbors)
   in the resulting graph, there is two possible ways to achieve this:
 
@@ -49,11 +53,11 @@ code: |
   call {BIGFUNCTIONS_DATASET}.get_table_columns(fully_qualified_table);
   set columns = (select array_agg(struct(column_name, data_type)) from bigfunction_result) ;
 
-  assert(array_length(columns) = 2) 
+  assert(array_length(columns) = 2)
     as 'input table must have two columns' ;
-  assert(columns[offset(0)].data_type = columns[offset(1)].data_type) 
+  assert(columns[offset(0)].data_type = columns[offset(1)].data_type)
     as 'the two columns of the input table must have the same type';
-  assert(columns[offset(0)].data_type in ("STRING", "INT64")) 
+  assert(columns[offset(0)].data_type in ("STRING", "INT64"))
     as 'the two columns of the input table must be of type STRING or INT64';
 
   set query = '''
@@ -61,9 +65,9 @@ code: |
     select {{col_1}} as l_node, {{col_2}} as r_node
     from {{fully_qualified_table}}
   ''';
-  execute immediate replace(replace(replace(query, 
-      "{{col_1}}", columns[offset(0)].column_name), 
-      "{{col_2}}", columns[offset(1)].column_name), 
+  execute immediate replace(replace(replace(query,
+      "{{col_1}}", columns[offset(0)].column_name),
+      "{{col_2}}", columns[offset(1)].column_name),
       "{{fully_qualified_table}}", fully_qualified_table)
   ;
 
@@ -150,9 +154,9 @@ code: |
       select count(1)
       from {{new_table}} new_table
       where not exists (
-        select 1 
-        from {{old_table}} old_table 
-        where new_table.l_node = old_table.l_node 
+        select 1
+        from {{old_table}} old_table
+        where new_table.l_node = old_table.l_node
         and new_table.r_node = old_table.r_node
       )
   ''';
@@ -166,10 +170,10 @@ code: |
   set new_table = "working_table_2";
   loop
     execute immediate replace(replace(loop_query, "{{old_table}}", old_table), "{{new_table}}", new_table);
-    execute immediate replace(replace(count_new_rows_query, 
-      "{{old_table}}", old_table), 
-      "{{new_table}}", new_table) 
-      into nb_rows_added_at_this_iteration 
+    execute immediate replace(replace(count_new_rows_query,
+      "{{old_table}}", old_table),
+      "{{new_table}}", new_table)
+      into nb_rows_added_at_this_iteration
     ;
     if nb_rows_added_at_this_iteration = 0 then leave; end if;
     set temp_table = new_table ;
