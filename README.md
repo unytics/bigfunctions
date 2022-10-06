@@ -72,3 +72,10 @@ Commands:
   doc     Generate, serve and publish documentation
   test    Test BIGFUNCTION
 ```
+
+
+## Contribute
+
+<a href="https://github.com/unytics/bigfunctions/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=unytics/bigfunctions" />
+</a>
