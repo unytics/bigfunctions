@@ -98,13 +98,13 @@ def test(bigfunction):
 
 
 @cli.group()
-def doc():
+def docs():
     '''
     Generate, serve and publish documentation
     '''
     pass
 
-@doc.command()
+@docs.command()
 def generate():
     '''
     Generate markdown files for documentation from yaml bigfunctions files
@@ -112,10 +112,10 @@ def generate():
     generate_doc()
 
 
-@doc.command()
+@docs.command()
 def serve():
     '''
-    Serve doc locally on http://localhost:8000
+    Serve docs locally on http://localhost:8000
     '''
     class EventHandler:
         def dispatch(self, event):

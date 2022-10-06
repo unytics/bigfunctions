@@ -1,5 +1,6 @@
 type: function_sql
 category: utils
+author: "[Paul Marcombes](https://www.linkedin.com/in/paul-marcombes)"
 description: |-
   Returns html with a chartjs chart
 arguments:
