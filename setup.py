@@ -9,6 +9,7 @@ setup(
         'google-cloud-bigquery',
         'pyyaml',
         'jinja2',
+        'mkdocs-material',
         'click',
         'click-help-colors',
     ],

@@ -1,16 +1,20 @@
-import os 
+import os
 
 import yaml
 import click
 from click_help_colors import HelpColorsGroup, HelpColorsCommand
+from watchdog.observers import Observer
 
+from .deploy import deploy
+from .generate_doc import generate_doc
 from .utils import print_color
 
+BIGFUNCTIONS_FOLDER = 'bigfunctions'
 CONFIG_FILENAME = 'config.yaml'
 CONFIG = {}
 if os.path.exists(CONFIG_FILENAME):
     CONFIG = yaml.safe_load(open(CONFIG_FILENAME, encoding='utf-8').read())
-BIGFUNCTIONS = [f.replace('.yaml', '') for f in os.listdir('bigfunctions')]
+BIGFUNCTIONS = [f.replace('.yaml', '') for f in os.listdir(BIGFUNCTIONS_FOLDER)]
 
 
 def get_config_value(name):
@@ -52,7 +56,6 @@ def deploy(bigfunction):
 
     - If BIGFUNCTION = '*' then all bigfunctions contained in bigfunctions folder will be deployed in default datasets of default project in `config.yaml` file. If these default values are not defined yet, they will be prompted and saved in `config.yaml`.
     '''
-    from .deploy import deploy
     if bigfunction == '*':
         project = get_config_value('default_gcp_project')
         datasets = get_config_value('default_datasets')
@@ -92,7 +95,7 @@ def test(bigfunction):
 
     - If BIGFUNCTION = '*' then all bigfunctions contained in bigfunctions folder will be deployed in default datasets of default project in `config.yaml` file. If these default values are not defined yet, they will be prompted and saved in `config.yaml`.
     '''
-    deploy(bigfunction)         
+    deploy(bigfunction)
     # [TODO] make some tests
 
 
@@ -108,4 +111,19 @@ def generate():
     '''
     Generate markdown files for documentation from yaml bigfunctions files
     '''
-    from .generate_doc import generate_doc
+    generate_doc()
+
+
+@doc.command()
+def serve():
+    '''
+    Serve doc locally on http://localhost:8000
+    '''
+    class EventHandler:
+        def dispatch(self, event):
+            generate_doc()
+    event_handler = EventHandler()
+    observer = Observer()
+    observer.schedule(event_handler, BIGFUNCTIONS_FOLDER, recursive=True)
+    observer.start()
+    os.system('mkdocs serve')

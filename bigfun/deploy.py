@@ -16,11 +16,17 @@ PYTHON_BUILD_DIR = 'build_python'
 TEMPLATE_FOLDER = os.path.dirname(os.path.realpath(__file__)).replace('\\', '/') + '/templates'
 
 
-try:
-    BQ = google.cloud.bigquery.Client()
-except google.auth.exceptions.DefaultCredentialsError as e:
-    handle_error('Google Cloud not Authenticated. Authenticate with `gcloud auth application-default login` and retry')
-        
+def query_bigquery(*args, **kwargs):
+    try:
+        bigquery = google.cloud.bigquery.Client()
+    except google.auth.exceptions.DefaultCredentialsError as e:
+        handle_error('Google Cloud not Authenticated. Authenticate with `gcloud auth application-default login` and retry')
+
+    try:
+        return bigquery.query(*args, **kwargs).result()
+    except google.api_core.exceptions.BadRequest as e:
+        e.message += "\nQuery:\n" + prefix_lines_with_line_number(query)
+        raise e
 
 
 def prefix_lines_with_line_number(string: str, starting_index: int = 1) -> str:
@@ -102,11 +108,7 @@ def deploy(fully_qualified_bigfunction):
         filename=filename,
         **conf,
     )
-    try:
-        BQ.query(query).result()
-    except google.api_core.exceptions.BadRequest as e:
-        e.message += "\nQuery:\n" + prefix_lines_with_line_number(query)
-        raise e
+    query_bigquery(query)
     print_success('successfully created', fully_qualified_bigfunction)
 
 
