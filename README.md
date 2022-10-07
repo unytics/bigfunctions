@@ -67,7 +67,7 @@ This repo contains a CLI (command-line-interface) called `bigfun` to facilitate 
 
 **Install dependencies**
 
-`bigfun` invokes `gcloud` CLI to deploy remote functions. Furthermore, `bigfun` uses BigQuery python client authenticated by default *gcloud app credentials*.
+`bigfun` invokes `gcloud` CLI to deploy remote functions. Furthermore, `bigfun` uses BigQuery python client using your default *gcloud app credentials*.
 
 Thus, for `bigfun` to work, please:
 
