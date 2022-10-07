@@ -73,7 +73,7 @@ Thus, for `bigfun` to work, please:
 
 - install `gcloud`
 - authenticate `gcloud` by running `gcloud init`
-- authenticate to create default app credentials by running `gcloud auth application-default login`.
+- create your default app credentials by running `gcloud auth application-default login`.
 
 **Install `bigfun`**
 
@@ -85,8 +85,9 @@ virtualenv venv
 pip install --editable .
 ```
 
+**Get needed permissions**
 
-### Get needed permissions
+[TODO]
 
 
 ### Use `bigfun` 🔥
