@@ -136,6 +136,9 @@ Show column statistics
 
 
 
+
+
+
 <a href="../assets/images/explore_column.png"><img alt="screenshot" src="../assets/images/explore_column.png" style="border: var(--md-code-bg-color) solid 1rem; margin-top: -1rem; width: 100%"></a>
 
 
@@ -179,6 +182,9 @@ Shows infos about dataset tables
 
 
 
+
+
+
 <a href="../assets/images/explore_dataset.png"><img alt="screenshot" src="../assets/images/explore_dataset.png" style="border: var(--md-code-bg-color) solid 1rem; margin-top: -1rem; width: 100%"></a>
 
 
@@ -217,6 +223,9 @@ Show table infos and column statistics
     call bigfunctions.us.explore_table("bigquery-public-data.samples.natality");
     select html from bigfunction_result;
     ```
+
+
+
 
 
 
@@ -323,6 +332,9 @@ Computes levenshtein distance between `string1` and `string2`
 
 
 
+
+
+
 ---
 
 
@@ -401,6 +413,9 @@ Render template with context using nunjucks.js templating library
 
 
 
+
+
+
 ---
 
 
@@ -472,6 +487,9 @@ Compute sentiment score of text
 +-----------------+
 </code>
 </pre>
+
+
+
 
 
 
@@ -581,6 +599,9 @@ Returns true if `date` corresponds to a public holiday in `country_code`
 
 
 
+
+
+
 ---
 
 
@@ -656,16 +677,72 @@ in the resulting graph, there is two possible ways to achieve this:
 
 
 
-
+<span style="color: var(--md-typeset-a-color);">Identify the two connected components of the graph represented by the edges below:
+```
++---------+-----+
+| node1 | node2 |
++-------+-------+
+|   1   |   2   |
+|   2   |   3   |
+|   3   |   4   |
+|   5   |   6   |
++-------+-------+
+```
+</span>
 
 
 === "EU"
 
     ```sql
-    call bigfunctions.eu.connected_components(bigfunctions.eu.test_connected_components_input_1);
-    
+    call bigfunctions.eu.connected_components('bigfunctions.eu.sample_graph');
+    select * from bigfunction_result;
     ```
 
+
+=== "US"
+
+    ```sql
+    call bigfunctions.us.connected_components('bigfunctions.us.sample_graph');
+    select * from bigfunction_result;
+    ```
+
+
+=== "europe-west1"
+
+    ```sql
+    call bigfunctions.europe_west1.connected_components('bigfunctions.europe_west1.sample_graph');
+    select * from bigfunction_result;
+    ```
+
+
+=== "your-region2"
+
+    ```sql
+    call bigfunctions.your_region2.connected_components('bigfunctions.your_region2.sample_graph');
+    select * from bigfunction_result;
+    ```
+
+
+
+
+
+
+
+<pre style="margin-top: -1rem;">
+<code style="padding-top: 0px; padding-bottom: 0px;">
++---------+------------------------+
+| node_id | connected_component_id |
++---------+------------------------+
+|    1    |           1            |
+|    2    |           1            |
+|    3    |           1            |
+|    4    |           1            |
+|    5    |           5            |
+|    6    |           5            |
++---------+------------------------+
+
+</code>
+</pre>
 
 
 
@@ -770,6 +847,9 @@ Send email via gmail
 
 
 
+
+
+
 <span style="color: var(--md-typeset-a-color);">2. Send email with plain text file attached</span>
 
 
@@ -816,6 +896,9 @@ Send email via gmail
 +---------+
 </code>
 </pre>
+
+
+
 
 
 
@@ -875,6 +958,9 @@ Send email via gmail
 
 
 
+
+
+
 ---
 
 
@@ -926,8 +1012,11 @@ Send email (via gmail) with data attached as excel file
 
     ```sql
     call bigfunctions.eu.export_to_gmail('bigfunctions.samples.natality', 'contact@unytics.io', 'Finance Figures for Today', 'Hey Paul, you fill find the figures in the attached excel file. Enjoy 🔥');
-    
+
     ```
+
+
+
 
 
 
@@ -1019,6 +1108,9 @@ Returns html with a chartjs chart
 
 
 
+
+
+
 <a href="../assets/images/chart.png"><img alt="screenshot" src="../assets/images/chart.png" style="border: var(--md-code-bg-color) solid 1rem; margin-top: -1rem; width: 100%"></a>
 
 
@@ -1101,6 +1193,9 @@ Dump data to excel file returned as base64
 
 
 
+
+
+
 ---
 
 
@@ -1128,7 +1223,7 @@ and put them in a temporary table called `bigfunction_result`.
 
 
 
-<span style="color: var(--md-typeset-a-color);">1. call `bigfunctions.eu._get_columns`("bigfunctions.samples.natality");
+<span style="color: var(--md-typeset-a-color);">call `bigfunctions.eu._get_columns`("bigfunctions.samples.natality");
 select column_name, data_type from bigfunction_result ;
 </span>
 
@@ -1137,8 +1232,11 @@ select column_name, data_type from bigfunction_result ;
 
     ```sql
     call bigfunctions.eu.get_table_columns('bigfunctions.samples.natality');
-    
+
     ```
+
+
+
 
 
 

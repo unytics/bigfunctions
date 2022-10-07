@@ -55,7 +55,7 @@ def deploy(fully_qualified_bigfunction):
         with open(f'{PYTHON_BUILD_DIR}/requirements.txt', 'w', encoding='utf-8') as out:
             out.write('gunicorn\nflask\ngoogle-cloud-error-reporting\n' + conf['requirements'])
 
-        shutil.copy('{TEMPLATE_FOLDER}/Dockerfile', PYTHON_BUILD_DIR)
+        shutil.copy(f'{TEMPLATE_FOLDER}/Dockerfile', PYTHON_BUILD_DIR)
 
         deploy_command = f'gcloud run deploy {bigfunction.replace("_", "-")} --source {PYTHON_BUILD_DIR} --region europe-west1 --project {project} --no-allow-unauthenticated'
         print(f'deploying cloud run {bigfunction} with command `{deploy_command}`')

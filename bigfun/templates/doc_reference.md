@@ -63,19 +63,20 @@ BigFunctions are public BigQuery routines that give you **super-SQL-powers** in 
 
 {% for example in bigfunction.examples %}
 
-{% if example.description %}<span style="color: var(--md-typeset-a-color);">{{ loop.index }}. {{ example.description }}</span>{% endif %}
+{% if example.description %}<span style="color: var(--md-typeset-a-color);">{% if bigfunction.examples|length > 1 %}{{ loop.index }}. {% endif %}{{ example.description }}</span>{% endif %}
 
 {% for dataset in datasets if example.region == 'ALL' or dataset.region == example.region %}
 {% if datasets|length > 1 %}=== "{{ dataset.region }}"{% endif %}
 
 {% if datasets|length > 1 %}    {% endif %}```sql
 {% if datasets|length > 1 %}    {% endif %}{% if bigfunction.type == 'procedure' %}call{% else %}select{% endif %} {{ dataset.name }}.{{ bigfunction.name }}({% for argument in example.arguments %}{{ argument | replace('{BIGFUNCTIONS_DATASET}', dataset.name) }}{% if not loop.last %}, {% endif %}{% endfor %}){% if bigfunction.type == 'procedure' %};{% elif 'output' in bigfunction %} as {{ bigfunction.output.name }}{% endif %}
-{% if bigfunction.type == 'procedure' %}{% if datasets|length > 1 %}    {% endif %}{% if bigfunction.template %}select html from bigfunction_result;{% endif %}{% endif %}
+{% if bigfunction.type == 'procedure' and bigfunction.template %}{% if datasets|length > 1 %}    {% endif %}select html from bigfunction_result;{% endif %}
+{%- if bigfunction.type == 'procedure' and example.output %}{% if datasets|length > 1 %}    {% endif %}select * from bigfunction_result;{% endif %}
 {% if datasets|length > 1 %}    {% endif %}```
 
 {% endfor %}
 
-{% if 'output' in bigfunction and 'output' in example %}
+{% if bigfunction.type != 'procedure' and 'output' in example %}
 
 <pre style="margin-top: -1rem;">
 <code style="padding-top: 0px; padding-bottom: 0px;">
@@ -96,6 +97,17 @@ BigFunctions are public BigQuery routines that give you **super-SQL-powers** in 
 </pre>
 
 {% endif %}
+
+{% if bigfunction.type == 'procedure' and 'output' in example %}
+
+<pre style="margin-top: -1rem;">
+<code style="padding-top: 0px; padding-bottom: 0px;">
+{{ example.output }}
+</code>
+</pre>
+
+{% endif %}
+
 
 {% if example.screenshot %}<a href="../assets/images/{{ example.screenshot }}"><img alt="screenshot" src="../assets/images/{{ example.screenshot }}" style="border: var(--md-code-bg-color) solid 1rem; margin-top: -1rem; width: 100%"></a>{% endif %}
 {% endfor %}
