@@ -84,7 +84,7 @@ def deploy(fully_qualified_bigfunction):
         )
         print_info('Remote connection name: ' + remote_connection_name)
 
-        bigquery.share_bigfunctions_remote_connection(remote_connection.name)
+        # bigquery.share_bigfunctions_remote_connection(remote_connection.name)
 
 
         add_invoker_role_command = f'gcloud run services add-iam-policy-binding {cloud_run_service} --region {cloud_run_location} --member=serviceAccount:{remote_connection.cloud_resource.service_account_id} --role=roles/run.invoker'
