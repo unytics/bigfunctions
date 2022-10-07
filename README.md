@@ -15,8 +15,12 @@
 
 ## 🔍️ What are BigFunctions?
 
-> 1. **BigFunctions are public BigQuery routines callable from your own BigQuery project without install that give you super-SQL-powers 💪.**
-> 2. **BigFunctions project is also a framework to define, test, deploy, document and monitor BigQuery Routines. 🔨**
+<p align="center">
+    <em>🚀 BigFunctions are public BigQuery routines callable from your own BigQuery project without install that give you super-SQL-powers 💪.</em>
+</p>
+<p align="center">
+    <em>🚀 BigFunctions project is also a framework to define, test, deploy, document and monitor BigQuery Routines. 🔨.</em>
+</p>
 
 <br>
 
@@ -51,8 +55,8 @@ Follow the following links to explore and call public BigFunctions from you own 
 
 ## ⚡️ BigFunctions Framework Features
 
-1. **create a unique standard to define BigQuery routines be it sql/js/remote UDF or procedures**
-2. **Provide `bigfun` a CLI (Command Line Interface) to test, deploy, document and monitor these BigQuery routines in your project**
+✅ **create a unique standard to define BigQuery routines be it sql/js/remote UDF or procedures**
+✅ **Provide `bigfun` a CLI (Command Line Interface) to test, deploy, document and monitor these BigQuery routines in your project**
 
 <br>
 
