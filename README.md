@@ -38,8 +38,8 @@ It is both:
 
 Public and shared BigFunctions give you **SQL-superpowers** such as:
 
-- advanced transforms such as computing sentiment score of a text, or computing the latitude, longitude of an address, run graph algorithms, etc
-- advanced data-explorations/vizualisations from your BigQuery console, your notebooks, your IDE.
+- advanced transforms such as computing sentiment score of a text, computing the latitude / longitude of an address, run graph algorithms, etc
+- advanced data-explorations / vizualisations from your BigQuery console, your notebooks, your IDE.
 - communication with all your SAAS to bring a common logic orchestrated from your data-warehouse and optionnaly from dbt.
 
 Follow the links to explore and call public BigFunctions from you own BigQuery Project:
