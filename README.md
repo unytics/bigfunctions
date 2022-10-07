@@ -16,8 +16,8 @@
 
 ## 🔍️ What is BigFunctions?
 
-> 1. **Open BigQuery functions giving SQL-superpowers callable without install from your BigQuery project 💪**
-> 2. **A framework to define, test, deploy, document and monitor BigQuery Routines 🔨**
+> 1. **💪 Open BigQuery functions giving SQL-superpowers, callable without install from any BigQuery project**
+> 2. **🔨 A framework to define, test, deploy, document and monitor BigQuery Routines**
 
 <br>
 
