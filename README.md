@@ -26,13 +26,11 @@ It is both:
 
 ## 💡 Why BigFunctions?
 
-BigQuery is very powerful as you can:
-- create native SQL and javascript routines,
-- deploy any remote function as a *cloud function* / *cloud run* in your favorite language and with your favorite dependencies/executables.
-
-Yet, to build solutions using these features needs time and experience and we believe data-teams should *NOT* waste effort working on challenges already solved by other data-teams. Let's share our solutions.
-
-> 👉 **We believe open-source is the way to go for data-people to share their work, help each other, inspire from each other and avoid reinventing the wheel. That's why we created BigFunctions.**
+- BigQuery, with native and remote routines, is really powerful.
+- BigFunctions take the most of that by offering ready-to-use functions holding complex and very useful features for data-teams.
+- We believe no-one should be reinventing the wheel and we believe open-source is the best way to fight against that.
+- Hey Data-People! Let's share our work, help each other and inspire from each other.
+- 👉 Play and contribute to BigFunctions!
 
 <br>
 
