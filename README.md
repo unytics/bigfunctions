@@ -1,12 +1,11 @@
 
 ![logo_and_name](https://user-images.githubusercontent.com/111615732/186508787-6af04ed0-4750-4c49-926a-eacfd4a3dfbb.png)
 
-
 <p align="center">
-    <em><strong>Open BigQuery functions</strong> that give you <strong>SQL-superpowers</strong> 💪<br>callable without install from <strong>your own BigQuery project</strong></em>
+    <em><strong>Open BigQuery functions giving SQL-superpowers 💪<br>callable without install from your BigQuery project</strong></em>
 </p>
 <p align="center">
-    <em><strong>Framework</strong> to define, test, deploy, document and monitor BigQuery Routines. 🔨.</em>
+    <em><strong>Framework to define, test, deploy, document and monitor BigQuery Routines. 🔨.</strong></em>
 </p>
 
 
