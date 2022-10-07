@@ -11,12 +11,14 @@
 
 ---
 
+<br>
+
 ## 🔍️ What are BigFunctions?
 
 > 1. **BigFunctions are public BigQuery routines callable from your own BigQuery project without install that give you super-SQL-powers 💪.**
 > 2. **BigFunctions project is also a framework to define, test, deploy, document and monitor BigQuery Routines. 🔨**
 
-
+<br>
 
 ## 💡 Why BigFunctions?
 
@@ -28,6 +30,7 @@ Yet, building solutions above these powerful features necessitates time and expe
 
 👉 We believe open-source is the way to go for data-people to share their work, help each other, inspire from each other and avoid reinventing the wheel. That's why we created BigFunctions.
 
+<br>
 
 ## 👀 Explore and call Public BigFunctions from you own BigQuery Project
 
@@ -44,12 +47,14 @@ Follow the following links to explore and call public BigFunctions from you own 
 - **<a href="https://unytics.io/bigfunctions/getting_started/" target="_blank">Getting Started</a>** - call public BigFunctions from your own BigQuery project
 
 
-
+<br>
 
 ## ⚡️ BigFunctions Framework Features
 
 1. **create a unique standard to define BigQuery routines be it sql/js/remote UDF or procedures**
 2. **Provide `bigfun` a CLI (Command Line Interface) to test, deploy, document and monitor these BigQuery routines in your project**
+
+<br>
 
 
 ## 💥 `bigfun` CLI
@@ -97,6 +102,7 @@ Commands:
   test    Test BIGFUNCTION
 ```
 
+<br>
 
 ## Contribute
 
