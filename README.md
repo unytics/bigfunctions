@@ -114,6 +114,8 @@ You are more than welcome to contribute both for:
 - adding/improving BigFunctions
 - improving the framework and `bigfun` CLI
 
+See [contributing instructions](https://github.com/unytics/bigfunctions/blob/main/CONTRIBUTING.md) for more details.
+
 **Contributors**
 
 <a href="https://github.com/unytics/bigfunctions/graphs/contributors">
