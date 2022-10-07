@@ -677,7 +677,7 @@ in the resulting graph, there is two possible ways to achieve this:
 
 
 
-<span style="color: var(--md-typeset-a-color);">Identify the two connected components of the graph represented by the edges below:
+<span style="color: var(--md-typeset-a-color);">Identify the two connected components of a graph which has 6 nodes and is represented by the edges below:
 ```
 +---------+-----+
 | node1 | node2 |
