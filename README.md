@@ -32,7 +32,7 @@ BigQuery is very powerful as you can:
 
 Yet, to build solutions with these features necessitates time and experience and we believe data-teams should NOT waste effort by reimplementing solutions for challenges already solved by other data-teams.
 
-👉 We believe open-source is the way to go for data-people to share their work, help each other, inspire from each other and avoid reinventing the wheel. That's why we created BigFunctions.
+> 👉 **We believe open-source is the way to go for data-people to share their work, help each other, inspire from each other and avoid reinventing the wheel. That's why we created BigFunctions.**
 
 <br>
 
