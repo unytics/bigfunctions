@@ -30,13 +30,13 @@ BigQuery is very powerful as you can:
 - create native SQL and javascript routines,
 - deploy any remote function as a *cloud function* / *cloud run* in your favorite language and with your favorite dependencies/executables.
 
-Yet, building solutions above these powerful features necessitates time and experience and we believe data-teams should NOT waste effort in reimplementing solutions for challenges already solved by other data-teams.
+Yet, to build solutions with these features necessitates time and experience and we believe data-teams should NOT waste effort by reimplementing solutions for challenges already solved by other data-teams.
 
 👉 We believe open-source is the way to go for data-people to share their work, help each other, inspire from each other and avoid reinventing the wheel. That's why we created BigFunctions.
 
 <br>
 
-## 👀 Explore and call Public BigFunctions from you own BigQuery Project
+## 👀 Explore and call open BigFunctions from you own BigQuery Project
 
 Public and shared BigFunctions give you **SQL-superpowers** such as:
 
@@ -44,7 +44,7 @@ Public and shared BigFunctions give you **SQL-superpowers** such as:
 - advanced data-explorations/vizualisations from your BigQuery console, your notebooks, your IDE.
 - communication with all your SAAS to bring a common logic orchestrated from your data-warehouse and optionnaly from dbt.
 
-Follow the following links to explore and call public BigFunctions from you own BigQuery Project:
+Follow the links to explore and call public BigFunctions from you own BigQuery Project:
 
 - **<a href="https://unytics.github.io/bigfunctions/" target="_blank">BigFunctions website</a>**
 - **<a href="https://unytics.github.io/bigfunctions/reference/" target="_blank">Reference of public BigFunctions</a>** - callable from any BigQuery project without install
@@ -56,6 +56,7 @@ Follow the following links to explore and call public BigFunctions from you own 
 ## ⚡️ BigFunctions Framework Features
 
 ✅ **create a unique standard to define BigQuery routines be it sql/js/remote UDF or procedures**
+
 ✅ **Provide `bigfun` a CLI (Command Line Interface) to test, deploy, document and monitor these BigQuery routines in your project**
 
 <br>
