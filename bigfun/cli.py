@@ -5,16 +5,19 @@ import click
 from click_help_colors import HelpColorsGroup, HelpColorsCommand
 from watchdog.observers import Observer
 
-from .deploy import deploy
+from .deploy import deploy as deploy_bigfunction
+from .load_table import load_table as upload_table
 from .generate_doc import generate_doc
-from .utils import print_color
+
 
 BIGFUNCTIONS_FOLDER = 'bigfunctions'
+TABLES_FOLDER = 'data'
 CONFIG_FILENAME = 'config.yaml'
 CONFIG = {}
 if os.path.exists(CONFIG_FILENAME):
     CONFIG = yaml.safe_load(open(CONFIG_FILENAME, encoding='utf-8').read())
 BIGFUNCTIONS = [f.replace('.yaml', '') for f in os.listdir(BIGFUNCTIONS_FOLDER)]
+TABLES = [f.replace('.yaml', '') for f in os.listdir(TABLES_FOLDER) if f.endswith('.yaml')]
 
 
 def get_config_value(name):
@@ -28,7 +31,7 @@ def get_config_value(name):
     CONFIG[name] = click.prompt(text, default=default)
     with open(CONFIG_FILENAME, 'w', encoding='utf-8') as outfile:
         yaml.dump(CONFIG, outfile, default_flow_style=False)
-    return value
+    return CONFIG[name]
 
 
 @click.group(
@@ -46,37 +49,38 @@ def deploy(bigfunction):
     '''
     Deploy BIGFUNCTION
 
-    - If BIGFFUNCTION = '{project}.{dataset}.{name}' then bigfunction of name {name} in bigfunctions folder will be deployed in dataset {dataset} of project {project}
+    - If BIGFUNCTION = '{project}.{dataset}.{name}' then bigfunction of name {name} in bigfunctions folder will be deployed in dataset {dataset} of project {project}
 
-    - If BIGFFUNCTION = '{dataset}.{name}' then bigfunction of name {name} in bigfunctions folder will be deployed in dataset {dataset} of default project defined in `config.yaml` file. If no default dataset is defined yet, it will be prompted and saved in `config.yaml`.
+    - If BIGFUNCTION = '{dataset}.{name}' then bigfunction of name {name} in bigfunctions folder will be deployed in dataset {dataset} of default project defined in `config.yaml` file. If no default dataset is defined yet, it will be prompted and saved in `config.yaml`.
 
-    - If BIGFFUNCTION = '{name}' then bigfunction of name {name} in bigfunctions folder will be deployed in default dataset of default project defined in `config.yaml` file. If these default values are not defined yet, they will be prompted and saved in `config.yaml`.
+    - If BIGFUNCTION = '{name}' then bigfunction of name {name} in bigfunctions folder will be deployed in default datasets of default project defined in `config.yaml` file. If these default values are not defined yet, they will be prompted and saved in `config.yaml`.
 
-    - If BIGFUNCTION = '*' then all bigfunctions contained in bigfunctions folder will be deployed in default datasets of default project in `config.yaml` file. If these default values are not defined yet, they will be prompted and saved in `config.yaml`.
+    - If BIGFUNCTION = 'ALL' then all bigfunctions contained in bigfunctions folder will be deployed in default datasets of default project in `config.yaml` file. If these default values are not defined yet, they will be prompted and saved in `config.yaml`.
     '''
-    if bigfunction == '*':
+    name = bigfunction
+    if name == 'ALL':
         project = get_config_value('default_gcp_project')
         datasets = get_config_value('default_datasets')
-        bigfunctions = BIGFUNCTIONS
-    elif len(bigfunction.split('.')) == 1:
+        names = BIGFUNCTIONS
+    elif len(name.split('.')) == 1:
         project = get_config_value('default_gcp_project')
         datasets = get_config_value('default_datasets')
-        bigfunctions = [bigfunction]
-    elif len(bigfunction.split('.')) == 2:
+        names = [name]
+    elif len(name.split('.')) == 2:
         project = get_config_value('default_gcp_project')
-        datasets = [bigfunction.split('.')[0]]
-        bigfunctions = [bigfunction.split('.')[1]]
-    elif len(bigfunction.split('.')) == 3:
-        project = bigfunction.split('.')[0]
-        datasets = [bigfunction.split('.')[1]]
-        bigfunctions = [bigfunction.split('.')[2]]
+        datasets = [name.split('.')[0]]
+        names = [name.split('.')[1]]
+    elif len(name.split('.')) == 3:
+        project = name.split('.')[0]
+        datasets = [name.split('.')[1]]
+        names = [name.split('.')[2]]
     else:
         raise
 
     for dataset in datasets:
-        for bigfunction in bigfunctions:
-            assert bigfunction in bigfunctions, f'Could not find {bigfunction} bigfunction in bigfunctions folder'
-            deploy(f'{project}.{dataset}.{bigfunction}')
+        for name in names:
+            assert name in names, f'Could not find "{name}" in "{BIGFUNCTIONS_FOLDER}" folder'
+            deploy_bigfunction(f'{project}.{dataset}.{name}')
 
 
 @cli.command()
@@ -84,17 +88,49 @@ def deploy(bigfunction):
 def test(bigfunction):
     '''
     Test BIGFUNCTION
-
-    - If BIGFFUNCTION = '{project}.{dataset}.{name}' then bigfunction of name {name} in bigfunctions folder will be deployed in dataset {dataset} of project {project}
-
-    - If BIGFFUNCTION = '{dataset}.{name}' then bigfunction of name {name} in bigfunctions folder will be deployed in dataset {dataset} of default project defined in `config.yaml` file. If no default dataset is defined yet, it will be prompted and saved in `config.yaml`.
-
-    - If BIGFFUNCTION = '{name}' then bigfunction of name {name} in bigfunctions folder will be deployed in default dataset of default project defined in `config.yaml` file. If these default values are not defined yet, they will be prompted and saved in `config.yaml`.
-
-    - If BIGFUNCTION = '*' then all bigfunctions contained in bigfunctions folder will be deployed in default datasets of default project in `config.yaml` file. If these default values are not defined yet, they will be prompted and saved in `config.yaml`.
     '''
-    deploy(bigfunction)
     # [TODO] make some tests
+
+
+@cli.command()
+@click.argument('table')
+def load_table(table):
+    '''
+    Create or replace bigquery table with data contained in data/{name}.csv
+
+    - If TABLE = '{project}.{dataset}.{name}' then table of name {name} in 'data' folder will be deployed in dataset {dataset} of project {project}
+
+    - If TABLE = '{dataset}.{name}' then table of name {name} in 'data' folder will be deployed in dataset {dataset} of default project defined in `config.yaml` file. If no default dataset is defined yet, it will be prompted and saved in `config.yaml`.
+
+    - If TABLE = '{name}' then table of name {name} in 'data' folder will be deployed in default datasets of default project defined in `config.yaml` file. If these default values are not defined yet, they will be prompted and saved in `config.yaml`.
+
+    - If TABLE = 'ALL' then all tables contained in 'data' folder will be deployed in default datasets of default project in `config.yaml` file. If these default values are not defined yet, they will be prompted and saved in `config.yaml`.
+    '''
+    name = table
+    if name == 'ALL':
+        project = get_config_value('default_gcp_project')
+        datasets = get_config_value('default_datasets')
+        names = TABLES
+    elif len(name.split('.')) == 1:
+        project = get_config_value('default_gcp_project')
+        datasets = get_config_value('default_datasets')
+        names = [name]
+    elif len(name.split('.')) == 2:
+        project = get_config_value('default_gcp_project')
+        datasets = [name.split('.')[0]]
+        names = [name.split('.')[1]]
+    elif len(name.split('.')) == 3:
+        project = name.split('.')[0]
+        datasets = [name.split('.')[1]]
+        names = [name.split('.')[2]]
+    else:
+        raise
+
+    for dataset in datasets:
+        for name in names:
+            assert name in names, f'Could not find "{name}" in "{TABLES_FOLDER}" folder'
+            upload_table(f'{project}.{dataset}.{name}')
+
 
 
 @cli.group()

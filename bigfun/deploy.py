@@ -1,46 +1,14 @@
 import os
 import shutil
-import argparse
-import math
 
-import google.api_core.exceptions
-import google.auth.exceptions
-import google.cloud.bigquery
 import yaml
 import jinja2
 
-from .utils import handle_error, print_success
+from .utils import bigquery, print_success
 
 
 PYTHON_BUILD_DIR = 'build_python'
 TEMPLATE_FOLDER = os.path.dirname(os.path.realpath(__file__)).replace('\\', '/') + '/templates'
-
-
-def query_bigquery(*args, **kwargs):
-    try:
-        bigquery = google.cloud.bigquery.Client()
-    except google.auth.exceptions.DefaultCredentialsError as e:
-        handle_error('Google Cloud not Authenticated. Authenticate with `gcloud auth application-default login` and retry')
-
-    try:
-        return bigquery.query(*args, **kwargs).result()
-    except google.api_core.exceptions.BadRequest as e:
-        e.message += "\nQuery:\n" + prefix_lines_with_line_number(query)
-        raise e
-
-
-def prefix_lines_with_line_number(string: str, starting_index: int = 1) -> str:
-    """Example:
-
-    >>> print(prefix_lines_with_line_number('Hello\\nWorld!'))
-    1: Hello
-    2: World!
-    """
-    lines = string.split("\n")
-    max_index = starting_index + len(lines) - 1
-    nb_zeroes = int(math.log10(max_index)) + 1
-    numbered_lines = [str(index + starting_index).zfill(nb_zeroes) + ": " + line for index, line in enumerate(lines)]
-    return "\n".join(numbered_lines)
 
 
 def deploy(fully_qualified_bigfunction):
@@ -108,7 +76,7 @@ def deploy(fully_qualified_bigfunction):
         filename=filename,
         **conf,
     )
-    query_bigquery(query)
-    print_success('successfully created', fully_qualified_bigfunction)
+    bigquery.query(query)
+    print_success('successfully created ' + fully_qualified_bigfunction)
 
 
