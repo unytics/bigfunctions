@@ -30,7 +30,7 @@ BigQuery is very powerful as you can:
 - create native SQL and javascript routines,
 - deploy any remote function as a *cloud function* / *cloud run* in your favorite language and with your favorite dependencies/executables.
 
-Yet, to build solutions with these features necessitates time and experience and we believe data-teams should NOT waste effort by reimplementing solutions for challenges already solved by other data-teams.
+Yet, to build solutions using these features needs time and experience and we believe data-teams should NOT waste effort working on challenges already solved by other data-teams. Let's share our solutions.
 
 > 👉 **We believe open-source is the way to go for data-people to share their work, help each other, inspire from each other and avoid reinventing the wheel. That's why we created BigFunctions.**
 
