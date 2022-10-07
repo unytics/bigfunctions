@@ -1,0 +1,9 @@
+description: |
+  Example of a graph represented as a list of edges between pair of nodes
+schema:
+  - name: node1
+    type: INT64
+    description: "node id connected to node2"
+  - name: node2
+    type: INT64
+    description: "node id connected to node1"
