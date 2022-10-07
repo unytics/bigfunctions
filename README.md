@@ -53,8 +53,8 @@ Follow the links to explore and call public BigFunctions from you own BigQuery P
 
 ## ⚡️ BigFunctions Framework Features
 
-> 1. 💚 **Create a unique standard to define BigQuery routines be it sql/js/remote UDF or procedures**
-> 2. 💚 **Provide `bigfun` a CLI (Command Line Interface) to test, deploy, document and monitor these BigQuery routines in your project**
+> 1. 💚 **A standard to define BigQuery routines be it sql/js/remote UDF or procedures**
+> 2. 💚 **`bigfun`: a CLI (Command Line Interface) to test, deploy, document and monitor these BigQuery routines in your project**
 
 <br>
 
