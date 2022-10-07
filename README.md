@@ -13,8 +13,8 @@
 
 ## 🔍️ What are BigFunctions?
 
-1. **BigFunctions are public BigQuery routines callable from your own BigQuery project without install that give you new super-SQL-powers 💪.**
-2. **BigFunctions is also a framework to build, test, deploy, document and monitor BigQuery Routines.**
+1. **BigFunctions are public BigQuery routines callable from your own BigQuery project without install that give you super-SQL-powers 💪.**
+2. **BigFunctions project is also a framework to define, test, deploy, document and monitor BigQuery Routines. 🔨**
 
 
 
@@ -29,48 +29,48 @@ Yet, building solutions above these powerful features necessitates time and expe
 👉 We believe open-source is the way to go for data-people to share their work, help each other, inspire from each other and avoid reinventing the wheel. That's why we created BigFunctions.
 
 
-## ⚡️ Features
+## 👀 Explore and call Public BigFunctions from you own BigQuery Project
 
-- **framework to build, test, deploy, document, monitor BigQuery Routines**
-- **
+Public and shared BigFunctions give you **SQL-superpowers** such as:
 
+- advanced transforms such as computing sentiment score of a text, or computing the latitude, longitude of an address, run graph algorithms, etc
+- advanced data-explorations/vizualisations from your BigQuery console, your notebooks, your IDE.
+- communication with all your SAAS to bring a common logic orchestrated from your data-warehouse and optionnaly from dbt.
 
+Follow the following links to explore and call public BigFunctions from you own BigQuery Project:
 
-
-1. **Share common useful BigFunctions among the data-community.** <br>BigFunctions defined in 'bigfunctions' folder are all deployed and callable from any BigQuery project without installation. They literally give you **SQL-superpowers** with
-    - advanced transforms such as computing sentiment score of a text, or computing the latitude, longitude of an address, graph algorithms, etc
-    - advanced data-explorations/vizualisations from your BigQuery console, your notebooks, your IDE.
-    - communication with all your SAAS to bring a common logic orchestrated from your data-warehouse and optionnaly from dbt.
-2. **Define a framework to easily develop, test and deploy routines called BigFunctions to BigQuery.**
-
-
-
-> 👉 If you are interested in calling great BigFunctions, go [here](https://unytics.github.io/bigfunctions/).
->
-> 👉 Otherwise if you wish to contribute or deploy BigFunctions in your own GCP project, keep reading!
+- **<a href="https://unytics.github.io/bigfunctions/" target="_blank">BigFunctions website</a>**
+- **<a href="https://unytics.github.io/bigfunctions/reference/" target="_blank">Reference of public BigFunctions</a>** - callable from any BigQuery project without install
+- **<a href="https://unytics.io/bigfunctions/getting_started/" target="_blank">Getting Started</a>** - call public BigFunctions from your own BigQuery project
 
 
----
 
 
-## `bigfun` CLI
+## ⚡️ BigFunctions Framework Features
 
-This repo contains a CLI called `bigfun` to facilitate BigFunctions development, test and deployment.
-
-
-### Install
+1. **create a unique standard to define BigQuery routines be it sql/js/remote UDF or procedures**
+2. **Provide `bigfun` a CLI (Command Line Interface) to test, deploy, document and monitor these BigQuery routines in your project**
 
 
-**Install and init dependencies**
+## 💥 `bigfun` CLI
 
-As `bigfun` uses `gcloud` under the hood:
+This repo contains a CLI (command-line-interface) called `bigfun` to facilitate BigFunctions development, test, deployment, documentation and monitoring.
+
+### Install `bigfun`
+
+**Install dependencies**
+
+`bigfun` invokes `gcloud` CLI to deploy remote functions. Furthermore, `bigfun` uses BigQuery python client authenticated by default *gcloud app credentials*.
+
+Thus, for `bigfun` to work, please:
 
 - install `gcloud`
-- authenticate `gcloud` with `gcloud init`
-- authenticate `gcloud` for python by running `gcloud auth application-default login`
-
+- authenticate `gcloud` by running `gcloud init`
+- authenticate to create default app credentials by running `gcloud auth application-default login`.
 
 **Install `bigfun`**
+
+Clone the repo and from the repo directory run:
 
 ``` sh
 virtualenv venv
@@ -79,10 +79,10 @@ pip install --editable .
 ```
 
 
-### Needed permissions
+### Get needed permissions
 
 
-### Usage
+### Use `bigfun` 🔥
 
 ``` sh
 $ bigfun --help
@@ -99,6 +99,13 @@ Commands:
 
 
 ## Contribute
+
+You are more than welcome to contribute both for:
+
+- adding/improving BigFunctions
+- improving the framework and `bigfun` CLI
+
+**Contributors**
 
 <a href="https://github.com/unytics/bigfunctions/graphs/contributors">
   <img src="https://contrib.rocks/image?repo=unytics/bigfunctions" />
