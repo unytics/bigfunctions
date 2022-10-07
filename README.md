@@ -15,11 +15,11 @@
 
 ## 🔍️ What are BigFunctions?
 
-<p align="center" style="font-size: 1.5rem; color: #181818">
-    🚀 BigFunctions are <strong>public BigQuery routines</strong><br>callable without install from <strong>your own BigQuery project</strong><br>that give you <strong>SQL-superpowers</strong> 💪.
+<p align="center">
+    <span style="font-size: 1.5rem; color: #181818">🚀 BigFunctions are <strong>public BigQuery routines</strong></span><br>callable without install from <strong>your own BigQuery project</strong><br>that give you <strong>SQL-superpowers</strong> 💪.
 </p>
-<p align="center" style="font-size: 1.5rem; color: #181818">
-    🚀 BigFunctions is also a <strong>framework</strong> to<br><strong>define, test, deploy, document and monitor</strong> BigQuery Routines. 🔨.
+<p align="center">
+    <span style="font-size: 1.5rem; color: #181818">🚀 BigFunctions is also a <strong>framework</strong></span> to<br><strong>define, test, deploy, document and monitor</strong> BigQuery Routines. 🔨.
 </p>
 
 <br>
