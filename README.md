@@ -1,13 +1,8 @@
 
 ![logo_and_name](https://user-images.githubusercontent.com/111615732/186508787-6af04ed0-4750-4c49-926a-eacfd4a3dfbb.png)
-
 <p align="center">
-    <em>Open BigQuery functions giving SQL-superpowers 💪<br>callable without install from your BigQuery project</em>
+    <em>Open BigQuery Functions, SQL Superpowers, DataWarehouse in the middle</em>
 </p>
-<p align="center">
-    <em>Framework to define, test, deploy, document and monitor BigQuery Routines. 🔨.</em>
-</p>
-
 
 ---
 
@@ -18,6 +13,12 @@
 ---
 
 <br>
+
+## 🔍️ What is BigFunctions?
+
+1. **Open BigQuery functions giving SQL-superpowers callable without install from your BigQuery project 💪**
+2. **A framework to define, test, deploy, document and monitor BigQuery Routines 🔨**
+
 
 ## 💡 Why BigFunctions?
 
