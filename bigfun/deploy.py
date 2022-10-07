@@ -1,10 +1,12 @@
+import re
 import os
 import shutil
+import subprocess
 
 import yaml
 import jinja2
 
-from .utils import bigquery, print_success
+from .utils import bigquery, handle_error, print_success, print_info
 
 
 PYTHON_BUILD_DIR = 'build_python'
@@ -57,16 +59,40 @@ def deploy(fully_qualified_bigfunction):
 
         shutil.copy(f'{TEMPLATE_FOLDER}/Dockerfile', PYTHON_BUILD_DIR)
 
-        deploy_command = f'gcloud run deploy {bigfunction.replace("_", "-")} --source {PYTHON_BUILD_DIR} --region europe-west1 --project {project} --no-allow-unauthenticated'
-        print(f'deploying cloud run {bigfunction} with command `{deploy_command}`')
+        cloud_run_service = 'bf-' + bigfunction.replace("_", "-")
+        print_info('Cloud Run Service to deploy: ' + cloud_run_service)
+
+        print_info('getting dataset location')
+        dataset_location = bigquery.get_dataset(fully_qualified_dataset).location
+        cloud_run_location = {'EU': 'europe-west1', 'US': 'us-west1'}.get(dataset_location, dataset_location)
+
+        deploy_command = f'gcloud run deploy {cloud_run_service} --quiet --source {PYTHON_BUILD_DIR} --region {cloud_run_location} --project {project} --no-allow-unauthenticated'
+        print_info(f'deploying cloud run {bigfunction} with command `{deploy_command}`')
         os.system(deploy_command)
 
-        add_invoker_role_command = f'gcloud run services add-iam-policy-binding {bigfunction.replace("_", "-")} --region europe-west1 --member=serviceAccount:bqcx-749389685934-ielt@gcp-sa-bigquery-condel.iam.gserviceaccount.com --role=roles/run.invoker'
-        print(f'giving invoker permission to connection service account with command `{add_invoker_role_command}`')
+        get_cloud_run_url_command = f'gcloud run services describe {cloud_run_service} --platform managed --region {cloud_run_location} --format "value(status.url)"'
+        print_info('getting cloud run URL with command ' + get_cloud_run_url_command)
+        cloud_run_url = subprocess.check_output(get_cloud_run_url_command, shell=True).decode().strip()
+        print_info('Cloud Run URL: ' + cloud_run_url)
+
+        print_info('getting remote connection')
+        remote_connection = bigquery.get_or_create_bigfunctions_remote_connection(project, dataset_location)
+        remote_connection_name = re.sub(
+            r"projects/(\d+)/locations/([\w-]+)/connections/([\w-]+)",
+            r"\g<1>.\g<2>.\g<3>",
+            remote_connection.name,
+        )
+        print_info('Remote connection name: ' + remote_connection_name)
+
+        bigquery.share_bigfunctions_remote_connection(remote_connection.name)
+
+
+        add_invoker_role_command = f'gcloud run services add-iam-policy-binding {cloud_run_service} --region {cloud_run_location} --member=serviceAccount:{remote_connection.cloud_resource.service_account_id} --role=roles/run.invoker'
+        print_info(f'giving invoker permission to connection service account with command `{add_invoker_role_command}`')
         os.system(add_invoker_role_command)
 
-        conf['remote_connection'] = '749389685934.eu.remote-bigfunctions'
-        conf['remote_endpoint'] = f'https://{bigfunction.replace("_", "-")}-ccbxjzt67q-ew.a.run.app'
+        conf['remote_connection'] = remote_connection_name
+        conf['remote_endpoint'] = cloud_run_url
 
     template_file = f'{TEMPLATE_FOLDER}/{conf["type"]}.sql'
     template = jinja2.Template(open(template_file, encoding='utf-8').read())

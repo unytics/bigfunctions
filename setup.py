@@ -7,6 +7,7 @@ setup(
     include_package_data=False,
     install_requires=[
         'google-cloud-bigquery',
+        'google-cloud-bigquery_connection',
         'pyyaml',
         'jinja2',
         'mkdocs-material',
