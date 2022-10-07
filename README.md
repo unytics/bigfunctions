@@ -109,7 +109,7 @@ Commands:
 
 ## Contribute
 
-You are more than welcome to contribute both for:
+You are more than welcome to contribute for both:
 
 - adding/improving BigFunctions
 - improving the framework and `bigfun` CLI
