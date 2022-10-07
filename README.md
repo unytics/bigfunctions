@@ -1,7 +1,7 @@
 
 ![logo_and_name](https://user-images.githubusercontent.com/111615732/186508787-6af04ed0-4750-4c49-926a-eacfd4a3dfbb.png)
 <p align="center">
-    <em>Open BigQuery Functions, SQL Superpowers, DataWarehouse in the middle</em>
+    <em>Open BigQuery Functions, SQL Superpowers</em>
 </p>
 
 ---
@@ -30,7 +30,7 @@ BigQuery is very powerful as you can:
 - create native SQL and javascript routines,
 - deploy any remote function as a *cloud function* / *cloud run* in your favorite language and with your favorite dependencies/executables.
 
-Yet, to build solutions using these features needs time and experience and we believe data-teams should NOT waste effort working on challenges already solved by other data-teams. Let's share our solutions.
+Yet, to build solutions using these features needs time and experience and we believe data-teams should *NOT* waste effort working on challenges already solved by other data-teams. Let's share our solutions.
 
 > 👉 **We believe open-source is the way to go for data-people to share their work, help each other, inspire from each other and avoid reinventing the wheel. That's why we created BigFunctions.**
 
@@ -55,9 +55,8 @@ Follow the links to explore and call public BigFunctions from you own BigQuery P
 
 ## ⚡️ BigFunctions Framework Features
 
-✅ **create a unique standard to define BigQuery routines be it sql/js/remote UDF or procedures**
-
-✅ **Provide `bigfun` a CLI (Command Line Interface) to test, deploy, document and monitor these BigQuery routines in your project**
+> 1. 💚**create a unique standard to define BigQuery routines be it sql/js/remote UDF or procedures**
+> 2. 💚 **Provide `bigfun` a CLI (Command Line Interface) to test, deploy, document and monitor these BigQuery routines in your project**
 
 <br>
 
