@@ -1,13 +1,14 @@
-<style>
-    table {
-        width: 100%;
-    }
-</style>
 
 ![logo_and_name](https://user-images.githubusercontent.com/111615732/186508787-6af04ed0-4750-4c49-926a-eacfd4a3dfbb.png)
+
+
 <p align="center">
-    <em>Open BigQuery Functions, SQL Superpowers, DataWarehouse in the middle</em>
+    <em><strong>Open BigQuery functions</strong> that give you <strong>SQL-superpowers</strong> 💪<br>callable without install from <strong>your own BigQuery project</strong></em>
 </p>
+<p align="center">
+    <em><strong>Framework</strong> to define, test, deploy, document and monitor BigQuery Routines. 🔨.</em>
+</p>
+
 
 ---
 
@@ -18,21 +19,6 @@
 ---
 
 <br>
-
-## 🔍️ What are BigFunctions?
-
-> 🚀 BigFunctions are <strong>public BigQuery routines</strong><br>callable without install from<br><strong>your own BigQuery project</strong><br>that give you <strong>SQL-superpowers</strong> 💪.
-><br><br>
-> 🚀 BigFunctions is also a <strong>framework</strong> to<br><strong>define, test, deploy, document and monitor</strong><br>BigQuery Routines. 🔨.
-
-
-<br>
-
-|  |
-|:---:|
-| 🚀 BigFunctions are <strong>public BigQuery routines</strong><br>callable without install from<br><strong>your own BigQuery project</strong><br>that give you <strong>SQL-superpowers</strong> 💪. |
-| 🚀 BigFunctions is also a <strong>framework</strong> to<br><strong>define, test, deploy, document and monitor</strong><br>BigQuery Routines. 🔨. |
-
 
 ## 💡 Why BigFunctions?
 
