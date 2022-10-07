@@ -5,7 +5,9 @@
 
 ---
 
-**Documentation**: <a href="https://unytics.github.io/bigfunctions/" target="_blank">[https://unytics.github.io/bigfunctions/](https://unytics.github.io/bigfunctions/)</a>
+- **<a href="https://unytics.github.io/bigfunctions/" target="_blank">BigFunctions website</a>**
+- **<a href="https://unytics.github.io/bigfunctions/reference/" target="_blank">Reference of public BigFunctions</a> callable from any BigQuery project without install**
+- **<a href="https://unytics.io/bigfunctions/getting_started/" target="_blank">Getting Started</a> in using public BigFunctions from your BigQuery project**
 
 ---
 
@@ -22,7 +24,7 @@
 
 
 > 👉 If you are interested in calling great BigFunctions, go [here](https://unytics.github.io/bigfunctions/).
-> 
+>
 > 👉 Otherwise if you wish to contribute or deploy BigFunctions in your own GCP project, keep reading!
 
 
@@ -31,7 +33,7 @@
 
 ## `bigfun` CLI
 
-This repo contains a CLI called `bigfun` to facilitate BigFunctions development, test and deployment. 
+This repo contains a CLI called `bigfun` to facilitate BigFunctions development, test and deployment.
 
 
 ### Install
@@ -39,7 +41,7 @@ This repo contains a CLI called `bigfun` to facilitate BigFunctions development,
 
 **Install and init dependencies**
 
-As `bigfun` uses `gcloud` under the hood: 
+As `bigfun` uses `gcloud` under the hood:
 
 - install `gcloud`
 - authenticate `gcloud` with `gcloud init`
