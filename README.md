@@ -6,8 +6,8 @@
 ---
 
 - **<a href="https://unytics.github.io/bigfunctions/" target="_blank">BigFunctions website</a>**
-- **<a href="https://unytics.github.io/bigfunctions/reference/" target="_blank">Reference of public BigFunctions</a>** (callable from any BigQuery project without install)
-- **<a href="https://unytics.io/bigfunctions/getting_started/" target="_blank">Getting Started</a>** (use public BigFunctions from <u>your</u> BigQuery project)
+- **<a href="https://unytics.github.io/bigfunctions/reference/" target="_blank">Reference of public BigFunctions</a>** - callable from any BigQuery project without install
+- **<a href="https://unytics.io/bigfunctions/getting_started/" target="_blank">Getting Started</a>** - use public BigFunctions from <u>your</u> BigQuery project
 
 ---
 
