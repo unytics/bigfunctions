@@ -36,11 +36,11 @@ It is both:
 
 ## 👀 Explore and call open BigFunctions from you own BigQuery Project
 
-Follow the links to explore and call public BigFunctions from you own BigQuery Project:
-
-- **<a href="https://unytics.github.io/bigfunctions/" target="_blank">BigFunctions website</a>**
-- **<a href="https://unytics.github.io/bigfunctions/reference/" target="_blank">Reference of public BigFunctions</a>** - callable from any BigQuery project without install
-- **<a href="https://unytics.io/bigfunctions/getting_started/" target="_blank">Getting Started</a>** - call public BigFunctions from your own BigQuery project
+> Follow the links to explore and call public BigFunctions from you own BigQuery Project:
+> 
+> - **<a href="https://unytics.github.io/bigfunctions/" target="_blank">BigFunctions website</a>**
+> - **<a href="https://unytics.github.io/bigfunctions/reference/" target="_blank">Reference of public BigFunctions</a>** - callable from any BigQuery project without install
+> - **<a href="https://unytics.io/bigfunctions/getting_started/" target="_blank">Getting Started</a>** - call public BigFunctions from your own BigQuery project
 
 
 **👀 Explore**
