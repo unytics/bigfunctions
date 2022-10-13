@@ -27,7 +27,7 @@ hide:
 
     You are <u>**more**</u> than welcome to contribute!
 
-    **We have a vision of a worldwide data-community sharing solutions in order that no one reinvent the wheel.**
+    **We have a vision of a worldwide data-community sharing solutions so that no one reinvent the wheel.**
 
     **<u>This is the exact reason why we created BigFunctions.</u>**
 
