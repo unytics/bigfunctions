@@ -1,4 +1,5 @@
 ---
+title: BigFunctions - Getting Started
 hide:
   - navigation
 ---
@@ -7,7 +8,7 @@ hide:
 
 !!! note ""
 
-    BigFunctions are public BigQuery routines that give you **super-SQL-powers** in BigQuery 💪.
+    BigFunctions are open-source BigQuery routines that give you **SQL-superpowers** in BigQuery 💪.
 
     There are **7 must know** to use them:
 
