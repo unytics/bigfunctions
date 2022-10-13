@@ -1,7 +1,11 @@
 {% extends "base.html" %}
 
 {% block extrahead %}
-{% if page and page.meta and page.meta.title %}
+{% if page and page.meta and page.meta.ogtitle %}
+<meta property="og:title" content="{{ page.meta.ogtitle }}" />
+<meta property="twitter:card" content="summary" />
+<meta property="twitter:title" content="{{ page.meta.ogtitle }}" />
+{% elif page and page.meta and page.meta.title %}
 <meta property="og:title" content="{{ page.meta.title }}" />
 <meta property="twitter:card" content="summary" />
 <meta property="twitter:title" content="{{ page.meta.title }}" />

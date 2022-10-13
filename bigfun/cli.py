@@ -160,4 +160,5 @@ def serve():
     observer = Observer()
     observer.schedule(event_handler, BIGFUNCTIONS_FOLDER, recursive=True)
     observer.start()
+    generate_doc()
     os.system('mkdocs serve')
