@@ -27,6 +27,7 @@ theme:
 
 markdown_extensions:
   - attr_list
+  - md_in_html
   - tables
   - toc:
       toc_depth: 4
@@ -41,6 +42,7 @@ nav:
   - Home: index.md
   - BigFunctions: reference.md
   - Getting Started: getting_started.md
+  - Contribute: contribute.md
 
 bigfunctions_categories:
   - name: "explore"
