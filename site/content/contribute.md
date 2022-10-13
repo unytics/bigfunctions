@@ -34,7 +34,7 @@ hide:
 
 !!! note ""
 
-    👉 **For any contribution, you are welcome to first join [BigFunctions slack](https://join.slack.com/t/bigfunctions/shared_invite/zt-1gbv491mu-cs03EJbQ1fsHdQMcFN7E1Q) and engage the conversation.**
+    👉 **For any contribution, you are welcome to first join [BigFunctions slack](https://join.slack.com/t/bigfunctions/shared_invite/zt-1gbv491mu-cs03EJbQ1fsHdQMcFN7E1Q) and engage the conversation.** If slack does not suit, contact us at paul.marcombes@unytics.io.
 
     👉 **Explore our [GitHub repo](https://github.com/unytics/bigfunctions)**
 
