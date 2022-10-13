@@ -36,17 +36,59 @@ It is both:
 
 ## 👀 Explore and call open BigFunctions from you own BigQuery Project
 
-Public and shared BigFunctions give you **SQL-superpowers** such as:
-
-- advanced transforms such as computing sentiment score of a text, computing the latitude / longitude of an address, run graph algorithms, etc
-- advanced data-explorations / vizualisations from your BigQuery console, your notebooks, your IDE.
-- communication with all your SAAS to bring a common logic orchestrated from your data-warehouse and optionnaly from dbt.
+### Use BigFunctions
 
 Follow the links to explore and call public BigFunctions from you own BigQuery Project:
 
 - **<a href="https://unytics.github.io/bigfunctions/" target="_blank">BigFunctions website</a>**
 - **<a href="https://unytics.github.io/bigfunctions/reference/" target="_blank">Reference of public BigFunctions</a>** - callable from any BigQuery project without install
 - **<a href="https://unytics.io/bigfunctions/getting_started/" target="_blank">Getting Started</a>** - call public BigFunctions from your own BigQuery project
+
+
+### See the code of BigFunctions
+
+All BigFunctions are represented by a `yaml` file in 'bigfunctions' folder. 
+
+**👀 Explore**
+
+- [<code>explore_column(fully_qualified_column)</code>](https://github.com/unytics/bigfunctions/blob/main/bigfunctions/explore_column.yaml): Show column statistics
+- [<code>explore_dataset(fully_qualified_dataset)</code>](https://github.com/unytics/bigfunctions/blob/main/bigfunctions/explore_dataset.yaml): Shows infos about dataset tables
+- [<code>explore_table(fully_qualified_table)</code>](https://github.com/unytics/bigfunctions/blob/main/bigfunctions/explore_table.yaml): Show table infos and column statistics
+
+
+**✨ Transform string**
+
+- [<code>levenshtein(string1, string2)</code>](https://github.com/unytics/bigfunctions/blob/main/bigfunctions/levenshtein.yaml): Computes levenshtein distance between `string1` and `string2`
+- [<code>render_string(template, context)</code>](https://github.com/unytics/bigfunctions/blob/main/bigfunctions/render_string.yaml): Render template with context using nunjucks.js templating library
+- [<code>sentiment_score(content)</code>](https://github.com/unytics/bigfunctions/blob/main/bigfunctions/sentiment_score.yaml): Compute sentiment score of text
+
+
+**📆 Transform date**
+
+- [<code>is_public_holiday(date, country_code)</code>](https://github.com/unytics/bigfunctions/blob/main/bigfunctions/is_public_holiday.yaml): Returns true if `date` corresponds to a public holiday in `country_code`
+
+
+**🌐 Graph**
+
+- [<code>connected_components(fully_qualified_table)</code>](https://github.com/unytics/bigfunctions/blob/main/bigfunctions/connected_components.yaml): Compute the connected components of a non-directed graph.
+
+
+**💬 Notify**
+
+- [<code>notify_gmail(recipients, subject, body, attachment_filename, attachment_content)</code>](https://github.com/unytics/bigfunctions/blob/main/bigfunctions/notify_gmail.yaml): Send email via gmail
+
+
+**🚀 Export**
+
+- [<code>export_to_gmail(table_or_view_or_query, recipients, email_subject, email_body)</code>](https://github.com/unytics/bigfunctions/blob/main/bigfunctions/export_to_gmail.yaml): Send email (via gmail) with data attached as excel file
+
+
+**🔨 Utils**
+
+- [<code>chart(data, chart_type, ylabel)</code>](https://github.com/unytics/bigfunctions/blob/main/bigfunctions/chart.yaml): Returns html with a chartjs chart
+- [<code>dump_to_excel(data)</code>](https://github.com/unytics/bigfunctions/blob/main/bigfunctions/dump_to_excel.yaml): Dump data to excel file returned as base64
+- [<code>get_table_columns(fully_qualified_table)</code>](https://github.com/unytics/bigfunctions/blob/main/bigfunctions/get_table_columns.yaml): Get the column information of the given table from `INFORMATION_SCHEMA.COLUMNS`
+
 
 
 <br>
