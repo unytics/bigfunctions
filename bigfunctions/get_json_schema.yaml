@@ -1,0 +1,79 @@
+type: function_js
+category: transform_string
+author:
+  name: Paul Marcombes
+  url: https://www.linkedin.com/in/paul-marcombes
+  avatar_url: "https://media-exp1.licdn.com/dms/image/C4E03AQF92ENRMYC3Mw/profile-displayphoto-shrink_200_200/0/1656924490995?e=1670457600&v=beta&t=JDu8feKR5-bKs4xbHdmsiatSwOgE2BY31KHJcVHhUYI"
+description: |
+  Returns the schema of a json string as `[{path, type}]`
+  with `path` the path of the nested field
+  and `type` among (`string`, `numeric`, `bool`, `date`, `timestamp`)
+arguments:
+  - name: json_string
+    type: string
+output:
+  name: schema
+  type: array<struct<path string, type string>>
+examples:
+  - description: ""
+    arguments:
+      - "'{\"created_at\": \"2022-01-01\", \"user\": {\"name\": \"James\", \"friends\": [\"Jack\", \"Peter\"]}}'"
+    output: |
+      [
+      |   struct("created_at" as path, "date" as type),
+      |   struct("user.name" as path, "string" as type),
+      |   struct("user.friends" as path, "array" as type)
+      | ]
+    region: ALL
+code: |
+  const getValueType = (value) => {
+      let type = {
+          string: "string",
+          number: "numeric",
+          boolean: "bool"
+      }[typeof value]
+
+      if (type === "string") {
+          if (value.match(/^\d{4}-\d{2}-\d{2}$/g)) {
+              type = 'date'
+          } else if (value.match(/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.?\d*Z?$/g)) {
+              type = 'timestamp'
+          }
+      }
+      return type
+  }
+
+  const getSchema = (obj) => {
+    let result = [];
+
+    for (const i in obj) {
+
+      if (Array.isArray(obj[i])) {
+          result.push({path: i, type: 'array'})
+      }
+
+      else if ((typeof obj[i]) === 'object') {
+        const temp = getSchema(obj[i]);
+        for (const _res of temp) {
+          result.push({path: i + '.' + _res.path, type: _res.type})
+        }
+      }
+
+      else {
+        const type = getValueType(obj[i])
+        result.push({path: i, type: type})
+      }
+    }
+    return result;
+  }
+
+  let obj = {}
+  try {
+      obj = JSON.parse(json_string);
+  }
+  catch {
+      throw('could not parse ' + json_string)
+  }
+
+  const schema = getSchema(obj)
+  return schema
