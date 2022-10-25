@@ -1,0 +1,62 @@
+type: procedure
+category: utils
+author:
+  name: Paul Marcombes
+  url: https://www.linkedin.com/in/paul-marcombes
+  avatar_url: "https://media-exp1.licdn.com/dms/image/C4E03AQF92ENRMYC3Mw/profile-displayphoto-shrink_200_200/0/1656924490995?e=1670457600&v=beta&t=JDu8feKR5-bKs4xbHdmsiatSwOgE2BY31KHJcVHhUYI"
+description: |
+  Returns the schema of `json_column` of `table_or_view_or_query` as `[{path, type}]`
+  with `path` the path of the nested field
+  and `type` among (`string`, `numeric`, `bool`, `date`, `timestamp`)
+arguments:
+  - name: table_or_view_or_query
+    type: string
+  - name: json_column
+    type: string
+examples:
+  - description: ""
+    arguments:
+      - "'{BIGFUNCTIONS_DATASET}.sample_json'"
+      - "'data'"
+    output: |
+      +----------------+-------------+
+      | schema.path    | schema.type |
+      +----------------+-------------+
+      | "created_at"   | "date"      |
+      | "user.name"    | "string"    |
+      | "user.friends" | "array"     |
+      +----------------+-------------+
+    region: ALL
+code: |
+  execute immediate replace(replace(replace(replace(
+    '''
+    with
+
+    query_result as (
+      select
+        array_agg(struct(res).res limit 1000) as data
+      from {{table_or_view_or_query}} res
+    ),
+
+    excel_base64 as (
+      select {BIGFUNCTIONS_DATASET}.dump_to_excel((
+        to_json_string(to_json(data))
+      )) as content
+      from query_result
+    )
+
+    select {BIGFUNCTIONS_DATASET}.notify_gmail(
+      '{{recipients}}',
+      '{{email_subject}}',
+      """
+      {{email_body}}
+      """,
+      'report.xlsx',
+      (select content from excel_base64)
+    );
+    ''',
+    '{{recipients}}', recipients),
+    '{{email_subject}}', email_subject),
+    '{{email_body}}', email_body),
+    '{{table_or_view_or_query}}', table_or_view_or_query
+  );
