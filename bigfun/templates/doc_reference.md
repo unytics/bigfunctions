@@ -54,7 +54,7 @@ BigFunctions are open-source BigQuery routines that give you **SQL-superpowers**
 ### {{ bigfunction.name }}
 <div style="position: relative; top: -2rem; margin-bottom:  -2rem; text-align: right; z-index: 9999;">
   {% if bigfunction.author %}
-  <a href="{{ bigfunction.author.url }}" title="Author: {{ bigfunction.author.name }}" target="_blank">
+  <a href="{{ bigfunction.author.url }}" title="{% if not bigfunction.author.name.startswith('Credits') %}Author: {% endif %}{{ bigfunction.author.name }}" target="_blank">
     <img src="{{ bigfunction.author.avatar_url }}" width="32" style=" border-radius: 50% !important">
   </a>
   {% endif %}
