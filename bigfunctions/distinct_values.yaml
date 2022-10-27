@@ -4,17 +4,17 @@ author:
   name: Paul Marcombes
   url: https://www.linkedin.com/in/paul-marcombes
   avatar_url: "https://media-exp1.licdn.com/dms/image/C4E03AQF92ENRMYC3Mw/profile-displayphoto-shrink_200_200/0/1656924490995?e=1670457600&v=beta&t=JDu8feKR5-bKs4xbHdmsiatSwOgE2BY31KHJcVHhUYI"
-description: Returns sorted array (ascending)
+description: Returns distinct values
 arguments:
   - name: arr
     type: any type
 output:
-  name: sorted_array
+  name: distinct_values
   type: any type
 examples:
   - description: ""
     arguments:
-      - "[1, 4, 3]"
-    output: "[1, 3, 4]"
+      - "[1, 4, 3, 4]"
+    output: "[1, 4, 3]"
     region: ALL
-code: array(select value from unnest(arr) as value order by value)
+code: array(select distinct value from unnest(arr) as value)
