@@ -42,6 +42,8 @@ BigFunctions are open-source BigQuery routines that give you **SQL-superpowers**
     
     - [<code>levenshtein(string1, string2)</code>](#levenshtein): Computes levenshtein distance between `string1` and `string2`
     
+    - [<code>parse_url(url)</code>](#parse_url): Returns `url` parts
+    
     - [<code>remove_extra_whitespaces(str)</code>](#remove_extra_whitespaces): Removes unwanted whitespaces
     
     - [<code>render_string(template, context)</code>](#render_string): Render template with context using nunjucks.js templating library
@@ -642,6 +644,88 @@ Computes levenshtein distance between `string1` and `string2`
 +----------+
 | 2        |
 +----------+
+</code>
+</pre>
+
+
+
+
+
+
+
+
+
+
+---
+
+
+
+
+### parse_url
+<div style="position: relative; top: -2rem; margin-bottom:  -2rem; text-align: right; z-index: 9999;">
+  
+  <a href="https://www.linkedin.com/in/taylorabrownlow/" title="Credits: Taylor Brownlow" target="_blank">
+    <img src="https://media-exp1.licdn.com/dms/image/C4E03AQFCRlj44wnbhA/profile-displayphoto-shrink_200_200/0/1579795128165?e=1672272000&v=beta&t=LxL7tn53S_dQU0jMAeT3lHiAP4anA8GSiYD71u63pMs" width="32" style=" border-radius: 50% !important">
+  </a>
+  
+  <a href="https://github.com/unytics/bigfunctions/blob/main/bigfunctions/parse_url.yaml" title="Edit on GitHub" target="_blank"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="#5d6cc0" d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg></a></div>
+```
+parse_url(url)
+```
+
+**Description**
+
+Returns `url` parts
+*(inspired from [sql-snippets repo](https://github.com/count/sql-snippets/blob/main/bigquery/regex-parse-url.md))*
+
+**Examples**
+
+
+
+
+
+
+=== "EU"
+
+    ```sql
+    select bigfunctions.eu.parse_url('https://www.yoursite.com/pricing/details?myparam1=123&myparam2=abc#newsfeed') as url_parts
+
+    ```
+
+
+=== "US"
+
+    ```sql
+    select bigfunctions.us.parse_url('https://www.yoursite.com/pricing/details?myparam1=123&myparam2=abc#newsfeed') as url_parts
+
+    ```
+
+
+=== "europe-west1"
+
+    ```sql
+    select bigfunctions.europe_west1.parse_url('https://www.yoursite.com/pricing/details?myparam1=123&myparam2=abc#newsfeed') as url_parts
+
+    ```
+
+
+=== "your-region2"
+
+    ```sql
+    select bigfunctions.your_region2.parse_url('https://www.yoursite.com/pricing/details?myparam1=123&myparam2=abc#newsfeed') as url_parts
+
+    ```
+
+
+
+
+
+<pre style="margin-top: -1rem;">
+<code style="padding-top: 0px; padding-bottom: 0px;">+------------------------------------------------------------------------------------------------------------------------------------------------------+
+| url_parts                                                                                                                                            |
++------------------------------------------------------------------------------------------------------------------------------------------------------+
+| struct<'www.yoursite.com' as host, 'pricing/details' as path, 'myparam1=123&myparam2=abc#newsfeed' as query, 'newsfeed' as ref, 'https' as protocol> |
++------------------------------------------------------------------------------------------------------------------------------------------------------+
 </code>
 </pre>
 
