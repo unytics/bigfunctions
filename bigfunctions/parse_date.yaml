@@ -4,7 +4,9 @@ author:
   name: Sebabrata Banerjee
   url: https://www.linkedin.com/in/sebo-banerjee/
   avatar_url: "https://media-exp1.licdn.com/dms/image/C4D03AQHFfCabt6UuLw/profile-displayphoto-shrink_200_200/0/1662473522711?e=1672272000&v=beta&t=hlhzWEk4UwQyaZmwNN1u9_F3DeRCLNwYgQrym-OiMC8"
-description: Parse date with automatic format detection
+description: |-
+  Parse date with automatic format detection
+  *(inspired from [Sebabrata BigQuery tutorial](https://www.linkedin.com/feed/update/urn:li:activity:6989555205612670976/))*
 arguments:
   - name: date_string
     type: string
