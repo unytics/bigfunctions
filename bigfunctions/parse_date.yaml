@@ -1,0 +1,69 @@
+type: function_sql
+category: transform_date
+author:
+  name: Sebabrata Banerjee
+  url: https://www.linkedin.com/in/sebo-banerjee/
+  avatar_url: "https://media-exp1.licdn.com/dms/image/C4D03AQHFfCabt6UuLw/profile-displayphoto-shrink_200_200/0/1662473522711?e=1672272000&v=beta&t=hlhzWEk4UwQyaZmwNN1u9_F3DeRCLNwYgQrym-OiMC8"
+description: Parse date with automatic format detection
+arguments:
+  - name: date_string
+    type: string
+output:
+  name: cleaned_date
+  type: date
+examples:
+  - description: ""
+    arguments:
+      - "'2021-01-20 '"
+    output: "date('2021-01-20')"
+    region: ALL
+  - description: ""
+    arguments:
+      - "'2021-1-20 '"
+    output: "date('2021-01-20')"
+    region: ALL
+  - description: ""
+    arguments:
+      - "'2021/01/20 '"
+    output: "date('2021-01-20')"
+    region: ALL
+  - description: ""
+    arguments:
+      - "'2021/1/20 '"
+    output: "date('2021-01-20')"
+    region: ALL
+  - description: ""
+    arguments:
+      - "'01/20/21'"
+    output: "date('2021-01-20')"
+    region: ALL
+  - description: ""
+    arguments:
+      - "'1/20/21'"
+    output: "date('2021-01-20')"
+    region: ALL
+  - description: ""
+    arguments:
+      - "'Wed Jan 20 21:47:00 2021'"
+    output: "date('2021-01-20')"
+    region: ALL
+code: |
+    case
+      when regexp_contains(date_string, r'\d{4}-\d{1,2}-\d{1,2}') then date(regexp_extract(date_string, r'\d{4}-\d{1,2}-\d{1,2}'))
+      when regexp_contains(date_string, r'\d{4}/\d{1,2}/\d{1,2}') then parse_date('%Y/%m/%d', regexp_extract(date_string, r'\d{4}/\d{1,2}/\d{1,2}'))
+      when regexp_contains(date_string, r'\d{1,2}/\d{1,2}/\d{2}') then parse_date('%D', regexp_extract(date_string, r'\d{1,2}/\d{1,2}/\d{2}'))
+      when (
+        regexp_contains(date_string, r'\d{4}')
+        and regexp_contains(date_string, r'\bJan \d{1,2}|\bFeb \d{1,2}|\bMar \d{1,2}|\bApr \d{1,2}|\bMay \d{1,2}|\bJun \d{1,2}|\bJul \d{1,2}|\bAug \d{1,2}|\bSep \d{1,2}|\bOct \d{1,2}|\bNov \d{1,2}|\bDec \d{1,2}')
+      )
+      then parse_date(
+        '%h %d %Y',
+        (
+          regexp_extract(date_string, r'\bJan \d{1,2}|\bFeb \d{1,2}|\bMar \d{1,2}|\bApr \d{1,2}|\bMay \d{1,2}|\bJun \d{1,2}|\bJul \d{1,2}|\bAug \d{1,2}|\bSep \d{1,2}|\bOct \d{1,2}|\bNov \d{1,2}|\bDec \d{1,2}')
+          || ' '
+          || regexp_extract(date_string, r'\d{4}')
+        )
+      )
+      else null
+    end
+
