@@ -1,0 +1,22 @@
+type: function_sql
+category: transform_array
+author:
+  name: Taylor Brownlow
+  url: https://www.linkedin.com/in/taylorabrownlow/
+  avatar_url: "https://media-exp1.licdn.com/dms/image/C4E03AQFCRlj44wnbhA/profile-displayphoto-shrink_200_200/0/1579795128165?e=1672272000&v=beta&t=LxL7tn53S_dQU0jMAeT3lHiAP4anA8GSiYD71u63pMs"
+description: |-
+  Returns last element of array
+  *(inspired from [sql-snippets repo](https://github.com/count/sql-snippets/blob/main/bigquery/get-last-array-element.md))*
+arguments:
+  - name: arr
+    type: any type
+output:
+  name: element
+  type: any type
+examples:
+  - description: ""
+    arguments:
+      - "[1, 2, 3]"
+    output: "3"
+    region: ALL
+code: arr[ordinal(array_length(arr))]
