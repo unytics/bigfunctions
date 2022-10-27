@@ -6,7 +6,7 @@ author:
   avatar_url: "https://media-exp1.licdn.com/dms/image/C4E03AQFCRlj44wnbhA/profile-displayphoto-shrink_200_200/0/1579795128165?e=1672272000&v=beta&t=LxL7tn53S_dQU0jMAeT3lHiAP4anA8GSiYD71u63pMs"
 description: |-
   Returns median value of array
-  *(inspired from [sql-snippets repo](https://github.com/count/sql-snippets/blob/main/bigquery/median-udf.md))*
+  *(inspired from [sql-snippets repo](https://github.com/count/sql-snippets/blob/main/bigquery/median.md))*
 arguments:
   - name: arr
     type: any type
@@ -14,25 +14,14 @@ output:
   name: value
   type: any type
 examples:
-  - description: ""
+  - description: "When array length is odd"
     arguments:
       - "[1, 4, 3]"
     output: "3"
     region: ALL
-  - description: ""
+  - description: "When array length is even"
     arguments:
       - "[1, 4, 3, 2]"
     output: "2.5"
     region: ALL
-code: |
-  (
-    select if (
-        mod(array_length(arr), 2) = 0,
-        (arr[offset(div(array_length(arr), 2) - 1)] + arr[offset(div(array_length(arr), 2))]) / 2,
-        arr[offset(div(array_length(arr), 2))]
-      )
-    from (
-      select array_agg(x order by x) as arr
-      from unnest(arr) as x
-    )
-  )
+code: (select percentile_cont(value, 0.5) over() from unnest(arr) value limit 1)
