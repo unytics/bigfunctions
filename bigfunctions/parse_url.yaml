@@ -22,7 +22,7 @@ examples:
 code: |
   struct(
     regexp_extract(url, r'(?:[a-za-z]+://)?([a-za-z0-9-.]+)/?') as host,
-    regexp_extract(url, r'(?:[a-za-z]+://)?(?:[a-za-z0-9-.]+)/{1}([a-za-z0-9-./]+)') as path,
+    regexp_extract(url, r'(?:[a-zA-Z]+://)?(?:[a-zA-Z0-9-.]+)/{1}([a-zA-Z0-9-.~_/]+)') as path,
     regexp_extract(url, r'\?(.*)') as query,
     regexp_extract(url, r'#(.*)') as ref,
     regexp_extract(url, r'^([a-za-z]+)://') as protocol
