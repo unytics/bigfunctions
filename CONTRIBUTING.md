@@ -1,5 +1,7 @@
-# Contributing
-Thanks for your interest in helping out! Feel free to comment, open issues, and create pull requests if there's something you want to share.
+# Contributing to 🤗 BigFunctions
+Thanks for your interest in helping out! Feel free to comment, open issues, and create pull requests if there's something you want to share. It also helps us if you spread the word! Reference the repo in blog posts, shout out on Twitter every time it has helped you, or simply ⭐️ the repository to say thank you!
+
+
 
 ## Submitting pull requests
 To make a change to this repository, the best way is to use pull requests:
@@ -33,4 +35,4 @@ We use GitHub issues to track bugs. Report a bug or start a conversation by open
 By contributing to this repository, you agree that your contributions will be licensed under its MIT License.
 
 ## References
-This document was adapted from the GitHub Gist of [briandk](https://gist.github.com/briandk/3d2e8b3ec8daf5a27a62).
+This document was adapted from the GitHub Gist of [briandk](https://gist.github.com/briandk/3d2e8b3ec8daf5a27a62) and used some of Hugging Face one.
