@@ -63,7 +63,7 @@ Details about `bigfun` command line are given below.
 
 This repo contains a CLI (command-line-interface) called `bigfun` to facilitate BigFunctions development, test, deployment, documentation and monitoring.
 
-### Install `bigfun`
+### Install `bigfun` 🛠️
 
 **Install dependencies**
 
