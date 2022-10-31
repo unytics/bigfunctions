@@ -34,20 +34,12 @@ It is both:
 
 <br>
 
-## 👀 Explore and call open BigFunctions from you own BigQuery Project
+## 👀 Directly call public BigFunctions without install from you own BigQuery project
 
-### Use BigFunctions
+All BigFunctions represented by a 'yaml' file in 'bigfunctions' folder are automatically deployed in public datasets so that you can call them directly without install from your own BigQuery project. 
 
-Follow the links to explore and call public BigFunctions from you own BigQuery Project:
+To explore available bigfunctions and get started to call them, visit the **<a href="https://unytics.github.io/bigfunctions/" target="_blank">BigFunctions website</a>**!
 
-- **<a href="https://unytics.github.io/bigfunctions/" target="_blank">BigFunctions website</a>**
-- **<a href="https://unytics.github.io/bigfunctions/reference/" target="_blank">Reference of public BigFunctions</a>** - callable from any BigQuery project without install
-- **<a href="https://unytics.io/bigfunctions/getting_started/" target="_blank">Getting Started</a>** - call public BigFunctions from your own BigQuery project
-
-
-### See the code of BigFunctions
-
-All BigFunctions are represented by a 'yaml' file in 'bigfunctions' folder. To explore them, the best is still to browse the <a href="https://unytics.github.io/bigfunctions/reference/" target="_blank">reference page</a> on the website which contains links the GitHub 'yaml' file in addition to better a discovery experience.
 
 
 <br>
