@@ -35,4 +35,4 @@ We use GitHub issues to track bugs. Report a bug or start a conversation by open
 By contributing to this repository, you agree that your contributions will be licensed under its MIT License.
 
 ## References
-This document was adapted from the GitHub Gist of [briandk](https://gist.github.com/briandk/3d2e8b3ec8daf5a27a62) and used some of Hugging Face one.
+This document was adapted from the GitHub Gist of [briandk](https://gist.github.com/briandk/3d2e8b3ec8daf5a27a62) and used some of [Hugging Face one](https://github.com/huggingface/transformers/blob/main/CONTRIBUTING.md).
