@@ -8,7 +8,7 @@
 
 - **<a href="https://unytics.github.io/bigfunctions/" target="_blank">BigFunctions website</a>**
 - **<a href="https://unytics.github.io/bigfunctions/reference/" target="_blank">Reference of public BigFunctions</a>** - callable from any BigQuery project without install
-- **<a href="https://unytics.io/bigfunctions/getting_started/" target="_blank">Getting Started</a>** - call public BigFunctions from your own BigQuery project
+- **<a href="https://unytics.io/bigfunctions/getting_started/" target="_blank">Getting Started</a>** - call public BigFunctions from your BigQuery project
 
 ---
 
@@ -19,7 +19,13 @@
 It is both:
 
 > 1. **Open-Source BigQuery functions giving SQL-superpowers, callable without install from any GCP project**
-> 2. **A framework to define, test, deploy, document and monitor your own BigQuery functions in addition to the BigFunctions available in this repo**
+> 2. **A framework to define, test, deploy, document and monitor your BigQuery functions in addition to the BigFunctions available in this repo**
+
+BigFunctions Framework Features:
+
+> 1. 💚 **A standard to define BigQuery routines be it sql/js/remote UDF or procedures**
+> 2. 💚 **`bigfun`: a CLI (Command Line Interface) to test, deploy, document and monitor these BigQuery routines in your project**
+
 
 <br>
 
@@ -34,9 +40,9 @@ It is both:
 
 <br>
 
-## 👀 Call public BigFunctions without install from you own GCP project
+## 👀 Call public BigFunctions without install from you GCP project
 
-All BigFunctions represented by a 'yaml' file in 'bigfunctions' folder are automatically deployed in public datasets so that you can call them directly without install from your own BigQuery project. 
+All BigFunctions represented by a 'yaml' file in 'bigfunctions' folder are automatically deployed in public datasets so that you can call them directly without install from your BigQuery project. 
 
 To explore available bigfunctions and get started to call them, visit **<a href="https://unytics.github.io/bigfunctions/" target="_blank">BigFunctions website</a>**.
 
@@ -52,13 +58,6 @@ bigfun deploy my_bigfunction
 ```
 
 Details about `bigfun` command line are given below.
-
-<br>
-
-## ⚡️ BigFunctions Framework Features
-
-> 1. 💚 **A standard to define BigQuery routines be it sql/js/remote UDF or procedures**
-> 2. 💚 **`bigfun`: a CLI (Command Line Interface) to test, deploy, document and monitor these BigQuery routines in your project**
 
 <br>
 
