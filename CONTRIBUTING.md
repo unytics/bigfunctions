@@ -18,7 +18,7 @@ To start, the best is to duplicate an existing yaml file in 'bigfunctions' folde
 
 Before submitting a PR, make sure:
 
-- your BigFunction is really useful. If it takes more time to call it than to write its code, there may be something wrong. For instance, it does not seem appropriate to create a bigfunction that we would call by `bigfunctions.is_date_in_range(my_date, start_date, end_date)` rather than to write directly `my_date between start_date and end_date`.
+- your BigFunction is really useful. If it takes more time to call it than to write its own code, there may be something wrong. For instance, it does not seem appropriate to create a bigfunction that we would call by `bigfunctions.eu.is_date_in_range(my_date, start_date, end_date)` rather than to write directly `my_date between start_date and end_date`.
 - all names are explicit. 
 - descriptions are concise.
 - you provide enough examples (edge cases must be provided) but not too much (you should not provide a second example that does not provide more understanding about the function than the first one).
