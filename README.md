@@ -18,8 +18,8 @@
 
 It is both:
 
-> 1. **Open BigQuery functions giving SQL-superpowers, callable without install from any BigQuery project**
-> 2. **A framework to define, test, deploy, document and monitor BigQuery Routines**
+> 1. **Open-Source BigQuery functions giving SQL-superpowers, callable without install from any BigQuery project**
+> 2. **A framework to define, test, deploy, document and monitor your own BigQuery functions in addition to the BigFunctions available in this repo**
 
 <br>
 
@@ -38,7 +38,7 @@ It is both:
 
 All BigFunctions represented by a 'yaml' file in 'bigfunctions' folder are automatically deployed in public datasets so that you can call them directly without install from your own BigQuery project. 
 
-To explore available bigfunctions and get started to call them, visit the **<a href="https://unytics.github.io/bigfunctions/" target="_blank">BigFunctions website</a>**!
+To explore available bigfunctions and get started to call them, visit **<a href="https://unytics.github.io/bigfunctions/" target="_blank">BigFunctions website</a>**.
 
 
 
