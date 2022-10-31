@@ -1,0 +1,27 @@
+type: function_sql
+category: utils
+author:
+  name: "Credits: Benjamin Tabet"
+  url: https://www.linkedin.com/in/benjamin-tabet
+  avatar_url: "https://media-exp1.licdn.com/dms/image/C4E03AQGik7IYv3cNHA/profile-displayphoto-shrink_800_800/0/1659107170333?e=1672876800&v=beta&t=bp8jJvexPk6TgpjSrJoq2WVw9J6G-kOorz0e7lK8gwk"
+description: |-
+  Returns a boolean result to indicate if a date is included in the date range
+arguments:
+  - name: my_date
+    type: date
+  - name: start_date
+    type: date
+  - name: end_date
+    type: date
+output:
+  name: is_date_included
+  type: bool
+examples:
+  - description: ""
+    arguments:
+      - "2022-01-12"
+      - "2022-01-07"
+      - "2022-02-10"
+    output: "true"
+    region: ALL
+code: (select my_date between start_date and end_date)
