@@ -26,6 +26,8 @@ Before submitting a PR, make sure:
 - you deployed sucessfully your bigfunction by calling `bigfun deploy your_bigfunction`
 - you tested the bigfunction for all the examples you provided and you each time got the expected output. (we plan to create a test command line soon).
 
+## Report bugs using Github's issues
+We use GitHub issues to track bugs. Report a bug or start a conversation by opening a new issue.
 
 ## License
 By contributing to this repository, you agree that your contributions will be licensed under its MIT License.
