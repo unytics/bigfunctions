@@ -1,75 +1,33 @@
-# Contribute to BigFunctions
+# Contributing
+Thanks for your interest in helping out! Feel free to comment, open issues, and create pull requests if there's something you want to share.
 
-BigFunctions is an open-source project administered by the Unytics team. We appreciate your interest and efforts to contribute to BigFunctions. See the [LICENSE](https://github.com/unytics/bigfunctions/blob/main/LICENSE) licensing information. All work done is available on GitHub.
+## Submitting pull requests
+To make a change to this repository, the best way is to use pull requests:
 
-We highly appreciate your effort to contribute, but we recommend you talk to us through [slack](https://join.slack.com/t/bigfunctions/shared_invite/zt-1gbv491mu-cs03EJbQ1fsHdQMcFN7E1Q) before spending a lot of time making a pull request that may not align with the project roadmap. If slack does not work, contact us at [contact@unytics.io](mailto:contact@unytics.io).
+1. Fork the repository and create your branch from `main`.
+2. Make your changes.
+6. Create a pull request.
 
+(If the change is particularly small, these steps are easily accomplished directly in the GitHub UI.)
 
-## Feature Requests
+## Creating a new BigFunction
 
-Feature Requests by the community are highly encouraged. Feel free to submit a new one or upvote an existing feature request on ProductBoard [TODO].
-Feature Requests may concern the whole repo including:
+Before spending a lot of time to develop a new bigfunction, don't hesitate to reach out via [bigfunctions slack](https://join.slack.com/t/bigfunctions/shared_invite/zt-1gbv491mu-cs03EJbQ1fsHdQMcFN7E1Q) (or by email --> paul.marcombes@unytics.io).
 
-- creating or updating a BigFunction
-- improving the framework
-- improving the way the documentation is generated
+To start, the best is to duplicate an existing yaml file in 'bigfunctions' folder. Make sure to duplicate a file with the same type (function_sql, function_js, function_py, procedure) as the one you target.
 
+Before submitting a PR, make sure:
 
-## BigFunctions Contribution Guidelines
-
-[TODO]
-
-
-## Contributor License Agreement (CLA)
-
-### Individual contribution
-
-You need to sign a Contributor License Agreement (CLA) to accept your pull request. You only need to do this once. If you submit a pull request for the first time, you can complete your CLA here [TODO]  (meanwhile, please contact us at [contact@unytics.io](mailto:contact@unytics.io)), or our CLA bot will automatically ask you to sign before merging the pull request.
-
-### Company contribution
-
-If you make contributions to our repositories on behalf of your company, we will need a Corporate Contributor License Agreement (CLA) signed. To do that, please get in touch with us at [contact@unytics.io](mailto:contact@unytics.io).
+- your BigFunction is really useful. If it takes more time to call it than to write its code, there may be something wrong. For instance, it does not seem appropriate to create a bigfunction that we would call by `bigfunctions.is_date_in_range(my_date, start_date, end_date)` rather than to write directly `my_date between start_date and end_date`.
+- all names are explicit. 
+- descriptions are concise.
+- you provide enough examples (edge cases must be provided) but not too much (you should not provide a second example that does not provide more understanding about the function than the first one).
+- you deployed sucessfully your bigfunction by calling `bigfun deploy your_bigfunction`
+- you tested the bigfunction for all the examples you provided and you each time got the expected output. (we plan to create a test command line soon).
 
 
-## Bugs
+## License
+By contributing to this repository, you agree that your contributions will be licensed under its MIT License.
 
-Unytics is using [GitHub issues](https://github.com/unytics/bigfunctions/issues) to manage bugs. We keep a close eye on them. Before filing a new issue, try to ensure your problem does not already exist.
-
----
-
-## Before Submitting a Pull Request
-
-The Unytics core team will review your pull request and either merge it, request changes, or close it.
-
-## Contribution Prerequisites
-
-[TODO]
-
-## Development Workflow
-
-[TODO]
-
----
-
-## Miscellaneous
-
-### Repository Organization
-
-[TODO]
-
-
-### Reporting an issue
-
-Before submitting an issue you need to make sure:
-
-- You are experiencing a technical issue with BigFunctions.
-- You have already searched for related [issues](https://github.com/unytics/bigfunctions/issues) and found none open (if you found a related _closed_ issue, please link to it from your post).
-- You are not asking a question about how to use Unytics or about whether or not Unytics has a certain feature. For general help using Unytics, you may:
-  - Refer to the [official Unytics documentation](https://unytics.io/bigfunctions/).
-  - Ask a member of the community in the [Slack Community](https://join.slack.com/t/bigfunctions/shared_invite/zt-1gbv491mu-cs03EJbQ1fsHdQMcFN7E1Q).
-- Your issue title is concise, on-topic, and polite.
-- You provide steps to reproduce the issue.
-- You have tried all the following (if relevant), and your issue remains:
-  - Make sure you have the right application started.
-  - Make sure the [issue template][TODO] is respected.
-  - Make sure your issue body is readable and [well formatted](https://guides.github.com/features/mastering-markdown).
+## References
+This document was adapted from the GitHub Gist of [briandk](https://gist.github.com/briandk/3d2e8b3ec8daf5a27a62).
