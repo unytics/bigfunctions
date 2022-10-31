@@ -39,7 +39,7 @@ We believe no-one should be reinventing the wheel and open-source is the best wa
 
 All BigFunctions represented by a 'yaml' file in 'bigfunctions' folder are automatically deployed in public datasets so that you can call them directly without install from your BigQuery project. 
 
-To explore available bigfunctions and get started to call them, visit **<a href="https://unytics.github.io/bigfunctions/" target="_blank">BigFunctions website</a>**.
+To explore available bigfunctions and to get started, visit **<a href="https://unytics.github.io/bigfunctions/" target="_blank">BigFunctions website</a>**.
 
 <br>
 
