@@ -29,11 +29,11 @@ BigFunctions is both:
 
 ## 💡 Why BigFunctions?
 
-- BigQuery, with native and remote routines, is really powerful.
-- BigFunctions take the most of that by offering ready-to-use functions holding useful features for data-teams.
-- We believe no-one should be reinventing the wheel and open-source is the best way to fight against that.
-- Hey Data-People! Let's share our work, help each other and inspire from each other.
-- 👉 Play and contribute to BigFunctions!
+BigQuery, with native and remote routines, is really powerful. BigFunctions take the most of that by offering ready-to-use functions holding useful features for data-teams.
+
+We believe no-one should be reinventing the wheel and open-source is the best way to fight against that.
+
+Hey Data-People! Let's share our work, help each other and inspire from each other. 👉 Play and contribute to BigFunctions!
 
 <br>
 
