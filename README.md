@@ -18,7 +18,7 @@
 
 It is both:
 
-> 1. **Open-Source BigQuery functions giving SQL-superpowers, callable without install from any BigQuery project**
+> 1. **Open-Source BigQuery functions giving SQL-superpowers, callable without install from any GCP project**
 > 2. **A framework to define, test, deploy, document and monitor your own BigQuery functions in addition to the BigFunctions available in this repo**
 
 <br>
@@ -34,13 +34,24 @@ It is both:
 
 <br>
 
-## 👀 Directly call public BigFunctions without install from you own BigQuery project
+## 👀 Call public BigFunctions without install from you own GCP project
 
 All BigFunctions represented by a 'yaml' file in 'bigfunctions' folder are automatically deployed in public datasets so that you can call them directly without install from your own BigQuery project. 
 
 To explore available bigfunctions and get started to call them, visit **<a href="https://unytics.github.io/bigfunctions/" target="_blank">BigFunctions website</a>**.
 
+<br>
 
+
+## 🚀 Deploy BigFunctions in your GCP project
+
+To deploy a bigfunction named 'my_bigfunction' defined as a yaml file located in 'bigfunctions' folder simply call:
+
+``` sh
+bigfun deploy my_bigfunction
+```
+
+Details about `bigfun` command line are given below.
 
 <br>
 
