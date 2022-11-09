@@ -8,7 +8,7 @@ To make a change to this repository, the best way is to use pull requests:
 
 1. [Fork the repository](https://docs.github.com/en/get-started/quickstart/fork-a-repo?tool=webui#forking-a-repository) and create your branch from `main`.
 2. Make your changes.
-6. Create a pull request.
+6. [Create a pull request](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/creating-a-pull-request-from-a-fork).
 
 (If the change is particularly small, these steps are easily accomplished directly in the GitHub UI.)
 
