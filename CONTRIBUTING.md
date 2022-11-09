@@ -6,7 +6,7 @@ Thanks for your interest in helping out! Feel free to comment, open issues, and 
 ## Submitting pull requests
 To make a change to this repository, the best way is to use pull requests:
 
-1. Fork the repository and create your branch from `main`.
+1. [Fork the repository](https://docs.github.com/en/get-started/quickstart/fork-a-repo?tool=webui#forking-a-repository) and create your branch from `main`.
 2. Make your changes.
 6. Create a pull request.
 
