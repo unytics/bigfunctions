@@ -64,7 +64,7 @@ class ReferencePage(Page):
                 **yaml.safe_load(open(f'bigfunctions/{f}', encoding='utf-8').read()),
                 **{'name': f.replace('.yaml', '')},
             }
-            for f in os.listdir('bigfunctions')
+            for f in sorted(os.listdir('bigfunctions'))
         ]
 
         categories = CONF['bigfunctions_categories']

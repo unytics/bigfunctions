@@ -15,6 +15,7 @@ TEMPLATE_FOLDER = os.path.dirname(os.path.realpath(__file__)).replace('\\', '/')
 
 def deploy(fully_qualified_bigfunction):
     project, dataset, bigfunction = fully_qualified_bigfunction.split('.')
+    project =  "`" + project.replace("`", "") + "`"
     fully_qualified_dataset = f'{project}.{dataset}'
     bigfunction = fully_qualified_bigfunction.split('.')[-1]
     filename = f'bigfunctions/{bigfunction}.yaml'
