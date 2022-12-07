@@ -1,7 +1,7 @@
 name: Report a bug in a BigFunction
 description: "Tell us what's wrong"
 title: "[bug]: `function_name`: it does not work"
-labels: ["new-bigfunction"]
+labels: ["bug-bigfunction"]
 body:
   - type: markdown
     attributes:
@@ -28,20 +28,7 @@ body:
   - type: textarea
     id: description
     attributes:
-      label: BigFunction Description as it would appear in the documentation
-      description: Get inspired from the description of functions seen on [BigFunctions website](https://unytics.io/bigfunctions/reference/).
-      placeholder: For example, for the function `is_email_valid` you should enter --> Returns true if `email` is valid
-    validations:
-      required: true
-  - type: textarea
-    id: examples
-    attributes:
-      label: Examples of (arguments, expected output) as they would appear in the documentation
-      description: Get inspired from the description of functions seen on [BigFunctions website](https://unytics.io/bigfunctions/reference/).
-      placeholder: |
-        For example, for the function `is_email_valid` you should enter:
-        - email=paul.marcombes@unytics.io --> true
-        - email=paul/marcombes@example.com --> false
-        - email=paul.marcombes@example.con --> false as domain is not registrable
+      label: What happened and what you expected
+      description: Tell us what happened and what you expected. Please write down precise queries that you made that created the bug and copy/paste the exact error text that you got. Don't hesitate to provide screenshots.
     validations:
       required: true
