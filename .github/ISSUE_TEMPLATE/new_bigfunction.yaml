@@ -12,8 +12,8 @@ body:
   - type: textarea
     id: description
     attributes:
-      label: Describe what the function will do?
-      description: Give the description of the function as it should appear on the website documentation. Get inspired from the [bigfunctions website](https://unytics.io/bigfunctions/reference/)
+      label: BigFunction Description
+      description: Give the description of the function as it should appear on the [BigFunctions website](https://unytics.io/bigfunctions/reference/). Get inspired from it.
       placeholder: Example for `is_email_valid` --> Returns true if email is valid
       value: "A bug happened!"
     validations:
