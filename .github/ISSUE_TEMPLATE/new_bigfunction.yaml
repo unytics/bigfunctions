@@ -9,20 +9,12 @@ body:
         Thanks for taking the time to suggest a new BigFunction!
         
         Before going further, check in the [list of existing issues](https://github.com/unytics/bigfunctions/issues?q=is%3Aissue+is%3Aopen+label%3Anew-bigfunction) if your idea has not already been suggested. If it has, please don't create a new issue but add a comment on the existing one such as `+1` to upvote it. 
-  - type: input
-    id: contact
-    attributes:
-      label: Contact Details
-      description: How can we get in touch with you if we need more info?
-      placeholder: ex. email@example.com
-    validations:
-      required: false
   - type: textarea
-    id: what-happened
+    id: description
     attributes:
-      label: What happened?
-      description: Also tell us, what did you expect to happen?
-      placeholder: Tell us what you see!
+      label: Describe what the function will do?
+      description: Give the description of the function as it should appear on the website documentation. Get inspired from the [bigfunctions website](https://unytics.io/bigfunctions/reference/)
+      placeholder: Example for `is_email_valid` --> Returns true if email is valid
       value: "A bug happened!"
     validations:
       required: true
