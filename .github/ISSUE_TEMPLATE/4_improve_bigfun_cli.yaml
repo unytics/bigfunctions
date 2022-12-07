@@ -1,0 +1,33 @@
+name: Suggest an improvement/feature of `bigfun` CLI
+description: "Make your dreams come true! Tell us everything."
+title: "[feature]: a great new feature to do this"
+labels: ["improve-bigfun-CLI"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+         ## 🙏 Thanks for taking the time to help us improve!
+         
+         Please fill the below fields to submit your idea.
+  - type: checkboxes
+    id: idea_does_not_exist
+    attributes:
+      label: Check your idea has not already been reported
+      description: Check in [existing issues](https://github.com/unytics/bigfunctions/issues?q=is%3Aissue+is%3Aopen+label%3Aimprove-bigfun-CLI) if your idea has not already been suggested. If it has, please don't create a new issue but add a comment on the existing one such as `+1` to upvote it. 
+      options:
+        - label: I could not find the bug in [existing issues](https://github.com/unytics/bigfunctions/issues?q=is%3Aissue+is%3Aopen+label%3Aimprove-bigfun-CLI)
+          required: true
+  - type: checkboxes
+    id: title_is_ok
+    attributes:
+      label: Edit the title above
+      options:
+        - label: I wrote clear short description of my idea in the title above
+          required: true
+  - type: textarea
+    id: description
+    attributes:
+      label: Tell us everything
+      description: Tell us your idea and how/why it will help people
+    validations:
+      required: true
