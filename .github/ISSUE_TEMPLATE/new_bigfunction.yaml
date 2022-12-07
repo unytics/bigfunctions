@@ -8,7 +8,7 @@ body:
       value: |
         Thanks for taking the time to suggest a new BigFunction!
         
-        Before going further, check in the [list of existing issues](https://github.com/unytics/bigfunctions/issues?q=is%3Aissue+is%3Aopen+label%3Anew-bigfunction) if your idea has already been suggested. If it is already present in the list, you can add a comment such as `+1` on the issue to upvote it. 
+        Before going further, check in the [list of existing issues](https://github.com/unytics/bigfunctions/issues?q=is%3Aissue+is%3Aopen+label%3Anew-bigfunction) if your idea has already been suggested. If it is already present in the list, don't create a new issue but add a comment on the existing one such as `+1` on the issue to upvote it. 
   - type: input
     id: contact
     attributes:
