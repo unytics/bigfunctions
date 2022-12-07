@@ -9,15 +9,12 @@ body:
         🙏 **Thanks for taking the time to suggest a new BigFunction!**
         
         > ⚠️ Before going further, check in the [list of existing issues](https://github.com/unytics/bigfunctions/issues?q=is%3Aissue+is%3Aopen+label%3Anew-bigfunction) if your idea has not already been suggested. If it has, please don't create a new issue but add a comment on the existing one such as `+1` to upvote it. 
-        
-        > Start with editing the above issue title with the name of the function and its arguments. Try to choose words which are concice but self explanatory. Then enter values for the following fields 
   - type: textarea
     id: description
     attributes:
       label: BigFunction Description
       description: Give the description of the function as it should appear on the [BigFunctions website](https://unytics.io/bigfunctions/reference/). Get inspired from it.
       placeholder: Example for `is_email_valid` --> Returns true if email is valid
-      value: "A bug happened!"
     validations:
       required: true
   - type: dropdown
