@@ -1,0 +1,33 @@
+name: Report a bug in `bigfun` Command-Line-Interface
+description: "Tell us what's wrong"
+title: "[bug]: it does not work"
+labels: ["bug-bigfun-CLI"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+         ## 🙏 Thanks for taking the time to report a bug of `bigfun` Command-Line-Interface! 
+         
+         Please fill the below fields to submit it.
+  - type: checkboxes
+    id: idea_does_not_exist
+    attributes:
+      label: Check the bug has not already been reported
+      description: Check in [existing issues](https://github.com/unytics/bigfunctions/issues?q=is%3Aissue+is%3Aopen+label%3Abug-bigfun-CLI) if your idea has not already been suggested. If it has, please don't create a new issue but add a comment on the existing one such as `+1` to upvote it. 
+      options:
+        - label: I could not find the bug in [existing issues](https://github.com/unytics/bigfunctions/issues?q=is%3Aissue+is%3Aopen+label%3Abug-bigfun-CLI)
+          required: true
+  - type: checkboxes
+    id: title_is_ok
+    attributes:
+      label: Edit the short error description in title above
+      options:
+        - label: I wrote a clear short error description in the title above
+          required: true
+  - type: textarea
+    id: description
+    attributes:
+      label: What happened and what did you expect?
+      description: Tell us what happened and what you expected. Please copy/past the exact commands that you made that created the bug and copy/paste the exact error text that you got. Don't hesitate to provide screenshots.
+    validations:
+      required: true
