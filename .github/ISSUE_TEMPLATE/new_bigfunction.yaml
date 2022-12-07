@@ -5,17 +5,22 @@ labels: ["new-bigfunction"]
 body:
   - type: markdown
     attributes:
-      value: |
-        > 1. 🙏 **Thanks for taking the time to suggest a new BigFunction!**. 
-        > 2. ⚠️ Before going further, check in the [list of existing issues](https://github.com/unytics/bigfunctions/issues?q=is%3Aissue+is%3Aopen+label%3Anew-bigfunction) if your idea has not already been suggested. If it has, please don't create a new issue but add a comment on the existing one such as `+1` to upvote it. 
-        > 3. 🧐 Take care of choosing a function name that is both concise and self explanatory such as `is_email_valid`.
+      value: 🙏 **Thanks for taking the time to suggest a new BigFunction!**. 
+  - type: checkboxes
+    id: idea_does_not_exist
+    attributes:
+      label: Idea has not already been suggested
+      description: Check in [existing issues](https://github.com/unytics/bigfunctions/issues?q=is%3Aissue+is%3Aopen+label%3Anew-bigfunction) if your idea has not already been suggested. If it has, please don't create a new issue but add a comment on the existing one such as `+1` to upvote it. 
+      options:
+        - label: I could not find my idea in [existing issues](https://github.com/unytics/bigfunctions/issues?q=is%3Aissue+is%3Aopen+label%3Anew-bigfunction)
+          required: true
   - type: checkboxes
     id: title_is_self_explanatory
     attributes:
       label: Function and argument names
       description: Edit the `function_name` and `arguments` in the issue title above. Choose consise but self-explanatory names. For example `is_email_valid` is a good name for a function which retruns true if email is valid
       options:
-        - label: The function name and the argument names I entered in the title seems self explanatory to me.
+        - label: The function name and the argument names I entered in the title above seems self explanatory to me.
           required: true
   - type: textarea
     id: description
