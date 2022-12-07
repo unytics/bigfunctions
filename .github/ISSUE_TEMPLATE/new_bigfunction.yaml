@@ -6,11 +6,9 @@ body:
   - type: markdown
     attributes:
       value: |
-        🙏 **Thanks for taking the time to suggest a new BigFunction!**. 
-        
-        ⚠️ Before going further, check in the [list of existing issues](https://github.com/unytics/bigfunctions/issues?q=is%3Aissue+is%3Aopen+label%3Anew-bigfunction) if your idea has not already been suggested. If it has, please don't create a new issue but add a comment on the existing one such as `+1` to upvote it. 
-        
-        🧐 Take care of choosing a function name that is both concise and self explanatory such as `is_email_valid`.
+        1. 🙏 **Thanks for taking the time to suggest a new BigFunction!**. 
+        2. ⚠️ Before going further, check in the [list of existing issues](https://github.com/unytics/bigfunctions/issues?q=is%3Aissue+is%3Aopen+label%3Anew-bigfunction) if your idea has not already been suggested. If it has, please don't create a new issue but add a comment on the existing one such as `+1` to upvote it. 
+        3. 🧐 Take care of choosing a function name that is both concise and self explanatory such as `is_email_valid`.
   - type: textarea
     id: description
     attributes:
