@@ -1,14 +1,12 @@
 name: Suggest a New BigFunction
 description: The sky is the limit. Suggest anything that could help data-people.
 title: "[new]: `function_name(argument1, argument2)`"
-labels: ["bigfunctions", "new"]
-assignees:
-  - octocat
+labels: ["new-bigfunction"]
 body:
   - type: markdown
     attributes:
       value: |
-        Thanks for taking the time to fill out this bug report!
+        Thanks for taking the time to suggest a new BigFunction!
   - type: input
     id: contact
     attributes:
