@@ -29,6 +29,6 @@ body:
     id: description
     attributes:
       label: What happened and what did you expect?
-      description: Tell us what happened and what you expected. Please write down precise queries that you made that created the bug and copy/paste the exact error text that you got. Don't hesitate to provide screenshots.
+      description: Tell us what happened and what you expected. Please copy/past the exact queries that you made that created the bug and copy/paste the exact error text that you got. Don't hesitate to provide screenshots.
     validations:
       required: true
