@@ -5,7 +5,7 @@ labels: ["new-bigfunction"]
 body:
   - type: markdown
     attributes:
-      value: "> 🙏 **Thanks for taking the time to suggest a new BigFunction!**."
+      value: "> 🙏 **Thanks for taking the time to suggest a new BigFunction!**. Please fill the below fields to submit your idea."
   - type: checkboxes
     id: idea_does_not_exist
     attributes:
