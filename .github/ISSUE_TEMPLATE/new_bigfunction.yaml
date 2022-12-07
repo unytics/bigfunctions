@@ -1,6 +1,6 @@
 name: Suggest a New BigFunction
 description: "The sky is the limit. Suggest anything that could help data-people."
-title: [new]: `function_name(argument1, argument2)`
+title: "[new]: `function_name(argument1, argument2)`"
 labels: ["new-bigfunction"]
 body:
   - type: markdown
