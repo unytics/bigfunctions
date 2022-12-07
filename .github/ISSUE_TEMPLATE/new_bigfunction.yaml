@@ -9,7 +9,7 @@ body:
   - type: checkboxes
     id: idea_does_not_exist
     attributes:
-      label: Idea has not already been suggested
+      label: The idea has not already been suggested
       description: Check in [existing issues](https://github.com/unytics/bigfunctions/issues?q=is%3Aissue+is%3Aopen+label%3Anew-bigfunction) if your idea has not already been suggested. If it has, please don't create a new issue but add a comment on the existing one such as `+1` to upvote it. 
       options:
         - label: I could not find my idea in [existing issues](https://github.com/unytics/bigfunctions/issues?q=is%3Aissue+is%3Aopen+label%3Anew-bigfunction)
