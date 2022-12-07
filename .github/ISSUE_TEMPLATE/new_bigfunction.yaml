@@ -14,7 +14,7 @@ body:
     attributes:
       label: BigFunction Description as it would appear in the documentation
       description: Get inspired from the description of functions seen on [BigFunctions website](https://unytics.io/bigfunctions/reference/).
-      placeholder: Example for the function `is_email_valid` you should enter --> Returns true if email is valid
+      placeholder: For example, for the function `is_email_valid` you should enter --> Returns true if `email` is valid
     validations:
       required: true
   - type: dropdown
