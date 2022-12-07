@@ -1,5 +1,5 @@
-name: Suggest a BigFunction
-description: File a bug report
+name: New BigFunction
+description: Suggest a BigFunction that should be developed
 title: "[Bug]: "
 labels: ["bug", "triage"]
 assignees:
