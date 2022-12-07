@@ -20,8 +20,8 @@ body:
   - type: checkboxes
     id: title_is_self_explanatory
     attributes:
-      label: Edit title with self-explanatory function name and argument names
-      description: Edit the `function_name` and `arguments` in the issue title above. Choose consise but self-explanatory names. For example `is_email_valid` is a good name for a function which retruns true if email is valid
+      label: Edit the title above with self-explanatory function name and argument names
+      description: Edit the `function_name` and `arguments` in the issue title above. Choose consise but self-explanatory names. For example `is_email_valid` is a good name for a function which retruns true if email is valid. `email` is a good argument name. It is better than `text` or `value`.
       options:
         - label: The function name and the argument names I entered in the title above seems self explanatory to me.
           required: true
