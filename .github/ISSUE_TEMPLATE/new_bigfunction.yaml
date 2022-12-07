@@ -5,7 +5,7 @@ labels: ["new-bigfunction"]
 body:
   - type: markdown
     attributes:
-      value: > 🙏 **Thanks for taking the time to suggest a new BigFunction!**. 
+      value: "> 🙏 **Thanks for taking the time to suggest a new BigFunction!**."
   - type: checkboxes
     id: idea_does_not_exist
     attributes:
@@ -17,7 +17,7 @@ body:
   - type: checkboxes
     id: title_is_self_explanatory
     attributes:
-      label: Function and argument names
+      label: Function and argument names in title are self-explanatory
       description: Edit the `function_name` and `arguments` in the issue title above. Choose consise but self-explanatory names. For example `is_email_valid` is a good name for a function which retruns true if email is valid
       options:
         - label: The function name and the argument names I entered in the title above seems self explanatory to me.
