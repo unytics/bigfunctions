@@ -36,7 +36,7 @@ Before submitting a PR, make sure:
 
 ## First contributor? 
 
-You can contribute by selecting one of [these issues]([url](https://github.com/unytics/bigfunctions/issues?q=is%3Aissue+is%3Aopen+label%3A%22good+first+issue%22)) which were tagged `good-first-issue`. If you need any help, don't hesitate to reach out through [bigfunctions slack](https://join.slack.com/t/bigfunctions/shared_invite/zt-1gbv491mu-cs03EJbQ1fsHdQMcFN7E1Q).
+You can contribute by selecting one of [these issues](https://github.com/unytics/bigfunctions/issues?q=is%3Aissue+is%3Aopen+label%3A%22good+first+issue%22)) which were tagged `good-first-issue`. If you need any help, don't hesitate to reach out through [bigfunctions slack](https://join.slack.com/t/bigfunctions/shared_invite/zt-1gbv491mu-cs03EJbQ1fsHdQMcFN7E1Q).
 
 
 ## Report bugs using Github's issues
