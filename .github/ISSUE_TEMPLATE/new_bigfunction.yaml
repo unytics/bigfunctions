@@ -12,10 +12,10 @@ body:
   - type: checkboxes
     id: title_is_self_explanatory
     attributes:
-      label: Function name
-      description: For example `is_email_valid` is a good name for a function which retruns true if email is valid
+      label: Function and argument names
+      description: Edit the `function_name` and `arguments` in the issue title above. Choose consise but self-explanatory names. For example `is_email_valid` is a good name for a function which retruns true if email is valid
       options:
-        - label: The function name I entered in title seems self explanatory to me.
+        - label: The function name and the argument names I entered in the title seems self explanatory to me.
           required: true
   - type: textarea
     id: description
