@@ -9,6 +9,14 @@ body:
         > 1. 🙏 **Thanks for taking the time to suggest a new BigFunction!**. 
         > 2. ⚠️ Before going further, check in the [list of existing issues](https://github.com/unytics/bigfunctions/issues?q=is%3Aissue+is%3Aopen+label%3Anew-bigfunction) if your idea has not already been suggested. If it has, please don't create a new issue but add a comment on the existing one such as `+1` to upvote it. 
         > 3. 🧐 Take care of choosing a function name that is both concise and self explanatory such as `is_email_valid`.
+  - type: checkboxes
+    id: title_is_self_explanatory
+    attributes:
+      label: Chosen function name is both concise and self explanatory
+      description: For example `is_email_valid` is a good name for a function which retruns true if email is valid
+      options:
+        - label: The function name I entered in title seems self explanatory to me.
+          required: true
   - type: textarea
     id: description
     attributes:
@@ -17,37 +25,11 @@ body:
       placeholder: For example, for the function `is_email_valid` you should enter --> Returns true if `email` is valid
     validations:
       required: true
-  - type: dropdown
-    id: version
+  - type: textarea
+    id: examples
     attributes:
-      label: Version
-      description: What version of our software are you running?
-      options:
-        - 1.0.2 (Default)
-        - 1.0.3 (Edge)
+      label: Examples of (arguments, output) as they would appear in the documentation
+      description: Get inspired from the description of functions seen on [BigFunctions website](https://unytics.io/bigfunctions/reference/).
+      placeholder: For example, for the function `is_email_valid` you should enter --> email=paul.marcombes@unytics.io --> true / paul.marcombes@unytics-io --> false
     validations:
       required: true
-  - type: dropdown
-    id: browsers
-    attributes:
-      label: What browsers are you seeing the problem on?
-      multiple: true
-      options:
-        - Firefox
-        - Chrome
-        - Safari
-        - Microsoft Edge
-  - type: textarea
-    id: logs
-    attributes:
-      label: Relevant log output
-      description: Please copy and paste any relevant log output. This will be automatically formatted into code, so no need for backticks.
-      render: shell
-  - type: checkboxes
-    id: terms
-    attributes:
-      label: Code of Conduct
-      description: By submitting this issue, you agree to follow our [Code of Conduct](https://example.com)
-      options:
-        - label: I agree to follow this project's Code of Conduct
-          required: true
