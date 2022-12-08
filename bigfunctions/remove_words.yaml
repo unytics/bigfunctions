@@ -4,14 +4,14 @@ author:
   name: "Benjamin Tabet"
   url: https://www.linkedin.com/in/benjamin-tabet
   avatar_url: "https://media-exp1.licdn.com/dms/image/C4D03AQGWnyJdEmZeZw/profile-displayphoto-shrink_400_400/0/1667928305931?e=1673481600&v=beta&t=sxH1fFMPjj9ASbqfQ6TkIpWKk_PQ0hUAhOtuAs2zTu0"
-description: "String function to remove multiple words at the same time"
+description: "Remove any words of `words_to_remove` from `string`"
 arguments:
-  - name: str_in
+  - name: string
     type: STRING
   - name: words_to_remove
-    type: any type
+    type: array<string>
 output:
-  name: str_out
+  name: cleaned_string
   type: STRING
 examples:
   - description: ""
