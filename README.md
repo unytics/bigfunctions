@@ -109,6 +109,7 @@ Commands:
 
 You are more than welcome to contribute for both:
 
+- suggesting new functions to implement --> to do so simply [fill this form](https://github.com/unytics/bigfunctions/issues/new?assignees=&labels=new-bigfunction&template=new_bigfunction.yaml&title=%5Bnew%5D%3A+%60function_name%28argument1%2C+argument2%29%60)
 - adding/improving BigFunctions
 - improving the framework and `bigfun` CLI
 

@@ -100,7 +100,7 @@ celerybeat.pid
 
 # SageMath parsed files
 *.sage.py
-
+google-cloud-sdk/
 # Environments
 .env
 .venv
