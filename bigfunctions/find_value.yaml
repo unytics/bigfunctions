@@ -1,0 +1,29 @@
+type: function_sql
+category: transform_array
+author:
+  name: Thomas Lépine
+  url: https://www.linkedin.com/company/esmoz/
+  avatar_url: "https://media-exp1.licdn.com/dms/image/C560BAQHFcSF8X1MqrQ/company-logo_200_200/0/1636992707472?e=1678320000&v=beta&t=BJmNI_Nd0GuC9Mn3wKc1xGUEpZsCy-CsrTZh47cPcOQ"
+description: |-
+  Returns the first index of an element in a given array
+  *(https://stackoverflow.com/questions/70885708/how-to-find-the-index-of-an-element-in-an-array-in-bigquery)*
+arguments:
+  - name: arr
+    type: any type
+  - name: element
+    type: any type
+output:
+  name: value
+  type: any type
+examples:
+  - description: "When array length is odd"
+    arguments:
+      - "[1, 4, 3]"
+    output: "3"
+    region: ALL
+  - description: "When array length is even"
+    arguments:
+      - "[1, 4, 3, 2]"
+    output: "2.5"
+    region: ALL
+code: (select offset from (select * from unnest(arr) as x with offset as offset) where x = element)
