@@ -6,7 +6,7 @@ author:
   avatar_url: "https://media-exp1.licdn.com/dms/image/C4D03AQGWnyJdEmZeZw/profile-displayphoto-shrink_400_400/0/1667928305931?e=1673481600&v=beta&t=sxH1fFMPjj9ASbqfQ6TkIpWKk_PQ0hUAhOtuAs2zTu0"
 description: "String function to remove multiple strings at the same time"
 arguments:
-  - name: str_in
+  - name: string
     type: STRING
   - name: strings_to_remove
     type: any type
