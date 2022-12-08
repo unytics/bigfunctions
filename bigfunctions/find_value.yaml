@@ -16,14 +16,16 @@ output:
   name: value
   type: any type
 examples:
-  - description: "When array length is odd"
+  - description: "When element is in array"
     arguments:
       - "[1, 4, 3]"
-    output: "3"
+      - "4"
+    output: "1"
     region: ALL
-  - description: "When array length is even"
+  - description: "When element is not in array"
     arguments:
       - "[1, 4, 3, 2]"
-    output: "2.5"
+      - "7"
+    output: "null"
     region: ALL
 code: (select offset from (select * from unnest(arr) as x with offset as offset) where x = element)
