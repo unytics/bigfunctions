@@ -8,7 +8,7 @@ description: "String function to remove multiple strings at the same time"
 arguments:
   - name: str_in
     type: STRING
-  - name: words_to_remove
+  - name: strings_to_remove
     type: any type
 output:
   name: str_out
