@@ -21,4 +21,4 @@ examples:
     output: "I  candies"
     region: ALL
 code: |
-  (select regexp_replace(str_in, r'\b(' || array_to_string(words_to_remove, '|') || r')\b', ''))
+  (select regexp_replace(string, r'\b(' || array_to_string(words_to_remove, '|') || r')\b', ''))

@@ -18,7 +18,7 @@ examples:
     arguments:
       - "'I can eat candies'"
       - "['can', 'eat']"
-    output: "I dies"
+    output: "I  dies"
     region: ALL
 code: |
-  (select regexp_replace(str_in, '(' || array_to_string(words_to_remove, '|') || ')', ''))
+  (select regexp_replace(string, '(' || array_to_string(strings_to_remove, '|') || ')', ''))
