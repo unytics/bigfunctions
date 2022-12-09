@@ -1,0 +1,24 @@
+type: function_sql
+category: transform_array
+author:
+  name: Sid Ali
+  url: https://www.linkedin.com/company/esmoz/
+  avatar_url: "https://media-exp1.licdn.com/dms/image/C560BAQHFcSF8X1MqrQ/company-logo_200_200/0/1636992707472?e=1678320000&v=beta&t=BJmNI_Nd0GuC9Mn3wKc1xGUEpZsCy-CsrTZh47cPcOQ"
+description: |-
+  Return an array with all values except `value`.
+arguments:
+  - name: arr
+    type: any type
+  - name: value
+    type: any type
+output:
+  name: arr
+  type: any type
+examples:
+  - description: ""
+    arguments:
+      - "[1, 4, 3, 8]"
+      - "4"
+    output: "[1, 3, 8]"
+    region: ALL
+code: (select array_agg(v) from unnest(arr) v where v <> value)

@@ -1,0 +1,38 @@
+type: function_js
+category: transform_json
+author:
+  name: Sid Ali
+  url: https://www.linkedin.com/company/esmoz/
+  avatar_url: "https://media-exp1.licdn.com/dms/image/C560BAQHFcSF8X1MqrQ/company-logo_200_200/0/1636992707472?e=1678320000&v=beta&t=BJmNI_Nd0GuC9Mn3wKc1xGUEpZsCy-CsrTZh47cPcOQ"
+description: |
+  Extract `items` from `json_string`
+  which has only flat (no nested) key-values.
+  Return `items` as an `array<struct<key string, value string>>`
+arguments:
+  - name: json_string
+    type: string
+output:
+  name: items
+  type: array<struct<key string, value string>>
+examples:
+  - description: ""
+    arguments:
+      - "'{\"created_at\": \"2022-01-01\", \"user\": \"sidali\"}'"
+    output: |
+      [
+      |   struct("created_at" as key, "date" as value),
+      |   struct("user" as key, "name" as value)
+      | ]
+    region: ALL
+code: |
+  let arr = []
+  try {
+      obj = JSON.parse(json_string);
+  }
+  catch {
+      throw('could not parse ' + json_string)
+  }
+  for (const i in obj) {
+    arr.push({key: i, value: obj[i] });
+  }
+  return arr
