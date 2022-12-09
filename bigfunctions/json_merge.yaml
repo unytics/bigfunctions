@@ -6,7 +6,7 @@ author:
   avatar_url: "https://media-exp1.licdn.com/dms/image/C560BAQHFcSF8X1MqrQ/company-logo_200_200/0/1636992707472?e=1678320000&v=beta&t=BJmNI_Nd0GuC9Mn3wKc1xGUEpZsCy-CsrTZh47cPcOQ"
 description: |-
   Merge two flat json
-  (no nested key-values)
+  (with no nested key-values)
 arguments:
   - name: json_string1
     type: string
@@ -20,20 +20,20 @@ examples:
     arguments:
       - '{"k1": "v1"}'
       - '{"k2": "v2"}'
-    output: '{"k1":"v1", "k2":"v2"}'
+    output: '{"k1": "v1", "k2": "v2"}'
     region: ALL
 code: |
   try {
     var obj1 = JSON.parse(json_string1);
   }
   catch {
-    throw('could not parse json_string1')
+    throw('could not parse json_string1');
   }
   try {
     var obj2 = JSON.parse(json_string2);
   }
   catch {
-    throw('could not parse json_string2')
+    throw('could not parse json_string2');
   }
   merged = Object.assign({}, obj1, obj2);
-  return JSON.stringify(merged)
+  return JSON.stringify(merged);
