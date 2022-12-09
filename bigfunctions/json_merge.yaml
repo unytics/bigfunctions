@@ -5,30 +5,35 @@ author:
   url: https://www.linkedin.com/company/esmoz/
   avatar_url: "https://media-exp1.licdn.com/dms/image/C560BAQHFcSF8X1MqrQ/company-logo_200_200/0/1636992707472?e=1678320000&v=beta&t=BJmNI_Nd0GuC9Mn3wKc1xGUEpZsCy-CsrTZh47cPcOQ"
 description: |-
-  Merge two unnested json and return the result
+  Merge two flat json
+  (no nested key-values)
 arguments:
   - name: json_string1
     type: string
   - name: json_string2
     type: string
 output:
-  name: value
+  name: json_merged
   type: string
 examples:
-  - description: "When element is in array"
+  - description: ""
     arguments:
       - '{"k1": "v1"}'
       - '{"k2": "v2"}'
-    output: '{"k1":"v1","k2":"v2"}'
+    output: '{"k1":"v1", "k2":"v2"}'
     region: ALL
 code: |
   try {
-      obj1 = JSON.parse(json_string1);
-      obj2 = JSON.parse(json_string2);
+    var obj1 = JSON.parse(json_string1);
   }
   catch {
-      throw('could not parse  json_string')
+    throw('could not parse json_string1')
   }
-  result = Object.assign({}, obj1, obj2);
-
-  return JSON.stringify(result)
+  try {
+    var obj2 = JSON.parse(json_string2);
+  }
+  catch {
+    throw('could not parse json_string2')
+  }
+  merged = Object.assign({}, obj1, obj2);
+  return JSON.stringify(merged)
