@@ -11,7 +11,7 @@ arguments:
   - name: json_string2
     type: string
 output:
-  name: json_merged
+  name: merged_json
   type: string
 examples:
   - description: ""
