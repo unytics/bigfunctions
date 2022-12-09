@@ -1,0 +1,47 @@
+name: Suggest a New BigFunction
+description: "The sky is the limit. Suggest anything that could help data-people."
+title: "[new]: `function_name(argument1, argument2)`"
+labels: ["new-bigfunction"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+         ## 🙏 Thanks for taking the time to suggest a new BigFunction! 
+         
+         Please fill the below fields to submit your idea.
+  - type: checkboxes
+    id: idea_does_not_exist
+    attributes:
+      label: Check the idea has not already been suggested
+      description: Check in [existing issues](https://github.com/unytics/bigfunctions/issues?q=is%3Aissue+is%3Aopen+label%3Anew-bigfunction) if your idea has not already been suggested. If it has, please don't create a new issue but add a comment on the existing one such as `+1` to upvote it. 
+      options:
+        - label: I could not find my idea in [existing issues](https://github.com/unytics/bigfunctions/issues?q=is%3Aissue+is%3Aopen+label%3Anew-bigfunction)
+          required: true
+  - type: checkboxes
+    id: title_is_self_explanatory
+    attributes:
+      label: Edit the title above with self-explanatory function name and argument names
+      description: Edit the `function_name` and `arguments` in the issue title above. Choose consise but self-explanatory names. For example `is_email_valid` is a good name for a function which retruns true if email is valid. `email` is a good argument name. It is better than `text` or `value`.
+      options:
+        - label: The function name and the argument names I entered in the title above seems self explanatory to me.
+          required: true
+  - type: textarea
+    id: description
+    attributes:
+      label: BigFunction Description as it would appear in the documentation
+      description: Get inspired from the description of functions seen on [BigFunctions website](https://unytics.io/bigfunctions/reference/).
+      placeholder: For example, for the function `is_email_valid` you should enter --> Returns true if `email` is valid
+    validations:
+      required: true
+  - type: textarea
+    id: examples
+    attributes:
+      label: Examples of (arguments, expected output) as they would appear in the documentation
+      description: Get inspired from the description of functions seen on [BigFunctions website](https://unytics.io/bigfunctions/reference/).
+      placeholder: |
+        For example, for the function `is_email_valid` you should enter:
+        - email=paul.marcombes@unytics.io --> true
+        - email=paul/marcombes@example.com --> false
+        - email=paul.marcombes@example.con --> false as domain is not registrable
+    validations:
+      required: true

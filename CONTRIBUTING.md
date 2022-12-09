@@ -2,6 +2,10 @@
 Thanks for your interest in helping out! Feel free to comment, open issues, and create pull requests if there's something you want to share. It also helps us if you spread the word! Reference the repo in blog posts, shout out on Twitter every time it has helped you, or simply ⭐️ the repository to say thank you!
 
 
+## Suggesting new BigFunctions to implement
+
+To suggest a new BigFunction, simply [fill this form](https://github.com/unytics/bigfunctions/issues/new?assignees=&labels=new-bigfunction&template=new_bigfunction.yaml&title=%5Bnew%5D%3A+%60function_name%28argument1%2C+argument2%29%60).
+
 
 ## Submitting pull requests
 To make a change to this repository, the best way is to use pull requests:
@@ -11,6 +15,7 @@ To make a change to this repository, the best way is to use pull requests:
 6. [Create a pull request](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/creating-a-pull-request-from-a-fork).
 
 (If the change is particularly small, these steps are easily accomplished directly in the GitHub UI.)
+
 
 ## Creating a new BigFunction
 
@@ -28,11 +33,19 @@ Before submitting a PR, make sure:
 - you deployed sucessfully your bigfunction by calling `bigfun deploy your_bigfunction`
 - you tested the bigfunction for all the examples you provided and you each time got the expected output. (we plan to create a test command line soon).
 
+
+## First contributor? 
+
+You can contribute by selecting one of [these issues](https://github.com/unytics/bigfunctions/issues?q=is%3Aissue+is%3Aopen+label%3A%22good+first+issue%22) which were tagged `good-first-issue`. If you need any help, don't hesitate to reach out through [bigfunctions slack](https://join.slack.com/t/bigfunctions/shared_invite/zt-1gbv491mu-cs03EJbQ1fsHdQMcFN7E1Q).
+
+
 ## Report bugs using Github's issues
 We use GitHub issues to track bugs. Report a bug or start a conversation by opening a new issue.
 
+
 ## License
 By contributing to this repository, you agree that your contributions will be licensed under its MIT License.
+
 
 ## References
 This document was adapted from the GitHub Gist of [briandk](https://gist.github.com/briandk/3d2e8b3ec8daf5a27a62) and used some of [Hugging Face one](https://github.com/huggingface/transformers/blob/main/CONTRIBUTING.md).
