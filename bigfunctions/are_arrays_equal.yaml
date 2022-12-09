@@ -26,6 +26,6 @@ examples:
     arguments:
       - "[1, 4, 3]"
       - "[1, 4]"
-    output: "true"
+    output: "false"
     region: ALL
 code: (to_json_string(array1) = to_json_string(array2))
