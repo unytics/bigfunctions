@@ -6,7 +6,8 @@ author:
   avatar_url: "https://media-exp1.licdn.com/dms/image/C560BAQHFcSF8X1MqrQ/company-logo_200_200/0/1636992707472?e=1678320000&v=beta&t=BJmNI_Nd0GuC9Mn3wKc1xGUEpZsCy-CsrTZh47cPcOQ"
 description: |
   Extract `values` from `json_string`
-  which has only flat (no nested) key-values
+  which has only flat (no nested) key-values.
+  Return `values` as an `array<string>`
 arguments:
   - name: json_string
     type: string
