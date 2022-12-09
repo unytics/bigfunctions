@@ -4,12 +4,14 @@ author:
   name: Sid Ali
   url: https://www.linkedin.com/company/esmoz/
   avatar_url: "https://media-exp1.licdn.com/dms/image/C560BAQHFcSF8X1MqrQ/company-logo_200_200/0/1636992707472?e=1678320000&v=beta&t=BJmNI_Nd0GuC9Mn3wKc1xGUEpZsCy-CsrTZh47cPcOQ"
-description: Takes a json_string as input which has flat (no nested) key values and returns it's keys
+description: |
+  Extract keys from `json_string`
+  which has only flat (no nested) key-values
 arguments:
   - name: json_string
     type: string
 output:
-  name: array
+  name: keys
   type: array<string>
 examples:
   - description: ""
