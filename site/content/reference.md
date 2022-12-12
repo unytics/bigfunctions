@@ -76,7 +76,7 @@ BigFunctions are open-source BigQuery routines that give you **SQL-superpowers**
     
     - [<code>json_merge(json_string1, json_string2)</code>](#json_merge): Merge `json_string1` and `json_string2`
     
-    - [<code>json_query(json_string, query)</code>](#json_query): Takes json_string and returns a string according to the query
+    - [<code>json_query(json_string, query)</code>](#json_query): Extract data from `json_string` using advanced json querying
     
     - [<code>json_schema(json_string)</code>](#json_schema): Return the schema of a json string as `[{path, type}]`
     
@@ -1974,13 +1974,75 @@ json_query(json_string, query)
 
 **Description**
 
-Takes json_string and returns a string according to the query
+Extract data from `json_string` using advanced json querying
+offered by [jmespath](https://jmespath.org/).
+
+> *JMESPath Links:*
+>
+> - See [JMESPath Tutorial](https://jmespath.org/tutorial.html) for exhaustive `query` possibilities
+> - [GitHub of jmespath.js](https://github.com/jmespath/jmespath.js)
+
 
 **Examples**
 
 
 
+<span style="color: var(--md-typeset-a-color);">1. Basic Query</span>
 
+
+=== "EU"
+
+    ```sql
+    select bigfunctions.eu.json_query('{"foo": [{"first": "a"}, {"first": "c"}]}', 'foo') as result
+
+    ```
+
+
+=== "US"
+
+    ```sql
+    select bigfunctions.us.json_query('{"foo": [{"first": "a"}, {"first": "c"}]}', 'foo') as result
+
+    ```
+
+
+=== "europe-west1"
+
+    ```sql
+    select bigfunctions.europe_west1.json_query('{"foo": [{"first": "a"}, {"first": "c"}]}', 'foo') as result
+
+    ```
+
+
+=== "your-region2"
+
+    ```sql
+    select bigfunctions.your_region2.json_query('{"foo": [{"first": "a"}, {"first": "c"}]}', 'foo') as result
+
+    ```
+
+
+
+
+
+<pre style="margin-top: -1rem;">
+<code style="padding-top: 0px; padding-bottom: 0px;">+----------------------------------+
+| result                           |
++----------------------------------+
+| [{"first": "a"}, {"first": "c"}] |
++----------------------------------+
+</code>
+</pre>
+
+
+
+
+
+
+
+
+
+<span style="color: var(--md-typeset-a-color);">2. Getting array sub-items</span>
 
 
 === "EU"
@@ -2024,6 +2086,116 @@ Takes json_string and returns a string according to the query
 +------------+
 | ['a', 'c'] |
 +------------+
+</code>
+</pre>
+
+
+
+
+
+
+
+
+
+<span style="color: var(--md-typeset-a-color);">3. Slicing</span>
+
+
+=== "EU"
+
+    ```sql
+    select bigfunctions.eu.json_query('{"foo": [{"first": "a"}, {"first": "c"}]}', 'foo[:1].first') as result
+
+    ```
+
+
+=== "US"
+
+    ```sql
+    select bigfunctions.us.json_query('{"foo": [{"first": "a"}, {"first": "c"}]}', 'foo[:1].first') as result
+
+    ```
+
+
+=== "europe-west1"
+
+    ```sql
+    select bigfunctions.europe_west1.json_query('{"foo": [{"first": "a"}, {"first": "c"}]}', 'foo[:1].first') as result
+
+    ```
+
+
+=== "your-region2"
+
+    ```sql
+    select bigfunctions.your_region2.json_query('{"foo": [{"first": "a"}, {"first": "c"}]}', 'foo[:1].first') as result
+
+    ```
+
+
+
+
+
+<pre style="margin-top: -1rem;">
+<code style="padding-top: 0px; padding-bottom: 0px;">+--------+
+| result |
++--------+
+| ['a']  |
++--------+
+</code>
+</pre>
+
+
+
+
+
+
+
+
+
+<span style="color: var(--md-typeset-a-color);">4. Projecting</span>
+
+
+=== "EU"
+
+    ```sql
+    select bigfunctions.eu.json_query('{"foo": [{"first": "a"}, {"first": "c"}]}', 'foo[*].{name: first}') as result
+
+    ```
+
+
+=== "US"
+
+    ```sql
+    select bigfunctions.us.json_query('{"foo": [{"first": "a"}, {"first": "c"}]}', 'foo[*].{name: first}') as result
+
+    ```
+
+
+=== "europe-west1"
+
+    ```sql
+    select bigfunctions.europe_west1.json_query('{"foo": [{"first": "a"}, {"first": "c"}]}', 'foo[*].{name: first}') as result
+
+    ```
+
+
+=== "your-region2"
+
+    ```sql
+    select bigfunctions.your_region2.json_query('{"foo": [{"first": "a"}, {"first": "c"}]}', 'foo[*].{name: first}') as result
+
+    ```
+
+
+
+
+
+<pre style="margin-top: -1rem;">
+<code style="padding-top: 0px; padding-bottom: 0px;">+--------------------------------+
+| result                         |
++--------------------------------+
+| [{"name": "a"}, {"name": "c"}] |
++--------------------------------+
 </code>
 </pre>
 

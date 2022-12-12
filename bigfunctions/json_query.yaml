@@ -4,7 +4,14 @@ author:
   name: Sid Ali
   url: https://www.linkedin.com/company/esmoz/
   avatar_url: "https://media-exp1.licdn.com/dms/image/C560BAQHFcSF8X1MqrQ/company-logo_200_200/0/1636992707472?e=1678320000&v=beta&t=BJmNI_Nd0GuC9Mn3wKc1xGUEpZsCy-CsrTZh47cPcOQ"
-description: Takes json_string and returns a string according to the query
+description: |
+  Extract data from `json_string` using advanced json querying
+  offered by [jmespath](https://jmespath.org/).
+
+  > *JMESPath Links:*
+  >
+  > - See [JMESPath Tutorial](https://jmespath.org/tutorial.html) for exhaustive `query` possibilities
+  > - [GitHub of jmespath.js](https://github.com/jmespath/jmespath.js)
 arguments:
   - name: json_string
     type: string
@@ -14,11 +21,29 @@ output:
   name: result
   type: string
 examples:
-  - description: ""
+  - description: "Basic Query"
+    arguments:
+      - "'{\"foo\": [{\"first\": \"a\"}, {\"first\": \"c\"}]}'"
+      - "'foo'"
+    output: "[{\"first\": \"a\"}, {\"first\": \"c\"}]"
+    region: ALL
+  - description: "Getting array sub-items"
     arguments:
       - "'{\"foo\": [{\"first\": \"a\"}, {\"first\": \"c\"}]}'"
       - "'foo[*].first'"
     output: "['a', 'c']"
+    region: ALL
+  - description: "Slicing"
+    arguments:
+      - "'{\"foo\": [{\"first\": \"a\"}, {\"first\": \"c\"}]}'"
+      - "'foo[:1].first'"
+    output: "['a']"
+    region: ALL
+  - description: "Projecting"
+    arguments:
+      - "'{\"foo\": [{\"first\": \"a\"}, {\"first\": \"c\"}]}'"
+      - "'foo[*].{name: first}'"
+    output: "[{\"name\": \"a\"}, {\"name\": \"c\"}]"
     region: ALL
 code: |
   try {
