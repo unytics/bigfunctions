@@ -5,27 +5,27 @@ author:
   url: https://www.linkedin.com/company/esmoz/
   avatar_url: "https://media-exp1.licdn.com/dms/image/C560BAQHFcSF8X1MqrQ/company-logo_200_200/0/1636992707472?e=1678320000&v=beta&t=BJmNI_Nd0GuC9Mn3wKc1xGUEpZsCy-CsrTZh47cPcOQ"
 description: |-
-  Returns the first index of an element in a given array
-  *(https://stackoverflow.com/questions/70885708/how-to-find-the-index-of-an-element-in-an-array-in-bigquery)*
+  Return the first `offset` (zero-based index) of `value` in array `arr`
+  (or `null` if `value` is not in `arr`).
 arguments:
   - name: arr
     type: any type
-  - name: element
+  - name: value
     type: any type
 output:
-  name: value
-  type: any type
+  name: offset
+  type: int64
 examples:
-  - description: "When element is in array"
+  - description: "When `value` is in array"
     arguments:
-      - "[1, 4, 3]"
+      - "[3, 4]"
       - "4"
     output: "1"
     region: ALL
-  - description: "When element is not in array"
+  - description: "When `value` is not in array"
     arguments:
-      - "[1, 4, 3, 2]"
+      - "[3, 4]"
       - "7"
     output: "null"
     region: ALL
-code: (select offset from unnest(arr) as x with offset where x = element limit 1)
+code: (select offset from unnest(arr) as x with offset where x = value limit 1)
