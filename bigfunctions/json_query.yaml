@@ -4,7 +4,7 @@ author:
   name: Sid Ali
   url: https://www.linkedin.com/company/esmoz/
   avatar_url: "https://media-exp1.licdn.com/dms/image/C560BAQHFcSF8X1MqrQ/company-logo_200_200/0/1636992707472?e=1678320000&v=beta&t=BJmNI_Nd0GuC9Mn3wKc1xGUEpZsCy-CsrTZh47cPcOQ"
-description: Takes json_string and returns a string according to the query 
+description: Takes json_string and returns a string according to the query
 arguments:
   - name: json_string
     type: string
@@ -16,16 +16,16 @@ output:
 examples:
   - description: ""
     arguments:
-      - '{"foo": [{"first": "a", "last": "b"}, {"first": "c", "last": "d"}]}'
-      - "foo[*].first"
-    output: "[ 'a', 'c' ]"
+      - "'{\"foo\": [{\"first\": \"a\"}, {\"first\": \"c\"}]}'"
+      - "'foo[*].first'"
+    output: "['a', 'c']"
     region: ALL
 code: |
   try {
-  obj = JSON.parse(json_string);
+    obj = JSON.parse(json_string);
   }
   catch {
-  throw('could not parse ' + json_string)
+    throw('could not parse ' + json_string)
   }
   return JSON.stringify(jmespath.search(obj, query));
 libraries:
