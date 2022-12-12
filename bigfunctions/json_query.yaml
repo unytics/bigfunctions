@@ -6,7 +6,7 @@ author:
   avatar_url: "https://media-exp1.licdn.com/dms/image/C560BAQHFcSF8X1MqrQ/company-logo_200_200/0/1636992707472?e=1678320000&v=beta&t=BJmNI_Nd0GuC9Mn3wKc1xGUEpZsCy-CsrTZh47cPcOQ"
 description: |
   Extract data from `json_string` using advanced json querying
-  offered by [jmespath](https://jmespath.org/).
+  offered by [JMESPath](https://jmespath.org/).
 
   > *JMESPath Links:*
   >
