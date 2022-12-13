@@ -1,0 +1,36 @@
+type: function_sql
+category: transform_json
+author:
+  name: Thomas Lépine
+  url: https://www.linkedin.com/company/esmoz/
+  avatar_url: "https://media-exp1.licdn.com/dms/image/C560BAQHFcSF8X1MqrQ/company-logo_200_200/0/1636992707472?e=1678320000&v=beta&t=BJmNI_Nd0GuC9Mn3wKc1xGUEpZsCy-CsrTZh47cPcOQ"
+description: |
+  Returns the value associated with a key in the array of dict given
+arguments:
+  - name: key_value_items
+    type: any type
+  - name: item_key
+    type: string
+output:
+  name: value
+  type: any type
+examples:
+  - description: ""
+    arguments:
+      - "[{'a': 8},{'b': 4}]"
+      - "a"
+    output: "8"
+    region: ALL 
+  - description: ""
+    arguments:
+      - "[{'a': 8},{'b': 4}]"
+      - "c"
+    output: "null"
+    region: ALL
+  - description: "When a duplicate exists on a key, returns the first value"
+    arguments:
+      - "[{'a': 8},{'b': 4},{'b': 7}]"
+      - "8"
+    output: "null"
+    region: ALL
+code: (select value from unnest(key_value_items) obj where obj.key = item_key limit 1)
