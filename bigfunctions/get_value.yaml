@@ -5,7 +5,7 @@ author:
   url: https://www.linkedin.com/company/esmoz/
   avatar_url: "https://media-exp1.licdn.com/dms/image/C560BAQHFcSF8X1MqrQ/company-logo_200_200/0/1636992707472?e=1678320000&v=beta&t=BJmNI_Nd0GuC9Mn3wKc1xGUEpZsCy-CsrTZh47cPcOQ"
 description: |
-  Returns the value associated with a key in the array of dict given
+  Returns the value associated with a key in an array of key_value pair
 arguments:
   - name: key_value_items
     type: any type
@@ -17,20 +17,20 @@ output:
 examples:
   - description: ""
     arguments:
-      - "[{'a': 8},{'b': 4}]"
+      - "[struct('a' as key, 8 as value),struct('b' as key, 9 as value)]"
       - "a"
     output: "8"
     region: ALL 
   - description: ""
     arguments:
-      - "[{'a': 8},{'b': 4}]"
+      - "[struct('a' as key, 8 as value),struct('b' as key, 9 as value)]"
       - "c"
     output: "null"
     region: ALL
   - description: "When a duplicate exists on a key, returns the first value"
     arguments:
-      - "[{'a': 8},{'b': 4},{'b': 7}]"
-      - "8"
-    output: "null"
+      - "[struct('a' as key, 8 as value),struct('b' as key, 9 as value), struct('b' as key, 10 as value)]"
+      - "b"
+    output: "9"
     region: ALL
 code: (select value from unnest(key_value_items) obj where obj.key = item_key limit 1)
