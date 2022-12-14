@@ -5,14 +5,14 @@ author:
   url: https://www.linkedin.com/company/esmoz/
   avatar_url: "https://media-exp1.licdn.com/dms/image/C560BAQHFcSF8X1MqrQ/company-logo_200_200/0/1636992707472?e=1678320000&v=beta&t=BJmNI_Nd0GuC9Mn3wKc1xGUEpZsCy-CsrTZh47cPcOQ"
 description: |
-  Extract `items` from `json_string`
+  Extract `key_value_items` from `json_string`
   which has only flat (no nested) key-values.
-  Return `items` as an `array<struct<key string, value string>>`
+  Return `key_value_items` as `array< struct<key string, value string> >`
 arguments:
   - name: json_string
     type: string
 output:
-  name: items
+  name: key_value_items
   type: array<struct<key string, value string>>
 examples:
   - description: ""

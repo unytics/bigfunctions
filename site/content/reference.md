@@ -70,7 +70,7 @@ BigFunctions are open-source BigQuery routines that give you **SQL-superpowers**
     **<span style="color: var(--md-primary-fg-color);">{...}</span> Transform json**
 
     
-    - [<code>json_items(json_string)</code>](#json_items): Extract `items` from `json_string`
+    - [<code>json_items(json_string)</code>](#json_items): Extract `key_value_items` from `json_string`
     
     - [<code>json_keys(json_string)</code>](#json_keys): Extract `keys` from `json_string`
     
@@ -93,6 +93,8 @@ BigFunctions are open-source BigQuery routines that give you **SQL-superpowers**
     - [<code>distinct_values(arr)</code>](#distinct_values): Return distinct values
     
     - [<code>find_value(arr, value)</code>](#find_value): Return the first `offset` (zero-based index) of `value` in array `arr`
+    
+    - [<code>get_value(key_value_items, search_key)</code>](#get_value): Return the first `value` with a key `search_key` from `key_value_items`
     
     - [<code>last_element(arr)</code>](#last_element): Return last element of array
     
@@ -1721,9 +1723,9 @@ json_items(json_string)
 
 **Description**
 
-Extract `items` from `json_string`
+Extract `key_value_items` from `json_string`
 which has only flat (no nested) key-values.
-Return `items` as an `array<struct<key string, value string>>`
+Return `key_value_items` as `array< struct<key string, value string> >`
 
 
 **Examples**
@@ -1736,7 +1738,7 @@ Return `items` as an `array<struct<key string, value string>>`
 === "EU"
 
     ```sql
-    select bigfunctions.eu.json_items('{"created_at": "2022-01-01", "user": "sidali"}') as items
+    select bigfunctions.eu.json_items('{"created_at": "2022-01-01", "user": "sidali"}') as key_value_items
 
     ```
 
@@ -1744,7 +1746,7 @@ Return `items` as an `array<struct<key string, value string>>`
 === "US"
 
     ```sql
-    select bigfunctions.us.json_items('{"created_at": "2022-01-01", "user": "sidali"}') as items
+    select bigfunctions.us.json_items('{"created_at": "2022-01-01", "user": "sidali"}') as key_value_items
 
     ```
 
@@ -1752,7 +1754,7 @@ Return `items` as an `array<struct<key string, value string>>`
 === "europe-west1"
 
     ```sql
-    select bigfunctions.europe_west1.json_items('{"created_at": "2022-01-01", "user": "sidali"}') as items
+    select bigfunctions.europe_west1.json_items('{"created_at": "2022-01-01", "user": "sidali"}') as key_value_items
 
     ```
 
@@ -1760,7 +1762,7 @@ Return `items` as an `array<struct<key string, value string>>`
 === "your-region2"
 
     ```sql
-    select bigfunctions.your_region2.json_items('{"created_at": "2022-01-01", "user": "sidali"}') as items
+    select bigfunctions.your_region2.json_items('{"created_at": "2022-01-01", "user": "sidali"}') as key_value_items
 
     ```
 
@@ -1770,7 +1772,7 @@ Return `items` as an `array<struct<key string, value string>>`
 
 <pre style="margin-top: -1rem;">
 <code style="padding-top: 0px; padding-bottom: 0px;">+-----------------------------------------------------------------------------------------------------+
-| items                                                                                               |
+| key_value_items                                                                                     |
 +-----------------------------------------------------------------------------------------------------+
 | [
 |   struct("created_at" as key, "date" as value),
@@ -1975,7 +1977,7 @@ json_query(json_string, query)
 **Description**
 
 Extract data from `json_string` using advanced json querying
-offered by [jmespath](https://jmespath.org/).
+offered by [JMESPath](https://jmespath.org/).
 
 > *JMESPath Links:*
 >
@@ -2744,6 +2746,199 @@ Return the first `offset` (zero-based index) of `value` in array `arr`
 +--------+
 | null   |
 +--------+
+</code>
+</pre>
+
+
+
+
+
+
+
+
+
+
+---
+
+
+
+
+### get_value
+<div style="position: relative; top: -2rem; margin-bottom:  -2rem; text-align: right; z-index: 9999;">
+  
+  <a href="https://www.linkedin.com/company/esmoz/" title="Author: Thomas Lépine" target="_blank">
+    <img src="https://media-exp1.licdn.com/dms/image/C560BAQHFcSF8X1MqrQ/company-logo_200_200/0/1636992707472?e=1678320000&v=beta&t=BJmNI_Nd0GuC9Mn3wKc1xGUEpZsCy-CsrTZh47cPcOQ" width="32" style=" border-radius: 50% !important">
+  </a>
+  
+  <a href="https://github.com/unytics/bigfunctions/blob/main/bigfunctions/get_value.yaml" title="Edit on GitHub" target="_blank"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="#5d6cc0" d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg></a></div>
+```
+get_value(key_value_items, search_key)
+```
+
+**Description**
+
+Return the first `value` with a key `search_key` from `key_value_items`
+(or return `null` if `search_key` does not exist in `key_value_items`).
+
+
+**Examples**
+
+
+
+
+
+
+=== "EU"
+
+    ```sql
+    select bigfunctions.eu.get_value([struct('a' as key, 8 as value), struct('b' as key, 9 as value)], 'a') as value
+
+    ```
+
+
+=== "US"
+
+    ```sql
+    select bigfunctions.us.get_value([struct('a' as key, 8 as value), struct('b' as key, 9 as value)], 'a') as value
+
+    ```
+
+
+=== "europe-west1"
+
+    ```sql
+    select bigfunctions.europe_west1.get_value([struct('a' as key, 8 as value), struct('b' as key, 9 as value)], 'a') as value
+
+    ```
+
+
+=== "your-region2"
+
+    ```sql
+    select bigfunctions.your_region2.get_value([struct('a' as key, 8 as value), struct('b' as key, 9 as value)], 'a') as value
+
+    ```
+
+
+
+
+
+<pre style="margin-top: -1rem;">
+<code style="padding-top: 0px; padding-bottom: 0px;">+-------+
+| value |
++-------+
+| 8     |
++-------+
+</code>
+</pre>
+
+
+
+
+
+
+
+
+
+
+
+
+=== "EU"
+
+    ```sql
+    select bigfunctions.eu.get_value([struct('a' as key, 8 as value), struct('b' as key, 9 as value)], 'c') as value
+
+    ```
+
+
+=== "US"
+
+    ```sql
+    select bigfunctions.us.get_value([struct('a' as key, 8 as value), struct('b' as key, 9 as value)], 'c') as value
+
+    ```
+
+
+=== "europe-west1"
+
+    ```sql
+    select bigfunctions.europe_west1.get_value([struct('a' as key, 8 as value), struct('b' as key, 9 as value)], 'c') as value
+
+    ```
+
+
+=== "your-region2"
+
+    ```sql
+    select bigfunctions.your_region2.get_value([struct('a' as key, 8 as value), struct('b' as key, 9 as value)], 'c') as value
+
+    ```
+
+
+
+
+
+<pre style="margin-top: -1rem;">
+<code style="padding-top: 0px; padding-bottom: 0px;">+-------+
+| value |
++-------+
+| null  |
++-------+
+</code>
+</pre>
+
+
+
+
+
+
+
+
+
+<span style="color: var(--md-typeset-a-color);">3. When there are multiple occurences of `search_key`, return the first found `value`</span>
+
+
+=== "EU"
+
+    ```sql
+    select bigfunctions.eu.get_value([struct('a' as key, 8 as value), struct('a' as key, 9 as value)], 'a') as value
+
+    ```
+
+
+=== "US"
+
+    ```sql
+    select bigfunctions.us.get_value([struct('a' as key, 8 as value), struct('a' as key, 9 as value)], 'a') as value
+
+    ```
+
+
+=== "europe-west1"
+
+    ```sql
+    select bigfunctions.europe_west1.get_value([struct('a' as key, 8 as value), struct('a' as key, 9 as value)], 'a') as value
+
+    ```
+
+
+=== "your-region2"
+
+    ```sql
+    select bigfunctions.your_region2.get_value([struct('a' as key, 8 as value), struct('a' as key, 9 as value)], 'a') as value
+
+    ```
+
+
+
+
+
+<pre style="margin-top: -1rem;">
+<code style="padding-top: 0px; padding-bottom: 0px;">+-------+
+| value |
++-------+
+| 8     |
++-------+
 </code>
 </pre>
 
