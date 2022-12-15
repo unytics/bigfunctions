@@ -1,0 +1,84 @@
+type: function_sql
+category: transform_numeric
+author:
+  name: Paul Marcombes
+  url: https://www.linkedin.com/in/paul-marcombes
+  avatar_url: "https://media-exp1.licdn.com/dms/image/C4E03AQF92ENRMYC3Mw/profile-displayphoto-shrink_800_800/0/1656924490995?e=1675900800&v=beta&t=Ertn0DSUvqzexmymI6NDba3TrXaSLRM_cQ5dxjmTkzo"
+description: |
+  Get the `bin_range` in which belongs `value`
+  with bins defined so that there are `nb_bins` bins of same width between `min_bound` and `max_bound` plus a bin `]-∞, min_bound[` and a bin `]max_bound, +∞[`
+arguments:
+  - name: value
+    type: any type
+  - name: min_bound
+    type: any type
+  - name: max_bound
+    type: any type
+  - name: nb_bins
+    type: int64
+output:
+  name: bin_range
+  type: string
+examples:
+  - description: ""
+    arguments:
+      - "-4"
+      - "0"
+      - "100"
+      - "10"
+    output: "]-∞, 0["
+    region: ALL
+  - description: ""
+    arguments:
+      - "5"
+      - "0"
+      - "100"
+      - "10"
+    output: "[0, 10["
+    region: ALL
+  - description: ""
+    arguments:
+      - "97"
+      - "0"
+      - "100"
+      - "10"
+    output: "[90, 100]"
+    region: ALL
+  - description: ""
+    arguments:
+      - "130"
+      - "0"
+      - "100"
+      - "10"
+    output: "]100, +∞["
+    region: ALL
+code: |
+  (
+    select
+      case
+        when value < min_bound then "]-∞, " || cast(min_bound as string) || "["
+        when value > max_bound then "]"     || cast(max_bound as string) || ", +∞["
+        else (
+          with
+
+          bin_width as (
+            select (max_bound - min_bound) * 1. / nb_bins as width
+          ),
+
+          offsets as (
+            select least(
+              floor((value - min_bound) * 1. / (max_bound - min_bound) * nb_bins),
+              nb_bins - 1
+            ) as lower_offset
+          )
+
+          select (
+            "[" ||
+              cast(min_bound + lower_offset * width as string) || ", " ||
+              cast(min_bound + (lower_offset + 1) * width as string) ||
+            if(lower_offset < nb_bins - 1, "[", "]")
+          )
+          from offsets, bin_width
+        )
+      end
+  )
