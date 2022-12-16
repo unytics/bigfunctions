@@ -63,8 +63,6 @@ This repo contains a CLI (command-line-interface) called `bigfun` to facilitate 
 
 ### Install `bigfun` 🛠️
 
-**Install `bigfun`**
-
 Clone the repo and from the repo directory run:
 
 ``` sh
@@ -74,7 +72,7 @@ pip install --editable .
 ```
 
 
-**Deploy you first function**
+## Deploy you first function 👨‍💻
 
 1. Make sure the `gcloud` command is [installed on your computer](https://cloud.google.com/sdk/docs/install)
 2. Activate the application-default account with `gcloud auth application-default login`. A browser window should open, and you should be prompted to log into your Google account. Once you've done that, `bigfun` will use your oauth'd credentials to connect to BigQuery through BigQuery python client!
