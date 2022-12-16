@@ -100,7 +100,7 @@ You should then be able to deploy the function `is_email_valid` by simply runnin
 bigfun deploy PROJECT.DATASET.is_email_valid
 ```
 
-Test it with ➡ `select is_email_valid('paul.marcombes@unytics.io')` !
+Test it with ➡ `select PROJECT.DATASET.is_email_valid('paul.marcombes@unytics.io')` !
 
 
 ### Deploy you first *remote* function ⚡️
@@ -119,7 +119,7 @@ You now should be able to deploy `sentiment_score` function by running
 bigfun deploy PROJECT.DATASET.sentiment_score
 ```
 
-To make this specific function work, you first must [enable Google Cloud NLP API](https://cloud.google.com/natural-language/docs/setup#api) in your project `PROJECT`. You can then test it with ➡ `select sentiment_score('This is awesome!')` !
+To make this specific function work, you first must [enable Google Cloud NLP API](https://cloud.google.com/natural-language/docs/setup#api) in your project `PROJECT`. You can then test it with ➡ `select PROJECT.DATASET.sentiment_score('This is awesome!')` !
 
 
 <br>
