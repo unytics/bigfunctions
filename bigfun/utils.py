@@ -5,6 +5,7 @@ import google.api_core.exceptions
 import google.auth.exceptions
 import google.cloud.bigquery
 import google.cloud.bigquery_connection_v1
+import google.iam.v1.policy_pb2
 import click
 
 
@@ -17,6 +18,9 @@ def print_success(msg):
 
 def print_info(msg):
     click.echo(click.style(f'INFO: {msg}', fg='yellow'))
+
+def print_warning(msg):
+    click.echo(click.style(f'WARNING: {msg}', fg='orange'))
 
 def handle_error(msg):
     click.echo(click.style(f'ERROR: {msg}', fg='red'))
@@ -67,10 +71,7 @@ class BigQuery:
     def query(self, query):
         try:
             return self.client.query(query).result()
-        except google.api_core.exceptions.BadRequest as e:
-            e.message += "\nQuery:\n" + prefix_lines_with_line_number(query)
-            raise e
-        except google.api_core.exceptions.NotFound as e:
+        except (google.api_core.exceptions.BadRequest, google.api_core.exceptions.NotFound) as e:
             e.message += "\nQuery:\n" + prefix_lines_with_line_number(query)
             raise e
 
@@ -78,7 +79,12 @@ class BigQuery:
         return self.query(f'''
             create or replace table `{table}`
             (
-                {','.join([col['name'] + ' ' + col['type'] + ' options(description="' + col['description'] + '")' for col in conf['schema']])}
+                {
+                    ','.join([
+                    col['name'] + ' ' + col['type'] + ' options(description="' + col['description'] + '")'
+                    for col in conf['schema']
+                    ])
+                }
             )
             options(
                 description="""{conf['description']}"""
@@ -88,38 +94,43 @@ class BigQuery:
     def load_table_from_file(self, *args, **kwargs):
         return self.client.load_table_from_file(*args, **kwargs)
 
-    def get_bigfunctions_remote_connection(self, project, location):
+    def get_remote_connection(self, project, location, name):
         parent = self.bq_connection_client.common_location_path(project, location)
         connections = self.bq_connection_client.list_connections(parent=parent)
-        bigfunctions_connections = [conn for conn in connections if conn.name.endswith('remote-bigfunctions')]
-        if not bigfunctions_connections:
-            return None
-        assert len(bigfunctions_connections) == 1, 'more than one remote connection found'
-        return bigfunctions_connections[0]
+        return next((conn for conn in connections if conn.name.split('/')[-1] == name), None)
 
-    def create_bigfunctions_remote_connection(self, project, location):
+    def create_remote_connection(self, project, location, name):
         parent = self.bq_connection_client.common_location_path(project, location)
         return self.bq_connection_client.create_connection(
             parent=parent,
-            connection_id='remote-bigfunctions',
+            connection_id=name,
             connection=google.cloud.bigquery_connection_v1.types.Connection(
-                name='remote-bigfunctions',
+                name=name,
                 cloud_resource=google.cloud.bigquery_connection_v1.types.CloudResourceProperties()
             )
         )
 
-    def get_or_create_bigfunctions_remote_connection(self, project, location):
-        connection = self.get_bigfunctions_remote_connection(project, location)
-        if connection is not None:
+    def get_or_create_remote_connection(self, project, location, name):
+        connection = self.get_remote_connection(project, location, name)
+        if connection:
             return connection
-        self.create_bigfunctions_remote_connection(project, location)
-        return self.get_bigfunctions_remote_connection(project, location)
+        self.create_remote_connection(project, location, name)
+        return self.get_remote_connection(project, location, name)
 
-    def share_bigfunctions_remote_connection(self, remote_connection):
-        iam = self.bq_connection_client.get_iam_policy(resource=remote_connection)
-        self.bq_connection_client.set_iam_policy(resource=remote_connection, policy=iam)
-        print(iam)
-        breakpoint()
+    def set_remote_connection_users(self, remote_connection, users):
+        policy = self.bq_connection_client.get_iam_policy(resource=remote_connection)
+        print_info('current policy before modification\n' + '-' * 30 + '\n' + repr(policy))
+        connection_user_binding = next(
+            (binding for binding in policy.bindings if binding.role == 'roles/bigquery.connectionUser'),
+            None
+        )
+        if connection_user_binding:
+            connection_user_binding.members[:] = users
+        else:
+            binding = google.iam.v1.policy_pb2.Binding(role='roles/bigquery.connectionUser', members=users)
+            policy.bindings.append(binding)
+        print_info('policy after modification\n' + '-' * 30 + '\n' + repr(policy))
+        self.bq_connection_client.set_iam_policy(request=dict(resource=remote_connection, policy=policy))
 
 
 
