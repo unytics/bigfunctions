@@ -1,12 +1,11 @@
 import re
 import os
 import shutil
-import subprocess
 
 import yaml
 import jinja2
 
-from .utils import bigquery, handle_error, print_success, print_info, print_warning
+from .utils import bigquery, CloudRun, handle_error, print_success, print_info, print_warning
 
 REMOTE_CONNECTION_NAME = 'remote-bigfunctions'
 PYTHON_BUILD_DIR = 'build_python'
@@ -51,26 +50,15 @@ def deploy_cloud_run(bigfunction, conf, fully_qualified_dataset, project_without
 
     remote_connection = get_or_create_remote_connection(dataset)
 
-    dataset_location = bigquery.get_dataset(fully_qualified_dataset).location
-    print_info('Dataset location: ' + dataset_location)
-    cloud_run_location = {'EU': 'europe-west1', 'US': 'us-west1'}.get(dataset_location, dataset_location)
+    print_info('Dataset location: ' + dataset.location)
+    cloud_run_location = {'EU': 'europe-west1', 'US': 'us-west1'}.get(dataset.location, dataset.location)
     print_info('Cloud Run location: ' + cloud_run_location)
 
-    deploy_command = f'gcloud run deploy {cloud_run_service} --quiet --source {PYTHON_BUILD_DIR} --region {cloud_run_location} --project {project_without_backquotes} --no-allow-unauthenticated'
-    print_info(f'Deploying cloud run {bigfunction} with command `{deploy_command}`')
-    result = subprocess.check_output(deploy_command, shell=True).decode().strip()
-    print_info('Deployment success! ' + result)
+    cloud_run = CloudRun(cloud_run_service, project_without_backquotes, cloud_run_location)
+    cloud_run.deploy(PYTHON_BUILD_DIR)
+    cloud_run.add_invoker_permission(f'serviceAccount:{remote_connection.cloud_resource.service_account_id}')
 
-    get_cloud_run_url_command = f'gcloud run services describe {cloud_run_service} --platform managed --region {cloud_run_location} --project {project_without_backquotes} --format "value(status.url)"'
-    print_info('Getting cloud run URL with command `' + get_cloud_run_url_command + '`')
-    cloud_run_url = subprocess.check_output(get_cloud_run_url_command, shell=True).decode().strip()
-    print_info('Cloud Run URL: ' + cloud_run_url)
-
-    add_invoker_role_command = f'gcloud run services add-iam-policy-binding {cloud_run_service} --region {cloud_run_location} --project {project_without_backquotes} --member=serviceAccount:{remote_connection.cloud_resource.service_account_id} --role=roles/run.invoker'
-    print_info(f'Giving invoker permission to connection service account with command `{add_invoker_role_command}`')
-    result = subprocess.check_output(add_invoker_role_command, shell=True).decode().strip()
-
-    conf['remote_endpoint'] = cloud_run_url
+    conf['remote_endpoint'] = cloud_run.url
     conf['remote_connection'] = re.sub(
         r"projects/(\d+)/locations/([\w-]+)/connections/([\w-]+)",
         r"\g<1>.\g<2>.\g<3>",

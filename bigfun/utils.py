@@ -1,4 +1,5 @@
 import sys
+import subprocess
 import math
 
 import google.api_core.exceptions
@@ -12,12 +13,14 @@ import click
 def print_color(msg):
     click.echo(click.style(msg, fg='cyan'))
 
-
 def print_success(msg):
     click.echo(click.style(f'SUCCESS: {msg}', fg='green'))
 
 def print_info(msg):
     click.echo(click.style(f'INFO: {msg}', fg='yellow'))
+
+def print_command(msg):
+    click.echo(click.style(f'INFO: `{msg}`', fg='magenta'))
 
 def print_warning(msg):
     click.echo(click.style(f'WARNING: {msg}', fg='orange'))
@@ -117,7 +120,7 @@ class BigQuery:
         self.create_remote_connection(project, location, name)
         return self.get_remote_connection(project, location, name)
 
-    def set_remote_connection_users(self, remote_connection, users):
+    def set_remote_connection_users(self, remote_connection, members):
         policy = self.bq_connection_client.get_iam_policy(resource=remote_connection)
         print_info('current policy before modification\n' + '-' * 30 + '\n' + repr(policy))
         connection_user_binding = next(
@@ -125,14 +128,64 @@ class BigQuery:
             None
         )
         if connection_user_binding:
-            connection_user_binding.members[:] = users
+            connection_user_binding.members[:] = members
         else:
-            binding = google.iam.v1.policy_pb2.Binding(role='roles/bigquery.connectionUser', members=users)
+            binding = google.iam.v1.policy_pb2.Binding(role='roles/bigquery.connectionUser', members=members)
             policy.bindings.append(binding)
         print_info('policy after modification\n' + '-' * 30 + '\n' + repr(policy))
         self.bq_connection_client.set_iam_policy(request=dict(resource=remote_connection, policy=policy))
 
 
+class CloudRun:
+
+    def __init__(self, service, project, region):
+        self.service = service
+        self.project = project
+        self.region = region
+
+    def exec(self, command, options=None):
+        command += ' ' + self.service
+        options = options or {}
+        options['region'] = self.region
+        options['project'] = self.project
+
+        options_str = ''.join([f' --{name} {value}' for name, value in options.items()])
+        command += options_str
+        print_command(command)
+        return subprocess.check_output(command, shell=True).decode().strip()
+
+    def deploy(self, source_folder):
+        print_info(f'Deploy Cloud Run service `{self.service}`')
+        return self.exec(
+            'gcloud run deploy',
+            options={
+                'source': source_folder,
+                'platform': 'managed',
+                'quiet': '',
+                'no-allow-unauthenticated': '',
+            }
+        )
+
+    @property
+    def url(self):
+        print_info(f'Get Cloud Run url of `{self.service}`')
+        return self.exec(
+            'gcloud run services describe',
+            options={
+                'platform': 'managed',
+                'format': '"value(status.url)"',
+            }
+        )
+
+    def add_invoker_permission(self, member):
+        print_info(f'Give invoker permission to {member} for service `{self.service}`')
+        return self.exec(
+            'gcloud run services add-iam-policy-binding',
+            options={
+                'member': member,
+                'role': 'roles/run.invoker',
+            }
+        )
 
 
 bigquery = BigQuery()
