@@ -133,7 +133,7 @@ To make this specific function work, you first must [enable Google Cloud NLP API
 
 You are more than welcome to contribute by:
 
-- adding a star on this repo 😁
+- adding a ⭐ on this repo 😁
 - reporting an issue [here](https://github.com/unytics/bigfunctions/issues/new?assignees=&labels=bug-bigfun-CLI&template=3_bug_bigfun_cli.yaml&title=%5Bbug%5D%3A+it+does+not+work).
 - suggesting new functions to implement --> to do so simply [fill this form](https://github.com/unytics/bigfunctions/issues/new?assignees=&labels=new-bigfunction&template=new_bigfunction.yaml&title=%5Bnew%5D%3A+%60function_name%28argument1%2C+argument2%29%60)
 - adding/improving BigFunctions
