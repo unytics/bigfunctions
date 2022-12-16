@@ -37,7 +37,7 @@ We believe no-one should be reinventing the wheel and open-source is the best wa
 
 ## 👀 Call public BigFunctions without install from you GCP project
 
-All BigFunctions represented by a 'yaml' file in 'bigfunctions' folder are automatically deployed in public datasets so that you can call them directly without install from your BigQuery project.
+All BigFunctions represented by a 'yaml' file in *bigfunctions* folder are automatically deployed in public datasets so that you can call them directly without install from your BigQuery project.
 
 To explore available bigfunctions and to get started, visit **<a href="https://unytics.github.io/bigfunctions/" target="_blank">BigFunctions website</a>**.
 
@@ -46,9 +46,7 @@ To explore available bigfunctions and to get started, visit **<a href="https://u
 
 ## 🚀 Deploy BigFunctions in your GCP project
 
-You can also deploy any bigfunction in your project.
-
-To deploy 'my_bigfunction' defined in file 'bigfunctions/my_bigfunction.yaml' folder simply call:
+You can also deploy any bigfunction in your project! To deploy *my_bigfunction* defined in *bigfunctions/my_bigfunction.yaml* file, simply call:
 
 ``` sh
 bigfun deploy my_bigfunction
