@@ -76,7 +76,7 @@ pip install --editable .
 
 1. Make sure the `gcloud` command is [installed on your computer](https://cloud.google.com/sdk/docs/install)
 2. Activate the application-default account with `gcloud auth application-default login`. A browser window should open, and you should be prompted to log into your Google account. Once you've done that, `bigfun` will use your oauth'd credentials to connect to BigQuery through BigQuery python client!
-3. You need permissions to edit a dataset `DATASET` in a project `PROJECT`. You also need permissions to run BigQuery queries in that project `PROJECT`.
+3. You need permissions to edit a dataset `DATASET` in a project `PROJECT` and to run BigQuery queries in that project `PROJECT`.
 4. You should then be able to deploy the function `is_email_valid` by simply running
 
 ```
