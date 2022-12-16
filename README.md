@@ -46,7 +46,9 @@ To explore available bigfunctions and to get started, visit **<a href="https://u
 
 ## 🚀 Deploy BigFunctions in your GCP project
 
-To deploy a bigfunction named 'my_bigfunction' defined as a yaml file located in 'bigfunctions' folder simply call:
+You can also deploy any bigfunction in your project.
+
+To deploy 'my_bigfunction' defined in file 'bigfunctions/my_bigfunction.yaml' folder simply call:
 
 ``` sh
 bigfun deploy my_bigfunction
