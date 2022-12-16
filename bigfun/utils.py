@@ -46,7 +46,8 @@ def prefix_lines_with_line_number(string: str, starting_index: int = 1) -> str:
 
 class BigQuery:
 
-    def __init__(self):
+    def __init__(self, project):
+        self.project = project
         self._client = None
         self._bq_connection_client = None
 
@@ -54,9 +55,9 @@ class BigQuery:
     def client(self):
         if self._client is None:
             try:
-                self._client = google.cloud.bigquery.Client()
+                self._client = google.cloud.bigquery.Client(self.project)
             except google.auth.exceptions.DefaultCredentialsError as e:
-                handle_error('Google Cloud not Authenticated. Authenticate with `gcloud auth application-default login` and retry')
+                handle_error('Google Cloud Application-Default-Credentials are not set. Authenticate with `gcloud auth application-default login` and retry')
         return self._client
 
     @property
@@ -65,7 +66,7 @@ class BigQuery:
             try:
                 self._bq_connection_client = google.cloud.bigquery_connection_v1.ConnectionServiceClient()
             except google.auth.exceptions.DefaultCredentialsError as e:
-                handle_error('Google Cloud not Authenticated. Authenticate with `gcloud auth application-default login` and retry')
+                handle_error('Google Cloud Application-Default-Credentials are not set. Authenticate with `gcloud auth application-default login` and retry')
         return self._bq_connection_client
 
     def get_dataset(self, dataset):
@@ -150,11 +151,13 @@ class CloudRun:
         options = options or {}
         options['region'] = self.region
         options['project'] = self.project
-
         options_str = ''.join([f' --{name} {value}' for name, value in options.items()])
         command += options_str
         print_command(command)
-        return subprocess.check_output(command, shell=True).decode().strip()
+        try:
+            return subprocess.check_output(command, shell=True).decode().strip()
+        except subprocess.CalledProcessError as e:
+            handle_error('See error above. ' + e.output.decode(errors='ignore').strip())
 
     def deploy(self, source_folder):
         print_info(f'Deploy Cloud Run service `{self.service}`')
@@ -188,9 +191,3 @@ class CloudRun:
                 'role': 'roles/run.invoker',
             }
         )
-
-
-bigquery = BigQuery()
-
-
-

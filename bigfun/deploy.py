@@ -5,14 +5,14 @@ import shutil
 import yaml
 import jinja2
 
-from .utils import bigquery, CloudRun, handle_error, print_success, print_info, print_warning
+from .utils import BigQuery, CloudRun, handle_error, print_success, print_info, print_warning
 
 REMOTE_CONNECTION_NAME = 'remote-bigfunctions'
 PYTHON_BUILD_DIR = 'build_python'
 TEMPLATE_FOLDER = os.path.dirname(os.path.realpath(__file__)).replace('\\', '/') + '/templates'
 
 
-def deploy_cloud_run(bigfunction, conf, fully_qualified_dataset, project):
+def deploy_cloud_run(bigquery, bigfunction, conf, fully_qualified_dataset, project):
     if os.path.exists(PYTHON_BUILD_DIR):
         shutil.rmtree(PYTHON_BUILD_DIR)
     os.makedirs(PYTHON_BUILD_DIR)
@@ -52,6 +52,7 @@ def deploy_cloud_run(bigfunction, conf, fully_qualified_dataset, project):
 
 def deploy(fully_qualified_bigfunction):
     project, dataset, bigfunction = fully_qualified_bigfunction.replace('`', '').split('.')
+    bigquery = BigQuery(project)
     fully_qualified_dataset = f'`{project}`.{dataset}'
     filename = f'bigfunctions/{bigfunction}.yaml'
     conf = yaml.safe_load(open(filename, encoding='utf-8').read().replace('{BIGFUNCTIONS_DATASET}', fully_qualified_dataset))
@@ -80,7 +81,7 @@ def deploy(fully_qualified_bigfunction):
     ]
 
     if conf['type'] == 'function_py':
-        deploy_cloud_run(bigfunction, conf, fully_qualified_dataset, project)
+        deploy_cloud_run(bigquery, bigfunction, conf, fully_qualified_dataset, project)
 
     template_file = f'{TEMPLATE_FOLDER}/{conf["type"]}.sql'
     template = jinja2.Template(open(template_file, encoding='utf-8').read())
