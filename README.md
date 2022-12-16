@@ -102,6 +102,8 @@ bigfun deploy PROJECT.DATASET.is_email_valid
 
 Test it with ➡ `select PROJECT.DATASET.is_email_valid('paul.marcombes@unytics.io')` !
 
+<br>
+
 
 ### Deploy you first *remote* function ⚡️
 
