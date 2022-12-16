@@ -1,3 +1,5 @@
+import traceback
+
 from flask import Flask, request, jsonify
 
 import google.cloud.error_reporting
@@ -21,4 +23,4 @@ def handle():
         return jsonify( { "replies" :  replies} )
     except Exception:
         error_reporter.report_exception(google.cloud.error_reporting.build_flask_context(request))
-        return jsonify( { "errorMessage": 'something unexpected in input' } ), 400
+        return jsonify( { "errorMessage": traceback.format_exc() } ), 400
