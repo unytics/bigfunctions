@@ -83,8 +83,9 @@ pip install --editable .
 bigfun deploy PROJECT.DATASET.is_email_valid
 ```
 
-> You can now call it from your BigQuery console with `select is_email_valid('paul.marcombes@unytics.io')`
-> If you run into an issue *please* report the issue [here](https://github.com/unytics/bigfunctions/issues/new?assignees=&labels=bug-bigfun-CLI&template=3_bug_bigfun_cli.yaml&title=%5Bbug%5D%3A+it+does+not+work).
+Test it from your BigQuery console with `select is_email_valid('paul.marcombes@unytics.io')`!
+
+If you run into an issue *please* report the issue [here](https://github.com/unytics/bigfunctions/issues/new?assignees=&labels=bug-bigfun-CLI&template=3_bug_bigfun_cli.yaml&title=%5Bbug%5D%3A+it+does+not+work).
 
 
 **Deploy you first *remote* function**
