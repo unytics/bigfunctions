@@ -23,4 +23,4 @@ def handle():
         return jsonify( { "replies" :  replies} )
     except Exception:
         error_reporter.report_exception(google.cloud.error_reporting.build_flask_context(request))
-        return jsonify( { "errorMessage": traceback.format_exc() } ), 400
+        return traceback.format_exc(), 400
