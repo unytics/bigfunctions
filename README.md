@@ -74,7 +74,7 @@ pip install --editable .
 ```
 
 
-**First deployment instructions**
+**Deploy you first function**
 
 1. Make sure the `gcloud` command is [installed on your computer](https://cloud.google.com/sdk/docs/install)
 2. Activate the application-default account with `gcloud auth application-default login`. A browser window should open, and you should be prompted to log into your Google account. Once you've done that, `bigfun` will use your oauth'd credentials to connect to BigQuery through BigQuery python client!
@@ -85,7 +85,7 @@ pip install --editable .
 > If you run into an issue *please* report the issue [here](https://github.com/unytics/bigfunctions/issues/new?assignees=&labels=bug-bigfun-CLI&template=3_bug_bigfun_cli.yaml&title=%5Bbug%5D%3A+it+does+not+work).
 
 
-**First deployment instructions of a *remote* function**
+**Deploy you first *remote* function**
 
 *To deploy a **remote** function* (e.g. python function), there are additional requirements *in addition to the ones above*.
 
