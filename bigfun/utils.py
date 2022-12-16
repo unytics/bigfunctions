@@ -23,7 +23,7 @@ def print_command(msg):
     click.echo(click.style(f'INFO: `{msg}`', fg='magenta'))
 
 def print_warning(msg):
-    click.echo(click.style(f'WARNING: {msg}', fg='orange'))
+    click.echo(click.style(f'WARNING: {msg}', fg='cyan'))
 
 def handle_error(msg):
     click.echo(click.style(f'ERROR: {msg}', fg='red'))
@@ -69,6 +69,7 @@ class BigQuery:
         return self._bq_connection_client
 
     def get_dataset(self, dataset):
+        print_info('Getting dataset')
         return self.client.get_dataset(dataset.replace('`', ''))
 
     def query(self, query):
@@ -98,11 +99,13 @@ class BigQuery:
         return self.client.load_table_from_file(*args, **kwargs)
 
     def get_remote_connection(self, project, location, name):
+        print_info('Getting remote connection')
         parent = self.bq_connection_client.common_location_path(project, location)
         connections = self.bq_connection_client.list_connections(parent=parent)
         return next((conn for conn in connections if conn.name.split('/')[-1] == name), None)
 
     def create_remote_connection(self, project, location, name):
+        print_info('Creating remote connection')
         parent = self.bq_connection_client.common_location_path(project, location)
         return self.bq_connection_client.create_connection(
             parent=parent,
@@ -121,8 +124,8 @@ class BigQuery:
         return self.get_remote_connection(project, location, name)
 
     def set_remote_connection_users(self, remote_connection, members):
+        print_info('Set remote connection users')
         policy = self.bq_connection_client.get_iam_policy(resource=remote_connection)
-        print_info('current policy before modification\n' + '-' * 30 + '\n' + repr(policy))
         connection_user_binding = next(
             (binding for binding in policy.bindings if binding.role == 'roles/bigquery.connectionUser'),
             None
@@ -132,7 +135,6 @@ class BigQuery:
         else:
             binding = google.iam.v1.policy_pb2.Binding(role='roles/bigquery.connectionUser', members=members)
             policy.bindings.append(binding)
-        print_info('policy after modification\n' + '-' * 30 + '\n' + repr(policy))
         self.bq_connection_client.set_iam_policy(request=dict(resource=remote_connection, policy=policy))
 
 
@@ -168,7 +170,7 @@ class CloudRun:
 
     @property
     def url(self):
-        print_info(f'Get Cloud Run url of `{self.service}`')
+        print_info(f'Get Cloud Run url of service `{self.service}`')
         return self.exec(
             'gcloud run services describe',
             options={
