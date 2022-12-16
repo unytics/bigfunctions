@@ -15,7 +15,8 @@ TEMPLATE_FOLDER = os.path.dirname(os.path.realpath(__file__)).replace('\\', '/')
 
 def deploy(fully_qualified_bigfunction):
     project, dataset, bigfunction = fully_qualified_bigfunction.split('.')
-    project =  "`" + project.replace("`", "") + "`"
+    project_without_backquotes = project.replace("`", "")
+    project =  "`" + project_without_backquotes + "`"
     fully_qualified_dataset = f'{project}.{dataset}'
     bigfunction = fully_qualified_bigfunction.split('.')[-1]
     filename = f'bigfunctions/{bigfunction}.yaml'
@@ -63,21 +64,24 @@ def deploy(fully_qualified_bigfunction):
         cloud_run_service = 'bf-' + bigfunction.replace("_", "-")
         print_info('Cloud Run Service to deploy: ' + cloud_run_service)
 
-        print_info('getting dataset location')
+        print_info('Getting dataset location')
         dataset_location = bigquery.get_dataset(fully_qualified_dataset).location
+        print_info('Dataset location: ' + dataset_location)
         cloud_run_location = {'EU': 'europe-west1', 'US': 'us-west1'}.get(dataset_location, dataset_location)
+        print_info('Cloud Run location: ' + cloud_run_location)
 
-        deploy_command = f'gcloud run deploy {cloud_run_service} --quiet --source {PYTHON_BUILD_DIR} --region {cloud_run_location} --project {project} --no-allow-unauthenticated'
-        print_info(f'deploying cloud run {bigfunction} with command `{deploy_command}`')
-        os.system(deploy_command)
+        deploy_command = f'gcloud run deploy {cloud_run_service} --quiet --source {PYTHON_BUILD_DIR} --region {cloud_run_location} --project {project_without_backquotes} --no-allow-unauthenticated'
+        print_info(f'Deploying cloud run {bigfunction} with command `{deploy_command}`')
+        result = subprocess.check_output(deploy_command, shell=True).decode().strip()
+        print_info('Deployment success! ' + result)
 
-        get_cloud_run_url_command = f'gcloud run services describe {cloud_run_service} --platform managed --region {cloud_run_location} --format "value(status.url)"'
-        print_info('getting cloud run URL with command ' + get_cloud_run_url_command)
+        get_cloud_run_url_command = f'gcloud run services describe {cloud_run_service} --platform managed --region {cloud_run_location} --project {project_without_backquotes} --format "value(status.url)"'
+        print_info('Getting cloud run URL with command `' + get_cloud_run_url_command + '`')
         cloud_run_url = subprocess.check_output(get_cloud_run_url_command, shell=True).decode().strip()
         print_info('Cloud Run URL: ' + cloud_run_url)
 
-        print_info('getting remote connection')
-        remote_connection = bigquery.get_or_create_bigfunctions_remote_connection(project, dataset_location)
+        print_info('Getting or creating remote connection')
+        remote_connection = bigquery.get_or_create_bigfunctions_remote_connection(project_without_backquotes, dataset_location)
         remote_connection_name = re.sub(
             r"projects/(\d+)/locations/([\w-]+)/connections/([\w-]+)",
             r"\g<1>.\g<2>.\g<3>",
@@ -88,9 +92,9 @@ def deploy(fully_qualified_bigfunction):
         # bigquery.share_bigfunctions_remote_connection(remote_connection.name)
 
 
-        add_invoker_role_command = f'gcloud run services add-iam-policy-binding {cloud_run_service} --region {cloud_run_location} --member=serviceAccount:{remote_connection.cloud_resource.service_account_id} --role=roles/run.invoker'
-        print_info(f'giving invoker permission to connection service account with command `{add_invoker_role_command}`')
-        os.system(add_invoker_role_command)
+        add_invoker_role_command = f'gcloud run services add-iam-policy-binding {cloud_run_service} --region {cloud_run_location} --project {project_without_backquotes} --member=serviceAccount:{remote_connection.cloud_resource.service_account_id} --role=roles/run.invoker'
+        print_info(f'Giving invoker permission to connection service account with command `{add_invoker_role_command}`')
+        result = subprocess.check_output(add_invoker_role_command, shell=True).decode().strip()
 
         conf['remote_connection'] = remote_connection_name
         conf['remote_endpoint'] = cloud_run_url

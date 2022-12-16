@@ -61,8 +61,8 @@ class BigQuery:
                 handle_error('Google Cloud not Authenticated. Authenticate with `gcloud auth application-default login` and retry')
         return self._bq_connection_client
 
-    def get_dataset(self, *args, **kwargs):
-        return self.client.get_dataset(*args, **kwargs)
+    def get_dataset(self, dataset):
+        return self.client.get_dataset(dataset.replace('`', ''))
 
     def query(self, query):
         try:
