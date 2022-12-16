@@ -1,0 +1,22 @@
+type: function_sql
+category: transform_string
+author:
+  name: Jason Tragakis
+  url: https://www.linkedin.com/company/68295200/
+  avatar_url: "https://www.mayainsights.com/wp-content/uploads/2021/09/mayalogo.svg"
+description: "Replace most common special characters from `string` with `replacement`"
+arguments:
+  - name: string
+    type: STRING
+  - name: replacement
+    type: STRING
+output:
+  name: cleaned_string
+  type: STRING
+examples:
+  - description: ""
+    arguments:
+      - "%♥!Hello!*♥#"
+    output: "Hello"
+    region: ALL
+code: REGEXP_REPLACE(string, r'[\'♥◄£⌠Æ`╥&è°Üε\^Ÿü▄¡↓\]▲¢>|Î¸.•¤→│®;…Œ§´ï›Ä√ß╝♪Ì℃Ò¨˜ò©à/┼≡"ÂÑ♠∟ƒ@▓ÕôÍⁿ┴╣“ž↔―╢╞\?™╤ð}¦—‡„╠³óÞ℉ÿ∙∩▀↨╫╒ÊÓù║<ÈÏ☺±╬▌â╪╘┘$Ë╓█÷Ý≤Ž╟#≥þÇ\(╨·\*⌡š†⌂œØ↕€♂╦’ã╖╔ÐÅ■ê”ú┬‼ç¿▒ª┌äÛ╕ÉÔºö♦ñÀ♀├↑╗ì\\╧♫╡○└Öý-←╚╩♣Ã¥å¬¯‰\[ˆû≈₧Š►▐∞!Ù,²▬î╛=×┐\:–─═‘◘é\+◙\)‹_Á{░Ú¹⌐ë»‚☼%╙▼~⊙á\'õø¶☻«┤æí]+', replacement)
