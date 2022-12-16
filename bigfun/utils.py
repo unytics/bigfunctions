@@ -70,6 +70,9 @@ class BigQuery:
         except google.api_core.exceptions.BadRequest as e:
             e.message += "\nQuery:\n" + prefix_lines_with_line_number(query)
             raise e
+        except google.api_core.exceptions.NotFound as e:
+            e.message += "\nQuery:\n" + prefix_lines_with_line_number(query)
+            raise e
 
     def create_or_replace_destination_table(self, table, conf):
         return self.query(f'''

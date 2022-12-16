@@ -15,7 +15,7 @@ TABLES_FOLDER = 'data'
 CONFIG_FILENAME = 'config.yaml'
 CONFIG = {}
 if os.path.exists(CONFIG_FILENAME):
-    CONFIG = yaml.safe_load(open(CONFIG_FILENAME, encoding='utf-8').read())
+    CONFIG = yaml.safe_load(open(CONFIG_FILENAME, encoding='utf-8').read()) or {}
 BIGFUNCTIONS = [f.replace('.yaml', '') for f in os.listdir(BIGFUNCTIONS_FOLDER)]
 TABLES = [f.replace('.yaml', '') for f in os.listdir(TABLES_FOLDER) if f.endswith('.yaml')]
 
@@ -25,10 +25,12 @@ def get_config_value(name):
         return CONFIG[name]
 
     text, default = {
-        'default_gcp_project':          ("Default GCP project where to deploy bigfunctions", "bigfunctions"),
-        'default_datasets':             ("Default dataset(s) where to deploy bigfunctions (comma separated is many)", "eu,us,asia_east1,asia_east2,asia_northeast1,asia_northeast2,asia_northeast3,asia_south1,asia_southeast1,australia_southeast1,europe_north1,europe_west1,europe_west2,europe_west3,europe_west4,europe_west6,northamerica_northeast1,southamerica_east1,us_central1,us_east1,us_east4,us_west1,us_west2"),
+        'default_gcp_project': ("Default GCP project where to deploy bigfunctions", "bigfunctions"),
+        'default_datasets':    ("Default dataset(s) where to deploy bigfunctions (comma separated is many)", "eu,us,asia_east1,asia_east2,asia_northeast1,asia_northeast2,asia_northeast3,asia_south1,asia_southeast1,australia_southeast1,europe_north1,europe_west1,europe_west2,europe_west3,europe_west4,europe_west6,northamerica_northeast1,southamerica_east1,us_central1,us_east1,us_east4,us_west1,us_west2"),
     }[name]
     CONFIG[name] = click.prompt(text, default=default)
+    if name.endswith('s'):
+        CONFIG[name] = CONFIG[name].split(',')
     with open(CONFIG_FILENAME, 'w', encoding='utf-8') as outfile:
         yaml.dump(CONFIG, outfile, default_flow_style=False)
     return CONFIG[name]
