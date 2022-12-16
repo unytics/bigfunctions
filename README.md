@@ -113,6 +113,23 @@ If you run into an issue *please* report it [here](https://github.com/unytics/bi
 
 <br>
 
+### Use `bigfun` 🔥
+
+``` sh
+$ bigfun --help
+Usage: bigfun [OPTIONS] COMMAND [ARGS]...
+
+Options:
+  --help  Show this message and exit.
+
+Commands:
+  deploy  Deploy BIGFUNCTION
+  doc     Generate, serve and publish documentation
+  test    Test BIGFUNCTION
+```
+
+<br>
+
 ## Contribute
 
 You are more than welcome to contribute for both:
