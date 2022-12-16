@@ -75,14 +75,14 @@ pip install --editable .
 
 **First deployment instructions**
 
-1. To deploy *any* function:
+1. *To deploy **any** function*:
     - Make sure the `gcloud` command is [installed on your computer](https://cloud.google.com/sdk/docs/install)
     - Activate the application-default account with `gcloud auth application-default login`. A browser window should open, and you should be prompted to log into your Google account. Once you've done that, `bigfun` will use your oauth'd credentials to connect to BigQuery through BigQuery python client!
     - You need permissions to edit a dataset `DATASET` in a project `PROJECT`. You also need permissions to run BigQuery queries in that project `PROJECT`.
     - You should then be able to deploy the function `is_email_valid` by running `bigfun deploy PROJECT.DATASET.is_email_valid`.
     - You can now call it from your BigQuery console with `select is_email_valid('paul.marcombes@unytics.io')`
     - If you run into an issue *please* report the issue [here](https://github.com/unytics/bigfunctions/issues/new?assignees=&labels=bug-bigfun-CLI&template=3_bug_bigfun_cli.yaml&title=%5Bbug%5D%3A+it+does+not+work).
-2. To deploy a *remote* function (e.g. python function), there are additional requirements *in addition to the ones above*.
+2. *To deploy a **remote** function* (e.g. python function), there are additional requirements *in addition to the ones above*.
     - A *Cloud Run* service will be deployed to host the code ([as seen here](https://cloud.google.com/bigquery/docs/reference/standard-sql/remote-functions)). So you must have permissions to deploy a *Cloud Run* service in your project `PROJECT`.
     - `gcloud` CLI will be used directly to deploy the service (using `gcloud run deploy`). Then, make sure you are logged in with `gcloud` by calling: `gcloud auth login`. A browser window should also open, and you should be prompted to log into your Google account. WARNING: you read correctly: you have to authenticate twice. Once for bigquery python client (to deploy any function including remote as seen above.) and once now to use `gcloud` (to deploy a *Cloud Run* service).
     - A *BigQuery Remote Connection* will be created to link BigQuery with the *Cloud Run* service. You then should have permissions to create a remote connection. *[BigQuery Connection Admin](https://cloud.google.com/bigquery/docs/access-control#bigquery.connectionAdmin)* or *[BigQuery Admin](https://cloud.google.com/bigquery/docs/access-control#bigquery.admin)* roles may be needed.
