@@ -83,12 +83,12 @@ pip install --editable .
 bigfun deploy PROJECT.DATASET.is_email_valid
 ```
 
-Test it from your BigQuery console with `select is_email_valid('paul.marcombes@unytics.io')`!
+Test it with `select is_email_valid('paul.marcombes@unytics.io')`!
 
-If you run into an issue *please* report the issue [here](https://github.com/unytics/bigfunctions/issues/new?assignees=&labels=bug-bigfun-CLI&template=3_bug_bigfun_cli.yaml&title=%5Bbug%5D%3A+it+does+not+work).
+If you run into an issue *please* report it [here](https://github.com/unytics/bigfunctions/issues/new?assignees=&labels=bug-bigfun-CLI&template=3_bug_bigfun_cli.yaml&title=%5Bbug%5D%3A+it+does+not+work).
 
 
-**Deploy you first *remote* function**
+### Deploy you first *remote* function ⚡️
 
 *To deploy a **remote** function* (e.g. python function), there are additional requirements *in addition to the ones above*.
 
@@ -97,9 +97,10 @@ If you run into an issue *please* report the issue [here](https://github.com/uny
 3. A *BigQuery Remote Connection* will be created to link BigQuery with the *Cloud Run* service. You then should have permissions to create a remote connection. *[BigQuery Connection Admin](https://cloud.google.com/bigquery/docs/access-control#bigquery.connectionAdmin)* or *[BigQuery Admin](https://cloud.google.com/bigquery/docs/access-control#bigquery.admin)* roles may be needed.
 4. A service account will be automatically created by Google along with the *BigQuery Remote Connection*. BigQuery will use this service account of the remote connection to invoke the *Cloud Run* service. You must then have the permission *setIamPolicy* to authorize this service account to invoke the *Cloud Run* service. You can have this permission by having the role *[roles/run.admin](https://cloud.google.com/run/docs/reference/iam/roles)*
 5. You now should be able to deploy `sentiment_score` function by running `bigfun deploy PROJECT.DATASET.sentiment_score`. (to make this specific function work, you must [enable Google Cloud NLP API](https://cloud.google.com/natural-language/docs/setup#api) in your project `PROJECT`).
-6. You can now call it from your BigQuery console with `select sentiment_score('This is awesome!')`
 
-> If you run into an issue *please* report the issue [here](https://github.com/unytics/bigfunctions/issues/new?assignees=&labels=bug-bigfun-CLI&template=3_bug_bigfun_cli.yaml&title=%5Bbug%5D%3A+it+does+not+work).
+Test it with  `select sentiment_score('This is awesome!')`!
+
+If you run into an issue *please* report it [here](https://github.com/unytics/bigfunctions/issues/new?assignees=&labels=bug-bigfun-CLI&template=3_bug_bigfun_cli.yaml&title=%5Bbug%5D%3A+it+does+not+work).
 
 
 <br>
