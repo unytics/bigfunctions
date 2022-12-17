@@ -5,7 +5,7 @@
 </p>
 
 <p align="center">
-    <strong><a href="https://unytics.github.io/bigfunctions/" target="_blank">BigFunctions website</a></strong>
+    <strong>❯ <a href="https://unytics.github.io/bigfunctions/" target="_blank">BigFunctions website</a></strong>
 </p>
 
 ---
