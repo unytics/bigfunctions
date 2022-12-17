@@ -19,9 +19,9 @@
 BigFunctions is both:
 
 > 1. **Some Open-Source BigQuery functions (💪 hello SQL-superpowers) callable without install from any GCP project**
-> 2. **A framework to define, test, deploy, document and monitor your own BigQuery functions** (in addition to the ones available in this repo). 👉 BigFunctions Framework Features:
+> 2. **A framework to define, test, deploy, document and monitor your own BigQuery functions** (in addition to the ones available in this repo). 👉 BigFunctions Framework features:
 >     1. 💚 **A standard to define BigQuery routines as yaml files be it sql/js/remote UDF or procedures**
->     2. 💚 **`bigfun`: a CLI (Command Line Interface) to test, deploy, document and monitor these BigQuery routines in your project**
+>     2. 💚 **`bigfun` CLI (Command Line Interface) to test, deploy, document and monitor these BigQuery routines in your project**
 
 
 <br>
@@ -29,7 +29,7 @@ BigFunctions is both:
 
 ## 💡 Why BigFunctions?
 
-BigQuery, with native and remote routines, is really powerful. **BigFunctions take the most of that by offering ready-to-use functions holding useful features for data-teams**.
+BigQuery, with native and remote routines, is really powerful. **BigFunctions take the most of that by offering ready-to-use functions with useful features for data-teams**.
 
 We believe no-one should be reinventing the wheel and open-source is the best way to fight against that. Hey Data-People! Let's share our work, help each other and inspire from each other. 👉 Play and contribute to BigFunctions!
 
