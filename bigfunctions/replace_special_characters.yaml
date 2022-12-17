@@ -4,7 +4,7 @@ author:
   name: Jason Tragakis
   url: https://www.linkedin.com/company/68295200/
   avatar_url: "https://www.mayainsights.com/wp-content/uploads/2021/09/mayalogo.svg"
-description: "Replace most common special characters from `string` with `replacement`"
+description: "Replace most common special characters in a `string` with `replacement`"
 arguments:
   - name: string
     type: string
