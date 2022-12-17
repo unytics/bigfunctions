@@ -57,7 +57,7 @@ Details about `bigfun` command line are given below.
 
 ## 💥 `bigfun` CLI
 
-This repo contains a CLI (command-line-interface) called `bigfun` to facilitate BigFunctions development, test, deployment, documentation and monitoring.
+`bigfun` CLI (command-line-interface) facilitate BigFunctions development, test, deployment, documentation and monitoring.
 
 ### Install `bigfun` 🛠️
 
