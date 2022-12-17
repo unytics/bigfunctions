@@ -4,7 +4,9 @@
     <em>Open BigQuery Functions, SQL Superpowers</em>
 </p>
 
-**<a href="https://unytics.github.io/bigfunctions/" target="_blank">BigFunctions website</a>**
+<p align="center">
+    <em>**<a href="https://unytics.github.io/bigfunctions/" target="_blank">BigFunctions website</a>**</em>
+</p>
 
 ---
 
