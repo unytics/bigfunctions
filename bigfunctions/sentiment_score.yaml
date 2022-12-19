@@ -7,10 +7,10 @@ author:
 description: Compute sentiment score of text
 arguments:
   - name: content
-    type: STRING
+    type: string
 output:
   name: sentiment_score
-  type: FLOAT64
+  type: float64
 examples:
   - description: ""
     arguments:

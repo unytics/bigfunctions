@@ -7,7 +7,7 @@ author:
 description: Show column statistics
 arguments:
   - name: fully_qualified_column
-    type: STRING
+    type: string
 examples:
   - description: ""
     arguments:

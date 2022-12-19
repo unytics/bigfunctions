@@ -7,12 +7,12 @@ author:
 description: "Remove any word of `words_to_remove` from `string`"
 arguments:
   - name: string
-    type: STRING
+    type: string
   - name: words_to_remove
     type: array<string>
 output:
   name: cleaned_string
-  type: STRING
+  type: string
 examples:
   - description: ""
     arguments:

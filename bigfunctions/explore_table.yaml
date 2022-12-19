@@ -7,7 +7,7 @@ author:
 description: Show table infos and column statistics
 arguments:
   - name: fully_qualified_table
-    type: STRING
+    type: string
 examples:
   - description: ""
     arguments:

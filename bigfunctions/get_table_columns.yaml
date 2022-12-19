@@ -9,7 +9,7 @@ description: |
   and put them in a temporary table called `bigfunction_result`.
 arguments:
   - name: fully_qualified_table
-    type: STRING
+    type: string
 examples:
   - description: |
       call `bigfunctions.eu._get_columns`("bigfunctions.samples.natality");

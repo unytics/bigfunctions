@@ -7,12 +7,12 @@ author:
 description: Render template with context using nunjucks.js templating library
 arguments:
   - name: template
-    type: STRING
+    type: string
   - name: context
-    type: STRING
+    type: string
 output:
   name: rendered_content
-  type: STRING
+  type: string
 examples:
   - description: ""
     arguments:

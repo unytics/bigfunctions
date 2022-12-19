@@ -12,8 +12,8 @@ description: |
   ```
 schema:
   - name: country
-    type: STRING
+    type: string
     description: "country code"
   - name: date
-    type: DATE
+    type: date
     description: "public holiday local date"

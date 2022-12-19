@@ -39,7 +39,7 @@ description: |
 
 arguments:
   - name: fully_qualified_table
-    type: STRING
+    type: string
 examples:
   - description: |
       Identify the two connected components of a graph which has 6 nodes and is represented by the edges below:

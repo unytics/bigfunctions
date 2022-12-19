@@ -7,15 +7,15 @@ author:
 description: Send email via gmail
 arguments:
   - name: recipients
-    type: STRING
+    type: string
   - name: subject
-    type: STRING
+    type: string
   - name: body
-    type: STRING
+    type: string
   - name: attachment_filename
-    type: STRING
+    type: string
   - name: attachment_content
-    type: STRING
+    type: string
 output:
   name: success
   type: BOOL

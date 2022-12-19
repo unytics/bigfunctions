@@ -7,10 +7,10 @@ author:
 description: Dump data to excel file returned as base64
 arguments:
   - name: data
-    type: STRING
+    type: string
 output:
   name: excel_base64
-  type: STRING
+  type: string
 examples:
   - description: ""
     arguments:

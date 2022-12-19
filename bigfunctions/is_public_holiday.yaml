@@ -12,12 +12,12 @@ description: |
   - Holiday dates come from <a href="https://python-holidays.readthedocs.io/" target="_blank">`python-holidays`</a>.
 arguments:
   - name: date
-    type: DATE
+    type: date
   - name: country_code
-    type: STRING
+    type: string
 output:
   name: is_public_holiday
-  type: BOOLEAN
+  type: boolean
 examples:
   - description: ""
     arguments:

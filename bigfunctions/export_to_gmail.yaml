@@ -7,13 +7,13 @@ author:
 description: Send email (via gmail) with data attached as excel file
 arguments:
   - name: table_or_view_or_query
-    type: STRING
+    type: string
   - name: recipients
-    type: STRING
+    type: string
   - name: email_subject
-    type: STRING
+    type: string
   - name: email_body
-    type: STRING
+    type: string
 examples:
   - description: ""
     arguments:

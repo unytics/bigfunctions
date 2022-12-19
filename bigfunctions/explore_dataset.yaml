@@ -8,7 +8,7 @@ description: |-
   Show infos about dataset tables
 arguments:
   - name: fully_qualified_dataset
-    type: STRING
+    type: string
 examples:
   - description: ""
     arguments:

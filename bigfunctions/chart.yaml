@@ -8,14 +8,14 @@ description: |-
   Return html with a chartjs chart
 arguments:
   - name: data
-    type: ARRAY<STRUCT<x STRING, y FLOAT64>>
+    type: array<struct<x string, y float64>>
   - name: chart_type
-    type: STRING
+    type: string
   - name: ylabel
-    type: STRING
+    type: string
 output:
   name: html
-  type: STRING
+  type: string
 examples:
   - description: ""
     arguments:
