@@ -125,7 +125,7 @@ class BigQuery:
         return self.get_remote_connection(project, location, name)
 
     def set_remote_connection_users(self, remote_connection, members):
-        print_info('Set remote connection users')
+        print_info('Set remote connection users to: ' + ', '.join(members))
         policy = self.bq_connection_client.get_iam_policy(resource=remote_connection)
         connection_user_binding = next(
             (binding for binding in policy.bindings if binding.role == 'roles/bigquery.connectionUser'),

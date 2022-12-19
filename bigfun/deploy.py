@@ -7,9 +7,20 @@ import jinja2
 
 from .utils import BigQuery, CloudRun, handle_error, print_success, print_info, print_warning
 
+
 REMOTE_CONNECTION_NAME = 'remote-bigfunctions'
 PYTHON_BUILD_DIR = 'build_python'
 TEMPLATE_FOLDER = os.path.dirname(os.path.realpath(__file__)).replace('\\', '/') + '/templates'
+
+
+def get_dataset_users(dataset):
+    access_entry2user = lambda access_entry: (
+        'serviceAccount' if access_entry.entity_id.endswith('gserviceaccount.com')
+        else (
+            'user' if access_entry.entity_type == 'user' else 'group'
+        )
+    ) + ':' + access_entry.entity_id
+    return [access_entry2user(access_entry) for access_entry in dataset.access_entries]
 
 
 def deploy_cloud_run(bigquery, bigfunction, conf, fully_qualified_dataset, project):
@@ -31,10 +42,8 @@ def deploy_cloud_run(bigquery, bigfunction, conf, fully_qualified_dataset, proje
     dataset = bigquery.get_dataset(fully_qualified_dataset)
 
     remote_connection = bigquery.get_or_create_remote_connection(project, dataset.location, REMOTE_CONNECTION_NAME)
-    try:
-        bigquery.set_remote_connection_users(remote_connection.name, ["group:data-champions@nickel.eu"])
-    except:
-        print_warning('Could not change remote connections users')
+    remote_connection_users = get_dataset_users(dataset)
+    bigquery.set_remote_connection_users(remote_connection.name, remote_connection_users)
 
     cloud_run_service = 'bf-' + bigfunction.replace("_", "-")
     cloud_run_location = {'EU': 'europe-west1', 'US': 'us-west1'}.get(dataset.location, dataset.location)
