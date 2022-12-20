@@ -28,7 +28,7 @@ def get_dataset_users(dataset):
     return [
         access_entry2user(access_entry)
         for access_entry in dataset.access_entries
-        if access_entry.entity_id not in ['projectOwners', 'projectEditors', 'projectReaders']
+        if access_entry.entity_id not in ['projectOwners', 'projectWriters', 'projectReaders']
     ]
 
 
