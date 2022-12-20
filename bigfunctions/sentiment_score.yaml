@@ -14,7 +14,7 @@ output:
 examples:
   - description: ""
     arguments:
-      - "'BigFunctions Rock!'"
+      - "'BigFunctions Rocks!'"
     output: "0.945"
     region: ALL
 code: |

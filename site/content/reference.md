@@ -62,6 +62,8 @@ BigFunctions are open-source BigQuery routines that give you **SQL-superpowers**
     
     - [<code>render_string(template, context)</code>](#render_string): Render template with context using nunjucks.js templating library
     
+    - [<code>replace_special_characters(string, replacement)</code>](#replace_special_characters): Replace most common special characters in a `string` with `replacement`
+    
     - [<code>sentiment_score(content)</code>](#sentiment_score): Compute sentiment score of text
     
 
@@ -106,7 +108,7 @@ BigFunctions are open-source BigQuery routines that give you **SQL-superpowers**
     
     - [<code>get_value(key_value_items, search_key)</code>](#get_value): Return the first `value` with a key `search_key` from `key_value_items`
     
-    - [<code>last_element(arr)</code>](#last_element): Return last element of array
+    - [<code>last_value(arr)</code>](#last_value): Return last value of array
     
     - [<code>max_value(arr)</code>](#max_value): Return max value of array
     
@@ -156,9 +158,13 @@ BigFunctions are open-source BigQuery routines that give you **SQL-superpowers**
     
     - [<code>dump_to_excel(data)</code>](#dump_to_excel): Dump data to excel file returned as base64
     
+    - [<code>get(url, headers)</code>](#get): Request `url`
+    
     - [<code>get_json_column_schema(table_or_view_or_query, json_column)</code>](#get_json_column_schema): Return the schema of `json_column` of `table_or_view_or_query` as `[{path, type}]`
     
     - [<code>get_table_columns(fully_qualified_table)</code>](#get_table_columns): Get the column information of the given table from `INFORMATION_SCHEMA.COLUMNS`
+    
+    - [<code>request(url, headers)</code>](#request): Request `url`
     
 
     
@@ -1617,6 +1623,87 @@ Render template with context using nunjucks.js templating library
 
 
 
+### replace_special_characters
+<div style="position: relative; top: -2rem; margin-bottom:  -2rem; text-align: right; z-index: 9999;">
+  
+  <a href="https://www.linkedin.com/company/68295200/" title="Author: Jason Tragakis" target="_blank">
+    <img src="https://www.mayainsights.com/wp-content/uploads/2021/09/mayalogo.svg" width="32" style=" border-radius: 50% !important">
+  </a>
+  
+  <a href="https://github.com/unytics/bigfunctions/blob/main/bigfunctions/replace_special_characters.yaml" title="Edit on GitHub" target="_blank"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="#5d6cc0" d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg></a></div>
+```
+replace_special_characters(string, replacement)
+```
+
+**Description**
+
+Replace most common special characters in a `string` with `replacement`
+
+**Examples**
+
+
+
+
+
+
+=== "EU"
+
+    ```sql
+    select bigfunctions.eu.replace_special_characters('%♥!Hello!*♥#', '') as cleaned_string
+
+    ```
+
+
+=== "US"
+
+    ```sql
+    select bigfunctions.us.replace_special_characters('%♥!Hello!*♥#', '') as cleaned_string
+
+    ```
+
+
+=== "europe-west1"
+
+    ```sql
+    select bigfunctions.europe_west1.replace_special_characters('%♥!Hello!*♥#', '') as cleaned_string
+
+    ```
+
+
+=== "your-region2"
+
+    ```sql
+    select bigfunctions.your_region2.replace_special_characters('%♥!Hello!*♥#', '') as cleaned_string
+
+    ```
+
+
+
+
+
+<pre style="margin-top: -1rem;">
+<code style="padding-top: 0px; padding-bottom: 0px;">+----------------+
+| cleaned_string |
++----------------+
+| Hello          |
++----------------+
+</code>
+</pre>
+
+
+
+
+
+
+
+
+
+
+---
+
+
+
+
 ### sentiment_score
 <div style="position: relative; top: -2rem; margin-bottom:  -2rem; text-align: right; z-index: 9999;">
   
@@ -1643,7 +1730,7 @@ Compute sentiment score of text
 === "EU"
 
     ```sql
-    select bigfunctions.eu.sentiment_score('BigFunctions Rock!') as sentiment_score
+    select bigfunctions.eu.sentiment_score('BigFunctions Rocks!') as sentiment_score
 
     ```
 
@@ -1651,7 +1738,7 @@ Compute sentiment score of text
 === "US"
 
     ```sql
-    select bigfunctions.us.sentiment_score('BigFunctions Rock!') as sentiment_score
+    select bigfunctions.us.sentiment_score('BigFunctions Rocks!') as sentiment_score
 
     ```
 
@@ -1659,7 +1746,7 @@ Compute sentiment score of text
 === "europe-west1"
 
     ```sql
-    select bigfunctions.europe_west1.sentiment_score('BigFunctions Rock!') as sentiment_score
+    select bigfunctions.europe_west1.sentiment_score('BigFunctions Rocks!') as sentiment_score
 
     ```
 
@@ -1667,7 +1754,7 @@ Compute sentiment score of text
 === "your-region2"
 
     ```sql
-    select bigfunctions.your_region2.sentiment_score('BigFunctions Rock!') as sentiment_score
+    select bigfunctions.your_region2.sentiment_score('BigFunctions Rocks!') as sentiment_score
 
     ```
 
@@ -3481,21 +3568,21 @@ Return the first `value` with a key `search_key` from `key_value_items`
 
 
 
-### last_element
+### last_value
 <div style="position: relative; top: -2rem; margin-bottom:  -2rem; text-align: right; z-index: 9999;">
   
   <a href="https://www.linkedin.com/in/taylorabrownlow/" title="Credits: Taylor Brownlow" target="_blank">
     <img src="https://media-exp1.licdn.com/dms/image/C4E03AQFCRlj44wnbhA/profile-displayphoto-shrink_200_200/0/1579795128165?e=1672272000&v=beta&t=LxL7tn53S_dQU0jMAeT3lHiAP4anA8GSiYD71u63pMs" width="32" style=" border-radius: 50% !important">
   </a>
   
-  <a href="https://github.com/unytics/bigfunctions/blob/main/bigfunctions/last_element.yaml" title="Edit on GitHub" target="_blank"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="#5d6cc0" d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg></a></div>
+  <a href="https://github.com/unytics/bigfunctions/blob/main/bigfunctions/last_value.yaml" title="Edit on GitHub" target="_blank"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="#5d6cc0" d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg></a></div>
 ```
-last_element(arr)
+last_value(arr)
 ```
 
 **Description**
 
-Return last element of array
+Return last value of array
 *(inspired from [sql-snippets repo](https://github.com/count/sql-snippets/blob/main/bigquery/get-last-array-element.md))*
 
 **Examples**
@@ -3508,7 +3595,7 @@ Return last element of array
 === "EU"
 
     ```sql
-    select bigfunctions.eu.last_element([1, 2, 3]) as element
+    select bigfunctions.eu.last_value([1, 2, 3]) as value
 
     ```
 
@@ -3516,7 +3603,7 @@ Return last element of array
 === "US"
 
     ```sql
-    select bigfunctions.us.last_element([1, 2, 3]) as element
+    select bigfunctions.us.last_value([1, 2, 3]) as value
 
     ```
 
@@ -3524,7 +3611,7 @@ Return last element of array
 === "europe-west1"
 
     ```sql
-    select bigfunctions.europe_west1.last_element([1, 2, 3]) as element
+    select bigfunctions.europe_west1.last_value([1, 2, 3]) as value
 
     ```
 
@@ -3532,7 +3619,7 @@ Return last element of array
 === "your-region2"
 
     ```sql
-    select bigfunctions.your_region2.last_element([1, 2, 3]) as element
+    select bigfunctions.your_region2.last_value([1, 2, 3]) as value
 
     ```
 
@@ -3541,11 +3628,11 @@ Return last element of array
 
 
 <pre style="margin-top: -1rem;">
-<code style="padding-top: 0px; padding-bottom: 0px;">+---------+
-| element |
-+---------+
-| 3       |
-+---------+
+<code style="padding-top: 0px; padding-bottom: 0px;">+-------+
+| value |
++-------+
+| 3     |
++-------+
 </code>
 </pre>
 
@@ -4782,6 +4869,142 @@ Dump data to excel file returned as base64
 
 
 
+### get
+<div style="position: relative; top: -2rem; margin-bottom:  -2rem; text-align: right; z-index: 9999;">
+  
+  <a href="https://www.linkedin.com/in/paul-marcombes" title="Author: Paul Marcombes" target="_blank">
+    <img src="https://media-exp1.licdn.com/dms/image/C4E03AQF92ENRMYC3Mw/profile-displayphoto-shrink_800_800/0/1656924490995?e=1675900800&v=beta&t=Ertn0DSUvqzexmymI6NDba3TrXaSLRM_cQ5dxjmTkzo" width="32" style=" border-radius: 50% !important">
+  </a>
+  
+  <a href="https://github.com/unytics/bigfunctions/blob/main/bigfunctions/get.yaml" title="Edit on GitHub" target="_blank"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="#5d6cc0" d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg></a></div>
+```
+get(url, headers)
+```
+
+**Description**
+
+Request `url`
+
+**Examples**
+
+
+
+
+
+
+=== "EU"
+
+    ```sql
+    select bigfunctions.eu.get('https://unytics.io/bigfunctions', null) as response
+
+    ```
+
+
+=== "US"
+
+    ```sql
+    select bigfunctions.us.get('https://unytics.io/bigfunctions', null) as response
+
+    ```
+
+
+=== "europe-west1"
+
+    ```sql
+    select bigfunctions.europe_west1.get('https://unytics.io/bigfunctions', null) as response
+
+    ```
+
+
+=== "your-region2"
+
+    ```sql
+    select bigfunctions.your_region2.get('https://unytics.io/bigfunctions', null) as response
+
+    ```
+
+
+
+
+
+<pre style="margin-top: -1rem;">
+<code style="padding-top: 0px; padding-bottom: 0px;">+------------------------+
+| response               |
++------------------------+
+| &lt;html>...&lt;/html> |
++------------------------+
+</code>
+</pre>
+
+
+
+
+
+
+
+
+
+
+
+
+=== "EU"
+
+    ```sql
+    select bigfunctions.eu.get('https://api.github.com/repos/unytics/bigfunctions', '{"Content-Type": "application/json"}') as response
+
+    ```
+
+
+=== "US"
+
+    ```sql
+    select bigfunctions.us.get('https://api.github.com/repos/unytics/bigfunctions', '{"Content-Type": "application/json"}') as response
+
+    ```
+
+
+=== "europe-west1"
+
+    ```sql
+    select bigfunctions.europe_west1.get('https://api.github.com/repos/unytics/bigfunctions', '{"Content-Type": "application/json"}') as response
+
+    ```
+
+
+=== "your-region2"
+
+    ```sql
+    select bigfunctions.your_region2.get('https://api.github.com/repos/unytics/bigfunctions', '{"Content-Type": "application/json"}') as response
+
+    ```
+
+
+
+
+
+<pre style="margin-top: -1rem;">
+<code style="padding-top: 0px; padding-bottom: 0px;">+----------+
+| response |
++----------+
+| {...}    |
++----------+
+</code>
+</pre>
+
+
+
+
+
+
+
+
+
+
+---
+
+
+
+
 ### get_json_column_schema
 <div style="position: relative; top: -2rem; margin-bottom:  -2rem; text-align: right; z-index: 9999;">
   
@@ -4905,6 +5128,87 @@ select column_name, data_type from bigfunction_result ;
     ```
 
 
+
+
+
+
+
+
+
+
+
+
+---
+
+
+
+
+### request
+<div style="position: relative; top: -2rem; margin-bottom:  -2rem; text-align: right; z-index: 9999;">
+  
+  <a href="https://www.linkedin.com/in/paul-marcombes" title="Author: Paul Marcombes" target="_blank">
+    <img src="https://media-exp1.licdn.com/dms/image/C4E03AQF92ENRMYC3Mw/profile-displayphoto-shrink_800_800/0/1656924490995?e=1675900800&v=beta&t=Ertn0DSUvqzexmymI6NDba3TrXaSLRM_cQ5dxjmTkzo" width="32" style=" border-radius: 50% !important">
+  </a>
+  
+  <a href="https://github.com/unytics/bigfunctions/blob/main/bigfunctions/request.yaml" title="Edit on GitHub" target="_blank"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="#5d6cc0" d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg></a></div>
+```
+request(url, headers)
+```
+
+**Description**
+
+Request `url`
+
+**Examples**
+
+
+
+
+
+
+=== "EU"
+
+    ```sql
+    select bigfunctions.eu.request('https://unytics.io/bigfunctions', None) as response
+
+    ```
+
+
+=== "US"
+
+    ```sql
+    select bigfunctions.us.request('https://unytics.io/bigfunctions', None) as response
+
+    ```
+
+
+=== "europe-west1"
+
+    ```sql
+    select bigfunctions.europe_west1.request('https://unytics.io/bigfunctions', None) as response
+
+    ```
+
+
+=== "your-region2"
+
+    ```sql
+    select bigfunctions.your_region2.request('https://unytics.io/bigfunctions', None) as response
+
+    ```
+
+
+
+
+
+<pre style="margin-top: -1rem;">
+<code style="padding-top: 0px; padding-bottom: 0px;">+------------------+
+| response         |
++------------------+
+| <html>...</html> |
++------------------+
+</code>
+</pre>
 
 
 

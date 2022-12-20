@@ -1,0 +1,35 @@
+type: function_py
+category: utils
+author:
+  name: Paul Marcombes
+  url: https://www.linkedin.com/in/paul-marcombes
+  avatar_url: "https://media-exp1.licdn.com/dms/image/C4E03AQF92ENRMYC3Mw/profile-displayphoto-shrink_800_800/0/1656924490995?e=1675900800&v=beta&t=Ertn0DSUvqzexmymI6NDba3TrXaSLRM_cQ5dxjmTkzo"
+description: Request `url`
+arguments:
+  - name: url
+    type: string
+  - name: headers
+    type: string
+output:
+  name: response
+  type: string
+examples:
+  - description: "Without headers"
+    arguments:
+      - "'https://unytics.io/bigfunctions'"
+      - "null"
+    output: "&lt;html>...&lt;/html>"
+    region: ALL
+  - description: "With Content-Type = application/json headers"
+    arguments:
+      - "'https://api.github.com/repos/unytics/bigfunctions'"
+      - "'{\"Content-Type\": \"application/json\"}'"
+    output: "{...}"
+    region: ALL
+code: |
+  import json
+  import requests
+  headers = json.loads(headers or '{}')
+  return requests.get(url, headers=headers).text
+requirements: |
+  requests
