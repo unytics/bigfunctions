@@ -14,12 +14,17 @@ TEMPLATE_FOLDER = os.path.dirname(os.path.realpath(__file__)).replace('\\', '/')
 
 
 def get_dataset_users(dataset):
-    access_entry2user = lambda access_entry: (
-        'serviceAccount' if access_entry.entity_id.endswith('gserviceaccount.com')
-        else (
-            'user' if access_entry.entity_type == 'user' else 'group'
-        )
-    ) + ':' + access_entry.entity_id
+
+    def access_entry2user(access_entry):
+        if access_entry.entity_id == 'allAuthenticatedUsers':
+            return 'allAuthenticatedUsers'
+        entity_type = 'user'
+        if access_entry.entity_id.endswith('gserviceaccount.com'):
+            entity_type = 'serviceAccount'
+        elif access_entry.entity_type == 'group':
+            entity_type = 'group'
+        return f'{entity_type}:{access_entry.entity_id}'
+
     return [access_entry2user(access_entry) for access_entry in dataset.access_entries]
 
 
@@ -30,7 +35,7 @@ def deploy_cloud_run(bigquery, bigfunction, conf, fully_qualified_dataset, proje
 
     template_file = f'{TEMPLATE_FOLDER}/{conf["type"]}.py'
     template = jinja2.Template(open(template_file, encoding='utf-8').read())
-    python_code = template.render(**conf)
+    python_code = template.render(**{**conf, **dict(name=bigfunction)})
     with open(f'{PYTHON_BUILD_DIR}/main.py', 'w', encoding='utf-8') as out:
         out.write(python_code)
 
