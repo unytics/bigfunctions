@@ -25,7 +25,11 @@ def get_dataset_users(dataset):
             entity_type = 'group'
         return f'{entity_type}:{access_entry.entity_id}'
 
-    return [access_entry2user(access_entry) for access_entry in dataset.access_entries]
+    return [
+        access_entry2user(access_entry)
+        for access_entry in dataset.access_entries
+        if access_entry.entity_id not in ['projectOwners', 'projectEditors', 'projectViewers']
+    ]
 
 
 def deploy_cloud_run(bigquery, bigfunction, conf, fully_qualified_dataset, project):
