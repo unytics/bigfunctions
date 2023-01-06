@@ -1,0 +1,45 @@
+type: procedure
+category: utils
+author:
+  name: jihene cherif
+  url: https://www.linkedin.com/company/esmoz/
+  avatar_url: "https://media-exp1.licdn.com/dms/image/C560BAQHFcSF8X1MqrQ/company-logo_200_200/0/1636992707472?e=1678320000&v=beta&t=BJmNI_Nd0GuC9Mn3wKc1xGUEpZsCy-CsrTZh47cPcOQ"
+description: Return the date of the latest partition value 
+arguments:
+  - name: fully_qualified_table
+    type: string
+output:
+  name: latest_partition_time
+  type: date
+examples: 
+  - description: ""
+    arguments:
+      - '"DataSetTest.PartitionedTable"'
+code: |
+  declare project, dataset, table, partition_col string;
+  
+  declare parts array<string> default split(replace(fully_qualified_table, '`', ''), '.');
+  set project = parts[offset(0)];
+  set dataset = parts[offset(1)];
+  set table = parts[offset(2)];
+
+  execute immediate replace(replace(replace('''
+    select column_name  
+    from `{{project}}.{{dataset}}.INFORMATION_SCHEMA.COLUMNS`
+    where table_name = '{{table}}' and is_partitioning_column = 'YES' 
+  ''',
+  '{{project}}', project),
+  '{{dataset}}', dataset),
+  '{{table}}', table
+  ) into partition_col;
+
+  execute immediate replace(replace(replace(format('''
+    select 
+      date(max(%s)) as latest_partition_date,
+    from `{{project}}.{{dataset}}.{{table}}`
+    ''', partition_col),
+  '{{project}}', project),
+  '{{dataset}}', dataset),
+  '{{table}}', table
+  );
+  
