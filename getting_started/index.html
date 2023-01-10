@@ -1,0 +1,749 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="BigFunctions are open-source BigQuery routines that give you SQL-superpowers. BigFunctions can show data-visualizations inside BigQuery console, compute advanced transforms such as sentiment score of a text, or send data to any of your favorite SAAS tool. BigFunctions is dbt's best friend.">
+      
+      
+      
+        <link rel="canonical" href="https://unytics.io/bigfunctions/getting_started/">
+      
+      
+        <link rel="prev" href="../reference/">
+      
+      
+        <link rel="next" href="../contribute/">
+      
+      <link rel="icon" href="../assets/logo.png">
+      <meta name="generator" content="mkdocs-1.4.2, mkdocs-material-9.0.3">
+    
+    
+      
+        <title>BigFunctions - BigFunctions</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.6b71719e.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.2505c338.min.css">
+      
+      
+
+    
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+
+<meta property="og:title" content="BigFunctions supercharge BigQuery" />
+<meta property="twitter:card" content="summary" />
+<meta property="twitter:title" content="BigFunctions supercharge BigQuery" />
+
+
+<meta property="og:description" content="BigFunctions are open-source BigQuery routines that give you SQL-superpowers. BigFunctions can show data-visualizations inside BigQuery console, compute advanced transforms such as sentiment score of a text, or send data to any of your favorite SAAS tool. BigFunctions is dbt's best friend." />
+
+
+<meta property="og:image" content="https://unytics.io/bigfunctions/assets/logo_and_name.png" />
+<meta property="og:image:type" content="image/png" />
+<meta property="og:image:width" content="2500" />
+<meta property="og:image:height" content="541" />
+<meta property="twitter:image" content="https://unytics.io/bigfunctions/assets/logo_and_name.png" />
+<meta property="twitter:image:alt" content="Supercharge BigQuery with BigFunctions" />
+
+
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="" data-md-color-accent="">
+  
+    
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#getting-started" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      <!-- Application header -->
+<header class="md-header" data-md-component="header">
+
+  <!-- Top-level navigation -->
+  <nav class="md-header__inner md-grid" aria-label="">
+
+    <!-- Link to home -->
+    <a href="https://unytics.io/bigfunctions/" title="BigFunctions" class="md-header__button md-logo" aria-label="BigFunctions">
+      
+  <img src="../assets/logo.png" alt="logo">
+
+    </a>
+
+    <!-- Button to open drawer -->
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+
+    <!-- Header title -->
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <a class="md-ellipsis" href="https://unytics.io/bigfunctions/">
+            BigFunctions
+          </a>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              BigFunctions
+            
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Site language selector -->
+    
+
+    <!-- Button to open search dialogue -->
+    
+
+    <!-- Repository containing source -->
+    
+      <div class="md-header__source">
+        <a href="https://github.com/unytics/bigfunctions" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.2.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    unytics/bigfunctions
+  </div>
+</a>
+      </div>
+    
+  </nav>
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-tabs__inner md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href=".." class="md-tabs__link">
+      Home
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../reference/" class="md-tabs__link">
+      BigFunctions
+    </a>
+  </li>
+
+      
+        
+  
+  
+    
+  
+
+
+  <li class="md-tabs__item">
+    <a href="./" class="md-tabs__link md-tabs__link--active">
+      Getting Started
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../contribute/" class="md-tabs__link">
+      Contribute!
+    </a>
+  </li>
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+                
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" hidden>
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="BigFunctions" class="md-nav__button md-logo" aria-label="BigFunctions" data-md-component="logo">
+      
+  <img src="../assets/logo.png" alt="logo">
+
+    </a>
+    BigFunctions
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/unytics/bigfunctions" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.2.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    unytics/bigfunctions
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        Home
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../reference/" class="md-nav__link">
+        BigFunctions
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Getting Started
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        Getting Started
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#location-is-important" class="md-nav__link">
+    🌍 Location is important
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#unlock-data-vizualizations" class="md-nav__link">
+    👀 Unlock data-vizualizations!
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#be-patient" class="md-nav__link">
+    ⌛ Be patient
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#beware-of-bigquery-costs" class="md-nav__link">
+    💰 Beware of BigQuery costs
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#we-log-executions" class="md-nav__link">
+    📝 We log executions
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#bigfunctions-are-open" class="md-nav__link">
+    😮 BigFunctions are open
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../contribute/" class="md-nav__link">
+        Contribute!
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+                
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#location-is-important" class="md-nav__link">
+    🌍 Location is important
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#unlock-data-vizualizations" class="md-nav__link">
+    👀 Unlock data-vizualizations!
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#be-patient" class="md-nav__link">
+    ⌛ Be patient
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#beware-of-bigquery-costs" class="md-nav__link">
+    💰 Beware of BigQuery costs
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#we-log-executions" class="md-nav__link">
+    📝 We log executions
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#bigfunctions-are-open" class="md-nav__link">
+    😮 BigFunctions are open
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  
+  
+
+
+
+<h1 id="getting-started">Getting Started<a class="headerlink" href="#getting-started" title="Permanent link">¶</a></h1>
+<div class="admonition note">
+<p>BigFunctions are open-source BigQuery routines that give you <strong>SQL-superpowers</strong> in BigQuery 💪.</p>
+<p>There are <strong>7 must know</strong> to use them:</p>
+<ol>
+<li>Location is important</li>
+<li>Unlock data-vizualizations!</li>
+<li>Be patient</li>
+<li>Beware of BigQuery costs</li>
+<li>We log executions</li>
+<li>BigFunctions are open</li>
+<li>Please help us &amp; make suggestions --&gt; contact@unytics.io</li>
+</ol>
+</div>
+<h2 id="location-is-important">🌍 Location is important<a class="headerlink" href="#location-is-important" title="Permanent link">¶</a></h2>
+<p>BigQuery routines must be located at the same location as your data. Otherwise the BigFunction OR your data will not be found by BigQuery. To explore your table <code>your-project.your_dataset.your_table</code> use one of the following commands regarding the location of <code>your_dataset</code>:</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="1:31"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><input id="__tabbed_1_3" name="__tabbed_1" type="radio" /><input id="__tabbed_1_4" name="__tabbed_1" type="radio" /><input id="__tabbed_1_5" name="__tabbed_1" type="radio" /><input id="__tabbed_1_6" name="__tabbed_1" type="radio" /><input id="__tabbed_1_7" name="__tabbed_1" type="radio" /><input id="__tabbed_1_8" name="__tabbed_1" type="radio" /><input id="__tabbed_1_9" name="__tabbed_1" type="radio" /><input id="__tabbed_1_10" name="__tabbed_1" type="radio" /><input id="__tabbed_1_11" name="__tabbed_1" type="radio" /><input id="__tabbed_1_12" name="__tabbed_1" type="radio" /><input id="__tabbed_1_13" name="__tabbed_1" type="radio" /><input id="__tabbed_1_14" name="__tabbed_1" type="radio" /><input id="__tabbed_1_15" name="__tabbed_1" type="radio" /><input id="__tabbed_1_16" name="__tabbed_1" type="radio" /><input id="__tabbed_1_17" name="__tabbed_1" type="radio" /><input id="__tabbed_1_18" name="__tabbed_1" type="radio" /><input id="__tabbed_1_19" name="__tabbed_1" type="radio" /><input id="__tabbed_1_20" name="__tabbed_1" type="radio" /><input id="__tabbed_1_21" name="__tabbed_1" type="radio" /><input id="__tabbed_1_22" name="__tabbed_1" type="radio" /><input id="__tabbed_1_23" name="__tabbed_1" type="radio" /><input id="__tabbed_1_24" name="__tabbed_1" type="radio" /><input id="__tabbed_1_25" name="__tabbed_1" type="radio" /><input id="__tabbed_1_26" name="__tabbed_1" type="radio" /><input id="__tabbed_1_27" name="__tabbed_1" type="radio" /><input id="__tabbed_1_28" name="__tabbed_1" type="radio" /><input id="__tabbed_1_29" name="__tabbed_1" type="radio" /><input id="__tabbed_1_30" name="__tabbed_1" type="radio" /><input id="__tabbed_1_31" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1"><code>your_dataset</code> is in EU</label><label for="__tabbed_1_2"><code>your_dataset</code> is in US</label><label for="__tabbed_1_3"><code>your_dataset</code> is in asia-east1</label><label for="__tabbed_1_4"><code>your_dataset</code> is in asia-east2</label><label for="__tabbed_1_5"><code>your_dataset</code> is in asia-northeast1</label><label for="__tabbed_1_6"><code>your_dataset</code> is in asia-northeast2</label><label for="__tabbed_1_7"><code>your_dataset</code> is in asia-northeast3</label><label for="__tabbed_1_8"><code>your_dataset</code> is in asia-south1</label><label for="__tabbed_1_9"><code>your_dataset</code> is in asia-south2</label><label for="__tabbed_1_10"><code>your_dataset</code> is in asia-southeast1</label><label for="__tabbed_1_11"><code>your_dataset</code> is in asia-southeast2</label><label for="__tabbed_1_12"><code>your_dataset</code> is in australia-southeast1</label><label for="__tabbed_1_13"><code>your_dataset</code> is in australia-southeast2</label><label for="__tabbed_1_14"><code>your_dataset</code> is in europe-central2</label><label for="__tabbed_1_15"><code>your_dataset</code> is in europe-north1</label><label for="__tabbed_1_16"><code>your_dataset</code> is in europe-west1</label><label for="__tabbed_1_17"><code>your_dataset</code> is in europe-west2</label><label for="__tabbed_1_18"><code>your_dataset</code> is in europe-west3</label><label for="__tabbed_1_19"><code>your_dataset</code> is in europe-west4</label><label for="__tabbed_1_20"><code>your_dataset</code> is in europe-west6</label><label for="__tabbed_1_21"><code>your_dataset</code> is in northamerica-northeast1</label><label for="__tabbed_1_22"><code>your_dataset</code> is in northamerica-northeast2</label><label for="__tabbed_1_23"><code>your_dataset</code> is in southamerica-east1</label><label for="__tabbed_1_24"><code>your_dataset</code> is in southamerica-west1</label><label for="__tabbed_1_25"><code>your_dataset</code> is in us-central1</label><label for="__tabbed_1_26"><code>your_dataset</code> is in us-east1</label><label for="__tabbed_1_27"><code>your_dataset</code> is in us-east4</label><label for="__tabbed_1_28"><code>your_dataset</code> is in us-west1</label><label for="__tabbed_1_29"><code>your_dataset</code> is in us-west2</label><label for="__tabbed_1_30"><code>your_dataset</code> is in us-west3</label><label for="__tabbed_1_31"><code>your_dataset</code> is in us-west4</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code><span class="k">call</span><span class="w"> </span><span class="n">bigfunctions</span><span class="p">.</span><span class="n">eu</span><span class="p">.</span><span class="n">explore_table</span><span class="p">(</span><span class="ss">&quot;your-project.your_dataset.your_table&quot;</span><span class="p">);</span>
+<span class="k">select</span><span class="w"> </span><span class="n">html</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">bigfunction_result</span><span class="p">;</span>
+</code></pre></div>
+</div>
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code><span class="k">call</span><span class="w"> </span><span class="n">bigfunctions</span><span class="p">.</span><span class="n">us</span><span class="p">.</span><span class="n">explore_table</span><span class="p">(</span><span class="ss">&quot;your-project.your_dataset.your_table&quot;</span><span class="p">);</span>
+<span class="k">select</span><span class="w"> </span><span class="n">html</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">bigfunction_result</span><span class="p">;</span>
+</code></pre></div>
+</div>
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code><span class="k">call</span><span class="w"> </span><span class="n">bigfunctions</span><span class="p">.</span><span class="n">asia_east1</span><span class="p">.</span><span class="n">explore_table</span><span class="p">(</span><span class="ss">&quot;your-project.your_dataset.your_table&quot;</span><span class="p">);</span>
+<span class="k">select</span><span class="w"> </span><span class="n">html</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">bigfunction_result</span><span class="p">;</span>
+</code></pre></div>
+</div>
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code><span class="k">call</span><span class="w"> </span><span class="n">bigfunctions</span><span class="p">.</span><span class="n">asia_east2</span><span class="p">.</span><span class="n">explore_table</span><span class="p">(</span><span class="ss">&quot;your-project.your_dataset.your_table&quot;</span><span class="p">);</span>
+<span class="k">select</span><span class="w"> </span><span class="n">html</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">bigfunction_result</span><span class="p">;</span>
+</code></pre></div>
+</div>
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code><span class="k">call</span><span class="w"> </span><span class="n">bigfunctions</span><span class="p">.</span><span class="n">asia_northeast1</span><span class="p">.</span><span class="n">explore_table</span><span class="p">(</span><span class="ss">&quot;your-project.your_dataset.your_table&quot;</span><span class="p">);</span>
+<span class="k">select</span><span class="w"> </span><span class="n">html</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">bigfunction_result</span><span class="p">;</span>
+</code></pre></div>
+</div>
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code><span class="k">call</span><span class="w"> </span><span class="n">bigfunctions</span><span class="p">.</span><span class="n">asia_northeast2</span><span class="p">.</span><span class="n">explore_table</span><span class="p">(</span><span class="ss">&quot;your-project.your_dataset.your_table&quot;</span><span class="p">);</span>
+<span class="k">select</span><span class="w"> </span><span class="n">html</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">bigfunction_result</span><span class="p">;</span>
+</code></pre></div>
+</div>
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code><span class="k">call</span><span class="w"> </span><span class="n">bigfunctions</span><span class="p">.</span><span class="n">asia_northeast3</span><span class="p">.</span><span class="n">explore_table</span><span class="p">(</span><span class="ss">&quot;your-project.your_dataset.your_table&quot;</span><span class="p">);</span>
+<span class="k">select</span><span class="w"> </span><span class="n">html</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">bigfunction_result</span><span class="p">;</span>
+</code></pre></div>
+</div>
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code><span class="k">call</span><span class="w"> </span><span class="n">bigfunctions</span><span class="p">.</span><span class="n">asia_south1</span><span class="p">.</span><span class="n">explore_table</span><span class="p">(</span><span class="ss">&quot;your-project.your_dataset.your_table&quot;</span><span class="p">);</span>
+<span class="k">select</span><span class="w"> </span><span class="n">html</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">bigfunction_result</span><span class="p">;</span>
+</code></pre></div>
+</div>
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code><span class="k">call</span><span class="w"> </span><span class="n">bigfunctions</span><span class="p">.</span><span class="n">asia_south2</span><span class="p">.</span><span class="n">explore_table</span><span class="p">(</span><span class="ss">&quot;your-project.your_dataset.your_table&quot;</span><span class="p">);</span>
+<span class="k">select</span><span class="w"> </span><span class="n">html</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">bigfunction_result</span><span class="p">;</span>
+</code></pre></div>
+</div>
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code><span class="k">call</span><span class="w"> </span><span class="n">bigfunctions</span><span class="p">.</span><span class="n">asia_southeast1</span><span class="p">.</span><span class="n">explore_table</span><span class="p">(</span><span class="ss">&quot;your-project.your_dataset.your_table&quot;</span><span class="p">);</span>
+<span class="k">select</span><span class="w"> </span><span class="n">html</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">bigfunction_result</span><span class="p">;</span>
+</code></pre></div>
+</div>
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code><span class="k">call</span><span class="w"> </span><span class="n">bigfunctions</span><span class="p">.</span><span class="n">asia_southeast2</span><span class="p">.</span><span class="n">explore_table</span><span class="p">(</span><span class="ss">&quot;your-project.your_dataset.your_table&quot;</span><span class="p">);</span>
+<span class="k">select</span><span class="w"> </span><span class="n">html</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">bigfunction_result</span><span class="p">;</span>
+</code></pre></div>
+</div>
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code><span class="k">call</span><span class="w"> </span><span class="n">bigfunctions</span><span class="p">.</span><span class="n">australia_southeast1</span><span class="p">.</span><span class="n">explore_table</span><span class="p">(</span><span class="ss">&quot;your-project.your_dataset.your_table&quot;</span><span class="p">);</span>
+<span class="k">select</span><span class="w"> </span><span class="n">html</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">bigfunction_result</span><span class="p">;</span>
+</code></pre></div>
+</div>
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code><span class="k">call</span><span class="w"> </span><span class="n">bigfunctions</span><span class="p">.</span><span class="n">australia_southeast2</span><span class="p">.</span><span class="n">explore_table</span><span class="p">(</span><span class="ss">&quot;your-project.your_dataset.your_table&quot;</span><span class="p">);</span>
+<span class="k">select</span><span class="w"> </span><span class="n">html</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">bigfunction_result</span><span class="p">;</span>
+</code></pre></div>
+</div>
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code><span class="k">call</span><span class="w"> </span><span class="n">bigfunctions</span><span class="p">.</span><span class="n">europe_central2</span><span class="p">.</span><span class="n">explore_table</span><span class="p">(</span><span class="ss">&quot;your-project.your_dataset.your_table&quot;</span><span class="p">);</span>
+<span class="k">select</span><span class="w"> </span><span class="n">html</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">bigfunction_result</span><span class="p">;</span>
+</code></pre></div>
+</div>
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code><span class="k">call</span><span class="w"> </span><span class="n">bigfunctions</span><span class="p">.</span><span class="n">europe_north1</span><span class="p">.</span><span class="n">explore_table</span><span class="p">(</span><span class="ss">&quot;your-project.your_dataset.your_table&quot;</span><span class="p">);</span>
+<span class="k">select</span><span class="w"> </span><span class="n">html</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">bigfunction_result</span><span class="p">;</span>
+</code></pre></div>
+</div>
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code><span class="k">call</span><span class="w"> </span><span class="n">bigfunctions</span><span class="p">.</span><span class="n">europe_west1</span><span class="p">.</span><span class="n">explore_table</span><span class="p">(</span><span class="ss">&quot;your-project.your_dataset.your_table&quot;</span><span class="p">);</span>
+<span class="k">select</span><span class="w"> </span><span class="n">html</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">bigfunction_result</span><span class="p">;</span>
+</code></pre></div>
+</div>
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code><span class="k">call</span><span class="w"> </span><span class="n">bigfunctions</span><span class="p">.</span><span class="n">europe_west2</span><span class="p">.</span><span class="n">explore_table</span><span class="p">(</span><span class="ss">&quot;your-project.your_dataset.your_table&quot;</span><span class="p">);</span>
+<span class="k">select</span><span class="w"> </span><span class="n">html</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">bigfunction_result</span><span class="p">;</span>
+</code></pre></div>
+</div>
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code><span class="k">call</span><span class="w"> </span><span class="n">bigfunctions</span><span class="p">.</span><span class="n">europe_west3</span><span class="p">.</span><span class="n">explore_table</span><span class="p">(</span><span class="ss">&quot;your-project.your_dataset.your_table&quot;</span><span class="p">);</span>
+<span class="k">select</span><span class="w"> </span><span class="n">html</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">bigfunction_result</span><span class="p">;</span>
+</code></pre></div>
+</div>
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code><span class="k">call</span><span class="w"> </span><span class="n">bigfunctions</span><span class="p">.</span><span class="n">europe_west4</span><span class="p">.</span><span class="n">explore_table</span><span class="p">(</span><span class="ss">&quot;your-project.your_dataset.your_table&quot;</span><span class="p">);</span>
+<span class="k">select</span><span class="w"> </span><span class="n">html</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">bigfunction_result</span><span class="p">;</span>
+</code></pre></div>
+</div>
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code><span class="k">call</span><span class="w"> </span><span class="n">bigfunctions</span><span class="p">.</span><span class="n">europe_west6</span><span class="p">.</span><span class="n">explore_table</span><span class="p">(</span><span class="ss">&quot;your-project.your_dataset.your_table&quot;</span><span class="p">);</span>
+<span class="k">select</span><span class="w"> </span><span class="n">html</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">bigfunction_result</span><span class="p">;</span>
+</code></pre></div>
+</div>
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code><span class="k">call</span><span class="w"> </span><span class="n">bigfunctions</span><span class="p">.</span><span class="n">northamerica_northeast1</span><span class="p">.</span><span class="n">explore_table</span><span class="p">(</span><span class="ss">&quot;your-project.your_dataset.your_table&quot;</span><span class="p">);</span>
+<span class="k">select</span><span class="w"> </span><span class="n">html</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">bigfunction_result</span><span class="p">;</span>
+</code></pre></div>
+</div>
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code><span class="k">call</span><span class="w"> </span><span class="n">bigfunctions</span><span class="p">.</span><span class="n">northamerica_northeast2</span><span class="p">.</span><span class="n">explore_table</span><span class="p">(</span><span class="ss">&quot;your-project.your_dataset.your_table&quot;</span><span class="p">);</span>
+<span class="k">select</span><span class="w"> </span><span class="n">html</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">bigfunction_result</span><span class="p">;</span>
+</code></pre></div>
+</div>
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code><span class="k">call</span><span class="w"> </span><span class="n">bigfunctions</span><span class="p">.</span><span class="n">southamerica_east1</span><span class="p">.</span><span class="n">explore_table</span><span class="p">(</span><span class="ss">&quot;your-project.your_dataset.your_table&quot;</span><span class="p">);</span>
+<span class="k">select</span><span class="w"> </span><span class="n">html</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">bigfunction_result</span><span class="p">;</span>
+</code></pre></div>
+</div>
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code><span class="k">call</span><span class="w"> </span><span class="n">bigfunctions</span><span class="p">.</span><span class="n">southamerica_west1</span><span class="p">.</span><span class="n">explore_table</span><span class="p">(</span><span class="ss">&quot;your-project.your_dataset.your_table&quot;</span><span class="p">);</span>
+<span class="k">select</span><span class="w"> </span><span class="n">html</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">bigfunction_result</span><span class="p">;</span>
+</code></pre></div>
+</div>
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code><span class="k">call</span><span class="w"> </span><span class="n">bigfunctions</span><span class="p">.</span><span class="n">us_central1</span><span class="p">.</span><span class="n">explore_table</span><span class="p">(</span><span class="ss">&quot;your-project.your_dataset.your_table&quot;</span><span class="p">);</span>
+<span class="k">select</span><span class="w"> </span><span class="n">html</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">bigfunction_result</span><span class="p">;</span>
+</code></pre></div>
+</div>
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code><span class="k">call</span><span class="w"> </span><span class="n">bigfunctions</span><span class="p">.</span><span class="n">us_east1</span><span class="p">.</span><span class="n">explore_table</span><span class="p">(</span><span class="ss">&quot;your-project.your_dataset.your_table&quot;</span><span class="p">);</span>
+<span class="k">select</span><span class="w"> </span><span class="n">html</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">bigfunction_result</span><span class="p">;</span>
+</code></pre></div>
+</div>
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code><span class="k">call</span><span class="w"> </span><span class="n">bigfunctions</span><span class="p">.</span><span class="n">us_east4</span><span class="p">.</span><span class="n">explore_table</span><span class="p">(</span><span class="ss">&quot;your-project.your_dataset.your_table&quot;</span><span class="p">);</span>
+<span class="k">select</span><span class="w"> </span><span class="n">html</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">bigfunction_result</span><span class="p">;</span>
+</code></pre></div>
+</div>
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code><span class="k">call</span><span class="w"> </span><span class="n">bigfunctions</span><span class="p">.</span><span class="n">us_west1</span><span class="p">.</span><span class="n">explore_table</span><span class="p">(</span><span class="ss">&quot;your-project.your_dataset.your_table&quot;</span><span class="p">);</span>
+<span class="k">select</span><span class="w"> </span><span class="n">html</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">bigfunction_result</span><span class="p">;</span>
+</code></pre></div>
+</div>
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code><span class="k">call</span><span class="w"> </span><span class="n">bigfunctions</span><span class="p">.</span><span class="n">us_west2</span><span class="p">.</span><span class="n">explore_table</span><span class="p">(</span><span class="ss">&quot;your-project.your_dataset.your_table&quot;</span><span class="p">);</span>
+<span class="k">select</span><span class="w"> </span><span class="n">html</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">bigfunction_result</span><span class="p">;</span>
+</code></pre></div>
+</div>
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code><span class="k">call</span><span class="w"> </span><span class="n">bigfunctions</span><span class="p">.</span><span class="n">us_west3</span><span class="p">.</span><span class="n">explore_table</span><span class="p">(</span><span class="ss">&quot;your-project.your_dataset.your_table&quot;</span><span class="p">);</span>
+<span class="k">select</span><span class="w"> </span><span class="n">html</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">bigfunction_result</span><span class="p">;</span>
+</code></pre></div>
+</div>
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code><span class="k">call</span><span class="w"> </span><span class="n">bigfunctions</span><span class="p">.</span><span class="n">us_west4</span><span class="p">.</span><span class="n">explore_table</span><span class="p">(</span><span class="ss">&quot;your-project.your_dataset.your_table&quot;</span><span class="p">);</span>
+<span class="k">select</span><span class="w"> </span><span class="n">html</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">bigfunction_result</span><span class="p">;</span>
+</code></pre></div>
+</div>
+</div>
+</div>
+<hr />
+<h2 id="unlock-data-vizualizations">👀 Unlock data-vizualizations!<a class="headerlink" href="#unlock-data-vizualizations" title="Permanent link">¶</a></h2>
+<p>Some BigFunctions return some html that can be transformed into data-vizualizations. To see the data-vizualization you must:</p>
+<ol>
+<li>Drag and drop BigFunctions button in your bookmark bar.</li>
+<li>Click on the created bookmark when in BigQuery Console.</li>
+</ol>
+<p><em>1. Drag and drop BigFunctions button in your bookmark bar</em></p>
+<div style="width: 100%; text-align: center;"><a href="javascript:const setInnerHTML = function(elm, html) {   elm.innerHTML = html;   Array.from(elm.querySelectorAll('script')).forEach( oldScript => {     const newScript = document.createElement('script');     Array.from(oldScript.attributes)       .forEach( attr => newScript.setAttribute(attr.name, attr.value) );     newScript.appendChild(document.createTextNode(oldScript.innerHTML));     oldScript.parentNode.replaceChild(newScript, oldScript);   }); };   const renderHTML = function() {     const divs = document.querySelectorAll('bq-results-table td div');     if (divs.length !== 1) {         console.log(`divs.length = ${divs.length} != 1`);         return;     }     const div = divs[0];     const bq_results_table = div.closest('bq-results-table');     if (!bq_results_table) {         console.log('bq_results_table not found');         return;     }     const html = div.innerText;     document.querySelector('.bq-results-table thead th:nth-child(2)').style = 'width: 100%;';     setInnerHTML(bq_results_table, html);     console.log('bigfunctions: successfully replaced table content'); };   fetch('https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js').then((response) => response.text()).then((text) => {const script = document.createElement('script'); script.text = text; document.head.appendChild(script); setInterval(renderHTML, 1000); });  const bulma = document.createElement('link'); bulma.setAttribute('rel', 'stylesheet'); bulma.setAttribute('href', 'https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css'); document.head.appendChild(bulma); " class="md-button md-button--primary">BigFunctions</a></div>
+
+<p><a href="../assets/images/bookmarklet_install.gif"><img alt="install_bookmarklet" src="../assets/images/bookmarklet_install.gif" style="border: var(--md-code-bg-color) solid 1rem; margin-top: -1rem; width: 100%"></a></p>
+<p><em>2. Click on the created bookmark to transform BigFunctions html result into data-vizualisations when in BigQuery Console</em></p>
+<p><a href="../assets/images/bookmarklet_use.gif"><img alt="install_bookmarklet" src="../assets/images/bookmarklet_use.gif" style="border: var(--md-code-bg-color) solid 1rem; width: 100%; margin-top: 2rem;"></a></p>
+<h2 id="be-patient">⌛ Be patient<a class="headerlink" href="#be-patient" title="Permanent link">¶</a></h2>
+<p>For instance <code>explore_table</code> can take several minutes to compute the statistics of the table. The reason is that it computes multiple queries for each column.</p>
+<h2 id="beware-of-bigquery-costs">💰 Beware of BigQuery costs<a class="headerlink" href="#beware-of-bigquery-costs" title="Permanent link">¶</a></h2>
+<p>BigFunctions make BigQuery queries from your project so incur costs like any BigQuery query. For instance, <code>explore_table</code> function incurs a full-scan of your table. Consider creating smaller tables by sampling large ones if needed to use them with BigFunctions.</p>
+<h2 id="we-log-executions">📝 We log executions<a class="headerlink" href="#we-log-executions" title="Permanent link">¶</a></h2>
+<p>We log executions with: timestamp of execution, name of executed BigFunction and the user email who executed them. We may use these data to know about service usage, for troubleshooting and to send emails with news about the project. We will never share these emails to anyone. If this seem unfair to you please contact contact@unytics.io.</p>
+<h2 id="bigfunctions-are-open">😮 BigFunctions are open<a class="headerlink" href="#bigfunctions-are-open" title="Permanent link">¶</a></h2>
+<p>You can inspect the source code of any deployed SQL and js function at any time by pinning the <code>bigfunctions</code> project in BigQuery console and exploring routines. What's more you will find the github link to each BigFunction configuration file in the documentation.</p>
+
+
+
+  
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var tab,labels=set.querySelector(".tabbed-labels");for(tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+        </div>
+        
+      </main>
+      
+        
+
+<!-- Application footer -->
+<footer class="md-footer">
+  <!-- Further information -->
+  <div class="md-footer-meta md-typeset" style="background-color: #fff;">
+    <div class="md-footer-meta__inner md-grid" style="background-color: #fff;">
+
+      <!-- Copyright and theme information -->
+      <div class="md-footer-copyright">
+        <img
+          src="https://unytics.io/bigfunctions/assets/logo_and_name.png"
+          alt=""
+          draggable="false"
+          width="300"
+        >
+        
+          <div class="md-footer-copyright__highlight" style="color: rgb(92, 92, 92);">
+            Copyright &copy; 2022 Unytics
+          </div>
+        
+      </div>
+
+      <!-- Social links -->
+      <div class="md-social">
+  
+</div>
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    <script id="__config" type="application/json">{"base": "..", "features": ["tabs", "content.tabs.link", "instant", "navigation.tabs", "navigation.tracking", "navigation.indexes", "navigation.hide", "navigation.expand"], "search": "../assets/javascripts/workers/search.e5c33ebb.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.ba449ae6.min.js"></script>
+      
+    
+  </body>
+</html>
