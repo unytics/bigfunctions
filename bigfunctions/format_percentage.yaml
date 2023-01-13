@@ -1,5 +1,5 @@
 type: function_sql
-category: transform_string
+category: transform_numeric
 author:
   name: "Credits: Thomas Ellyatt"
   url: https://www.linkedin.com/in/thomas-ellyatt-84a51b218/
