@@ -1,0 +1,46 @@
+type: table_function_sql
+category: utils
+author:
+  name: "Thomas Ellyatt"
+  url: https://www.linkedin.com/in/thomas-ellyatt-84a51b218/
+  avatar_url: "https://avatars.githubusercontent.com/u/110492001?v=4"
+description: Generate a table of dates
+arguments:
+  - name: start_date
+    type: date
+  - name: end_date
+    type: date
+output:
+  name: table_of_dates
+  type: table
+examples:
+  - description: ""
+    arguments:
+      - "date('2023-01-01')"
+      - "date('2023-06-16')"
+    output: |
+      +----------------------------+
+      | date |
+      +----------------------------+
+      |         2023-01-10         |
+      +----------------------------+
+    region: ALL
+code: |
+    select
+      format_date ("%a", dates) as day_of_week,
+      dates,
+      date_trunc(dates,week(monday)) as week_start_monday,
+      date_trunc(dates,week(monday))+6 as week_end_monday,
+      date_trunc(dates,week(sunday)) as week_start_sunday,
+      date_trunc(dates,week(sunday))+6 as week_end_sunday,
+      date_trunc(dates,month) as month_start,
+      date_add(date_trunc(dates,month),interval 1 month)-1 as month_end,
+      date_trunc(dates,quarter) as quarter_start,
+      date_add(date_trunc(dates,quarter),interval 1 quarter)-1 as quarter_end,
+    from unnest(
+      generate_date_array(
+        cast(start_date as date),
+        cast(end_date as date),
+        interval 1 day
+      )
+    ) as dates
