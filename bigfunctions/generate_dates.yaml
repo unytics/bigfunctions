@@ -1,5 +1,5 @@
-type: table_function_sql
-category: utils
+type: table_function
+category: transform_date
 author:
   name: "Thomas Ellyatt"
   url: https://www.linkedin.com/in/thomas-ellyatt-84a51b218/
@@ -17,30 +17,34 @@ examples:
   - description: ""
     arguments:
       - "date('2023-01-01')"
-      - "date('2023-06-16')"
+      - "date('2023-01-05')"
     output: |
-      +----------------------------+
-      | date |
-      +----------------------------+
-      |         2023-01-10         |
-      +----------------------------+
+      +------------+-------------+-------------------+-----------------+-------------------+-----------------+-------------+------------+---------------+-------------+
+      |    date    | day_of_week | week_start_monday | week_end_monday | week_start_sunday | week_end_sunday | month_start | month_end  | quarter_start | quarter_end |
+      +------------+-------------+-------------------+-----------------+-------------------+-----------------+-------------+------------+---------------+-------------+
+      | 2023-01-01 |     Sun     |    2022-12-26     |    2023-01-01   |     2023-01-01    |    2023-01-07   |  2023-01-01 | 2023-01-31 |   2023-01-01  | 2023-03-31  |
+      | 2023-01-02 |     Mon     |    2023-01-02     |    2023-01-08   |     2023-01-01    |    2023-01-07   |  2023-01-01 | 2023-01-31 |   2023-01-01  | 2023-03-31  |
+      | 2023-01-03 |     Tue     |    2023-01-02     |    2023-01-08   |     2023-01-01    |    2023-01-07   |  2023-01-01 | 2023-01-31 |   2023-01-01  | 2023-03-31  |
+      | 2023-01-04 |     Wed     |    2023-01-02     |    2023-01-08   |     2023-01-01    |    2023-01-07   |  2023-01-01 | 2023-01-31 |   2023-01-01  | 2023-03-31  |
+      | 2023-01-05 |     Thu     |    2023-01-02     |    2023-01-08   |     2023-01-01    |    2023-01-07   |  2023-01-01 | 2023-01-31 |   2023-01-01  | 2023-03-31  |
+      +------------+-------------+-------------------+-----------------+-------------------+-----------------+-------------+------------+---------------+-------------+
     region: ALL
 code: |
     select
-      format_date ("%a", dates) as day_of_week,
-      dates,
-      date_trunc(dates,week(monday)) as week_start_monday,
-      date_trunc(dates,week(monday))+6 as week_end_monday,
-      date_trunc(dates,week(sunday)) as week_start_sunday,
-      date_trunc(dates,week(sunday))+6 as week_end_sunday,
-      date_trunc(dates,month) as month_start,
-      date_add(date_trunc(dates,month),interval 1 month)-1 as month_end,
-      date_trunc(dates,quarter) as quarter_start,
-      date_add(date_trunc(dates,quarter),interval 1 quarter)-1 as quarter_end,
+      date,
+      format_date("%a", date) as day_of_week,
+      date_trunc(date, week(monday)) as week_start_monday,
+      date_trunc(date, week(monday)) + 6 as week_end_monday,
+      date_trunc(date, week(sunday)) as week_start_sunday,
+      date_trunc(date, week(sunday)) + 6 as week_end_sunday,
+      date_trunc(date, month) as month_start,
+      date_add(date_trunc(date, month), interval 1 month) - 1 as month_end,
+      date_trunc(date, quarter) as quarter_start,
+      date_add(date_trunc(date, quarter), interval 1 quarter) - 1 as quarter_end,
     from unnest(
       generate_date_array(
-        cast(start_date as date),
-        cast(end_date as date),
+        start_date,
+        end_date,
         interval 1 day
       )
-    ) as dates
+    ) as date

@@ -77,14 +77,14 @@ BigFunctions are open-source BigQuery routines that give you **SQL-superpowers**
 {% if datasets|length > 1 %}=== "{{ dataset.region }}"{% endif %}
 
 {% if datasets|length > 1 %}    {% endif %}```sql
-{% if datasets|length > 1 %}    {% endif %}{% if bigfunction.type == 'procedure' %}call{% else %}select{% endif %} {{ dataset.name }}.{{ bigfunction.name }}({% for argument in example.arguments %}{{ argument | replace('{BIGFUNCTIONS_DATASET}', dataset.name) }}{% if not loop.last %}, {% endif %}{% endfor %}){% if bigfunction.type == 'procedure' %};{% elif 'output' in bigfunction %} as {{ bigfunction.output.name }}{% endif %}
+{% if datasets|length > 1 %}    {% endif %}{% if bigfunction.type == 'procedure' %}call{% elif bigfunction.type == 'table_function' %}select * from{% else %}select{% endif %} {{ dataset.name }}.{{ bigfunction.name }}({% for argument in example.arguments %}{{ argument | replace('{BIGFUNCTIONS_DATASET}', dataset.name) }}{% if not loop.last %}, {% endif %}{% endfor %}){% if bigfunction.type == 'procedure' %};{% elif 'output' in bigfunction and bigfunction.type != 'table_function' %} as {{ bigfunction.output.name }}{% endif %}
 {% if bigfunction.type == 'procedure' and bigfunction.template %}{% if datasets|length > 1 %}    {% endif %}select html from bigfunction_result;{% endif %}
 {%- if bigfunction.type == 'procedure' and example.output %}{% if datasets|length > 1 %}    {% endif %}select * from bigfunction_result;{% endif %}
 {% if datasets|length > 1 %}    {% endif %}```
 
 {% endfor %}
 
-{% if bigfunction.type != 'procedure' and 'output' in example %}
+{% if bigfunction.type not in ('procedure', 'table_function') and 'output' in example %}
 
 <pre style="margin-top: -1rem;">
 <code style="padding-top: 0px; padding-bottom: 0px;">
@@ -106,7 +106,7 @@ BigFunctions are open-source BigQuery routines that give you **SQL-superpowers**
 
 {% endif %}
 
-{% if bigfunction.type == 'procedure' and 'output' in example %}
+{% if bigfunction.type in ('procedure', 'table_function') and 'output' in example %}
 
 <pre style="margin-top: -1rem;">
 <code style="padding-top: 0px; padding-bottom: 0px;">
