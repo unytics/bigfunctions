@@ -32,6 +32,7 @@ Before submitting a PR, make sure:
 - you provide enough examples (edge cases must be provided) but not too much (you should not provide a second example that does not provide more understanding about the function than the first one).
 - you deployed sucessfully your bigfunction by calling `bigfun deploy your_bigfunction`
 - you tested the bigfunction for all the examples you provided and you each time got the expected output. (we plan to create a test command line soon).
+- sql keywords must me lowercased (such as `select`)
 
 
 ## First contributor? 
