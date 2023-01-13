@@ -1,0 +1,28 @@
+type: procedure
+category: utils
+author:
+  name: jihene cherif
+  url: https://www.linkedin.com/company/esmoz/
+  avatar_url: "https://media-exp1.licdn.com/dms/image/C560BAQHFcSF8X1MqrQ/company-logo_200_200/0/1636992707472?e=1678320000&v=beta&t=BJmNI_Nd0GuC9Mn3wKc1xGUEpZsCy-CsrTZh47cPcOQ"
+description: Delete dataset
+arguments:
+  - name: fully_qualified_dataset
+    type: string
+examples:
+  - description: ""
+    arguments:
+      - '"my_project.my_dataset"'
+    region: ALL
+code: |
+  declare project, dataset string;
+  declare parts array<string> default split(replace(fully_qualified_dataset, '`', ''), '.');
+    set project = parts[offset(0)];
+    set dataset = parts[offset(1)];
+
+  execute immediate replace(replace('''
+    drop schema `{{project}}.{{dataset}}`
+    cascade
+  ''',
+  '{{project}}', project),
+  '{{dataset}}', dataset);
+  
