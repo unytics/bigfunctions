@@ -5,7 +5,8 @@ author:
   url: https://www.linkedin.com/in/thomas-ellyatt-84a51b218/
   avatar_url: "https://avatars.githubusercontent.com/u/110492001?v=4"
 description: |-
-    When you need a percentage presented in a more user-friendly format, You can use this function 
+    Return `first_number / second_number` as a formatted percentage
+    in a user-friendly format. You can use this function
     to handle a safe divide of the two numbers as well as your desired level of rounding.
 arguments:
   - name: first_number
@@ -15,22 +16,19 @@ arguments:
   - name: nb_decimals
     type: int64
 output:
-  name: url_parts
+  name: formatted_percentage
   type: string
 examples:
   - description: ""
     arguments:
-      - "first_number = 50, second_number = 120, nb_decimals = 2"
-    output: 41.7%
+      - "1"
+      - "3"
+      - "2"
+    output: 33.33 %
     region: ALL
 code: |
-CREATE TEMP FUNCTION clean_percent(first_number FLOAT64, second_number FLOAT64, nb_decimals INT64)
-  RETURNS STRING
-  AS
-  (
-    ROUND
+    round
     (
-      IEEE_DIVIDE(first_number,second_number) * 100, nb_decimals
+      ieee_divide(first_number, second_number) * 100, nb_decimals
     )
-    || "%"
-  );
+    || " %"
