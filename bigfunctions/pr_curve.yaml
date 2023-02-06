@@ -1,0 +1,58 @@
+type: table_function
+category: machine_learning
+author:
+  name: "Anatole Callies"
+  url: https://www.linkedin.com/in/anatolec/
+  avatar_url: "https://ca.slack-edge.com/T01LGTNUWTE-U044NKG25GX-7469e33feefb-512"
+description: |-
+  Returns the Precision-Recall Curve
+  given a set of predicted scores and ground truth labels
+arguments:
+  - name: predictions
+    type: array<struct<predicted_score float64, ground_truth_label bool>>
+output:
+  name: table_of_precisions_and_recalls
+  type: table
+examples:
+  - description: ""
+    arguments:
+      - "[struct(0.1, false), struct(0.3, false), struct(0.7, true), struct(0.9, true)]"
+    output: |
+      +-----------+---------+
+      | precision |  recall |
+      +-----------+---------+
+      |    0.5    |   1.0   |
+      |   0.667   |   1.0   |
+      |    1.0    |   1.0   |
+      |    1.0    |   0.5   |
+      +-----------+---------+
+    region: ALL
+code: |
+  WITH
+      unnested AS (
+          SELECT
+              predicted_score,
+              ground_truth_label
+          FROM
+              UNNEST(predictions)
+          WHERE predicted_score IS NOT NULL AND ground_truth_label IS NOT NULL
+      )
+  SELECT
+      DISTINCT
+      ROUND(
+          SAFE_DIVIDE(
+              COUNTIF(ground_truth_label) OVER (ORDER BY predicted_score, ground_truth_label ROWS BETWEEN CURRENT ROW AND UNBOUNDED FOLLOWING), -- True Positives
+              COUNT(*) OVER (ORDER BY predicted_score, ground_truth_label ROWS BETWEEN CURRENT ROW AND UNBOUNDED FOLLOWING) -- All Positive predictions
+          ),
+          3
+      ) AS precision,
+      ROUND(
+          SAFE_DIVIDE(
+              COUNTIF(ground_truth_label) OVER (ORDER BY predicted_score, ground_truth_label ROWS BETWEEN CURRENT ROW AND UNBOUNDED FOLLOWING), -- True Positives
+              (SELECT COUNTIF(ground_truth_label) FROM unnested) -- All Positive labels
+              ),
+          3
+      ) AS recall
+  FROM
+      unnested
+  ORDER BY precision
