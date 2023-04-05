@@ -21,4 +21,14 @@ examples:
     output: "I  dies"
     region: ALL
 code: |
-  (select regexp_replace(string, '(' || array_to_string(array(select case when (regexp_contains(str, r"[!-\/:-@[-`{-~]")) then "\\" || str else str end from unnest(strings_to_remove) as str), '|') || ')', ''))
+  (
+  with escaped_strings_to_remove as (
+    select regexp_replace(str, r'(\.|\+|\*|\?|\^|\$|\(|\)|\[|\]|\{|\}|\||\\)', r'\\\1') as str
+    from unnest(strings_to_remove) as str
+  )
+  select regexp_replace(
+    string, 
+    '(' || array_to_string((select array_agg(str) from escaped_strings_to_remove), '|') || ')',
+    ''
+  )
+  )
