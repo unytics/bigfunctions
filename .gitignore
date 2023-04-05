@@ -130,6 +130,7 @@ dmypy.json
 
 build_python/
 build_js/
+config.yaml
 
 SECRET
 meetups/
