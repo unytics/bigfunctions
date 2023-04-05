@@ -76,6 +76,9 @@ jstat:
 date-holidays:
   versions:
     - 3.16.7
+xml-js:
+  versions:
+    - 1.6.11
     ''', Loader=SafeLoader)
 
 
