@@ -30,6 +30,7 @@ from yaml import SafeLoader
 # to instruct webpack to not minify them.
 NO_MINIFY_JS_LIBS = {
     'js-levenshtein',
+    'xml-js',
 }
 
 
@@ -126,8 +127,7 @@ def generate_webpack_configs():
     on webpack config files.
     """
     node_modules_path = Path('./node_modules')
-    npm_package_config_paths = get_all_npm_package_config_paths(
-        node_modules_path)
+    npm_package_config_paths = get_all_npm_package_config_paths(node_modules_path)
     for npm_package_config_path in npm_package_config_paths:
         with open(npm_package_config_path) as npm_package_config:
             npm_package_json = json.loads(npm_package_config.read())
