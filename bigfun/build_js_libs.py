@@ -77,9 +77,9 @@ jstat:
 date-holidays:
   versions:
     - 3.16.7
-xml-js:
+fast-xml-parser:
   versions:
-    - 1.6.11
+    - 4.1.3
     ''', Loader=SafeLoader)
 
 
@@ -129,7 +129,7 @@ def generate_webpack_configs():
     node_modules_path = Path('./node_modules')
     npm_package_config_paths = get_all_npm_package_config_paths(node_modules_path)
     for npm_package_config_path in npm_package_config_paths:
-        with open(npm_package_config_path) as npm_package_config:
+        with open(npm_package_config_path, encoding='utf-8') as npm_package_config:
             npm_package_json = json.loads(npm_package_config.read())
             # Check for js main entrypoint
             # https://docs.npmjs.com/cli/v6/configuring-npm/package-json#main
@@ -140,11 +140,10 @@ def generate_webpack_configs():
             js_lib_name = npm_package_json.get('name')
             js_lib_version = npm_package_json.get('version')
             if js_main_entrypoint is not None:
-                js_main_entrypoint_path = npm_package_config_path.parent / Path(
-                    js_main_entrypoint)
+                js_main_entrypoint_path = npm_package_config_path.parent / Path(js_main_entrypoint)
             elif len(js_dependency_files) == 1:
-                js_main_entrypoint_path = npm_package_config_path.parent / Path(
-                    js_dependency_files[0])
+                js_main_entrypoint_path = npm_package_config_path.parent / Path(js_dependency_files[0])
+        js_main_entrypoint_path = str(js_main_entrypoint_path).replace('\\', '/')
         webpack_config_file_path = Path(
             f'{npm_package_config_path.parent.name}-webpack.config.js')
         minimize_js = True if js_lib_name not in NO_MINIFY_JS_LIBS else False
