@@ -25,7 +25,7 @@ examples:
   - description: ""
     arguments:
       - "'<a></a'"
-    output: null
+    output: "null"
     region: ALL
 code: |
   const isValid = fast_xml_parser.XMLValidator.validate(xml);
