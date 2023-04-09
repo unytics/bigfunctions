@@ -1209,7 +1209,7 @@ Returns XML for given JSON string
 <code style="padding-top: 0px; padding-bottom: 0px;">+-------------------+
 | xml               |
 +-------------------+
-| <a><b>foo</b></a> |
+| &lt;a&gt;&lt;b&gt;foo&lt;/b&gt;&lt;/a&gt; |
 +-------------------+
 </code>
 </pre>
@@ -1222,7 +1222,7 @@ Returns XML for given JSON string
 
 
 
-<span style="color: var(--md-typeset-a-color);">2. With valid JSON and with one empty key</span>
+<span style="color: var(--md-typeset-a-color);">2. With valid JSON and with one key that has empty string as a value</span>
 
 
 === "EU"
@@ -1264,7 +1264,7 @@ Returns XML for given JSON string
 <code style="padding-top: 0px; padding-bottom: 0px;">+---------+
 | xml     |
 +---------+
-| <a></a> |
+| &lt;a&gt;&lt;/a&gt; |
 +---------+
 </code>
 </pre>
@@ -1482,7 +1482,7 @@ Return `url` parts
 <code style="padding-top: 0px; padding-bottom: 0px;">+------------------------------------------------------------------------------------------------------------------------------------------------------+
 | url_parts                                                                                                                                            |
 +------------------------------------------------------------------------------------------------------------------------------------------------------+
-| struct<'www.yoursite.com' as host, 'pricing/details' as path, 'myparam1=123&myparam2=abc#newsfeed' as query, 'newsfeed' as ref, 'https' as protocol> |
+| struct&lt;&#39;www.yoursite.com&#39; as host, &#39;pricing/details&#39; as path, &#39;myparam1=123&amp;myparam2=abc#newsfeed&#39; as query, &#39;newsfeed&#39; as ref, &#39;https&#39; as protocol&gt; |
 +------------------------------------------------------------------------------------------------------------------------------------------------------+
 </code>
 </pre>
@@ -2131,7 +2131,7 @@ Returns JSON as a string for given XML string
 <code style="padding-top: 0px; padding-bottom: 0px;">+-------------------+
 | json              |
 +-------------------+
-| {"a":{"b":"foo"}} |
+| {&#34;a&#34;:{&#34;b&#34;:&#34;foo&#34;}} |
 +-------------------+
 </code>
 </pre>
@@ -2186,7 +2186,7 @@ Returns JSON as a string for given XML string
 <code style="padding-top: 0px; padding-bottom: 0px;">+----------+
 | json     |
 +----------+
-| {"a":""} |
+| {&#34;a&#34;:&#34;&#34;} |
 +----------+
 </code>
 </pre>
@@ -2515,7 +2515,7 @@ Parse date with automatic format detection
 <code style="padding-top: 0px; padding-bottom: 0px;">+--------------------+
 | cleaned_date       |
 +--------------------+
-| date('2021-01-20') |
+| date(&#39;2021-01-20&#39;) |
 +--------------------+
 </code>
 </pre>
@@ -2570,7 +2570,7 @@ Parse date with automatic format detection
 <code style="padding-top: 0px; padding-bottom: 0px;">+--------------------+
 | cleaned_date       |
 +--------------------+
-| date('2021-01-20') |
+| date(&#39;2021-01-20&#39;) |
 +--------------------+
 </code>
 </pre>
@@ -2625,7 +2625,7 @@ Parse date with automatic format detection
 <code style="padding-top: 0px; padding-bottom: 0px;">+--------------------+
 | cleaned_date       |
 +--------------------+
-| date('2021-01-20') |
+| date(&#39;2021-01-20&#39;) |
 +--------------------+
 </code>
 </pre>
@@ -2680,7 +2680,7 @@ Parse date with automatic format detection
 <code style="padding-top: 0px; padding-bottom: 0px;">+--------------------+
 | cleaned_date       |
 +--------------------+
-| date('2021-01-20') |
+| date(&#39;2021-01-20&#39;) |
 +--------------------+
 </code>
 </pre>
@@ -2735,7 +2735,7 @@ Parse date with automatic format detection
 <code style="padding-top: 0px; padding-bottom: 0px;">+--------------------+
 | cleaned_date       |
 +--------------------+
-| date('2021-01-20') |
+| date(&#39;2021-01-20&#39;) |
 +--------------------+
 </code>
 </pre>
@@ -2790,7 +2790,7 @@ Parse date with automatic format detection
 <code style="padding-top: 0px; padding-bottom: 0px;">+--------------------+
 | cleaned_date       |
 +--------------------+
-| date('2021-01-20') |
+| date(&#39;2021-01-20&#39;) |
 +--------------------+
 </code>
 </pre>
@@ -2845,7 +2845,7 @@ Parse date with automatic format detection
 <code style="padding-top: 0px; padding-bottom: 0px;">+--------------------+
 | cleaned_date       |
 +--------------------+
-| date('2021-01-20') |
+| date(&#39;2021-01-20&#39;) |
 +--------------------+
 </code>
 </pre>
@@ -2949,8 +2949,8 @@ Return `key_value_items` as `array< struct<key string, value string> >`
 | key_value_items                                                                                     |
 +-----------------------------------------------------------------------------------------------------+
 | [
-|   struct("created_at" as key, "date" as value),
-|   struct("user" as key, "name" as value)
+|   struct(&#34;created_at&#34; as key, &#34;date&#34; as value),
+|   struct(&#34;user&#34; as key, &#34;name&#34; as value)
 | ]
  |
 +-----------------------------------------------------------------------------------------------------+
@@ -3036,7 +3036,7 @@ Return `keys` as an `array<string>`
 <code style="padding-top: 0px; padding-bottom: 0px;">+------------------------+
 | keys                   |
 +------------------------+
-| ['created_at', 'user'] |
+| [&#39;created_at&#39;, &#39;user&#39;] |
 +------------------------+
 </code>
 </pre>
@@ -3117,7 +3117,7 @@ Merge `json_string1` and `json_string2`
 <code style="padding-top: 0px; padding-bottom: 0px;">+----------------------------+
 | merged_json                |
 +----------------------------+
-| '{"k1": "v1", "k2": "v2"}' |
+| &#39;{&#34;k1&#34;: &#34;v1&#34;, &#34;k2&#34;: &#34;v2&#34;}&#39; |
 +----------------------------+
 </code>
 </pre>
@@ -3205,7 +3205,7 @@ offered by [JMESPath](https://jmespath.org/).
 <code style="padding-top: 0px; padding-bottom: 0px;">+----------------------------------+
 | result                           |
 +----------------------------------+
-| [{"first": "a"}, {"first": "c"}] |
+| [{&#34;first&#34;: &#34;a&#34;}, {&#34;first&#34;: &#34;c&#34;}] |
 +----------------------------------+
 </code>
 </pre>
@@ -3260,7 +3260,7 @@ offered by [JMESPath](https://jmespath.org/).
 <code style="padding-top: 0px; padding-bottom: 0px;">+------------+
 | result     |
 +------------+
-| ['a', 'c'] |
+| [&#39;a&#39;, &#39;c&#39;] |
 +------------+
 </code>
 </pre>
@@ -3315,7 +3315,7 @@ offered by [JMESPath](https://jmespath.org/).
 <code style="padding-top: 0px; padding-bottom: 0px;">+--------+
 | result |
 +--------+
-| ['a']  |
+| [&#39;a&#39;]  |
 +--------+
 </code>
 </pre>
@@ -3370,7 +3370,7 @@ offered by [JMESPath](https://jmespath.org/).
 <code style="padding-top: 0px; padding-bottom: 0px;">+--------------------------------+
 | result                         |
 +--------------------------------+
-| [{"name": "a"}, {"name": "c"}] |
+| [{&#34;name&#34;: &#34;a&#34;}, {&#34;name&#34;: &#34;c&#34;}] |
 +--------------------------------+
 </code>
 </pre>
@@ -3455,9 +3455,9 @@ and `type` among (`string`, `numeric`, `bool`, `date`, `timestamp`)
 | schema                                                                                                                                                          |
 +-----------------------------------------------------------------------------------------------------------------------------------------------------------------+
 | [
-|   struct("created_at" as path, "date" as type),
-|   struct("user.name" as path, "string" as type),
-|   struct("user.friends" as path, "array" as type)
+|   struct(&#34;created_at&#34; as path, &#34;date&#34; as type),
+|   struct(&#34;user.name&#34; as path, &#34;string&#34; as type),
+|   struct(&#34;user.friends&#34; as path, &#34;array&#34; as type)
 | ]
  |
 +-----------------------------------------------------------------------------------------------------------------------------------------------------------------+
@@ -3543,7 +3543,7 @@ Return `values` as an `array<string>`
 <code style="padding-top: 0px; padding-bottom: 0px;">+--------------------------+
 | values                   |
 +--------------------------+
-| ['2022-01-01', 'sidali'] |
+| [&#39;2022-01-01&#39;, &#39;sidali&#39;] |
 +--------------------------+
 </code>
 </pre>
@@ -5687,7 +5687,7 @@ Request `url`
 <code style="padding-top: 0px; padding-bottom: 0px;">+------------------------+
 | response               |
 +------------------------+
-| &lt;html>...&lt;/html> |
+| &amp;lt;html&gt;...&amp;lt;/html&gt; |
 +------------------------+
 </code>
 </pre>
