@@ -99,7 +99,7 @@ BigFunctions are open-source BigQuery routines that give you **SQL-superpowers**
 +-{{ hyphens }}-+
 | {{ bigfunction.output.name }}{{ name_padding }} |
 +-{{ hyphens }}-+
-| {{ example.output }}{{ value_padding }} |
+| {{ example.output | escape }}{{ value_padding }} |
 +-{{ hyphens }}-+
 </code>
 </pre>
