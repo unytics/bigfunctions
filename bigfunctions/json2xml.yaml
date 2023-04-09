@@ -12,17 +12,17 @@ output:
   name: xml
   type: string
 examples:
-  - description: ""
+  - description: "With valid JSON"
     arguments:
       - '{"a":{"b":"foo"}}'
     output: '<a><b>foo</b></a>'
     region: ALL
-  - description: ""
+  - description: "With valid JSON and with one key that has empty string as a value"
     arguments:
       - '{"a":""}'
     output: '<a></a>'
     region: ALL
-  - description: ""
+  - description: "With invalid JSON"
     arguments:
       - '{"a":""'
     output: "null"
