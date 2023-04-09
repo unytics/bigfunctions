@@ -1,0 +1,40 @@
+type: function_js
+category: transform_string
+author:
+  name: Shivam Singh
+  url: https://www.linkedin.com/in/shivamsingh012/
+  avatar_url: "https://media.licdn.com/dms/image/D4D03AQERv0qwECH0DA/profile-displayphoto-shrink_200_200/0/1675233460732?e=1686182400&v=beta&t=HqngiSx5zd4llZStwf3L0k2T_pE8qvnEj7NguWNJTOo"
+description: Returns XML for given JSON string
+arguments:
+  - name: json
+    type: string
+output:
+  name: xml
+  type: string
+examples:
+  - description: "With valid JSON"
+    arguments:
+      - '{"a":{"b":"foo"}}'
+    output: '<a><b>foo</b></a>'
+    region: ALL
+  - description: "With valid JSON and with one key that has empty string as a value"
+    arguments:
+      - '{"a":""}'
+    output: '<a></a>'
+    region: ALL
+  - description: "With invalid JSON"
+    arguments:
+      - '{"a":""'
+    output: "null"
+    region: ALL
+code: |
+  try{
+    const parsedJSON = JSON.parse(json);
+    const builder = new fast_xml_parser.XMLBuilder();
+    const xml = builder.build(parsedJSON);
+    return xml;
+  } catch (e) {
+      return null
+  }
+libraries:
+  - fast-xml-parser-v4.1.3.min.js
