@@ -14,7 +14,7 @@ output:
 examples:
   - description: "With valid JSON"
     arguments:
-      - '{"a":{"b":"foo"}}'
+      - '\'{"a":{"b":"foo"}}\''
     output: '<a><b>foo</b></a>'
     region: ALL
   - description: "With valid JSON and with one key that has empty string as a value"
