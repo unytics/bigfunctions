@@ -3,7 +3,7 @@ category: transform_array
 author:
   name: Sid Ali
   url: https://www.linkedin.com/company/esmoz/
-  avatar_url: "https://media.licdn.com/dms/image/D5603AQEtcQgnlVvEAQ/profile-displayphoto-shrink_200_200/0/1679151667452?e=1686787200&v=beta&t=KiMiQ732eha4M2rLpAbvqonuDNT-N0xhoCUMUwwvSNc"
+  avatar_url: "https://esmoz.fr/wp-content/uploads/2022/03/logo_esmoz_40x20-1.png"
 description: |
   Return true if `array1` = `array2`
   and false otherwise
