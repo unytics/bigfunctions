@@ -83,6 +83,9 @@ fast-xml-parser:
 xpath:
   versions:
     - 0.0.32
+xmldom:
+  versions:
+    - 0.6.0
     ''', Loader=SafeLoader)
 
 
