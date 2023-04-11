@@ -3,7 +3,7 @@ category: transform_string
 author:
   name: "Benjamin Tabet"
   url: https://www.linkedin.com/in/benjamin-tabet
-  avatar_url: "https://media-exp1.licdn.com/dms/image/C4D03AQGWnyJdEmZeZw/profile-displayphoto-shrink_400_400/0/1667928305931?e=1673481600&v=beta&t=sxH1fFMPjj9ASbqfQ6TkIpWKk_PQ0hUAhOtuAs2zTu0"
+  avatar_url: "https://media.licdn.com/dms/image/C4D03AQGWnyJdEmZeZw/profile-displayphoto-shrink_200_200/0/1667928305931?e=1686787200&v=beta&t=sW-albet4-jvB_cv7krxCz16BFHdi6-ohc0bXbi-EIY"
 description: "Remove any string of `strings_to_remove` from `string`"
 arguments:
   - name: string
@@ -27,7 +27,7 @@ code: |
     from unnest(strings_to_remove) as str
   )
   select regexp_replace(
-    string, 
+    string,
     '(' || array_to_string((select array_agg(str) from escaped_strings_to_remove), '|') || ')',
     ''
   )
