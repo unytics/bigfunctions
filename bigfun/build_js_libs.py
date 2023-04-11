@@ -80,6 +80,9 @@ date-holidays:
 fast-xml-parser:
   versions:
     - 4.1.3
+jsdom:
+  versions:
+    - 21.1.1
     ''', Loader=SafeLoader)
 
 
