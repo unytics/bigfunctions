@@ -3,7 +3,7 @@ category: export
 author:
   name: "Paul Marcombes"
   url: https://www.linkedin.com/in/paul-marcombes
-  avatar_url: "https://media-exp1.licdn.com/dms/image/C4E03AQF92ENRMYC3Mw/profile-displayphoto-shrink_800_800/0/1656924490995?e=1675900800&v=beta&t=Ertn0DSUvqzexmymI6NDba3TrXaSLRM_cQ5dxjmTkzo"
+  avatar_url: "https://lh3.googleusercontent.com/a-/ACB-R5RDf2yxcw1p_IYLCKmiUIScreatDdhG8B83om6Ohw=s260"
 description: Send email (via gmail) with data attached as excel file
 arguments:
   - name: table_or_view_or_query
