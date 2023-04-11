@@ -1,21 +1,35 @@
 type: function_py
-category: geographic
+category: geo
 author:
   name: Paul Marcombes
   url: https://www.linkedin.com/in/paul-marcombes
   avatar_url: "https://lh3.googleusercontent.com/a-/ACB-R5RDf2yxcw1p_IYLCKmiUIScreatDdhG8B83om6Ohw=s260"
-description: Transform Address to Coordinates
+description: Get `address` details from Google Maps
 arguments:
   - name: address
     type: string
 output:
-  name: coordinates
+  name: address_details
   type: string
 examples:
   - description: ""
     arguments:
       - "'1 rue des champs elysees, Paris'"
-    output: "true"
+    output: |
+      {
+          "address_components": [...],
+          "formatted_address": "1 Av. des Champs-Élysées, 75008 Paris, France",
+          "geometry": {
+              "location": {
+                  "lat": 48.86988770000001,
+                  "lng": 2.3079341
+              },
+              ...
+          },
+          "place_id": "ChIJ6499V8Rv5kcR5f9dbz3OeBI",
+          "plus_code": {...},
+          "types": ["street_address"]
+      }
     region: ALL
 code: |
   import json
