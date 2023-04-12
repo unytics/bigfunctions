@@ -1,0 +1,47 @@
+type: function_js
+category: transform_string
+author:
+  name: Shivam Singh
+  url: https://www.linkedin.com/in/shivamsingh012/
+  avatar_url: "https://media.licdn.com/dms/image/D4D03AQERv0qwECH0DA/profile-displayphoto-shrink_200_200/0/1675233460732?e=1686182400&v=beta&t=HqngiSx5zd4llZStwf3L0k2T_pE8qvnEj7NguWNJTOo"
+description: Returns content extracted from XML from given XPATH
+arguments:
+  - name: xml
+    type: string
+  - name: x_path
+    type: string
+output:
+  name: extracted_value
+  type: array<string>
+examples:
+  - description: "Only one element for the xpath"
+    arguments:
+      - '"<customer><name>John Doe</name></customer>"'
+      - '"/customer/name"'
+    output: '["John Doe"]'
+    region: ALL
+  - description: "Multiple elements for the xpath"
+    arguments:
+      - '"<customer><name>John Doe</name><name>Jane Doe</name></customer>"'
+      - '"/customer/name"'
+    output: '["John Doe", "Jane Doe"]'
+    region: ALL
+  - description: "Incorrect xpath"
+    arguments:
+      - '"<customer><name>John Doe</name></customer>"'
+      - '"/customer/na"'
+    output: 'null'
+    region: ALL
+code: |
+  try{
+    const dom = new xmldom.DOMParser().parseFromString(xml);
+    const results = xpath.select(x_path, dom);
+    return results.map((res) => {
+      return res.textContent;
+    });
+  } catch (e){
+    return null;
+  }
+libraries:
+  - xmldom-v0.6.0.min.js
+  - xpath-v0.0.32.min.js
