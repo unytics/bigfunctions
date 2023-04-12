@@ -86,9 +86,6 @@ xpath:
 xmldom:
   versions:
     - 0.6.0
-node-fetch:
-  versions:
-    - 3.3.1
     ''', Loader=SafeLoader)
 
 
