@@ -14,17 +14,17 @@ output:
 examples:
   - description: "With valid JSON"
     arguments:
-      - "'{\"a\": {\"b\": \"foo\"}}'"
+      - '{"a":{"b":"foo"}}'
     output: '<a><b>foo</b></a>'
     region: ALL
   - description: "With valid JSON and with one key that has empty string as a value"
     arguments:
-      - "'{\"a\": \"\"}'"
+      - '{"a":""}'
     output: '<a></a>'
     region: ALL
   - description: "With invalid JSON"
     arguments:
-      - "'{\"a\": \"\"'"
+      - '{"a":""'
     output: "null"
     region: ALL
 code: |
