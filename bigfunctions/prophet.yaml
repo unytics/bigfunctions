@@ -12,7 +12,7 @@ arguments:
     type: string
   - name: vals
     type: string
-  - name: period
+  - name: periods
     type: float64
 output:
   name: forecast
@@ -20,7 +20,9 @@ output:
 examples:
   - description: ""
     arguments:
-      - "\"get the country from the following user input: 'frace'\""
+      - "'[\"2020-01-01\", \"2020-01-02\"]'"
+      - "'[1, 2]'"
+      - 4
     output: "true"
     region: ALL
 code: |
@@ -36,6 +38,7 @@ code: |
       periods=periods,
       include_history=False)
   forecast = model.predict(future_df)
+  forecast['ds'] = forecast['ds'].astype(str)
   return json.dumps([[x.yhat, x.ds] for x in forecast.itertuples()])
 requirements: |
   pandas
