@@ -6,6 +6,7 @@ author:
   avatar_url: "https://media.licdn.com/dms/image/D4D03AQERv0qwECH0DA/profile-displayphoto-shrink_200_200/0/1675233460732?e=1686182400&v=beta&t=HqngiSx5zd4llZStwf3L0k2T_pE8qvnEj7NguWNJTOo"
 description: |
   Detect sensitive information in `text`
+  using [Cloud Data Loss Prevention](https://cloud.google.com/dlp)
 arguments:
   - name: text
     type: string
