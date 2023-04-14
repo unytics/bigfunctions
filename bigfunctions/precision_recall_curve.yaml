@@ -6,7 +6,7 @@ author:
   avatar_url: "https://ca.slack-edge.com/T01LGTNUWTE-U044NKG25GX-7469e33feefb-512"
 description: |-
   Returns the Precision-Recall Curve
-  given `predictions`, an array  of `(predicted_score, ground_truth_label)`
+  (as a table) given `predictions`, an array  of `(predicted_score, ground_truth_label)`
 arguments:
   - name: predictions
     type: array<struct<predicted_score float64, ground_truth_label bool>>
