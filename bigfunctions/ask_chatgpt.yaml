@@ -1,0 +1,35 @@
+type: function_py
+category: transform_string
+author:
+  name: Paul Marcombes
+  url: https://www.linkedin.com/in/paul-marcombes
+  avatar_url: "https://lh3.googleusercontent.com/a-/ACB-R5RDf2yxcw1p_IYLCKmiUIScreatDdhG8B83om6Ohw=s260"
+description: Transform Address to Coordinates
+arguments:
+  - name: prompt
+    type: string
+output:
+  name: completion
+  type: string
+examples:
+  - description: ""
+    arguments:
+      - "\"get the country from the following user input: 'frace'\""
+    output: "true"
+    region: ALL
+code: |
+  import json
+  import openai
+  import google.cloud.secretmanager
+  secret_manager = google.cloud.secretmanager.SecretManagerServiceClient()
+  openai.organization = secret_manager.access_secret_version(
+      name='projects/bigfunctions/secrets/openai_organization/versions/latest'
+  ).payload.data.decode('UTF-8')
+  openai.api_key = secret_manager.access_secret_version(
+      name='projects/bigfunctions/secrets/openai_api_key/versions/latest'
+  ).payload.data.decode('UTF-8')
+  completion = openai.Completion.create(model="text-davinci-003", prompt=prompt, max_tokens=256)
+  return completion.choices[0].text.strip()
+requirements: |
+  google-cloud-secret-manager
+  openai

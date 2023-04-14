@@ -31,10 +31,12 @@ examples:
     region: ALL
 code: |
   (
-  (
-  with roc_curve as(
+  with
+
+  roc_curve as(
       select false_positive_rate, true_positive_rate from {BIGFUNCTIONS_DATASET}.roc_curve(predictions)
   ),
+
   auc_contribs as (
       select
           (false_positive_rate - lag(false_positive_rate) over (order by false_positive_rate)) * (true_positive_rate + lag(true_positive_rate) over (order by false_positive_rate)) / 2 as auc_contrib
@@ -47,8 +49,10 @@ code: |
       select 1 as false_positive_rate, 1 as true_positive_rate
       order by false_positive_rate)
   )
+
   select
       case
           when count(*) > 10 then sum(auc_contrib)
-      end as roc_auc from auc_contribs)
+      end as roc_auc
+  from auc_contribs
   )
