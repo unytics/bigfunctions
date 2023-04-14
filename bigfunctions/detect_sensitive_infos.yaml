@@ -10,7 +10,7 @@ arguments:
   - name: text
     type: string
 output:
-  name: detections
+  name: sensitive_infos
   type: string
 examples:
   - description: "String with email in it."
