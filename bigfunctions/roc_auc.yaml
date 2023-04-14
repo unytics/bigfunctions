@@ -33,7 +33,7 @@ code: |
   (
   (
   with roc_curve as(
-      select false_positive_rate, true_positive_rate from `pledg-331014`.prod.roc_curve(predictions)
+      select false_positive_rate, true_positive_rate from {BIGFUNCTIONS_DATASET}.roc_curve(predictions)
   ),
   auc_contribs as (
       select

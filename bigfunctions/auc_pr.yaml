@@ -28,7 +28,7 @@ code: |
   (
   (
   with pr_curve as(
-      select precision, recall from prod.pr_curve(predictions)
+      select precision, recall from {BIGFUNCTIONS_DATASET}.pr_curve(predictions)
   ),
   auc_contribs as (
       select
