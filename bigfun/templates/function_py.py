@@ -19,6 +19,13 @@ def handle():
         request_json = request.get_json()
         print(request_json)
         rows = request_json['calls']
+        user = request_json['sessionUser']
+        if user.endswith('.gserviceaccount.com'):
+            return f'''
+                Hi 👋! Thanks for using BigFunctions! ---
+                `{{ name }}` BigFunction only accept calls from real people (not bots) (for now). ---
+                To remove this limit 🚀, please send an email to paul.marcombes@unytics.io
+            ''', 400
         if len(rows) > 1:
             return f'''
                 Hi 👋! Thanks for using BigFunctions! ---
