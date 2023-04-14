@@ -16,7 +16,7 @@ output:
 examples:
   - description: ""
     arguments:
-      - "[struct(0.1, false), struct(0.3, false), struct(0.7, true), struct(0.9, true)]"
+      - "[(0.1, false), (0.4, false), (0.35, true), (0.8, true)]"
     output: |
       +-----------+---------+
       | precision |  recall |

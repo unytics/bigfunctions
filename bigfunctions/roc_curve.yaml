@@ -16,43 +16,48 @@ output:
 examples:
   - description: ""
     arguments:
-      - "[struct(0.1, false), struct(0.3, false), struct(0.7, true), struct(0.9, true)]"
+      - "[(0.1, false), (0.4, false), (0.35, true), (0.8, true)]"
     output: |
       +---------------------+--------------------+
       | false_positive_rate | true_positive_rate |
       +---------------------+--------------------+
-      |         0.0         |         1.0        |
+      |         0.0         |         0.0        |
       |         0.0         |         0.5        |
+      |         0.5         |         0.5        |
       |         0.5         |         1.0        |
       |         1.0         |         1.0        |
       +---------------------+--------------------+
     region: ALL
 code: |
   WITH
-      unnested AS (
-          SELECT
-              predicted_score,
-              ground_truth_label
-          FROM
-              UNNEST(predictions)
-          WHERE predicted_score IS NOT NULL AND ground_truth_label IS NOT NULL
-      )
-  SELECT
-      DISTINCT
-      ROUND(
-          SAFE_DIVIDE(
-              COUNTIF(NOT ground_truth_label) OVER (ORDER BY predicted_score, ground_truth_label ROWS BETWEEN CURRENT ROW AND UNBOUNDED FOLLOWING), -- False positives
-              (SELECT COUNTIF(NOT ground_truth_label) FROM unnested) -- All Negative labels
+
+  unnested as (
+      select
+          predicted_score,
+          ground_truth_label
+      from unnest(predictions)
+      where
+          predicted_score is not null
+          AND ground_truth_label is not null
+  )
+
+  select
+      distinct
+      round(
+          safe_divide(
+              countif(not ground_truth_label) over (order by predicted_score, ground_truth_label ROWS BETWEEN CURRENT ROW AND UNBOUNDED FOLLOWING), -- False positives
+              (select countif(not ground_truth_label) from unnested) -- All Negative labels
           ),
           3
       ) AS false_positive_rate,
-      ROUND(
-          SAFE_DIVIDE(
-              COUNTIF(ground_truth_label) OVER (ORDER BY predicted_score, ground_truth_label ROWS BETWEEN CURRENT ROW AND UNBOUNDED FOLLOWING), -- True positives
-              (SELECT COUNTIF(ground_truth_label) FROM unnested) -- All Positive labels
+      round(
+          safe_divide(
+              countif(ground_truth_label) over (order by predicted_score, ground_truth_label ROWS BETWEEN CURRENT ROW AND UNBOUNDED FOLLOWING), -- True positives
+              (select countif(ground_truth_label) from unnested) -- All Positive labels
           ),
           3
       ) AS true_positive_rate
-  FROM
-      unnested
-  ORDER BY false_positive_rate
+  from unnested
+  union all
+  select 0, 0
+  order by false_positive_rate, true_positive_rate
