@@ -1,0 +1,50 @@
+type: function_sql
+category: machine_learning
+author:
+  name: "Anatole Callies"
+  url: https://www.linkedin.com/in/anatolec/
+  avatar_url: "https://ca.slack-edge.com/T01LGTNUWTE-U044NKG25GX-7469e33feefb-512"
+description: |-
+  Returns the Area Under the Precision Recall Curve (a.k.a. AUC PR)
+  given a set of predicted scores and ground truth labels using the trapezoidal rule
+arguments:
+  - name: predictions
+    type: array<struct<predicted_score float64, ground_truth_label bool>>
+output:
+  name: auc_pr
+  type: float64
+examples:
+  - description: "Random classifier"
+    arguments:
+      - "(select array_agg(struct(cast(predicted_score as float64), rand() > 0.5)) from unnest(generate_array(1, 1000)) as predicted_score)"
+    output: "0.5"
+    region: ALL
+  - description: "Good classifier"
+    arguments:
+      - "(select array_agg(struct(cast(predicted_score as float64), predicted_score > 500)) from unnest(generate_array(1, 1000)) as predicted_score)"
+    output: "1.0"
+    region: ALL
+code: |
+  (
+  (
+  with pr_curve as(
+      select precision, recall from {BIGFUNCTIONS_DATASET}.pr_curve(predictions)
+  ),
+  auc_contribs as (
+      select
+          (recall - lag(recall) over (order by recall)) * (precision + lag(precision) over (order by recall)) / 2 as auc_contrib
+      from (
+      select recall, precision
+      from pr_curve
+      union all
+      select 0, 1
+      union all
+      select 1, 0.5
+      order by recall)
+  )
+  select
+      case
+          when count(*) > 10 then sum(auc_contrib)
+      end as auc_pr
+  from auc_contribs)
+  )

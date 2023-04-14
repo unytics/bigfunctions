@@ -49,6 +49,8 @@ bigfunctions_categories:
     emoticon: "👀"
     title: "Explore data within BigQuery console"
     subtitle: "Make computations on BigQuery and display the results as data-vizualizations directly in BigQuery console."
+  - name: "machine_learning"
+    emoticon: "🧠"
   - name: "transform_numeric"
     emoticon: "1️⃣"
     title: "Transform data creatively"

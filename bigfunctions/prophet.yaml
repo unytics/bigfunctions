@@ -1,0 +1,47 @@
+type: function_py
+category: machine_learning
+author:
+  name: "Credits: Felipe Hoffa"
+  url: https://www.linkedin.com/in/hoffa/
+  avatar_url: "https://miro.medium.com/v2/resize:fill:88:88/0*ahXIMiIgudZTyqJS.jpeg"
+description: |
+  Forecast time-series using prophet
+  (inspired from [this Felipe Hoffa medium's post](https://medium.com/snowflake/facebook-prophet-forecasts-running-in-snowflake-with-snowpark-14fc870b56ae))
+arguments:
+  - name: dates
+    type: string
+  - name: vals
+    type: string
+  - name: periods
+    type: float64
+output:
+  name: forecast
+  type: string
+examples:
+  - description: ""
+    arguments:
+      - "'[\"2020-01-01\", \"2020-01-02\"]'"
+      - "'[1, 2]'"
+      - 4
+    output: "true"
+    region: ALL
+code: |
+  import json
+  import pandas as pd
+  from prophet import Prophet
+  dates = json.loads(dates)
+  vals = json.loads(vals)
+  df = pd.DataFrame(list(zip(dates, vals)), columns =['ds', 'y'])
+  model = Prophet()
+  model.fit(df)
+  future_df = model.make_future_dataframe(
+      periods=periods,
+      include_history=False)
+  forecast = model.predict(future_df)
+  forecast['ds'] = forecast['ds'].astype(str)
+  return json.dumps([[x.yhat, x.ds] for x in forecast.itertuples()])
+requirements: |
+  pandas
+  prophet
+
+

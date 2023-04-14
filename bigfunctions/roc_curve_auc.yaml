@@ -1,0 +1,54 @@
+type: function_sql
+category: machine_learning
+author:
+  name: "Anatole Callies"
+  url: https://www.linkedin.com/in/anatolec/
+  avatar_url: "https://ca.slack-edge.com/T01LGTNUWTE-U044NKG25GX-7469e33feefb-512"
+description: |-
+  Returns the Area Under the Receiver Operating Characteristic Curve (a.k.a. ROC AUC)
+  given a set of predicted scores and ground truth labels using the trapezoidal rule
+arguments:
+  - name: predictions
+    type: array<struct<predicted_score float64, ground_truth_label bool>>
+output:
+  name: roc_auc
+  type: float64
+examples:
+  - description: "Random classifier"
+    arguments:
+      - "(select array_agg(struct(cast(predicted_score as float64), rand() > 0.5)) from unnest(generate_array(1, 1000)) as predicted_score)"
+    output: "0.5"
+    region: ALL
+  - description: "Good classifier"
+    arguments:
+      - "(select array_agg(struct(cast(predicted_score as float64), predicted_score > 500)) from unnest(generate_array(1, 1000)) as predicted_score)"
+    output: "1.0"
+    region: ALL
+  - description: "Bad classifier"
+    arguments:
+      - "(select array_agg(struct(cast(predicted_score as float64), predicted_score < 500)) from unnest(generate_array(1, 1000)) as predicted_score)"
+    output: "0.0"
+    region: ALL
+code: |
+  (
+  (
+  with roc_curve as(
+      select false_positive_rate, true_positive_rate from {BIGFUNCTIONS_DATASET}.roc_curve(predictions)
+  ),
+  auc_contribs as (
+      select
+          (false_positive_rate - lag(false_positive_rate) over (order by false_positive_rate)) * (true_positive_rate + lag(true_positive_rate) over (order by false_positive_rate)) / 2 as auc_contrib
+      from (
+      select false_positive_rate, true_positive_rate
+      from roc_curve
+      union all
+      select 0 as false_positive_rate, 0 as true_positive_rate
+      union all
+      select 1 as false_positive_rate, 1 as true_positive_rate
+      order by false_positive_rate)
+  )
+  select
+      case
+          when count(*) > 10 then sum(auc_contrib)
+      end as roc_auc from auc_contribs)
+  )
