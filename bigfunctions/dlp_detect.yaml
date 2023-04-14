@@ -1,0 +1,100 @@
+type: function_py
+category: transform_string
+author:
+  name: Shivam Singh
+  url: https://www.linkedin.com/in/shivamsingh012/
+  avatar_url: "https://media.licdn.com/dms/image/D4D03AQERv0qwECH0DA/profile-displayphoto-shrink_200_200/0/1675233460732?e=1686182400&v=beta&t=HqngiSx5zd4llZStwf3L0k2T_pE8qvnEj7NguWNJTOo"
+description: |
+  Returns information about the data if any type of data leak is detected in the given string.
+arguments:
+  - name: text
+    type: string
+output:
+  name: detected_dlp
+  type: string
+examples:
+  - description: "String with email in it."
+    arguments:
+      - '"My email is shivam@google.co.in"'
+    output: '"[{"string": "shivam", "info_type": "PERSON_NAME", "confidence": "POSSIBLE"}, {"string": "shivam", "info_type": "FIRST_NAME", "confidence": "POSSIBLE"}, {"string": "shivam", "info_type": "FEMALE_NAME", "confidence": "POSSIBLE"}, {"string": "shivam", "info_type": "MALE_NAME", "confidence": "POSSIBLE"}, {"string": "google", "info_type": "ORGANIZATION_NAME", "confidence": "POSSIBLE"}, {"string": "shivam@google.co.in", "info_type": "EMAIL_ADDRESS", "confidence": "VERY_LIKELY"}, {"string": "google.co.in", "info_type": "DOMAIN_NAME", "confidence": "LIKELY"}]"'
+    region: ALL
+  - description: "String with phone number in it."
+    arguments:
+      - '"My phone number is 0123456789"'
+    output: '"[{"string": "0123456789", "info_type": "PHONE_NUMBER", "confidence": "LIKELY"}]"'
+    region: ALL
+code: |
+  import google.cloud.dlp
+  import os
+  import json
+  import urllib.request
+  
+  def get_project_id() -> str:
+    url = "http://metadata.google.internal/computeMetadata/v1/project/project-id"
+    req = urllib.request.Request(url)
+    req.add_header("Metadata-Flavor", "Google")
+    project_id = urllib.request.urlopen(req).read().decode()
+    return project_id
+
+
+  dlp_client = google.cloud.dlp_v2.DlpServiceClient()
+  
+  item = {
+    "value": text
+  }
+  
+  info_types = [
+    {'name': 'ADVERTISING_ID'}, {'name': 'AGE'}, {'name': 'AUTH_TOKEN'}, {'name': 'AWS_CREDENTIALS'},
+    {'name': 'AZURE_AUTH_TOKEN'}, {'name': 'BASIC_AUTH_HEADER'}, {'name': 'CREDIT_CARD_NUMBER'},
+    {'name': 'CREDIT_CARD_TRACK_NUMBER'}, {'name': 'DATE'}, {'name': 'DATE_OF_BIRTH'},
+    {'name': 'DOMAIN_NAME'}, {'name': 'EMAIL_ADDRESS'}, {'name': 'ENCRYPTION_KEY'}, {'name': 'ETHNIC_GROUP'},
+    {'name': 'FEMALE_NAME'}, {'name': 'FIRST_NAME'}, {'name': 'GCP_API_KEY'}, {'name': 'GCP_CREDENTIALS'},
+    {'name': 'GENDER'}, {'name': 'GENERIC_ID'}, {'name': 'HTTP_COOKIE'}, {'name': 'HTTP_COOKIE'},
+    {'name': 'IBAN_CODE'}, {'name': 'ICCID_NUMBER'}, {'name': 'ICD10_CODE'}, {'name': 'ICD9_CODE'},
+    {'name': 'IMEI_HARDWARE_ID'}, {'name': 'IMSI_ID'}, {'name': 'IP_ADDRESS'}, {'name': 'JSON_WEB_TOKEN'},
+    {'name': 'LAST_NAME'}, {'name': 'LOCATION'}, {'name': 'LOCATION_COORDINATES'}, {'name': 'MAC_ADDRESS'},
+    {'name': 'MAC_ADDRESS_LOCAL'}, {'name': 'MALE_NAME'}, {'name': 'MARITAL_STATUS'},
+    {'name': 'MEDICAL_RECORD_NUMBER'}, {'name': 'MEDICAL_TERM'}, {'name': 'OAUTH_CLIENT_SECRET'},
+    {'name': 'ORGANIZATION_NAME'}, {'name': 'PASSPORT'}, {'name': 'PASSWORD'}, {'name': 'PERSON_NAME'},
+    {'name': 'PHONE_NUMBER'}, {'name': 'SSL_CERTIFICATE'}, {'name': 'STORAGE_SIGNED_POLICY_DOCUMENT'},
+    {'name': 'STORAGE_SIGNED_URL'}, {'name': 'STREET_ADDRESS'}, {'name': 'SWIFT_CODE'}, {'name': 'TIME'},
+    {'name': 'URL'}, {'name': 'VAT_NUMBER'}, {'name': 'VEHICLE_IDENTIFICATION_NUMBER'},
+    {'name': 'WEAK_PASSWORD_HASH'}, {'name': 'XSRF_TOKEN'}
+  ]
+  
+  min_likelihood = google.cloud.dlp_v2.Likelihood.LIKELIHOOD_UNSPECIFIED
+  
+  max_findings = 0
+  
+  include_quote = True
+  
+  inspect_config = {
+    "info_types": info_types,
+    "min_likelihood": min_likelihood,
+    "include_quote": include_quote,
+    "limits": {"max_findings_per_request": max_findings},
+  }
+  
+  parent = f"projects/{get_project_id()}"
+  
+  response = dlp_client.inspect_content(
+    request={"parent": parent, "inspect_config": inspect_config, "item": item}
+  )
+  
+  results = []
+  if response.result.findings:
+    for finding in response.result.findings:
+      try:
+        quote = finding.quote
+      except AttributeError:
+        quote = None
+      info_type = finding.info_type.name
+      likelihood = finding.likelihood.name
+      results.append({
+        "string": quote,
+        "info_type": info_type,
+        "confidence": likelihood
+      })
+  return json.dumps(results) if len(results) > 0 else None
+requirements: |
+  google-cloud-dlp
