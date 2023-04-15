@@ -1,0 +1,146 @@
+type: function_py
+category: transform_string
+author:
+  name: Shivam Singh
+  url: https://www.linkedin.com/in/shivamsingh012/
+  avatar_url: "https://media.licdn.com/dms/image/D4D03AQERv0qwECH0DA/profile-displayphoto-shrink_200_200/0/1675233460732?e=1686182400&v=beta&t=HqngiSx5zd4llZStwf3L0k2T_pE8qvnEj7NguWNJTOo"
+description: |
+  Masks sensitive information in `text`
+  using [Cloud Data Loss Prevention](https://cloud.google.com/dlp)
+  
+  | Param  | Possible values  |
+  |---|---|
+  | `info_types` | `ADVERTISING_ID`, `AGE`, `AUTH_TOKEN`, `AWS_CREDENTIALS`, `AZURE_AUTH_TOKEN`, `BASIC_AUTH_HEADER`, `CREDIT_CARD_NUMBER`, `CREDIT_CARD_TRACK_NUMBER`, `DATE`, `DATE_OF_BIRTH`, `DOMAIN_NAME`, `EMAIL_ADDRESS`, `ENCRYPTION_KEY`, `ETHNIC_GROUP`, `FEMALE_NAME`, `FIRST_NAME`, `GCP_API_KEY`, `GCP_CREDENTIALS`, `GENDER`, `GENERIC_ID`, `HTTP_COOKIE`, `HTTP_COOKIE`, `IBAN_CODE`, `ICCID_NUMBER`, `ICD10_CODE`, `ICD9_CODE`, `IMEI_HARDWARE_ID`, `IMSI_ID`, `IP_ADDRESS`, `JSON_WEB_TOKEN`, `LAST_NAME`, `LOCATION`, `LOCATION_COORDINATES`, `MAC_ADDRESS`, `MAC_ADDRESS_LOCAL`, `MALE_NAME`, `MARITAL_STATUS`, `MEDICAL_RECORD_NUMBER`, `MEDICAL_TERM`, `OAUTH_CLIENT_SECRET`, `ORGANIZATION_NAME`, `PASSPORT`, `PASSWORD`, `PERSON_NAME`, `PHONE_NUMBER`, `SSL_CERTIFICATE`, `STORAGE_SIGNED_POLICY_DOCUMENT`, `STORAGE_SIGNED_URL`, `STREET_ADDRESS`, `SWIFT_CODE`, `TIME`, `URL`, `VAT_NUMBER`, `VEHICLE_IDENTIFICATION_NUMBER`, `WEAK_PASSWORD_HASH`, `XSRF_TOKEN` |
+arguments:
+  - name: text
+    type: string
+  - name: info_types
+    type: string
+output:
+  name: masked_info
+  type: string
+examples:
+  - description: "String with email in it."
+    arguments:
+      - '"My email is shivam@google.co.in"'
+      - '"[\"PHONE_NUMBER\", \"EMAIL_ADDRESS\"]"'
+    output: 'My email is [EMAIL_ADDRESS]'
+    region: ALL
+  - description: "String with phone number in it."
+    arguments:
+      - '"My phone number is 0123456789"'
+      - '"[\"PHONE_NUMBER\", \"email_address\"]"'
+    output: 'My phone number is [PHONE_NUMBER]'
+    region: ALL
+  - description: "String with email in it and no info_types."
+    arguments:
+      - '"My email is shivam@google.co.in"'
+      - '"[]"'
+    output: 'My email is [PERSON_NAME][EMAIL_ADDRESS]'
+    region: ALL
+code: |
+  import google.cloud.dlp
+  import json
+  import urllib.request
+  
+  if not text.strip():
+    return None
+  
+  def parse_info_type(json_str: str) -> tuple:
+    """
+    returns if given json string is valid and parsed string
+    :param json_str: json string
+    :return: tuple[bool, list]
+    """
+    parsed_json = None
+    # try converting string into JSON using json.loads
+    try:
+      parsed_json = json.loads(json_str)
+
+    except json.JSONDecodeError:
+      try:
+        # if string is not a JSON string then try evaluating
+        parsed_json = eval(json_str)
+      except SyntaxError:
+        pass
+
+    # verify if the parsed content is list of string
+    if not parsed_json:
+      return False, []
+
+    if isinstance(parsed_json, list):
+      for parsed in parsed_json:
+        if not isinstance(parsed, str):
+          return False, []
+    else:
+      return False, []
+
+    return True, parsed_json
+
+  def get_project_id() -> str:
+    url = "http://metadata.google.internal/computeMetadata/v1/project/project-id"
+    req = urllib.request.Request(url)
+    req.add_header("Metadata-Flavor", "Google")
+    project_id = urllib.request.urlopen(req).read().decode()
+    return project_id
+
+  is_valid, info_types = parse_info_type(info_types)
+  if not is_valid:
+    return "INVALID_INFO_TYPES"
+  
+  dlp_client = google.cloud.dlp_v2.DlpServiceClient()
+
+  item = {
+    "value": text
+  }
+
+  built_in_info_types = [
+      'ADVERTISING_ID', 'AGE', 'AUTH_TOKEN', 'AWS_CREDENTIALS',
+      'AZURE_AUTH_TOKEN', 'BASIC_AUTH_HEADER', 'CREDIT_CARD_NUMBER',
+      'CREDIT_CARD_TRACK_NUMBER', 'DATE', 'DATE_OF_BIRTH',
+      'DOMAIN_NAME', 'EMAIL_ADDRESS', 'ENCRYPTION_KEY', 'ETHNIC_GROUP',
+      'FEMALE_NAME', 'FIRST_NAME', 'GCP_API_KEY', 'GCP_CREDENTIALS',
+      'GENDER', 'GENERIC_ID', 'HTTP_COOKIE', 'HTTP_COOKIE',
+      'IBAN_CODE', 'ICCID_NUMBER', 'ICD10_CODE', 'ICD9_CODE',
+      'IMEI_HARDWARE_ID', 'IMSI_ID', 'IP_ADDRESS', 'JSON_WEB_TOKEN',
+      'LAST_NAME', 'LOCATION', 'LOCATION_COORDINATES', 'MAC_ADDRESS',
+      'MAC_ADDRESS_LOCAL', 'MALE_NAME', 'MARITAL_STATUS',
+      'MEDICAL_RECORD_NUMBER', 'MEDICAL_TERM', 'OAUTH_CLIENT_SECRET',
+      'ORGANIZATION_NAME', 'PASSPORT', 'PASSWORD', 'PERSON_NAME',
+      'PHONE_NUMBER', 'SSL_CERTIFICATE', 'STORAGE_SIGNED_POLICY_DOCUMENT',
+      'STORAGE_SIGNED_URL', 'STREET_ADDRESS', 'SWIFT_CODE', 'TIME',
+      'URL', 'VAT_NUMBER', 'VEHICLE_IDENTIFICATION_NUMBER',
+      'WEAK_PASSWORD_HASH', 'XSRF_TOKEN'
+  ]
+  
+  cleaned_info_types = []
+  for info in info_types:
+    if info.upper() in built_in_info_types:
+      cleaned_info_types.append(info.upper())
+  
+  dlp = google.cloud.dlp_v2.DlpServiceClient()
+
+  parent = f"projects/{get_project_id()}"
+  
+  inspect_config = {"info_types": [{"name": info_type} for info_type in cleaned_info_types]}
+  
+  deidentify_config = {
+    "info_type_transformations": {
+      "transformations": [
+        {"primitive_transformation": {"replace_with_info_type_config": {}}}
+      ]
+    }
+  }
+  
+  response = dlp.deidentify_content(
+    request={
+      "parent": parent,
+      "deidentify_config": deidentify_config,
+      "inspect_config": inspect_config,
+      "item": item,
+    }
+  )
+  
+  return response.item.value
+requirements: |
+  google-cloud-dlp
