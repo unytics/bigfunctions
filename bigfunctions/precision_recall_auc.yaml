@@ -26,25 +26,9 @@ examples:
     region: ALL
 code: |
   (
-  (
-  with pr_curve as(
-      select precision, recall from {BIGFUNCTIONS_DATASET}.pr_curve(predictions)
-  ),
-  auc_contribs as (
-      select
-          (recall - lag(recall) over (order by recall)) * (precision + lag(precision) over (order by recall)) / 2 as auc_contrib
-      from (
-      select recall, precision
-      from pr_curve
-      union all
-      select 0, 1
-      union all
-      select 1, 0.5
-      order by recall)
-  )
-  select
-      case
-          when count(*) > 10 then sum(auc_contrib)
-      end as auc_pr
-  from auc_contribs)
+    select sum(auc_contrib)
+    from (
+        select (recall - lag(recall) over (order by recall)) * (precision + lag(precision) over (order by recall)) / 2 as auc_contrib
+        from {BIGFUNCTIONS_DATASET}.precision_recall_curve(predictions)
+    )
   )

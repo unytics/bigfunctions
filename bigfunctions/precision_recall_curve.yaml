@@ -16,43 +16,45 @@ output:
 examples:
   - description: ""
     arguments:
-      - "[struct(0.1, false), struct(0.3, false), struct(0.7, true), struct(0.9, true)]"
+      - "[(0.1, false), (0.4, false), (0.35, true), (0.8, true)]"
     output: |
       +-----------+---------+
       | precision |  recall |
       +-----------+---------+
       |    0.5    |   1.0   |
-      |   0.667   |   1.0   |
-      |    1.0    |   1.0   |
+      |    0.667  |   1.0   |
+      |    0.5    |   0.5   |
       |    1.0    |   0.5   |
+      |    1.0    |   0     |
       +-----------+---------+
     region: ALL
 code: |
-  WITH
+  with
       unnested AS (
-          SELECT
+          select
               predicted_score,
-              ground_truth_label
-          FROM
-              UNNEST(predictions)
-          WHERE predicted_score IS NOT NULL AND ground_truth_label IS NOT NULL
+              ground_truth_label,
+          from unnest(predictions)
+          where
+              predicted_score is not null
+              and ground_truth_label is not null
       )
-  SELECT
-      DISTINCT
-      ROUND(
-          SAFE_DIVIDE(
-              COUNTIF(ground_truth_label) OVER (ORDER BY predicted_score, ground_truth_label ROWS BETWEEN CURRENT ROW AND UNBOUNDED FOLLOWING), -- True Positives
-              COUNT(*) OVER (ORDER BY predicted_score, ground_truth_label ROWS BETWEEN CURRENT ROW AND UNBOUNDED FOLLOWING) -- All Positive predictions
+  select distinct
+      round(
+          safe_divide(
+              countif(ground_truth_label) over (order by predicted_score, ground_truth_label rows between current row and unbounded following), -- True Positives
+              count(*) over (order by predicted_score, ground_truth_label rows between current row and unbounded following) -- All Positive predictions
           ),
           3
       ) AS precision,
-      ROUND(
-          SAFE_DIVIDE(
-              COUNTIF(ground_truth_label) OVER (ORDER BY predicted_score, ground_truth_label ROWS BETWEEN CURRENT ROW AND UNBOUNDED FOLLOWING), -- True Positives
-              (SELECT COUNTIF(ground_truth_label) FROM unnested) -- All Positive labels
-              ),
+      round(
+          safe_divide(
+              countif(ground_truth_label) over (order by predicted_score, ground_truth_label rows between current row and unbounded following), -- True Positives
+              (select countif(ground_truth_label) from unnested) -- All Positive labels
+          ),
           3
       ) AS recall
-  FROM
-      unnested
-  ORDER BY precision
+  from unnested
+  union all
+  select 1, 0
+  order by recall desc

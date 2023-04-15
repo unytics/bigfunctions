@@ -1,0 +1,104 @@
+type: function_py
+category: transform_string
+author:
+  name: Shivam Singh
+  url: https://www.linkedin.com/in/shivamsingh012/
+  avatar_url: "https://media.licdn.com/dms/image/D4D03AQERv0qwECH0DA/profile-displayphoto-shrink_200_200/0/1675233460732?e=1686182400&v=beta&t=HqngiSx5zd4llZStwf3L0k2T_pE8qvnEj7NguWNJTOo"
+description: |
+  Detect sensitive information in `text`
+  using [Cloud Data Loss Prevention](https://cloud.google.com/dlp)
+arguments:
+  - name: text
+    type: string
+output:
+  name: sensitive_info
+  type: string
+examples:
+  - description: "String with email in it."
+    arguments:
+      - '"My email is shivam@google.co.in"'
+    output: '[{"string": "shivam", "info_type": "PERSON_NAME", "confidence": "POSSIBLE"}, {"string": "shivam", "info_type": "FIRST_NAME", "confidence": "POSSIBLE"}, {"string": "shivam", "info_type": "FEMALE_NAME", "confidence": "POSSIBLE"}, {"string": "shivam", "info_type": "MALE_NAME", "confidence": "POSSIBLE"}, {"string": "google", "info_type": "ORGANIZATION_NAME", "confidence": "POSSIBLE"}, {"string": "shivam@google.co.in", "info_type": "EMAIL_ADDRESS", "confidence": "VERY_LIKELY"}, {"string": "google.co.in", "info_type": "DOMAIN_NAME", "confidence": "LIKELY"}]'
+    region: ALL
+  - description: "String with phone number in it."
+    arguments:
+      - '"My phone number is 0123456789"'
+    output: '[{"string": "0123456789", "info_type": "PHONE_NUMBER", "confidence": "LIKELY"}]'
+    region: ALL
+code: |
+  import google.cloud.dlp
+  import os
+  import json
+  import urllib.request
+
+  def get_project_id() -> str:
+    url = "http://metadata.google.internal/computeMetadata/v1/project/project-id"
+    req = urllib.request.Request(url)
+    req.add_header("Metadata-Flavor", "Google")
+    project_id = urllib.request.urlopen(req).read().decode()
+    return project_id
+
+
+  dlp_client = google.cloud.dlp_v2.DlpServiceClient()
+
+  item = {
+    "value": text
+  }
+
+  info_types = [
+    {'name'}: name
+    for name in [
+      'ADVERTISING_ID', 'AGE', 'AUTH_TOKEN', 'AWS_CREDENTIALS',
+      'AZURE_AUTH_TOKEN', 'BASIC_AUTH_HEADER', 'CREDIT_CARD_NUMBER',
+      'CREDIT_CARD_TRACK_NUMBER', 'DATE', 'DATE_OF_BIRTH',
+      'DOMAIN_NAME', 'EMAIL_ADDRESS', 'ENCRYPTION_KEY', 'ETHNIC_GROUP',
+      'FEMALE_NAME', 'FIRST_NAME', 'GCP_API_KEY', 'GCP_CREDENTIALS',
+      'GENDER', 'GENERIC_ID', 'HTTP_COOKIE', 'HTTP_COOKIE',
+      'IBAN_CODE', 'ICCID_NUMBER', 'ICD10_CODE', 'ICD9_CODE',
+      'IMEI_HARDWARE_ID', 'IMSI_ID', 'IP_ADDRESS', 'JSON_WEB_TOKEN',
+      'LAST_NAME', 'LOCATION', 'LOCATION_COORDINATES', 'MAC_ADDRESS',
+      'MAC_ADDRESS_LOCAL', 'MALE_NAME', 'MARITAL_STATUS',
+      'MEDICAL_RECORD_NUMBER', 'MEDICAL_TERM', 'OAUTH_CLIENT_SECRET',
+      'ORGANIZATION_NAME', 'PASSPORT', 'PASSWORD', 'PERSON_NAME',
+      'PHONE_NUMBER', 'SSL_CERTIFICATE', 'STORAGE_SIGNED_POLICY_DOCUMENT',
+      'STORAGE_SIGNED_URL', 'STREET_ADDRESS', 'SWIFT_CODE', 'TIME',
+      'URL', 'VAT_NUMBER', 'VEHICLE_IDENTIFICATION_NUMBER',
+      'WEAK_PASSWORD_HASH', 'XSRF_TOKEN'
+    ]
+  ]
+
+  min_likelihood = google.cloud.dlp_v2.Likelihood.LIKELIHOOD_UNSPECIFIED
+
+  max_findings = 0
+
+  include_quote = True
+
+  inspect_config = {
+    "info_types": info_types,
+    "min_likelihood": min_likelihood,
+    "include_quote": include_quote,
+    "limits": {"max_findings_per_request": max_findings},
+  }
+
+  parent = f"projects/{get_project_id()}"
+
+  response = dlp_client.inspect_content(
+    request={"parent": parent, "inspect_config": inspect_config, "item": item}
+  )
+
+  results = []
+  if response.result.findings:
+    for finding in response.result.findings:
+      try:
+        quote = finding.quote
+      except AttributeError:
+        quote = None
+      info_type = finding.info_type.name
+      likelihood = finding.likelihood.name
+      results.append({
+        "string": quote,
+        "info_type": info_type,
+        "confidence": likelihood
+      })
+  return json.dumps(results) if len(results) > 0 else None
+requirements: |
+  google-cloud-dlp
