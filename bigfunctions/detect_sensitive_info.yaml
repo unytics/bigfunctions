@@ -51,14 +51,14 @@ code: |
       "item": {"value": text},
       "parent": f"projects/{PROJECT}",
       "inspect_config": {
-          "info_types": [{'name': name} for name in info_types_to_detect],
+          "info_types": [{'name': info_type} for info_type in info_types_to_detect],
           "min_likelihood": google.cloud.dlp_v2.Likelihood.LIKELIHOOD_UNSPECIFIED,
           "include_quote": True,
           "limits": {"max_findings_per_request": 0},
       },
   }
-  dlp_client = google.cloud.dlp_v2.DlpServiceClient()
-  response = dlp_client.inspect_content(request=request)
+  dlp = google.cloud.dlp_v2.DlpServiceClient()
+  response = dlp.inspect_content(request=request)
   results = [
       {
           "string": getattr(finding, 'quote'),

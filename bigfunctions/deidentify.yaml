@@ -32,17 +32,17 @@ examples:
       - '"PHONE_NUMBER, email_address"'
     output: 'My phone number is [PHONE_NUMBER]'
     region: ALL
-  - description: "String with email in it and no info_types."
+  - description: "If `info_types` is `null` or empty, all built-in info types may be used"
     arguments:
       - '"My email is shivam@google.co.in"'
-      - ''
+      - 'null'
     output: 'My email is [PERSON_NAME][EMAIL_ADDRESS]'
     region: ALL
 code: |
   import google.cloud.dlp
   import json
 
-  if not text.strip() or not info_types.strip():
+  if not text or not text.strip():
       return text
 
   built_in_info_types = [
@@ -64,47 +64,29 @@ code: |
       'WEAK_PASSWORD_HASH', 'XSRF_TOKEN'
   ]
 
-  info_types = [info_type.strip().upper() for info_type in info_types.split(',')]
+  info_types = info_types or ''
+  info_types = [info_type.strip().upper() for info_type in info_types.split(',') if info_type]
   for info_type in info_types:
       if info_type not in built_in_info_types:
           return f'ERROR: given info_type "{info_type}" does not belong to possible values which are: {built_in_info_types}'
 
-  return 'ok'
-  # dlp_client = google.cloud.dlp_v2.DlpServiceClient()
-
-  # item = {
-  #   "value": text
-  # }
-
-
-  # cleaned_info_types = []
-  # for info in info_types:
-  #   if info.upper() in built_in_info_types:
-  #     cleaned_info_types.append(info.upper())
-
-  # dlp = google.cloud.dlp_v2.DlpServiceClient()
-
-  # parent = f"projects/{get_project_id()}"
-
-  # inspect_config = {"info_types": [{"name": info_type} for info_type in cleaned_info_types]}
-
-  # deidentify_config = {
-  #   "info_type_transformations": {
-  #     "transformations": [
-  #       {"primitive_transformation": {"replace_with_info_type_config": {}}}
-  #     ]
-  #   }
-  # }
-
-  # response = dlp.deidentify_content(
-  #   request={
-  #     "parent": parent,
-  #     "deidentify_config": deidentify_config,
-  #     "inspect_config": inspect_config,
-  #     "item": item,
-  #   }
-  # )
-
-  # return response.item.value
+  dlp = google.cloud.dlp_v2.DlpServiceClient()
+  response = dlp.deidentify_content(
+      request={
+          "item": {"value": text},
+          "parent": f"projects/{PROJECT}",
+          "inspect_config": {
+              "info_types": [{"name": info_type} for info_type in info_types]
+          },
+          "deidentify_config": {
+              "info_type_transformations": {
+                  "transformations": [
+                      {"primitive_transformation": {"replace_with_info_type_config": {}}}
+                  ]
+              }
+          },
+      }
+  )
+  return response.item.value
 requirements: |
   google-cloud-dlp
