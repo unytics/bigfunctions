@@ -26,17 +26,7 @@ examples:
     region: ALL
 code: |
   import google.cloud.dlp
-  import os
   import json
-  import urllib.request
-
-  def get_project_id() -> str:
-    url = "http://metadata.google.internal/computeMetadata/v1/project/project-id"
-    req = urllib.request.Request(url)
-    req.add_header("Metadata-Flavor", "Google")
-    project_id = urllib.request.urlopen(req).read().decode()
-    return project_id
-
 
   dlp_client = google.cloud.dlp_v2.DlpServiceClient()
 
@@ -79,7 +69,7 @@ code: |
     "limits": {"max_findings_per_request": max_findings},
   }
 
-  parent = f"projects/{get_project_id()}"
+  parent = f"projects/{PROJECT}"
 
   response = dlp_client.inspect_content(
     request={"parent": parent, "inspect_config": inspect_config, "item": item}
@@ -99,6 +89,6 @@ code: |
         "info_type": info_type,
         "confidence": likelihood
       })
-  return json.dumps(results) if len(results) > 0 else None
+  return json.dumps(results) if results else None
 requirements: |
   google-cloud-dlp
