@@ -36,15 +36,15 @@ BigFunctions are open-source BigQuery routines that give you **SQL-superpowers**
     **🧠 Machine learning**
 
     
-    - [<code>pr_curve_auc(predictions)</code>](#pr_curve_auc): Returns the Area Under the Precision Recall Curve (a.k.a. AUC PR)
+    - [<code>precision_recall_auc(predictions)</code>](#precision_recall_auc): Returns the Area Under the Precision Recall Curve (a.k.a. AUC PR)
     
     - [<code>precision_recall_curve(predictions)</code>](#precision_recall_curve): Returns the Precision-Recall Curve
     
     - [<code>prophet(dates, vals, periods)</code>](#prophet): Forecast time-series using prophet
     
-    - [<code>roc_curve(predictions)</code>](#roc_curve): Returns the Receiver Operating Characteristic Curve (a.k.a. ROC Curve)
+    - [<code>roc_auc(predictions)</code>](#roc_auc): Returns the Area Under the Receiver Operating Characteristic Curve (a.k.a. ROC AUC)
     
-    - [<code>roc_curve_auc(predictions)</code>](#roc_curve_auc): Returns the Area Under the Receiver Operating Characteristic Curve (a.k.a. ROC AUC)
+    - [<code>roc_curve(predictions)</code>](#roc_curve): Returns the Receiver Operating Characteristic Curve (a.k.a. ROC Curve)
     
 
     
@@ -64,9 +64,11 @@ BigFunctions are open-source BigQuery routines that give you **SQL-superpowers**
     **✨ Transform string**
 
     
-    - [<code>dlp_detect(text)</code>](#dlp_detect): Returns information about the data if any type of data leak is detected in the given string.
+    - [<code>deidentify(text, info_types)</code>](#deidentify): Masks sensitive information in `text`
     
-    - [<code>faker(what, localization)</code>](#faker): Generates fake data based on given method (what to generate) and localization (local language).
+    - [<code>detect_sensitive_info(text)</code>](#detect_sensitive_info): Detect sensitive information in `text`
+    
+    - [<code>faker(what, locale)</code>](#faker): Generates fake data
     
     - [<code>is_email_valid(email)</code>](#is_email_valid): Return true if `email` is valid
     
@@ -387,16 +389,16 @@ Show table infos and column statistics
 
 
 
-### pr_curve_auc
+### precision_recall_auc
 <div style="position: relative; top: -2rem; margin-bottom:  -2rem; text-align: right; z-index: 9999;">
   
   <a href="https://www.linkedin.com/in/anatolec/" title="Author: Anatole Callies" target="_blank">
     <img src="https://ca.slack-edge.com/T01LGTNUWTE-U044NKG25GX-7469e33feefb-512" width="32" style=" border-radius: 50% !important">
   </a>
   
-  <a href="https://github.com/unytics/bigfunctions/blob/main/bigfunctions/pr_curve_auc.yaml" title="Edit on GitHub" target="_blank"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="#5d6cc0" d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg></a></div>
+  <a href="https://github.com/unytics/bigfunctions/blob/main/bigfunctions/precision_recall_auc.yaml" title="Edit on GitHub" target="_blank"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="#5d6cc0" d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg></a></div>
 ```
-pr_curve_auc(predictions)
+precision_recall_auc(predictions)
 ```
 
 **Description**
@@ -414,7 +416,7 @@ given a set of predicted scores and ground truth labels using the trapezoidal ru
 === "EU"
 
     ```sql
-    select bigfunctions.eu.pr_curve_auc((select array_agg(struct(cast(predicted_score as float64), rand() > 0.5)) from unnest(generate_array(1, 1000)) as predicted_score)) as auc_pr
+    select bigfunctions.eu.precision_recall_auc((select array_agg(struct(cast(predicted_score as float64), rand() > 0.5)) from unnest(generate_array(1, 1000)) as predicted_score)) as auc_pr
 
     ```
 
@@ -422,7 +424,7 @@ given a set of predicted scores and ground truth labels using the trapezoidal ru
 === "US"
 
     ```sql
-    select bigfunctions.us.pr_curve_auc((select array_agg(struct(cast(predicted_score as float64), rand() > 0.5)) from unnest(generate_array(1, 1000)) as predicted_score)) as auc_pr
+    select bigfunctions.us.precision_recall_auc((select array_agg(struct(cast(predicted_score as float64), rand() > 0.5)) from unnest(generate_array(1, 1000)) as predicted_score)) as auc_pr
 
     ```
 
@@ -430,7 +432,7 @@ given a set of predicted scores and ground truth labels using the trapezoidal ru
 === "europe-west1"
 
     ```sql
-    select bigfunctions.europe_west1.pr_curve_auc((select array_agg(struct(cast(predicted_score as float64), rand() > 0.5)) from unnest(generate_array(1, 1000)) as predicted_score)) as auc_pr
+    select bigfunctions.europe_west1.precision_recall_auc((select array_agg(struct(cast(predicted_score as float64), rand() > 0.5)) from unnest(generate_array(1, 1000)) as predicted_score)) as auc_pr
 
     ```
 
@@ -438,7 +440,7 @@ given a set of predicted scores and ground truth labels using the trapezoidal ru
 === "your-region2"
 
     ```sql
-    select bigfunctions.your_region2.pr_curve_auc((select array_agg(struct(cast(predicted_score as float64), rand() > 0.5)) from unnest(generate_array(1, 1000)) as predicted_score)) as auc_pr
+    select bigfunctions.your_region2.precision_recall_auc((select array_agg(struct(cast(predicted_score as float64), rand() > 0.5)) from unnest(generate_array(1, 1000)) as predicted_score)) as auc_pr
 
     ```
 
@@ -469,7 +471,7 @@ given a set of predicted scores and ground truth labels using the trapezoidal ru
 === "EU"
 
     ```sql
-    select bigfunctions.eu.pr_curve_auc((select array_agg(struct(cast(predicted_score as float64), predicted_score > 500)) from unnest(generate_array(1, 1000)) as predicted_score)) as auc_pr
+    select bigfunctions.eu.precision_recall_auc((select array_agg(struct(cast(predicted_score as float64), predicted_score > 500)) from unnest(generate_array(1, 1000)) as predicted_score)) as auc_pr
 
     ```
 
@@ -477,7 +479,7 @@ given a set of predicted scores and ground truth labels using the trapezoidal ru
 === "US"
 
     ```sql
-    select bigfunctions.us.pr_curve_auc((select array_agg(struct(cast(predicted_score as float64), predicted_score > 500)) from unnest(generate_array(1, 1000)) as predicted_score)) as auc_pr
+    select bigfunctions.us.precision_recall_auc((select array_agg(struct(cast(predicted_score as float64), predicted_score > 500)) from unnest(generate_array(1, 1000)) as predicted_score)) as auc_pr
 
     ```
 
@@ -485,7 +487,7 @@ given a set of predicted scores and ground truth labels using the trapezoidal ru
 === "europe-west1"
 
     ```sql
-    select bigfunctions.europe_west1.pr_curve_auc((select array_agg(struct(cast(predicted_score as float64), predicted_score > 500)) from unnest(generate_array(1, 1000)) as predicted_score)) as auc_pr
+    select bigfunctions.europe_west1.precision_recall_auc((select array_agg(struct(cast(predicted_score as float64), predicted_score > 500)) from unnest(generate_array(1, 1000)) as predicted_score)) as auc_pr
 
     ```
 
@@ -493,7 +495,7 @@ given a set of predicted scores and ground truth labels using the trapezoidal ru
 === "your-region2"
 
     ```sql
-    select bigfunctions.your_region2.pr_curve_auc((select array_agg(struct(cast(predicted_score as float64), predicted_score > 500)) from unnest(generate_array(1, 1000)) as predicted_score)) as auc_pr
+    select bigfunctions.your_region2.precision_recall_auc((select array_agg(struct(cast(predicted_score as float64), predicted_score > 500)) from unnest(generate_array(1, 1000)) as predicted_score)) as auc_pr
 
     ```
 
@@ -551,7 +553,7 @@ Returns the Precision-Recall Curve
 === "EU"
 
     ```sql
-    select * from bigfunctions.eu.precision_recall_curve([struct(0.1, false), struct(0.3, false), struct(0.7, true), struct(0.9, true)])
+    select * from bigfunctions.eu.precision_recall_curve([(0.1, false), (0.4, false), (0.35, true), (0.8, true)])
 
     ```
 
@@ -559,7 +561,7 @@ Returns the Precision-Recall Curve
 === "US"
 
     ```sql
-    select * from bigfunctions.us.precision_recall_curve([struct(0.1, false), struct(0.3, false), struct(0.7, true), struct(0.9, true)])
+    select * from bigfunctions.us.precision_recall_curve([(0.1, false), (0.4, false), (0.35, true), (0.8, true)])
 
     ```
 
@@ -567,7 +569,7 @@ Returns the Precision-Recall Curve
 === "europe-west1"
 
     ```sql
-    select * from bigfunctions.europe_west1.precision_recall_curve([struct(0.1, false), struct(0.3, false), struct(0.7, true), struct(0.9, true)])
+    select * from bigfunctions.europe_west1.precision_recall_curve([(0.1, false), (0.4, false), (0.35, true), (0.8, true)])
 
     ```
 
@@ -575,7 +577,7 @@ Returns the Precision-Recall Curve
 === "your-region2"
 
     ```sql
-    select * from bigfunctions.your_region2.precision_recall_curve([struct(0.1, false), struct(0.3, false), struct(0.7, true), struct(0.9, true)])
+    select * from bigfunctions.your_region2.precision_recall_curve([(0.1, false), (0.4, false), (0.35, true), (0.8, true)])
 
     ```
 
@@ -591,9 +593,10 @@ Returns the Precision-Recall Curve
 | precision |  recall |
 +-----------+---------+
 |    0.5    |   1.0   |
-|   0.667   |   1.0   |
-|    1.0    |   1.0   |
+|    0.667  |   1.0   |
+|    0.5    |   0.5   |
 |    1.0    |   0.5   |
+|    1.0    |   0     |
 +-----------+---------+
 
 </code>
@@ -694,103 +697,16 @@ Forecast time-series using prophet
 
 
 
-### roc_curve
+### roc_auc
 <div style="position: relative; top: -2rem; margin-bottom:  -2rem; text-align: right; z-index: 9999;">
   
   <a href="https://www.linkedin.com/in/anatolec/" title="Author: Anatole Callies" target="_blank">
     <img src="https://ca.slack-edge.com/T01LGTNUWTE-U044NKG25GX-7469e33feefb-512" width="32" style=" border-radius: 50% !important">
   </a>
   
-  <a href="https://github.com/unytics/bigfunctions/blob/main/bigfunctions/roc_curve.yaml" title="Edit on GitHub" target="_blank"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="#5d6cc0" d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg></a></div>
+  <a href="https://github.com/unytics/bigfunctions/blob/main/bigfunctions/roc_auc.yaml" title="Edit on GitHub" target="_blank"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="#5d6cc0" d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg></a></div>
 ```
-roc_curve(predictions)
-```
-
-**Description**
-
-Returns the Receiver Operating Characteristic Curve (a.k.a. ROC Curve)
-given a set of predicted scores and ground truth labels
-
-**Examples**
-
-
-
-
-
-
-=== "EU"
-
-    ```sql
-    select * from bigfunctions.eu.roc_curve([struct(0.1, false), struct(0.3, false), struct(0.7, true), struct(0.9, true)])
-
-    ```
-
-
-=== "US"
-
-    ```sql
-    select * from bigfunctions.us.roc_curve([struct(0.1, false), struct(0.3, false), struct(0.7, true), struct(0.9, true)])
-
-    ```
-
-
-=== "europe-west1"
-
-    ```sql
-    select * from bigfunctions.europe_west1.roc_curve([struct(0.1, false), struct(0.3, false), struct(0.7, true), struct(0.9, true)])
-
-    ```
-
-
-=== "your-region2"
-
-    ```sql
-    select * from bigfunctions.your_region2.roc_curve([struct(0.1, false), struct(0.3, false), struct(0.7, true), struct(0.9, true)])
-
-    ```
-
-
-
-
-
-
-
-<pre style="margin-top: -1rem;">
-<code style="padding-top: 0px; padding-bottom: 0px;">
-+---------------------+--------------------+
-| false_positive_rate | true_positive_rate |
-+---------------------+--------------------+
-|         0.0         |         1.0        |
-|         0.0         |         0.5        |
-|         0.5         |         1.0        |
-|         1.0         |         1.0        |
-+---------------------+--------------------+
-
-</code>
-</pre>
-
-
-
-
-
-
-
-
----
-
-
-
-
-### roc_curve_auc
-<div style="position: relative; top: -2rem; margin-bottom:  -2rem; text-align: right; z-index: 9999;">
-  
-  <a href="https://www.linkedin.com/in/anatolec/" title="Author: Anatole Callies" target="_blank">
-    <img src="https://ca.slack-edge.com/T01LGTNUWTE-U044NKG25GX-7469e33feefb-512" width="32" style=" border-radius: 50% !important">
-  </a>
-  
-  <a href="https://github.com/unytics/bigfunctions/blob/main/bigfunctions/roc_curve_auc.yaml" title="Edit on GitHub" target="_blank"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="#5d6cc0" d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg></a></div>
-```
-roc_curve_auc(predictions)
+roc_auc(predictions)
 ```
 
 **Description**
@@ -808,7 +724,7 @@ given a set of predicted scores and ground truth labels using the trapezoidal ru
 === "EU"
 
     ```sql
-    select bigfunctions.eu.roc_curve_auc((select array_agg(struct(cast(predicted_score as float64), rand() > 0.5)) from unnest(generate_array(1, 1000)) as predicted_score)) as roc_auc
+    select bigfunctions.eu.roc_auc((select array_agg(struct(cast(predicted_score as float64), rand() > 0.5)) from unnest(generate_array(1, 1000)) as predicted_score)) as roc_auc
 
     ```
 
@@ -816,7 +732,7 @@ given a set of predicted scores and ground truth labels using the trapezoidal ru
 === "US"
 
     ```sql
-    select bigfunctions.us.roc_curve_auc((select array_agg(struct(cast(predicted_score as float64), rand() > 0.5)) from unnest(generate_array(1, 1000)) as predicted_score)) as roc_auc
+    select bigfunctions.us.roc_auc((select array_agg(struct(cast(predicted_score as float64), rand() > 0.5)) from unnest(generate_array(1, 1000)) as predicted_score)) as roc_auc
 
     ```
 
@@ -824,7 +740,7 @@ given a set of predicted scores and ground truth labels using the trapezoidal ru
 === "europe-west1"
 
     ```sql
-    select bigfunctions.europe_west1.roc_curve_auc((select array_agg(struct(cast(predicted_score as float64), rand() > 0.5)) from unnest(generate_array(1, 1000)) as predicted_score)) as roc_auc
+    select bigfunctions.europe_west1.roc_auc((select array_agg(struct(cast(predicted_score as float64), rand() > 0.5)) from unnest(generate_array(1, 1000)) as predicted_score)) as roc_auc
 
     ```
 
@@ -832,7 +748,7 @@ given a set of predicted scores and ground truth labels using the trapezoidal ru
 === "your-region2"
 
     ```sql
-    select bigfunctions.your_region2.roc_curve_auc((select array_agg(struct(cast(predicted_score as float64), rand() > 0.5)) from unnest(generate_array(1, 1000)) as predicted_score)) as roc_auc
+    select bigfunctions.your_region2.roc_auc((select array_agg(struct(cast(predicted_score as float64), rand() > 0.5)) from unnest(generate_array(1, 1000)) as predicted_score)) as roc_auc
 
     ```
 
@@ -863,7 +779,7 @@ given a set of predicted scores and ground truth labels using the trapezoidal ru
 === "EU"
 
     ```sql
-    select bigfunctions.eu.roc_curve_auc((select array_agg(struct(cast(predicted_score as float64), predicted_score > 500)) from unnest(generate_array(1, 1000)) as predicted_score)) as roc_auc
+    select bigfunctions.eu.roc_auc((select array_agg(struct(cast(predicted_score as float64), predicted_score > 500)) from unnest(generate_array(1, 1000)) as predicted_score)) as roc_auc
 
     ```
 
@@ -871,7 +787,7 @@ given a set of predicted scores and ground truth labels using the trapezoidal ru
 === "US"
 
     ```sql
-    select bigfunctions.us.roc_curve_auc((select array_agg(struct(cast(predicted_score as float64), predicted_score > 500)) from unnest(generate_array(1, 1000)) as predicted_score)) as roc_auc
+    select bigfunctions.us.roc_auc((select array_agg(struct(cast(predicted_score as float64), predicted_score > 500)) from unnest(generate_array(1, 1000)) as predicted_score)) as roc_auc
 
     ```
 
@@ -879,7 +795,7 @@ given a set of predicted scores and ground truth labels using the trapezoidal ru
 === "europe-west1"
 
     ```sql
-    select bigfunctions.europe_west1.roc_curve_auc((select array_agg(struct(cast(predicted_score as float64), predicted_score > 500)) from unnest(generate_array(1, 1000)) as predicted_score)) as roc_auc
+    select bigfunctions.europe_west1.roc_auc((select array_agg(struct(cast(predicted_score as float64), predicted_score > 500)) from unnest(generate_array(1, 1000)) as predicted_score)) as roc_auc
 
     ```
 
@@ -887,7 +803,7 @@ given a set of predicted scores and ground truth labels using the trapezoidal ru
 === "your-region2"
 
     ```sql
-    select bigfunctions.your_region2.roc_curve_auc((select array_agg(struct(cast(predicted_score as float64), predicted_score > 500)) from unnest(generate_array(1, 1000)) as predicted_score)) as roc_auc
+    select bigfunctions.your_region2.roc_auc((select array_agg(struct(cast(predicted_score as float64), predicted_score > 500)) from unnest(generate_array(1, 1000)) as predicted_score)) as roc_auc
 
     ```
 
@@ -918,7 +834,7 @@ given a set of predicted scores and ground truth labels using the trapezoidal ru
 === "EU"
 
     ```sql
-    select bigfunctions.eu.roc_curve_auc((select array_agg(struct(cast(predicted_score as float64), predicted_score < 500)) from unnest(generate_array(1, 1000)) as predicted_score)) as roc_auc
+    select bigfunctions.eu.roc_auc((select array_agg(struct(cast(predicted_score as float64), predicted_score < 500)) from unnest(generate_array(1, 1000)) as predicted_score)) as roc_auc
 
     ```
 
@@ -926,7 +842,7 @@ given a set of predicted scores and ground truth labels using the trapezoidal ru
 === "US"
 
     ```sql
-    select bigfunctions.us.roc_curve_auc((select array_agg(struct(cast(predicted_score as float64), predicted_score < 500)) from unnest(generate_array(1, 1000)) as predicted_score)) as roc_auc
+    select bigfunctions.us.roc_auc((select array_agg(struct(cast(predicted_score as float64), predicted_score < 500)) from unnest(generate_array(1, 1000)) as predicted_score)) as roc_auc
 
     ```
 
@@ -934,7 +850,7 @@ given a set of predicted scores and ground truth labels using the trapezoidal ru
 === "europe-west1"
 
     ```sql
-    select bigfunctions.europe_west1.roc_curve_auc((select array_agg(struct(cast(predicted_score as float64), predicted_score < 500)) from unnest(generate_array(1, 1000)) as predicted_score)) as roc_auc
+    select bigfunctions.europe_west1.roc_auc((select array_agg(struct(cast(predicted_score as float64), predicted_score < 500)) from unnest(generate_array(1, 1000)) as predicted_score)) as roc_auc
 
     ```
 
@@ -942,7 +858,7 @@ given a set of predicted scores and ground truth labels using the trapezoidal ru
 === "your-region2"
 
     ```sql
-    select bigfunctions.your_region2.roc_curve_auc((select array_agg(struct(cast(predicted_score as float64), predicted_score < 500)) from unnest(generate_array(1, 1000)) as predicted_score)) as roc_auc
+    select bigfunctions.your_region2.roc_auc((select array_agg(struct(cast(predicted_score as float64), predicted_score < 500)) from unnest(generate_array(1, 1000)) as predicted_score)) as roc_auc
 
     ```
 
@@ -960,6 +876,94 @@ given a set of predicted scores and ground truth labels using the trapezoidal ru
 </pre>
 
 
+
+
+
+
+
+
+
+
+---
+
+
+
+
+### roc_curve
+<div style="position: relative; top: -2rem; margin-bottom:  -2rem; text-align: right; z-index: 9999;">
+  
+  <a href="https://www.linkedin.com/in/anatolec/" title="Author: Anatole Callies" target="_blank">
+    <img src="https://ca.slack-edge.com/T01LGTNUWTE-U044NKG25GX-7469e33feefb-512" width="32" style=" border-radius: 50% !important">
+  </a>
+  
+  <a href="https://github.com/unytics/bigfunctions/blob/main/bigfunctions/roc_curve.yaml" title="Edit on GitHub" target="_blank"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="#5d6cc0" d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg></a></div>
+```
+roc_curve(predictions)
+```
+
+**Description**
+
+Returns the Receiver Operating Characteristic Curve (a.k.a. ROC Curve)
+given a set of predicted scores and ground truth labels
+
+**Examples**
+
+
+
+
+
+
+=== "EU"
+
+    ```sql
+    select * from bigfunctions.eu.roc_curve([(0.1, false), (0.4, false), (0.35, true), (0.8, true)])
+
+    ```
+
+
+=== "US"
+
+    ```sql
+    select * from bigfunctions.us.roc_curve([(0.1, false), (0.4, false), (0.35, true), (0.8, true)])
+
+    ```
+
+
+=== "europe-west1"
+
+    ```sql
+    select * from bigfunctions.europe_west1.roc_curve([(0.1, false), (0.4, false), (0.35, true), (0.8, true)])
+
+    ```
+
+
+=== "your-region2"
+
+    ```sql
+    select * from bigfunctions.your_region2.roc_curve([(0.1, false), (0.4, false), (0.35, true), (0.8, true)])
+
+    ```
+
+
+
+
+
+
+
+<pre style="margin-top: -1rem;">
+<code style="padding-top: 0px; padding-bottom: 0px;">
++---------------------+--------------------+
+| false_positive_rate | true_positive_rate |
++---------------------+--------------------+
+|         0.0         |         0.0        |
+|         0.0         |         0.5        |
+|         0.5         |         0.5        |
+|         0.5         |         1.0        |
+|         1.0         |         1.0        |
++---------------------+--------------------+
+
+</code>
+</pre>
 
 
 
@@ -1590,21 +1594,26 @@ with bins defined so that there are `nb_bins` bins of same width between `min_bo
 
 
 
-### dlp_detect
+### deidentify
 <div style="position: relative; top: -2rem; margin-bottom:  -2rem; text-align: right; z-index: 9999;">
   
   <a href="https://www.linkedin.com/in/shivamsingh012/" title="Author: Shivam Singh" target="_blank">
     <img src="https://media.licdn.com/dms/image/D4D03AQERv0qwECH0DA/profile-displayphoto-shrink_200_200/0/1675233460732?e=1686182400&v=beta&t=HqngiSx5zd4llZStwf3L0k2T_pE8qvnEj7NguWNJTOo" width="32" style=" border-radius: 50% !important">
   </a>
   
-  <a href="https://github.com/unytics/bigfunctions/blob/main/bigfunctions/dlp_detect.yaml" title="Edit on GitHub" target="_blank"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="#5d6cc0" d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg></a></div>
+  <a href="https://github.com/unytics/bigfunctions/blob/main/bigfunctions/deidentify.yaml" title="Edit on GitHub" target="_blank"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="#5d6cc0" d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg></a></div>
 ```
-dlp_detect(text)
+deidentify(text, info_types)
 ```
 
 **Description**
 
-Returns information about the data if any type of data leak is detected in the given string.
+Masks sensitive information in `text`
+using [Cloud Data Loss Prevention](https://cloud.google.com/dlp)
+
+| Param  | Possible values  |
+|---|---|
+| `info_types` | `ADVERTISING_ID`, `AGE`, `AUTH_TOKEN`, `AWS_CREDENTIALS`, `AZURE_AUTH_TOKEN`, `BASIC_AUTH_HEADER`, `CREDIT_CARD_NUMBER`, `CREDIT_CARD_TRACK_NUMBER`, `DATE`, `DATE_OF_BIRTH`, `DOMAIN_NAME`, `EMAIL_ADDRESS`, `ENCRYPTION_KEY`, `ETHNIC_GROUP`, `FEMALE_NAME`, `FIRST_NAME`, `GCP_API_KEY`, `GCP_CREDENTIALS`, `GENDER`, `GENERIC_ID`, `HTTP_COOKIE`, `HTTP_COOKIE`, `IBAN_CODE`, `ICCID_NUMBER`, `ICD10_CODE`, `ICD9_CODE`, `IMEI_HARDWARE_ID`, `IMSI_ID`, `IP_ADDRESS`, `JSON_WEB_TOKEN`, `LAST_NAME`, `LOCATION`, `LOCATION_COORDINATES`, `MAC_ADDRESS`, `MAC_ADDRESS_LOCAL`, `MALE_NAME`, `MARITAL_STATUS`, `MEDICAL_RECORD_NUMBER`, `MEDICAL_TERM`, `OAUTH_CLIENT_SECRET`, `ORGANIZATION_NAME`, `PASSPORT`, `PASSWORD`, `PERSON_NAME`, `PHONE_NUMBER`, `SSL_CERTIFICATE`, `STORAGE_SIGNED_POLICY_DOCUMENT`, `STORAGE_SIGNED_URL`, `STREET_ADDRESS`, `SWIFT_CODE`, `TIME`, `URL`, `VAT_NUMBER`, `VEHICLE_IDENTIFICATION_NUMBER`, `WEAK_PASSWORD_HASH`, `XSRF_TOKEN` |
 
 
 **Examples**
@@ -1617,7 +1626,7 @@ Returns information about the data if any type of data leak is detected in the g
 === "EU"
 
     ```sql
-    select bigfunctions.eu.dlp_detect("My email is shivam@google.co.in") as detected_dlp
+    select bigfunctions.eu.deidentify("My email is shivam@google.co.in", "[\"PHONE_NUMBER\", \"EMAIL_ADDRESS\"]") as masked_info
 
     ```
 
@@ -1625,7 +1634,7 @@ Returns information about the data if any type of data leak is detected in the g
 === "US"
 
     ```sql
-    select bigfunctions.us.dlp_detect("My email is shivam@google.co.in") as detected_dlp
+    select bigfunctions.us.deidentify("My email is shivam@google.co.in", "[\"PHONE_NUMBER\", \"EMAIL_ADDRESS\"]") as masked_info
 
     ```
 
@@ -1633,7 +1642,7 @@ Returns information about the data if any type of data leak is detected in the g
 === "europe-west1"
 
     ```sql
-    select bigfunctions.europe_west1.dlp_detect("My email is shivam@google.co.in") as detected_dlp
+    select bigfunctions.europe_west1.deidentify("My email is shivam@google.co.in", "[\"PHONE_NUMBER\", \"EMAIL_ADDRESS\"]") as masked_info
 
     ```
 
@@ -1641,7 +1650,7 @@ Returns information about the data if any type of data leak is detected in the g
 === "your-region2"
 
     ```sql
-    select bigfunctions.your_region2.dlp_detect("My email is shivam@google.co.in") as detected_dlp
+    select bigfunctions.your_region2.deidentify("My email is shivam@google.co.in", "[\"PHONE_NUMBER\", \"EMAIL_ADDRESS\"]") as masked_info
 
     ```
 
@@ -1650,11 +1659,11 @@ Returns information about the data if any type of data leak is detected in the g
 
 
 <pre style="margin-top: -1rem;">
-<code style="padding-top: 0px; padding-bottom: 0px;">+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-| detected_dlp                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    |
-+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-| &#34;[{&#34;string&#34;: &#34;shivam&#34;, &#34;info_type&#34;: &#34;PERSON_NAME&#34;, &#34;confidence&#34;: &#34;POSSIBLE&#34;}, {&#34;string&#34;: &#34;shivam&#34;, &#34;info_type&#34;: &#34;FIRST_NAME&#34;, &#34;confidence&#34;: &#34;POSSIBLE&#34;}, {&#34;string&#34;: &#34;shivam&#34;, &#34;info_type&#34;: &#34;FEMALE_NAME&#34;, &#34;confidence&#34;: &#34;POSSIBLE&#34;}, {&#34;string&#34;: &#34;shivam&#34;, &#34;info_type&#34;: &#34;MALE_NAME&#34;, &#34;confidence&#34;: &#34;POSSIBLE&#34;}, {&#34;string&#34;: &#34;google&#34;, &#34;info_type&#34;: &#34;ORGANIZATION_NAME&#34;, &#34;confidence&#34;: &#34;POSSIBLE&#34;}, {&#34;string&#34;: &#34;shivam@google.co.in&#34;, &#34;info_type&#34;: &#34;EMAIL_ADDRESS&#34;, &#34;confidence&#34;: &#34;VERY_LIKELY&#34;}, {&#34;string&#34;: &#34;google.co.in&#34;, &#34;info_type&#34;: &#34;DOMAIN_NAME&#34;, &#34;confidence&#34;: &#34;LIKELY&#34;}]&#34; |
-+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+<code style="padding-top: 0px; padding-bottom: 0px;">+-----------------------------+
+| masked_info                 |
++-----------------------------+
+| My email is [EMAIL_ADDRESS] |
++-----------------------------+
 </code>
 </pre>
 
@@ -1672,7 +1681,7 @@ Returns information about the data if any type of data leak is detected in the g
 === "EU"
 
     ```sql
-    select bigfunctions.eu.dlp_detect("My phone number is 0123456789") as detected_dlp
+    select bigfunctions.eu.deidentify("My phone number is 0123456789", "[\"PHONE_NUMBER\", \"email_address\"]") as masked_info
 
     ```
 
@@ -1680,7 +1689,7 @@ Returns information about the data if any type of data leak is detected in the g
 === "US"
 
     ```sql
-    select bigfunctions.us.dlp_detect("My phone number is 0123456789") as detected_dlp
+    select bigfunctions.us.deidentify("My phone number is 0123456789", "[\"PHONE_NUMBER\", \"email_address\"]") as masked_info
 
     ```
 
@@ -1688,7 +1697,7 @@ Returns information about the data if any type of data leak is detected in the g
 === "europe-west1"
 
     ```sql
-    select bigfunctions.europe_west1.dlp_detect("My phone number is 0123456789") as detected_dlp
+    select bigfunctions.europe_west1.deidentify("My phone number is 0123456789", "[\"PHONE_NUMBER\", \"email_address\"]") as masked_info
 
     ```
 
@@ -1696,7 +1705,7 @@ Returns information about the data if any type of data leak is detected in the g
 === "your-region2"
 
     ```sql
-    select bigfunctions.your_region2.dlp_detect("My phone number is 0123456789") as detected_dlp
+    select bigfunctions.your_region2.deidentify("My phone number is 0123456789", "[\"PHONE_NUMBER\", \"email_address\"]") as masked_info
 
     ```
 
@@ -1705,11 +1714,204 @@ Returns information about the data if any type of data leak is detected in the g
 
 
 <pre style="margin-top: -1rem;">
-<code style="padding-top: 0px; padding-bottom: 0px;">+-----------------------------------------------------------------------------------+
-| detected_dlp                                                                      |
-+-----------------------------------------------------------------------------------+
-| &#34;[{&#34;string&#34;: &#34;0123456789&#34;, &#34;info_type&#34;: &#34;PHONE_NUMBER&#34;, &#34;confidence&#34;: &#34;LIKELY&#34;}]&#34; |
-+-----------------------------------------------------------------------------------+
+<code style="padding-top: 0px; padding-bottom: 0px;">+-----------------------------------+
+| masked_info                       |
++-----------------------------------+
+| My phone number is [PHONE_NUMBER] |
++-----------------------------------+
+</code>
+</pre>
+
+
+
+
+
+
+
+
+
+<span style="color: var(--md-typeset-a-color);">3. String with email in it and no info_types.</span>
+
+
+=== "EU"
+
+    ```sql
+    select bigfunctions.eu.deidentify("My email is shivam@google.co.in", "[]") as masked_info
+
+    ```
+
+
+=== "US"
+
+    ```sql
+    select bigfunctions.us.deidentify("My email is shivam@google.co.in", "[]") as masked_info
+
+    ```
+
+
+=== "europe-west1"
+
+    ```sql
+    select bigfunctions.europe_west1.deidentify("My email is shivam@google.co.in", "[]") as masked_info
+
+    ```
+
+
+=== "your-region2"
+
+    ```sql
+    select bigfunctions.your_region2.deidentify("My email is shivam@google.co.in", "[]") as masked_info
+
+    ```
+
+
+
+
+
+<pre style="margin-top: -1rem;">
+<code style="padding-top: 0px; padding-bottom: 0px;">+------------------------------------------+
+| masked_info                              |
++------------------------------------------+
+| My email is [PERSON_NAME][EMAIL_ADDRESS] |
++------------------------------------------+
+</code>
+</pre>
+
+
+
+
+
+
+
+
+
+
+---
+
+
+
+
+### detect_sensitive_info
+<div style="position: relative; top: -2rem; margin-bottom:  -2rem; text-align: right; z-index: 9999;">
+  
+  <a href="https://www.linkedin.com/in/shivamsingh012/" title="Author: Shivam Singh" target="_blank">
+    <img src="https://media.licdn.com/dms/image/D4D03AQERv0qwECH0DA/profile-displayphoto-shrink_200_200/0/1675233460732?e=1686182400&v=beta&t=HqngiSx5zd4llZStwf3L0k2T_pE8qvnEj7NguWNJTOo" width="32" style=" border-radius: 50% !important">
+  </a>
+  
+  <a href="https://github.com/unytics/bigfunctions/blob/main/bigfunctions/detect_sensitive_info.yaml" title="Edit on GitHub" target="_blank"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="#5d6cc0" d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg></a></div>
+```
+detect_sensitive_info(text)
+```
+
+**Description**
+
+Detect sensitive information in `text`
+using [Cloud Data Loss Prevention](https://cloud.google.com/dlp)
+
+
+**Examples**
+
+
+
+<span style="color: var(--md-typeset-a-color);">1. String with email in it.</span>
+
+
+=== "EU"
+
+    ```sql
+    select bigfunctions.eu.detect_sensitive_info("My email is shivam@google.co.in") as sensitive_info
+
+    ```
+
+
+=== "US"
+
+    ```sql
+    select bigfunctions.us.detect_sensitive_info("My email is shivam@google.co.in") as sensitive_info
+
+    ```
+
+
+=== "europe-west1"
+
+    ```sql
+    select bigfunctions.europe_west1.detect_sensitive_info("My email is shivam@google.co.in") as sensitive_info
+
+    ```
+
+
+=== "your-region2"
+
+    ```sql
+    select bigfunctions.your_region2.detect_sensitive_info("My email is shivam@google.co.in") as sensitive_info
+
+    ```
+
+
+
+
+
+<pre style="margin-top: -1rem;">
+<code style="padding-top: 0px; padding-bottom: 0px;">+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| sensitive_info                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |
++-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| [{&#34;string&#34;: &#34;shivam&#34;, &#34;info_type&#34;: &#34;PERSON_NAME&#34;, &#34;confidence&#34;: &#34;POSSIBLE&#34;}, {&#34;string&#34;: &#34;shivam&#34;, &#34;info_type&#34;: &#34;FIRST_NAME&#34;, &#34;confidence&#34;: &#34;POSSIBLE&#34;}, {&#34;string&#34;: &#34;shivam&#34;, &#34;info_type&#34;: &#34;FEMALE_NAME&#34;, &#34;confidence&#34;: &#34;POSSIBLE&#34;}, {&#34;string&#34;: &#34;shivam&#34;, &#34;info_type&#34;: &#34;MALE_NAME&#34;, &#34;confidence&#34;: &#34;POSSIBLE&#34;}, {&#34;string&#34;: &#34;google&#34;, &#34;info_type&#34;: &#34;ORGANIZATION_NAME&#34;, &#34;confidence&#34;: &#34;POSSIBLE&#34;}, {&#34;string&#34;: &#34;shivam@google.co.in&#34;, &#34;info_type&#34;: &#34;EMAIL_ADDRESS&#34;, &#34;confidence&#34;: &#34;VERY_LIKELY&#34;}, {&#34;string&#34;: &#34;google.co.in&#34;, &#34;info_type&#34;: &#34;DOMAIN_NAME&#34;, &#34;confidence&#34;: &#34;LIKELY&#34;}] |
++-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+</code>
+</pre>
+
+
+
+
+
+
+
+
+
+<span style="color: var(--md-typeset-a-color);">2. String with phone number in it.</span>
+
+
+=== "EU"
+
+    ```sql
+    select bigfunctions.eu.detect_sensitive_info("My phone number is 0123456789") as sensitive_info
+
+    ```
+
+
+=== "US"
+
+    ```sql
+    select bigfunctions.us.detect_sensitive_info("My phone number is 0123456789") as sensitive_info
+
+    ```
+
+
+=== "europe-west1"
+
+    ```sql
+    select bigfunctions.europe_west1.detect_sensitive_info("My phone number is 0123456789") as sensitive_info
+
+    ```
+
+
+=== "your-region2"
+
+    ```sql
+    select bigfunctions.your_region2.detect_sensitive_info("My phone number is 0123456789") as sensitive_info
+
+    ```
+
+
+
+
+
+<pre style="margin-top: -1rem;">
+<code style="padding-top: 0px; padding-bottom: 0px;">+---------------------------------------------------------------------------------+
+| sensitive_info                                                                  |
++---------------------------------------------------------------------------------+
+| [{&#34;string&#34;: &#34;0123456789&#34;, &#34;info_type&#34;: &#34;PHONE_NUMBER&#34;, &#34;confidence&#34;: &#34;LIKELY&#34;}] |
++---------------------------------------------------------------------------------+
 </code>
 </pre>
 
@@ -1736,23 +1938,25 @@ Returns information about the data if any type of data leak is detected in the g
   
   <a href="https://github.com/unytics/bigfunctions/blob/main/bigfunctions/faker.yaml" title="Edit on GitHub" target="_blank"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="#5d6cc0" d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg></a></div>
 ```
-faker(what, localization)
+faker(what, locale)
 ```
 
 **Description**
 
-Generates fake data based on given method (what to generate) and localization (local language).
+Generates fake data
+of type `what` and localized with `locale` parameter (using [faker python library](https://faker.readthedocs.io/))
 
-Available Methods - `aba`, `address`, `administrative_unit`, `am_pm`, `android_platform_token`, `ascii_company_email`, `ascii_email`, `ascii_free_email`, `ascii_safe_email`, `bank_country`, `bban`, `binary`, `boolean`, `bothify`, `bs`, `building_number`, `catch_phrase`, `century`, `chrome`, `city`, `city_prefix`, `city_suffix`, `color`, `color_name`, `company`, `company_email`, `company_suffix`, `coordinate`, `country`, `country_calling_code`, `country_code`, `credit_card_expire`, `credit_card_full`, `credit_card_number`, `credit_card_provider`, `credit_card_security_code`, `cryptocurrency`, `cryptocurrency_code`, `cryptocurrency_name`, `csv`, `currency`, `currency_code`, `currency_name`, `currency_symbol`, `current_country`, `current_country_code`, `date`, `date_between`, `date_between_dates`, `date_object`, `date_of_birth`, `date_this_century`, `date_this_decade`, `date_this_month`, `date_this_year`, `date_time`, `date_time_ad`, `date_time_between`, `date_time_between_dates`, `date_time_this_century`, `date_time_this_decade`, `date_time_this_month`, `date_time_this_year`, `day_of_month`, `day_of_week`, `dga`, `domain_name`, `domain_word`, `dsv`, `ean`, `ean13`, `ean8`, `ein`, `email`, `emoji`, `file_extension`, `file_name`, `file_path`, `firefox`, `first_name`, `first_name_female`, `first_name_male`, `first_name_nonbinary`, `fixed_width`, `free_email`, `free_email_domain`, `future_date`, `future_datetime`, `get_providers`, `hex_color`, `hexify`, `hostname`, `http_method`, `iana_id`, `iban`, `image_url`, `internet_explorer`, `invalid_ssn`, `ios_platform_token`, `ipv4`, `ipv4_network_class`, `ipv4_private`, `ipv4_public`, `ipv6`, `isbn10`, `isbn13`, `iso8601`, `items`, `itin`, `job`, `json`, `json_bytes`, `language_code`, `language_name`, `last_name`, `last_name_female`, `last_name_male`, `last_name_nonbinary`, `latitude`, `latlng`, `lexify`, `license_plate`, `linux_platform_token`, `linux_processor`, `local_latlng`, `locale`, `localized_ean`, `localized_ean13`, `localized_ean8`, `location_on_land`, `longitude`, `mac_address`, `mac_platform_token`, `mac_processor`, `md5`, `military_apo`, `military_dpo`, `military_ship`, `military_state`, `mime_type`, `month`, `month_name`, `msisdn`, `name`, `name_female`, `name_male`, `name_nonbinary`, `nic_handle`, `nic_handles`, `null_boolean`, `numerify`, `opera`, `paragraph`, `paragraphs`, `password`, `past_date`, `past_datetime`, `phone_number`, `port_number`, `postalcode`, `postalcode_in_state`, `postalcode_plus4`, `postcode`, `postcode_in_state`, `prefix`, `prefix_female`, `prefix_male`, `prefix_nonbinary`, `pricetag`, `profile`, `psv`, `pybool`, `pydecimal`, `pydict`, `pyfloat`, `pyint`, `pyiterable`, `pylist`, `pyobject`, `pyset`, `pystr`, `pystr_format`, `pystruct`, `pytimezone`, `pytuple`, `random_choices`, `random_digit`, `random_digit_not_null`, `random_digit_not_null_or_empty`, `random_digit_or_empty`, `random_element`, `random_elements`, `random_int`, `random_letter`, `random_letters`, `random_lowercase_letter`, `random_number`, `random_sample`, `random_uppercase_letter`, `randomize_nb_elements`, `rgb_color`, `rgb_css_color`, `ripe_id`, `safari`, `safe_color_name`, `safe_domain_name`, `safe_email`, `safe_hex_color`, `sbn9`, `secondary_address`, `seed_instance`, `sentence`, `sentences`, `sha1`, `sha256`, `simple_profile`, `slug`, `ssn`, `state`, `state_abbr`, `street_address`, `street_name`, `street_suffix`, `suffix`, `suffix_female`, `suffix_male`, `suffix_nonbinary`, `swift`, `swift11`, `swift8`, `tar`, `text`, `texts`, `time`, `time_delta`, `time_object`, `time_series`, `timezone`, `tld`, `tsv`, `unix_device`, `unix_partition`, `unix_time`, `upc_a`, `upc_e`, `uri`, `uri_extension`, `uri_page`, `uri_path`, `url`, `user_agent`, `user_name`, `uuid4`, `windows_platform_token`, `word`, `words`, `year`, `zip`, `zipcode`, `zipcode_in_state`, `zipcode_plus4`
-
-Available Locales - `ar_AA`, `ar_AE`, `ar_BH`, `ar_EG`, `ar_JO`, `ar_PS`, `ar_SA`, `az_AZ`, `bg_BG`, `bn_BD`, `bs_BA`, `cs_CZ`, `da_DK`, `de`, `de_AT`, `de_CH`, `de_DE`, `dk_DK`, `el_CY`, `el_GR`, `en`, `en_AU`, `en_CA`, `en_GB`, `en_IE`, `en_IN`, `en_NZ`, `en_PH`, `en_TH`, `en_US`, `es`, `es_AR`, `es_CA`, `es_CL`, `es_CO`, `es_ES`, `es_MX`, `et_EE`, `fa_IR`, `fi_FI`, `fil_PH`, `fr_BE`, `fr_CA`, `fr_CH`, `fr_FR`, `fr_QC`, `ga_IE`, `he_IL`, `hi_IN`, `hr_HR`, `hu_HU`, `hy_AM`, `id_ID`, `it_CH`, `it_IT`, `ja_JP`, `ka_GE`, `ko_KR`, `la`, `lb_LU`, `lt_LT`, `lv_LV`, `mt_MT`, `ne_NP`, `nl_BE`, `nl_NL`, `no_NO`, `or_IN`, `pl_PL`, `pt_BR`, `pt_PT`, `ro_RO`, `ru_RU`, `sk_SK`, `sl_SI`, `sq_AL`, `sv_SE`, `ta_IN`, `th`, `th_TH`, `tl_PH`, `tr_TR`, `tw_GH`, `uk_UA`, `vi_VN`, `zh_CN`, `zh_TW`
+| Param  | Possible values  |
+|---|---|
+| `what`  | `aba`, `address`, `administrative_unit`, `am_pm`, `android_platform_token`, `ascii_company_email`, `ascii_email`, `ascii_free_email`, `ascii_safe_email`, `bank_country`, `bban`, `binary`, `boolean`, `bothify`, `bs`, `building_number`, `catch_phrase`, `century`, `chrome`, `city`, `city_prefix`, `city_suffix`, `color`, `color_name`, `company`, `company_email`, `company_suffix`, `coordinate`, `country`, `country_calling_code`, `country_code`, `credit_card_expire`, `credit_card_full`, `credit_card_number`, `credit_card_provider`, `credit_card_security_code`, `cryptocurrency`, `cryptocurrency_code`, `cryptocurrency_name`, `csv`, `currency`, `currency_code`, `currency_name`, `currency_symbol`, `current_country`, `current_country_code`, `date`, `date_between`, `date_between_dates`, `date_object`, `date_of_birth`, `date_this_century`, `date_this_decade`, `date_this_month`, `date_this_year`, `date_time`, `date_time_ad`, `date_time_between`, `date_time_between_dates`, `date_time_this_century`, `date_time_this_decade`, `date_time_this_month`, `date_time_this_year`, `day_of_month`, `day_of_week`, `dga`, `domain_name`, `domain_word`, `dsv`, `ean`, `ean13`, `ean8`, `ein`, `email`, `emoji`, `file_extension`, `file_name`, `file_path`, `firefox`, `first_name`, `first_name_female`, `first_name_male`, `first_name_nonbinary`, `fixed_width`, `free_email`, `free_email_domain`, `future_date`, `future_datetime`, `get_providers`, `hex_color`, `hexify`, `hostname`, `http_method`, `iana_id`, `iban`, `image_url`, `internet_explorer`, `invalid_ssn`, `ios_platform_token`, `ipv4`, `ipv4_network_class`, `ipv4_private`, `ipv4_public`, `ipv6`, `isbn10`, `isbn13`, `iso8601`, `items`, `itin`, `job`, `json`, `json_bytes`, `language_code`, `language_name`, `last_name`, `last_name_female`, `last_name_male`, `last_name_nonbinary`, `latitude`, `latlng`, `lexify`, `license_plate`, `linux_platform_token`, `linux_processor`, `local_latlng`, `locale`, `localized_ean`, `localized_ean13`, `localized_ean8`, `location_on_land`, `longitude`, `mac_address`, `mac_platform_token`, `mac_processor`, `md5`, `military_apo`, `military_dpo`, `military_ship`, `military_state`, `mime_type`, `month`, `month_name`, `msisdn`, `name`, `name_female`, `name_male`, `name_nonbinary`, `nic_handle`, `nic_handles`, `null_boolean`, `numerify`, `opera`, `paragraph`, `paragraphs`, `password`, `past_date`, `past_datetime`, `phone_number`, `port_number`, `postalcode`, `postalcode_in_state`, `postalcode_plus4`, `postcode`, `postcode_in_state`, `prefix`, `prefix_female`, `prefix_male`, `prefix_nonbinary`, `pricetag`, `profile`, `psv`, `pybool`, `pydecimal`, `pydict`, `pyfloat`, `pyint`, `pyiterable`, `pylist`, `pyobject`, `pyset`, `pystr`, `pystr_format`, `pystruct`, `pytimezone`, `pytuple`, `random_choices`, `random_digit`, `random_digit_not_null`, `random_digit_not_null_or_empty`, `random_digit_or_empty`, `random_element`, `random_elements`, `random_int`, `random_letter`, `random_letters`, `random_lowercase_letter`, `random_number`, `random_sample`, `random_uppercase_letter`, `randomize_nb_elements`, `rgb_color`, `rgb_css_color`, `ripe_id`, `safari`, `safe_color_name`, `safe_domain_name`, `safe_email`, `safe_hex_color`, `sbn9`, `secondary_address`, `seed_instance`, `sentence`, `sentences`, `sha1`, `sha256`, `simple_profile`, `slug`, `ssn`, `state`, `state_abbr`, `street_address`, `street_name`, `street_suffix`, `suffix`, `suffix_female`, `suffix_male`, `suffix_nonbinary`, `swift`, `swift11`, `swift8`, `tar`, `text`, `texts`, `time`, `time_delta`, `time_object`, `time_series`, `timezone`, `tld`, `tsv`, `unix_device`, `unix_partition`, `unix_time`, `upc_a`, `upc_e`, `uri`, `uri_extension`, `uri_page`, `uri_path`, `url`, `user_agent`, `user_name`, `uuid4`, `windows_platform_token`, `word`, `words`, `year`, `zip`, `zipcode`, `zipcode_in_state`, `zipcode_plus4` |
+| `locale`  | `null`, `ar_AA`, `ar_AE`, `ar_BH`, `ar_EG`, `ar_JO`, `ar_PS`, `ar_SA`, `az_AZ`, `bg_BG`, `bn_BD`, `bs_BA`, `cs_CZ`, `da_DK`, `de`, `de_AT`, `de_CH`, `de_DE`, `dk_DK`, `el_CY`, `el_GR`, `en`, `en_AU`, `en_CA`, `en_GB`, `en_IE`, `en_IN`, `en_NZ`, `en_PH`, `en_TH`, `en_US`, `es`, `es_AR`, `es_CA`, `es_CL`, `es_CO`, `es_ES`, `es_MX`, `et_EE`, `fa_IR`, `fi_FI`, `fil_PH`, `fr_BE`, `fr_CA`, `fr_CH`, `fr_FR`, `fr_QC`, `ga_IE`, `he_IL`, `hi_IN`, `hr_HR`, `hu_HU`, `hy_AM`, `id_ID`, `it_CH`, `it_IT`, `ja_JP`, `ka_GE`, `ko_KR`, `la`, `lb_LU`, `lt_LT`, `lv_LV`, `mt_MT`, `ne_NP`, `nl_BE`, `nl_NL`, `no_NO`, `or_IN`, `pl_PL`, `pt_BR`, `pt_PT`, `ro_RO`, `ru_RU`, `sk_SK`, `sl_SI`, `sq_AL`, `sv_SE`, `ta_IN`, `th`, `th_TH`, `tl_PH`, `tr_TR`, `tw_GH`, `uk_UA`, `vi_VN`, `zh_CN`, `zh_TW`  |
 
 
 **Examples**
 
 
 
-<span style="color: var(--md-typeset-a-color);">1. It will generate fake name</span>
+<span style="color: var(--md-typeset-a-color);">1. Generate fake italian name</span>
 
 
 === "EU"
@@ -1791,11 +1995,11 @@ Available Locales - `ar_AA`, `ar_AE`, `ar_BH`, `ar_EG`, `ar_JO`, `ar_PS`, `ar_SA
 
 
 <pre style="margin-top: -1rem;">
-<code style="padding-top: 0px; padding-bottom: 0px;">+-----------------+
-| fake_data       |
-+-----------------+
-| &#34;Michele Berry&#34; |
-+-----------------+
+<code style="padding-top: 0px; padding-bottom: 0px;">+------------------+
+| fake_data        |
++------------------+
+| Michela Beccaria |
++------------------+
 </code>
 </pre>
 
@@ -1807,13 +2011,13 @@ Available Locales - `ar_AA`, `ar_AE`, `ar_BH`, `ar_EG`, `ar_JO`, `ar_PS`, `ar_SA
 
 
 
-<span style="color: var(--md-typeset-a-color);">2. It will generate fake IPv4 address</span>
+<span style="color: var(--md-typeset-a-color);">2. Generate fake IPv4 address (without specifying locale)</span>
 
 
 === "EU"
 
     ```sql
-    select bigfunctions.eu.faker("ipv4_private", "it_IT") as fake_data
+    select bigfunctions.eu.faker("ipv4_private", null) as fake_data
 
     ```
 
@@ -1821,7 +2025,7 @@ Available Locales - `ar_AA`, `ar_AE`, `ar_BH`, `ar_EG`, `ar_JO`, `ar_PS`, `ar_SA
 === "US"
 
     ```sql
-    select bigfunctions.us.faker("ipv4_private", "it_IT") as fake_data
+    select bigfunctions.us.faker("ipv4_private", null) as fake_data
 
     ```
 
@@ -1829,7 +2033,7 @@ Available Locales - `ar_AA`, `ar_AE`, `ar_BH`, `ar_EG`, `ar_JO`, `ar_PS`, `ar_SA
 === "europe-west1"
 
     ```sql
-    select bigfunctions.europe_west1.faker("ipv4_private", "it_IT") as fake_data
+    select bigfunctions.europe_west1.faker("ipv4_private", null) as fake_data
 
     ```
 
@@ -1837,7 +2041,7 @@ Available Locales - `ar_AA`, `ar_AE`, `ar_BH`, `ar_EG`, `ar_JO`, `ar_PS`, `ar_SA
 === "your-region2"
 
     ```sql
-    select bigfunctions.your_region2.faker("ipv4_private", "it_IT") as fake_data
+    select bigfunctions.your_region2.faker("ipv4_private", null) as fake_data
 
     ```
 
@@ -1846,11 +2050,11 @@ Available Locales - `ar_AA`, `ar_AE`, `ar_BH`, `ar_EG`, `ar_JO`, `ar_PS`, `ar_SA
 
 
 <pre style="margin-top: -1rem;">
-<code style="padding-top: 0px; padding-bottom: 0px;">+-----------------+
-| fake_data       |
-+-----------------+
-| &#34;10.52.207.187&#34; |
-+-----------------+
+<code style="padding-top: 0px; padding-bottom: 0px;">+---------------+
+| fake_data     |
++---------------+
+| 10.52.207.187 |
++---------------+
 </code>
 </pre>
 
