@@ -42,7 +42,7 @@ code: |
   import google.cloud.dlp
   import json
 
-  if not text.strip():
+  if not text.strip() or not info_types.strip():
       return text
 
   built_in_info_types = [
