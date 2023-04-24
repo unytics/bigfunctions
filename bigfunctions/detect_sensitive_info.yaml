@@ -26,27 +26,9 @@ examples:
     region: ALL
 code: |
   import google.cloud.dlp
-  import os
   import json
-  import urllib.request
 
-  def get_project_id() -> str:
-    url = "http://metadata.google.internal/computeMetadata/v1/project/project-id"
-    req = urllib.request.Request(url)
-    req.add_header("Metadata-Flavor", "Google")
-    project_id = urllib.request.urlopen(req).read().decode()
-    return project_id
-
-
-  dlp_client = google.cloud.dlp_v2.DlpServiceClient()
-
-  item = {
-    "value": text
-  }
-
-  info_types = [
-    {'name'}: name
-    for name in [
+  info_types_to_detect = [
       'ADVERTISING_ID', 'AGE', 'AUTH_TOKEN', 'AWS_CREDENTIALS',
       'AZURE_AUTH_TOKEN', 'BASIC_AUTH_HEADER', 'CREDIT_CARD_NUMBER',
       'CREDIT_CARD_TRACK_NUMBER', 'DATE', 'DATE_OF_BIRTH',
@@ -63,42 +45,28 @@ code: |
       'STORAGE_SIGNED_URL', 'STREET_ADDRESS', 'SWIFT_CODE', 'TIME',
       'URL', 'VAT_NUMBER', 'VEHICLE_IDENTIFICATION_NUMBER',
       'WEAK_PASSWORD_HASH', 'XSRF_TOKEN'
-    ]
   ]
 
-  min_likelihood = google.cloud.dlp_v2.Likelihood.LIKELIHOOD_UNSPECIFIED
-
-  max_findings = 0
-
-  include_quote = True
-
-  inspect_config = {
-    "info_types": info_types,
-    "min_likelihood": min_likelihood,
-    "include_quote": include_quote,
-    "limits": {"max_findings_per_request": max_findings},
+  request = {
+      "item": {"value": text},
+      "parent": f"projects/{PROJECT}",
+      "inspect_config": {
+          "info_types": [{'name': info_type} for info_type in info_types_to_detect],
+          "min_likelihood": google.cloud.dlp_v2.Likelihood.LIKELIHOOD_UNSPECIFIED,
+          "include_quote": True,
+          "limits": {"max_findings_per_request": 0},
+      },
   }
-
-  parent = f"projects/{get_project_id()}"
-
-  response = dlp_client.inspect_content(
-    request={"parent": parent, "inspect_config": inspect_config, "item": item}
-  )
-
-  results = []
-  if response.result.findings:
-    for finding in response.result.findings:
-      try:
-        quote = finding.quote
-      except AttributeError:
-        quote = None
-      info_type = finding.info_type.name
-      likelihood = finding.likelihood.name
-      results.append({
-        "string": quote,
-        "info_type": info_type,
-        "confidence": likelihood
-      })
-  return json.dumps(results) if len(results) > 0 else None
+  dlp = google.cloud.dlp_v2.DlpServiceClient()
+  response = dlp.inspect_content(request=request)
+  results = [
+      {
+          "string": getattr(finding, 'quote'),
+          "info_type": finding.info_type.name,
+          "confidence": finding.likelihood.name,
+      }
+      for finding in response.result.findings
+  ]
+  return json.dumps(results, ensure_ascii=False) if results else None
 requirements: |
   google-cloud-dlp

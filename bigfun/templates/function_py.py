@@ -1,11 +1,14 @@
 import traceback
 
 from flask import Flask, request, jsonify
-
+import google.auth
 import google.cloud.error_reporting
 
 error_reporter = google.cloud.error_reporting.Client()
 app = Flask(__name__)
+
+
+_, PROJECT = google.auth.default()
 
 
 def compute(args):
