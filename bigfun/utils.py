@@ -159,11 +159,10 @@ class CloudRun:
         except subprocess.CalledProcessError as e:
             handle_error('See error above. ' + e.output.decode(errors='ignore').strip())
 
-    def deploy(self, source_folder):
+    def deploy(self, source_folder, options):
         print_info(f'Deploy Cloud Run service `{self.service}`')
-        return self.exec(
-            'gcloud run deploy',
-            options={
+        options = {
+            **{
                 'source': source_folder,
                 'max-instances': 1,
                 'memory': '256Mi',
@@ -172,8 +171,13 @@ class CloudRun:
                 'platform': 'managed',
                 'quiet': '',
                 'no-allow-unauthenticated': '',
+            },
+            **{
+                k.replace('_', '-'): v
+                for k, v in options.items()
             }
-        )
+        }
+        return self.exec('gcloud run deploy', options=options)
 
     @property
     def url(self):
