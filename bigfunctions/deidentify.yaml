@@ -90,3 +90,5 @@ code: |
   return response.item.value
 requirements: |
   google-cloud-dlp
+quotas:
+  max_rows_per_user_per_day: 10000

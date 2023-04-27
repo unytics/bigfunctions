@@ -1,0 +1,47 @@
+type: function_py
+category: transform_string
+author:
+  name: Shivam Singh
+  url: https://www.linkedin.com/in/shivamsingh012/
+  avatar_url: "https://media.licdn.com/dms/image/D4D03AQERv0qwECH0DA/profile-displayphoto-shrink_200_200/0/1675233460732?e=1686182400&v=beta&t=HqngiSx5zd4llZStwf3L0k2T_pE8qvnEj7NguWNJTOo"
+description: |
+    Sends given message to google chat channel using incoming webhook.
+arguments:
+  - name: url
+    type: string
+  - name: message
+    type: string
+output:
+  name: response
+  type: string
+examples:
+  - description: ""
+    arguments:
+      - '"https://chat.googleapis.com/v1/spaces/7D8la4AAAAE/messages?key=AIzaSyDdI0hCZtE6vySjMm-WEfRq3CPzqKqqsHI&token=HulDviWFMz6R5FW-GwlO4INCW1cZGDDExuWVaEbbr_g%3D"'
+      - '"Hello from bigfunctions."'
+    output: '""'
+    region: ALL
+
+code: |
+  from json import dumps
+  from httplib2 import Http
+
+  bot_message = {
+      'text': message
+  }
+  message_headers = {'Content-Type': 'application/json; charset=UTF-8'}
+  http_obj = Http()
+  response = http_obj.request(
+    uri=url,
+    method='POST',
+    headers=message_headers,
+    body=dumps(bot_message),
+  )
+  return str(response)
+requirements: |
+  httplib2
+quotas:
+  max_rows_per_query: 1000
+cloud_run:
+  concurrency: 2
+  max_instances: 10

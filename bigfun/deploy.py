@@ -39,12 +39,12 @@ def deploy_cloud_run(bigquery, bigfunction, conf, fully_qualified_dataset, proje
 
     template_file = f'{TEMPLATE_FOLDER}/{conf["type"]}.py'
     template = jinja2.Template(open(template_file, encoding='utf-8').read())
-    python_code = template.render(**{**conf, **dict(name=bigfunction)})
+    python_code = template.render(**conf)
     with open(f'{PYTHON_BUILD_DIR}/main.py', 'w', encoding='utf-8') as out:
         out.write(python_code)
 
     with open(f'{PYTHON_BUILD_DIR}/requirements.txt', 'w', encoding='utf-8') as out:
-        out.write('gunicorn\nflask\ngoogle-cloud-error-reporting\n' + conf['requirements'])
+        out.write('gunicorn\nflask\ngoogle-cloud-error-reporting\ngoogle-cloud-datastore\n' + conf['requirements'])
 
     shutil.copy(f'{TEMPLATE_FOLDER}/Dockerfile', PYTHON_BUILD_DIR)
 
@@ -57,7 +57,8 @@ def deploy_cloud_run(bigquery, bigfunction, conf, fully_qualified_dataset, proje
     cloud_run_service = 'bf-' + bigfunction.replace("_", "-")
     cloud_run_location = {'EU': 'europe-west1', 'US': 'us-west1'}.get(dataset.location, dataset.location)
     cloud_run = CloudRun(cloud_run_service, project, cloud_run_location)
-    cloud_run.deploy(PYTHON_BUILD_DIR)
+    cloud_run_options = conf.get('cloud_run', {})
+    cloud_run.deploy(PYTHON_BUILD_DIR, cloud_run_options)
     cloud_run.add_invoker_permission(f'serviceAccount:{remote_connection.cloud_resource.service_account_id}')
 
     conf['remote_endpoint'] = cloud_run.url
@@ -68,12 +69,16 @@ def deploy_cloud_run(bigquery, bigfunction, conf, fully_qualified_dataset, proje
     )
 
 
-def deploy(fully_qualified_bigfunction):
+def deploy(fully_qualified_bigfunction, quotas):
     project, dataset, bigfunction = fully_qualified_bigfunction.replace('`', '').split('.')
     bigquery = BigQuery(project)
     fully_qualified_dataset = f'`{project}`.{dataset}'
     filename = f'bigfunctions/{bigfunction}.yaml'
     conf = yaml.safe_load(open(filename, encoding='utf-8').read().replace('{BIGFUNCTIONS_DATASET}', fully_qualified_dataset))
+    conf['name'] = bigfunction
+    conf['dataset'] = fully_qualified_dataset
+    conf['filename'] = filename
+    conf['quotas'] = {**quotas, **conf.get('quotas', {})}
 
     if 'template' in conf:
         conf['code'] += f'''
@@ -103,12 +108,7 @@ def deploy(fully_qualified_bigfunction):
 
     template_file = f'{TEMPLATE_FOLDER}/{conf["type"]}.sql'
     template = jinja2.Template(open(template_file, encoding='utf-8').read())
-    query = template.render(
-        dataset=fully_qualified_dataset,
-        name=bigfunction,
-        filename=filename,
-        **conf,
-    )
+    query = template.render(**conf)
     print_info('Creating function in dataset')
     bigquery.query(query)
     print_success('successfully created ' + fully_qualified_bigfunction)

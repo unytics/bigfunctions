@@ -35,6 +35,7 @@ examples:
     region: ALL
 
 code: |
+  import datetime
   from faker import Faker
   try:
       fake = Faker(locale)
@@ -44,6 +45,14 @@ code: |
       func = getattr(fake, what)
   except:
       return 'INVALID_WHAT'
-  return func()
+  result = func()
+  if isinstance(result, datetime.date):
+      return result.strftime('%Y-%m-%d')
+  return result
 requirements: |
   faker
+quotas:
+  max_rows_per_query: 1000
+cloud_run:
+  concurrency: 2
+  max_instances: 10

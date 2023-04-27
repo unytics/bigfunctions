@@ -26,10 +26,12 @@ def get_config_value(name):
 
     text, default = {
         'default_gcp_project': ("Default GCP project where to deploy bigfunctions", "bigfunctions"),
-        'default_datasets':    ("Default dataset(s) where to deploy bigfunctions (comma separated is many)", "eu,us,asia_east1,asia_east2,asia_northeast1,asia_northeast2,asia_northeast3,asia_south1,asia_southeast1,australia_southeast1,europe_north1,europe_west1,europe_west2,europe_west3,europe_west4,europe_west6,northamerica_northeast1,southamerica_east1,us_central1,us_east1,us_east4,us_west1,us_west2"),
+        'default_datasets':    ("Default dataset(s) where to deploy bigfunctions (comma separated if many)", "eu,us,asia_east1,asia_east2,asia_northeast1,asia_northeast2,asia_northeast3,asia_south1,asia_southeast1,australia_southeast1,europe_north1,europe_west1,europe_west2,europe_west3,europe_west4,europe_west6,northamerica_northeast1,southamerica_east1,us_central1,us_east1,us_east4,us_west1,us_west2"),
+        'max_cloud_run_requests_per_user_per_day': ("Maximum number of requests to cloud run a user can make a day while calling remote functions (this quota may be wanted to cap costs)", 1000),
+        'accept_queries_from_service_accounts': ("Do you accept that service accounts can call your remotes functions? Answer by true or false. You may want to enter false if you want to deploy your function in a public dataset but you want to prevent bots.", 'false'),
     }[name]
     CONFIG[name] = click.prompt(text, default=default)
-    if name.endswith('s'):
+    if name == 'default_datasets':
         CONFIG[name] = CONFIG[name].split(',')
     with open(CONFIG_FILENAME, 'w', encoding='utf-8') as outfile:
         yaml.dump(CONFIG, outfile, default_flow_style=False)
@@ -79,10 +81,15 @@ def deploy(bigfunction):
     else:
         raise
 
+    quotas = {
+        'max_cloud_run_requests_per_user_per_day': get_config_value('max_cloud_run_requests_per_user_per_day'),
+        'accept_queries_from_service_accounts': get_config_value('accept_queries_from_service_accounts').lower().strip() == 'true',
+    }
+
     for dataset in datasets:
         for name in names:
             assert name in names, f'Could not find "{name}" in "{BIGFUNCTIONS_FOLDER}" folder'
-            deploy_bigfunction(f'{project}.{dataset}.{name}')
+            deploy_bigfunction(f'{project}.{dataset}.{name}', quotas)
 
 
 @cli.command()
@@ -127,6 +134,7 @@ def load_table(table):
         names = [name.split('.')[2]]
     else:
         raise
+
 
     for dataset in datasets:
         for name in names:
