@@ -1,7 +1,7 @@
 type: function_py
 category: geo
 author:
-  name: Paul Marcombes
+  name: Guillaume Pivette
   url: https://www.linkedin.com/in/guillaume-pivette
   avatar_url: ""
 description: Get address details from geo_coordinates using Google Maps
