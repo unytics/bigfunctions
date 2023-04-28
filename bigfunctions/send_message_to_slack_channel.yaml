@@ -1,0 +1,62 @@
+type: function_py
+category: notify
+author:
+  name: Guillaume Pivette
+  url: https://www.linkedin.com/in/guillaume-pivette/
+  avatar_url: ""
+description: |
+    Sends `message` to `slack_channel` using slack SDK.
+
+    > To get the `slack token`:
+    >
+    > - Create an application that will be used to send messages:  https://api.slack.com/apps > 'Create New App'
+    > - On the new app page, go to 'Features' > 'OAuth & Permissions' then scroll down to see 'Scopes'
+    > - In the 'Bot Token Scopes', click the 'Add an Oauth Scope' button and then add the 'chat:write' scope
+    > - Scroll up to see 'OAuth Tokens for Your Workspace', and then click 'Install to Workspace'
+    > - You can now copy the 'Bot User OAuth Token' and use it in this function
+
+    > To send messages using the previously created app:
+    >
+    > - In a channel, go to Integrations -> Add Apps and select your app
+
+arguments:
+  - name: slack_token
+    type: string
+  - name: slack_channel
+    type: string
+  - name: message
+    type: string
+output:
+  name: response
+  type: string
+examples:
+  - description: ""
+    arguments:
+      - '"slack_token_you_can_get_from_slack_site"'
+      - '"test-send-message"'
+      - '"Hello from a remote BigFunction :tada:"'
+    output: |
+      {
+        "ok": true
+      }
+    region: ALL
+code: |
+  import json
+  from slack_sdk import WebClient
+  from slack_sdk.errors import SlackApiError
+
+  client = WebClient(token=slack_token)
+
+  try:
+    response = client.chat_postMessage(
+        channel=slack_channel,
+        text=message
+    )
+    return json.dumps({x: response.data[x] for x in ['ok']})
+  except SlackApiError as e:
+    # You will get a SlackApiError if "ok" is False
+    assert e.response["error"]
+requirements: |
+  slack_sdk
+quotas:
+  max_rows_per_query: 10
