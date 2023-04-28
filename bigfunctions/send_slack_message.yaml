@@ -21,7 +21,7 @@ examples:
   - description: "Send a message to channel 'I am a hero!' of BigFunctions Slack"
     arguments:
       - '"Hello 👋 from bigfunctions!"'
-      - '"https://hooks.slack.com/services/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"'
+      - '"https://hooks.slack.com/services/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"'
     output: |
       {
         "ok": true
@@ -35,7 +35,7 @@ code: |
       json={'text': message}
   )
   if not response.ok:
-      raise Exception(response.text)
+      return 'ERROR: ' + response.text
   return response.text
 requirements: |
   requests
