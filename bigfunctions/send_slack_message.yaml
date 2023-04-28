@@ -22,10 +22,7 @@ examples:
     arguments:
       - '"Hello 👋 from bigfunctions!"'
       - '"https://hooks.slack.com/services/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"'
-    output: |
-      {
-        "ok": true
-      }
+    output: 'ok'
     region: ALL
 code: |
   import requests
