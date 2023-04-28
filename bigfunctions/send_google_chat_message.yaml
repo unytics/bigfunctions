@@ -1,5 +1,5 @@
 type: function_py
-category: transform_string
+category: notify
 author:
   name: Shivam Singh
   url: https://www.linkedin.com/in/shivamsingh012/
@@ -8,6 +8,7 @@ description: |
     Sends `message` to google chat space
     using incoming webhook.
 
+    ---
     To get the incoming `webhook_url`:
 
     - In a web browser, open Google Chat.
@@ -18,7 +19,7 @@ description: |
     - For Name, enter "Quickstart Webhook".
     - For Avatar URL, enter https://developers.google.com/chat/images/chat-product-icon.png.
     - Click SAVE.
-    - To copy the full webhook URL, click content_copy Copy.
+    - To copy the full webhook URL, click Copy.
 
 arguments:
   - name: message
