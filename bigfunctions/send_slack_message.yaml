@@ -18,7 +18,7 @@ output:
   name: response
   type: string
 examples:
-  - description: "Send a message to channel 'I am a hero!' of BigFunctions Slack"
+  - description: "Send a message to Slack channel 'dream-team' of BigFunctions workspace"
     arguments:
       - '"Hello 👋 from bigfunctions!"'
       - '"https://hooks.slack.com/services/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"'
