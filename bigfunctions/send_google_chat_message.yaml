@@ -32,8 +32,8 @@ output:
 examples:
   - description: ""
     arguments:
-      - '"https://chat.googleapis.com/v1/spaces/AAAAvQWMOsY/messages?key=AIzaSyDdI0hCZtE6vySjMm-WEfRq3CPzqKqqsHI&token=WNghIe5CD5AxmcXCUBzOo7NjMHibGYpLfs0cfF0nEmY%3D"'
       - '"Hello 👋 from bigfunctions!"'
+      - '"https://chat.googleapis.com/v1/spaces/AAAAvQWMOsY/messages?key=AIzaSyDdI0hCZtE6vySjMm-WEfRq3CPzqKqqsHI&token=WNghIe5CD5AxmcXCUBzOo7NjMHibGYpLfs0cfF0nEmY%3D"'
     output: |
       {
         "name": ...,
