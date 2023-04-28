@@ -1,13 +1,13 @@
 type: function_py
 category: notify
 author:
-  name: Guillaume Pivette
+  name: Guillaume Pivette from Neoxia
   url: https://www.linkedin.com/in/guillaume-pivette/
-  avatar_url: ""
+  avatar_url: "https://cdn-images-1.medium.com/v2/resize:fit:92/1*jHdQzX82eU5lyjBYp63NqQ@2x.png"
 description: |
-    Sends `message` to `slack_channel` using slack SDK.
+    Sends `message` to `channel`.
 
-    > To get the `slack token`:
+    > To get the `token`:
     >
     > - Create an application that will be used to send messages:  https://api.slack.com/apps > 'Create New App'
     > - On the new app page, go to 'Features' > 'OAuth & Permissions' then scroll down to see 'Scopes'
@@ -18,23 +18,22 @@ description: |
     > To send messages using the previously created app:
     >
     > - In a channel, go to Integrations -> Add Apps and select your app
-
 arguments:
-  - name: slack_token
-    type: string
-  - name: slack_channel
-    type: string
   - name: message
+    type: string
+  - name: channel
+    type: string
+  - name: token
     type: string
 output:
   name: response
   type: string
 examples:
-  - description: ""
+  - description: "Send a `message` to `channel` 'I am a hero!' of BigFunctions Slack"
     arguments:
-      - '"slack_token_you_can_get_from_slack_site"'
-      - '"test-send-message"'
-      - '"Hello from a remote BigFunction :tada:"'
+      - '"Hello 👋 from bigfunctions!"'
+      - '"I am a hero!"'
+      - '"xoxb-4109821786996-5197962416673-dGqJjzMU1WNsYsiY9pa2jHby"'
     output: |
       {
         "ok": true
@@ -42,20 +41,10 @@ examples:
     region: ALL
 code: |
   import json
-  from slack_sdk import WebClient
-  from slack_sdk.errors import SlackApiError
-
-  client = WebClient(token=slack_token)
-
-  try:
-    response = client.chat_postMessage(
-        channel=slack_channel,
-        text=message
-    )
-    return json.dumps({x: response.data[x] for x in ['ok']})
-  except SlackApiError as e:
-    # You will get a SlackApiError if "ok" is False
-    assert e.response["error"]
+  import slack_sdk
+  client = slack_sdk.WebClient(token=token)
+  response = client.chat_postMessage(channel=channel, text=message)
+  return json.dumps(response.data)
 requirements: |
   slack_sdk
 quotas:
