@@ -7,8 +7,9 @@ author:
 description: |
     Sends `message` to a slack channel.
 
-    > To get the `webhook_url` for a channel, follow this [Slack Documentation](https://api.slack.com/messaging/webhooks)
-    > and then copy the given webhook url which should look like: `https://hooks.slack.com/services/T00000000/B00000000/XXXXXXXXXXXXXXXXXXXXXXXX`.
+    To get the `webhook_url` for a channel, follow this [Slack Documentation](https://api.slack.com/messaging/webhooks).
+
+    The given webhook url should look like: `https://hooks.slack.com/services/T00000000/B00000000/XXXXXXXXXXXXXXXXXXXXXXXX`.
 arguments:
   - name: message
     type: string
