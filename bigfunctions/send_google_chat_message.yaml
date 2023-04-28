@@ -1,15 +1,30 @@
 type: function_py
-category: transform_string
+category: notify
 author:
   name: Shivam Singh
   url: https://www.linkedin.com/in/shivamsingh012/
   avatar_url: "https://media.licdn.com/dms/image/D4D03AQERv0qwECH0DA/profile-displayphoto-shrink_200_200/0/1675233460732?e=1686182400&v=beta&t=HqngiSx5zd4llZStwf3L0k2T_pE8qvnEj7NguWNJTOo"
 description: |
-    Sends given message to google chat channel using incoming webhook.
+    Sends `message` to google chat space
+    using incoming webhook.
+
+
+    > To get the incoming `webhook_url`:
+    >
+    > - In a web browser, open Google Chat.
+    > - Go to the space to which you want to add a webhook.
+    > - At the top, next to space title, click Down Arrow arrow_drop_down > Apps & integrations.
+    > - Click Manage webhooks.
+    > - If this space already has other webhooks, click Add another. Otherwise, skip this step.
+    > - For Name, enter "Quickstart Webhook".
+    > - For Avatar URL, enter https://developers.google.com/chat/images/chat-product-icon.png.
+    > - Click SAVE.
+    > - To copy the full webhook URL, click Copy.
+
 arguments:
-  - name: url
-    type: string
   - name: message
+    type: string
+  - name: webhook_url
     type: string
 output:
   name: response
@@ -17,31 +32,27 @@ output:
 examples:
   - description: ""
     arguments:
-      - '"https://chat.googleapis.com/v1/spaces/7D8la4AAAAE/messages?key=AIzaSyDdI0hCZtE6vySjMm-WEfRq3CPzqKqqsHI&token=HulDviWFMz6R5FW-GwlO4INCW1cZGDDExuWVaEbbr_g%3D"'
-      - '"Hello from bigfunctions."'
-    output: '""'
+      - '"Hello 👋 from bigfunctions!"'
+      - '"https://chat.googleapis.com/v1/spaces/AAAAvQWMOsY/messages?key=AIzaSyDdI0hCZtE6vySjMm-WEfRq3CPzqKqqsHI&token=WNghIe5CD5AxmcXCUBzOo7NjMHibGYpLfs0cfF0nEmY%3D"'
+    output: |
+      {
+        "name": ...,
+        "sender": ...,
+        "createTime": ...,
+        "text": "Hello 👋 from bigfunctions!"
+      }
     region: ALL
-
 code: |
-  from json import dumps
-  from httplib2 import Http
-
-  bot_message = {
-      'text': message
-  }
-  message_headers = {'Content-Type': 'application/json; charset=UTF-8'}
-  http_obj = Http()
-  response = http_obj.request(
-    uri=url,
-    method='POST',
-    headers=message_headers,
-    body=dumps(bot_message),
+  import requests
+  response = requests.post(
+      webhook_url,
+      headers={'Content-Type': 'application/json; charset=UTF-8'},
+      json={'text': message}
   )
-  return str(response)
+  if not response.ok:
+      raise Exception(response.text)
+  return response.text
 requirements: |
-  httplib2
+  requests
 quotas:
-  max_rows_per_query: 1000
-cloud_run:
-  concurrency: 2
-  max_instances: 10
+  max_rows_per_query: 10

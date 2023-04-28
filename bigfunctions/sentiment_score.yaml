@@ -4,7 +4,7 @@ author:
   name: Paul Marcombes
   url: https://www.linkedin.com/in/paul-marcombes
   avatar_url: "https://lh3.googleusercontent.com/a-/ACB-R5RDf2yxcw1p_IYLCKmiUIScreatDdhG8B83om6Ohw=s260"
-description: Compute sentiment score of text
+description: Compute sentiment score of `content`
 arguments:
   - name: content
     type: string
