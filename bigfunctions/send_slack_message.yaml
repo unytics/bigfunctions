@@ -5,47 +5,39 @@ author:
   url: https://www.linkedin.com/in/guillaume-pivette/
   avatar_url: "https://cdn-images-1.medium.com/v2/resize:fit:92/1*jHdQzX82eU5lyjBYp63NqQ@2x.png"
 description: |
-    Sends `message` to `channel`.
+    Sends `message` to a slack channel.
 
-    > To get the `token`:
-    >
-    > - Create an application that will be used to send messages:  https://api.slack.com/apps > 'Create New App'
-    > - On the new app page, go to 'Features' > 'OAuth & Permissions' then scroll down to see 'Scopes'
-    > - In the 'Bot Token Scopes', click the 'Add an Oauth Scope' button and then add the 'chat:write' scope
-    > - Scroll up to see 'OAuth Tokens for Your Workspace', and then click 'Install to Workspace'
-    > - You can now copy the 'Bot User OAuth Token' and use it in this function
-
-    > To send messages using the previously created app:
-    >
-    > - In a channel, go to Integrations -> Add Apps and select your app
+    > To get the `webhook_url` for a channel, follow this [Slack Documentation](https://api.slack.com/messaging/webhooks)
+    > and then copy the given webhook url which should look like: `https://hooks.slack.com/services/T00000000/B00000000/XXXXXXXXXXXXXXXXXXXXXXXX`.
 arguments:
   - name: message
     type: string
-  - name: channel
-    type: string
-  - name: token
+  - name: webhook_url
     type: string
 output:
   name: response
   type: string
 examples:
-  - description: "Send a `message` to `channel` 'I am a hero!' of BigFunctions Slack"
+  - description: "Send a message to channel 'I am a hero!' of BigFunctions Slack"
     arguments:
       - '"Hello 👋 from bigfunctions!"'
-      - '"I am a hero!"'
-      - '"xoxb-4109821786996-5197962416673-dGqJjzMU1WNsYsiY9pa2jHby"'
+      - '"https://hooks.slack.com/services/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"'
     output: |
       {
         "ok": true
       }
     region: ALL
 code: |
-  import json
-  import slack_sdk
-  client = slack_sdk.WebClient(token=token)
-  response = client.chat_postMessage(channel=channel, text=message)
-  return json.dumps(response.data)
+  import requests
+  response = requests.post(
+      webhook_url,
+      headers={'Content-Type': 'application/json; charset=UTF-8'},
+      json={'text': message}
+  )
+  if not response.ok:
+      raise Exception(response.text)
+  return response.text
 requirements: |
-  slack_sdk
+  requests
 quotas:
   max_rows_per_query: 10
