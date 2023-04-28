@@ -98,3 +98,5 @@ code: |
   return True
 requirements: |
   google-cloud-secret-manager
+quotas:
+  max_rows_per_query: 10
