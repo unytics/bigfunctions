@@ -7,8 +7,8 @@ author:
 description: |
     Sends `message` to a slack channel.
 
-    > To get the `webhook_url` for a channel, follow this [Slack Documentation](https://api.slack.com/messaging/webhooks)
-    > and then copy the given webhook url which should look like: `https://hooks.slack.com/services/T00000000/B00000000/XXXXXXXXXXXXXXXXXXXXXXXX`.
+    > To get the `webhook_url` for a channel, follow this [Slack Documentation](https://api.slack.com/messaging/webhooks).
+    > The given webhook url should look like: `https://hooks.slack.com/services/T00000000/B00000000/XXXXXXXXXXXXXXXXXXXXXXXX`.
 arguments:
   - name: message
     type: string
@@ -18,14 +18,11 @@ output:
   name: response
   type: string
 examples:
-  - description: "Send a message to channel 'I am a hero!' of BigFunctions Slack"
+  - description: "Send a message to Slack channel 'dream-team' of BigFunctions workspace"
     arguments:
       - '"Hello 👋 from bigfunctions!"'
-      - '"https://hooks.slack.com/services/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"'
-    output: |
-      {
-        "ok": true
-      }
+      - '"https://hooks.slack.com/services/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"'
+    output: 'ok'
     region: ALL
 code: |
   import requests
@@ -35,7 +32,7 @@ code: |
       json={'text': message}
   )
   if not response.ok:
-      raise Exception(response.text)
+      return 'ERROR: ' + response.text
   return response.text
 requirements: |
   requests
