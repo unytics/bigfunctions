@@ -46,6 +46,8 @@ BigFunctions are open-source BigQuery routines that give you **SQL-superpowers**
     
     - [<code>roc_curve(predictions)</code>](#roc_curve): Returns the Receiver Operating Characteristic Curve (a.k.a. ROC Curve)
     
+    - [<code>sentiment_score(content)</code>](#sentiment_score): Compute sentiment score of `content`
+    
 
     
 
@@ -64,7 +66,7 @@ BigFunctions are open-source BigQuery routines that give you **SQL-superpowers**
     **✨ Transform string**
 
     
-    - [<code>deidentify(text, info_types)</code>](#deidentify): Masks sensitive information in `text`
+    - [<code>deidentify(text, info_types)</code>](#deidentify): Masks sensitive information of type `info_types` in `text`
     
     - [<code>detect_sensitive_info(text)</code>](#detect_sensitive_info): Detect sensitive information in `text`
     
@@ -89,8 +91,6 @@ BigFunctions are open-source BigQuery routines that give you **SQL-superpowers**
     - [<code>render_string(template, context)</code>](#render_string): Render template with context using nunjucks.js templating library
     
     - [<code>replace_special_characters(string, replacement)</code>](#replace_special_characters): Replace most common special characters in a `string` with `replacement`
-    
-    - [<code>sentiment_score(content)</code>](#sentiment_score): Compute sentiment score of text
     
     - [<code>xml2json(xml)</code>](#xml2json): Returns JSON as a string for given XML string
     
@@ -182,6 +182,10 @@ BigFunctions are open-source BigQuery routines that give you **SQL-superpowers**
     
     - [<code>notify_gmail(recipients, subject, body, attachment_filename, attachment_content)</code>](#notify_gmail): Send email via gmail
     
+    - [<code>send_google_chat_message(message, webhook_url)</code>](#send_google_chat_message): Sends `message` to google chat space
+    
+    - [<code>send_slack_message(message, webhook_url)</code>](#send_slack_message): Sends `message` to a slack channel.
+    
 
     
 
@@ -197,6 +201,8 @@ BigFunctions are open-source BigQuery routines that give you **SQL-superpowers**
 
     
     - [<code>chart(data, chart_type, ylabel)</code>](#chart): Return html with a chartjs chart
+    
+    - [<code>deduplicate_rows(query_or_table_or_view)</code>](#deduplicate_rows): Returns the deduplicated rows of `query_or_table_or_view`
     
     - [<code>dump_to_excel(data)</code>](#dump_to_excel): Dump data to excel file returned as base64
     
@@ -977,6 +983,87 @@ given a set of predicted scores and ground truth labels
 
 
 
+### sentiment_score
+<div style="position: relative; top: -2rem; margin-bottom:  -2rem; text-align: right; z-index: 9999;">
+  
+  <a href="https://www.linkedin.com/in/paul-marcombes" title="Author: Paul Marcombes" target="_blank">
+    <img src="https://lh3.googleusercontent.com/a-/ACB-R5RDf2yxcw1p_IYLCKmiUIScreatDdhG8B83om6Ohw=s260" width="32" style=" border-radius: 50% !important">
+  </a>
+  
+  <a href="https://github.com/unytics/bigfunctions/blob/main/bigfunctions/sentiment_score.yaml" title="Edit on GitHub" target="_blank"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="#5d6cc0" d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg></a></div>
+```
+sentiment_score(content)
+```
+
+**Description**
+
+Compute sentiment score of `content`
+
+**Examples**
+
+
+
+
+
+
+=== "EU"
+
+    ```sql
+    select bigfunctions.eu.sentiment_score('BigFunctions Rocks!') as sentiment_score
+
+    ```
+
+
+=== "US"
+
+    ```sql
+    select bigfunctions.us.sentiment_score('BigFunctions Rocks!') as sentiment_score
+
+    ```
+
+
+=== "europe-west1"
+
+    ```sql
+    select bigfunctions.europe_west1.sentiment_score('BigFunctions Rocks!') as sentiment_score
+
+    ```
+
+
+=== "your-region2"
+
+    ```sql
+    select bigfunctions.your_region2.sentiment_score('BigFunctions Rocks!') as sentiment_score
+
+    ```
+
+
+
+
+
+<pre style="margin-top: -1rem;">
+<code style="padding-top: 0px; padding-bottom: 0px;">+-----------------+
+| sentiment_score |
++-----------------+
+| 0.945           |
++-----------------+
+</code>
+</pre>
+
+
+
+
+
+
+
+
+
+
+---
+
+
+
+
 
 
 
@@ -1608,10 +1695,10 @@ deidentify(text, info_types)
 
 **Description**
 
-Masks sensitive information in `text`
+Masks sensitive information of type `info_types` in `text`
 using [Cloud Data Loss Prevention](https://cloud.google.com/dlp)
 
-| Param  | Possible values  |
+| Param  | Possible values (can be one or any combination of the following values separated by comma)  |
 |---|---|
 | `info_types` | `ADVERTISING_ID`, `AGE`, `AUTH_TOKEN`, `AWS_CREDENTIALS`, `AZURE_AUTH_TOKEN`, `BASIC_AUTH_HEADER`, `CREDIT_CARD_NUMBER`, `CREDIT_CARD_TRACK_NUMBER`, `DATE`, `DATE_OF_BIRTH`, `DOMAIN_NAME`, `EMAIL_ADDRESS`, `ENCRYPTION_KEY`, `ETHNIC_GROUP`, `FEMALE_NAME`, `FIRST_NAME`, `GCP_API_KEY`, `GCP_CREDENTIALS`, `GENDER`, `GENERIC_ID`, `HTTP_COOKIE`, `HTTP_COOKIE`, `IBAN_CODE`, `ICCID_NUMBER`, `ICD10_CODE`, `ICD9_CODE`, `IMEI_HARDWARE_ID`, `IMSI_ID`, `IP_ADDRESS`, `JSON_WEB_TOKEN`, `LAST_NAME`, `LOCATION`, `LOCATION_COORDINATES`, `MAC_ADDRESS`, `MAC_ADDRESS_LOCAL`, `MALE_NAME`, `MARITAL_STATUS`, `MEDICAL_RECORD_NUMBER`, `MEDICAL_TERM`, `OAUTH_CLIENT_SECRET`, `ORGANIZATION_NAME`, `PASSPORT`, `PASSWORD`, `PERSON_NAME`, `PHONE_NUMBER`, `SSL_CERTIFICATE`, `STORAGE_SIGNED_POLICY_DOCUMENT`, `STORAGE_SIGNED_URL`, `STREET_ADDRESS`, `SWIFT_CODE`, `TIME`, `URL`, `VAT_NUMBER`, `VEHICLE_IDENTIFICATION_NUMBER`, `WEAK_PASSWORD_HASH`, `XSRF_TOKEN` |
 
@@ -1626,7 +1713,7 @@ using [Cloud Data Loss Prevention](https://cloud.google.com/dlp)
 === "EU"
 
     ```sql
-    select bigfunctions.eu.deidentify("My email is shivam@google.co.in", "[\"PHONE_NUMBER\", \"EMAIL_ADDRESS\"]") as masked_info
+    select bigfunctions.eu.deidentify("My email is shivam@google.co.in", "PHONE_NUMBER, EMAIL_ADDRESS") as masked_info
 
     ```
 
@@ -1634,7 +1721,7 @@ using [Cloud Data Loss Prevention](https://cloud.google.com/dlp)
 === "US"
 
     ```sql
-    select bigfunctions.us.deidentify("My email is shivam@google.co.in", "[\"PHONE_NUMBER\", \"EMAIL_ADDRESS\"]") as masked_info
+    select bigfunctions.us.deidentify("My email is shivam@google.co.in", "PHONE_NUMBER, EMAIL_ADDRESS") as masked_info
 
     ```
 
@@ -1642,7 +1729,7 @@ using [Cloud Data Loss Prevention](https://cloud.google.com/dlp)
 === "europe-west1"
 
     ```sql
-    select bigfunctions.europe_west1.deidentify("My email is shivam@google.co.in", "[\"PHONE_NUMBER\", \"EMAIL_ADDRESS\"]") as masked_info
+    select bigfunctions.europe_west1.deidentify("My email is shivam@google.co.in", "PHONE_NUMBER, EMAIL_ADDRESS") as masked_info
 
     ```
 
@@ -1650,7 +1737,7 @@ using [Cloud Data Loss Prevention](https://cloud.google.com/dlp)
 === "your-region2"
 
     ```sql
-    select bigfunctions.your_region2.deidentify("My email is shivam@google.co.in", "[\"PHONE_NUMBER\", \"EMAIL_ADDRESS\"]") as masked_info
+    select bigfunctions.your_region2.deidentify("My email is shivam@google.co.in", "PHONE_NUMBER, EMAIL_ADDRESS") as masked_info
 
     ```
 
@@ -1681,7 +1768,7 @@ using [Cloud Data Loss Prevention](https://cloud.google.com/dlp)
 === "EU"
 
     ```sql
-    select bigfunctions.eu.deidentify("My phone number is 0123456789", "[\"PHONE_NUMBER\", \"email_address\"]") as masked_info
+    select bigfunctions.eu.deidentify("My phone number is 0123456789", "PHONE_NUMBER, email_address") as masked_info
 
     ```
 
@@ -1689,7 +1776,7 @@ using [Cloud Data Loss Prevention](https://cloud.google.com/dlp)
 === "US"
 
     ```sql
-    select bigfunctions.us.deidentify("My phone number is 0123456789", "[\"PHONE_NUMBER\", \"email_address\"]") as masked_info
+    select bigfunctions.us.deidentify("My phone number is 0123456789", "PHONE_NUMBER, email_address") as masked_info
 
     ```
 
@@ -1697,7 +1784,7 @@ using [Cloud Data Loss Prevention](https://cloud.google.com/dlp)
 === "europe-west1"
 
     ```sql
-    select bigfunctions.europe_west1.deidentify("My phone number is 0123456789", "[\"PHONE_NUMBER\", \"email_address\"]") as masked_info
+    select bigfunctions.europe_west1.deidentify("My phone number is 0123456789", "PHONE_NUMBER, email_address") as masked_info
 
     ```
 
@@ -1705,7 +1792,7 @@ using [Cloud Data Loss Prevention](https://cloud.google.com/dlp)
 === "your-region2"
 
     ```sql
-    select bigfunctions.your_region2.deidentify("My phone number is 0123456789", "[\"PHONE_NUMBER\", \"email_address\"]") as masked_info
+    select bigfunctions.your_region2.deidentify("My phone number is 0123456789", "PHONE_NUMBER, email_address") as masked_info
 
     ```
 
@@ -1730,13 +1817,13 @@ using [Cloud Data Loss Prevention](https://cloud.google.com/dlp)
 
 
 
-<span style="color: var(--md-typeset-a-color);">3. String with email in it and no info_types.</span>
+<span style="color: var(--md-typeset-a-color);">3. If `info_types` is `null` or empty, all built-in info types may be used</span>
 
 
 === "EU"
 
     ```sql
-    select bigfunctions.eu.deidentify("My email is shivam@google.co.in", "[]") as masked_info
+    select bigfunctions.eu.deidentify("My email is shivam@google.co.in", null) as masked_info
 
     ```
 
@@ -1744,7 +1831,7 @@ using [Cloud Data Loss Prevention](https://cloud.google.com/dlp)
 === "US"
 
     ```sql
-    select bigfunctions.us.deidentify("My email is shivam@google.co.in", "[]") as masked_info
+    select bigfunctions.us.deidentify("My email is shivam@google.co.in", null) as masked_info
 
     ```
 
@@ -1752,7 +1839,7 @@ using [Cloud Data Loss Prevention](https://cloud.google.com/dlp)
 === "europe-west1"
 
     ```sql
-    select bigfunctions.europe_west1.deidentify("My email is shivam@google.co.in", "[]") as masked_info
+    select bigfunctions.europe_west1.deidentify("My email is shivam@google.co.in", null) as masked_info
 
     ```
 
@@ -1760,7 +1847,7 @@ using [Cloud Data Loss Prevention](https://cloud.google.com/dlp)
 === "your-region2"
 
     ```sql
-    select bigfunctions.your_region2.deidentify("My email is shivam@google.co.in", "[]") as masked_info
+    select bigfunctions.your_region2.deidentify("My email is shivam@google.co.in", null) as masked_info
 
     ```
 
@@ -3088,87 +3175,6 @@ Replace most common special characters in a `string` with `replacement`
 +----------------+
 | Hello          |
 +----------------+
-</code>
-</pre>
-
-
-
-
-
-
-
-
-
-
----
-
-
-
-
-### sentiment_score
-<div style="position: relative; top: -2rem; margin-bottom:  -2rem; text-align: right; z-index: 9999;">
-  
-  <a href="https://www.linkedin.com/in/paul-marcombes" title="Author: Paul Marcombes" target="_blank">
-    <img src="https://lh3.googleusercontent.com/a-/ACB-R5RDf2yxcw1p_IYLCKmiUIScreatDdhG8B83om6Ohw=s260" width="32" style=" border-radius: 50% !important">
-  </a>
-  
-  <a href="https://github.com/unytics/bigfunctions/blob/main/bigfunctions/sentiment_score.yaml" title="Edit on GitHub" target="_blank"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="#5d6cc0" d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg></a></div>
-```
-sentiment_score(content)
-```
-
-**Description**
-
-Compute sentiment score of text
-
-**Examples**
-
-
-
-
-
-
-=== "EU"
-
-    ```sql
-    select bigfunctions.eu.sentiment_score('BigFunctions Rocks!') as sentiment_score
-
-    ```
-
-
-=== "US"
-
-    ```sql
-    select bigfunctions.us.sentiment_score('BigFunctions Rocks!') as sentiment_score
-
-    ```
-
-
-=== "europe-west1"
-
-    ```sql
-    select bigfunctions.europe_west1.sentiment_score('BigFunctions Rocks!') as sentiment_score
-
-    ```
-
-
-=== "your-region2"
-
-    ```sql
-    select bigfunctions.your_region2.sentiment_score('BigFunctions Rocks!') as sentiment_score
-
-    ```
-
-
-
-
-
-<pre style="margin-top: -1rem;">
-<code style="padding-top: 0px; padding-bottom: 0px;">+-----------------+
-| sentiment_score |
-+-----------------+
-| 0.945           |
-+-----------------+
 </code>
 </pre>
 
@@ -6812,6 +6818,193 @@ Send email via gmail
 
 
 
+### send_google_chat_message
+<div style="position: relative; top: -2rem; margin-bottom:  -2rem; text-align: right; z-index: 9999;">
+  
+  <a href="https://www.linkedin.com/in/shivamsingh012/" title="Author: Shivam Singh" target="_blank">
+    <img src="https://media.licdn.com/dms/image/D4D03AQERv0qwECH0DA/profile-displayphoto-shrink_200_200/0/1675233460732?e=1686182400&v=beta&t=HqngiSx5zd4llZStwf3L0k2T_pE8qvnEj7NguWNJTOo" width="32" style=" border-radius: 50% !important">
+  </a>
+  
+  <a href="https://github.com/unytics/bigfunctions/blob/main/bigfunctions/send_google_chat_message.yaml" title="Edit on GitHub" target="_blank"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="#5d6cc0" d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg></a></div>
+```
+send_google_chat_message(message, webhook_url)
+```
+
+**Description**
+
+Sends `message` to google chat space
+using incoming webhook.
+
+
+> To get the incoming `webhook_url`:
+>
+> - In a web browser, open Google Chat.
+> - Go to the space to which you want to add a webhook.
+> - At the top, next to space title, click Down Arrow arrow_drop_down > Apps & integrations.
+> - Click Manage webhooks.
+> - If this space already has other webhooks, click Add another. Otherwise, skip this step.
+> - For Name, enter "Quickstart Webhook".
+> - For Avatar URL, enter https://developers.google.com/chat/images/chat-product-icon.png.
+> - Click SAVE.
+> - To copy the full webhook URL, click Copy.
+
+
+**Examples**
+
+
+
+
+
+
+=== "EU"
+
+    ```sql
+    select bigfunctions.eu.send_google_chat_message("Hello 👋 from bigfunctions!", "https://chat.googleapis.com/v1/spaces/AAAAvQWMOsY/messages?key=AIzaSyDdI0hCZtE6vySjMm-WEfRq3CPzqKqqsHI&token=WNghIe5CD5AxmcXCUBzOo7NjMHibGYpLfs0cfF0nEmY%3D") as response
+
+    ```
+
+
+=== "US"
+
+    ```sql
+    select bigfunctions.us.send_google_chat_message("Hello 👋 from bigfunctions!", "https://chat.googleapis.com/v1/spaces/AAAAvQWMOsY/messages?key=AIzaSyDdI0hCZtE6vySjMm-WEfRq3CPzqKqqsHI&token=WNghIe5CD5AxmcXCUBzOo7NjMHibGYpLfs0cfF0nEmY%3D") as response
+
+    ```
+
+
+=== "europe-west1"
+
+    ```sql
+    select bigfunctions.europe_west1.send_google_chat_message("Hello 👋 from bigfunctions!", "https://chat.googleapis.com/v1/spaces/AAAAvQWMOsY/messages?key=AIzaSyDdI0hCZtE6vySjMm-WEfRq3CPzqKqqsHI&token=WNghIe5CD5AxmcXCUBzOo7NjMHibGYpLfs0cfF0nEmY%3D") as response
+
+    ```
+
+
+=== "your-region2"
+
+    ```sql
+    select bigfunctions.your_region2.send_google_chat_message("Hello 👋 from bigfunctions!", "https://chat.googleapis.com/v1/spaces/AAAAvQWMOsY/messages?key=AIzaSyDdI0hCZtE6vySjMm-WEfRq3CPzqKqqsHI&token=WNghIe5CD5AxmcXCUBzOo7NjMHibGYpLfs0cfF0nEmY%3D") as response
+
+    ```
+
+
+
+
+
+<pre style="margin-top: -1rem;">
+<code style="padding-top: 0px; padding-bottom: 0px;">+--------------------------------------------------------------------------------------------------+
+| response                                                                                         |
++--------------------------------------------------------------------------------------------------+
+| {
+  &#34;name&#34;: ...,
+  &#34;sender&#34;: ...,
+  &#34;createTime&#34;: ...,
+  &#34;text&#34;: &#34;Hello 👋 from bigfunctions!&#34;
+}
+ |
++--------------------------------------------------------------------------------------------------+
+</code>
+</pre>
+
+
+
+
+
+
+
+
+
+
+---
+
+
+
+
+### send_slack_message
+<div style="position: relative; top: -2rem; margin-bottom:  -2rem; text-align: right; z-index: 9999;">
+  
+  <a href="https://www.linkedin.com/in/guillaume-pivette/" title="Author: Guillaume Pivette from Neoxia" target="_blank">
+    <img src="https://cdn-images-1.medium.com/v2/resize:fit:92/1*jHdQzX82eU5lyjBYp63NqQ@2x.png" width="32" style=" border-radius: 50% !important">
+  </a>
+  
+  <a href="https://github.com/unytics/bigfunctions/blob/main/bigfunctions/send_slack_message.yaml" title="Edit on GitHub" target="_blank"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="#5d6cc0" d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg></a></div>
+```
+send_slack_message(message, webhook_url)
+```
+
+**Description**
+
+Sends `message` to a slack channel.
+
+> To get the `webhook_url` for a channel, follow this [Slack Documentation](https://api.slack.com/messaging/webhooks).
+> The given webhook url should look like: `https://hooks.slack.com/services/T00000000/B00000000/XXXXXXXXXXXXXXXXXXXXXXXX`.
+
+
+**Examples**
+
+
+
+<span style="color: var(--md-typeset-a-color);">Send a message to Slack channel 'dream-team' of BigFunctions workspace</span>
+
+
+=== "EU"
+
+    ```sql
+    select bigfunctions.eu.send_slack_message("Hello 👋 from bigfunctions!", "https://hooks.slack.com/services/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") as response
+
+    ```
+
+
+=== "US"
+
+    ```sql
+    select bigfunctions.us.send_slack_message("Hello 👋 from bigfunctions!", "https://hooks.slack.com/services/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") as response
+
+    ```
+
+
+=== "europe-west1"
+
+    ```sql
+    select bigfunctions.europe_west1.send_slack_message("Hello 👋 from bigfunctions!", "https://hooks.slack.com/services/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") as response
+
+    ```
+
+
+=== "your-region2"
+
+    ```sql
+    select bigfunctions.your_region2.send_slack_message("Hello 👋 from bigfunctions!", "https://hooks.slack.com/services/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") as response
+
+    ```
+
+
+
+
+
+<pre style="margin-top: -1rem;">
+<code style="padding-top: 0px; padding-bottom: 0px;">+----------+
+| response |
++----------+
+| ok       |
++----------+
+</code>
+</pre>
+
+
+
+
+
+
+
+
+
+
+---
+
+
+
+
 
 
 
@@ -6958,6 +7151,153 @@ Return html with a chartjs chart
 
 
 <a href="../assets/images/chart.png"><img alt="screenshot" src="../assets/images/chart.png" style="border: var(--md-code-bg-color) solid 1rem; margin-top: -1rem; width: 100%"></a>
+
+
+
+---
+
+
+
+
+### deduplicate_rows
+<div style="position: relative; top: -2rem; margin-bottom:  -2rem; text-align: right; z-index: 9999;">
+  
+  <a href="https://www.linkedin.com/in/shivamsingh012/" title="Author: Shivam Singh" target="_blank">
+    <img src="https://media.licdn.com/dms/image/D4D03AQERv0qwECH0DA/profile-displayphoto-shrink_200_200/0/1675233460732?e=1686182400&v=beta&t=HqngiSx5zd4llZStwf3L0k2T_pE8qvnEj7NguWNJTOo" width="32" style=" border-radius: 50% !important">
+  </a>
+  
+  <a href="https://github.com/unytics/bigfunctions/blob/main/bigfunctions/deduplicate_rows.yaml" title="Edit on GitHub" target="_blank"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="#5d6cc0" d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg></a></div>
+```
+deduplicate_rows(query_or_table_or_view)
+```
+
+**Description**
+
+Returns the deduplicated rows of `query_or_table_or_view`
+
+**Examples**
+
+
+
+<span style="color: var(--md-typeset-a-color);">1. Returns table with duplicate rows removed.</span>
+
+
+=== "EU"
+
+    ```sql
+    call bigfunctions.eu.deduplicate_rows("my_project.my_dataset.my_table");
+    select * from bigfunction_result;
+    ```
+
+
+=== "US"
+
+    ```sql
+    call bigfunctions.us.deduplicate_rows("my_project.my_dataset.my_table");
+    select * from bigfunction_result;
+    ```
+
+
+=== "europe-west1"
+
+    ```sql
+    call bigfunctions.europe_west1.deduplicate_rows("my_project.my_dataset.my_table");
+    select * from bigfunction_result;
+    ```
+
+
+=== "your-region2"
+
+    ```sql
+    call bigfunctions.your_region2.deduplicate_rows("my_project.my_dataset.my_table");
+    select * from bigfunction_result;
+    ```
+
+
+
+
+
+
+
+<pre style="margin-top: -1rem;">
+<code style="padding-top: 0px; padding-bottom: 0px;">
++-----+-----+
+| id1 | id2 |
++-----+-----+
+| 1   | 2   |
+| 1   | 3   |
+| 2   | 3   |
+| 4   | 3   |
+| 6   | 3   |
+| 7   | 3   |
+| 8   | 9   |
+| 9   | 9   |
++-----+-----+
+
+</code>
+</pre>
+
+
+
+
+
+
+
+<span style="color: var(--md-typeset-a-color);">2. When incorrect table name is passed as arguments.</span>
+
+
+=== "EU"
+
+    ```sql
+    call bigfunctions.eu.deduplicate_rows("my_project.my_dataset.my_tbl");
+    select * from bigfunction_result;
+    ```
+
+
+=== "US"
+
+    ```sql
+    call bigfunctions.us.deduplicate_rows("my_project.my_dataset.my_tbl");
+    select * from bigfunction_result;
+    ```
+
+
+=== "europe-west1"
+
+    ```sql
+    call bigfunctions.europe_west1.deduplicate_rows("my_project.my_dataset.my_tbl");
+    select * from bigfunction_result;
+    ```
+
+
+=== "your-region2"
+
+    ```sql
+    call bigfunctions.your_region2.deduplicate_rows("my_project.my_dataset.my_tbl");
+    select * from bigfunction_result;
+    ```
+
+
+
+
+
+
+
+<pre style="margin-top: -1rem;">
+<code style="padding-top: 0px; padding-bottom: 0px;">
++-------------------------------------------------------------------------------------------------------------------------------------------+
+| f0_                                                                                                                                       |
++-------------------------------------------------------------------------------------------------------------------------------------------+
+| Not found: Table my_project:sandbox.my_dataset._tbl was not found in location US at [my_project:sandbox.my_dataset.deduplicate_rows:2:13] |
++-------------------------------------------------------------------------------------------------------------------------------------------+
+
+</code>
+</pre>
+
+
+
+
+
 
 
 
