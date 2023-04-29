@@ -45,8 +45,13 @@ code: |
   set formatted_sql = format(
     """
       create or replace temp table bigfunction_result as
-          select distinct * from `%s`
+        select distinct * from `%s`
     """, query_or_table_or_view
     );
 
   execute immediate formatted_sql;
+
+  exception when error then
+    execute immediate """
+      create or replace temp table bigfunction_result as
+        select @@error.message as error""";
