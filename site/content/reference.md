@@ -7288,8 +7288,72 @@ Returns the deduplicated rows of `query_or_table_or_view`
 +-------------------------------------------------------------------------------------------------------------------------------------------+
 | f0_                                                                                                                                       |
 +-------------------------------------------------------------------------------------------------------------------------------------------+
-| Not found: Table my_project:sandbox.my_dataset._tbl was not found in location US at [my_project:sandbox.my_dataset.deduplicate_rows:2:13] |
+| Not found: Table my_project:my_dataset.my_tbl was not found in location US at [my_project:my_dataset.deduplicate_rows:2:13] |
 +-------------------------------------------------------------------------------------------------------------------------------------------+
+
+</code>
+</pre>
+
+
+
+
+
+
+
+<span style="color: var(--md-typeset-a-color);">3. When a query is passed into the procedure.</span>
+
+
+=== "EU"
+
+    ```sql
+    call bigfunctions.eu.deduplicate_rows("with t1 as (select * from `my_project.my_dataset.my_tbl`) select * from t1");
+    select * from bigfunction_result;
+    ```
+
+
+=== "US"
+
+    ```sql
+    call bigfunctions.us.deduplicate_rows("with t1 as (select * from `my_project.my_dataset.my_tbl`) select * from t1");
+    select * from bigfunction_result;
+    ```
+
+
+=== "europe-west1"
+
+    ```sql
+    call bigfunctions.europe_west1.deduplicate_rows("with t1 as (select * from `my_project.my_dataset.my_tbl`) select * from t1");
+    select * from bigfunction_result;
+    ```
+
+
+=== "your-region2"
+
+    ```sql
+    call bigfunctions.your_region2.deduplicate_rows("with t1 as (select * from `my_project.my_dataset.my_tbl`) select * from t1");
+    select * from bigfunction_result;
+    ```
+
+
+
+
+
+
+
+<pre style="margin-top: -1rem;">
+<code style="padding-top: 0px; padding-bottom: 0px;">
++-----+-----+
+| id1 | id2 |
++-----+-----+
+| 1   | 2   |
+| 1   | 3   |
+| 2   | 3   |
+| 4   | 3   |
+| 6   | 3   |
+| 7   | 3   |
+| 8   | 9   |
+| 9   | 9   |
++-----+-----+
 
 </code>
 </pre>
