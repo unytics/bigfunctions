@@ -18,6 +18,7 @@ output:
   name: exchange_rate
   type: float64
 examples:
+    description: ""
     arguments:
       - "'USD'"
       - "'EUR'"
