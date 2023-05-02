@@ -3,7 +3,7 @@ category: utils
 author:
   name: Johan PROTIN
   url: https://www.linkedin.com/in/johan-protin
-  avatar_url: "https://www.linkedin.com/in/johan-protin-200a26102/?lipi=urn%3Ali%3Apage%3Ad_flagship3_notifications%3B1tHB5EruQRKNeNS2w9pepA%3D%3D"
+  avatar_url: "https://media.licdn.com/dms/image/C4E03AQH1sYz9Zik0TQ/profile-displayphoto-shrink_800_800/0/1653692064309?e=1688601600&v=beta&t=c6DsEpUE-cC_zdW5vTrfyyBgiTJLeBGg5oUlzJmsnKw"
 description: |
   Get `exchange_rate`
   from `base` to `to` (from https://exchangerate.host/).
