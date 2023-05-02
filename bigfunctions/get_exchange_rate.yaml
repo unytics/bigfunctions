@@ -5,7 +5,8 @@ author:
   url: https://www.linkedin.com/in/johan-protin
   avatar_url: "https://media.licdn.com/dms/image/C4E03AQH1sYz9Zik0TQ/profile-displayphoto-shrink_800_800/0/1653692064309?e=1688601600&v=beta&t=c6DsEpUE-cC_zdW5vTrfyyBgiTJLeBGg5oUlzJmsnKw"
 description: |
-  Get `exchange_rate` from `base` (e.g. `USD`) to `to` (e.g. `EUR`) *using [https://exchangerate.host](https://exchangerate.host)*
+  Get `exchange_rate` from `base` (e.g. `USD`) to `to` (e.g. `EUR`)
+  *using [https://exchangerate.host](https://exchangerate.host)*
 
   | Param  | Possible values  |
   |---|---|
