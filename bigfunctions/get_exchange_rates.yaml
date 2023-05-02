@@ -1,0 +1,36 @@
+type: function_py
+category: utils
+author:
+  name: Johan PROTIN
+  url: https://www.linkedin.com/in/johan-protin
+  avatar_url: "https://www.linkedin.com/in/johan-protin-200a26102/?lipi=urn%3Ali%3Apage%3Ad_flagship3_notifications%3B1tHB5EruQRKNeNS2w9pepA%3D%3D"
+description: Request `url`
+arguments:
+  - name: base
+    type: string
+  - name: to
+    type: string
+output:
+  name: rates
+  type: float64
+examples:
+  - description: "Without headers"
+    arguments:
+      - "'https://unytics.io/bigfunctions'"
+      - "null"
+    output: "&lt;html>...&lt;/html>"
+    region: ALL
+  - description: "With Content-Type = application/json headers"
+    arguments:
+      - "'https://api.github.com/repos/unytics/bigfunctions'"
+      - "'{\"Content-Type\": \"application/json\"}'"
+    output: "{...}"
+    region: ALL
+code: |
+  import requests
+  url = f'https://api.exchangerate.host/latest?base={base}&symbols={to}'
+  response = requests.get(url)
+  data = response.json()
+  return data['rates'][to]
+requirements: |
+  requests
