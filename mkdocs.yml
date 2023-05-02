@@ -45,6 +45,10 @@ nav:
   - Contribute!: contribute.md
 
 bigfunctions_categories:
+  - name: "get_data"
+    emoticon: "🛢"
+    title: "Get Data"
+    subtitle: "Get data from any API or any website!"
   - name: "explore"
     emoticon: "👀"
     title: "Explore data within BigQuery console"
