@@ -5,10 +5,8 @@ author:
   url: https://www.linkedin.com/in/guillaume-pivette/
   avatar_url: "https://cdn-images-1.medium.com/v2/resize:fit:92/1*jHdQzX82eU5lyjBYp63NqQ@2x.png"
 description: |
-    Sends an email from `from_email` to `to_email` with `subject` as subject and `html_content` as content (you can use html tags).
+    Sends an email from your registered email address on SendGrid to `to_email` with `subject` as subject and `html_content` as content (you can use html tags).
 arguments:
-  - name: from_email
-    type: string
   - name: to_email
     type: string
   - name: subject
@@ -21,7 +19,6 @@ output:
 examples:
   - description: "Send an email"
     arguments:
-      - '"your.address@domain.com"'
       - '"destination.address@domain.com"'
       - '"A new email"'
       - '"You just received an email sent by a <strong>remote BigFunction</strong>"'
@@ -31,6 +28,8 @@ code: |
   from sendgrid import SendGridAPIClient
   from sendgrid.helpers.mail import Mail
   from http.client import responses
+
+  from_email = "your-registered-email-on-sendgrid@domain.com"
 
   message = Mail(
     from_email=from_email,
