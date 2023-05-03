@@ -135,3 +135,5 @@ config.yaml
 SECRET
 meetups/
 emails/
+TODO.md
+test.py
