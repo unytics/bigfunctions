@@ -47,5 +47,3 @@ code: |
   return data['rates'][to]
 requirements: |
   requests
-quotas:
-  max_rows_per_query: 10
