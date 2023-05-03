@@ -44,13 +44,13 @@ examples:
     region: ALL
 code: |
   import requests
+  assert webhook_url.startswith('https://chat.googleapis.com/'), 'webhook_url should start with `https://chat.googleapis.com`'
   response = requests.post(
       webhook_url,
       headers={'Content-Type': 'application/json; charset=UTF-8'},
       json={'text': message}
   )
-  if not response.ok:
-      return 'ERROR: ' + response.text
+  assert response.ok, 'ERROR: ' + response.text
   return response.text
 requirements: |
   requests
