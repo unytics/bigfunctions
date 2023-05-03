@@ -33,7 +33,7 @@ examples:
   - description: ""
     arguments:
       - '"Hello 👋 from bigfunctions!"'
-      - '"https://chat.googleapis.com/v1/spaces/AAAAvQWMOsY/messages?key=AIzaSyDdI0hCZtE6vySjMm-WEfRq3CPzqKqqsHI&token=WNghIe5CD5AxmcXCUBzOo7NjMHibGYpLfs0cfF0nEmY%3D"'
+      - '"YOUR_WEBHOOK_URL"'
     output: |
       {
         "name": ...,
@@ -44,7 +44,7 @@ examples:
     region: ALL
 code: |
   import requests
-  assert webhook_url.startswith('https://chat.googleapis.com/'), 'webhook_url should start with `https://chat.googleapis.com`'
+  assert webhook_url.startswith('https://chat.googleapis.com/'), 'webhook_url should start with `https://chat.googleapis.com/`'
   response = requests.post(
       webhook_url,
       headers={'Content-Type': 'application/json; charset=UTF-8'},
