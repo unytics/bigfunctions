@@ -17,6 +17,9 @@ app = Flask(__name__)
 _, PROJECT = google.auth.default()
 
 
+CACHE = {}
+
+
 class QuotaException(Exception):
     pass
 
@@ -125,18 +128,22 @@ def handle():
         store.save_log(status='success')
         return response
     except QuotaException as e:
-        quota_error_message = e.args[0]
-        store.save_log(status='quota_error', status_info=quota_error_message)
+        error_message = e.args[0]
+        store.save_log(status='quota_error', status_info=error_message)
         return jsonify({
             'errorMessage': f'''
                 Thanks for using BigFunctions!
                 The use of this function `{{ name }}` is limited by quotas.
-                {quota_error_message}.
+                {error_message}.
                 To remove this limit, you can ask for quotas increase to paul.marcombes@unytics.io or deploy the function in your own project.
                 Details are here: https://github.com/unytics/bigfunctions
                 If you need help, please reach out to the slack: https://join.slack.com/t/bigfunctions/shared_invite/zt-1gbv491mu-cs03EJbQ1fsHdQMcFN7E1Q
             '''.replace('\n', ' ').replace('  ', ' ').replace('  ', ' '),
         }), 400
+    except AssertionError as e:
+        error_message = e.args[0]
+        store.save_log(status='assertion_error', status_info=error_message)
+        return jsonify({'errorMessage': error_message}), 400
     except Exception:
         error_reporter.report_exception(google.cloud.error_reporting.build_flask_context(request))
         error_message = traceback.format_exc()
