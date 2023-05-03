@@ -1,0 +1,52 @@
+type: function_py
+category: notify
+author:
+  name: Guillaume Pivette from Neoxia
+  url: https://www.linkedin.com/in/guillaume-pivette/
+  avatar_url: "https://cdn-images-1.medium.com/v2/resize:fit:92/1*jHdQzX82eU5lyjBYp63NqQ@2x.png"
+description: |
+    Sends an email from `from_email` to `to_email` with `subject` as subject and `html_content` as content (you can use html tags).
+arguments:
+  - name: from_email
+    type: string
+  - name: to_email
+    type: string
+  - name: subject
+    type: string
+  - name: html_content
+    type: string  
+output:
+  name: response
+  type: string
+examples:
+  - description: "Send an email"
+    arguments:
+      - '"your.address@domain.com"'
+      - '"destination.address@domain.com"'
+      - '"A new email"'
+      - '"You just received an email sent by a <strong>remote BigFunction</strong>"'
+    output: '202 Accepted'
+    region: ALL
+code: |
+  from sendgrid import SendGridAPIClient
+  from sendgrid.helpers.mail import Mail
+  from http.client import responses
+
+  message = Mail(
+    from_email=from_email,
+    to_emails=to_email,
+    subject=subject,
+    html_content=html_content
+  )
+  sendgrid_token = # GET SENDGRID TOKEN FROM SECRET MANAGER
+
+  try:
+    sg = SendGridAPIClient(sendgrid_token)
+    response = sg.send(message)
+    return " ".join([str(response.status_code), responses[response.status_code]])
+  except Exception as e:
+    return str(e.message)
+requirements: |
+    sendgrid
+quotas:
+  max_rows_per_query: 10
