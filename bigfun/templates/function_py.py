@@ -82,6 +82,26 @@ class Store:
         }
 
 
+class SecretManager:
+
+    secret_manager = None
+    secrets = {}
+
+    def get(self, name):
+        if name in self.secrets:
+            return self.secrets[name]
+        if self.secret_manager is None:
+            import google.cloud.secretmanager
+            self.secret_manager = google.cloud.secretmanager.SecretManagerServiceClient()
+        self.secrets[name] = self.secret_manager.access_secret_version(
+            name=f'projects/{PROJECT}/secrets/{name}/versions/latest'
+        ).payload.data.decode('UTF-8')
+        return self.secrets[name]
+
+
+secrets = SecretManager()
+
+
 def check_quotas(user, user_stats, row_count):
     print(user_stats)
 

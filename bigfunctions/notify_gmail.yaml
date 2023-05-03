@@ -56,13 +56,8 @@ code: |
   from email.mime.application import MIMEApplication
   from email import encoders
 
-  import google.cloud.secretmanager
-  secret_manager = google.cloud.secretmanager.SecretManagerServiceClient()
-
   username = 'paul.marcombes@unytics.io'
-  password = secret_manager.access_secret_version(
-      name='projects/bigfunctions/secrets/unytics_gmail_password/versions/latest'
-  ).payload.data.decode('UTF-8')
+  password = secrets.get('unytics_gmail_password')
   smtp_server = 'smtp.gmail.com'
   smtp_port = 587
 
@@ -96,7 +91,5 @@ code: |
   smtpObj.sendmail(username, msg['To'].split(","), msg.as_string())
   smtpObj.quit()
   return True
-requirements: |
-  google-cloud-secret-manager
 quotas:
   max_rows_per_query: 10

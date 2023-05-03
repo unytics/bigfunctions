@@ -44,7 +44,7 @@ def deploy_cloud_run(bigquery, bigfunction, conf, fully_qualified_dataset, proje
         out.write(python_code)
 
     with open(f'{PYTHON_BUILD_DIR}/requirements.txt', 'w', encoding='utf-8') as out:
-        out.write('gunicorn\nflask\ngoogle-cloud-error-reporting\ngoogle-cloud-datastore\n' + conf['requirements'])
+        out.write('gunicorn\nflask\ngoogle-cloud-error-reporting\ngoogle-cloud-datastore\ngoogle-cloud-secret-manager\n' + conf['requirements'])
 
     template = jinja2.Template(open(f'{TEMPLATE_FOLDER}/Dockerfile', encoding='utf-8').read())
     dockerfile = template.render(**conf)
