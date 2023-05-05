@@ -186,7 +186,7 @@ class CloudRun:
 
         options['source'] = source_folder
         result = self.exec('gcloud run deploy', options=options)
-        CLOUD_RUN_IMAGES_CACHE[self.service] = self.exec('gcloud run services describe', options={'format': 'value(image)'})
+        CLOUD_RUN_IMAGES_CACHE[self.service] = self.exec('gcloud run services describe', options={'format': '"value(image)"'})
         return result
 
     @property
