@@ -1,0 +1,137 @@
+type: function_py
+category: notify
+author:
+  name: Guillaume Pivette from Neoxia
+  url: https://www.linkedin.com/in/guillaume-pivette/
+  avatar_url: "https://cdn-images-1.medium.com/v2/resize:fit:92/1*jHdQzX82eU5lyjBYp63NqQ@2x.png"
+description: |
+    Sends an email from your registered email address on SendGrid to `to_email` with `subject` as subject and `html_content` as content (you can use html tags).
+arguments:
+  - name: to_email
+    type: string
+  - name: subject
+    type: string
+  - name: html_content
+    type: string
+  - name: attachment_type
+    type: string
+  - name: attachment_filename
+    type: string
+  - name: attachment_content
+    type: string  
+output:
+  name: response
+  type: string
+examples:
+  - description: "Send an email without an attachment"
+    arguments:
+      - '"destination.address@domain.com"'
+      - '"A new email"'
+      - '"You just received an email sent by a <strong>remote BigFunction</strong>"'
+      - null
+      - null
+      - null
+    output: '202 Accepted'
+    region: ALL
+  - description: "Send an email with a PDF attachment (you will receive a html page as a pdf)"
+    arguments:
+      - '"destination.address@domain.com"'
+      - '"A new email"'
+      - '"You just received an email sent by a <strong>remote BigFunction</strong>"'
+      - '"pdf"'
+      - '"my_pdf.pdf'
+      - '"https://github.com/unytics/bigfunctions"'
+    output: '202 Accepted'
+    region: ALL
+  - description: "Send an email with a CSV attachment (you will receive the result of a BigQuery query as a csv)"
+    arguments:
+      - '"destination.address@domain.com"'
+      - '"A new email"'
+      - '"You just received an email sent by a <strong>remote BigFunction</strong>"'
+      - '"csv"'
+      - '"my_csv.csv'
+      - '"SELECT * FROM `my-project.dataset.table`"'
+    output: '202 Accepted'
+    region: ALL
+code: |
+  import os
+  import base64
+  from sendgrid import SendGridAPIClient
+  from sendgrid.helpers.mail import Mail, Attachment, FileContent, FileName, FileType, Disposition
+  from google.cloud import bigquery
+  import csv
+  from http.client import responses
+  import subprocess
+  import json
+
+  from_email = secrets.get("sendgrid_sender_email")
+
+  message = Mail(
+    from_email=from_email,
+    to_emails=to_email,
+    subject=subject,
+    html_content=html_content
+  )
+
+  sendgrid_token = secrets.get("sendgrid_api_key")
+
+  if attachment_type:
+    os.system("mkdir downloads")
+    os.system("chmod 755 downloads")
+    if attachment_type == 'pdf':
+      command = f"google-chrome-stable --headless --no-sandbox --print-to-pdf='/app/downloads/{attachment_filename}' {attachment_content}"
+      os.system(command)
+      mime_type = 'application/pdf'
+    elif attachment_type == 'csv':
+      mime_type = 'text/csv'
+      client = bigquery.Client()
+      query_job = client.query(attachment_content)
+      rows = query_job.result()
+      list_rows = list(rows)
+      columns = list(list_rows[0].keys())
+      rows = query_job.result()
+      result = [columns]
+      for row in rows:
+        result.append([row[x] for x in columns])
+      with open(f"/app/downloads/{attachment_filename}", "w", newline="") as f:
+        writer = csv.writer(f)
+        writer.writerows(result)
+    else:
+      return "Attachment type not supported"
+
+
+    with open(f"/app/downloads/{attachment_filename}", 'rb') as f:
+        data = f.read()
+        f.close()
+    encoded_file = base64.b64encode(data).decode()
+
+    attachedFile = Attachment(
+      FileContent(encoded_file),
+      FileName(attachment_filename),
+      FileType(mime_type),
+      Disposition('attachment')
+    )
+    message.attachment = attachedFile
+  
+  try:
+    sg = SendGridAPIClient(sendgrid_token)
+    response = sg.send(message)
+    return " ".join([str(response.status_code), responses[response.status_code]])
+  except Exception as e:
+    return str(e.message)
+requirements: |
+  sendgrid
+  google-cloud-bigquery
+additional_install_commands_in_dockerfile: |
+  RUN export DEBIAN_FRONTEND=noninteractive 
+  RUN apt-get update 
+  RUN apt-get install --no-install-recommends --no-install-suggests --assume-yes \
+    acl \
+    curl \
+    gnupg \
+    fonts-liberation
+  RUN curl -sL "https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb" > /tmp/chrome.deb 
+  RUN (dpkg -i /tmp/chrome.deb || apt-get install --no-install-recommends --no-install-suggests --assume-yes --fix-broken) 
+  RUN rm -rf /tmp/*                                                                                   
+quotas:
+  max_rows_per_query: 10
