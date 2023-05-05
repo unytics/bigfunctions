@@ -6,11 +6,11 @@ author:
   avatar_url: "https://cdn-images-1.medium.com/v2/resize:fit:92/1*jHdQzX82eU5lyjBYp63NqQ@2x.png"
 description: |
   Sends an email
-  to `email` with `subject`, `content` and possible attachment (defined by `attachment_filename` and `attachment_content`).
+  to `to` email with `subject`, `content` and possible attachment (defined by `attachment_filename` and `attachment_content`).
 
-  | Param  | Possible values  |
-  |---|---|
-  | `email`  | One or multiple comma separated emails.<br>For instance `contact@unytics.io` or `contact@unytics.io, paul.marcombes@unytics.io`   |
+  | Param      | Possible values  |
+  |------------|------------------|
+  | `to     `  | One or multiple comma separated emails.<br>For instance `contact@unytics.io` or `contact@unytics.io, paul.marcombes@unytics.io`   |
   | `subject`  | Email subject (will be prefixed with `[bigfunctions] `)  |
   | `content`  | Can be plain text, html or **markdown**   |
   | `attachment_content`  | Can be plain text or base64 encoded content (useful to send excel files, pdf or images)  |
