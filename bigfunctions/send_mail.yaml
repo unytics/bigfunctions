@@ -15,7 +15,7 @@ description: |
   | `content`  | Can be plain text, html or **markdown**   |
   | `attachment_content`  | Can be plain text or base64 encoded content (useful to send excel files, pdf or images)  |
 
-  > (this function uses [SendGrid](https://sendgrid.com/) to send the emails and [Lee Munroe HTML template](https://github.com/leemunroe/responsive-html-email-template) for styling emails)
+  > This function uses [SendGrid](https://sendgrid.com/) to send the emails and [Lee Munroe HTML template](https://github.com/leemunroe/responsive-html-email-template) for styling emails.
 arguments:
   - name: to
     type: string
