@@ -1,10 +1,22 @@
 type: procedure
-category: export
+category: notify
 author:
   name: "Paul Marcombes"
   url: https://www.linkedin.com/in/paul-marcombes
   avatar_url: "https://lh3.googleusercontent.com/a-/ACB-R5RDf2yxcw1p_IYLCKmiUIScreatDdhG8B83om6Ohw=s260"
-description: Send email with data attached as excel file
+description: |
+  Sends an email with `table_or_view_or_query` data attached as excel file
+  (only the first 1000 rows will be copied to the excel file)
+
+  | Param      | Possible values  |
+  |------------|------------------|
+  | `to     `  | One or multiple comma separated emails.<br>For instance `contact@unytics.io` or `contact@unytics.io, paul.marcombes@unytics.io`   |
+  | `subject`  | Email subject |
+  | `content`  | Can be plain text, html or **markdown**   |
+  | `attachment_filename`  | filename with extension such as `report.xlsx`  |
+  | `table_or_view_or_query`  | A fully qualified table or view you have permission to read or a sql query starting with `select`  |
+
+  > This function calls `json2excel` and `send_mail` functions.
 arguments:
   - name: to
     type: string
@@ -19,11 +31,31 @@ arguments:
 examples:
   - description: ""
     arguments:
-      - "'contact@unytics.io'"
-      - "'Finance Figures for Today'"
-      - "'Hey Paul, you fill find the figures in the attached excel file. Enjoy 🔥'"
-      - "'report.xlsx'"
-      - "'bigfunctions.samples.natality'"
+      - |-
+
+        'contact@unytics.io'
+      - |-
+
+        'Financial Report'
+      - |-
+
+        '''
+        # Monthly Report from BigQuery
+
+        ## KPIs
+
+        - **MRR**: 32,343 USD
+        - **Churn**: 4.2 %
+        - **Subscriptions**: +3452
+
+        👇 *See full report in Excel file*
+        '''
+      - |-
+
+        'report.xlsx'
+      - |-
+
+        'bigfunctions.samples.natality'
     region: EU
 code: |
   execute immediate replace(replace(replace(replace(replace(
@@ -32,7 +64,7 @@ code: |
 
     query_result as (
       select
-        array_agg(struct(res).res limit 100000) as data
+        array_agg(struct(res).res limit 1000) as data
       from {{table_or_view_or_query}} res
     ),
 

@@ -21,30 +21,26 @@ BigFunctions are open-source BigQuery routines that give you **SQL-superpowers**
 
     
 
-    **👀 Explore**
+    **🛢 Get data**
 
     
-    - [<code>explore_column(fully_qualified_column)</code>](#explore_column): Show column statistics
+    - [<code>exchange_rate(base, to)</code>](#exchange_rate): Get `exchange_rate`
     
-    - [<code>explore_dataset(fully_qualified_dataset)</code>](#explore_dataset): Show infos about dataset tables
-    
-    - [<code>explore_table(fully_qualified_table)</code>](#explore_table): Show table infos and column statistics
+    - [<code>get(url, headers)</code>](#get): Request `url`
     
 
     
 
-    **🧠 Machine learning**
+    **💬 Notify**
 
     
-    - [<code>precision_recall_auc(predictions)</code>](#precision_recall_auc): Returns the Area Under the Precision Recall Curve (a.k.a. AUC PR)
+    - [<code>send_google_chat_message(message, webhook_url)</code>](#send_google_chat_message): Sends `message` to google chat space
     
-    - [<code>precision_recall_curve(predictions)</code>](#precision_recall_curve): Returns the Precision-Recall Curve
+    - [<code>send_mail(to, subject, content, attachment_filename, attachment_content)</code>](#send_mail): Sends an email
     
-    - [<code>prophet(dates, vals, periods)</code>](#prophet): Forecast time-series using prophet
+    - [<code>send_mail_with_excel(to, subject, content, excel_filename, table_or_view_or_query)</code>](#send_mail_with_excel): Sends an email with `table_or_view_or_query` data attached as excel file
     
-    - [<code>roc_auc(predictions)</code>](#roc_auc): Returns the Area Under the Receiver Operating Characteristic Curve (a.k.a. ROC AUC)
-    
-    - [<code>roc_curve(predictions)</code>](#roc_curve): Returns the Receiver Operating Characteristic Curve (a.k.a. ROC Curve)
+    - [<code>send_slack_message(message, webhook_url)</code>](#send_slack_message): Sends `message` to a slack channel.
     
 
     
@@ -64,15 +60,13 @@ BigFunctions are open-source BigQuery routines that give you **SQL-superpowers**
     **✨ Transform string**
 
     
-    - [<code>deidentify(text, info_types)</code>](#deidentify): Masks sensitive information in `text`
+    - [<code>deidentify(text, info_types)</code>](#deidentify): Masks sensitive information of type `info_types` in `text`
     
     - [<code>detect_sensitive_info(text)</code>](#detect_sensitive_info): Detect sensitive information in `text`
     
     - [<code>faker(what, locale)</code>](#faker): Generates fake data
     
     - [<code>is_email_valid(email)</code>](#is_email_valid): Return true if `email` is valid
-    
-    - [<code>json2xml(json)</code>](#json2xml): Returns XML for given JSON string
     
     - [<code>levenshtein(string1, string2)</code>](#levenshtein): Compute levenshtein distance between `string1` and `string2`
     
@@ -90,16 +84,14 @@ BigFunctions are open-source BigQuery routines that give you **SQL-superpowers**
     
     - [<code>replace_special_characters(string, replacement)</code>](#replace_special_characters): Replace most common special characters in a `string` with `replacement`
     
-    - [<code>sentiment_score(content)</code>](#sentiment_score): Compute sentiment score of text
-    
-    - [<code>xml2json(xml)</code>](#xml2json): Returns JSON as a string for given XML string
+    - [<code>summarize(content)</code>](#summarize): Make a summary of text
     
     - [<code>xml_extract(xml, x_path)</code>](#xml_extract): Returns content extracted from XML from given XPATH
     
 
     
 
-    **🌐 Geo**
+    **🌐 Transform geo data**
 
     
     - [<code>geocode(address)</code>](#geocode): Get `address` details from Google Maps
@@ -169,6 +161,28 @@ BigFunctions are open-source BigQuery routines that give you **SQL-superpowers**
 
     
 
+    **🧠 Machine learning**
+
+    
+    - [<code>chatgpt(prompt)</code>](#chatgpt): Transform Address to Coordinates
+    
+    - [<code>precision_recall_auc(predictions)</code>](#precision_recall_auc): Returns the Area Under the Precision Recall Curve (a.k.a. AUC PR)
+    
+    - [<code>precision_recall_curve(predictions)</code>](#precision_recall_curve): Returns the Precision-Recall Curve
+    
+    - [<code>prophet(dates, vals, periods)</code>](#prophet): Forecast time-series using prophet
+    
+    - [<code>roc_auc(predictions)</code>](#roc_auc): Returns the Area Under the Receiver Operating Characteristic Curve (a.k.a. ROC AUC)
+    
+    - [<code>roc_curve(predictions)</code>](#roc_curve): Returns the Receiver Operating Characteristic Curve (a.k.a. ROC Curve)
+    
+    - [<code>sentiment_score(content)</code>](#sentiment_score): Compute sentiment score of `content`
+    
+    - [<code>summarize2(content)</code>](#summarize2): Summarize Text
+    
+
+    
+
     **🌐 Graph**
 
     
@@ -177,10 +191,14 @@ BigFunctions are open-source BigQuery routines that give you **SQL-superpowers**
 
     
 
-    **💬 Notify**
+    **🔨 Convert data format**
 
     
-    - [<code>notify_gmail(recipients, subject, body, attachment_filename, attachment_content)</code>](#notify_gmail): Send email via gmail
+    - [<code>json2excel(data)</code>](#json2excel): Dump data to excel file returned as base64
+    
+    - [<code>json2xml(json)</code>](#json2xml): Returns XML for given JSON string
+    
+    - [<code>xml2json(xml)</code>](#xml2json): Returns JSON as a string for given XML string
     
 
     
@@ -188,7 +206,17 @@ BigFunctions are open-source BigQuery routines that give you **SQL-superpowers**
     **🚀 Export**
 
     
-    - [<code>export_to_gmail(table_or_view_or_query, recipients, email_subject, email_body)</code>](#export_to_gmail): Send email (via gmail) with data attached as excel file
+
+    
+
+    **👀 Explore**
+
+    
+    - [<code>explore_column(fully_qualified_column)</code>](#explore_column): Show column statistics
+    
+    - [<code>explore_dataset(fully_qualified_dataset)</code>](#explore_dataset): Show infos about dataset tables
+    
+    - [<code>explore_table(fully_qualified_table)</code>](#explore_table): Show table infos and column statistics
     
 
     
@@ -196,13 +224,9 @@ BigFunctions are open-source BigQuery routines that give you **SQL-superpowers**
     **🔨 Utils**
 
     
+    - [<code>TMP_get_json_column_schema(table_or_view_or_query, json_column)</code>](#TMP_get_json_column_schema): Return the schema of `json_column` of `table_or_view_or_query` as `[{path, type}]`
+    
     - [<code>chart(data, chart_type, ylabel)</code>](#chart): Return html with a chartjs chart
-    
-    - [<code>dump_to_excel(data)</code>](#dump_to_excel): Dump data to excel file returned as base64
-    
-    - [<code>get(url, headers)</code>](#get): Request `url`
-    
-    - [<code>get_json_column_schema(table_or_view_or_query, json_column)</code>](#get_json_column_schema): Return the schema of `json_column` of `table_or_view_or_query` as `[{path, type}]`
     
     - [<code>get_latest_partition_timestamp(fully_qualified_table)</code>](#get_latest_partition_timestamp): Return the maximum of the partition column of `fully_qualified_table`
     
@@ -221,45 +245,83 @@ BigFunctions are open-source BigQuery routines that give you **SQL-superpowers**
 <div style="margin-top: 6rem;"></div>
 
 
-## 👀 Explore
+## 🛢 Get data
 
 !!! note ""
-    **Explore data within BigQuery console **
+    **Get Data **
 
-    Make computations on BigQuery and display the results as data-vizualizations directly in BigQuery console.
+    Get data from any API or any website!
 
 ---
 
 
 
-### explore_column
+### exchange_rate
 <div style="position: relative; top: -2rem; margin-bottom:  -2rem; text-align: right; z-index: 9999;">
   
-  <a href="https://www.linkedin.com/in/paul-marcombes" title="Author: Paul Marcombes" target="_blank">
-    <img src="https://lh3.googleusercontent.com/a-/ACB-R5RDf2yxcw1p_IYLCKmiUIScreatDdhG8B83om6Ohw=s260" width="32" style=" border-radius: 50% !important">
+  <a href="https://www.linkedin.com/in/johan-protin" title="Author: Johan PROTIN" target="_blank">
+    <img src="https://media.licdn.com/dms/image/C4E03AQH1sYz9Zik0TQ/profile-displayphoto-shrink_800_800/0/1653692064309?e=1688601600&v=beta&t=c6DsEpUE-cC_zdW5vTrfyyBgiTJLeBGg5oUlzJmsnKw" width="32" style=" border-radius: 50% !important">
   </a>
   
-  <a href="https://github.com/unytics/bigfunctions/blob/main/bigfunctions/explore_column.yaml" title="Edit on GitHub" target="_blank"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="#5d6cc0" d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg></a></div>
+  <a href="https://github.com/unytics/bigfunctions/blob/main/bigfunctions/exchange_rate.yaml" title="Edit on GitHub" target="_blank"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="#5d6cc0" d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg></a></div>
 ```
-explore_column(fully_qualified_column)
+exchange_rate(base, to)
 ```
 
 **Description**
 
-Show column statistics
+Get `exchange_rate`
+from `base` (e.g. `USD`) to `to` (e.g. `EUR`)
+*using [https://exchangerate.host](https://exchangerate.host)*
+
+| Param  | Possible values  |
+|---|---|
+| `base`<br>and<br>`to`  | `AED`, `AFN`, `ALL`, `AMD`, `ANG`, `AOA`, `ARS`, `AUD`, `AWG`, `AZN`, `BAM`, `BBD`, `BDT`, `BGN`, `BHD`, `BIF`, `BMD`, `BND`, `BOB`, `BRL`, `BSD`, `BTC`, `BTN`, `BWP`, `BYN`, `BZD`, `CAD`, `CDF`, `CHF`, `CLF`, `CLP`, `CNH`, `CNY`, `COP`, `CRC`, `CUC`, `CUP`, `CVE`, `CZK`, `DJF`, `DKK`, `DOP`, `DZD`, `EGP`, `ERN`, `ETB`, `EUR`, `FJD`, `FKP`, `GBP`, `GEL`, `GGP`, `GHS`, `GIP`, `GMD`, `GNF`, `GTQ`, `GYD`, `HKD`, `HNL`, `HRK`, `HTG`, `HUF`, `IDR`, `ILS`, `IMP`, `INR`, `IQD`, `IRR`, `ISK`, `JEP`, `JMD`, `JOD`, `JPY`, `KES`, `KGS`, `KHR`, `KMF`, `KPW`, `KRW`, `KWD`, `KYD`, `KZT`, `LAK`, `LBP`, `LKR`, `LRD`, `LSL`, `LYD`, `MAD`, `MDL`, `MGA`, `MKD`, `MMK`, `MNT`, `MOP`, `MRU`, `MUR`, `MVR`, `MWK`, `MXN`, `MYR`, `MZN`, `NAD`, `NGN`, `NIO`, `NOK`, `NPR`, `NZD`, `OMR`, `PAB`, `PEN`, `PGK`, `PHP`, `PKR`, `PLN`, `PYG`, `QAR`, `RON`, `RSD`, `RUB`, `RWF`, `SAR`, `SBD`, `SCR`, `SDG`, `SEK`, `SGD`, `SHP`, `SLL`, `SOS`, `SRD`, `SSP`, `STD`, `STN`, `SVC`, `SYP`, `SZL`, `THB`, `TJS`, `TMT`, `TND`, `TOP`, `TRY`, `TTD`, `TWD`, `TZS`, `UAH`, `UGX`, `USD`, `UYU`, `UZS`, `VES`, `VND`, `VUV`, `WST`, `XAF`, `XAG`, `XAU`, `XCD`, `XDR`, `XOF`, `XPD`, `XPF`, `XPT`, `YER`, `ZAR`, `ZMW`, `ZWL` |
+
 
 **Examples**
 
 
 
+<span style="color: var(--md-typeset-a-color);">To know how many euros a dollar is worth</span>
+
+
+
+
+
+
+=== "EU"
+
+    ```sql
+    select bigfunctions.eu.exchange_rate('USD', 'EUR') as exchange_rate
+    
+    ```
 
 
 
 === "US"
 
     ```sql
-    call bigfunctions.us.explore_column("bigquery-public-data.samples.natality.weight_pounds");
-    select html from bigfunction_result;
+    select bigfunctions.us.exchange_rate('USD', 'EUR') as exchange_rate
+    
+    ```
+
+
+
+=== "europe-west1"
+
+    ```sql
+    select bigfunctions.europe_west1.exchange_rate('USD', 'EUR') as exchange_rate
+    
+    ```
+
+
+
+=== "your-region2"
+
+    ```sql
+    select bigfunctions.your_region2.exchange_rate('USD', 'EUR') as exchange_rate
+    
     ```
 
 
@@ -269,7 +331,22 @@ Show column statistics
 
 
 
-<a href="../assets/images/explore_column.png"><img alt="screenshot" src="../assets/images/explore_column.png" style="border: var(--md-code-bg-color) solid 1rem; margin-top: -1rem; width: 100%"></a>
+
+<pre style="margin-top: -1rem;">
+<code style="padding-top: 0px; padding-bottom: 0px;">+---------------+
+| exchange_rate |
++---------------+
+| 0.910437      |
++---------------+
+</code>
+</pre>
+
+
+
+
+
+
+
 
 
 
@@ -278,34 +355,65 @@ Show column statistics
 
 
 
-### explore_dataset
+### get
 <div style="position: relative; top: -2rem; margin-bottom:  -2rem; text-align: right; z-index: 9999;">
   
   <a href="https://www.linkedin.com/in/paul-marcombes" title="Author: Paul Marcombes" target="_blank">
     <img src="https://lh3.googleusercontent.com/a-/ACB-R5RDf2yxcw1p_IYLCKmiUIScreatDdhG8B83om6Ohw=s260" width="32" style=" border-radius: 50% !important">
   </a>
   
-  <a href="https://github.com/unytics/bigfunctions/blob/main/bigfunctions/explore_dataset.yaml" title="Edit on GitHub" target="_blank"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="#5d6cc0" d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg></a></div>
+  <a href="https://github.com/unytics/bigfunctions/blob/main/bigfunctions/get.yaml" title="Edit on GitHub" target="_blank"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="#5d6cc0" d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg></a></div>
 ```
-explore_dataset(fully_qualified_dataset)
+get(url, headers)
 ```
 
 **Description**
 
-Show infos about dataset tables
+Request `url`
 
 **Examples**
 
 
 
+<span style="color: var(--md-typeset-a-color);">1. Without headers</span>
+
+
+
+
+
+
+=== "EU"
+
+    ```sql
+    select bigfunctions.eu.get('https://unytics.io/bigfunctions', null) as response
+    
+    ```
 
 
 
 === "US"
 
     ```sql
-    call bigfunctions.us.explore_dataset("bigquery-public-data.samples");
-    select html from bigfunction_result;
+    select bigfunctions.us.get('https://unytics.io/bigfunctions', null) as response
+    
+    ```
+
+
+
+=== "europe-west1"
+
+    ```sql
+    select bigfunctions.europe_west1.get('https://unytics.io/bigfunctions', null) as response
+    
+    ```
+
+
+
+=== "your-region2"
+
+    ```sql
+    select bigfunctions.your_region2.get('https://unytics.io/bigfunctions', null) as response
+    
     ```
 
 
@@ -315,43 +423,63 @@ Show infos about dataset tables
 
 
 
-<a href="../assets/images/explore_dataset.png"><img alt="screenshot" src="../assets/images/explore_dataset.png" style="border: var(--md-code-bg-color) solid 1rem; margin-top: -1rem; width: 100%"></a>
+
+<pre style="margin-top: -1rem;">
+<code style="padding-top: 0px; padding-bottom: 0px;">+------------------------+
+| response               |
++------------------------+
+| &amp;lt;html&gt;...&amp;lt;/html&gt; |
++------------------------+
+</code>
+</pre>
 
 
 
----
 
 
 
 
-### explore_table
-<div style="position: relative; top: -2rem; margin-bottom:  -2rem; text-align: right; z-index: 9999;">
-  
-  <a href="https://www.linkedin.com/in/paul-marcombes" title="Author: Paul Marcombes" target="_blank">
-    <img src="https://lh3.googleusercontent.com/a-/ACB-R5RDf2yxcw1p_IYLCKmiUIScreatDdhG8B83om6Ohw=s260" width="32" style=" border-radius: 50% !important">
-  </a>
-  
-  <a href="https://github.com/unytics/bigfunctions/blob/main/bigfunctions/explore_table.yaml" title="Edit on GitHub" target="_blank"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="#5d6cc0" d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg></a></div>
-```
-explore_table(fully_qualified_table)
-```
 
-**Description**
 
-Show table infos and column statistics
-
-**Examples**
+<span style="color: var(--md-typeset-a-color);">2. With Content-Type = application/json headers</span>
 
 
 
+
+
+
+=== "EU"
+
+    ```sql
+    select bigfunctions.eu.get('https://api.github.com/repos/unytics/bigfunctions', '{"Content-Type": "application/json"}') as response
+    
+    ```
 
 
 
 === "US"
 
     ```sql
-    call bigfunctions.us.explore_table("bigquery-public-data.samples.natality");
-    select html from bigfunction_result;
+    select bigfunctions.us.get('https://api.github.com/repos/unytics/bigfunctions', '{"Content-Type": "application/json"}') as response
+    
+    ```
+
+
+
+=== "europe-west1"
+
+    ```sql
+    select bigfunctions.europe_west1.get('https://api.github.com/repos/unytics/bigfunctions', '{"Content-Type": "application/json"}') as response
+    
+    ```
+
+
+
+=== "your-region2"
+
+    ```sql
+    select bigfunctions.your_region2.get('https://api.github.com/repos/unytics/bigfunctions', '{"Content-Type": "application/json"}') as response
+    
     ```
 
 
@@ -361,7 +489,22 @@ Show table infos and column statistics
 
 
 
-<a href="../assets/images/explore_column.png"><img alt="screenshot" src="../assets/images/explore_column.png" style="border: var(--md-code-bg-color) solid 1rem; margin-top: -1rem; width: 100%"></a>
+
+<pre style="margin-top: -1rem;">
+<code style="padding-top: 0px; padding-bottom: 0px;">+----------+
+| response |
++----------+
+| {...}    |
++----------+
+</code>
+</pre>
+
+
+
+
+
+
+
 
 
 
@@ -378,137 +521,113 @@ Show table infos and column statistics
 <div style="margin-top: 6rem;"></div>
 
 
-## 🧠 Machine learning
+## 💬 Notify
 
 !!! note ""
-    ** **
+    **Send infos to your customers, alert the operations teams, send reportings to business **
 
+    Spread the word to the world!
+
+---
+
+
+
+### send_google_chat_message
+<div style="position: relative; top: -2rem; margin-bottom:  -2rem; text-align: right; z-index: 9999;">
+  
+  <a href="https://www.linkedin.com/in/shivamsingh012/" title="Author: Shivam Singh" target="_blank">
+    <img src="https://media.licdn.com/dms/image/D4D03AQERv0qwECH0DA/profile-displayphoto-shrink_200_200/0/1675233460732?e=1686182400&v=beta&t=HqngiSx5zd4llZStwf3L0k2T_pE8qvnEj7NguWNJTOo" width="32" style=" border-radius: 50% !important">
+  </a>
+  
+  <a href="https://github.com/unytics/bigfunctions/blob/main/bigfunctions/send_google_chat_message.yaml" title="Edit on GitHub" target="_blank"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="#5d6cc0" d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg></a></div>
+```
+send_google_chat_message(message, webhook_url)
+```
+
+**Description**
+
+Sends `message` to google chat space
+using incoming webhook.
+
+
+> To get the incoming `webhook_url`:
+>
+> - In a web browser, open Google Chat.
+> - Go to the space to which you want to add a webhook.
+> - At the top, next to space title, click Down Arrow arrow_drop_down > Apps & integrations.
+> - Click Manage webhooks.
+> - If this space already has other webhooks, click Add another. Otherwise, skip this step.
+> - For Name, enter "Quickstart Webhook".
+> - For Avatar URL, enter https://developers.google.com/chat/images/chat-product-icon.png.
+> - Click SAVE.
+> - To copy the full webhook URL, click Copy.
+
+
+**Examples**
+
+
+
+
+
+
+
+
+
+
+=== "EU"
+
+    ```sql
+    select bigfunctions.eu.send_google_chat_message("Hello 👋 from bigfunctions!", "YOUR_WEBHOOK_URL") as response
     
-
----
-
-
-
-### precision_recall_auc
-<div style="position: relative; top: -2rem; margin-bottom:  -2rem; text-align: right; z-index: 9999;">
-  
-  <a href="https://www.linkedin.com/in/anatolec/" title="Author: Anatole Callies" target="_blank">
-    <img src="https://ca.slack-edge.com/T01LGTNUWTE-U044NKG25GX-7469e33feefb-512" width="32" style=" border-radius: 50% !important">
-  </a>
-  
-  <a href="https://github.com/unytics/bigfunctions/blob/main/bigfunctions/precision_recall_auc.yaml" title="Edit on GitHub" target="_blank"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="#5d6cc0" d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg></a></div>
-```
-precision_recall_auc(predictions)
-```
-
-**Description**
-
-Returns the Area Under the Precision Recall Curve (a.k.a. AUC PR)
-given a set of predicted scores and ground truth labels using the trapezoidal rule
-
-**Examples**
-
-
-
-<span style="color: var(--md-typeset-a-color);">1. Random classifier</span>
-
-
-=== "EU"
-
-    ```sql
-    select bigfunctions.eu.precision_recall_auc((select array_agg(struct(cast(predicted_score as float64), rand() > 0.5)) from unnest(generate_array(1, 1000)) as predicted_score)) as auc_pr
-
     ```
+
 
 
 === "US"
 
     ```sql
-    select bigfunctions.us.precision_recall_auc((select array_agg(struct(cast(predicted_score as float64), rand() > 0.5)) from unnest(generate_array(1, 1000)) as predicted_score)) as auc_pr
-
+    select bigfunctions.us.send_google_chat_message("Hello 👋 from bigfunctions!", "YOUR_WEBHOOK_URL") as response
+    
     ```
+
 
 
 === "europe-west1"
 
     ```sql
-    select bigfunctions.europe_west1.precision_recall_auc((select array_agg(struct(cast(predicted_score as float64), rand() > 0.5)) from unnest(generate_array(1, 1000)) as predicted_score)) as auc_pr
-
+    select bigfunctions.europe_west1.send_google_chat_message("Hello 👋 from bigfunctions!", "YOUR_WEBHOOK_URL") as response
+    
     ```
+
 
 
 === "your-region2"
 
     ```sql
-    select bigfunctions.your_region2.precision_recall_auc((select array_agg(struct(cast(predicted_score as float64), rand() > 0.5)) from unnest(generate_array(1, 1000)) as predicted_score)) as auc_pr
-
+    select bigfunctions.your_region2.send_google_chat_message("Hello 👋 from bigfunctions!", "YOUR_WEBHOOK_URL") as response
+    
     ```
+
+
+
+
 
 
 
 
 
 <pre style="margin-top: -1rem;">
-<code style="padding-top: 0px; padding-bottom: 0px;">+--------+
-| auc_pr |
-+--------+
-| 0.5    |
-+--------+
-</code>
-</pre>
-
-
-
-
-
-
-
-
-
-<span style="color: var(--md-typeset-a-color);">2. Good classifier</span>
-
-
-=== "EU"
-
-    ```sql
-    select bigfunctions.eu.precision_recall_auc((select array_agg(struct(cast(predicted_score as float64), predicted_score > 500)) from unnest(generate_array(1, 1000)) as predicted_score)) as auc_pr
-
-    ```
-
-
-=== "US"
-
-    ```sql
-    select bigfunctions.us.precision_recall_auc((select array_agg(struct(cast(predicted_score as float64), predicted_score > 500)) from unnest(generate_array(1, 1000)) as predicted_score)) as auc_pr
-
-    ```
-
-
-=== "europe-west1"
-
-    ```sql
-    select bigfunctions.europe_west1.precision_recall_auc((select array_agg(struct(cast(predicted_score as float64), predicted_score > 500)) from unnest(generate_array(1, 1000)) as predicted_score)) as auc_pr
-
-    ```
-
-
-=== "your-region2"
-
-    ```sql
-    select bigfunctions.your_region2.precision_recall_auc((select array_agg(struct(cast(predicted_score as float64), predicted_score > 500)) from unnest(generate_array(1, 1000)) as predicted_score)) as auc_pr
-
-    ```
-
-
-
-
-
-<pre style="margin-top: -1rem;">
-<code style="padding-top: 0px; padding-bottom: 0px;">+--------+
-| auc_pr |
-+--------+
-| 1.0    |
-+--------+
+<code style="padding-top: 0px; padding-bottom: 0px;">+--------------------------------------------------------------------------------------------------+
+| response                                                                                         |
++--------------------------------------------------------------------------------------------------+
+| {
+  &#34;name&#34;: ...,
+  &#34;sender&#34;: ...,
+  &#34;createTime&#34;: ...,
+  &#34;text&#34;: &#34;Hello 👋 from bigfunctions!&#34;
+}
+ |
++--------------------------------------------------------------------------------------------------+
 </code>
 </pre>
 
@@ -526,24 +645,39 @@ given a set of predicted scores and ground truth labels using the trapezoidal ru
 
 
 
-### precision_recall_curve
+### send_mail
 <div style="position: relative; top: -2rem; margin-bottom:  -2rem; text-align: right; z-index: 9999;">
   
-  <a href="https://www.linkedin.com/in/anatolec/" title="Author: Anatole Callies" target="_blank">
-    <img src="https://ca.slack-edge.com/T01LGTNUWTE-U044NKG25GX-7469e33feefb-512" width="32" style=" border-radius: 50% !important">
+  <a href="https://www.linkedin.com/in/guillaume-pivette/" title="Author: Guillaume Pivette from Neoxia" target="_blank">
+    <img src="https://cdn-images-1.medium.com/v2/resize:fit:92/1*jHdQzX82eU5lyjBYp63NqQ@2x.png" width="32" style=" border-radius: 50% !important">
   </a>
   
-  <a href="https://github.com/unytics/bigfunctions/blob/main/bigfunctions/precision_recall_curve.yaml" title="Edit on GitHub" target="_blank"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="#5d6cc0" d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg></a></div>
+  <a href="https://github.com/unytics/bigfunctions/blob/main/bigfunctions/send_mail.yaml" title="Edit on GitHub" target="_blank"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="#5d6cc0" d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg></a></div>
 ```
-precision_recall_curve(predictions)
+send_mail(to, subject, content, attachment_filename, attachment_content)
 ```
 
 **Description**
 
-Returns the Precision-Recall Curve
-(as a table) given `predictions`, an array  of `(predicted_score, ground_truth_label)`
+Sends an email
+to `to` email with `subject`, `content` and possible attachment (defined by `attachment_filename` and `attachment_content`).
+
+| Param      | Possible values  |
+|------------|------------------|
+| `to     `  | One or multiple comma separated emails.<br>For instance `contact@unytics.io` or `contact@unytics.io, paul.marcombes@unytics.io`   |
+| `subject`  | Email subject |
+| `content`  | Can be plain text, html or **markdown**   |
+| `attachment_filename`  | `null` or filename with extension such as `report.xlsx`  |
+| `attachment_content`  | `null` or can be plain text or base64 encoded content (useful to send excel files, pdf or images)  |
+
+> This function uses [SendGrid](https://sendgrid.com/) to send the emails and [Lee Munroe HTML template](https://github.com/leemunroe/responsive-html-email-template) for styling emails.
+
 
 **Examples**
+
+
+
+<span style="color: var(--md-typeset-a-color);">1. Send email without file attached</span>
 
 
 
@@ -553,33 +687,38 @@ Returns the Precision-Recall Curve
 === "EU"
 
     ```sql
-    select * from bigfunctions.eu.precision_recall_curve([(0.1, false), (0.4, false), (0.35, true), (0.8, true)])
-
+    select bigfunctions.eu.send_mail('contact@unytics.io', 'I love BigFunctions', 'Hey Paul, could you deploy more BigFunctions 🙏?', null, null) as success
+    
     ```
+
 
 
 === "US"
 
     ```sql
-    select * from bigfunctions.us.precision_recall_curve([(0.1, false), (0.4, false), (0.35, true), (0.8, true)])
-
+    select bigfunctions.us.send_mail('contact@unytics.io', 'I love BigFunctions', 'Hey Paul, could you deploy more BigFunctions 🙏?', null, null) as success
+    
     ```
+
 
 
 === "europe-west1"
 
     ```sql
-    select * from bigfunctions.europe_west1.precision_recall_curve([(0.1, false), (0.4, false), (0.35, true), (0.8, true)])
-
+    select bigfunctions.europe_west1.send_mail('contact@unytics.io', 'I love BigFunctions', 'Hey Paul, could you deploy more BigFunctions 🙏?', null, null) as success
+    
     ```
+
 
 
 === "your-region2"
 
     ```sql
-    select * from bigfunctions.your_region2.precision_recall_curve([(0.1, false), (0.4, false), (0.35, true), (0.8, true)])
-
+    select bigfunctions.your_region2.send_mail('contact@unytics.io', 'I love BigFunctions', 'Hey Paul, could you deploy more BigFunctions 🙏?', null, null) as success
+    
     ```
+
+
 
 
 
@@ -588,19 +727,147 @@ Returns the Precision-Recall Curve
 
 
 <pre style="margin-top: -1rem;">
-<code style="padding-top: 0px; padding-bottom: 0px;">
-+-----------+---------+
-| precision |  recall |
-+-----------+---------+
-|    0.5    |   1.0   |
-|    0.667  |   1.0   |
-|    0.5    |   0.5   |
-|    1.0    |   0.5   |
-|    1.0    |   0     |
-+-----------+---------+
-
+<code style="padding-top: 0px; padding-bottom: 0px;">+---------+
+| success |
++---------+
+| true    |
++---------+
 </code>
 </pre>
+
+
+
+
+
+
+
+
+
+<span style="color: var(--md-typeset-a-color);">2. Send email with plain text file attached</span>
+
+
+
+
+
+
+=== "EU"
+
+    ```sql
+    select bigfunctions.eu.send_mail('contact@unytics.io', 'I love BigFunctions', 'Hey Paul, could you deploy more BigFunctions 🙏?', 'report.csv', 'col1,col2\nval1,val2\nval3,val4') as success
+    
+    ```
+
+
+
+=== "US"
+
+    ```sql
+    select bigfunctions.us.send_mail('contact@unytics.io', 'I love BigFunctions', 'Hey Paul, could you deploy more BigFunctions 🙏?', 'report.csv', 'col1,col2\nval1,val2\nval3,val4') as success
+    
+    ```
+
+
+
+=== "europe-west1"
+
+    ```sql
+    select bigfunctions.europe_west1.send_mail('contact@unytics.io', 'I love BigFunctions', 'Hey Paul, could you deploy more BigFunctions 🙏?', 'report.csv', 'col1,col2\nval1,val2\nval3,val4') as success
+    
+    ```
+
+
+
+=== "your-region2"
+
+    ```sql
+    select bigfunctions.your_region2.send_mail('contact@unytics.io', 'I love BigFunctions', 'Hey Paul, could you deploy more BigFunctions 🙏?', 'report.csv', 'col1,col2\nval1,val2\nval3,val4') as success
+    
+    ```
+
+
+
+
+
+
+
+
+
+<pre style="margin-top: -1rem;">
+<code style="padding-top: 0px; padding-bottom: 0px;">+---------+
+| success |
++---------+
+| true    |
++---------+
+</code>
+</pre>
+
+
+
+
+
+
+
+
+
+<span style="color: var(--md-typeset-a-color);">3. Send email with excel file attached</span>
+
+
+
+
+
+
+=== "EU"
+
+    ```sql
+    select bigfunctions.eu.send_mail('contact@unytics.io', 'I love BigFunctions', 'Hey Paul, could you deploy more BigFunctions 🙏?', 'report.xlsx', (select bigfunctions.eu.dump_to_excel('[{"col1": "val1", "col2": "val2"}, {"col1": "val3", "col2": "val4"}]'))) as success
+    
+    ```
+
+
+
+=== "US"
+
+    ```sql
+    select bigfunctions.us.send_mail('contact@unytics.io', 'I love BigFunctions', 'Hey Paul, could you deploy more BigFunctions 🙏?', 'report.xlsx', (select bigfunctions.us.dump_to_excel('[{"col1": "val1", "col2": "val2"}, {"col1": "val3", "col2": "val4"}]'))) as success
+    
+    ```
+
+
+
+=== "europe-west1"
+
+    ```sql
+    select bigfunctions.europe_west1.send_mail('contact@unytics.io', 'I love BigFunctions', 'Hey Paul, could you deploy more BigFunctions 🙏?', 'report.xlsx', (select bigfunctions.europe_west1.dump_to_excel('[{"col1": "val1", "col2": "val2"}, {"col1": "val3", "col2": "val4"}]'))) as success
+    
+    ```
+
+
+
+=== "your-region2"
+
+    ```sql
+    select bigfunctions.your_region2.send_mail('contact@unytics.io', 'I love BigFunctions', 'Hey Paul, could you deploy more BigFunctions 🙏?', 'report.xlsx', (select bigfunctions.your_region2.dump_to_excel('[{"col1": "val1", "col2": "val2"}, {"col1": "val3", "col2": "val4"}]'))) as success
+    
+    ```
+
+
+
+
+
+
+
+
+
+<pre style="margin-top: -1rem;">
+<code style="padding-top: 0px; padding-bottom: 0px;">+---------+
+| success |
++---------+
+| true    |
++---------+
+</code>
+</pre>
+
+
 
 
 
@@ -614,22 +881,32 @@ Returns the Precision-Recall Curve
 
 
 
-### prophet
+### send_mail_with_excel
 <div style="position: relative; top: -2rem; margin-bottom:  -2rem; text-align: right; z-index: 9999;">
   
-  <a href="https://www.linkedin.com/in/hoffa/" title="Credits: Felipe Hoffa" target="_blank">
-    <img src="https://miro.medium.com/v2/resize:fill:88:88/0*ahXIMiIgudZTyqJS.jpeg" width="32" style=" border-radius: 50% !important">
+  <a href="https://www.linkedin.com/in/paul-marcombes" title="Author: Paul Marcombes" target="_blank">
+    <img src="https://lh3.googleusercontent.com/a-/ACB-R5RDf2yxcw1p_IYLCKmiUIScreatDdhG8B83om6Ohw=s260" width="32" style=" border-radius: 50% !important">
   </a>
   
-  <a href="https://github.com/unytics/bigfunctions/blob/main/bigfunctions/prophet.yaml" title="Edit on GitHub" target="_blank"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="#5d6cc0" d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg></a></div>
+  <a href="https://github.com/unytics/bigfunctions/blob/main/bigfunctions/send_mail_with_excel.yaml" title="Edit on GitHub" target="_blank"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="#5d6cc0" d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg></a></div>
 ```
-prophet(dates, vals, periods)
+send_mail_with_excel(to, subject, content, excel_filename, table_or_view_or_query)
 ```
 
 **Description**
 
-Forecast time-series using prophet
-(inspired from [this Felipe Hoffa medium's post](https://medium.com/snowflake/facebook-prophet-forecasts-running-in-snowflake-with-snowpark-14fc870b56ae))
+Sends an email with `table_or_view_or_query` data attached as excel file
+(only the first 1000 rows will be copied to the excel file)
+
+| Param      | Possible values  |
+|------------|------------------|
+| `to     `  | One or multiple comma separated emails.<br>For instance `contact@unytics.io` or `contact@unytics.io, paul.marcombes@unytics.io`   |
+| `subject`  | Email subject |
+| `content`  | Can be plain text, html or **markdown**   |
+| `attachment_filename`  | filename with extension such as `report.xlsx`  |
+| `table_or_view_or_query`  | A fully qualified table or view you have permission to read or a sql query starting with `select`  |
+
+> This function calls `json2excel` and `send_mail` functions.
 
 
 **Examples**
@@ -639,36 +916,119 @@ Forecast time-series using prophet
 
 
 
+
+
+
+
 === "EU"
 
     ```sql
-    select bigfunctions.eu.prophet('["2020-01-01", "2020-01-02"]', '[1, 2]', 4) as forecast
-
+    call bigfunctions.eu.send_mail_with_excel(
+      'contact@unytics.io', 
+      'Financial Report', 
+      '''
+      # Monthly Report from BigQuery
+      
+      ## KPIs
+      
+      - **MRR**: 32,343 USD
+      - **Churn**: 4.2 %
+      - **Subscriptions**: +3452
+      
+      👇 *See full report in Excel file*
+      ''', 
+      'report.xlsx', 
+      'bigfunctions.samples.natality');
+    
     ```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+---
+
+
+
+
+### send_slack_message
+<div style="position: relative; top: -2rem; margin-bottom:  -2rem; text-align: right; z-index: 9999;">
+  
+  <a href="https://www.linkedin.com/in/guillaume-pivette/" title="Author: Guillaume Pivette from Neoxia" target="_blank">
+    <img src="https://cdn-images-1.medium.com/v2/resize:fit:92/1*jHdQzX82eU5lyjBYp63NqQ@2x.png" width="32" style=" border-radius: 50% !important">
+  </a>
+  
+  <a href="https://github.com/unytics/bigfunctions/blob/main/bigfunctions/send_slack_message.yaml" title="Edit on GitHub" target="_blank"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="#5d6cc0" d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg></a></div>
+```
+send_slack_message(message, webhook_url)
+```
+
+**Description**
+
+Sends `message` to a slack channel.
+
+> To get the `webhook_url` for a channel, follow this [doc from Slack](https://api.slack.com/messaging/webhooks).
+
+
+**Examples**
+
+
+
+
+
+
+
+
+
+
+=== "EU"
+
+    ```sql
+    select bigfunctions.eu.send_slack_message("Hello 👋 from bigfunctions!", "YOUR_WEBHOOK_URL") as response
+    
+    ```
+
 
 
 === "US"
 
     ```sql
-    select bigfunctions.us.prophet('["2020-01-01", "2020-01-02"]', '[1, 2]', 4) as forecast
-
+    select bigfunctions.us.send_slack_message("Hello 👋 from bigfunctions!", "YOUR_WEBHOOK_URL") as response
+    
     ```
+
 
 
 === "europe-west1"
 
     ```sql
-    select bigfunctions.europe_west1.prophet('["2020-01-01", "2020-01-02"]', '[1, 2]', 4) as forecast
-
+    select bigfunctions.europe_west1.send_slack_message("Hello 👋 from bigfunctions!", "YOUR_WEBHOOK_URL") as response
+    
     ```
+
 
 
 === "your-region2"
 
     ```sql
-    select bigfunctions.your_region2.prophet('["2020-01-01", "2020-01-02"]', '[1, 2]', 4) as forecast
-
+    select bigfunctions.your_region2.send_slack_message("Hello 👋 from bigfunctions!", "YOUR_WEBHOOK_URL") as response
+    
     ```
+
+
+
+
 
 
 
@@ -676,294 +1036,14 @@ Forecast time-series using prophet
 
 <pre style="margin-top: -1rem;">
 <code style="padding-top: 0px; padding-bottom: 0px;">+----------+
-| forecast |
+| response |
 +----------+
-| true     |
+| ok       |
 +----------+
 </code>
 </pre>
 
 
-
-
-
-
-
-
-
-
----
-
-
-
-
-### roc_auc
-<div style="position: relative; top: -2rem; margin-bottom:  -2rem; text-align: right; z-index: 9999;">
-  
-  <a href="https://www.linkedin.com/in/anatolec/" title="Author: Anatole Callies" target="_blank">
-    <img src="https://ca.slack-edge.com/T01LGTNUWTE-U044NKG25GX-7469e33feefb-512" width="32" style=" border-radius: 50% !important">
-  </a>
-  
-  <a href="https://github.com/unytics/bigfunctions/blob/main/bigfunctions/roc_auc.yaml" title="Edit on GitHub" target="_blank"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="#5d6cc0" d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg></a></div>
-```
-roc_auc(predictions)
-```
-
-**Description**
-
-Returns the Area Under the Receiver Operating Characteristic Curve (a.k.a. ROC AUC)
-given a set of predicted scores and ground truth labels using the trapezoidal rule
-
-**Examples**
-
-
-
-<span style="color: var(--md-typeset-a-color);">1. Random classifier</span>
-
-
-=== "EU"
-
-    ```sql
-    select bigfunctions.eu.roc_auc((select array_agg(struct(cast(predicted_score as float64), rand() > 0.5)) from unnest(generate_array(1, 1000)) as predicted_score)) as roc_auc
-
-    ```
-
-
-=== "US"
-
-    ```sql
-    select bigfunctions.us.roc_auc((select array_agg(struct(cast(predicted_score as float64), rand() > 0.5)) from unnest(generate_array(1, 1000)) as predicted_score)) as roc_auc
-
-    ```
-
-
-=== "europe-west1"
-
-    ```sql
-    select bigfunctions.europe_west1.roc_auc((select array_agg(struct(cast(predicted_score as float64), rand() > 0.5)) from unnest(generate_array(1, 1000)) as predicted_score)) as roc_auc
-
-    ```
-
-
-=== "your-region2"
-
-    ```sql
-    select bigfunctions.your_region2.roc_auc((select array_agg(struct(cast(predicted_score as float64), rand() > 0.5)) from unnest(generate_array(1, 1000)) as predicted_score)) as roc_auc
-
-    ```
-
-
-
-
-
-<pre style="margin-top: -1rem;">
-<code style="padding-top: 0px; padding-bottom: 0px;">+---------+
-| roc_auc |
-+---------+
-| 0.5     |
-+---------+
-</code>
-</pre>
-
-
-
-
-
-
-
-
-
-<span style="color: var(--md-typeset-a-color);">2. Good classifier</span>
-
-
-=== "EU"
-
-    ```sql
-    select bigfunctions.eu.roc_auc((select array_agg(struct(cast(predicted_score as float64), predicted_score > 500)) from unnest(generate_array(1, 1000)) as predicted_score)) as roc_auc
-
-    ```
-
-
-=== "US"
-
-    ```sql
-    select bigfunctions.us.roc_auc((select array_agg(struct(cast(predicted_score as float64), predicted_score > 500)) from unnest(generate_array(1, 1000)) as predicted_score)) as roc_auc
-
-    ```
-
-
-=== "europe-west1"
-
-    ```sql
-    select bigfunctions.europe_west1.roc_auc((select array_agg(struct(cast(predicted_score as float64), predicted_score > 500)) from unnest(generate_array(1, 1000)) as predicted_score)) as roc_auc
-
-    ```
-
-
-=== "your-region2"
-
-    ```sql
-    select bigfunctions.your_region2.roc_auc((select array_agg(struct(cast(predicted_score as float64), predicted_score > 500)) from unnest(generate_array(1, 1000)) as predicted_score)) as roc_auc
-
-    ```
-
-
-
-
-
-<pre style="margin-top: -1rem;">
-<code style="padding-top: 0px; padding-bottom: 0px;">+---------+
-| roc_auc |
-+---------+
-| 1.0     |
-+---------+
-</code>
-</pre>
-
-
-
-
-
-
-
-
-
-<span style="color: var(--md-typeset-a-color);">3. Bad classifier</span>
-
-
-=== "EU"
-
-    ```sql
-    select bigfunctions.eu.roc_auc((select array_agg(struct(cast(predicted_score as float64), predicted_score < 500)) from unnest(generate_array(1, 1000)) as predicted_score)) as roc_auc
-
-    ```
-
-
-=== "US"
-
-    ```sql
-    select bigfunctions.us.roc_auc((select array_agg(struct(cast(predicted_score as float64), predicted_score < 500)) from unnest(generate_array(1, 1000)) as predicted_score)) as roc_auc
-
-    ```
-
-
-=== "europe-west1"
-
-    ```sql
-    select bigfunctions.europe_west1.roc_auc((select array_agg(struct(cast(predicted_score as float64), predicted_score < 500)) from unnest(generate_array(1, 1000)) as predicted_score)) as roc_auc
-
-    ```
-
-
-=== "your-region2"
-
-    ```sql
-    select bigfunctions.your_region2.roc_auc((select array_agg(struct(cast(predicted_score as float64), predicted_score < 500)) from unnest(generate_array(1, 1000)) as predicted_score)) as roc_auc
-
-    ```
-
-
-
-
-
-<pre style="margin-top: -1rem;">
-<code style="padding-top: 0px; padding-bottom: 0px;">+---------+
-| roc_auc |
-+---------+
-| 0.0     |
-+---------+
-</code>
-</pre>
-
-
-
-
-
-
-
-
-
-
----
-
-
-
-
-### roc_curve
-<div style="position: relative; top: -2rem; margin-bottom:  -2rem; text-align: right; z-index: 9999;">
-  
-  <a href="https://www.linkedin.com/in/anatolec/" title="Author: Anatole Callies" target="_blank">
-    <img src="https://ca.slack-edge.com/T01LGTNUWTE-U044NKG25GX-7469e33feefb-512" width="32" style=" border-radius: 50% !important">
-  </a>
-  
-  <a href="https://github.com/unytics/bigfunctions/blob/main/bigfunctions/roc_curve.yaml" title="Edit on GitHub" target="_blank"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="#5d6cc0" d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg></a></div>
-```
-roc_curve(predictions)
-```
-
-**Description**
-
-Returns the Receiver Operating Characteristic Curve (a.k.a. ROC Curve)
-given a set of predicted scores and ground truth labels
-
-**Examples**
-
-
-
-
-
-
-=== "EU"
-
-    ```sql
-    select * from bigfunctions.eu.roc_curve([(0.1, false), (0.4, false), (0.35, true), (0.8, true)])
-
-    ```
-
-
-=== "US"
-
-    ```sql
-    select * from bigfunctions.us.roc_curve([(0.1, false), (0.4, false), (0.35, true), (0.8, true)])
-
-    ```
-
-
-=== "europe-west1"
-
-    ```sql
-    select * from bigfunctions.europe_west1.roc_curve([(0.1, false), (0.4, false), (0.35, true), (0.8, true)])
-
-    ```
-
-
-=== "your-region2"
-
-    ```sql
-    select * from bigfunctions.your_region2.roc_curve([(0.1, false), (0.4, false), (0.35, true), (0.8, true)])
-
-    ```
-
-
-
-
-
-
-
-<pre style="margin-top: -1rem;">
-<code style="padding-top: 0px; padding-bottom: 0px;">
-+---------------------+--------------------+
-| false_positive_rate | true_positive_rate |
-+---------------------+--------------------+
-|         0.0         |         0.0        |
-|         0.0         |         0.5        |
-|         0.5         |         0.5        |
-|         0.5         |         1.0        |
-|         1.0         |         1.0        |
-+---------------------+--------------------+
-
-</code>
-</pre>
 
 
 
@@ -1021,36 +1101,47 @@ to handle a safe divide of the two numbers as well as your desired level of roun
 
 
 
+
+
+
+
 === "EU"
 
     ```sql
     select bigfunctions.eu.format_percentage(1, 3, 2) as formatted_percentage
-
+    
     ```
+
 
 
 === "US"
 
     ```sql
     select bigfunctions.us.format_percentage(1, 3, 2) as formatted_percentage
-
+    
     ```
+
 
 
 === "europe-west1"
 
     ```sql
     select bigfunctions.europe_west1.format_percentage(1, 3, 2) as formatted_percentage
-
+    
     ```
+
 
 
 === "your-region2"
 
     ```sql
     select bigfunctions.your_region2.format_percentage(1, 3, 2) as formatted_percentage
-
+    
     ```
+
+
+
+
 
 
 
@@ -1104,36 +1195,47 @@ with bins defined by their `bin_bounds`.
 
 
 
+
+
+
+
 === "EU"
 
     ```sql
     select bigfunctions.eu.quantize_into_bins(-4, [0, 1, 5, 10]) as bin_range
-
+    
     ```
+
 
 
 === "US"
 
     ```sql
     select bigfunctions.us.quantize_into_bins(-4, [0, 1, 5, 10]) as bin_range
-
+    
     ```
+
 
 
 === "europe-west1"
 
     ```sql
     select bigfunctions.europe_west1.quantize_into_bins(-4, [0, 1, 5, 10]) as bin_range
-
+    
     ```
+
 
 
 === "your-region2"
 
     ```sql
     select bigfunctions.your_region2.quantize_into_bins(-4, [0, 1, 5, 10]) as bin_range
-
+    
     ```
+
+
+
+
 
 
 
@@ -1159,36 +1261,47 @@ with bins defined by their `bin_bounds`.
 
 
 
+
+
+
+
 === "EU"
 
     ```sql
     select bigfunctions.eu.quantize_into_bins(3, [0, 1, 5, 10]) as bin_range
-
+    
     ```
+
 
 
 === "US"
 
     ```sql
     select bigfunctions.us.quantize_into_bins(3, [0, 1, 5, 10]) as bin_range
-
+    
     ```
+
 
 
 === "europe-west1"
 
     ```sql
     select bigfunctions.europe_west1.quantize_into_bins(3, [0, 1, 5, 10]) as bin_range
-
+    
     ```
+
 
 
 === "your-region2"
 
     ```sql
     select bigfunctions.your_region2.quantize_into_bins(3, [0, 1, 5, 10]) as bin_range
-
+    
     ```
+
+
+
+
 
 
 
@@ -1214,36 +1327,47 @@ with bins defined by their `bin_bounds`.
 
 
 
+
+
+
+
 === "EU"
 
     ```sql
     select bigfunctions.eu.quantize_into_bins(9, [0, 1, 5, 10]) as bin_range
-
+    
     ```
+
 
 
 === "US"
 
     ```sql
     select bigfunctions.us.quantize_into_bins(9, [0, 1, 5, 10]) as bin_range
-
+    
     ```
+
 
 
 === "europe-west1"
 
     ```sql
     select bigfunctions.europe_west1.quantize_into_bins(9, [0, 1, 5, 10]) as bin_range
-
+    
     ```
+
 
 
 === "your-region2"
 
     ```sql
     select bigfunctions.your_region2.quantize_into_bins(9, [0, 1, 5, 10]) as bin_range
-
+    
     ```
+
+
+
+
 
 
 
@@ -1269,36 +1393,47 @@ with bins defined by their `bin_bounds`.
 
 
 
+
+
+
+
 === "EU"
 
     ```sql
     select bigfunctions.eu.quantize_into_bins(130, [0, 1, 5, 10]) as bin_range
-
+    
     ```
+
 
 
 === "US"
 
     ```sql
     select bigfunctions.us.quantize_into_bins(130, [0, 1, 5, 10]) as bin_range
-
+    
     ```
+
 
 
 === "europe-west1"
 
     ```sql
     select bigfunctions.europe_west1.quantize_into_bins(130, [0, 1, 5, 10]) as bin_range
-
+    
     ```
+
 
 
 === "your-region2"
 
     ```sql
     select bigfunctions.your_region2.quantize_into_bins(130, [0, 1, 5, 10]) as bin_range
-
+    
     ```
+
+
+
+
 
 
 
@@ -1352,36 +1487,47 @@ with bins defined so that there are `nb_bins` bins of same width between `min_bo
 
 
 
+
+
+
+
 === "EU"
 
     ```sql
     select bigfunctions.eu.quantize_into_fixed_width_bins(-4, 0, 100, 10) as bin_range
-
+    
     ```
+
 
 
 === "US"
 
     ```sql
     select bigfunctions.us.quantize_into_fixed_width_bins(-4, 0, 100, 10) as bin_range
-
+    
     ```
+
 
 
 === "europe-west1"
 
     ```sql
     select bigfunctions.europe_west1.quantize_into_fixed_width_bins(-4, 0, 100, 10) as bin_range
-
+    
     ```
+
 
 
 === "your-region2"
 
     ```sql
     select bigfunctions.your_region2.quantize_into_fixed_width_bins(-4, 0, 100, 10) as bin_range
-
+    
     ```
+
+
+
+
 
 
 
@@ -1407,36 +1553,47 @@ with bins defined so that there are `nb_bins` bins of same width between `min_bo
 
 
 
+
+
+
+
 === "EU"
 
     ```sql
     select bigfunctions.eu.quantize_into_fixed_width_bins(5, 0, 100, 10) as bin_range
-
+    
     ```
+
 
 
 === "US"
 
     ```sql
     select bigfunctions.us.quantize_into_fixed_width_bins(5, 0, 100, 10) as bin_range
-
+    
     ```
+
 
 
 === "europe-west1"
 
     ```sql
     select bigfunctions.europe_west1.quantize_into_fixed_width_bins(5, 0, 100, 10) as bin_range
-
+    
     ```
+
 
 
 === "your-region2"
 
     ```sql
     select bigfunctions.your_region2.quantize_into_fixed_width_bins(5, 0, 100, 10) as bin_range
-
+    
     ```
+
+
+
+
 
 
 
@@ -1462,36 +1619,47 @@ with bins defined so that there are `nb_bins` bins of same width between `min_bo
 
 
 
+
+
+
+
 === "EU"
 
     ```sql
     select bigfunctions.eu.quantize_into_fixed_width_bins(97, 0, 100, 10) as bin_range
-
+    
     ```
+
 
 
 === "US"
 
     ```sql
     select bigfunctions.us.quantize_into_fixed_width_bins(97, 0, 100, 10) as bin_range
-
+    
     ```
+
 
 
 === "europe-west1"
 
     ```sql
     select bigfunctions.europe_west1.quantize_into_fixed_width_bins(97, 0, 100, 10) as bin_range
-
+    
     ```
+
 
 
 === "your-region2"
 
     ```sql
     select bigfunctions.your_region2.quantize_into_fixed_width_bins(97, 0, 100, 10) as bin_range
-
+    
     ```
+
+
+
+
 
 
 
@@ -1517,36 +1685,47 @@ with bins defined so that there are `nb_bins` bins of same width between `min_bo
 
 
 
+
+
+
+
 === "EU"
 
     ```sql
     select bigfunctions.eu.quantize_into_fixed_width_bins(130, 0, 100, 10) as bin_range
-
+    
     ```
+
 
 
 === "US"
 
     ```sql
     select bigfunctions.us.quantize_into_fixed_width_bins(130, 0, 100, 10) as bin_range
-
+    
     ```
+
 
 
 === "europe-west1"
 
     ```sql
     select bigfunctions.europe_west1.quantize_into_fixed_width_bins(130, 0, 100, 10) as bin_range
-
+    
     ```
+
 
 
 === "your-region2"
 
     ```sql
     select bigfunctions.your_region2.quantize_into_fixed_width_bins(130, 0, 100, 10) as bin_range
-
+    
     ```
+
+
+
+
 
 
 
@@ -1608,10 +1787,10 @@ deidentify(text, info_types)
 
 **Description**
 
-Masks sensitive information in `text`
+Masks sensitive information of type `info_types` in `text`
 using [Cloud Data Loss Prevention](https://cloud.google.com/dlp)
 
-| Param  | Possible values  |
+| Param  | Possible values (can be one or any combination of the following values separated by comma)  |
 |---|---|
 | `info_types` | `ADVERTISING_ID`, `AGE`, `AUTH_TOKEN`, `AWS_CREDENTIALS`, `AZURE_AUTH_TOKEN`, `BASIC_AUTH_HEADER`, `CREDIT_CARD_NUMBER`, `CREDIT_CARD_TRACK_NUMBER`, `DATE`, `DATE_OF_BIRTH`, `DOMAIN_NAME`, `EMAIL_ADDRESS`, `ENCRYPTION_KEY`, `ETHNIC_GROUP`, `FEMALE_NAME`, `FIRST_NAME`, `GCP_API_KEY`, `GCP_CREDENTIALS`, `GENDER`, `GENERIC_ID`, `HTTP_COOKIE`, `HTTP_COOKIE`, `IBAN_CODE`, `ICCID_NUMBER`, `ICD10_CODE`, `ICD9_CODE`, `IMEI_HARDWARE_ID`, `IMSI_ID`, `IP_ADDRESS`, `JSON_WEB_TOKEN`, `LAST_NAME`, `LOCATION`, `LOCATION_COORDINATES`, `MAC_ADDRESS`, `MAC_ADDRESS_LOCAL`, `MALE_NAME`, `MARITAL_STATUS`, `MEDICAL_RECORD_NUMBER`, `MEDICAL_TERM`, `OAUTH_CLIENT_SECRET`, `ORGANIZATION_NAME`, `PASSPORT`, `PASSWORD`, `PERSON_NAME`, `PHONE_NUMBER`, `SSL_CERTIFICATE`, `STORAGE_SIGNED_POLICY_DOCUMENT`, `STORAGE_SIGNED_URL`, `STREET_ADDRESS`, `SWIFT_CODE`, `TIME`, `URL`, `VAT_NUMBER`, `VEHICLE_IDENTIFICATION_NUMBER`, `WEAK_PASSWORD_HASH`, `XSRF_TOKEN` |
 
@@ -1623,36 +1802,47 @@ using [Cloud Data Loss Prevention](https://cloud.google.com/dlp)
 <span style="color: var(--md-typeset-a-color);">1. String with email in it.</span>
 
 
+
+
+
+
 === "EU"
 
     ```sql
-    select bigfunctions.eu.deidentify("My email is shivam@google.co.in", "[\"PHONE_NUMBER\", \"EMAIL_ADDRESS\"]") as masked_info
-
+    select bigfunctions.eu.deidentify("My email is shivam@google.co.in", "PHONE_NUMBER, EMAIL_ADDRESS") as masked_info
+    
     ```
+
 
 
 === "US"
 
     ```sql
-    select bigfunctions.us.deidentify("My email is shivam@google.co.in", "[\"PHONE_NUMBER\", \"EMAIL_ADDRESS\"]") as masked_info
-
+    select bigfunctions.us.deidentify("My email is shivam@google.co.in", "PHONE_NUMBER, EMAIL_ADDRESS") as masked_info
+    
     ```
+
 
 
 === "europe-west1"
 
     ```sql
-    select bigfunctions.europe_west1.deidentify("My email is shivam@google.co.in", "[\"PHONE_NUMBER\", \"EMAIL_ADDRESS\"]") as masked_info
-
+    select bigfunctions.europe_west1.deidentify("My email is shivam@google.co.in", "PHONE_NUMBER, EMAIL_ADDRESS") as masked_info
+    
     ```
+
 
 
 === "your-region2"
 
     ```sql
-    select bigfunctions.your_region2.deidentify("My email is shivam@google.co.in", "[\"PHONE_NUMBER\", \"EMAIL_ADDRESS\"]") as masked_info
-
+    select bigfunctions.your_region2.deidentify("My email is shivam@google.co.in", "PHONE_NUMBER, EMAIL_ADDRESS") as masked_info
+    
     ```
+
+
+
+
 
 
 
@@ -1678,36 +1868,47 @@ using [Cloud Data Loss Prevention](https://cloud.google.com/dlp)
 <span style="color: var(--md-typeset-a-color);">2. String with phone number in it.</span>
 
 
+
+
+
+
 === "EU"
 
     ```sql
-    select bigfunctions.eu.deidentify("My phone number is 0123456789", "[\"PHONE_NUMBER\", \"email_address\"]") as masked_info
-
+    select bigfunctions.eu.deidentify("My phone number is 0123456789", "PHONE_NUMBER, email_address") as masked_info
+    
     ```
+
 
 
 === "US"
 
     ```sql
-    select bigfunctions.us.deidentify("My phone number is 0123456789", "[\"PHONE_NUMBER\", \"email_address\"]") as masked_info
-
+    select bigfunctions.us.deidentify("My phone number is 0123456789", "PHONE_NUMBER, email_address") as masked_info
+    
     ```
+
 
 
 === "europe-west1"
 
     ```sql
-    select bigfunctions.europe_west1.deidentify("My phone number is 0123456789", "[\"PHONE_NUMBER\", \"email_address\"]") as masked_info
-
+    select bigfunctions.europe_west1.deidentify("My phone number is 0123456789", "PHONE_NUMBER, email_address") as masked_info
+    
     ```
+
 
 
 === "your-region2"
 
     ```sql
-    select bigfunctions.your_region2.deidentify("My phone number is 0123456789", "[\"PHONE_NUMBER\", \"email_address\"]") as masked_info
-
+    select bigfunctions.your_region2.deidentify("My phone number is 0123456789", "PHONE_NUMBER, email_address") as masked_info
+    
     ```
+
+
+
+
 
 
 
@@ -1730,39 +1931,50 @@ using [Cloud Data Loss Prevention](https://cloud.google.com/dlp)
 
 
 
-<span style="color: var(--md-typeset-a-color);">3. String with email in it and no info_types.</span>
+<span style="color: var(--md-typeset-a-color);">3. If `info_types` is `null` or empty, all built-in info types may be used</span>
+
+
+
+
 
 
 === "EU"
 
     ```sql
-    select bigfunctions.eu.deidentify("My email is shivam@google.co.in", "[]") as masked_info
-
+    select bigfunctions.eu.deidentify("My email is shivam@google.co.in", null) as masked_info
+    
     ```
+
 
 
 === "US"
 
     ```sql
-    select bigfunctions.us.deidentify("My email is shivam@google.co.in", "[]") as masked_info
-
+    select bigfunctions.us.deidentify("My email is shivam@google.co.in", null) as masked_info
+    
     ```
+
 
 
 === "europe-west1"
 
     ```sql
-    select bigfunctions.europe_west1.deidentify("My email is shivam@google.co.in", "[]") as masked_info
-
+    select bigfunctions.europe_west1.deidentify("My email is shivam@google.co.in", null) as masked_info
+    
     ```
+
 
 
 === "your-region2"
 
     ```sql
-    select bigfunctions.your_region2.deidentify("My email is shivam@google.co.in", "[]") as masked_info
-
+    select bigfunctions.your_region2.deidentify("My email is shivam@google.co.in", null) as masked_info
+    
     ```
+
+
+
+
 
 
 
@@ -1816,36 +2028,47 @@ using [Cloud Data Loss Prevention](https://cloud.google.com/dlp)
 <span style="color: var(--md-typeset-a-color);">1. String with email in it.</span>
 
 
+
+
+
+
 === "EU"
 
     ```sql
     select bigfunctions.eu.detect_sensitive_info("My email is shivam@google.co.in") as sensitive_info
-
+    
     ```
+
 
 
 === "US"
 
     ```sql
     select bigfunctions.us.detect_sensitive_info("My email is shivam@google.co.in") as sensitive_info
-
+    
     ```
+
 
 
 === "europe-west1"
 
     ```sql
     select bigfunctions.europe_west1.detect_sensitive_info("My email is shivam@google.co.in") as sensitive_info
-
+    
     ```
+
 
 
 === "your-region2"
 
     ```sql
     select bigfunctions.your_region2.detect_sensitive_info("My email is shivam@google.co.in") as sensitive_info
-
+    
     ```
+
+
+
+
 
 
 
@@ -1871,36 +2094,47 @@ using [Cloud Data Loss Prevention](https://cloud.google.com/dlp)
 <span style="color: var(--md-typeset-a-color);">2. String with phone number in it.</span>
 
 
+
+
+
+
 === "EU"
 
     ```sql
     select bigfunctions.eu.detect_sensitive_info("My phone number is 0123456789") as sensitive_info
-
+    
     ```
+
 
 
 === "US"
 
     ```sql
     select bigfunctions.us.detect_sensitive_info("My phone number is 0123456789") as sensitive_info
-
+    
     ```
+
 
 
 === "europe-west1"
 
     ```sql
     select bigfunctions.europe_west1.detect_sensitive_info("My phone number is 0123456789") as sensitive_info
-
+    
     ```
+
 
 
 === "your-region2"
 
     ```sql
     select bigfunctions.your_region2.detect_sensitive_info("My phone number is 0123456789") as sensitive_info
-
+    
     ```
+
+
+
+
 
 
 
@@ -1959,36 +2193,47 @@ of type `what` and localized with `locale` parameter (using [faker python librar
 <span style="color: var(--md-typeset-a-color);">1. Generate fake italian name</span>
 
 
+
+
+
+
 === "EU"
 
     ```sql
     select bigfunctions.eu.faker("name", "it_IT") as fake_data
-
+    
     ```
+
 
 
 === "US"
 
     ```sql
     select bigfunctions.us.faker("name", "it_IT") as fake_data
-
+    
     ```
+
 
 
 === "europe-west1"
 
     ```sql
     select bigfunctions.europe_west1.faker("name", "it_IT") as fake_data
-
+    
     ```
+
 
 
 === "your-region2"
 
     ```sql
     select bigfunctions.your_region2.faker("name", "it_IT") as fake_data
-
+    
     ```
+
+
+
+
 
 
 
@@ -2014,36 +2259,47 @@ of type `what` and localized with `locale` parameter (using [faker python librar
 <span style="color: var(--md-typeset-a-color);">2. Generate fake IPv4 address (without specifying locale)</span>
 
 
+
+
+
+
 === "EU"
 
     ```sql
     select bigfunctions.eu.faker("ipv4_private", null) as fake_data
-
+    
     ```
+
 
 
 === "US"
 
     ```sql
     select bigfunctions.us.faker("ipv4_private", null) as fake_data
-
+    
     ```
+
 
 
 === "europe-west1"
 
     ```sql
     select bigfunctions.europe_west1.faker("ipv4_private", null) as fake_data
-
+    
     ```
+
 
 
 === "your-region2"
 
     ```sql
     select bigfunctions.your_region2.faker("ipv4_private", null) as fake_data
-
+    
     ```
+
+
+
+
 
 
 
@@ -2096,36 +2352,47 @@ Return true if `email` is valid
 <span style="color: var(--md-typeset-a-color);">1. with a valid email</span>
 
 
+
+
+
+
 === "EU"
 
     ```sql
     select bigfunctions.eu.is_email_valid('paul.marcombes@unytics.io') as is_email_valid
-
+    
     ```
+
 
 
 === "US"
 
     ```sql
     select bigfunctions.us.is_email_valid('paul.marcombes@unytics.io') as is_email_valid
-
+    
     ```
+
 
 
 === "europe-west1"
 
     ```sql
     select bigfunctions.europe_west1.is_email_valid('paul.marcombes@unytics.io') as is_email_valid
-
+    
     ```
+
 
 
 === "your-region2"
 
     ```sql
     select bigfunctions.your_region2.is_email_valid('paul.marcombes@unytics.io') as is_email_valid
-
+    
     ```
+
+
+
+
 
 
 
@@ -2151,36 +2418,47 @@ Return true if `email` is valid
 <span style="color: var(--md-typeset-a-color);">2. with incorrect format</span>
 
 
+
+
+
+
 === "EU"
 
     ```sql
     select bigfunctions.eu.is_email_valid('paul/marcombes@example.com') as is_email_valid
-
+    
     ```
+
 
 
 === "US"
 
     ```sql
     select bigfunctions.us.is_email_valid('paul/marcombes@example.com') as is_email_valid
-
+    
     ```
+
 
 
 === "europe-west1"
 
     ```sql
     select bigfunctions.europe_west1.is_email_valid('paul/marcombes@example.com') as is_email_valid
-
+    
     ```
+
 
 
 === "your-region2"
 
     ```sql
     select bigfunctions.your_region2.is_email_valid('paul/marcombes@example.com') as is_email_valid
-
+    
     ```
+
+
+
+
 
 
 
@@ -2206,36 +2484,47 @@ Return true if `email` is valid
 <span style="color: var(--md-typeset-a-color);">3. with a domain not registrable</span>
 
 
+
+
+
+
 === "EU"
 
     ```sql
     select bigfunctions.eu.is_email_valid('paul.marcombes@example.con') as is_email_valid
-
+    
     ```
+
 
 
 === "US"
 
     ```sql
     select bigfunctions.us.is_email_valid('paul.marcombes@example.con') as is_email_valid
-
+    
     ```
+
 
 
 === "europe-west1"
 
     ```sql
     select bigfunctions.europe_west1.is_email_valid('paul.marcombes@example.con') as is_email_valid
-
+    
     ```
+
 
 
 === "your-region2"
 
     ```sql
     select bigfunctions.your_region2.is_email_valid('paul.marcombes@example.con') as is_email_valid
-
+    
     ```
+
+
+
+
 
 
 
@@ -2247,197 +2536,6 @@ Return true if `email` is valid
 +----------------+
 | false          |
 +----------------+
-</code>
-</pre>
-
-
-
-
-
-
-
-
-
-
----
-
-
-
-
-### json2xml
-<div style="position: relative; top: -2rem; margin-bottom:  -2rem; text-align: right; z-index: 9999;">
-  
-  <a href="https://www.linkedin.com/in/shivamsingh012/" title="Author: Shivam Singh" target="_blank">
-    <img src="https://media.licdn.com/dms/image/D4D03AQERv0qwECH0DA/profile-displayphoto-shrink_200_200/0/1675233460732?e=1686182400&v=beta&t=HqngiSx5zd4llZStwf3L0k2T_pE8qvnEj7NguWNJTOo" width="32" style=" border-radius: 50% !important">
-  </a>
-  
-  <a href="https://github.com/unytics/bigfunctions/blob/main/bigfunctions/json2xml.yaml" title="Edit on GitHub" target="_blank"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="#5d6cc0" d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg></a></div>
-```
-json2xml(json)
-```
-
-**Description**
-
-Returns XML for given JSON string
-
-**Examples**
-
-
-
-<span style="color: var(--md-typeset-a-color);">1. With valid JSON</span>
-
-
-=== "EU"
-
-    ```sql
-    select bigfunctions.eu.json2xml('{"a": {"b": "foo"}}') as xml
-
-    ```
-
-
-=== "US"
-
-    ```sql
-    select bigfunctions.us.json2xml('{"a": {"b": "foo"}}') as xml
-
-    ```
-
-
-=== "europe-west1"
-
-    ```sql
-    select bigfunctions.europe_west1.json2xml('{"a": {"b": "foo"}}') as xml
-
-    ```
-
-
-=== "your-region2"
-
-    ```sql
-    select bigfunctions.your_region2.json2xml('{"a": {"b": "foo"}}') as xml
-
-    ```
-
-
-
-
-
-<pre style="margin-top: -1rem;">
-<code style="padding-top: 0px; padding-bottom: 0px;">+-------------------+
-| xml               |
-+-------------------+
-| &lt;a&gt;&lt;b&gt;foo&lt;/b&gt;&lt;/a&gt; |
-+-------------------+
-</code>
-</pre>
-
-
-
-
-
-
-
-
-
-<span style="color: var(--md-typeset-a-color);">2. With valid JSON and with one key that has empty string as a value</span>
-
-
-=== "EU"
-
-    ```sql
-    select bigfunctions.eu.json2xml('{"a": ""}') as xml
-
-    ```
-
-
-=== "US"
-
-    ```sql
-    select bigfunctions.us.json2xml('{"a": ""}') as xml
-
-    ```
-
-
-=== "europe-west1"
-
-    ```sql
-    select bigfunctions.europe_west1.json2xml('{"a": ""}') as xml
-
-    ```
-
-
-=== "your-region2"
-
-    ```sql
-    select bigfunctions.your_region2.json2xml('{"a": ""}') as xml
-
-    ```
-
-
-
-
-
-<pre style="margin-top: -1rem;">
-<code style="padding-top: 0px; padding-bottom: 0px;">+---------+
-| xml     |
-+---------+
-| &lt;a&gt;&lt;/a&gt; |
-+---------+
-</code>
-</pre>
-
-
-
-
-
-
-
-
-
-<span style="color: var(--md-typeset-a-color);">3. With invalid JSON</span>
-
-
-=== "EU"
-
-    ```sql
-    select bigfunctions.eu.json2xml('{"a": ""') as xml
-
-    ```
-
-
-=== "US"
-
-    ```sql
-    select bigfunctions.us.json2xml('{"a": ""') as xml
-
-    ```
-
-
-=== "europe-west1"
-
-    ```sql
-    select bigfunctions.europe_west1.json2xml('{"a": ""') as xml
-
-    ```
-
-
-=== "your-region2"
-
-    ```sql
-    select bigfunctions.your_region2.json2xml('{"a": ""') as xml
-
-    ```
-
-
-
-
-
-<pre style="margin-top: -1rem;">
-<code style="padding-top: 0px; padding-bottom: 0px;">+------+
-| xml  |
-+------+
-| null |
-+------+
 </code>
 </pre>
 
@@ -2478,36 +2576,47 @@ Compute levenshtein distance between `string1` and `string2`
 
 
 
+
+
+
+
 === "EU"
 
     ```sql
     select bigfunctions.eu.levenshtein('bak', 'book') as distance
-
+    
     ```
+
 
 
 === "US"
 
     ```sql
     select bigfunctions.us.levenshtein('bak', 'book') as distance
-
+    
     ```
+
 
 
 === "europe-west1"
 
     ```sql
     select bigfunctions.europe_west1.levenshtein('bak', 'book') as distance
-
+    
     ```
+
 
 
 === "your-region2"
 
     ```sql
     select bigfunctions.your_region2.levenshtein('bak', 'book') as distance
-
+    
     ```
+
+
+
+
 
 
 
@@ -2560,36 +2669,47 @@ Return `url` parts
 
 
 
+
+
+
+
 === "EU"
 
     ```sql
     select bigfunctions.eu.parse_url('https://www.yoursite.com/pricing/details?myparam1=123&myparam2=abc#newsfeed') as url_parts
-
+    
     ```
+
 
 
 === "US"
 
     ```sql
     select bigfunctions.us.parse_url('https://www.yoursite.com/pricing/details?myparam1=123&myparam2=abc#newsfeed') as url_parts
-
+    
     ```
+
 
 
 === "europe-west1"
 
     ```sql
     select bigfunctions.europe_west1.parse_url('https://www.yoursite.com/pricing/details?myparam1=123&myparam2=abc#newsfeed') as url_parts
-
+    
     ```
+
 
 
 === "your-region2"
 
     ```sql
     select bigfunctions.your_region2.parse_url('https://www.yoursite.com/pricing/details?myparam1=123&myparam2=abc#newsfeed') as url_parts
-
+    
     ```
+
+
+
+
 
 
 
@@ -2641,36 +2761,47 @@ Remove accents
 
 
 
+
+
+
+
 === "EU"
 
     ```sql
     select bigfunctions.eu.remove_accents('Voilà !') as cleaned_string
-
+    
     ```
+
 
 
 === "US"
 
     ```sql
     select bigfunctions.us.remove_accents('Voilà !') as cleaned_string
-
+    
     ```
+
 
 
 === "europe-west1"
 
     ```sql
     select bigfunctions.europe_west1.remove_accents('Voilà !') as cleaned_string
-
+    
     ```
+
 
 
 === "your-region2"
 
     ```sql
     select bigfunctions.your_region2.remove_accents('Voilà !') as cleaned_string
-
+    
     ```
+
+
+
+
 
 
 
@@ -2723,36 +2854,47 @@ Remove unwanted whitespaces
 
 
 
+
+
+
+
 === "EU"
 
     ```sql
     select bigfunctions.eu.remove_extra_whitespaces('Hi   Madison  and Mateusz!\n How are you doing?') as cleaned_string
-
+    
     ```
+
 
 
 === "US"
 
     ```sql
     select bigfunctions.us.remove_extra_whitespaces('Hi   Madison  and Mateusz!\n How are you doing?') as cleaned_string
-
+    
     ```
+
 
 
 === "europe-west1"
 
     ```sql
     select bigfunctions.europe_west1.remove_extra_whitespaces('Hi   Madison  and Mateusz!\n How are you doing?') as cleaned_string
-
+    
     ```
+
 
 
 === "your-region2"
 
     ```sql
     select bigfunctions.your_region2.remove_extra_whitespaces('Hi   Madison  and Mateusz!\n How are you doing?') as cleaned_string
-
+    
     ```
+
+
+
+
 
 
 
@@ -2804,36 +2946,47 @@ Remove any string of `strings_to_remove` from `string`
 
 
 
+
+
+
+
 === "EU"
 
     ```sql
     select bigfunctions.eu.remove_strings('I can eat candies', ['can', 'eat']) as cleaned_string
-
+    
     ```
+
 
 
 === "US"
 
     ```sql
     select bigfunctions.us.remove_strings('I can eat candies', ['can', 'eat']) as cleaned_string
-
+    
     ```
+
 
 
 === "europe-west1"
 
     ```sql
     select bigfunctions.europe_west1.remove_strings('I can eat candies', ['can', 'eat']) as cleaned_string
-
+    
     ```
+
 
 
 === "your-region2"
 
     ```sql
     select bigfunctions.your_region2.remove_strings('I can eat candies', ['can', 'eat']) as cleaned_string
-
+    
     ```
+
+
+
+
 
 
 
@@ -2885,36 +3038,47 @@ Remove any word of `words_to_remove` from `string`
 
 
 
+
+
+
+
 === "EU"
 
     ```sql
     select bigfunctions.eu.remove_words('I can eat candies', ['can', 'eat']) as cleaned_string
-
+    
     ```
+
 
 
 === "US"
 
     ```sql
     select bigfunctions.us.remove_words('I can eat candies', ['can', 'eat']) as cleaned_string
-
+    
     ```
+
 
 
 === "europe-west1"
 
     ```sql
     select bigfunctions.europe_west1.remove_words('I can eat candies', ['can', 'eat']) as cleaned_string
-
+    
     ```
+
 
 
 === "your-region2"
 
     ```sql
     select bigfunctions.your_region2.remove_words('I can eat candies', ['can', 'eat']) as cleaned_string
-
+    
     ```
+
+
+
+
 
 
 
@@ -2966,36 +3130,47 @@ Render template with context using nunjucks.js templating library
 
 
 
+
+
+
+
 === "EU"
 
     ```sql
     select bigfunctions.eu.render_string('Hello {{ username }}', '{"username": "James"}') as rendered_content
-
+    
     ```
+
 
 
 === "US"
 
     ```sql
     select bigfunctions.us.render_string('Hello {{ username }}', '{"username": "James"}') as rendered_content
-
+    
     ```
+
 
 
 === "europe-west1"
 
     ```sql
     select bigfunctions.europe_west1.render_string('Hello {{ username }}', '{"username": "James"}') as rendered_content
-
+    
     ```
+
 
 
 === "your-region2"
 
     ```sql
     select bigfunctions.your_region2.render_string('Hello {{ username }}', '{"username": "James"}') as rendered_content
-
+    
     ```
+
+
+
+
 
 
 
@@ -3047,36 +3222,47 @@ Replace most common special characters in a `string` with `replacement`
 
 
 
+
+
+
+
 === "EU"
 
     ```sql
     select bigfunctions.eu.replace_special_characters('%♥!Hello!*♥#', '') as cleaned_string
-
+    
     ```
+
 
 
 === "US"
 
     ```sql
     select bigfunctions.us.replace_special_characters('%♥!Hello!*♥#', '') as cleaned_string
-
+    
     ```
+
 
 
 === "europe-west1"
 
     ```sql
     select bigfunctions.europe_west1.replace_special_characters('%♥!Hello!*♥#', '') as cleaned_string
-
+    
     ```
+
 
 
 === "your-region2"
 
     ```sql
     select bigfunctions.your_region2.replace_special_characters('%♥!Hello!*♥#', '') as cleaned_string
-
+    
     ```
+
+
+
+
 
 
 
@@ -3105,21 +3291,21 @@ Replace most common special characters in a `string` with `replacement`
 
 
 
-### sentiment_score
+### summarize
 <div style="position: relative; top: -2rem; margin-bottom:  -2rem; text-align: right; z-index: 9999;">
   
-  <a href="https://www.linkedin.com/in/paul-marcombes" title="Author: Paul Marcombes" target="_blank">
-    <img src="https://lh3.googleusercontent.com/a-/ACB-R5RDf2yxcw1p_IYLCKmiUIScreatDdhG8B83om6Ohw=s260" width="32" style=" border-radius: 50% !important">
+  <a href="https://www.linkedin.com/in/miquelj" title="Author: Julien MIQUEL" target="_blank">
+    <img src="https://media-exp1.licdn.com/dms/image/C4E03AQF92ENRMYC3Mw/profile-displayphoto-shrink_800_800/0/1656924490995?e=1675900800&v=beta&t=Ertn0DSUvqzexmymI6NDba3TrXaSLRM_cQ5dxjmTkzo" width="32" style=" border-radius: 50% !important">
   </a>
   
-  <a href="https://github.com/unytics/bigfunctions/blob/main/bigfunctions/sentiment_score.yaml" title="Edit on GitHub" target="_blank"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="#5d6cc0" d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg></a></div>
+  <a href="https://github.com/unytics/bigfunctions/blob/main/bigfunctions/summarize.yaml" title="Edit on GitHub" target="_blank"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="#5d6cc0" d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg></a></div>
 ```
-sentiment_score(content)
+summarize(content)
 ```
 
 **Description**
 
-Compute sentiment score of text
+Make a summary of text
 
 **Examples**
 
@@ -3128,83 +3314,6 @@ Compute sentiment score of text
 
 
 
-=== "EU"
-
-    ```sql
-    select bigfunctions.eu.sentiment_score('BigFunctions Rocks!') as sentiment_score
-
-    ```
-
-
-=== "US"
-
-    ```sql
-    select bigfunctions.us.sentiment_score('BigFunctions Rocks!') as sentiment_score
-
-    ```
-
-
-=== "europe-west1"
-
-    ```sql
-    select bigfunctions.europe_west1.sentiment_score('BigFunctions Rocks!') as sentiment_score
-
-    ```
-
-
-=== "your-region2"
-
-    ```sql
-    select bigfunctions.your_region2.sentiment_score('BigFunctions Rocks!') as sentiment_score
-
-    ```
-
-
-
-
-
-<pre style="margin-top: -1rem;">
-<code style="padding-top: 0px; padding-bottom: 0px;">+-----------------+
-| sentiment_score |
-+-----------------+
-| 0.945           |
-+-----------------+
-</code>
-</pre>
-
-
-
-
-
-
-
-
-
-
----
-
-
-
-
-### xml2json
-<div style="position: relative; top: -2rem; margin-bottom:  -2rem; text-align: right; z-index: 9999;">
-  
-  <a href="https://www.linkedin.com/in/shivamsingh012/" title="Author: Shivam Singh" target="_blank">
-    <img src="https://media.licdn.com/dms/image/D4D03AQERv0qwECH0DA/profile-displayphoto-shrink_200_200/0/1675233460732?e=1686182400&v=beta&t=HqngiSx5zd4llZStwf3L0k2T_pE8qvnEj7NguWNJTOo" width="32" style=" border-radius: 50% !important">
-  </a>
-  
-  <a href="https://github.com/unytics/bigfunctions/blob/main/bigfunctions/xml2json.yaml" title="Edit on GitHub" target="_blank"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="#5d6cc0" d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg></a></div>
-```
-xml2json(xml)
-```
-
-**Description**
-
-Returns JSON as a string for given XML string
-
-**Examples**
-
-
 
 
 
@@ -3212,154 +3321,51 @@ Returns JSON as a string for given XML string
 === "EU"
 
     ```sql
-    select bigfunctions.eu.xml2json('<a><b>foo</b></a>') as json
-
+    select bigfunctions.eu.summarize('') as summary
+    
     ```
+
 
 
 === "US"
 
     ```sql
-    select bigfunctions.us.xml2json('<a><b>foo</b></a>') as json
-
+    select bigfunctions.us.summarize('') as summary
+    
     ```
+
 
 
 === "europe-west1"
 
     ```sql
-    select bigfunctions.europe_west1.xml2json('<a><b>foo</b></a>') as json
-
+    select bigfunctions.europe_west1.summarize('') as summary
+    
     ```
+
 
 
 === "your-region2"
 
     ```sql
-    select bigfunctions.your_region2.xml2json('<a><b>foo</b></a>') as json
-
+    select bigfunctions.your_region2.summarize('') as summary
+    
     ```
+
+
+
+
 
 
 
 
 
 <pre style="margin-top: -1rem;">
-<code style="padding-top: 0px; padding-bottom: 0px;">+-------------------+
-| json              |
-+-------------------+
-| {&#34;a&#34;:{&#34;b&#34;:&#34;foo&#34;}} |
-+-------------------+
-</code>
-</pre>
-
-
-
-
-
-
-
-
-
-
-
-
-=== "EU"
-
-    ```sql
-    select bigfunctions.eu.xml2json('<a></a>') as json
-
-    ```
-
-
-=== "US"
-
-    ```sql
-    select bigfunctions.us.xml2json('<a></a>') as json
-
-    ```
-
-
-=== "europe-west1"
-
-    ```sql
-    select bigfunctions.europe_west1.xml2json('<a></a>') as json
-
-    ```
-
-
-=== "your-region2"
-
-    ```sql
-    select bigfunctions.your_region2.xml2json('<a></a>') as json
-
-    ```
-
-
-
-
-
-<pre style="margin-top: -1rem;">
-<code style="padding-top: 0px; padding-bottom: 0px;">+----------+
-| json     |
-+----------+
-| {&#34;a&#34;:&#34;&#34;} |
-+----------+
-</code>
-</pre>
-
-
-
-
-
-
-
-
-
-
-
-
-=== "EU"
-
-    ```sql
-    select bigfunctions.eu.xml2json('<a></a') as json
-
-    ```
-
-
-=== "US"
-
-    ```sql
-    select bigfunctions.us.xml2json('<a></a') as json
-
-    ```
-
-
-=== "europe-west1"
-
-    ```sql
-    select bigfunctions.europe_west1.xml2json('<a></a') as json
-
-    ```
-
-
-=== "your-region2"
-
-    ```sql
-    select bigfunctions.your_region2.xml2json('<a></a') as json
-
-    ```
-
-
-
-
-
-<pre style="margin-top: -1rem;">
-<code style="padding-top: 0px; padding-bottom: 0px;">+------+
-| json |
-+------+
-| null |
-+------+
+<code style="padding-top: 0px; padding-bottom: 0px;">+---------+
+| summary |
++---------+
+|         |
++---------+
 </code>
 </pre>
 
@@ -3400,36 +3406,47 @@ Returns content extracted from XML from given XPATH
 <span style="color: var(--md-typeset-a-color);">1. Only one element for the xpath</span>
 
 
+
+
+
+
 === "EU"
 
     ```sql
     select bigfunctions.eu.xml_extract("<customer><name>John Doe</name></customer>", "/customer/name") as extracted_value
-
+    
     ```
+
 
 
 === "US"
 
     ```sql
     select bigfunctions.us.xml_extract("<customer><name>John Doe</name></customer>", "/customer/name") as extracted_value
-
+    
     ```
+
 
 
 === "europe-west1"
 
     ```sql
     select bigfunctions.europe_west1.xml_extract("<customer><name>John Doe</name></customer>", "/customer/name") as extracted_value
-
+    
     ```
+
 
 
 === "your-region2"
 
     ```sql
     select bigfunctions.your_region2.xml_extract("<customer><name>John Doe</name></customer>", "/customer/name") as extracted_value
-
+    
     ```
+
+
+
+
 
 
 
@@ -3455,36 +3472,47 @@ Returns content extracted from XML from given XPATH
 <span style="color: var(--md-typeset-a-color);">2. Multiple elements for the xpath</span>
 
 
+
+
+
+
 === "EU"
 
     ```sql
     select bigfunctions.eu.xml_extract("<customer><name>John Doe</name><name>Jane Doe</name></customer>", "/customer/name") as extracted_value
-
+    
     ```
+
 
 
 === "US"
 
     ```sql
     select bigfunctions.us.xml_extract("<customer><name>John Doe</name><name>Jane Doe</name></customer>", "/customer/name") as extracted_value
-
+    
     ```
+
 
 
 === "europe-west1"
 
     ```sql
     select bigfunctions.europe_west1.xml_extract("<customer><name>John Doe</name><name>Jane Doe</name></customer>", "/customer/name") as extracted_value
-
+    
     ```
+
 
 
 === "your-region2"
 
     ```sql
     select bigfunctions.your_region2.xml_extract("<customer><name>John Doe</name><name>Jane Doe</name></customer>", "/customer/name") as extracted_value
-
+    
     ```
+
+
+
+
 
 
 
@@ -3510,36 +3538,47 @@ Returns content extracted from XML from given XPATH
 <span style="color: var(--md-typeset-a-color);">3. Incorrect xpath</span>
 
 
+
+
+
+
 === "EU"
 
     ```sql
     select bigfunctions.eu.xml_extract("<customer><name>John Doe</name></customer>", "/customer/na") as extracted_value
-
+    
     ```
+
 
 
 === "US"
 
     ```sql
     select bigfunctions.us.xml_extract("<customer><name>John Doe</name></customer>", "/customer/na") as extracted_value
-
+    
     ```
+
 
 
 === "europe-west1"
 
     ```sql
     select bigfunctions.europe_west1.xml_extract("<customer><name>John Doe</name></customer>", "/customer/na") as extracted_value
-
+    
     ```
+
 
 
 === "your-region2"
 
     ```sql
     select bigfunctions.your_region2.xml_extract("<customer><name>John Doe</name></customer>", "/customer/na") as extracted_value
-
+    
     ```
+
+
+
+
 
 
 
@@ -3576,7 +3615,7 @@ Returns content extracted from XML from given XPATH
 <div style="margin-top: 6rem;"></div>
 
 
-## 🌐 Geo
+## 🌐 Transform geo data
 
 !!! note ""
     **Geo Functions **
@@ -3610,36 +3649,47 @@ Get `address` details from Google Maps
 
 
 
+
+
+
+
 === "EU"
 
     ```sql
     select bigfunctions.eu.geocode('1 rue des champs elysees, Paris') as address_details
-
+    
     ```
+
 
 
 === "US"
 
     ```sql
     select bigfunctions.us.geocode('1 rue des champs elysees, Paris') as address_details
-
+    
     ```
+
 
 
 === "europe-west1"
 
     ```sql
     select bigfunctions.europe_west1.geocode('1 rue des champs elysees, Paris') as address_details
-
+    
     ```
+
 
 
 === "your-region2"
 
     ```sql
     select bigfunctions.your_region2.geocode('1 rue des champs elysees, Paris') as address_details
-
+    
     ```
+
+
+
+
 
 
 
@@ -3724,36 +3774,47 @@ Generate a table of dates
 
 
 
+
+
+
+
 === "EU"
 
     ```sql
     select * from bigfunctions.eu.generate_dates(date('2023-01-01'), date('2023-01-05'))
-
+    
     ```
+
 
 
 === "US"
 
     ```sql
     select * from bigfunctions.us.generate_dates(date('2023-01-01'), date('2023-01-05'))
-
+    
     ```
+
 
 
 === "europe-west1"
 
     ```sql
     select * from bigfunctions.europe_west1.generate_dates(date('2023-01-01'), date('2023-01-05'))
-
+    
     ```
+
 
 
 === "your-region2"
 
     ```sql
     select * from bigfunctions.your_region2.generate_dates(date('2023-01-01'), date('2023-01-05'))
-
+    
     ```
+
+
+
+
 
 
 
@@ -3816,36 +3877,47 @@ Return true if `date` corresponds to a public holiday in `country_code`
 
 
 
+
+
+
+
 === "EU"
 
     ```sql
     select bigfunctions.eu.is_public_holiday(date('2022-07-14'), 'FR') as is_public_holiday
-
+    
     ```
+
 
 
 === "US"
 
     ```sql
     select bigfunctions.us.is_public_holiday(date('2022-07-14'), 'FR') as is_public_holiday
-
+    
     ```
+
 
 
 === "europe-west1"
 
     ```sql
     select bigfunctions.europe_west1.is_public_holiday(date('2022-07-14'), 'FR') as is_public_holiday
-
+    
     ```
+
 
 
 === "your-region2"
 
     ```sql
     select bigfunctions.your_region2.is_public_holiday(date('2022-07-14'), 'FR') as is_public_holiday
-
+    
     ```
+
+
+
+
 
 
 
@@ -3898,36 +3970,47 @@ Parse date with automatic format detection
 
 
 
+
+
+
+
 === "EU"
 
     ```sql
     select bigfunctions.eu.parse_date('2021-01-20 ') as cleaned_date
-
+    
     ```
+
 
 
 === "US"
 
     ```sql
     select bigfunctions.us.parse_date('2021-01-20 ') as cleaned_date
-
+    
     ```
+
 
 
 === "europe-west1"
 
     ```sql
     select bigfunctions.europe_west1.parse_date('2021-01-20 ') as cleaned_date
-
+    
     ```
+
 
 
 === "your-region2"
 
     ```sql
     select bigfunctions.your_region2.parse_date('2021-01-20 ') as cleaned_date
-
+    
     ```
+
+
+
+
 
 
 
@@ -3941,6 +4024,10 @@ Parse date with automatic format detection
 +--------------------+
 </code>
 </pre>
+
+
+
+
 
 
 
@@ -3957,32 +4044,39 @@ Parse date with automatic format detection
 
     ```sql
     select bigfunctions.eu.parse_date('2021-1-20 ') as cleaned_date
-
+    
     ```
+
 
 
 === "US"
 
     ```sql
     select bigfunctions.us.parse_date('2021-1-20 ') as cleaned_date
-
+    
     ```
+
 
 
 === "europe-west1"
 
     ```sql
     select bigfunctions.europe_west1.parse_date('2021-1-20 ') as cleaned_date
-
+    
     ```
+
 
 
 === "your-region2"
 
     ```sql
     select bigfunctions.your_region2.parse_date('2021-1-20 ') as cleaned_date
-
+    
     ```
+
+
+
+
 
 
 
@@ -3996,6 +4090,10 @@ Parse date with automatic format detection
 +--------------------+
 </code>
 </pre>
+
+
+
+
 
 
 
@@ -4012,32 +4110,39 @@ Parse date with automatic format detection
 
     ```sql
     select bigfunctions.eu.parse_date('2021/01/20 ') as cleaned_date
-
+    
     ```
+
 
 
 === "US"
 
     ```sql
     select bigfunctions.us.parse_date('2021/01/20 ') as cleaned_date
-
+    
     ```
+
 
 
 === "europe-west1"
 
     ```sql
     select bigfunctions.europe_west1.parse_date('2021/01/20 ') as cleaned_date
-
+    
     ```
+
 
 
 === "your-region2"
 
     ```sql
     select bigfunctions.your_region2.parse_date('2021/01/20 ') as cleaned_date
-
+    
     ```
+
+
+
+
 
 
 
@@ -4051,6 +4156,10 @@ Parse date with automatic format detection
 +--------------------+
 </code>
 </pre>
+
+
+
+
 
 
 
@@ -4067,32 +4176,39 @@ Parse date with automatic format detection
 
     ```sql
     select bigfunctions.eu.parse_date('2021/1/20 ') as cleaned_date
-
+    
     ```
+
 
 
 === "US"
 
     ```sql
     select bigfunctions.us.parse_date('2021/1/20 ') as cleaned_date
-
+    
     ```
+
 
 
 === "europe-west1"
 
     ```sql
     select bigfunctions.europe_west1.parse_date('2021/1/20 ') as cleaned_date
-
+    
     ```
+
 
 
 === "your-region2"
 
     ```sql
     select bigfunctions.your_region2.parse_date('2021/1/20 ') as cleaned_date
-
+    
     ```
+
+
+
+
 
 
 
@@ -4106,6 +4222,10 @@ Parse date with automatic format detection
 +--------------------+
 </code>
 </pre>
+
+
+
+
 
 
 
@@ -4122,32 +4242,39 @@ Parse date with automatic format detection
 
     ```sql
     select bigfunctions.eu.parse_date('01/20/21') as cleaned_date
-
+    
     ```
+
 
 
 === "US"
 
     ```sql
     select bigfunctions.us.parse_date('01/20/21') as cleaned_date
-
+    
     ```
+
 
 
 === "europe-west1"
 
     ```sql
     select bigfunctions.europe_west1.parse_date('01/20/21') as cleaned_date
-
+    
     ```
+
 
 
 === "your-region2"
 
     ```sql
     select bigfunctions.your_region2.parse_date('01/20/21') as cleaned_date
-
+    
     ```
+
+
+
+
 
 
 
@@ -4161,6 +4288,10 @@ Parse date with automatic format detection
 +--------------------+
 </code>
 </pre>
+
+
+
+
 
 
 
@@ -4177,32 +4308,39 @@ Parse date with automatic format detection
 
     ```sql
     select bigfunctions.eu.parse_date('1/20/21') as cleaned_date
-
+    
     ```
+
 
 
 === "US"
 
     ```sql
     select bigfunctions.us.parse_date('1/20/21') as cleaned_date
-
+    
     ```
+
 
 
 === "europe-west1"
 
     ```sql
     select bigfunctions.europe_west1.parse_date('1/20/21') as cleaned_date
-
+    
     ```
+
 
 
 === "your-region2"
 
     ```sql
     select bigfunctions.your_region2.parse_date('1/20/21') as cleaned_date
-
+    
     ```
+
+
+
+
 
 
 
@@ -4228,36 +4366,47 @@ Parse date with automatic format detection
 
 
 
+
+
+
+
 === "EU"
 
     ```sql
     select bigfunctions.eu.parse_date('Wed Jan 20 21:47:00 2021') as cleaned_date
-
+    
     ```
+
 
 
 === "US"
 
     ```sql
     select bigfunctions.us.parse_date('Wed Jan 20 21:47:00 2021') as cleaned_date
-
+    
     ```
+
 
 
 === "europe-west1"
 
     ```sql
     select bigfunctions.europe_west1.parse_date('Wed Jan 20 21:47:00 2021') as cleaned_date
-
+    
     ```
+
 
 
 === "your-region2"
 
     ```sql
     select bigfunctions.your_region2.parse_date('Wed Jan 20 21:47:00 2021') as cleaned_date
-
+    
     ```
+
+
+
+
 
 
 
@@ -4331,36 +4480,47 @@ Return `key_value_items` as `array< struct<key string, value string> >`
 
 
 
+
+
+
+
 === "EU"
 
     ```sql
     select bigfunctions.eu.json_items('{"created_at": "2022-01-01", "user": "sidali"}') as key_value_items
-
+    
     ```
+
 
 
 === "US"
 
     ```sql
     select bigfunctions.us.json_items('{"created_at": "2022-01-01", "user": "sidali"}') as key_value_items
-
+    
     ```
+
 
 
 === "europe-west1"
 
     ```sql
     select bigfunctions.europe_west1.json_items('{"created_at": "2022-01-01", "user": "sidali"}') as key_value_items
-
+    
     ```
+
 
 
 === "your-region2"
 
     ```sql
     select bigfunctions.your_region2.json_items('{"created_at": "2022-01-01", "user": "sidali"}') as key_value_items
-
+    
     ```
+
+
+
+
 
 
 
@@ -4419,36 +4579,47 @@ Return `keys` as an `array<string>`
 
 
 
+
+
+
+
 === "EU"
 
     ```sql
     select bigfunctions.eu.json_keys('{"created_at": "2022-01-01", "user": "sidali"}') as keys
-
+    
     ```
+
 
 
 === "US"
 
     ```sql
     select bigfunctions.us.json_keys('{"created_at": "2022-01-01", "user": "sidali"}') as keys
-
+    
     ```
+
 
 
 === "europe-west1"
 
     ```sql
     select bigfunctions.europe_west1.json_keys('{"created_at": "2022-01-01", "user": "sidali"}') as keys
-
+    
     ```
+
 
 
 === "your-region2"
 
     ```sql
     select bigfunctions.your_region2.json_keys('{"created_at": "2022-01-01", "user": "sidali"}') as keys
-
+    
     ```
+
+
+
+
 
 
 
@@ -4500,36 +4671,47 @@ Merge `json_string1` and `json_string2`
 
 
 
+
+
+
+
 === "EU"
 
     ```sql
     select bigfunctions.eu.json_merge('{"k1": "v1"}', '{"k2": "v2"}') as merged_json
-
+    
     ```
+
 
 
 === "US"
 
     ```sql
     select bigfunctions.us.json_merge('{"k1": "v1"}', '{"k2": "v2"}') as merged_json
-
+    
     ```
+
 
 
 === "europe-west1"
 
     ```sql
     select bigfunctions.europe_west1.json_merge('{"k1": "v1"}', '{"k2": "v2"}') as merged_json
-
+    
     ```
+
 
 
 === "your-region2"
 
     ```sql
     select bigfunctions.your_region2.json_merge('{"k1": "v1"}', '{"k2": "v2"}') as merged_json
-
+    
     ```
+
+
+
+
 
 
 
@@ -4588,36 +4770,47 @@ offered by [JMESPath](https://jmespath.org/).
 <span style="color: var(--md-typeset-a-color);">1. Basic Query</span>
 
 
+
+
+
+
 === "EU"
 
     ```sql
     select bigfunctions.eu.json_query('{"foo": [{"first": "a"}, {"first": "c"}]}', 'foo') as result
-
+    
     ```
+
 
 
 === "US"
 
     ```sql
     select bigfunctions.us.json_query('{"foo": [{"first": "a"}, {"first": "c"}]}', 'foo') as result
-
+    
     ```
+
 
 
 === "europe-west1"
 
     ```sql
     select bigfunctions.europe_west1.json_query('{"foo": [{"first": "a"}, {"first": "c"}]}', 'foo') as result
-
+    
     ```
+
 
 
 === "your-region2"
 
     ```sql
     select bigfunctions.your_region2.json_query('{"foo": [{"first": "a"}, {"first": "c"}]}', 'foo') as result
-
+    
     ```
+
+
+
+
 
 
 
@@ -4643,36 +4836,47 @@ offered by [JMESPath](https://jmespath.org/).
 <span style="color: var(--md-typeset-a-color);">2. Getting array sub-items</span>
 
 
+
+
+
+
 === "EU"
 
     ```sql
     select bigfunctions.eu.json_query('{"foo": [{"first": "a"}, {"first": "c"}]}', 'foo[*].first') as result
-
+    
     ```
+
 
 
 === "US"
 
     ```sql
     select bigfunctions.us.json_query('{"foo": [{"first": "a"}, {"first": "c"}]}', 'foo[*].first') as result
-
+    
     ```
+
 
 
 === "europe-west1"
 
     ```sql
     select bigfunctions.europe_west1.json_query('{"foo": [{"first": "a"}, {"first": "c"}]}', 'foo[*].first') as result
-
+    
     ```
+
 
 
 === "your-region2"
 
     ```sql
     select bigfunctions.your_region2.json_query('{"foo": [{"first": "a"}, {"first": "c"}]}', 'foo[*].first') as result
-
+    
     ```
+
+
+
+
 
 
 
@@ -4698,36 +4902,47 @@ offered by [JMESPath](https://jmespath.org/).
 <span style="color: var(--md-typeset-a-color);">3. Slicing</span>
 
 
+
+
+
+
 === "EU"
 
     ```sql
     select bigfunctions.eu.json_query('{"foo": [{"first": "a"}, {"first": "c"}]}', 'foo[:1].first') as result
-
+    
     ```
+
 
 
 === "US"
 
     ```sql
     select bigfunctions.us.json_query('{"foo": [{"first": "a"}, {"first": "c"}]}', 'foo[:1].first') as result
-
+    
     ```
+
 
 
 === "europe-west1"
 
     ```sql
     select bigfunctions.europe_west1.json_query('{"foo": [{"first": "a"}, {"first": "c"}]}', 'foo[:1].first') as result
-
+    
     ```
+
 
 
 === "your-region2"
 
     ```sql
     select bigfunctions.your_region2.json_query('{"foo": [{"first": "a"}, {"first": "c"}]}', 'foo[:1].first') as result
-
+    
     ```
+
+
+
+
 
 
 
@@ -4753,36 +4968,47 @@ offered by [JMESPath](https://jmespath.org/).
 <span style="color: var(--md-typeset-a-color);">4. Projecting</span>
 
 
+
+
+
+
 === "EU"
 
     ```sql
     select bigfunctions.eu.json_query('{"foo": [{"first": "a"}, {"first": "c"}]}', 'foo[*].{name: first}') as result
-
+    
     ```
+
 
 
 === "US"
 
     ```sql
     select bigfunctions.us.json_query('{"foo": [{"first": "a"}, {"first": "c"}]}', 'foo[*].{name: first}') as result
-
+    
     ```
+
 
 
 === "europe-west1"
 
     ```sql
     select bigfunctions.europe_west1.json_query('{"foo": [{"first": "a"}, {"first": "c"}]}', 'foo[*].{name: first}') as result
-
+    
     ```
+
 
 
 === "your-region2"
 
     ```sql
     select bigfunctions.your_region2.json_query('{"foo": [{"first": "a"}, {"first": "c"}]}', 'foo[*].{name: first}') as result
-
+    
     ```
+
+
+
+
 
 
 
@@ -4837,36 +5063,47 @@ and `type` among (`string`, `numeric`, `bool`, `date`, `timestamp`)
 
 
 
+
+
+
+
 === "EU"
 
     ```sql
     select bigfunctions.eu.json_schema('{"created_at": "2022-01-01", "user": {"name": "James", "friends": ["Jack", "Peter"]}}') as schema
-
+    
     ```
+
 
 
 === "US"
 
     ```sql
     select bigfunctions.us.json_schema('{"created_at": "2022-01-01", "user": {"name": "James", "friends": ["Jack", "Peter"]}}') as schema
-
+    
     ```
+
 
 
 === "europe-west1"
 
     ```sql
     select bigfunctions.europe_west1.json_schema('{"created_at": "2022-01-01", "user": {"name": "James", "friends": ["Jack", "Peter"]}}') as schema
-
+    
     ```
+
 
 
 === "your-region2"
 
     ```sql
     select bigfunctions.your_region2.json_schema('{"created_at": "2022-01-01", "user": {"name": "James", "friends": ["Jack", "Peter"]}}') as schema
-
+    
     ```
+
+
+
+
 
 
 
@@ -4926,36 +5163,47 @@ Return `values` as an `array<string>`
 
 
 
+
+
+
+
 === "EU"
 
     ```sql
     select bigfunctions.eu.json_values('{"created_at": "2022-01-01", "user": "sidali"}') as values
-
+    
     ```
+
 
 
 === "US"
 
     ```sql
     select bigfunctions.us.json_values('{"created_at": "2022-01-01", "user": "sidali"}') as values
-
+    
     ```
+
 
 
 === "europe-west1"
 
     ```sql
     select bigfunctions.europe_west1.json_values('{"created_at": "2022-01-01", "user": "sidali"}') as values
-
+    
     ```
+
 
 
 === "your-region2"
 
     ```sql
     select bigfunctions.your_region2.json_values('{"created_at": "2022-01-01", "user": "sidali"}') as values
-
+    
     ```
+
+
+
+
 
 
 
@@ -5028,36 +5276,47 @@ and false otherwise
 
 
 
+
+
+
+
 === "EU"
 
     ```sql
     select bigfunctions.eu.are_arrays_equal([1, 4, 3], [1, 4, 3]) as are_arrays_equal
-
+    
     ```
+
 
 
 === "US"
 
     ```sql
     select bigfunctions.us.are_arrays_equal([1, 4, 3], [1, 4, 3]) as are_arrays_equal
-
+    
     ```
+
 
 
 === "europe-west1"
 
     ```sql
     select bigfunctions.europe_west1.are_arrays_equal([1, 4, 3], [1, 4, 3]) as are_arrays_equal
-
+    
     ```
+
 
 
 === "your-region2"
 
     ```sql
     select bigfunctions.your_region2.are_arrays_equal([1, 4, 3], [1, 4, 3]) as are_arrays_equal
-
+    
     ```
+
+
+
+
 
 
 
@@ -5083,36 +5342,47 @@ and false otherwise
 
 
 
+
+
+
+
 === "EU"
 
     ```sql
     select bigfunctions.eu.are_arrays_equal([1, 4, 3], [1, 4]) as are_arrays_equal
-
+    
     ```
+
 
 
 === "US"
 
     ```sql
     select bigfunctions.us.are_arrays_equal([1, 4, 3], [1, 4]) as are_arrays_equal
-
+    
     ```
+
 
 
 === "europe-west1"
 
     ```sql
     select bigfunctions.europe_west1.are_arrays_equal([1, 4, 3], [1, 4]) as are_arrays_equal
-
+    
     ```
+
 
 
 === "your-region2"
 
     ```sql
     select bigfunctions.your_region2.are_arrays_equal([1, 4, 3], [1, 4]) as are_arrays_equal
-
+    
     ```
+
+
+
+
 
 
 
@@ -5164,36 +5434,47 @@ Return distinct values
 
 
 
+
+
+
+
 === "EU"
 
     ```sql
     select bigfunctions.eu.distinct_values([1, 4, 3, 4]) as distinct_values
-
+    
     ```
+
 
 
 === "US"
 
     ```sql
     select bigfunctions.us.distinct_values([1, 4, 3, 4]) as distinct_values
-
+    
     ```
+
 
 
 === "europe-west1"
 
     ```sql
     select bigfunctions.europe_west1.distinct_values([1, 4, 3, 4]) as distinct_values
-
+    
     ```
+
 
 
 === "your-region2"
 
     ```sql
     select bigfunctions.your_region2.distinct_values([1, 4, 3, 4]) as distinct_values
-
+    
     ```
+
+
+
+
 
 
 
@@ -5246,36 +5527,47 @@ Return the first `offset` (zero-based index) of `value` in array `arr`
 <span style="color: var(--md-typeset-a-color);">1. When `value` is in array</span>
 
 
+
+
+
+
 === "EU"
 
     ```sql
     select bigfunctions.eu.find_value([3, 4], 4) as offset
-
+    
     ```
+
 
 
 === "US"
 
     ```sql
     select bigfunctions.us.find_value([3, 4], 4) as offset
-
+    
     ```
+
 
 
 === "europe-west1"
 
     ```sql
     select bigfunctions.europe_west1.find_value([3, 4], 4) as offset
-
+    
     ```
+
 
 
 === "your-region2"
 
     ```sql
     select bigfunctions.your_region2.find_value([3, 4], 4) as offset
-
+    
     ```
+
+
+
+
 
 
 
@@ -5301,36 +5593,47 @@ Return the first `offset` (zero-based index) of `value` in array `arr`
 <span style="color: var(--md-typeset-a-color);">2. When `value` is not in array</span>
 
 
+
+
+
+
 === "EU"
 
     ```sql
     select bigfunctions.eu.find_value([3, 4], 7) as offset
-
+    
     ```
+
 
 
 === "US"
 
     ```sql
     select bigfunctions.us.find_value([3, 4], 7) as offset
-
+    
     ```
+
 
 
 === "europe-west1"
 
     ```sql
     select bigfunctions.europe_west1.find_value([3, 4], 7) as offset
-
+    
     ```
+
 
 
 === "your-region2"
 
     ```sql
     select bigfunctions.your_region2.find_value([3, 4], 7) as offset
-
+    
     ```
+
+
+
+
 
 
 
@@ -5384,36 +5687,47 @@ Return the first `value` with a key `search_key` from `key_value_items`
 
 
 
+
+
+
+
 === "EU"
 
     ```sql
     select bigfunctions.eu.get_value([struct('a' as key, 8 as value), struct('b' as key, 9 as value)], 'a') as value
-
+    
     ```
+
 
 
 === "US"
 
     ```sql
     select bigfunctions.us.get_value([struct('a' as key, 8 as value), struct('b' as key, 9 as value)], 'a') as value
-
+    
     ```
+
 
 
 === "europe-west1"
 
     ```sql
     select bigfunctions.europe_west1.get_value([struct('a' as key, 8 as value), struct('b' as key, 9 as value)], 'a') as value
-
+    
     ```
+
 
 
 === "your-region2"
 
     ```sql
     select bigfunctions.your_region2.get_value([struct('a' as key, 8 as value), struct('b' as key, 9 as value)], 'a') as value
-
+    
     ```
+
+
+
+
 
 
 
@@ -5439,36 +5753,47 @@ Return the first `value` with a key `search_key` from `key_value_items`
 
 
 
+
+
+
+
 === "EU"
 
     ```sql
     select bigfunctions.eu.get_value([struct('a' as key, 8 as value), struct('b' as key, 9 as value)], 'c') as value
-
+    
     ```
+
 
 
 === "US"
 
     ```sql
     select bigfunctions.us.get_value([struct('a' as key, 8 as value), struct('b' as key, 9 as value)], 'c') as value
-
+    
     ```
+
 
 
 === "europe-west1"
 
     ```sql
     select bigfunctions.europe_west1.get_value([struct('a' as key, 8 as value), struct('b' as key, 9 as value)], 'c') as value
-
+    
     ```
+
 
 
 === "your-region2"
 
     ```sql
     select bigfunctions.your_region2.get_value([struct('a' as key, 8 as value), struct('b' as key, 9 as value)], 'c') as value
-
+    
     ```
+
+
+
+
 
 
 
@@ -5494,36 +5819,47 @@ Return the first `value` with a key `search_key` from `key_value_items`
 <span style="color: var(--md-typeset-a-color);">3. When there are multiple occurences of `search_key`, return the first found `value`</span>
 
 
+
+
+
+
 === "EU"
 
     ```sql
     select bigfunctions.eu.get_value([struct('a' as key, 8 as value), struct('a' as key, 9 as value)], 'a') as value
-
+    
     ```
+
 
 
 === "US"
 
     ```sql
     select bigfunctions.us.get_value([struct('a' as key, 8 as value), struct('a' as key, 9 as value)], 'a') as value
-
+    
     ```
+
 
 
 === "europe-west1"
 
     ```sql
     select bigfunctions.europe_west1.get_value([struct('a' as key, 8 as value), struct('a' as key, 9 as value)], 'a') as value
-
+    
     ```
+
 
 
 === "your-region2"
 
     ```sql
     select bigfunctions.your_region2.get_value([struct('a' as key, 8 as value), struct('a' as key, 9 as value)], 'a') as value
-
+    
     ```
+
+
+
+
 
 
 
@@ -5576,36 +5912,47 @@ Return last value of array
 
 
 
+
+
+
+
 === "EU"
 
     ```sql
     select bigfunctions.eu.last_value([1, 2, 3]) as value
-
+    
     ```
+
 
 
 === "US"
 
     ```sql
     select bigfunctions.us.last_value([1, 2, 3]) as value
-
+    
     ```
+
 
 
 === "europe-west1"
 
     ```sql
     select bigfunctions.europe_west1.last_value([1, 2, 3]) as value
-
+    
     ```
+
 
 
 === "your-region2"
 
     ```sql
     select bigfunctions.your_region2.last_value([1, 2, 3]) as value
-
+    
     ```
+
+
+
+
 
 
 
@@ -5658,36 +6005,47 @@ Return max value of array
 
 
 
+
+
+
+
 === "EU"
 
     ```sql
     select bigfunctions.eu.max_value([1, 4, 3]) as value
-
+    
     ```
+
 
 
 === "US"
 
     ```sql
     select bigfunctions.us.max_value([1, 4, 3]) as value
-
+    
     ```
+
 
 
 === "europe-west1"
 
     ```sql
     select bigfunctions.europe_west1.max_value([1, 4, 3]) as value
-
+    
     ```
+
 
 
 === "your-region2"
 
     ```sql
     select bigfunctions.your_region2.max_value([1, 4, 3]) as value
-
+    
     ```
+
+
+
+
 
 
 
@@ -5740,36 +6098,47 @@ Return median value of array
 <span style="color: var(--md-typeset-a-color);">1. When array length is odd</span>
 
 
+
+
+
+
 === "EU"
 
     ```sql
     select bigfunctions.eu.median_value([1, 4, 3]) as value
-
+    
     ```
+
 
 
 === "US"
 
     ```sql
     select bigfunctions.us.median_value([1, 4, 3]) as value
-
+    
     ```
+
 
 
 === "europe-west1"
 
     ```sql
     select bigfunctions.europe_west1.median_value([1, 4, 3]) as value
-
+    
     ```
+
 
 
 === "your-region2"
 
     ```sql
     select bigfunctions.your_region2.median_value([1, 4, 3]) as value
-
+    
     ```
+
+
+
+
 
 
 
@@ -5795,36 +6164,47 @@ Return median value of array
 <span style="color: var(--md-typeset-a-color);">2. When array length is even</span>
 
 
+
+
+
+
 === "EU"
 
     ```sql
     select bigfunctions.eu.median_value([1, 4, 3, 2]) as value
-
+    
     ```
+
 
 
 === "US"
 
     ```sql
     select bigfunctions.us.median_value([1, 4, 3, 2]) as value
-
+    
     ```
+
 
 
 === "europe-west1"
 
     ```sql
     select bigfunctions.europe_west1.median_value([1, 4, 3, 2]) as value
-
+    
     ```
+
 
 
 === "your-region2"
 
     ```sql
     select bigfunctions.your_region2.median_value([1, 4, 3, 2]) as value
-
+    
     ```
+
+
+
+
 
 
 
@@ -5877,36 +6257,47 @@ Return min value of array
 
 
 
+
+
+
+
 === "EU"
 
     ```sql
     select bigfunctions.eu.min_value([1, 4, 3]) as value
-
+    
     ```
+
 
 
 === "US"
 
     ```sql
     select bigfunctions.us.min_value([1, 4, 3]) as value
-
+    
     ```
+
 
 
 === "europe-west1"
 
     ```sql
     select bigfunctions.europe_west1.min_value([1, 4, 3]) as value
-
+    
     ```
+
 
 
 === "your-region2"
 
     ```sql
     select bigfunctions.your_region2.min_value([1, 4, 3]) as value
-
+    
     ```
+
+
+
+
 
 
 
@@ -5961,36 +6352,47 @@ Algorithm to calculate percentile is based on *[R. J. Hyndman and Y. Fan, "Sampl
 
 
 
+
+
+
+
 === "EU"
 
     ```sql
     select bigfunctions.eu.percentile_value([20, 16, 15, 13, 10, 9, 8, 8, 7, 6, 3], 0.74) as percentile_value
-
+    
     ```
+
 
 
 === "US"
 
     ```sql
     select bigfunctions.us.percentile_value([20, 16, 15, 13, 10, 9, 8, 8, 7, 6, 3], 0.74) as percentile_value
-
+    
     ```
+
 
 
 === "europe-west1"
 
     ```sql
     select bigfunctions.europe_west1.percentile_value([20, 16, 15, 13, 10, 9, 8, 8, 7, 6, 3], 0.74) as percentile_value
-
+    
     ```
+
 
 
 === "your-region2"
 
     ```sql
     select bigfunctions.your_region2.percentile_value([20, 16, 15, 13, 10, 9, 8, 8, 7, 6, 3], 0.74) as percentile_value
-
+    
     ```
+
+
+
+
 
 
 
@@ -6016,36 +6418,47 @@ Algorithm to calculate percentile is based on *[R. J. Hyndman and Y. Fan, "Sampl
 
 
 
+
+
+
+
 === "EU"
 
     ```sql
     select bigfunctions.eu.percentile_value([20, 16, 15, 13, 10, 9, 8, 8, 7, 6, 3, 2], 0.9) as percentile_value
-
+    
     ```
+
 
 
 === "US"
 
     ```sql
     select bigfunctions.us.percentile_value([20, 16, 15, 13, 10, 9, 8, 8, 7, 6, 3, 2], 0.9) as percentile_value
-
+    
     ```
+
 
 
 === "europe-west1"
 
     ```sql
     select bigfunctions.europe_west1.percentile_value([20, 16, 15, 13, 10, 9, 8, 8, 7, 6, 3, 2], 0.9) as percentile_value
-
+    
     ```
+
 
 
 === "your-region2"
 
     ```sql
     select bigfunctions.your_region2.percentile_value([20, 16, 15, 13, 10, 9, 8, 8, 7, 6, 3, 2], 0.9) as percentile_value
-
+    
     ```
+
+
+
+
 
 
 
@@ -6071,36 +6484,47 @@ Algorithm to calculate percentile is based on *[R. J. Hyndman and Y. Fan, "Sampl
 
 
 
+
+
+
+
 === "EU"
 
     ```sql
     select bigfunctions.eu.percentile_value([20, 16, 15, 13, 10, 9, 8, 8, 7, 6, 3, 2], 2) as percentile_value
-
+    
     ```
+
 
 
 === "US"
 
     ```sql
     select bigfunctions.us.percentile_value([20, 16, 15, 13, 10, 9, 8, 8, 7, 6, 3, 2], 2) as percentile_value
-
+    
     ```
+
 
 
 === "europe-west1"
 
     ```sql
     select bigfunctions.europe_west1.percentile_value([20, 16, 15, 13, 10, 9, 8, 8, 7, 6, 3, 2], 2) as percentile_value
-
+    
     ```
+
 
 
 === "your-region2"
 
     ```sql
     select bigfunctions.your_region2.percentile_value([20, 16, 15, 13, 10, 9, 8, 8, 7, 6, 3, 2], 2) as percentile_value
-
+    
     ```
+
+
+
+
 
 
 
@@ -6152,36 +6576,47 @@ Return an array with all values except `value`.
 
 
 
+
+
+
+
 === "EU"
 
     ```sql
     select bigfunctions.eu.remove_value([1, 4, 3, 8], 4) as arr
-
+    
     ```
+
 
 
 === "US"
 
     ```sql
     select bigfunctions.us.remove_value([1, 4, 3, 8], 4) as arr
-
+    
     ```
+
 
 
 === "europe-west1"
 
     ```sql
     select bigfunctions.europe_west1.remove_value([1, 4, 3, 8], 4) as arr
-
+    
     ```
+
 
 
 === "your-region2"
 
     ```sql
     select bigfunctions.your_region2.remove_value([1, 4, 3, 8], 4) as arr
-
+    
     ```
+
+
+
+
 
 
 
@@ -6233,36 +6668,47 @@ Return sorted array (ascending)
 
 
 
+
+
+
+
 === "EU"
 
     ```sql
     select bigfunctions.eu.sort_values([1, 4, 3]) as sorted_array
-
+    
     ```
+
 
 
 === "US"
 
     ```sql
     select bigfunctions.us.sort_values([1, 4, 3]) as sorted_array
-
+    
     ```
+
 
 
 === "europe-west1"
 
     ```sql
     select bigfunctions.europe_west1.sort_values([1, 4, 3]) as sorted_array
-
+    
     ```
+
 
 
 === "your-region2"
 
     ```sql
     select bigfunctions.your_region2.sort_values([1, 4, 3]) as sorted_array
-
+    
     ```
+
+
+
+
 
 
 
@@ -6314,36 +6760,47 @@ Return sorted array (descending)
 
 
 
+
+
+
+
 === "EU"
 
     ```sql
     select bigfunctions.eu.sort_values_desc([1, 4, 3]) as sorted_array
-
+    
     ```
+
 
 
 === "US"
 
     ```sql
     select bigfunctions.us.sort_values_desc([1, 4, 3]) as sorted_array
-
+    
     ```
+
 
 
 === "europe-west1"
 
     ```sql
     select bigfunctions.europe_west1.sort_values_desc([1, 4, 3]) as sorted_array
-
+    
     ```
+
 
 
 === "your-region2"
 
     ```sql
     select bigfunctions.your_region2.sort_values_desc([1, 4, 3]) as sorted_array
-
+    
     ```
+
+
+
+
 
 
 
@@ -6395,36 +6852,47 @@ Return the sum of array values
 
 
 
+
+
+
+
 === "EU"
 
     ```sql
     select bigfunctions.eu.sum_values([1, 4, 3]) as value
-
+    
     ```
+
 
 
 === "US"
 
     ```sql
     select bigfunctions.us.sum_values([1, 4, 3]) as value
-
+    
     ```
+
 
 
 === "europe-west1"
 
     ```sql
     select bigfunctions.europe_west1.sum_values([1, 4, 3]) as value
-
+    
     ```
+
 
 
 === "your-region2"
 
     ```sql
     select bigfunctions.your_region2.sum_values([1, 4, 3]) as value
-
+    
     ```
+
+
+
+
 
 
 
@@ -6436,6 +6904,979 @@ Return the sum of array values
 +-------+
 | 8     |
 +-------+
+</code>
+</pre>
+
+
+
+
+
+
+
+
+
+
+---
+
+
+
+
+
+
+
+
+
+<div style="margin-top: 6rem;"></div>
+
+
+## 🧠 Machine learning
+
+!!! note ""
+    ** **
+
+    
+
+---
+
+
+
+### chatgpt
+<div style="position: relative; top: -2rem; margin-bottom:  -2rem; text-align: right; z-index: 9999;">
+  
+  <a href="https://www.linkedin.com/in/paul-marcombes" title="Author: Paul Marcombes" target="_blank">
+    <img src="https://lh3.googleusercontent.com/a-/ACB-R5RDf2yxcw1p_IYLCKmiUIScreatDdhG8B83om6Ohw=s260" width="32" style=" border-radius: 50% !important">
+  </a>
+  
+  <a href="https://github.com/unytics/bigfunctions/blob/main/bigfunctions/chatgpt.yaml" title="Edit on GitHub" target="_blank"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="#5d6cc0" d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg></a></div>
+```
+chatgpt(prompt)
+```
+
+**Description**
+
+Transform Address to Coordinates
+
+**Examples**
+
+
+
+
+
+
+
+
+
+
+=== "EU"
+
+    ```sql
+    select bigfunctions.eu.chatgpt("get the country from the following user input: 'frace'") as completion
+    
+    ```
+
+
+
+=== "US"
+
+    ```sql
+    select bigfunctions.us.chatgpt("get the country from the following user input: 'frace'") as completion
+    
+    ```
+
+
+
+=== "europe-west1"
+
+    ```sql
+    select bigfunctions.europe_west1.chatgpt("get the country from the following user input: 'frace'") as completion
+    
+    ```
+
+
+
+=== "your-region2"
+
+    ```sql
+    select bigfunctions.your_region2.chatgpt("get the country from the following user input: 'frace'") as completion
+    
+    ```
+
+
+
+
+
+
+
+
+
+<pre style="margin-top: -1rem;">
+<code style="padding-top: 0px; padding-bottom: 0px;">+------------+
+| completion |
++------------+
+| true       |
++------------+
+</code>
+</pre>
+
+
+
+
+
+
+
+
+
+
+---
+
+
+
+
+### precision_recall_auc
+<div style="position: relative; top: -2rem; margin-bottom:  -2rem; text-align: right; z-index: 9999;">
+  
+  <a href="https://www.linkedin.com/in/anatolec/" title="Author: Anatole Callies" target="_blank">
+    <img src="https://ca.slack-edge.com/T01LGTNUWTE-U044NKG25GX-7469e33feefb-512" width="32" style=" border-radius: 50% !important">
+  </a>
+  
+  <a href="https://github.com/unytics/bigfunctions/blob/main/bigfunctions/precision_recall_auc.yaml" title="Edit on GitHub" target="_blank"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="#5d6cc0" d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg></a></div>
+```
+precision_recall_auc(predictions)
+```
+
+**Description**
+
+Returns the Area Under the Precision Recall Curve (a.k.a. AUC PR)
+given a set of predicted scores and ground truth labels using the trapezoidal rule
+
+**Examples**
+
+
+
+<span style="color: var(--md-typeset-a-color);">1. Random classifier</span>
+
+
+
+
+
+
+=== "EU"
+
+    ```sql
+    select bigfunctions.eu.precision_recall_auc((select array_agg(struct(cast(predicted_score as float64), rand() > 0.5)) from unnest(generate_array(1, 1000)) as predicted_score)) as auc_pr
+    
+    ```
+
+
+
+=== "US"
+
+    ```sql
+    select bigfunctions.us.precision_recall_auc((select array_agg(struct(cast(predicted_score as float64), rand() > 0.5)) from unnest(generate_array(1, 1000)) as predicted_score)) as auc_pr
+    
+    ```
+
+
+
+=== "europe-west1"
+
+    ```sql
+    select bigfunctions.europe_west1.precision_recall_auc((select array_agg(struct(cast(predicted_score as float64), rand() > 0.5)) from unnest(generate_array(1, 1000)) as predicted_score)) as auc_pr
+    
+    ```
+
+
+
+=== "your-region2"
+
+    ```sql
+    select bigfunctions.your_region2.precision_recall_auc((select array_agg(struct(cast(predicted_score as float64), rand() > 0.5)) from unnest(generate_array(1, 1000)) as predicted_score)) as auc_pr
+    
+    ```
+
+
+
+
+
+
+
+
+
+<pre style="margin-top: -1rem;">
+<code style="padding-top: 0px; padding-bottom: 0px;">+--------+
+| auc_pr |
++--------+
+| 0.5    |
++--------+
+</code>
+</pre>
+
+
+
+
+
+
+
+
+
+<span style="color: var(--md-typeset-a-color);">2. Good classifier</span>
+
+
+
+
+
+
+=== "EU"
+
+    ```sql
+    select bigfunctions.eu.precision_recall_auc((select array_agg(struct(cast(predicted_score as float64), predicted_score > 500)) from unnest(generate_array(1, 1000)) as predicted_score)) as auc_pr
+    
+    ```
+
+
+
+=== "US"
+
+    ```sql
+    select bigfunctions.us.precision_recall_auc((select array_agg(struct(cast(predicted_score as float64), predicted_score > 500)) from unnest(generate_array(1, 1000)) as predicted_score)) as auc_pr
+    
+    ```
+
+
+
+=== "europe-west1"
+
+    ```sql
+    select bigfunctions.europe_west1.precision_recall_auc((select array_agg(struct(cast(predicted_score as float64), predicted_score > 500)) from unnest(generate_array(1, 1000)) as predicted_score)) as auc_pr
+    
+    ```
+
+
+
+=== "your-region2"
+
+    ```sql
+    select bigfunctions.your_region2.precision_recall_auc((select array_agg(struct(cast(predicted_score as float64), predicted_score > 500)) from unnest(generate_array(1, 1000)) as predicted_score)) as auc_pr
+    
+    ```
+
+
+
+
+
+
+
+
+
+<pre style="margin-top: -1rem;">
+<code style="padding-top: 0px; padding-bottom: 0px;">+--------+
+| auc_pr |
++--------+
+| 1.0    |
++--------+
+</code>
+</pre>
+
+
+
+
+
+
+
+
+
+
+---
+
+
+
+
+### precision_recall_curve
+<div style="position: relative; top: -2rem; margin-bottom:  -2rem; text-align: right; z-index: 9999;">
+  
+  <a href="https://www.linkedin.com/in/anatolec/" title="Author: Anatole Callies" target="_blank">
+    <img src="https://ca.slack-edge.com/T01LGTNUWTE-U044NKG25GX-7469e33feefb-512" width="32" style=" border-radius: 50% !important">
+  </a>
+  
+  <a href="https://github.com/unytics/bigfunctions/blob/main/bigfunctions/precision_recall_curve.yaml" title="Edit on GitHub" target="_blank"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="#5d6cc0" d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg></a></div>
+```
+precision_recall_curve(predictions)
+```
+
+**Description**
+
+Returns the Precision-Recall Curve
+(as a table) given `predictions`, an array  of `(predicted_score, ground_truth_label)`
+
+**Examples**
+
+
+
+
+
+
+
+
+
+
+=== "EU"
+
+    ```sql
+    select * from bigfunctions.eu.precision_recall_curve([(0.1, false), (0.4, false), (0.35, true), (0.8, true)])
+    
+    ```
+
+
+
+=== "US"
+
+    ```sql
+    select * from bigfunctions.us.precision_recall_curve([(0.1, false), (0.4, false), (0.35, true), (0.8, true)])
+    
+    ```
+
+
+
+=== "europe-west1"
+
+    ```sql
+    select * from bigfunctions.europe_west1.precision_recall_curve([(0.1, false), (0.4, false), (0.35, true), (0.8, true)])
+    
+    ```
+
+
+
+=== "your-region2"
+
+    ```sql
+    select * from bigfunctions.your_region2.precision_recall_curve([(0.1, false), (0.4, false), (0.35, true), (0.8, true)])
+    
+    ```
+
+
+
+
+
+
+
+
+
+
+
+<pre style="margin-top: -1rem;">
+<code style="padding-top: 0px; padding-bottom: 0px;">
++-----------+---------+
+| precision |  recall |
++-----------+---------+
+|    0.5    |   1.0   |
+|    0.667  |   1.0   |
+|    0.5    |   0.5   |
+|    1.0    |   0.5   |
+|    1.0    |   0     |
++-----------+---------+
+
+</code>
+</pre>
+
+
+
+
+
+
+
+
+---
+
+
+
+
+### prophet
+<div style="position: relative; top: -2rem; margin-bottom:  -2rem; text-align: right; z-index: 9999;">
+  
+  <a href="https://www.linkedin.com/in/hoffa/" title="Credits: Felipe Hoffa" target="_blank">
+    <img src="https://miro.medium.com/v2/resize:fill:88:88/0*ahXIMiIgudZTyqJS.jpeg" width="32" style=" border-radius: 50% !important">
+  </a>
+  
+  <a href="https://github.com/unytics/bigfunctions/blob/main/bigfunctions/prophet.yaml" title="Edit on GitHub" target="_blank"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="#5d6cc0" d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg></a></div>
+```
+prophet(dates, vals, periods)
+```
+
+**Description**
+
+Forecast time-series using prophet
+(inspired from [this Felipe Hoffa medium's post](https://medium.com/snowflake/facebook-prophet-forecasts-running-in-snowflake-with-snowpark-14fc870b56ae))
+
+
+**Examples**
+
+
+
+
+
+
+
+
+
+
+=== "EU"
+
+    ```sql
+    select bigfunctions.eu.prophet('["2020-01-01", "2020-01-02"]', '[1, 2]', 4) as forecast
+    
+    ```
+
+
+
+=== "US"
+
+    ```sql
+    select bigfunctions.us.prophet('["2020-01-01", "2020-01-02"]', '[1, 2]', 4) as forecast
+    
+    ```
+
+
+
+=== "europe-west1"
+
+    ```sql
+    select bigfunctions.europe_west1.prophet('["2020-01-01", "2020-01-02"]', '[1, 2]', 4) as forecast
+    
+    ```
+
+
+
+=== "your-region2"
+
+    ```sql
+    select bigfunctions.your_region2.prophet('["2020-01-01", "2020-01-02"]', '[1, 2]', 4) as forecast
+    
+    ```
+
+
+
+
+
+
+
+
+
+<pre style="margin-top: -1rem;">
+<code style="padding-top: 0px; padding-bottom: 0px;">+----------+
+| forecast |
++----------+
+| true     |
++----------+
+</code>
+</pre>
+
+
+
+
+
+
+
+
+
+
+---
+
+
+
+
+### roc_auc
+<div style="position: relative; top: -2rem; margin-bottom:  -2rem; text-align: right; z-index: 9999;">
+  
+  <a href="https://www.linkedin.com/in/anatolec/" title="Author: Anatole Callies" target="_blank">
+    <img src="https://ca.slack-edge.com/T01LGTNUWTE-U044NKG25GX-7469e33feefb-512" width="32" style=" border-radius: 50% !important">
+  </a>
+  
+  <a href="https://github.com/unytics/bigfunctions/blob/main/bigfunctions/roc_auc.yaml" title="Edit on GitHub" target="_blank"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="#5d6cc0" d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg></a></div>
+```
+roc_auc(predictions)
+```
+
+**Description**
+
+Returns the Area Under the Receiver Operating Characteristic Curve (a.k.a. ROC AUC)
+given a set of predicted scores and ground truth labels using the trapezoidal rule
+
+**Examples**
+
+
+
+<span style="color: var(--md-typeset-a-color);">1. Random classifier</span>
+
+
+
+
+
+
+=== "EU"
+
+    ```sql
+    select bigfunctions.eu.roc_auc((select array_agg(struct(cast(predicted_score as float64), rand() > 0.5)) from unnest(generate_array(1, 1000)) as predicted_score)) as roc_auc
+    
+    ```
+
+
+
+=== "US"
+
+    ```sql
+    select bigfunctions.us.roc_auc((select array_agg(struct(cast(predicted_score as float64), rand() > 0.5)) from unnest(generate_array(1, 1000)) as predicted_score)) as roc_auc
+    
+    ```
+
+
+
+=== "europe-west1"
+
+    ```sql
+    select bigfunctions.europe_west1.roc_auc((select array_agg(struct(cast(predicted_score as float64), rand() > 0.5)) from unnest(generate_array(1, 1000)) as predicted_score)) as roc_auc
+    
+    ```
+
+
+
+=== "your-region2"
+
+    ```sql
+    select bigfunctions.your_region2.roc_auc((select array_agg(struct(cast(predicted_score as float64), rand() > 0.5)) from unnest(generate_array(1, 1000)) as predicted_score)) as roc_auc
+    
+    ```
+
+
+
+
+
+
+
+
+
+<pre style="margin-top: -1rem;">
+<code style="padding-top: 0px; padding-bottom: 0px;">+---------+
+| roc_auc |
++---------+
+| 0.5     |
++---------+
+</code>
+</pre>
+
+
+
+
+
+
+
+
+
+<span style="color: var(--md-typeset-a-color);">2. Good classifier</span>
+
+
+
+
+
+
+=== "EU"
+
+    ```sql
+    select bigfunctions.eu.roc_auc((select array_agg(struct(cast(predicted_score as float64), predicted_score > 500)) from unnest(generate_array(1, 1000)) as predicted_score)) as roc_auc
+    
+    ```
+
+
+
+=== "US"
+
+    ```sql
+    select bigfunctions.us.roc_auc((select array_agg(struct(cast(predicted_score as float64), predicted_score > 500)) from unnest(generate_array(1, 1000)) as predicted_score)) as roc_auc
+    
+    ```
+
+
+
+=== "europe-west1"
+
+    ```sql
+    select bigfunctions.europe_west1.roc_auc((select array_agg(struct(cast(predicted_score as float64), predicted_score > 500)) from unnest(generate_array(1, 1000)) as predicted_score)) as roc_auc
+    
+    ```
+
+
+
+=== "your-region2"
+
+    ```sql
+    select bigfunctions.your_region2.roc_auc((select array_agg(struct(cast(predicted_score as float64), predicted_score > 500)) from unnest(generate_array(1, 1000)) as predicted_score)) as roc_auc
+    
+    ```
+
+
+
+
+
+
+
+
+
+<pre style="margin-top: -1rem;">
+<code style="padding-top: 0px; padding-bottom: 0px;">+---------+
+| roc_auc |
++---------+
+| 1.0     |
++---------+
+</code>
+</pre>
+
+
+
+
+
+
+
+
+
+<span style="color: var(--md-typeset-a-color);">3. Bad classifier</span>
+
+
+
+
+
+
+=== "EU"
+
+    ```sql
+    select bigfunctions.eu.roc_auc((select array_agg(struct(cast(predicted_score as float64), predicted_score < 500)) from unnest(generate_array(1, 1000)) as predicted_score)) as roc_auc
+    
+    ```
+
+
+
+=== "US"
+
+    ```sql
+    select bigfunctions.us.roc_auc((select array_agg(struct(cast(predicted_score as float64), predicted_score < 500)) from unnest(generate_array(1, 1000)) as predicted_score)) as roc_auc
+    
+    ```
+
+
+
+=== "europe-west1"
+
+    ```sql
+    select bigfunctions.europe_west1.roc_auc((select array_agg(struct(cast(predicted_score as float64), predicted_score < 500)) from unnest(generate_array(1, 1000)) as predicted_score)) as roc_auc
+    
+    ```
+
+
+
+=== "your-region2"
+
+    ```sql
+    select bigfunctions.your_region2.roc_auc((select array_agg(struct(cast(predicted_score as float64), predicted_score < 500)) from unnest(generate_array(1, 1000)) as predicted_score)) as roc_auc
+    
+    ```
+
+
+
+
+
+
+
+
+
+<pre style="margin-top: -1rem;">
+<code style="padding-top: 0px; padding-bottom: 0px;">+---------+
+| roc_auc |
++---------+
+| 0.0     |
++---------+
+</code>
+</pre>
+
+
+
+
+
+
+
+
+
+
+---
+
+
+
+
+### roc_curve
+<div style="position: relative; top: -2rem; margin-bottom:  -2rem; text-align: right; z-index: 9999;">
+  
+  <a href="https://www.linkedin.com/in/anatolec/" title="Author: Anatole Callies" target="_blank">
+    <img src="https://ca.slack-edge.com/T01LGTNUWTE-U044NKG25GX-7469e33feefb-512" width="32" style=" border-radius: 50% !important">
+  </a>
+  
+  <a href="https://github.com/unytics/bigfunctions/blob/main/bigfunctions/roc_curve.yaml" title="Edit on GitHub" target="_blank"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="#5d6cc0" d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg></a></div>
+```
+roc_curve(predictions)
+```
+
+**Description**
+
+Returns the Receiver Operating Characteristic Curve (a.k.a. ROC Curve)
+given a set of predicted scores and ground truth labels
+
+**Examples**
+
+
+
+
+
+
+
+
+
+
+=== "EU"
+
+    ```sql
+    select * from bigfunctions.eu.roc_curve([(0.1, false), (0.4, false), (0.35, true), (0.8, true)])
+    
+    ```
+
+
+
+=== "US"
+
+    ```sql
+    select * from bigfunctions.us.roc_curve([(0.1, false), (0.4, false), (0.35, true), (0.8, true)])
+    
+    ```
+
+
+
+=== "europe-west1"
+
+    ```sql
+    select * from bigfunctions.europe_west1.roc_curve([(0.1, false), (0.4, false), (0.35, true), (0.8, true)])
+    
+    ```
+
+
+
+=== "your-region2"
+
+    ```sql
+    select * from bigfunctions.your_region2.roc_curve([(0.1, false), (0.4, false), (0.35, true), (0.8, true)])
+    
+    ```
+
+
+
+
+
+
+
+
+
+
+
+<pre style="margin-top: -1rem;">
+<code style="padding-top: 0px; padding-bottom: 0px;">
++---------------------+--------------------+
+| false_positive_rate | true_positive_rate |
++---------------------+--------------------+
+|         0.0         |         0.0        |
+|         0.0         |         0.5        |
+|         0.5         |         0.5        |
+|         0.5         |         1.0        |
+|         1.0         |         1.0        |
++---------------------+--------------------+
+
+</code>
+</pre>
+
+
+
+
+
+
+
+
+---
+
+
+
+
+### sentiment_score
+<div style="position: relative; top: -2rem; margin-bottom:  -2rem; text-align: right; z-index: 9999;">
+  
+  <a href="https://www.linkedin.com/in/paul-marcombes" title="Author: Paul Marcombes" target="_blank">
+    <img src="https://lh3.googleusercontent.com/a-/ACB-R5RDf2yxcw1p_IYLCKmiUIScreatDdhG8B83om6Ohw=s260" width="32" style=" border-radius: 50% !important">
+  </a>
+  
+  <a href="https://github.com/unytics/bigfunctions/blob/main/bigfunctions/sentiment_score.yaml" title="Edit on GitHub" target="_blank"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="#5d6cc0" d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg></a></div>
+```
+sentiment_score(content)
+```
+
+**Description**
+
+Compute sentiment score of `content`
+
+**Examples**
+
+
+
+
+
+
+
+
+
+
+=== "EU"
+
+    ```sql
+    select bigfunctions.eu.sentiment_score('BigFunctions Rocks!') as sentiment_score
+    
+    ```
+
+
+
+=== "US"
+
+    ```sql
+    select bigfunctions.us.sentiment_score('BigFunctions Rocks!') as sentiment_score
+    
+    ```
+
+
+
+=== "europe-west1"
+
+    ```sql
+    select bigfunctions.europe_west1.sentiment_score('BigFunctions Rocks!') as sentiment_score
+    
+    ```
+
+
+
+=== "your-region2"
+
+    ```sql
+    select bigfunctions.your_region2.sentiment_score('BigFunctions Rocks!') as sentiment_score
+    
+    ```
+
+
+
+
+
+
+
+
+
+<pre style="margin-top: -1rem;">
+<code style="padding-top: 0px; padding-bottom: 0px;">+-----------------+
+| sentiment_score |
++-----------------+
+| 0.945           |
++-----------------+
+</code>
+</pre>
+
+
+
+
+
+
+
+
+
+
+---
+
+
+
+
+### summarize2
+<div style="position: relative; top: -2rem; margin-bottom:  -2rem; text-align: right; z-index: 9999;">
+  
+  <a href="https://www.linkedin.com/in/miquelj" title="Author: Julien MIQUEL" target="_blank">
+    <img src="https://media-exp1.licdn.com/dms/image/C4E03AQF92ENRMYC3Mw/profile-displayphoto-shrink_800_800/0/1656924490995?e=1675900800&v=beta&t=Ertn0DSUvqzexmymI6NDba3TrXaSLRM_cQ5dxjmTkzo" width="32" style=" border-radius: 50% !important">
+  </a>
+  
+  <a href="https://github.com/unytics/bigfunctions/blob/main/bigfunctions/summarize2.yaml" title="Edit on GitHub" target="_blank"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="#5d6cc0" d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg></a></div>
+```
+summarize2(content)
+```
+
+**Description**
+
+Summarize Text
+using t5-base model.
+
+
+**Examples**
+
+
+
+
+
+
+
+
+
+
+=== "EU"
+
+    ```sql
+    select bigfunctions.eu.summarize2('') as summary
+    
+    ```
+
+
+
+=== "US"
+
+    ```sql
+    select bigfunctions.us.summarize2('') as summary
+    
+    ```
+
+
+
+=== "europe-west1"
+
+    ```sql
+    select bigfunctions.europe_west1.summarize2('') as summary
+    
+    ```
+
+
+
+=== "your-region2"
+
+    ```sql
+    select bigfunctions.your_region2.summarize2('') as summary
+    
+    ```
+
+
+
+
+
+
+
+
+
+<pre style="margin-top: -1rem;">
+<code style="padding-top: 0px; padding-bottom: 0px;">+---------+
+| summary |
++---------+
+|         |
++---------+
 </code>
 </pre>
 
@@ -6537,12 +7978,17 @@ in the resulting graph, there is two possible ways to achieve this:
 </span>
 
 
+
+
+
+
 === "EU"
 
     ```sql
     call bigfunctions.eu.connected_components('bigfunctions.eu.sample_graph');
     select * from bigfunction_result;
     ```
+
 
 
 === "US"
@@ -6553,6 +7999,7 @@ in the resulting graph, there is two possible ways to achieve this:
     ```
 
 
+
 === "europe-west1"
 
     ```sql
@@ -6561,12 +8008,17 @@ in the resulting graph, there is two possible ways to achieve this:
     ```
 
 
+
 === "your-region2"
 
     ```sql
     call bigfunctions.your_region2.connected_components('bigfunctions.your_region2.sample_graph');
     select * from bigfunction_result;
     ```
+
+
+
+
 
 
 
@@ -6610,70 +8062,239 @@ in the resulting graph, there is two possible ways to achieve this:
 <div style="margin-top: 6rem;"></div>
 
 
-## 💬 Notify
+## 🔨 Convert data format
 
 !!! note ""
-    **Send infos to your customers, alert the operations teams, send reportings to business **
+    **Convert data format **
 
-    Spread the word to the world!
+    
 
 ---
 
 
 
-### notify_gmail
+### json2excel
 <div style="position: relative; top: -2rem; margin-bottom:  -2rem; text-align: right; z-index: 9999;">
   
   <a href="https://www.linkedin.com/in/paul-marcombes" title="Author: Paul Marcombes" target="_blank">
     <img src="https://lh3.googleusercontent.com/a-/ACB-R5RDf2yxcw1p_IYLCKmiUIScreatDdhG8B83om6Ohw=s260" width="32" style=" border-radius: 50% !important">
   </a>
   
-  <a href="https://github.com/unytics/bigfunctions/blob/main/bigfunctions/notify_gmail.yaml" title="Edit on GitHub" target="_blank"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="#5d6cc0" d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg></a></div>
+  <a href="https://github.com/unytics/bigfunctions/blob/main/bigfunctions/json2excel.yaml" title="Edit on GitHub" target="_blank"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="#5d6cc0" d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg></a></div>
 ```
-notify_gmail(recipients, subject, body, attachment_filename, attachment_content)
+json2excel(data)
 ```
 
 **Description**
 
-Send email via gmail
+Dump data to excel file returned as base64
 
 **Examples**
 
 
 
-<span style="color: var(--md-typeset-a-color);">1. Send email without file attached</span>
+
+
+
+
+
 
 
 === "EU"
 
     ```sql
-    select bigfunctions.eu.notify_gmail('contact@unytics.io', 'I love BigFunctions', 'Hey Paul, could you deploy more BigFunctions 🙏?', null, null) as success
-
+    select bigfunctions.eu.json2excel('[{"col1": "row1", "col2": 1}, {"col1": "row2", "col2": 2}]') as excel_base64
+    
     ```
+
 
 
 === "US"
 
     ```sql
-    select bigfunctions.us.notify_gmail('contact@unytics.io', 'I love BigFunctions', 'Hey Paul, could you deploy more BigFunctions 🙏?', null, null) as success
-
+    select bigfunctions.us.json2excel('[{"col1": "row1", "col2": 1}, {"col1": "row2", "col2": 2}]') as excel_base64
+    
     ```
+
 
 
 === "europe-west1"
 
     ```sql
-    select bigfunctions.europe_west1.notify_gmail('contact@unytics.io', 'I love BigFunctions', 'Hey Paul, could you deploy more BigFunctions 🙏?', null, null) as success
-
+    select bigfunctions.europe_west1.json2excel('[{"col1": "row1", "col2": 1}, {"col1": "row2", "col2": 2}]') as excel_base64
+    
     ```
+
 
 
 === "your-region2"
 
     ```sql
-    select bigfunctions.your_region2.notify_gmail('contact@unytics.io', 'I love BigFunctions', 'Hey Paul, could you deploy more BigFunctions 🙏?', null, null) as success
-
+    select bigfunctions.your_region2.json2excel('[{"col1": "row1", "col2": 1}, {"col1": "row2", "col2": 2}]') as excel_base64
+    
     ```
+
+
+
+
+
+
+
+
+
+<pre style="margin-top: -1rem;">
+<code style="padding-top: 0px; padding-bottom: 0px;">+------------------+
+| excel_base64     |
++------------------+
+| UEsDBBQAAAAAA... |
++------------------+
+</code>
+</pre>
+
+
+
+
+
+
+
+
+
+
+---
+
+
+
+
+### json2xml
+<div style="position: relative; top: -2rem; margin-bottom:  -2rem; text-align: right; z-index: 9999;">
+  
+  <a href="https://www.linkedin.com/in/shivamsingh012/" title="Author: Shivam Singh" target="_blank">
+    <img src="https://media.licdn.com/dms/image/D4D03AQERv0qwECH0DA/profile-displayphoto-shrink_200_200/0/1675233460732?e=1686182400&v=beta&t=HqngiSx5zd4llZStwf3L0k2T_pE8qvnEj7NguWNJTOo" width="32" style=" border-radius: 50% !important">
+  </a>
+  
+  <a href="https://github.com/unytics/bigfunctions/blob/main/bigfunctions/json2xml.yaml" title="Edit on GitHub" target="_blank"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="#5d6cc0" d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg></a></div>
+```
+json2xml(json)
+```
+
+**Description**
+
+Returns XML for given JSON string
+
+**Examples**
+
+
+
+<span style="color: var(--md-typeset-a-color);">1. With valid JSON</span>
+
+
+
+
+
+
+=== "EU"
+
+    ```sql
+    select bigfunctions.eu.json2xml('{"a": {"b": "foo"}}') as xml
+    
+    ```
+
+
+
+=== "US"
+
+    ```sql
+    select bigfunctions.us.json2xml('{"a": {"b": "foo"}}') as xml
+    
+    ```
+
+
+
+=== "europe-west1"
+
+    ```sql
+    select bigfunctions.europe_west1.json2xml('{"a": {"b": "foo"}}') as xml
+    
+    ```
+
+
+
+=== "your-region2"
+
+    ```sql
+    select bigfunctions.your_region2.json2xml('{"a": {"b": "foo"}}') as xml
+    
+    ```
+
+
+
+
+
+
+
+
+
+<pre style="margin-top: -1rem;">
+<code style="padding-top: 0px; padding-bottom: 0px;">+-------------------+
+| xml               |
++-------------------+
+| &lt;a&gt;&lt;b&gt;foo&lt;/b&gt;&lt;/a&gt; |
++-------------------+
+</code>
+</pre>
+
+
+
+
+
+
+
+
+
+<span style="color: var(--md-typeset-a-color);">2. With valid JSON and with one key that has empty string as a value</span>
+
+
+
+
+
+
+=== "EU"
+
+    ```sql
+    select bigfunctions.eu.json2xml('{"a": ""}') as xml
+    
+    ```
+
+
+
+=== "US"
+
+    ```sql
+    select bigfunctions.us.json2xml('{"a": ""}') as xml
+    
+    ```
+
+
+
+=== "europe-west1"
+
+    ```sql
+    select bigfunctions.europe_west1.json2xml('{"a": ""}') as xml
+    
+    ```
+
+
+
+=== "your-region2"
+
+    ```sql
+    select bigfunctions.your_region2.json2xml('{"a": ""}') as xml
+    
+    ```
+
+
+
+
 
 
 
@@ -6681,9 +8302,9 @@ Send email via gmail
 
 <pre style="margin-top: -1rem;">
 <code style="padding-top: 0px; padding-bottom: 0px;">+---------+
-| success |
+| xml     |
 +---------+
-| true    |
+| &lt;a&gt;&lt;/a&gt; |
 +---------+
 </code>
 </pre>
@@ -6696,50 +8317,61 @@ Send email via gmail
 
 
 
-<span style="color: var(--md-typeset-a-color);">2. Send email with plain text file attached</span>
+<span style="color: var(--md-typeset-a-color);">3. With invalid JSON</span>
+
+
+
+
 
 
 === "EU"
 
     ```sql
-    select bigfunctions.eu.notify_gmail('contact@unytics.io', 'I love BigFunctions', 'Hey Paul, could you deploy more BigFunctions 🙏?', 'report.csv', 'col1,col2\nval1,val2\nval3,val4') as success
-
+    select bigfunctions.eu.json2xml('{"a": ""') as xml
+    
     ```
+
 
 
 === "US"
 
     ```sql
-    select bigfunctions.us.notify_gmail('contact@unytics.io', 'I love BigFunctions', 'Hey Paul, could you deploy more BigFunctions 🙏?', 'report.csv', 'col1,col2\nval1,val2\nval3,val4') as success
-
+    select bigfunctions.us.json2xml('{"a": ""') as xml
+    
     ```
+
 
 
 === "europe-west1"
 
     ```sql
-    select bigfunctions.europe_west1.notify_gmail('contact@unytics.io', 'I love BigFunctions', 'Hey Paul, could you deploy more BigFunctions 🙏?', 'report.csv', 'col1,col2\nval1,val2\nval3,val4') as success
-
+    select bigfunctions.europe_west1.json2xml('{"a": ""') as xml
+    
     ```
+
 
 
 === "your-region2"
 
     ```sql
-    select bigfunctions.your_region2.notify_gmail('contact@unytics.io', 'I love BigFunctions', 'Hey Paul, could you deploy more BigFunctions 🙏?', 'report.csv', 'col1,col2\nval1,val2\nval3,val4') as success
-
+    select bigfunctions.your_region2.json2xml('{"a": ""') as xml
+    
     ```
+
+
+
+
 
 
 
 
 
 <pre style="margin-top: -1rem;">
-<code style="padding-top: 0px; padding-bottom: 0px;">+---------+
-| success |
-+---------+
-| true    |
-+---------+
+<code style="padding-top: 0px; padding-bottom: 0px;">+------+
+| xml  |
++------+
+| null |
++------+
 </code>
 </pre>
 
@@ -6751,50 +8383,219 @@ Send email via gmail
 
 
 
-<span style="color: var(--md-typeset-a-color);">3. Send email with excel file attached</span>
+
+---
+
+
+
+
+### xml2json
+<div style="position: relative; top: -2rem; margin-bottom:  -2rem; text-align: right; z-index: 9999;">
+  
+  <a href="https://www.linkedin.com/in/shivamsingh012/" title="Author: Shivam Singh" target="_blank">
+    <img src="https://media.licdn.com/dms/image/D4D03AQERv0qwECH0DA/profile-displayphoto-shrink_200_200/0/1675233460732?e=1686182400&v=beta&t=HqngiSx5zd4llZStwf3L0k2T_pE8qvnEj7NguWNJTOo" width="32" style=" border-radius: 50% !important">
+  </a>
+  
+  <a href="https://github.com/unytics/bigfunctions/blob/main/bigfunctions/xml2json.yaml" title="Edit on GitHub" target="_blank"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="#5d6cc0" d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg></a></div>
+```
+xml2json(xml)
+```
+
+**Description**
+
+Returns JSON as a string for given XML string
+
+**Examples**
+
+
+
+
+
+
+
+
 
 
 === "EU"
 
     ```sql
-    select bigfunctions.eu.notify_gmail('contact@unytics.io', 'I love BigFunctions', 'Hey Paul, could you deploy more BigFunctions 🙏?', 'report.xlsx', (select bigfunctions.eu.dump_to_excel('[{"col1": "val1", "col2": "val2"}, {"col1": "val3", "col2": "val4"}]'))) as success
-
+    select bigfunctions.eu.xml2json('<a><b>foo</b></a>') as json
+    
     ```
+
 
 
 === "US"
 
     ```sql
-    select bigfunctions.us.notify_gmail('contact@unytics.io', 'I love BigFunctions', 'Hey Paul, could you deploy more BigFunctions 🙏?', 'report.xlsx', (select bigfunctions.us.dump_to_excel('[{"col1": "val1", "col2": "val2"}, {"col1": "val3", "col2": "val4"}]'))) as success
-
+    select bigfunctions.us.xml2json('<a><b>foo</b></a>') as json
+    
     ```
+
 
 
 === "europe-west1"
 
     ```sql
-    select bigfunctions.europe_west1.notify_gmail('contact@unytics.io', 'I love BigFunctions', 'Hey Paul, could you deploy more BigFunctions 🙏?', 'report.xlsx', (select bigfunctions.europe_west1.dump_to_excel('[{"col1": "val1", "col2": "val2"}, {"col1": "val3", "col2": "val4"}]'))) as success
-
+    select bigfunctions.europe_west1.xml2json('<a><b>foo</b></a>') as json
+    
     ```
+
 
 
 === "your-region2"
 
     ```sql
-    select bigfunctions.your_region2.notify_gmail('contact@unytics.io', 'I love BigFunctions', 'Hey Paul, could you deploy more BigFunctions 🙏?', 'report.xlsx', (select bigfunctions.your_region2.dump_to_excel('[{"col1": "val1", "col2": "val2"}, {"col1": "val3", "col2": "val4"}]'))) as success
-
+    select bigfunctions.your_region2.xml2json('<a><b>foo</b></a>') as json
+    
     ```
+
+
+
+
 
 
 
 
 
 <pre style="margin-top: -1rem;">
-<code style="padding-top: 0px; padding-bottom: 0px;">+---------+
-| success |
-+---------+
-| true    |
-+---------+
+<code style="padding-top: 0px; padding-bottom: 0px;">+-------------------+
+| json              |
++-------------------+
+| {&#34;a&#34;:{&#34;b&#34;:&#34;foo&#34;}} |
++-------------------+
+</code>
+</pre>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+=== "EU"
+
+    ```sql
+    select bigfunctions.eu.xml2json('<a></a>') as json
+    
+    ```
+
+
+
+=== "US"
+
+    ```sql
+    select bigfunctions.us.xml2json('<a></a>') as json
+    
+    ```
+
+
+
+=== "europe-west1"
+
+    ```sql
+    select bigfunctions.europe_west1.xml2json('<a></a>') as json
+    
+    ```
+
+
+
+=== "your-region2"
+
+    ```sql
+    select bigfunctions.your_region2.xml2json('<a></a>') as json
+    
+    ```
+
+
+
+
+
+
+
+
+
+<pre style="margin-top: -1rem;">
+<code style="padding-top: 0px; padding-bottom: 0px;">+----------+
+| json     |
++----------+
+| {&#34;a&#34;:&#34;&#34;} |
++----------+
+</code>
+</pre>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+=== "EU"
+
+    ```sql
+    select bigfunctions.eu.xml2json('<a></a') as json
+    
+    ```
+
+
+
+=== "US"
+
+    ```sql
+    select bigfunctions.us.xml2json('<a></a') as json
+    
+    ```
+
+
+
+=== "europe-west1"
+
+    ```sql
+    select bigfunctions.europe_west1.xml2json('<a></a') as json
+    
+    ```
+
+
+
+=== "your-region2"
+
+    ```sql
+    select bigfunctions.your_region2.xml2json('<a></a') as json
+    
+    ```
+
+
+
+
+
+
+
+
+
+<pre style="margin-top: -1rem;">
+<code style="padding-top: 0px; padding-bottom: 0px;">+------+
+| json |
++------+
+| null |
++------+
 </code>
 </pre>
 
@@ -6831,21 +8632,40 @@ Send email via gmail
 
 
 
-### export_to_gmail
+
+
+
+
+
+<div style="margin-top: 6rem;"></div>
+
+
+## 👀 Explore
+
+!!! note ""
+    **Explore data within BigQuery console **
+
+    Make computations on BigQuery and display the results as data-vizualizations directly in BigQuery console.
+
+---
+
+
+
+### explore_column
 <div style="position: relative; top: -2rem; margin-bottom:  -2rem; text-align: right; z-index: 9999;">
   
   <a href="https://www.linkedin.com/in/paul-marcombes" title="Author: Paul Marcombes" target="_blank">
     <img src="https://lh3.googleusercontent.com/a-/ACB-R5RDf2yxcw1p_IYLCKmiUIScreatDdhG8B83om6Ohw=s260" width="32" style=" border-radius: 50% !important">
   </a>
   
-  <a href="https://github.com/unytics/bigfunctions/blob/main/bigfunctions/export_to_gmail.yaml" title="Edit on GitHub" target="_blank"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="#5d6cc0" d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg></a></div>
+  <a href="https://github.com/unytics/bigfunctions/blob/main/bigfunctions/explore_column.yaml" title="Edit on GitHub" target="_blank"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="#5d6cc0" d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg></a></div>
 ```
-export_to_gmail(table_or_view_or_query, recipients, email_subject, email_body)
+explore_column(fully_qualified_column)
 ```
 
 **Description**
 
-Send email (via gmail) with data attached as excel file
+Show column statistics
 
 **Examples**
 
@@ -6854,11 +8674,15 @@ Send email (via gmail) with data attached as excel file
 
 
 
-=== "EU"
+
+
+
+
+=== "US"
 
     ```sql
-    call bigfunctions.eu.export_to_gmail('bigfunctions.samples.natality', 'contact@unytics.io', 'Finance Figures for Today', 'Hey Paul, you fill find the figures in the attached excel file. Enjoy 🔥');
-
+    call bigfunctions.us.explore_column("bigquery-public-data.samples.natality.weight_pounds");
+    select html from bigfunction_result;
     ```
 
 
@@ -6869,6 +8693,118 @@ Send email (via gmail) with data attached as excel file
 
 
 
+
+
+
+<a href="../assets/images/explore_column.png"><img alt="screenshot" src="../assets/images/explore_column.png" style="border: var(--md-code-bg-color) solid 1rem; margin-top: -1rem; width: 100%"></a>
+
+
+
+---
+
+
+
+
+### explore_dataset
+<div style="position: relative; top: -2rem; margin-bottom:  -2rem; text-align: right; z-index: 9999;">
+  
+  <a href="https://www.linkedin.com/in/paul-marcombes" title="Author: Paul Marcombes" target="_blank">
+    <img src="https://lh3.googleusercontent.com/a-/ACB-R5RDf2yxcw1p_IYLCKmiUIScreatDdhG8B83om6Ohw=s260" width="32" style=" border-radius: 50% !important">
+  </a>
+  
+  <a href="https://github.com/unytics/bigfunctions/blob/main/bigfunctions/explore_dataset.yaml" title="Edit on GitHub" target="_blank"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="#5d6cc0" d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg></a></div>
+```
+explore_dataset(fully_qualified_dataset)
+```
+
+**Description**
+
+Show infos about dataset tables
+
+**Examples**
+
+
+
+
+
+
+
+
+
+
+=== "US"
+
+    ```sql
+    call bigfunctions.us.explore_dataset("bigquery-public-data.samples");
+    select html from bigfunction_result;
+    ```
+
+
+
+
+
+
+
+
+
+
+
+
+<a href="../assets/images/explore_dataset.png"><img alt="screenshot" src="../assets/images/explore_dataset.png" style="border: var(--md-code-bg-color) solid 1rem; margin-top: -1rem; width: 100%"></a>
+
+
+
+---
+
+
+
+
+### explore_table
+<div style="position: relative; top: -2rem; margin-bottom:  -2rem; text-align: right; z-index: 9999;">
+  
+  <a href="https://www.linkedin.com/in/paul-marcombes" title="Author: Paul Marcombes" target="_blank">
+    <img src="https://lh3.googleusercontent.com/a-/ACB-R5RDf2yxcw1p_IYLCKmiUIScreatDdhG8B83om6Ohw=s260" width="32" style=" border-radius: 50% !important">
+  </a>
+  
+  <a href="https://github.com/unytics/bigfunctions/blob/main/bigfunctions/explore_table.yaml" title="Edit on GitHub" target="_blank"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="#5d6cc0" d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg></a></div>
+```
+explore_table(fully_qualified_table)
+```
+
+**Description**
+
+Show table infos and column statistics
+
+**Examples**
+
+
+
+
+
+
+
+
+
+
+=== "US"
+
+    ```sql
+    call bigfunctions.us.explore_table("bigquery-public-data.samples.natality");
+    select html from bigfunction_result;
+    ```
+
+
+
+
+
+
+
+
+
+
+
+
+<a href="../assets/images/explore_column.png"><img alt="screenshot" src="../assets/images/explore_column.png" style="border: var(--md-code-bg-color) solid 1rem; margin-top: -1rem; width: 100%"></a>
 
 
 
@@ -6896,303 +8832,16 @@ Send email (via gmail) with data attached as excel file
 
 
 
-### chart
+### TMP_get_json_column_schema
 <div style="position: relative; top: -2rem; margin-bottom:  -2rem; text-align: right; z-index: 9999;">
   
   <a href="https://www.linkedin.com/in/paul-marcombes" title="Author: Paul Marcombes" target="_blank">
     <img src="https://lh3.googleusercontent.com/a-/ACB-R5RDf2yxcw1p_IYLCKmiUIScreatDdhG8B83om6Ohw=s260" width="32" style=" border-radius: 50% !important">
   </a>
   
-  <a href="https://github.com/unytics/bigfunctions/blob/main/bigfunctions/chart.yaml" title="Edit on GitHub" target="_blank"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="#5d6cc0" d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg></a></div>
+  <a href="https://github.com/unytics/bigfunctions/blob/main/bigfunctions/TMP_get_json_column_schema.yaml" title="Edit on GitHub" target="_blank"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="#5d6cc0" d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg></a></div>
 ```
-chart(data, chart_type, ylabel)
-```
-
-**Description**
-
-Return html with a chartjs chart
-
-**Examples**
-
-
-
-
-
-
-=== "EU"
-
-    ```sql
-    select bigfunctions.eu.chart([('2022-08-01', 10000.), ('2022-08-02', 20000.), ('2022-08-03', 40000.), ('2022-08-04', 80000.)], 'bar', 'sales') as html
-
-    ```
-
-
-=== "US"
-
-    ```sql
-    select bigfunctions.us.chart([('2022-08-01', 10000.), ('2022-08-02', 20000.), ('2022-08-03', 40000.), ('2022-08-04', 80000.)], 'bar', 'sales') as html
-
-    ```
-
-
-=== "europe-west1"
-
-    ```sql
-    select bigfunctions.europe_west1.chart([('2022-08-01', 10000.), ('2022-08-02', 20000.), ('2022-08-03', 40000.), ('2022-08-04', 80000.)], 'bar', 'sales') as html
-
-    ```
-
-
-=== "your-region2"
-
-    ```sql
-    select bigfunctions.your_region2.chart([('2022-08-01', 10000.), ('2022-08-02', 20000.), ('2022-08-03', 40000.), ('2022-08-04', 80000.)], 'bar', 'sales') as html
-
-    ```
-
-
-
-
-
-
-
-
-<a href="../assets/images/chart.png"><img alt="screenshot" src="../assets/images/chart.png" style="border: var(--md-code-bg-color) solid 1rem; margin-top: -1rem; width: 100%"></a>
-
-
-
----
-
-
-
-
-### dump_to_excel
-<div style="position: relative; top: -2rem; margin-bottom:  -2rem; text-align: right; z-index: 9999;">
-  
-  <a href="https://www.linkedin.com/in/paul-marcombes" title="Author: Paul Marcombes" target="_blank">
-    <img src="https://lh3.googleusercontent.com/a-/ACB-R5RDf2yxcw1p_IYLCKmiUIScreatDdhG8B83om6Ohw=s260" width="32" style=" border-radius: 50% !important">
-  </a>
-  
-  <a href="https://github.com/unytics/bigfunctions/blob/main/bigfunctions/dump_to_excel.yaml" title="Edit on GitHub" target="_blank"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="#5d6cc0" d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg></a></div>
-```
-dump_to_excel(data)
-```
-
-**Description**
-
-Dump data to excel file returned as base64
-
-**Examples**
-
-
-
-
-
-
-=== "EU"
-
-    ```sql
-    select bigfunctions.eu.dump_to_excel('[{"col1": "row1", "col2": 1}, {"col1": "row2", "col2": 2}]') as excel_base64
-
-    ```
-
-
-=== "US"
-
-    ```sql
-    select bigfunctions.us.dump_to_excel('[{"col1": "row1", "col2": 1}, {"col1": "row2", "col2": 2}]') as excel_base64
-
-    ```
-
-
-=== "europe-west1"
-
-    ```sql
-    select bigfunctions.europe_west1.dump_to_excel('[{"col1": "row1", "col2": 1}, {"col1": "row2", "col2": 2}]') as excel_base64
-
-    ```
-
-
-=== "your-region2"
-
-    ```sql
-    select bigfunctions.your_region2.dump_to_excel('[{"col1": "row1", "col2": 1}, {"col1": "row2", "col2": 2}]') as excel_base64
-
-    ```
-
-
-
-
-
-<pre style="margin-top: -1rem;">
-<code style="padding-top: 0px; padding-bottom: 0px;">+------------------+
-| excel_base64     |
-+------------------+
-| UEsDBBQAAAAAA... |
-+------------------+
-</code>
-</pre>
-
-
-
-
-
-
-
-
-
-
----
-
-
-
-
-### get
-<div style="position: relative; top: -2rem; margin-bottom:  -2rem; text-align: right; z-index: 9999;">
-  
-  <a href="https://www.linkedin.com/in/paul-marcombes" title="Author: Paul Marcombes" target="_blank">
-    <img src="https://lh3.googleusercontent.com/a-/ACB-R5RDf2yxcw1p_IYLCKmiUIScreatDdhG8B83om6Ohw=s260" width="32" style=" border-radius: 50% !important">
-  </a>
-  
-  <a href="https://github.com/unytics/bigfunctions/blob/main/bigfunctions/get.yaml" title="Edit on GitHub" target="_blank"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="#5d6cc0" d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg></a></div>
-```
-get(url, headers)
-```
-
-**Description**
-
-Request `url`
-
-**Examples**
-
-
-
-<span style="color: var(--md-typeset-a-color);">1. Without headers</span>
-
-
-=== "EU"
-
-    ```sql
-    select bigfunctions.eu.get('https://unytics.io/bigfunctions', null) as response
-
-    ```
-
-
-=== "US"
-
-    ```sql
-    select bigfunctions.us.get('https://unytics.io/bigfunctions', null) as response
-
-    ```
-
-
-=== "europe-west1"
-
-    ```sql
-    select bigfunctions.europe_west1.get('https://unytics.io/bigfunctions', null) as response
-
-    ```
-
-
-=== "your-region2"
-
-    ```sql
-    select bigfunctions.your_region2.get('https://unytics.io/bigfunctions', null) as response
-
-    ```
-
-
-
-
-
-<pre style="margin-top: -1rem;">
-<code style="padding-top: 0px; padding-bottom: 0px;">+------------------------+
-| response               |
-+------------------------+
-| &amp;lt;html&gt;...&amp;lt;/html&gt; |
-+------------------------+
-</code>
-</pre>
-
-
-
-
-
-
-
-
-
-<span style="color: var(--md-typeset-a-color);">2. With Content-Type = application/json headers</span>
-
-
-=== "EU"
-
-    ```sql
-    select bigfunctions.eu.get('https://api.github.com/repos/unytics/bigfunctions', '{"Content-Type": "application/json"}') as response
-
-    ```
-
-
-=== "US"
-
-    ```sql
-    select bigfunctions.us.get('https://api.github.com/repos/unytics/bigfunctions', '{"Content-Type": "application/json"}') as response
-
-    ```
-
-
-=== "europe-west1"
-
-    ```sql
-    select bigfunctions.europe_west1.get('https://api.github.com/repos/unytics/bigfunctions', '{"Content-Type": "application/json"}') as response
-
-    ```
-
-
-=== "your-region2"
-
-    ```sql
-    select bigfunctions.your_region2.get('https://api.github.com/repos/unytics/bigfunctions', '{"Content-Type": "application/json"}') as response
-
-    ```
-
-
-
-
-
-<pre style="margin-top: -1rem;">
-<code style="padding-top: 0px; padding-bottom: 0px;">+----------+
-| response |
-+----------+
-| {...}    |
-+----------+
-</code>
-</pre>
-
-
-
-
-
-
-
-
-
-
----
-
-
-
-
-### get_json_column_schema
-<div style="position: relative; top: -2rem; margin-bottom:  -2rem; text-align: right; z-index: 9999;">
-  
-  <a href="https://www.linkedin.com/in/paul-marcombes" title="Author: Paul Marcombes" target="_blank">
-    <img src="https://lh3.googleusercontent.com/a-/ACB-R5RDf2yxcw1p_IYLCKmiUIScreatDdhG8B83om6Ohw=s260" width="32" style=" border-radius: 50% !important">
-  </a>
-  
-  <a href="https://github.com/unytics/bigfunctions/blob/main/bigfunctions/get_json_column_schema.yaml" title="Edit on GitHub" target="_blank"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="#5d6cc0" d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg></a></div>
-```
-get_json_column_schema(table_or_view_or_query, json_column)
+TMP_get_json_column_schema(table_or_view_or_query, json_column)
 ```
 
 **Description**
@@ -7209,36 +8858,47 @@ and `type` among (`string`, `numeric`, `bool`, `date`, `timestamp`)
 
 
 
+
+
+
+
 === "EU"
 
     ```sql
-    call bigfunctions.eu.get_json_column_schema('bigfunctions.eu.sample_json', 'data');
+    call bigfunctions.eu.TMP_get_json_column_schema('bigfunctions.eu.sample_json', 'data');
     select * from bigfunction_result;
     ```
+
 
 
 === "US"
 
     ```sql
-    call bigfunctions.us.get_json_column_schema('bigfunctions.us.sample_json', 'data');
+    call bigfunctions.us.TMP_get_json_column_schema('bigfunctions.us.sample_json', 'data');
     select * from bigfunction_result;
     ```
+
 
 
 === "europe-west1"
 
     ```sql
-    call bigfunctions.europe_west1.get_json_column_schema('bigfunctions.europe_west1.sample_json', 'data');
+    call bigfunctions.europe_west1.TMP_get_json_column_schema('bigfunctions.europe_west1.sample_json', 'data');
     select * from bigfunction_result;
     ```
+
 
 
 === "your-region2"
 
     ```sql
-    call bigfunctions.your_region2.get_json_column_schema('bigfunctions.your_region2.sample_json', 'data');
+    call bigfunctions.your_region2.TMP_get_json_column_schema('bigfunctions.your_region2.sample_json', 'data');
     select * from bigfunction_result;
     ```
+
+
+
+
 
 
 
@@ -7271,6 +8931,87 @@ and `type` among (`string`, `numeric`, `bool`, `date`, `timestamp`)
 
 
 
+### chart
+<div style="position: relative; top: -2rem; margin-bottom:  -2rem; text-align: right; z-index: 9999;">
+  
+  <a href="https://www.linkedin.com/in/paul-marcombes" title="Author: Paul Marcombes" target="_blank">
+    <img src="https://lh3.googleusercontent.com/a-/ACB-R5RDf2yxcw1p_IYLCKmiUIScreatDdhG8B83om6Ohw=s260" width="32" style=" border-radius: 50% !important">
+  </a>
+  
+  <a href="https://github.com/unytics/bigfunctions/blob/main/bigfunctions/chart.yaml" title="Edit on GitHub" target="_blank"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="#5d6cc0" d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg></a></div>
+```
+chart(data, chart_type, ylabel)
+```
+
+**Description**
+
+Return html with a chartjs chart
+
+**Examples**
+
+
+
+
+
+
+
+
+
+
+=== "EU"
+
+    ```sql
+    select bigfunctions.eu.chart([('2022-08-01', 10000.), ('2022-08-02', 20000.), ('2022-08-03', 40000.), ('2022-08-04', 80000.)], 'bar', 'sales') as html
+    
+    ```
+
+
+
+=== "US"
+
+    ```sql
+    select bigfunctions.us.chart([('2022-08-01', 10000.), ('2022-08-02', 20000.), ('2022-08-03', 40000.), ('2022-08-04', 80000.)], 'bar', 'sales') as html
+    
+    ```
+
+
+
+=== "europe-west1"
+
+    ```sql
+    select bigfunctions.europe_west1.chart([('2022-08-01', 10000.), ('2022-08-02', 20000.), ('2022-08-03', 40000.), ('2022-08-04', 80000.)], 'bar', 'sales') as html
+    
+    ```
+
+
+
+=== "your-region2"
+
+    ```sql
+    select bigfunctions.your_region2.chart([('2022-08-01', 10000.), ('2022-08-02', 20000.), ('2022-08-03', 40000.), ('2022-08-04', 80000.)], 'bar', 'sales') as html
+    
+    ```
+
+
+
+
+
+
+
+
+
+
+
+
+<a href="../assets/images/chart.png"><img alt="screenshot" src="../assets/images/chart.png" style="border: var(--md-code-bg-color) solid 1rem; margin-top: -1rem; width: 100%"></a>
+
+
+
+---
+
+
+
+
 ### get_latest_partition_timestamp
 <div style="position: relative; top: -2rem; margin-bottom:  -2rem; text-align: right; z-index: 9999;">
   
@@ -7294,12 +9035,17 @@ Return the maximum of the partition column of `fully_qualified_table`
 
 
 
+
+
+
+
 === "EU"
 
     ```sql
     call bigfunctions.eu.get_latest_partition_timestamp("my_project.my_dataset.my_table");
     select * from bigfunction_result;
     ```
+
 
 
 === "US"
@@ -7310,6 +9056,7 @@ Return the maximum of the partition column of `fully_qualified_table`
     ```
 
 
+
 === "europe-west1"
 
     ```sql
@@ -7318,12 +9065,17 @@ Return the maximum of the partition column of `fully_qualified_table`
     ```
 
 
+
 === "your-region2"
 
     ```sql
     call bigfunctions.your_region2.get_latest_partition_timestamp("my_project.my_dataset.my_table");
     select * from bigfunction_result;
     ```
+
+
+
+
 
 
 
@@ -7381,12 +9133,20 @@ select column_name, data_type from bigfunction_result ;
 </span>
 
 
+
+
+
+
 === "EU"
 
     ```sql
     call bigfunctions.eu.get_table_columns('bigfunctions.samples.natality');
-
+    
     ```
+
+
+
+
 
 
 
