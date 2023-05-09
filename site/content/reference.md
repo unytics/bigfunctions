@@ -934,8 +934,6 @@ Sends an email with `table_or_view_or_query` data attached as excel file
       - **MRR**: 32,343 USD
       - **Churn**: 4.2 %
       - **Subscriptions**: +3452
-      
-      👇 *See full report in Excel file*
       ''', 
       'report.xlsx', 
       'bigfunctions.samples.natality');

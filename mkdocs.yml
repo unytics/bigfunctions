@@ -17,6 +17,7 @@ theme:
   features:
     - tabs
     - content.tabs.link
+    - content.code.copy
     - instant
     # - toc.integrate
     - navigation.tabs
