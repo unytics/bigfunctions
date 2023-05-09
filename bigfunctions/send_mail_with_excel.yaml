@@ -22,6 +22,7 @@ examples:
       - "'contact@unytics.io'"
       - "'Finance Figures for Today'"
       - "'Hey Paul, you fill find the figures in the attached excel file. Enjoy 🔥'"
+      - "'report.xlsx'"
       - "'bigfunctions.samples.natality'"
     region: EU
 code: |
@@ -31,12 +32,12 @@ code: |
 
     query_result as (
       select
-        array_agg(struct(res).res limit 1000) as data
+        array_agg(struct(res).res limit 100000) as data
       from {{table_or_view_or_query}} res
     ),
 
     excel_base64 as (
-      select {BIGFUNCTIONS_DATASET}.dump_to_excel((
+      select {BIGFUNCTIONS_DATASET}.json2excel((
         to_json_string(to_json(data))
       )) as content
       from query_result
