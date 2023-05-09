@@ -53,7 +53,7 @@ examples:
         'report.xlsx'
       - |-
 
-        'bigfunctions.samples.natality'
+        'bigfunctions.samples.github_timeline'
     region: EU
 code: |
   execute immediate replace(replace(replace(replace(replace(

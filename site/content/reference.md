@@ -936,7 +936,7 @@ Sends an email with `table_or_view_or_query` data attached as excel file
       - **Subscriptions**: +3452
       ''', 
       'report.xlsx', 
-      'bigfunctions.samples.natality');
+      'bigfunctions.samples.github_timeline');
     
     ```
 
