@@ -4,26 +4,28 @@ author:
   name: "Paul Marcombes"
   url: https://www.linkedin.com/in/paul-marcombes
   avatar_url: "https://lh3.googleusercontent.com/a-/ACB-R5RDf2yxcw1p_IYLCKmiUIScreatDdhG8B83om6Ohw=s260"
-description: Send email (via gmail) with data attached as excel file
+description: Send email with data attached as excel file
 arguments:
+  - name: to
+    type: string
+  - name: subject
+    type: string
+  - name: content
+    type: string
+  - name: excel_filename
+    type: string
   - name: table_or_view_or_query
-    type: string
-  - name: recipients
-    type: string
-  - name: email_subject
-    type: string
-  - name: email_body
     type: string
 examples:
   - description: ""
     arguments:
-      - "'bigfunctions.samples.natality'"
       - "'contact@unytics.io'"
       - "'Finance Figures for Today'"
       - "'Hey Paul, you fill find the figures in the attached excel file. Enjoy 🔥'"
+      - "'bigfunctions.samples.natality'"
     region: EU
 code: |
-  execute immediate replace(replace(replace(replace(
+  execute immediate replace(replace(replace(replace(replace(
     '''
     with
 
@@ -40,18 +42,23 @@ code: |
       from query_result
     )
 
-    select {BIGFUNCTIONS_DATASET}.notify_gmail(
-      '{{recipients}}',
-      '{{email_subject}}',
+    select {BIGFUNCTIONS_DATASET}.send_mail(
+      '{{to}}',
+      '{{subject}}',
       """
-      {{email_body}}
+      {{content}}
       """,
-      'report.xlsx',
+      '{{excel_filename}}',
       (select content from excel_base64)
     );
     ''',
-    '{{recipients}}', recipients),
-    '{{email_subject}}', email_subject),
-    '{{email_body}}', email_body),
-    '{{table_or_view_or_query}}', table_or_view_or_query
+    '{{to}}', `to`),
+    '{{subject}}', subject),
+    '{{content}}', content),
+    '{{excel_filename}}', excel_filename),
+    '{{table_or_view_or_query}}', if(
+        starts_with(regexp_replace(table_or_view_or_query, r'\s+', ''), 'select'),
+        '(\n' || table_or_view_or_query || '\n)',
+        table_or_view_or_query
+    )
   );
