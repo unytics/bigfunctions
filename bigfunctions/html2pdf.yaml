@@ -7,10 +7,10 @@ author:
 description: |
     Get the content of a website as a base64 string representaion of a pdf
 arguments:
-  - name: html_address
+  - name: html
     type: string
 output:
-  name: pdf_as_string
+  name: pdf_base64
   type: string
 examples:
   - description: "Get the string for a website"
@@ -21,27 +21,30 @@ examples:
 code: |
   import os
   import base64
-
-  os.system("mkdir downloads")
-  os.system("chmod 755 downloads")
-  command = f"google-chrome-stable --headless --no-sandbox --print-to-pdf='/app/downloads/extract.pdf' {html_address}"
-  os.system(command)
-
-  with open(f"/app/downloads/extract.pdf", 'rb') as f:
-      data = f.read()
-      f.close()
-  encoded_file = base64.b64encode(data).decode()
-
-  return encoded_file
-
+  import tempfile
+  with tempfile.TemporaryDirectory() as folder:
+      hmtl_file = f'{folder}/in.html'
+      pdf_file = f'{folder}/out.pdf'
+      open(hmtl_file, 'w', encoding='utf-8').write(html)
+      command = f"google-chrome-stable --headless --no-sandbox --disable-dev-shm-usage --print-to-pdf-no-header --print-to-pdf='{pdf_file}' 'file://{hmtl_file}'"
+      os.system(command)
+      pdf = open(pdf_file, 'rb').read()
+  return base64.b64encode(pdf).decode()
 additional_install_commands_in_dockerfile: |
-  RUN export DEBIAN_FRONTEND=noninteractive 
-  RUN apt-get update 
+  RUN export DEBIAN_FRONTEND=noninteractive
+  RUN apt-get update
   RUN apt-get install --no-install-recommends --no-install-suggests --assume-yes \
     acl \
     curl \
     gnupg \
     fonts-liberation
-  RUN curl -sL "https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb" > /tmp/chrome.deb 
-  RUN (dpkg -i /tmp/chrome.deb || apt-get install --no-install-recommends --no-install-suggests --assume-yes --fix-broken) 
-  RUN rm -rf /tmp/*                                                                                   
+  RUN curl -sL "https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb" > /tmp/chrome.deb
+  RUN (dpkg -i /tmp/chrome.deb || apt-get install --no-install-recommends --no-install-suggests --assume-yes --fix-broken)
+  RUN rm -rf /tmp/*
+cloud_run:
+  memory: 512Mi
+  concurrency: 1
+  max_instances: 10
+quotas:
+  max_rows_per_query: 10
+

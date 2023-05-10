@@ -12,7 +12,7 @@ output:
   name: validation_result
   type: string
 examples:
-  - description: "Precise address"
+  - description: "Correct address"
     arguments:
       - "'1 Avenue des Champs-Élysées, 75008 Paris, France'"
     output: |
@@ -91,3 +91,6 @@ code: |
   return json.dumps(results[0], ensure_ascii=False)
 requirements: |
   googlemaps
+quotas:
+  max_rows_per_user_per_day: 100
+  max_rows_per_query: 10
