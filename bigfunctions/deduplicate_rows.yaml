@@ -46,10 +46,10 @@ examples:
       +------+
       | data |
       +------+
-      | 1   |
-      | 2   |
-      | 3   |
-      +-----+
+      | 1    |
+      | 2    |
+      | 3    |
+      +------+
     region: ALL
 code: |
   declare formatted_sql string;
