@@ -36,10 +36,10 @@ code: |
   import googlemaps
   key = secrets.get('gmaps_api_key')
   gmaps = googlemaps.Client(key=key)
-  geocode = gmaps.geocode(address)
-  if not geocode:
-      return None
-  return json.dumps(geocode[0], ensure_ascii=False) if geocode else None
+  results = gmaps.geocode(address)
+  if not results:
+      return
+  return json.dumps(results[0], ensure_ascii=False)
 requirements: |
   googlemaps
 quotas:
