@@ -1,0 +1,47 @@
+type: function_py
+category: convert_data_format
+author:
+  name: Guillaume Pivette from Neoxia
+  url: https://www.linkedin.com/in/guillaume-pivette/
+  avatar_url: "https://cdn-images-1.medium.com/v2/resize:fit:92/1*jHdQzX82eU5lyjBYp63NqQ@2x.png"
+description: |
+    Get the content of a website as a base64 string representaion of a pdf
+arguments:
+  - name: html_address
+    type: string
+output:
+  name: pdf_as_string
+  type: string
+examples:
+  - description: "Get the string for a website"
+    arguments:
+      - '"https://github.com/unytics/bigfunctions"'
+    output: 'JVBERi0xLjQK....'
+    region: ALL
+code: |
+  import os
+  import base64
+
+  os.system("mkdir downloads")
+  os.system("chmod 755 downloads")
+  command = f"google-chrome-stable --headless --no-sandbox --print-to-pdf='/app/downloads/extract.pdf' {html_address}"
+  os.system(command)
+
+  with open(f"/app/downloads/extract.pdf", 'rb') as f:
+      data = f.read()
+      f.close()
+  encoded_file = base64.b64encode(data).decode()
+
+  return encoded_file
+
+additional_install_commands_in_dockerfile: |
+  RUN export DEBIAN_FRONTEND=noninteractive 
+  RUN apt-get update 
+  RUN apt-get install --no-install-recommends --no-install-suggests --assume-yes \
+    acl \
+    curl \
+    gnupg \
+    fonts-liberation
+  RUN curl -sL "https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb" > /tmp/chrome.deb 
+  RUN (dpkg -i /tmp/chrome.deb || apt-get install --no-install-recommends --no-install-suggests --assume-yes --fix-broken) 
+  RUN rm -rf /tmp/*                                                                                   
