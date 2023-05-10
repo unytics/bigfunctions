@@ -54,6 +54,7 @@ examples:
       - |-
 
         'bigfunctions.samples.github_timeline'
+    screenshot: send_mail_with_excel.png
     region: EU
 code: |
   execute immediate replace(replace(replace(replace(replace(
