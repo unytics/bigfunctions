@@ -3,8 +3,10 @@ category: transform_geo_data
 author:
   name: Guillaume Pivette
   url: https://www.linkedin.com/in/guillaume-pivette
-  avatar_url: ""
-description: Get address details from geo_coordinates using Google Maps
+  avatar_url: "https://cdn-images-1.medium.com/v2/resize:fit:92/1*jHdQzX82eU5lyjBYp63NqQ@2x.png"
+description: |
+  Get address details at `latitude`, `longitude`
+  using Google Maps
 arguments:
   - name: latitude
     type: numeric
@@ -39,7 +41,7 @@ code: |
   import googlemaps
   key = secrets.get('gmaps_api_key')
   gmaps = googlemaps.Client(key=key)
-  results = gmaps.reverse_geocode(address)
+  results = gmaps.reverse_geocode((latitude, longitude))
   if not results:
       return
   return json.dumps(results[0], ensure_ascii=False)
