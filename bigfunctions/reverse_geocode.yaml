@@ -46,5 +46,4 @@ code: |
       return
   return json.dumps(results[0], ensure_ascii=False)
 requirements: |
-  google-cloud-secret-manager
   googlemaps
