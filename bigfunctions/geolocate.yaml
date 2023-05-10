@@ -1,0 +1,41 @@
+type: function_py
+category: geo
+author:
+  name: Guillaume Pivette
+  url: https://www.linkedin.com/in/guillaume-pivette
+  avatar_url: ""
+description: Geolocate user
+arguments:
+  - name: consider_ip
+    type: bool
+output:
+  name: location
+  type: string
+examples:
+  - description: ""
+    arguments: True
+    output: |
+      {
+        'location': {
+          'lat': 48.8698877, 
+          'lng': 2.3079341
+        },
+        'accuracy': 1645.9229710015006
+      }
+    region: ALL
+code: |
+  import json
+  import googlemaps
+  import google.cloud.secretmanager
+  secret_manager = google.cloud.secretmanager.SecretManagerServiceClient()
+  gmaps_api_key = secret_manager.access_secret_version(
+      name='projects/bigfunctions/secrets/gmaps_api_key/versions/latest'
+  ).payload.data.decode('UTF-8')
+  gmaps = googlemaps.Client(key=gmaps_api_key)
+  location = gmaps.geolocate(consider_ip=consider_ip)
+  if not location:
+    return None
+  return json.dumps(location, ensure_ascii=False)
+requirements: |
+  google-cloud-secret-manager
+  googlemaps
