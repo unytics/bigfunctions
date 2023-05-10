@@ -17,6 +17,9 @@ app = Flask(__name__)
 _, PROJECT = google.auth.default()
 
 
+CACHE = {}
+
+
 class QuotaException(Exception):
     pass
 
@@ -79,16 +82,28 @@ class Store:
         }
 
 
+class SecretManager:
+
+    secret_manager = None
+    secrets = {}
+
+    def get(self, name):
+        if name in self.secrets:
+            return self.secrets[name]
+        if self.secret_manager is None:
+            import google.cloud.secretmanager
+            self.secret_manager = google.cloud.secretmanager.SecretManagerServiceClient()
+        self.secrets[name] = self.secret_manager.access_secret_version(
+            name=f'projects/{PROJECT}/secrets/{name}/versions/latest'
+        ).payload.data.decode('UTF-8')
+        return self.secrets[name]
+
+
+secrets = SecretManager()
+
+
 def check_quotas(user, user_stats, row_count):
     print(user_stats)
-
-    {% if quotas.accept_queries_from_service_accounts == false %}
-    if user.endswith('.gserviceaccount.com'):
-        raise QuotaException('It only accepts calls from real people (not bots)')
-    {% endif %}
-
-    if row_count == 1:
-        return
 
     if user_stats['today_request_count'] + 1 > {{ quotas.max_cloud_run_requests_per_user_per_day }}:
         raise QuotaException(f"This project only accepts {{ quotas.max_cloud_run_requests_per_user_per_day }} requests per user per day over all bigfunctions and you made {user_stats['today_request_count'] + 1} requests. For testing purposes, you can still call the function on one row.")
@@ -125,20 +140,24 @@ def handle():
         store.save_log(status='success')
         return response
     except QuotaException as e:
-        quota_error_message = e.args[0]
-        store.save_log(status='quota_error', status_info=quota_error_message)
+        error_message = e.args[0]
+        store.save_log(status='quota_error', status_info=error_message)
         return jsonify({
             'errorMessage': f'''
                 Thanks for using BigFunctions!
                 The use of this function `{{ name }}` is limited by quotas.
-                {quota_error_message}.
+                {error_message}.
                 To remove this limit, you can ask for quotas increase to paul.marcombes@unytics.io or deploy the function in your own project.
                 Details are here: https://github.com/unytics/bigfunctions
                 If you need help, please reach out to the slack: https://join.slack.com/t/bigfunctions/shared_invite/zt-1gbv491mu-cs03EJbQ1fsHdQMcFN7E1Q
             '''.replace('\n', ' ').replace('  ', ' ').replace('  ', ' '),
         }), 400
-    except Exception:
-        error_reporter.report_exception(google.cloud.error_reporting.build_flask_context(request))
-        error_message = traceback.format_exc()
-        store.save_log(status='error', status_info=error_message)
+    except AssertionError as e:
+        error_message = e.args[0]
+        store.save_log(status='assertion_error', status_info=error_message)
         return jsonify({'errorMessage': error_message}), 400
+    except Exception as e:
+        error_reporter.report_exception(google.cloud.error_reporting.build_flask_context(request))
+        error_message = (str(e) + ' --- ' + traceback.format_exc())[:1500]
+        store.save_log(status='error', status_info=error_message)
+        return jsonify({'errorMessage': str(e)}), 400

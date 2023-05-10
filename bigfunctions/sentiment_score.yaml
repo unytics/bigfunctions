@@ -26,3 +26,6 @@ code: |
   return sentiment.score
 requirements: |
   google-cloud-language
+quotas:
+  max_rows_per_user_per_day: 500
+  max_rows_per_query: 100

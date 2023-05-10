@@ -30,6 +30,9 @@ def handle_error(msg):
     sys.exit()
 
 
+CLOUD_RUN_IMAGES_CACHE = {}
+
+
 def prefix_lines_with_line_number(string: str, starting_index: int = 1) -> str:
     """Example:
 
@@ -163,7 +166,6 @@ class CloudRun:
         print_info(f'Deploy Cloud Run service `{self.service}`')
         options = {
             **{
-                'source': source_folder,
                 'max-instances': 1,
                 'memory': '256Mi',
                 'cpu': 1,
@@ -177,7 +179,15 @@ class CloudRun:
                 for k, v in options.items()
             }
         }
-        return self.exec('gcloud run deploy', options=options)
+        if self.service in CLOUD_RUN_IMAGES_CACHE:
+            # This service image has already been built, let's use it
+            options['image'] = CLOUD_RUN_IMAGES_CACHE[self.service]
+            return self.exec('gcloud run deploy', options=options)
+
+        options['source'] = source_folder
+        result = self.exec('gcloud run deploy', options=options)
+        CLOUD_RUN_IMAGES_CACHE[self.service] = self.exec('gcloud run services describe', options={'format': '"value(image)"'})
+        return result
 
     @property
     def url(self):

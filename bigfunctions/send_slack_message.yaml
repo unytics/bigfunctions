@@ -7,8 +7,7 @@ author:
 description: |
     Sends `message` to a slack channel.
 
-    > To get the `webhook_url` for a channel, follow this [Slack Documentation](https://api.slack.com/messaging/webhooks).
-    > The given webhook url should look like: `https://hooks.slack.com/services/T00000000/B00000000/XXXXXXXXXXXXXXXXXXXXXXXX`.
+    > To get the `webhook_url` for a channel, follow this [doc from Slack](https://api.slack.com/messaging/webhooks).
 arguments:
   - name: message
     type: string
@@ -18,21 +17,21 @@ output:
   name: response
   type: string
 examples:
-  - description: "Send a message to Slack channel 'dream-team' of BigFunctions workspace"
+  - description: ""
     arguments:
       - '"Hello 👋 from bigfunctions!"'
-      - '"https://hooks.slack.com/services/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"'
+      - '"YOUR_WEBHOOK_URL"'
     output: 'ok'
     region: ALL
 code: |
   import requests
+  assert webhook_url.startswith('https://hooks.slack.com/'), 'webhook_url should start with `https://hooks.slack.com/`'
   response = requests.post(
       webhook_url,
       headers={'Content-Type': 'application/json; charset=UTF-8'},
       json={'text': message}
   )
-  if not response.ok:
-      return 'ERROR: ' + response.text
+  assert response.ok, 'ERROR: ' + response.text
   return response.text
 requirements: |
   requests

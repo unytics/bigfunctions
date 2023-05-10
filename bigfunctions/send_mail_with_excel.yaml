@@ -1,0 +1,97 @@
+type: procedure
+category: notify
+author:
+  name: "Paul Marcombes"
+  url: https://www.linkedin.com/in/paul-marcombes
+  avatar_url: "https://lh3.googleusercontent.com/a-/ACB-R5RDf2yxcw1p_IYLCKmiUIScreatDdhG8B83om6Ohw=s260"
+description: |
+  Sends an email with `table_or_view_or_query` data attached as excel file
+  (only the first 1000 rows will be copied to the excel file)
+
+  > This function calls `json2excel` and `send_mail` functions.
+
+  | Param      | Possible values  |
+  |------------|------------------|
+  | `to     `  | One or multiple comma separated emails.<br>For instance `contact@unytics.io` or `contact@unytics.io, paul.marcombes@unytics.io`   |
+  | `subject`  | Email subject |
+  | `content`  | Can be plain text, html or **markdown**   |
+  | `attachment_filename`  | filename with extension such as `report.xlsx`  |
+  | `table_or_view_or_query`  | A fully qualified table or view you have permission to read or a sql query starting with `select`  |
+
+arguments:
+  - name: to
+    type: string
+  - name: subject
+    type: string
+  - name: content
+    type: string
+  - name: excel_filename
+    type: string
+  - name: table_or_view_or_query
+    type: string
+examples:
+  - description: ""
+    arguments:
+      - |-
+
+        'contact@unytics.io'
+      - |-
+
+        'Financial Report'
+      - |-
+
+        '''
+        # Monthly Report from BigQuery
+
+        ## KPIs
+
+        - **MRR**: 32,343 USD
+        - **Churn**: 4.2 %
+        - **Subscriptions**: +3452
+        '''
+      - |-
+
+        'report.xlsx'
+      - |-
+
+        'bigfunctions.samples.github_timeline'
+    screenshot: send_mail_with_excel.png
+    region: EU
+code: |
+  execute immediate replace(replace(replace(replace(replace(
+    '''
+    with
+
+    query_result as (
+      select
+        array_agg(struct(res).res limit 1000) as data
+      from {{table_or_view_or_query}} res
+    ),
+
+    excel_base64 as (
+      select {BIGFUNCTIONS_DATASET}.json2excel((
+        to_json_string(to_json(data))
+      )) as content
+      from query_result
+    )
+
+    select {BIGFUNCTIONS_DATASET}.send_mail(
+      '{{to}}',
+      '{{subject}}',
+      """
+      {{content}}
+      """,
+      '{{excel_filename}}',
+      (select content from excel_base64)
+    );
+    ''',
+    '{{to}}', `to`),
+    '{{subject}}', subject),
+    '{{content}}', content),
+    '{{excel_filename}}', excel_filename),
+    '{{table_or_view_or_query}}', if(
+        starts_with(regexp_replace(table_or_view_or_query, r'\s+', ''), 'select'),
+        '(\n' || table_or_view_or_query || '\n)',
+        table_or_view_or_query
+    )
+  );

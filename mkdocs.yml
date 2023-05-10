@@ -17,6 +17,7 @@ theme:
   features:
     - tabs
     - content.tabs.link
+    - content.code.copy
     - instant
     # - toc.integrate
     - navigation.tabs
@@ -45,12 +46,14 @@ nav:
   - Contribute!: contribute.md
 
 bigfunctions_categories:
-  - name: "explore"
-    emoticon: "👀"
-    title: "Explore data within BigQuery console"
-    subtitle: "Make computations on BigQuery and display the results as data-vizualizations directly in BigQuery console."
-  - name: "machine_learning"
-    emoticon: "🧠"
+  - name: "get_data"
+    emoticon: "🛢"
+    title: "Get Data"
+    subtitle: "Get data from any API or any website!"
+  - name: "notify"
+    emoticon: "💬"
+    title: "Send infos to your customers, alert the operations teams, send reportings to business"
+    subtitle: "Spread the word to the world!"
   - name: "transform_numeric"
     emoticon: "1️⃣"
     title: "Transform data creatively"
@@ -58,7 +61,7 @@ bigfunctions_categories:
     emoticon: "✨"
     title: "Transform data creatively"
     subtitle: "Be amazed with your new SQL powers."
-  - name: "geo"
+  - name: "transform_geo_data"
     emoticon: "🌐"
     title: "Geo Functions"
   - name: "transform_date"
@@ -73,18 +76,24 @@ bigfunctions_categories:
     emoticon: "<span style=\"color: var(--md-primary-fg-color);\">[...]</span>"
     title: "BigQuery arrays made easy"
     subtitle: "Be amazed with your new SQL powers."
+  - name: "machine_learning"
+    emoticon: "🧠"
   - name: "graph"
     emoticon: "🌐"
     title: "Graph Algorithms"
     subtitle: "No need for neo4j nor spark graphframes --> go BigQuery boosted by BigFunctions!"
-  - name: "notify"
-    emoticon: "💬"
-    title: "Send infos to your customers, alert the operations teams, send reportings to business"
-    subtitle: "Spread the word to the world!"
+  - name: "convert_data_format"
+    emoticon: "🔨"
+    title: "Convert data format"
+    subtitle: ""
   - name: "export"
     emoticon: "🚀"
     title: "Get the data out to the outside world"
     subtitle: "Make BigQuery as the golden source of all your SAAS and for all your usages"
+  - name: "explore"
+    emoticon: "👀"
+    title: "Explore data within BigQuery console"
+    subtitle: "Make computations on BigQuery and display the results as data-vizualizations directly in BigQuery console."
   - name: "utils"
     emoticon: "🔨"
     title: "Utils BigFunctions"
