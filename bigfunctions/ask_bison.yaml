@@ -7,7 +7,7 @@ author:
 description: |
   Ask Anything!
 
-  Google Generative AI bison model will get you an answer.
+  Google Generative AI `bison` model will get you an answer.
 arguments:
   - name: question
     type: string
@@ -48,7 +48,11 @@ code: |
   model = 'text-bison@001'
   location = 'us-central1'
 
-  question = (question or '').strip()
+  question = question or ''
+  question = re.sub(r'^[ \t]+', '', question)
+  question = re.sub(r'[ \t]+$', '', question)
+  question = re.sub(r'[ \t]+', ' ', question)
+  question = question.strip()
   if not question:
       return
 
