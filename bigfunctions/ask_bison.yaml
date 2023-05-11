@@ -1,0 +1,60 @@
+type: function_py
+category: ai
+author:
+  name: Paul Marcombes
+  url: https://www.linkedin.com/in/paul-marcombes
+  avatar_url: "https://lh3.googleusercontent.com/a-/ACB-R5RDf2yxcw1p_IYLCKmiUIScreatDdhG8B83om6Ohw=s260"
+description: Prompt Any Task
+arguments:
+  - name: content
+    type: string
+output:
+  name: completion
+  type: string
+examples:
+  - description: ""
+    arguments:
+      - "\"get the country from the following user input: 'frace'\""
+    output: "true"
+    region: ALL
+code: |
+  import re
+  import vertexai
+  from vertexai.preview.language_models import TextGenerationModel
+
+  model = 'text-bison@001'
+  location = 'us-central1'
+
+  content = content or ''
+  content = re.sub(r'\s+', ' ', content).strip()
+  if not content:
+      return
+
+  cache_key = hash(content)
+  cached = CACHE.get(cache_key)
+  if cached:
+      return cached
+
+  if len(content) > 1000:
+      raise QuotaException(f'Your content contains {len(content)} characters but it is limited to 1000 characters for now.')
+
+  vertexai.init(location=location)
+  model = TextGenerationModel.from_pretrained(model)
+  response = model.predict(
+      content,
+      temperature=0.2,
+      max_output_tokens=256,
+      top_k=0.8,
+      top_p=40,
+  )
+  output = response.text
+  if not output:
+      return 'GOOGLE LANGUAGE MODEL QUOTA REACHED'
+  CACHE[cache_key] = output
+  return output
+requirements: |
+  google-cloud-aiplatform
+quotas:
+  max_rows_per_user_per_day: 100
+  max_rows_per_query: 1
+
