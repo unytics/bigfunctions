@@ -6,7 +6,8 @@ author:
   avatar_url: "https://lh3.googleusercontent.com/a-/ACB-R5RDf2yxcw1p_IYLCKmiUIScreatDdhG8B83om6Ohw=s260"
 description: |
   Ask Anything!
-  Google Generative AI bison model will have an answer
+
+  Google Generative AI bison model will get you an answer.
 arguments:
   - name: question
     type: string
@@ -17,6 +18,7 @@ examples:
   - description: "Clean data"
     arguments:
       - |
+
         '''
         Question: what is the country from the following user input: 'I live in frace' ?
         Answer: formatted as alpha three code
@@ -26,6 +28,7 @@ examples:
   - description: "Generate SQL"
     arguments:
       - |
+
         '''
         Question: List the product categories
         Table: products
@@ -34,8 +37,8 @@ examples:
         '''
     output: |
       SELECT DISTINCT type
-       FROM products
-       ORDER BY type
+        FROM products
+        ORDER BY type
     region: ALL
 code: |
   import re
