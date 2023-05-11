@@ -21,7 +21,7 @@ BigFunctions are open-source BigQuery routines that give you **SQL-superpowers**
 
     {% for category in categories %}
 
-    **{{ category.emoticon }} {{ category.name | replace('_', ' ') | capitalize }}**
+    **{{ category.emoticon }} {% if category.name = 'AI' %}AI{% else %}{{ category.name | replace('_', ' ') | capitalize }}{% endif %}**
 
     {% for bigfunction in category.bigfunctions -%}
     {% set bigfunction_description_lines = bigfunction.description.split('\n') %}
