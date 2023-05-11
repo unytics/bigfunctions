@@ -16,18 +16,21 @@ output:
 examples:
   - description: "Clean data"
     arguments:
-      - "\"return the country from the following user input: 'frace'\""
-    output: "France"
+      - |
+        '''
+        Question: what is the country from the following user input: 'I live in frace' ?
+        Answer: formatted as alpha three code
+        '''
+    output: "FRA"
     region: ALL
   - description: "Generate SQL"
     arguments:
       - |
         '''
-        Return the BigQuery SQL query to
-        list the product categories
-
+        Question: List the product categories
         Table: products
         Columns: product_id, type, name, price
+        Answer: bigquery sql query
         '''
     output: |
       SELECT DISTINCT type
