@@ -4,7 +4,9 @@ author:
   name: Paul Marcombes
   url: https://www.linkedin.com/in/paul-marcombes
   avatar_url: "https://lh3.googleusercontent.com/a-/ACB-R5RDf2yxcw1p_IYLCKmiUIScreatDdhG8B83om6Ohw=s260"
-description: Prompt Any Task
+description: |
+  Ask Anything!
+  Google Generative AI bison model will have an answer
 arguments:
   - name: question
     type: string
@@ -14,13 +16,25 @@ output:
 examples:
   - description: "Clean data"
     arguments:
-      - "\"get the country from the following user input: 'frace'\""
-    output: "true"
+      - "\"return the country from the following user input: 'frace'\""
+    output: "France"
     region: ALL
   - description: "Generate SQL"
     arguments:
-      - "\"get the country from the following user input: 'frace'\""
-    output: "true"
+      - |
+        '''
+        Return the BigQuery SQL query to
+        list the product categories
+
+        Table: products
+        Columns: product_id, type, name, price
+        '''
+    output: |
+      ```sql
+      SELECT DISTINCT type
+      FROM products
+      ORDER BY type
+      ```
     region: ALL
 code: |
   import re
