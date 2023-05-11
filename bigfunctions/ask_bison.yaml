@@ -46,7 +46,6 @@ code: |
   location = 'us-central1'
 
   question = (question or '').strip()
-  # question = re.sub(r'\s+', ' ', question).strip()
   if not question:
       return
 
