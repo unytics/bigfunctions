@@ -31,8 +31,8 @@ examples:
         '''
     output: |
       SELECT DISTINCT type
-      FROM products
-      ORDER BY type
+       FROM products
+       ORDER BY type
     region: ALL
 code: |
   import re
