@@ -30,11 +30,9 @@ examples:
         Columns: product_id, type, name, price
         '''
     output: |
-      ```sql
       SELECT DISTINCT type
       FROM products
       ORDER BY type
-      ```
     region: ALL
 code: |
   import re
@@ -44,8 +42,8 @@ code: |
   model = 'text-bison@001'
   location = 'us-central1'
 
-  question = question or ''
-  question = re.sub(r'\s+', ' ', question).strip()
+  question = (question or '').strip()
+  # question = re.sub(r'\s+', ' ', question).strip()
   if not question:
       return
 
