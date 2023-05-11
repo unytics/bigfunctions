@@ -6,13 +6,18 @@ author:
   avatar_url: "https://lh3.googleusercontent.com/a-/ACB-R5RDf2yxcw1p_IYLCKmiUIScreatDdhG8B83om6Ohw=s260"
 description: Prompt Any Task
 arguments:
-  - name: content
+  - name: question
     type: string
 output:
-  name: completion
+  name: answer
   type: string
 examples:
-  - description: ""
+  - description: "Clean data"
+    arguments:
+      - "\"get the country from the following user input: 'frace'\""
+    output: "true"
+    region: ALL
+  - description: "Generate SQL"
     arguments:
       - "\"get the country from the following user input: 'frace'\""
     output: "true"
@@ -25,33 +30,33 @@ code: |
   model = 'text-bison@001'
   location = 'us-central1'
 
-  content = content or ''
-  content = re.sub(r'\s+', ' ', content).strip()
-  if not content:
+  question = question or ''
+  question = re.sub(r'\s+', ' ', question).strip()
+  if not question:
       return
 
-  cache_key = hash(content)
+  cache_key = hash(question)
   cached = CACHE.get(cache_key)
   if cached:
       return cached
 
-  if len(content) > 1000:
-      raise QuotaException(f'Your content contains {len(content)} characters but it is limited to 1000 characters for now.')
+  if len(question) > 1000:
+      raise QuotaException(f'Your question contains {len(question)} characters but it is limited to 1000 characters for now.')
 
   vertexai.init(location=location)
   model = TextGenerationModel.from_pretrained(model)
   response = model.predict(
-      content,
+      question,
       temperature=0.2,
       max_output_tokens=256,
       top_k=0.8,
       top_p=40,
   )
-  output = response.text
-  if not output:
+  answer = response.text
+  if not answer:
       return 'GOOGLE LANGUAGE MODEL QUOTA REACHED'
-  CACHE[cache_key] = output
-  return output
+  CACHE[cache_key] = answer
+  return answer
 requirements: |
   google-cloud-aiplatform
 quotas:
