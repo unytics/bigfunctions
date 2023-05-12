@@ -35,10 +35,7 @@ examples:
         Columns: product_id, type, name, price
         Answer: bigquery sql query
         '''
-    output: |
-      SELECT DISTINCT type
-        FROM products
-        ORDER BY type
+    output: "SELECT DISTINCT type FROM products"
     region: ALL
 code: |
   import re
