@@ -1,20 +1,25 @@
 type: function_py
 category: transform_geo_data
 author:
-  name: Paul Marcombes
-  url: https://www.linkedin.com/in/paul-marcombes
-  avatar_url: "https://lh3.googleusercontent.com/a-/ACB-R5RDf2yxcw1p_IYLCKmiUIScreatDdhG8B83om6Ohw=s260"
-description: Get `address` details from Google Maps
+  name: Guillaume Pivette
+  url: https://www.linkedin.com/in/guillaume-pivette
+  avatar_url: "https://cdn-images-1.medium.com/v2/resize:fit:92/1*jHdQzX82eU5lyjBYp63NqQ@2x.png"
+description: |
+  Get address details at `latitude`, `longitude`
+  using Google Maps
 arguments:
-  - name: address
-    type: string
+  - name: latitude
+    type: numeric
+  - name: longitude
+    type: numeric
 output:
   name: address_details
   type: string
 examples:
   - description: ""
     arguments:
-      - "'1 rue des champs elysees, Paris'"
+      - 48.86988770000001
+      - 2.3079341
     output: |
       {
           "address_components": [...],
@@ -36,7 +41,7 @@ code: |
   import googlemaps
   key = secrets.get('gmaps_api_key')
   gmaps = googlemaps.Client(key=key)
-  results = gmaps.geocode(address)
+  results = gmaps.reverse_geocode((latitude, longitude))
   if not results:
       return
   return json.dumps(results[0], ensure_ascii=False)

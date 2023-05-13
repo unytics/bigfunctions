@@ -82,6 +82,7 @@ def deploy(bigfunction):
 
     quotas = {
         'max_cloud_run_requests_per_user_per_day': get_config_value('max_cloud_run_requests_per_user_per_day'),
+        'admin_users': ', '.join([f'"{user.strip()}"' for user in CONFIG.get('admin_users', '').split(',')])
     }
 
     for dataset in datasets:

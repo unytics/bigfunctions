@@ -105,8 +105,11 @@ secrets = SecretManager()
 def check_quotas(user, user_stats, row_count):
     print(user_stats)
 
+    if user in [{{ quotas.admin_users }}]:
+        return
+
     if user_stats['today_request_count'] + 1 > {{ quotas.max_cloud_run_requests_per_user_per_day }}:
-        raise QuotaException(f"This project only accepts {{ quotas.max_cloud_run_requests_per_user_per_day }} requests per user per day over all bigfunctions and you made {user_stats['today_request_count'] + 1} requests. For testing purposes, you can still call the function on one row.")
+        raise QuotaException(f"This project only accepts {{ quotas.max_cloud_run_requests_per_user_per_day }} requests per user per day over all bigfunctions and you made {user_stats['today_request_count'] + 1} requests.")
 
     {% if quotas.max_rows_per_query is defined %}
     if row_count > {{ quotas.max_rows_per_query }}:
@@ -115,7 +118,7 @@ def check_quotas(user, user_stats, row_count):
 
     {% if quotas.max_rows_per_user_per_day is defined %}
     if user_stats['today_row_count_for_this_bigfunction'] + row_count > {{ quotas.max_rows_per_user_per_day }}:
-        raise QuotaException(f"It only accepts {{ quotas.max_rows_per_user_per_day }} rows per day per user and you called it today for {user_stats['today_row_count_for_this_bigfunction'] + row_count} rows. For testing purposes, you can still call the function on one row.")
+        raise QuotaException(f"It only accepts {{ quotas.max_rows_per_user_per_day }} rows per day per user and you called it today for {user_stats['today_row_count_for_this_bigfunction'] + row_count} rows.")
     {% endif %}
 
 

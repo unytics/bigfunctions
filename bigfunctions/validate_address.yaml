@@ -1,0 +1,96 @@
+type: function_py
+category: geo
+author:
+  name: Guillaume Pivette
+  url: https://www.linkedin.com/in/guillaume-pivette
+  avatar_url: ""
+description: Validate `address` using Google Maps
+arguments:
+  - name: address
+    type: string
+output:
+  name: validation_result
+  type: string
+examples:
+  - description: "Correct address"
+    arguments:
+      - "'1 Avenue des Champs-Élysées, 75008 Paris, France'"
+    output: |
+      {'result': {'verdict': {'inputGranularity': 'PREMISE',
+        'validationGranularity': 'PREMISE',
+        'geocodeGranularity': 'PREMISE',
+        'addressComplete': True},
+        'address': {'formattedAddress': '1 Avenue des Champs-Élysées, 75008 Paris, France',
+        ...},
+        'geocode': {'location': {'latitude': 48.8698877, 'longitude': 2.3079341},
+        ...,
+        'bounds': {'low': {'latitude': 48.8698877, 'longitude': 2.3079341},
+          'high': {'latitude': 48.8698877, 'longitude': 2.3079341}},
+        ...}},
+      'responseId': ...}
+    region: ALL
+  - description: "Address with inference"
+    arguments:
+      - "'1 Avenue des Champs-Élysées, 75008 Paris, France'"
+    output: |
+      {'result': {'verdict': {'inputGranularity': 'PREMISE',
+        'validationGranularity': 'PREMISE',
+        'geocodeGranularity': 'PREMISE',
+        'addressComplete': True,
+        'hasUnconfirmedComponents': True,
+        'hasInferredComponents': True},
+        'address': {
+          'formattedAddress': '1 Avenue des Champs-Élysées, 75008 Paris, France',
+          'addressComponents': [
+            {'componentName': {'text': '1', 'languageCode': 'fr'},
+              'componentType': 'street_number',
+              'confirmationLevel': 'CONFIRMED'},
+            {'componentName': {'text': 'rue des champs elysees', 'languageCode': 'fr'},
+              'componentType': 'route',
+              'confirmationLevel': 'UNCONFIRMED_BUT_PLAUSIBLE'},
+            ...,]
+          'unconfirmedComponentTypes': ['route']}
+        'geocode': {'location': {'latitude': 48.8698877, 'longitude': 2.3079341},
+        ...,
+        'bounds': {'low': {'latitude': 48.8698877, 'longitude': 2.3079341},
+          'high': {'latitude': 48.8698877, 'longitude': 2.3079341}},
+        ...}},
+      'responseId': ...}
+    region: ALL
+  - description: "Route granularity"
+    arguments:
+      - "'Avenue des Champs-Élysées, 75008 Paris, France'"
+    output: |
+      {'result': {'verdict': {inputGranularity': 'ROUTE',
+        'validationGranularity': 'ROUTE',
+        'geocodeGranularity': 'ROUTE'},
+        'address': {
+          'formattedAddress': 'Avenue des Champs-Élysées, 75008 Paris, France',
+          'addressComponents': [
+            {'componentName': {'text': 'Avenue des Champs-Élysées',
+              'languageCode': 'fr'},
+              'componentType': 'route',
+              'confirmationLevel': 'CONFIRMED'},
+            ...,]
+          'missingComponentTypes': ['street_number']}
+        'geocode': {'location': {'latitude': 48.8729602, 'longitude': 2.2978526},
+        ...,
+        'bounds': {'low': {'latitude': 48.8655318, 'longitude': 2.2952047},
+          'high': {'latitude': 48.8748338, 'longitude': 2.3200376}},
+        ...}},
+      'responseId': ...}
+    region: ALL
+code: |
+  import json
+  import googlemaps
+  key = secrets.get('gmaps_api_key')
+  gmaps = googlemaps.Client(key=key)
+  results = gmaps.addressvalidation(address)
+  if not results:
+      return
+  return json.dumps(results[0], ensure_ascii=False)
+requirements: |
+  googlemaps
+quotas:
+  max_rows_per_user_per_day: 100
+  max_rows_per_query: 10

@@ -46,6 +46,10 @@ nav:
   - Contribute!: contribute.md
 
 bigfunctions_categories:
+  - name: "AI"
+    emoticon: "🧠"
+    title: "Generative AI!"
+    subtitle: "Query your data in Natural Language!"
   - name: "get_data"
     emoticon: "🛢"
     title: "Get Data"
