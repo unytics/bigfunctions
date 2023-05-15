@@ -4,7 +4,11 @@ author:
   name: Paul Marcombes
   url: https://www.linkedin.com/in/paul-marcombes
   avatar_url: "https://lh3.googleusercontent.com/a-/ACB-R5RDf2yxcw1p_IYLCKmiUIScreatDdhG8B83om6Ohw=s260"
-description: Dump data to excel file returned as base64
+description: |
+  Dump data to excel file
+  encoded as a base64 string.
+
+  > This function is useful to combine with `send_mail` if you want to send an excel file to some people.
 arguments:
   - name: data
     type: string
