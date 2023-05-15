@@ -1,0 +1,51 @@
+type: function_sql
+category: utils
+author:
+  name: Axel Thevenot
+  url: https://www.linkedin.com/in/axel-thevenot/
+  avatar_url: "https://avatars.githubusercontent.com/u/39374103?v=4"
+description: |-
+  Returns the number of `date_time_part` since `1970-01-01 00:00:00 UTC`. 
+  Truncates higher levels of precision by rounding down to the beginning of the `date_time_part`.
+
+  | Param  | Possible values  |
+  |---|---|
+  | `date_time_part` | `MICROSECOND`, `MILLISECOND`, `SECOND`, `MINUTE`, `HOUR`, `DAY`, `WEEK`, `WEEK(MONDAY)`, `WEEK(TUESDAY)`, `WEEK(WEDNESDAY)`, `WEEK(THURSDAY)`, `WEEK(FRIDAY)`, `WEEK(SATURDAY)`, `WEEK(SUNDAY)`, `MONTH`, `QUARTER`, `YEAR` |
+arguments:
+  - name: timestamp_expression
+    type: timestamp
+  - name: date_time_part
+    type: string
+output:
+  name: unix_value
+  type: int64
+examples:
+  - description: ""
+    arguments:
+      - 'timestamp("2001-01-01")'
+      - '"YEAR"'
+    output: "31"
+    region: ALL
+code: |
+  (
+    case upper(date_time_part)
+      when 'MICROSECOND'     then unix_micros(timestamp_expression)
+      when 'MILLISECOND'     then unix_millis(timestamp_expression)
+      when 'SECOND'          then unix_seconds(timestamp_expression)
+      when 'MINUTE'          then timestamp_diff(timestamp_trunc(timestamp_expression, MINUTE),  '1970-01-01', MINUTE) 
+      when 'HOUR'            then timestamp_diff(timestamp_trunc(timestamp_expression, HOUR),  '1970-01-01', HOUR)
+      when 'DAY'             then unix_date(date(timestamp_expression))
+      when 'WEEK'            then date_diff(date(timestamp_expression), '1970-01-01', WEEK)
+      when 'WEEK(MONDAY)'    then date_diff(date(timestamp_expression), '1970-01-01', WEEK(MONDAY))
+      when 'WEEK(TUESDAY)'   then date_diff(date(timestamp_expression), '1970-01-01', WEEK(TUESDAY))
+      when 'WEEK(WEDNESDAY)' then date_diff(date(timestamp_expression), '1970-01-01', WEEK(WEDNESDAY))
+      when 'WEEK(THURSDAY)'  then date_diff(date(timestamp_expression), '1970-01-01', WEEK(THURSDAY))
+      when 'WEEK(FRIDAY)'    then date_diff(date(timestamp_expression), '1970-01-01', WEEK(FRIDAY))
+      when 'WEEK(SATURDAY)'  then date_diff(date(timestamp_expression), '1970-01-01', WEEK(SATURDAY))
+      when 'WEEK(SUNDAY)'    then date_diff(date(timestamp_expression), '1970-01-01', WEEK(SUNDAY))
+      when 'MONTH'           then date_diff(date(timestamp_expression), '1970-01-01', MONTH)
+      when 'QUARTER'         then date_diff(date(timestamp_expression), '1970-01-01', QUARTER)
+      when 'YEAR'            then date_diff(date(timestamp_expression), '1970-01-01', YEAR)
+      else error(date_time_part || ' is not a valid `date_time_part`.')
+    end
+  )
