@@ -1,0 +1,51 @@
+type: function_sql
+category: utils
+author:
+  name: Axel Thevenot
+  url: https://www.linkedin.com/in/axel-thevenot/
+  avatar_url: "https://avatars.githubusercontent.com/u/39374103?v=4"
+description: |-
+  Interprets `unix_date_time` as the number of `date_time_part` since `1970-01-01 00:00:00 UTC`.
+  Truncates higher levels of precision by rounding down to the beginning of the `date_time_part`.
+
+  | Param  | Possible values  |
+  |---|---|
+  | `date_time_part` | `MICROSECOND`, `MILLISECOND`, `SECOND`, `MINUTE`, `HOUR`, `DAY`, `WEEK`, `WEEK(MONDAY)`, `WEEK(TUESDAY)`, `WEEK(WEDNESDAY)`, `WEEK(THURSDAY)`, `WEEK(FRIDAY)`, `WEEK(SATURDAY)`, `WEEK(SUNDAY)`, `MONTH`, `QUARTER`, `YEAR` |
+arguments:
+  - name: unix_date_time
+    type: int64
+  - name: date_time_part
+    type: string
+output:
+  name: from_unix
+  type: timestamp
+examples:
+  - description: ""
+    arguments:
+      - '31'
+      - '"YEAR"'
+    output: "2001-01-01 00:00:00 UTC"
+    region: ALL
+code: |
+  (
+    case upper(date_time_part)
+      when 'MICROSECOND'     then timestamp_add(timestamp('1970-01-01'), INTERVAL unix_date_time MICROSECOND)
+      when 'MILLISECOND'     then timestamp_add(timestamp('1970-01-01'), INTERVAL unix_date_time MILLISECOND)
+      when 'SECOND'          then timestamp_add(timestamp('1970-01-01'), INTERVAL unix_date_time SECOND)
+      when 'MINUTE'          then timestamp_add(timestamp('1970-01-01'), INTERVAL unix_date_time MINUTE)
+      when 'HOUR'            then timestamp_add(timestamp('1970-01-01'), INTERVAL unix_date_time HOUR)
+      when 'DAY'             then timestamp(date_add(date('1970-01-01'), INTERVAL unix_date_time DAY))
+      when 'WEEK'            then timestamp(date_trunc(date_add(date('1970-01-01'), INTERVAL unix_date_time WEEK), WEEK))
+      when 'WEEK(MONDAY)'    then timestamp(date_trunc(date_add(date('1970-01-01'), INTERVAL unix_date_time WEEK), WEEK(MONDAY)))
+      when 'WEEK(TUESDAY)'   then timestamp(date_trunc(date_add(date('1970-01-01'), INTERVAL unix_date_time WEEK), WEEK(TUESDAY)))
+      when 'WEEK(WEDNESDAY)' then timestamp(date_trunc(date_add(date('1970-01-01'), INTERVAL unix_date_time WEEK), WEEK(WEDNESDAY)))
+      when 'WEEK(THURSDAY)'  then timestamp(date_trunc(date_add(date('1970-01-01'), INTERVAL unix_date_time WEEK), WEEK(THURSDAY)))
+      when 'WEEK(FRIDAY)'    then timestamp(date_trunc(date_add(date('1970-01-01'), INTERVAL unix_date_time WEEK), WEEK(FRIDAY)))
+      when 'WEEK(SATURDAY)'  then timestamp(date_trunc(date_add(date('1970-01-01'), INTERVAL unix_date_time WEEK), WEEK(SATURDAY)))
+      when 'WEEK(SUNDAY)'    then timestamp(date_trunc(date_add(date('1970-01-01'), INTERVAL unix_date_time WEEK), WEEK(SUNDAY)))
+      when 'MONTH'           then timestamp(date_add(date('1970-01-01'), INTERVAL unix_date_time MONTH))
+      when 'QUARTER'         then timestamp(date_add(date('1970-01-01'), INTERVAL unix_date_time * 4 MONTH))
+      when 'YEAR'            then timestamp(date_add(date('1970-01-01'), INTERVAL unix_date_time YEAR))
+      else error(date_time_part || ' is not a valid `date_time_part`.')
+    end
+  )
