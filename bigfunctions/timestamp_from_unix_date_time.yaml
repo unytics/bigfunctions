@@ -44,7 +44,7 @@ code: |
       when 'WEEK(SATURDAY)'  then timestamp(date_trunc(date_add(date('1970-01-01'), INTERVAL unix_date_time WEEK), WEEK(SATURDAY)))
       when 'WEEK(SUNDAY)'    then timestamp(date_trunc(date_add(date('1970-01-01'), INTERVAL unix_date_time WEEK), WEEK(SUNDAY)))
       when 'MONTH'           then timestamp(date_add(date('1970-01-01'), INTERVAL unix_date_time MONTH))
-      when 'QUARTER'         then timestamp(date_add(date('1970-01-01'), INTERVAL unix_date_time * 4 MONTH))
+      when 'QUARTER'         then timestamp(date_add(date('1970-01-01'), INTERVAL unix_date_time * 3 MONTH))
       when 'YEAR'            then timestamp(date_add(date('1970-01-01'), INTERVAL unix_date_time YEAR))
       else error(date_time_part || ' is not a valid `date_time_part`.')
     end
