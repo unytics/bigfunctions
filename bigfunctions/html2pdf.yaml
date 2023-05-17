@@ -54,5 +54,5 @@ additional_install_commands_in_dockerfile: |
 cloud_run:
   memory: 1024Mi
   concurrency: 1
-  max_instances: 100
+  max_instances: 10
 
