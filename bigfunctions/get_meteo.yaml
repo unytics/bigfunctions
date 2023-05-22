@@ -1,0 +1,44 @@
+type: function_py
+category: get_data
+author:
+  name: Matthieu Rousseau
+  url: https://www.linkedin.com/in/matthieu-rousseau
+  avatar_url: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSqTvjIcUoIG2dOnFeVUKQDmj2-iret_1eX43g5149obw&s"
+description: |
+  Get `meteo`
+  for `latitude` , `longitude` and `date`  
+arguments:
+  - name: latitude
+    type: float64
+  - name: longitude
+    type: float64
+  - name: date
+    type: string
+output:
+  name: meteo
+  type: string
+examples:
+  - description: "To know how many euros a dollar is worth"
+    arguments:
+      - "52.52"
+      - "13.41"
+      - "'2023-05-10'"
+    output: "{...}"
+    region: ALL
+code: |
+  import json
+  import requests
+
+  what = ','.join(['weathercode', 'temperature_2m_max', 'temperature_2m_min', 'apparent_temperature_max', 'apparent_temperature_min', 'precipitation_sum', 'rain_sum', 'snowfall_sum', 'precipitation_hours', 'sunrise', 'sunset', 'windspeed_10m_max', 'windgusts_10m_max', 'winddirection_10m_dominant', 'shortwave_radiation_sum', 'et0_fao_evapotranspiration'])
+  url =  f'https://archive-api.open-meteo.com/v1/archive?latitude={latitude}&longitude={longitude}&start_date={date}&end_date={date}&daily={what}&timezone=UTC'
+  response = requests.get(url)
+  data = response.json()
+  data['date'] = data['daily']['time'][0]
+  data['daily_values'] = {
+      k: v[0]
+      for k, v in data['daily'].items()
+  }
+  del data['daily']
+  return json.dumps(data, indent=4, ensure_ascii=False)
+requirements: |
+  requests
