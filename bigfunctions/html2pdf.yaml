@@ -5,7 +5,12 @@ author:
   url: https://www.linkedin.com/in/guillaume-pivette/
   avatar_url: "https://cdn-images-1.medium.com/v2/resize:fit:92/1*jHdQzX82eU5lyjBYp63NqQ@2x.png"
 description: |
-    Get the content of a website as a base64 string representaion of a pdf
+    Convert `html` to `pdf`
+    encoded as a base64 string.
+
+    > This function is useful to combine with `send_mail` if you want to send a personnalized pdf to some people.
+    >
+    > To have a beautiful pdf, we advise you to get inspired by [this invoice template](https://github.com/sparksuite/simple-html-invoice-template).
 arguments:
   - name: html
     type: string
@@ -13,38 +18,41 @@ output:
   name: pdf_base64
   type: string
 examples:
-  - description: "Get the string for a website"
+  - description: ""
     arguments:
-      - '"https://github.com/unytics/bigfunctions"'
+      - '"<h1>Love It!</h1>"'
     output: 'JVBERi0xLjQK....'
+    screenshot: html2pdf.png
     region: ALL
 code: |
-  import os
   import base64
   import tempfile
+
+  if 'browser' not in CACHE:
+      from playwright.sync_api import sync_playwright
+      CACHE['playwright'] = sync_playwright().start()
+      CACHE['browser'] = CACHE['playwright'].chromium.launch()
+      CACHE['context'] = CACHE['browser'].new_context(
+          offline=True,
+          java_script_enabled=False,
+          service_workers='block',
+      )
+      CACHE['page'] = CACHE['context'].new_page()
+
   with tempfile.TemporaryDirectory() as folder:
       hmtl_file = f'{folder}/in.html'
-      pdf_file = f'{folder}/out.pdf'
       open(hmtl_file, 'w', encoding='utf-8').write(html)
-      command = f"google-chrome-stable --headless --no-sandbox --disable-dev-shm-usage --print-to-pdf-no-header --print-to-pdf='{pdf_file}' 'file://{hmtl_file}'"
-      os.system(command)
-      pdf = open(pdf_file, 'rb').read()
+      response = CACHE['page'].goto(f'file://{hmtl_file}')
+      assert response.ok, f'Chrome Response status is {response.status}. Response: {response.text}'
+      pdf = CACHE['page'].pdf()
   return base64.b64encode(pdf).decode()
+requirements: |
+  playwright
 additional_install_commands_in_dockerfile: |
-  RUN export DEBIAN_FRONTEND=noninteractive
-  RUN apt-get update
-  RUN apt-get install --no-install-recommends --no-install-suggests --assume-yes \
-    acl \
-    curl \
-    gnupg \
-    fonts-liberation
-  RUN curl -sL "https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb" > /tmp/chrome.deb
-  RUN (dpkg -i /tmp/chrome.deb || apt-get install --no-install-recommends --no-install-suggests --assume-yes --fix-broken)
-  RUN rm -rf /tmp/*
+  ENV PLAYWRIGHT_BROWSERS_PATH=/opt/
+  RUN playwright install --with-deps chromium
 cloud_run:
-  memory: 512Mi
+  memory: 1024Mi
   concurrency: 1
   max_instances: 10
-quotas:
-  max_rows_per_query: 10
 
