@@ -7,11 +7,12 @@ author:
 description: |
   Ask your data!
 
-  Transform a natural language `question` into
+  Ask your data any `question` in natural language. This function will transform your question into a SQL query and then try to execute it over your data.
 
-  This function uses Bison, one of Google Generative AI language model to transform your `natural_language_query` into a SQL query. It can then execute it over your data.
-  Generative AI is powerful yet not perfect. If you feel lucky, can set `i_am_lucky` parameter to `true` and the generated query will be executed.
-  Otherwise you can set `i_am_lucky` to `false` to see the generated SQL query but without executing it.
+  > This function will call `ask_bison` BigFunction which uses Bison, one of Google Generative AI language model to transform your `natural_language_query` into a SQL query.
+  >
+  > If you don't feel lucky or want to see the SQL query before executing it, set `i_am_lucky` argument to `false`
+
 
   | Param  | Description  |
   |---|---|
@@ -23,7 +24,7 @@ arguments:
     type: string
   - name: fully_qualified_table
     type: string
-  - name: run_it
+  - name: i_am_lucky
     type: bool
 examples:
   - description: ""
