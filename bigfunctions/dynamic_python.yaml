@@ -1,0 +1,57 @@
+type: function_py
+category: utils
+author:
+  name: Axel Thevenot
+  url: https://www.linkedin.com/in/axel-thevenot/
+  avatar_url: "https://avatars.githubusercontent.com/u/39374103?v=4"
+description: |
+  Runs a dynamic Python function from the provided Python code and keyword arguments.
+
+  Returns a JSON response.
+
+  | Param  | Possible values  |
+  |---|---|
+  | `python_code` | Is a python function body. Must end with a `return` statement. Every native python code can be evaluated dynamically, native packages included. |
+  | `kwargs` | Is the `JSON` format of keyword arguments. Arguments will be accessible within the `python_code` |
+arguments:
+  - name: python_code
+    type: string
+  - name: kwargs
+    type: json
+output:
+  name: response
+  type: json
+examples:
+- description: "Check if a string is a palindrome"
+  arguments:
+    - "'return text_argument == text_argument[::-1]'"
+    - "to_json(struct('kayak' as text_argument))"
+  output: "{'true'}"
+  region: ALL
+- description: "Get random gaussian values"
+  arguments:
+    - |
+      '''
+        import random
+        return [random.gauss(mu=mu, sigma=sigma) for _ in range(n_sample)]
+      '''
+    - "to_json(struct(0 as mu, 1 as sigma, 5 as n_sample))"
+  output: "[1.120809028540805,0.6629343544554075,1.390360310063392,-0.056805423512731164,-0.4276911667751115]"
+  region: ALL
+code: |
+  # reindent
+  python_code = f'\n{python_code}'
+  min_indent = min((len(line) - len(line.lstrip()) for line in python_code.split('\n') if line.strip()))
+  python_code = '\n    '.join((line[min_indent:] for line in python_code.split('\n')))
+
+  def create_dynamic_function(python_code, kwargs):
+      args = ', '.join(kwargs.keys())
+      function_str = f'def dynamic_function({args}):\n{python_code}'
+      exec(function_str, globals())
+      return eval("dynamic_function")
+
+  dynamic_function = create_dynamic_function(python_code, kwargs)
+  return dynamic_function(**kwargs)
+quotas:
+  max_rows_per_user_per_day: 100
+  max_rows_per_query: 10
