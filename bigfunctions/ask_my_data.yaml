@@ -7,7 +7,7 @@ author:
 description: |
   Ask your data!
 
-  Ask your data any `question` in natural language. This function will transform your question into a SQL query and then try to execute it over your data.
+  Ask your data any `question` in natural language. It will be transformed into a SQL query then executed over your data.
 
   > This function will call `ask_bison` BigFunction which uses Bison, one of Google Generative AI language model to transform your `natural_language_query` into a SQL query.
   >
@@ -93,7 +93,13 @@ code: |
 
   if i_am_lucky
   then
-    execute immediate '''
-      create or replace temp table bigfunction_result as
-      ''' || (select generated_sql from bigfunction_result);
+    begin
+      execute immediate '''
+        a
+        create or replace temp table bigfunction_result as
+        ''' || (select generated_sql from bigfunction_result);
+
+    exception when error then
+      error('FAILED to execute generated query. To see it run `select * from bigfunction_result`')
+    end;
   end if;
