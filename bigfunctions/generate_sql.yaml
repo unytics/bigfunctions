@@ -7,7 +7,7 @@ author:
 description: |
   Transform `natural_language_query` to `sql_query`
 
-  > This function will call `ask_bison` BigFunction  after enrinching the question with the schema of `fully_qualified_table` in order to generate a SQL query adapted to your data.
+  > This function will call `ask_bison` BigFunction after enriching the `question` with the schema of `fully_qualified_table`. This way, the generated SQL query will be adapted to your data.
 
   | Param  | Description  |
   |---|---|
