@@ -7,7 +7,7 @@ author:
 description: |
   Transform `question` to a SQL query.
 
-  >  This function sends the following enriched question to [`ask_bison`](#ask_bison):
+  >  This function sends the following enriched question to [`ask_bison`](#ask_bison) (*the schema of `fully_qualified_table` is sent so that the generated SQL query is adapted to your data*):
   >
   >  ```
   >  Question: {{question}}
@@ -15,8 +15,6 @@ description: |
   >  Columns:  {{columns of fully_qualified_table}}
   >  Answer:   bigquery sql query
   >  ```
-  >
-  >  The schema of `fully_qualified_table` is sent so that the generated SQL query is adapted to your data.
 
   | Param  | Description  |
   |---|---|
