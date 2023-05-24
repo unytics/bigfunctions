@@ -7,7 +7,7 @@ author:
 description: |
   Ask your data any `question` in natural language.
 
-  > This function calls  `generate_sql` BigFunction to convert the `question` into a SQL query adapted to your data and then try to execute it.
+  > This function calls  [`generate_sql`](#generate_sql) BigFunction to convert the `question` into a SQL query adapted to your data and then try to execute it.
   > *If the execution fails, `bigfunction_result` temporary table will contain some details.*
 
   | Param                   | Description  |
@@ -41,5 +41,5 @@ code: |
       ''' || (select generated_sql from bigfunction_result);
 
   exception when error then
-    select error('FAILED to execute generated query. To see it run `select * from bigfunction_result`');
+    select error('FAILED to execute generated query. Get details by running `select * from bigfunction_result`');
   end;
