@@ -10,7 +10,7 @@ description: |
   >  This function sends the following enriched question to `ask_bison` BigFunction:
   >
   >  ```
-  >  Question: {{question}}
+  >  Question: {{natural_language_query}}
   >  Table:    {{fully_qualified_table}}
   >  Columns:  {{columns of fully_qualified_table}}
   >  Answer:   bigquery sql query
@@ -23,7 +23,7 @@ description: |
   | `natural_language_query`  | A question to ask over your data. It may start with a verb |
   | `fully_qualified_table`  | A table whose schema will be given to the generative AI model for context.<br> - `fully_qualified_table` format must be like `PROJECT.DATASET.TABLE`.<br>  - `fully_qualified_table` must exist in the project you use for making queries.<br>  - You must have read permission on the table schema  |
 arguments:
-  - name: question
+  - name: natural_language_query
     type: string
   - name: fully_qualified_table
     type: string
@@ -55,7 +55,7 @@ code: |
 
     question as (
       select """
-        Question: {{question}}
+        Question: {{natural_language_query}}
         Table: `{{fully_qualified_table}}`
         Columns: """ || cols || """
         Answer: bigquery sql query
@@ -88,7 +88,7 @@ code: |
     ''',
 
     to_json_string(struct(
-        regexp_replace(question, r'\n\s*', ' ') as question,
+        regexp_replace(natural_language_query, r'\n\s*', ' ') as natural_language_query,
         fully_qualified_table as fully_qualified_table
     ))
   );
