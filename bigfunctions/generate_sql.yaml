@@ -30,7 +30,7 @@ arguments:
 examples:
   - description: ""
     arguments:
-      - "'get the 10 articles which generated the most revenue in 2023'"
+      - "'get the 3 articles which generated the most revenue in 2023'"
       - "'{BIGFUNCTIONS_DATASET}.sales'"
     output: |
       +---------------+-------------------+-------------------------+
