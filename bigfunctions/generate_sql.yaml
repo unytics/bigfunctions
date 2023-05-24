@@ -5,7 +5,7 @@ author:
   url: https://www.linkedin.com/in/paul-marcombes
   avatar_url: "https://lh3.googleusercontent.com/a-/ACB-R5RDf2yxcw1p_IYLCKmiUIScreatDdhG8B83om6Ohw=s260"
 description: |
-  Transform `natural_language_query` to `sql_query`
+  Transform `natural_language_query` to a SQL query.
 
   >  This function sends the following enriched question to `ask_bison` BigFunction:
   >
