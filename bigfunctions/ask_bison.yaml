@@ -30,7 +30,7 @@ examples:
       - |
 
         '''
-        Question: get the 10 articles which generated the most revenue in 2023
+        Question: get the 10 products which generated the most revenue in 2023
         Table: sales
         Columns: product_id, price, quantity, timestamp
         Answer: bigquery sql query
