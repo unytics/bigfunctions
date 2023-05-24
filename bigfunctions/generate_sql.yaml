@@ -11,9 +11,9 @@ description: |
   >
   >  ```
   >  Question: {{question}}
-  >  Table: `{{fully_qualified_table}}`
-  >  Columns: """ {{columns of fully_qualified_table}} """
-  >  Answer: bigquery sql query
+  >  Table:    {{fully_qualified_table}}
+  >  Columns:  {{columns of fully_qualified_table}}
+  >  Answer:   bigquery sql query
   >  ```
   >
   >  As you can see, the schema of `fully_qualified_table` is sent as context of the question so that the generated SQL query is adapted to your data.
