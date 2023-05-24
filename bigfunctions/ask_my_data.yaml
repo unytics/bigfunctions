@@ -25,13 +25,13 @@ examples:
       - "'get the 3 products which generated the most revenue in 2023'"
       - "'{BIGFUNCTIONS_DATASET}.sales'"
     output: |
-    +------------+---------+
-    | product_id | revenue |
-    +------------+---------+
-    + 8          + 50286   |
-    + 6          + 46172   |
-    + 10         + 27972   |
-    +------------+---------+
+      +------------+---------+
+      | product_id | revenue |
+      +------------+---------+
+      + 8          + 50286   |
+      + 6          + 46172   |
+      + 10         + 27972   |
+      +------------+---------+
 code: |
   call {BIGFUNCTIONS_DATASET}.generate_sql(question, fully_qualified_table);
 
