@@ -23,6 +23,7 @@ examples:
     arguments:
       - "'get the 10 articles which generated the most revenue in 2023'"
       - "'{BIGFUNCTIONS_DATASET}.sales'"
+    output: "result"
 code: |
   assert array_length(split(fully_qualified_table, '.')) = 3 as 'BAD ARGUMENT FORMAT: `fully_qualified_table` argument must follow the pattern `PROJECT.DATASET.TABLE`';
 
