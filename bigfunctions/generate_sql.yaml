@@ -7,8 +7,9 @@ author:
 description: |
   Transform `natural_language_query` to `sql_query`
 
-  > - This function will call `ask_bison` BigFunction which uses Bison, one of Google Generative AI language model to transform your `natural_language_query` into a SQL query.
-  > - It will add the schema of `fully_qualified_table` as context for Bison to generate a SQL query adapted to your data.
+  > This function will call `ask_bison` BigFunction which uses Bison, one of Google Generative AI language model to transform your `natural_language_query` into a SQL query.
+  >
+  > It will give to Bison the schema of `fully_qualified_table` in order to generate a SQL query adapted to your data.
 
   | Param  | Description  |
   |---|---|
@@ -50,7 +51,7 @@ code: |
         Table: `{{fully_qualified_table}}`
         Columns: """ || cols || """
         Answer: bigquery sql query
-      """ as question,
+      """ as question
       from columns
       where if(cols is not null, true, error('ERROR: Could not find table `{{table}}` in dataset `{{dataset}}`'))
     ),
@@ -79,7 +80,7 @@ code: |
     ''',
 
     to_json_string(struct(
-        question as question,
+        regexp_replace(question, r'\n\s*', ' ') as question,
         fully_qualified_table as fully_qualified_table
     ))
   );
