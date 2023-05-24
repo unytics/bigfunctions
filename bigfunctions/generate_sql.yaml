@@ -16,7 +16,7 @@ description: |
   >  Answer:   bigquery sql query
   >  ```
   >
-  >  As you can see, the schema of `fully_qualified_table` is sent as context of the question so that the generated SQL query is adapted to your data.
+  >  As you can see, the schema of `fully_qualified_table` is sent for context so that the generated SQL query is adapted to your data.
 
   | Param  | Description  |
   |---|---|
@@ -32,7 +32,7 @@ examples:
     arguments:
       - "'get the 10 articles which generated the most revenue in 2023'"
       - "'{BIGFUNCTIONS_DATASET}.sales'"
-    output: "result"
+    output: ""
 code: |
   assert array_length(split(fully_qualified_table, '.')) = 3 as 'BAD ARGUMENT FORMAT: `fully_qualified_table` argument must follow the pattern `PROJECT.DATASET.TABLE`';
 
