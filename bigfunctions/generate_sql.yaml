@@ -16,7 +16,7 @@ description: |
   >  Answer:   bigquery sql query
   >  ```
   >
-  >  As you can see, the schema of `fully_qualified_table` is sent for context so that the generated SQL query is adapted to your data.
+  >  The schema of `fully_qualified_table` is sent for context so that the generated SQL query is adapted to your data.
 
   | Param  | Description  |
   |---|---|
