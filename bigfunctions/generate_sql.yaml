@@ -7,7 +7,7 @@ author:
 description: |
   Transform `natural_language_query` to a SQL query.
 
-  >  This function sends the following enriched question to [`ask_bison` BigFunction](#ask_bison):
+  >  This function sends the following enriched question to [`ask_bison`](#ask_bison) BigFunction:
   >
   >  ```
   >  Question: {{natural_language_query}}
