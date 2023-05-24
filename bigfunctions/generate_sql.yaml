@@ -1,0 +1,85 @@
+type: procedure
+category: AI
+author:
+  name: Paul Marcombes
+  url: https://www.linkedin.com/in/paul-marcombes
+  avatar_url: "https://lh3.googleusercontent.com/a-/ACB-R5RDf2yxcw1p_IYLCKmiUIScreatDdhG8B83om6Ohw=s260"
+description: |
+  Transform `natural_language_query` to `sql_query`
+
+  > - This function will call `ask_bison` BigFunction which uses Bison, one of Google Generative AI language model to transform your `natural_language_query` into a SQL query.
+  > - It will add the schema of `fully_qualified_table` as context for Bison to generate a SQL query adapted to your data.
+
+  | Param  | Description  |
+  |---|---|
+  | `natural_language_query`  | A question to ask over your data. It may start with a verb |
+  | `fully_qualified_table`  | A table whose schema will be given to the generative AI model for context.<br> - `fully_qualified_table` format must be like `PROJECT.DATASET.TABLE`.<br>  - `fully_qualified_table` must exist in the project you use for making queries.<br>  - You must have read permission on the table schema  |
+arguments:
+  - name: question
+    type: string
+  - name: fully_qualified_table
+    type: string
+examples:
+  - description: ""
+    arguments:
+      - "'get the 10 articles which generated the most revenue in 2023'"
+      - "'{BIGFUNCTIONS_DATASET}.sales'"
+code: |
+  assert array_length(split(fully_qualified_table, '.')) = 3 as 'BAD ARGUMENT FORMAT: `fully_qualified_table` argument must follow the pattern `PROJECT.DATASET.TABLE`';
+
+  execute immediate {BIGFUNCTIONS_DATASET}.render_string(
+    r'''
+    {%- set fully_qualified_table = fully_qualified_table.replace('`', '') -%}
+    {%- set table_parts = fully_qualified_table.split('.') -%}
+    {%- set dataset = table_parts[0] + '.' + table_parts[1] -%}
+    {%- set table = table_parts[2] -%}
+
+    create or replace temp table bigfunction_result as
+
+    with
+
+    columns as (
+      select array_to_string(array_agg(column_name), ', ') as cols
+      from `{{dataset}}.INFORMATION_SCHEMA.COLUMNS`
+      where table_name = '{{table}}'
+    ),
+
+    question as (
+      select """
+        Question: {{question}}
+        Table: `{{fully_qualified_table}}`
+        Columns: """ || cols || """
+        Answer: bigquery sql query
+      """ as question,
+      from columns
+      where if(cols is not null, true, error('ERROR: Could not find table `{{table}}` in dataset `{{dataset}}`'))
+    ),
+
+    answer as (
+      select {BIGFUNCTIONS_DATASET}.ask_bison(question.question) as raw_answer_before_clean
+      from question
+    ),
+
+    cleaned_answer as (
+      select
+          regexp_replace(regexp_replace(regexp_replace(
+            answer.raw_answer_before_clean
+            , '^```sql\n', '')
+            , '^```\n', '')
+            , '\n```$', '')
+          as generated_sql
+      from answer
+    )
+
+    select
+      cleaned_answer.generated_sql,
+      question.question,
+      answer.raw_answer_before_clean,
+    from cleaned_answer, question, answer
+    ''',
+
+    to_json_string(struct(
+        question as question,
+        fully_qualified_table as fully_qualified_table
+    ))
+  );
