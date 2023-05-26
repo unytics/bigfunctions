@@ -1,0 +1,147 @@
+type: function_py
+category: utils
+author:
+  name: Paul Marcombes
+  url: https://www.linkedin.com/in/paul-marcombes
+  avatar_url: "https://lh3.googleusercontent.com/a-/ACB-R5RDf2yxcw1p_IYLCKmiUIScreatDdhG8B83om6Ohw=s260"
+description: |
+  Run `python_code`
+  and return the evaluation of the latest line as `result`.
+  This `result` must be a string.
+
+  > **How it works**: The provided `python_code` will run in pyodide:
+  > a python distribution which runs in a chrome headless browser embedded in cloud run.
+  > This simplifies the implementation of:
+  > - isolation between function calls,
+  > - installation of python packages,
+  > - isolation from the internet.
+  >
+  > For every function call:
+  > - we init a new browser context,
+  > - download pyodide,
+  > - detect python packages to install from `import` commands
+  > - install them
+  > - import them
+  > - run the code.
+  >
+  > **Limitations**:
+  > - This workflow makes it quite slow.
+  > - For sandboxing reasons, we only accept the installation of some whitelisted python packages.
+  > - For sandboxing reasons, your python code cannot access to the internet
+  > - Errors in code are not well returned
+  >
+  > ⚠️ **WARNING**: Due to these limitations, the function is for experimental use only.
+  > You would rather deploy a native python function with your needed code.
+
+  **Accepted python packages to install** are: `pandas`, `numpy`, `scipy`, `scikit-learn`, `xgboost`, `statsmodels`, `nltk`, `snowballstemmer`, `toolz`, `python-dateutil`.<br>
+  If you need other packages, feel free to ask by [opening an issue on GitHub](https://github.com/unytics/bigfunctions/issues/new?assignees=&labels=bug-bigfunction&projects=&template=1_bug_bigfunction.yaml&title=%5Bbug%5D%3A+%60function_name%60%3A+it+does+not+work).
+arguments:
+  - name: python_code
+    type: string
+output:
+  name: result
+  type: string
+examples:
+  - description: "Basic Example (beware that last `python_code` line must be a string)"
+    arguments:
+      - |
+
+        '''
+        str(sum(range(10)))
+        '''
+    output: '45'
+  - description: "Some non extenal packages such as `pandas` can be used. See above for a list."
+    arguments:
+      - |
+
+        '''
+        import pandas as pd
+        str(pd.Series(range(10)).sum())
+        '''
+    output: '45'
+  - description: "Replace words by their [stems](https://en.wikipedia.org/wiki/Word_stem)"
+    arguments:
+      - |
+
+        '''
+        import json
+        import snowballstemmer
+        stemmer = snowballstemmer.stemmer('english')
+        stems = stemmer.stemWords('go goes going gone'.split())
+        ' '.join(stems)
+        '''
+    output: 'go goe go gone'
+code: |
+  import tempfile
+
+  WHITELISTED_PACKAGES = {
+      'pandas': '',
+      'numpy': '',
+      'scipy': '',
+      'scikit-learn': 'sklearn',
+      'xgboost': '',
+      'statsmodels': '',
+      'nltk': '',
+      'snowballstemmer': '',
+      'toolz': '',
+      'python-dateutil': 'dateutil',
+  }
+
+  def create_browser_context():
+      if 'browser' not in CACHE:
+          from playwright.sync_api import sync_playwright
+          CACHE['playwright'] = sync_playwright().start()
+          CACHE['browser'] = CACHE['playwright'].chromium.launch()
+      return CACHE['browser'].new_context()
+
+  def init_python(page):
+      with tempfile.TemporaryDirectory() as folder:
+          filename = f'{folder}/index.html'
+          open(filename, 'w', encoding='utf-8').write(
+              '<html><head><script src="https://cdn.jsdelivr.net/pyodide/v0.23.2/full/pyodide.js"></script></head><body></body></html>'
+          )
+          page.goto(f'file:///{filename}')
+          page.evaluate('async () => { window.pyodide = await loadPyodide(); }')
+
+  def install_python_packages(page, python_code):
+      packages_to_install = ', '.join([
+          f"'{k}'"
+          for k, v in WHITELISTED_PACKAGES.items()
+          if (v or k) in python_code
+      ])
+      if not packages_to_install:
+          return
+      page.evaluate(f'''async () => {{
+          await pyodide.loadPackage("micropip");
+          const micropip = pyodide.pyimport("micropip");
+          await micropip.install([{packages_to_install}]);
+      }}''')
+
+  def run_python_code(page, python_code):
+      return page.evaluate(f'''async () => {{
+          return pyodide.runPython(`
+  {python_code}
+          `);
+      }}''')
+
+
+  browser_context = create_browser_context()
+  page = browser_context.new_page()
+  init_python(page)
+  install_python_packages(page, python_code)
+  browser_context.set_offline(offline=True)
+  result = run_python_code(page, python_code)
+  browser_context.close()
+  return result
+requirements: |
+  playwright
+additional_install_commands_in_dockerfile: |
+  ENV PLAYWRIGHT_BROWSERS_PATH=/opt/
+  RUN playwright install --with-deps chromium
+cloud_run:
+  memory: 1024Mi
+  concurrency: 1
+  max_instances: 1
+quotas:
+  max_rows_per_user_per_day: 20
+  max_rows_per_query: 1
