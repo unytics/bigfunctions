@@ -9,29 +9,32 @@ description: |
   and return the evaluation of the latest line as `result`.
   This `result` must be a string.
 
-  > **How it works**: The provided `python_code` will run in pyodide:
-  > a python distribution which runs in a chrome headless browser embedded in cloud run.
-  > This simplifies the implementation of:
-  > - isolation between function calls,
-  > - installation of python packages,
-  > - isolation from the internet.
-  >
-  > For every function call:
-  > - we init a new browser context,
-  > - download pyodide,
-  > - detect python packages to install from `import` commands
-  > - install them
-  > - import them
-  > - run the code.
-  >
-  > **Limitations**:
-  > - This workflow makes it quite slow.
-  > - For sandboxing reasons, we only accept the installation of some whitelisted python packages.
-  > - For sandboxing reasons, your python code cannot access to the internet
-  > - Errors in code are not well returned
-  >
-  > ⚠️ **WARNING**: Due to these limitations, the function is for experimental use only.
-  > You would rather deploy a native python function with your needed code.
+  **How it works**: The provided `python_code` will run in pyodide:
+  a python distribution which runs in a chrome headless browser embedded in cloud run.
+
+  This simplifies the implementation of:
+
+  - isolation between function calls,
+  - installation of python packages,
+  - isolation from the internet.
+
+  For every function call:
+
+  - we init a new browser context,
+  - download pyodide,
+  - detect python packages to install from `import` commands
+  - install them
+  - import them
+  - run the code.
+
+  **Limitations**:
+  - This workflow makes it quite slow.
+  - For sandboxing reasons, we only accept the installation of some whitelisted python packages.
+  - For sandboxing reasons, your python code cannot access to the internet
+  - Errors in code are not well returned
+
+  ⚠️ **WARNING**: Due to these limitations, the function is for experimental use only.
+  You would rather deploy a native python function with your needed code.
 
   **Accepted python packages to install** are: `pandas`, `numpy`, `scipy`, `scikit-learn`, `xgboost`, `statsmodels`, `nltk`, `snowballstemmer`, `toolz`, `python-dateutil`.<br>
   If you need other packages, feel free to ask by [opening an issue on GitHub](https://github.com/unytics/bigfunctions/issues/new?assignees=&labels=bug-bigfunction&projects=&template=1_bug_bigfunction.yaml&title=%5Bbug%5D%3A+%60function_name%60%3A+it+does+not+work).
