@@ -32,7 +32,6 @@ description: |
   > - This workflow makes it quite slow.
   > - For sandboxing reasons, we only accept the installation of some whitelisted python packages.
   > - For sandboxing reasons, your python code cannot access to the internet
-  > - Errors in code are not well returned
 
   ⚠️ **WARNING**: Due to these limitations, the function is for experimental use only.
   You would rather deploy a native python function with your needed code.
@@ -122,12 +121,16 @@ code: |
       }}''')
 
   def run_python_code(page, python_code):
-      return page.evaluate(f'''async () => {{
-          return pyodide.runPython(`
+      try:
+          return page.evaluate(f'''async () => {{
+              return pyodide.runPython(`
   {python_code}
-          `);
-      }}''')
-
+              `);
+          }}''')
+      except Exception as e:
+          error_message = str(e)
+          error_message = error_message[:error_message.find('at new_error (https://cdn.jsdelivr.net')]
+          raise ValueError(error_message)
 
   browser_context = create_browser_context()
   page = browser_context.new_page()
