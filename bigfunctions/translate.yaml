@@ -1,0 +1,37 @@
+type: function_py
+category: get_data
+author:
+  name: Flo
+  url: https://www.linkedin.com/in/floriancaringi/
+  avatar_url: "https://media.licdn.com/dms/image/C4E03AQEqaXnz54RMEQ/profile-displayphoto-shrink_200_200/0/1656328804271?e=1690416000&v=beta&t=Rxn-dJzwD5whmrPlVYCwNFxiPOmMRPeV7WY9i0xCAbc"
+description: Translate text in to target_language 
+arguments:
+  - name: text 
+    type: string
+  - name: target_language
+    type: string
+output:
+  name: translated_text
+  type: string
+examples:
+  - description: "Without headers"
+    arguments:
+      - "'https://unytics.io/bigfunctions'"
+      - "null"
+    output: "&lt;html>...&lt;/html>"
+    region: ALL
+  - description: "With Content-Type = application/json headers"
+    arguments:
+      - "'https://api.github.com/repos/unytics/bigfunctions'"
+      - "'{\"Content-Type\": \"application/json\"}'"
+    output: "{...}"
+    region: ALL
+code: |
+  from google.cloud import translate_v2 as translate
+  translator = translate.Client()
+  result = translator.translate(text, target_language=target_language)
+  return result["translatedText"]
+requirements: |
+  google-cloud-translate
+quotas:
+  max_rows_per_query: 10
