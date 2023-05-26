@@ -16,13 +16,13 @@ output:
 examples:
   - description: ""
     arguments:
-      - '"Bonjour Florian, j\'adore ta fonction"'
+      - '"Salut 👋 Florian. Merci d''avoir contribué !"'
       - "'en'"
-    output: "Hello Florian, I love your function"
+    output: "Hello 👋 Florian. Thanks for contributing!"
 code: |
   from google.cloud import translate_v2 as translate
   translator = translate.Client()
-  result = translator.translate(text, target_language=target_language)
+  result = translator.translate(text, target_language=target_language, format_="text")
   return result["translatedText"]
 requirements: |
   google-cloud-translate
