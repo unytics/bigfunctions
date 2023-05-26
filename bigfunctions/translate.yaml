@@ -16,7 +16,7 @@ output:
 examples:
   - description: ""
     arguments:
-      - "'Bonjour Florian, j'adore ta fonction'"
+      - '"Bonjour Florian, j\'adore ta fonction"'
       - "'en'"
     output: "Hello Florian, I love your function"
 code: |
