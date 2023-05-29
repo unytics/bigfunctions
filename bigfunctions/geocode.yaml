@@ -43,5 +43,5 @@ code: |
 requirements: |
   googlemaps
 quotas:
-  max_rows_per_user_per_day: 100
   max_rows_per_query: 10
+  max_rows_per_user_per_day: 100
