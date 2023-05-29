@@ -14,10 +14,21 @@ error_reporter = google.cloud.error_reporting.Client()
 app = Flask(__name__)
 
 
+CACHE = {}
+
+
 _, PROJECT = google.auth.default()
 
 
-CACHE = {}
+def get_current_service_account():
+    if 'current_service_account' not in CACHE:
+        import urllib.request
+        url = 'http://metadata.google.internal/computeMetadata/v1/instance/service-accounts/default/email'
+        req = urllib.request.Request(url)
+        req.add_header('Metadata-Flavor', 'Google')
+        with urllib.request.urlopen(req) as f:
+            CACHE['current_service_account'] = f.read().decode('utf-8')
+    return CACHE['current_service_account']
 
 
 class QuotaException(Exception):
@@ -134,8 +145,9 @@ def handle():
         rows = data['calls']
         user = data['sessionUser']
         store = Store(data)
-        user_stats = store.get_user_stats()
-        check_quotas(user, user_stats, len(rows))
+        if user not in [{{ quotas.admin_users }}]:
+            user_stats = store.get_user_stats()
+            check_quotas(user, user_stats, len(rows))
         store.save_log()
 
         replies = [compute(row) for row in rows]
@@ -161,6 +173,6 @@ def handle():
         return jsonify({'errorMessage': error_message}), 400
     except Exception as e:
         error_reporter.report_exception(google.cloud.error_reporting.build_flask_context(request))
-        error_message = (str(e) + ' --- ' + traceback.format_exc())[:1500]
+        error_message = (str(e) + ' --- ' + traceback.format_exc())[:1000]
         store.save_log(status='error', status_info=error_message)
         return jsonify({'errorMessage': str(e)}), 400
