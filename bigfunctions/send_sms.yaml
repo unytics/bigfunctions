@@ -1,0 +1,47 @@
+type: function_py
+category: notify
+author:
+  name: Pascal Castéran
+  url: https://www.linkedin.com/in//
+  avatar_url: "https://media.licdn.com/dms/image/D4D03AQERv0qwECH0DA/profile-displayphoto-shrink_200_200/0/1675233460732?e=1686182400&v=beta&t=HqngiSx5zd4llZStwf3L0k2T_pE8qvnEj7NguWNJTOo"
+description: |
+    Sends `message` via SMS
+
+arguments:
+  - name: text
+    type: string
+  - name: to
+    type: string
+output:
+  name: response
+  type: string
+examples:
+  - description: ""
+    arguments:
+      - '"Hello 👋 from bigfunctions!"'
+      - '"YOUR_WEBHOOK_URL"'
+    output: |
+      {
+        "name": ...,
+        "sender": ...,
+        "createTime": ...,
+        "text": "Hello 👋 from bigfunctions!"
+      }
+    region: ALL
+code: |
+  import requests
+  credentials = secrets.get('twilio_credentials')
+  user, token = credentials.split(':')
+  url = f"https://api.twilio.com/2010-04-01/Accounts/{user}/Messages.json"
+  data={
+      'From': 'BigFunction',
+      'Body': text,
+      'To': to,
+  }
+  resp = requests.post(url, data=data, auth=(user, token))
+  assert resp.ok, 'ERROR in sending Text message: ' + resp.text
+  return resp.text
+requirements: |
+  requests
+quotas:
+  max_rows_per_query: 10
