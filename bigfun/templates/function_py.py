@@ -52,13 +52,14 @@ class SimpleQuotaManager:
         }
 
     def save_log(self, **kwargs):
+        duration = 1000 * (time.time() - self.created_time)
         print(json.dumps({
             **self.message,
             **kwargs,
             **{
                 'message': f"{self.message['status'].upper()}: {{ name }} from {self.user} with {self.row_count} rows (elasped {duration} ms)",
                 'severity': 'INFO',
-                'elapsed_ms': 1000 * (time.time() - self.created_time),
+                'elapsed_ms': duration,
             }
         }))
 
