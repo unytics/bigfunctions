@@ -14,29 +14,29 @@ description: |
 
   ??? info
 
-    **How it works**: The provided `python_code` will run in [pyodide](https://pyodide.org/):
-    a python distribution which runs in a chrome headless browser.
+      **How it works**: The provided `python_code` will run in [pyodide](https://pyodide.org/):
+      a python distribution which runs in a chrome headless browser.
 
-    This simplifies the implementation of:
+      This simplifies the implementation of:
 
-    - isolation between function calls,
-    - installation of python packages,
-    - isolation from the internet.
+      - isolation between function calls,
+      - installation of python packages,
+      - isolation from the internet.
 
-    For every function call:
+      For every function call:
 
-    - we init a new browser context,
-    - download pyodide,
-    - detect python packages to install from `import` commands
-    - install them
-    - import them
-    - run the code.
+      - we init a new browser context,
+      - download pyodide,
+      - detect python packages to install from `import` commands
+      - install them
+      - import them
+      - run the code.
 
-    **Limitations**:
+      **Limitations**:
 
-    - This workflow makes it quite slow.
-    - For sandboxing reasons, we only accept the installation of some whitelisted python packages.
-    - For sandboxing reasons, your python code cannot access to the internet
+      - This workflow makes it quite slow.
+      - For sandboxing reasons, we only accept the installation of some whitelisted python packages.
+      - For sandboxing reasons, your python code cannot access to the internet
 
 arguments:
   - name: python_code
