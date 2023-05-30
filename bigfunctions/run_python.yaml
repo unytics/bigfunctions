@@ -6,41 +6,45 @@ author:
   avatar_url: "https://lh3.googleusercontent.com/a-/ACB-R5RDf2yxcw1p_IYLCKmiUIScreatDdhG8B83om6Ohw=s260"
 description: |
   Run `python_code`
-  and return the evaluation of the latest line as `result`.
-  This `result` must be a string.
+  and return the `result` of the last line.
 
-  > **How it works**: The provided `python_code` will run in [pyodide](https://pyodide.org/):
-  > a python distribution which runs in a chrome headless browser.
-  >
-  > This simplifies the implementation of:
-  >
-  > - isolation between function calls,
-  > - installation of python packages,
-  > - isolation from the internet.
-  >
-  > For every function call:
-  >
-  > - we init a new browser context,
-  > - download pyodide,
-  > - detect python packages to install from `import` commands
-  > - install them
-  > - import them
-  > - run the code.
-  >
-  > **Limitations**:
-  >
-  > - This workflow makes it quite slow.
-  > - For sandboxing reasons, we only accept the installation of some whitelisted python packages.
-  > - For sandboxing reasons, your python code cannot access to the internet
+  ⚠️ **WARNING**: For sandboxing reasons, this function is rather slow
+  (a new python environement is created for each query).
+  so you should use it for experimental use only.
 
-  ⚠️ **WARNING**: Due to these limitations, the function is for experimental use only.
-  You would rather deploy a native python function with your needed code.
+  ??? info
 
-  **Accepted python packages to install**: `pandas`, `numpy`, `scipy`, `scikit-learn`, `xgboost`, `statsmodels`, `nltk`, `snowballstemmer`, `toolz`, `python-dateutil`.<br>
-  If you need other packages, feel free to ask by [opening an issue on GitHub](https://github.com/unytics/bigfunctions/issues/new?assignees=&labels=bug-bigfunction&projects=&template=1_bug_bigfunction.yaml&title=%5Bbug%5D%3A+%60function_name%60%3A+it+does+not+work).
+    **How it works**: The provided `python_code` will run in [pyodide](https://pyodide.org/):
+    a python distribution which runs in a chrome headless browser.
+
+    This simplifies the implementation of:
+
+    - isolation between function calls,
+    - installation of python packages,
+    - isolation from the internet.
+
+    For every function call:
+
+    - we init a new browser context,
+    - download pyodide,
+    - detect python packages to install from `import` commands
+    - install them
+    - import them
+    - run the code.
+
+    **Limitations**:
+
+    - This workflow makes it quite slow.
+    - For sandboxing reasons, we only accept the installation of some whitelisted python packages.
+    - For sandboxing reasons, your python code cannot access to the internet
+
 arguments:
   - name: python_code
     type: string
+  - name: requirements
+    type: string
+  - name: kwargs
+    type: json
 output:
   name: result
   type: string
@@ -76,19 +80,9 @@ examples:
     output: 'go goe go gone'
 code: |
   import tempfile
+  import re
 
-  WHITELISTED_PACKAGES = {
-      'pandas': '',
-      'numpy': '',
-      'scipy': '',
-      'scikit-learn': 'sklearn',
-      'xgboost': '',
-      'statsmodels': '',
-      'nltk': '',
-      'snowballstemmer': '',
-      'toolz': '',
-      'python-dateutil': 'dateutil',
-  }
+  PYODIDE_URL = 'https://cdn.jsdelivr.net/pyodide/v0.23.2/full/pyodide.js'
 
   def create_browser_context():
       if 'browser' not in CACHE:
@@ -100,31 +94,42 @@ code: |
   def init_python(page):
       with tempfile.TemporaryDirectory() as folder:
           filename = f'{folder}/index.html'
-          open(filename, 'w', encoding='utf-8').write(
-              '<html><head><script src="https://cdn.jsdelivr.net/pyodide/v0.23.2/full/pyodide.js"></script></head><body></body></html>'
-          )
+          html = f'<html><head><script src="{PYODIDE_URL}"></script></head><body></body></html>'
+          open(filename, 'w', encoding='utf-8').write(html)
           page.goto(f'file:///{filename}')
           page.evaluate('async () => { window.pyodide = await loadPyodide(); }')
 
-  def install_python_packages(page, python_code):
-      packages_to_install = ', '.join([
-          f"'{k}'"
-          for k, v in WHITELISTED_PACKAGES.items()
-          if (v or k) in python_code
-      ])
-      if not packages_to_install:
+  def install_python_packages(page, requirements):
+      requirements = (requirements or '').strip()
+      if not requirements:
           return
+      bad_requirements = re.findall(r'[^a-zA-Z\d\s=\.]', requirements)
+      assert not bad_requirements, 'Bad requirements format! Expecting requirements to be like `pandas nltk==3.8.1` (multiple requirements separated with space)'
+      requirements = [r.strip() for r in requirements.split(' ') if r.strip()]
       page.evaluate(f'''async () => {{
           await pyodide.loadPackage("micropip");
           const micropip = pyodide.pyimport("micropip");
-          await micropip.install([{packages_to_install}]);
+          await micropip.install({requirements});
       }}''')
 
-  def run_python_code(page, python_code):
+  def run_python_code(page, python_code, kwargs):
+      python_code = '\n' + python_code  # needed not to have unexpected indent error
+      if kwargs:
+          python_code = '\n'.join([line for line in python_code.split('\n') if line.strip()])
+          indent = len(python_code) - len(python_code.lstrip())
+          set_variables = (
+              ''.join([f'{k}, ' for k in kwargs.keys()]) +
+              '= ' +
+              f'{list(kwargs.values())}'
+          )
+          python_code = f"{' ' * indent}{set_variables}\n{python_code}"
+          print('python_code', python_code.replace('\n', '\\n').replace(' ', '-'))
       try:
           return page.evaluate(f'''async () => {{
               return pyodide.runPython(`
+
   {python_code}
+
               `);
           }}''')
       except Exception as e:
@@ -132,12 +137,15 @@ code: |
           error_message = error_message[:error_message.find('at new_error (https://cdn.jsdelivr.net')]
           raise ValueError(error_message)
 
+  if not (python_code or '').strip():
+      return
   browser_context = create_browser_context()
   page = browser_context.new_page()
+  page.on("console", lambda msg: print('CONSOLE', msg.text))
   init_python(page)
-  install_python_packages(page, python_code)
+  install_python_packages(page, requirements)
   browser_context.set_offline(offline=True)
-  result = run_python_code(page, python_code)
+  result = run_python_code(page, python_code, kwargs)
   browser_context.close()
   return result
 requirements: |
@@ -149,6 +157,7 @@ cloud_run:
   memory: 1024Mi
   concurrency: 1
   max_instances: 1
+  service_account: no-permission@bigfunctions.iam.gserviceaccount.com
 quotas:
-  max_rows_per_user_per_day: 20
+  max_rows_per_user_per_day: 10
   max_rows_per_query: 1
