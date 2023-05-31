@@ -1,4 +1,6 @@
 import os
+import multiprocessing
+import functools
 
 import yaml
 import click
@@ -29,7 +31,7 @@ def get_config_value(name):
         'default_datasets':    ("Default dataset(s) where to deploy bigfunctions (comma separated if many)", "eu,us,asia_east1,asia_east2,asia_northeast1,asia_northeast2,asia_northeast3,asia_south1,asia_southeast1,australia_southeast1,europe_north1,europe_west1,europe_west2,europe_west3,europe_west4,europe_west6,northamerica_northeast1,southamerica_east1,us_central1,us_east1,us_east4,us_west1,us_west2"),
         'quota_management_backend': ("Backend used for quota management (none or datastore)(if you choose datastore, additionnal intallation steps are required)(if you choose none: only `max_rows_per_query` quota will be checked)", 'none'),
         'quota_contact': ("Contact which appears when user receives a Quota Error", 'paul.marcombes@unytics.io'),
-        'max_cloud_run_requests_per_user_per_day': ("Maximum number of 'cloud run requests' a user can make a day while calling remote functions", 1000),
+        'quota_max_cloud_run_requests_per_user_per_day': ("Maximum number of 'cloud run requests' a user can make a day while calling remote functions", 1000),
     }[name]
     CONFIG[name] = click.prompt(text, default=default)
     if name == 'default_datasets':
@@ -96,10 +98,14 @@ def deploy(bigfunction):
             ]
         }}
 
-    for dataset in datasets:
-        for name in names:
-            assert name in names, f'Could not find "{name}" in "{BIGFUNCTIONS_FOLDER}" folder'
-            deploy_bigfunction(f'{project}.{dataset}.{name}', quotas)
+    for name in names:
+        assert name in names, f'Could not find "{name}" in "{BIGFUNCTIONS_FOLDER}" folder'
+        dataset = datasets[0]
+        deploy_bigfunction(f'{project}.{dataset}.{name}', quotas)
+        if len(datasets) > 1:
+            deploy = functools.partial(deploy_bigfunction, quotas=quotas)
+            with multiprocessing.Pool(processes=8) as pool:
+                pool.map(deploy, [f'{project}.{dataset}.{name}' for dataset in datasets[1:]])
 
 
 @cli.command()
