@@ -164,6 +164,11 @@ class SecretManager:
 
 
 secrets = SecretManager()
+{% if secrets is defined %}
+{% for secret in secrets %}
+{{ secret.name }} = secrets.get('{{ secret.name }}')
+{% endfor %}
+{% endif %}
 
 
 def compute(args):
