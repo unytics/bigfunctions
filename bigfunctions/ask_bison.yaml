@@ -64,7 +64,7 @@ code: |
   if cached:
       return cached
 
-  if len(question) > 1000:
+  if len(question) > 4000:
       raise QuotaException(f'Your question contains {len(question)} characters but it is limited to 1000 characters for now.')
 
   vertexai.init(location=location)
