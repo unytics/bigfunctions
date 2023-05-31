@@ -473,7 +473,6 @@ code: |
 
   def send_mail(emails, subject, content, attachment):
       url = 'https://api.sendgrid.com/v3/mail/send'
-      sendgrid_api_key = secrets.get('sendgrid_api_key')
       headers = {
           'Authorization': f'Bearer {sendgrid_api_key}',
           'Content-Type': 'application/json',
@@ -500,5 +499,9 @@ requirements: |
   requests
   markdown
   css_inline
+secrets:
+  - name: sendgrid_api_key
+    description: "Sendgrid API Key"
+    documentation_link: https://docs.sendgrid.com/for-developers/sending-email/api-getting-started
 quotas:
   max_rows_per_query: 10
