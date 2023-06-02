@@ -7,7 +7,7 @@ author:
 description: |
   Upload `data` (a json array of objects) to a Google Sheet.
 
-  So that it works, you will need to share your Google Sheet in edit mode to `
+  > So that it works, share your Google Sheet in edit mode to `749389685934-compute@developer.gserviceaccount.com`
 arguments:
   - name: data
     type: json
@@ -16,7 +16,7 @@ arguments:
   - name: workbook_name
     type: string
 output:
-  name: info
+  name: result
   type: string
 examples:
   - description: ""
@@ -43,32 +43,24 @@ code: |
 
   try:
     sheet = client.open_by_url(spreadsheet_url)
+
+    workbooks = sheet.worksheets()
+    existing_workbooks = [wb for wb in workbooks if wb.title == workbook_name]
+    assert not existing_workbooks, "WORKBOOK_ALREADY_EXISTS"
+
+    df = pd.DataFrame(data)
+    row, col = df.shape
+    sheet.add_worksheet(workbook_name, row, col)
+    set_with_dataframe(sheet.worksheet(workbook_name), df)
+
   except APIError as e:
     error = e.args[0]['message']
     if 'caller does not have permission' in error:
       error += (
-        '\nPlease verify that you shared your Google Sheet in edit mode to `' +
+        '. Please verify that you shared your Google Sheet in edit mode to ' +
         f'`{get_current_service_account()}`'
       )
-    return "ERROR: " + error
-
-  df = pd.DataFrame(data)
-
-  workbook = None
-  workbooks = sheet.worksheets()
-  for wb in workbooks:
-    if wb.title == workbook_name:
-      workbook = wb
-      break
-  if workbook:
-    return "WORKBOOK_ALREADY_EXISTS"
-
-  try:
-    row, col = df.shape
-    sheet.add_worksheet(workbook_name, row, col)
-    set_with_dataframe(sheet.worksheet(workbook_name), df)
-  except Exception as e:
-    return "UNABLE_TO_UPLOAD_DATA"
+    assert False, "ERROR: " + error
 
   return "DATA_UPLOADED"
 requirements: |
