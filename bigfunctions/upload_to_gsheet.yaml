@@ -21,7 +21,7 @@ output:
 examples:
   - description: ""
     arguments:
-      - "'[{\"col1\": \"row1\", \"col2\": 1}, {\"col1\": \"row2\", \"col2\": 2}]'"
+      - "json '[{\"col1\": \"row1\", \"col2\": 1}, {\"col1\": \"row2\", \"col2\": 2}]'"
       - '"https://docs.google.com/spreadsheets/d/xxxxxxxxx"'
       - '"my sheet"'
     output: 'DATA_UPLOADED'
