@@ -19,8 +19,8 @@ output:
 examples:
   - description: ""
     arguments:
-      - "'2023-06-02'"
-      - "'3'"
+      - "date('2023-06-02')"
+      - "3"
     output: "2020-05-29"
 code: |
   (
