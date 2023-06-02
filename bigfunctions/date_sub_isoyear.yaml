@@ -7,7 +7,7 @@ author:
 description: |
   Subtracts `isoyear` from a `date` according to ISO dates standard.
 
-  Returns same day of same week from `date`, `isoyear`yeas before
+  Returns same day of same week from `date`, `isoyear` years before
 arguments:
   - name: date
     type: date
