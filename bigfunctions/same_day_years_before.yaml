@@ -1,0 +1,37 @@
+type: function_sql
+category: transform_date
+author:
+  name: Stephane KNOCKAERT
+  url: "https://www.linkedin.com/in/knockaertstephane/"
+  avatar_url: "https://media.licdn.com/dms/image/C4E03AQGAa5CX20cU5g/profile-displayphoto-shrink_200_200/0/1651827360843?e=1691020800&v=beta&t=0M3BkmD7Nc6EiGv7ZHtRQb6HFn-USSvkK_WSnSIAB6k"
+description: |
+  Returns same day `years` before
+  (same week number and same day of week)
+arguments:
+  - name: date
+    type: date
+  - name: years
+    type: int64
+output:
+  name: substracted_date
+  type: date
+examples:
+  - description: ""
+    arguments:
+      - "'2023-06-02'"
+      - "3"
+    output: "2020-05-29"
+code: |
+  (
+    select old_date,
+    from unnest(
+      generate_date_array(
+        date_sub(date, interval years year) - 7,
+        date_sub(date, interval years year) + 7,
+        interval 1 day
+      )
+    ) old_date
+    where
+      extract(isoweek from old_date) = extract(isoweek from date) and
+      extract(dayofweek from old_date) = extract(dayofweek from date)
+  )
