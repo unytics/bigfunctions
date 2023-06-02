@@ -5,29 +5,29 @@ author:
   url: "https://www.linkedin.com/in/farida-sadoun/"
   avatar_url: "https://media.licdn.com/dms/image/C4D03AQHJJCxdo82rrg/profile-displayphoto-shrink_200_200/0/1642020323982?e=1691020800&v=beta&t=B5FC6bqSd0128-WkwoTUGcldD6yKb_Zz0tMZ5M5sDHw"
 description: |
-  Get `translated_day_name`
+  Get `translated_weekday_name`
   in targeted `language`
 
-  Language has locale format such as `fr`, `fr_FR`, `fr_BE`, etc.
+  `language` has locale format such as `fr`, `fr_FR`, `fr_BE`, etc.
 arguments:
   - name: date
     type: date
   - name: language
     type: string
 output:
-  name: translated_day_name
+  name: translated_month_name
   type: string
 examples:
   - description: ""
     arguments:
-      - "'2023-06-02'"
-      - "'fr'"
-    output: "vendredi"
+      - "'2022-05-01'"
+      - "'es'"
+    output: "mayo"
 code: |
   (
-    select translated_day
-    from {BIGFUNCTIONS_DATASET}.translated_days
+    select translated_month
+    from {BIGFUNCTIONS_DATASET}.translated_months
     where
       lower(locale) = lower(language) and
-      day_nb = extract(dayofweek from from date)
+      month_nb = extract(month from date)
   )
