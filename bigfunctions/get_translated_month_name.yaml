@@ -5,17 +5,16 @@ author:
   url: "https://www.linkedin.com/in/farida-sadoun/"
   avatar_url: "https://media.licdn.com/dms/image/C4D03AQHJJCxdo82rrg/profile-displayphoto-shrink_200_200/0/1642020323982?e=1691020800&v=beta&t=B5FC6bqSd0128-WkwoTUGcldD6yKb_Zz0tMZ5M5sDHw"
 description: |
-  Get `translated_month_name`
-  in targeted `language`
+  Get `month` from `date` translated in `language`
 
-  Language has locale format such as `fr`, `fr_FR`, `fr_BE`, etc.
+  `language` has locale format such as `fr`, `fr_FR`, `fr_BE`, etc.
 arguments:
   - name: date
     type: date
   - name: language
     type: string
 output:
-  name: translated_month_name
+  name: month
   type: string
 examples:
   - description: ""
