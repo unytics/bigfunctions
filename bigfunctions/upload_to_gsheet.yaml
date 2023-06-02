@@ -1,15 +1,17 @@
 type: function_py
-category: transform_string
+category: export
 author:
   name: Shivam Singh
   url: https://www.linkedin.com/in/shivamsingh012/
   avatar_url: "https://media.licdn.com/dms/image/D4D03AQERv0qwECH0DA/profile-displayphoto-shrink_200_200/0/1675233460732?e=1686182400&v=beta&t=HqngiSx5zd4llZStwf3L0k2T_pE8qvnEj7NguWNJTOo"
 description: |
-  Hello
+  Upload `data` (a json array of objects) to a Google Sheet.
+
+  So that it works, you will need to share your Google Sheet in edit mode to `
 arguments:
-  - name: json_string
-    type: string
-  - name: sheet_url
+  - name: data
+    type: json
+  - name: spreadsheet_url
     type: string
   - name: workbook_name
     type: string
@@ -17,65 +19,61 @@ output:
   name: info
   type: string
 examples:
-  - description: "String with email in it."
+  - description: ""
     arguments:
-      - '"My email is shivam@google.co.in"'
-      - '"PHONE_NUMBER, EMAIL_ADDRESS"'
-    output: 'My email is [EMAIL_ADDRESS]'
-    region: ALL
+      - "'[{\"col1\": \"row1\", \"col2\": 1}, {\"col1\": \"row2\", \"col2\": 2}]'"
+      - '"https://docs.google.com/spreadsheets/d/xxxxxxxxx"'
+      - '"my sheet"'
+    output: 'DATA_UPLOADED'
 code: |
   import google.auth
   import gspread
-  import json
   import pandas as pd
   from gspread_dataframe import set_with_dataframe
-  from json.decoder import JSONDecodeError
   from gspread.exceptions import APIError
-  
+
+  assert spreadsheet_url.startswith('https://docs.google.com/spreadsheets/d/'), 'Invalid `spreadsheet_url`. It must start with `https://docs.google.com/spreadsheets/d/`'
+
   scopes = [
     "https://spreadsheets.google.com/feeds",
     "https://www.googleapis.com/auth/drive"
   ]
-  
-  credentials, project_id = google.auth.default(scopes=scopes)
+  credentials, _ = google.auth.default(scopes=scopes)
   client = gspread.authorize(credentials=credentials)
-  
+
   try:
-    data = json.loads(json_string)
-  except JSONDecodeError:
-    return "INVALID_JSON"
-  
-  try:
-    sheet = client.open_by_url(sheet_url)
-  except APIError:
-    return "SHEET_NOT_FOUND"
-  
+    sheet = client.open_by_url(spreadsheet_url)
+  except APIError as e:
+    error = e.args[0]['message']
+    if 'caller does not have permission' in error:
+      error += (
+        '\nPlease verify that you shared your Google Sheet in edit mode to `' +
+        f'`{get_current_service_account()}`'
+      )
+    return "ERROR: " + error
+
   df = pd.DataFrame(data)
-  
+
   workbook = None
   workbooks = sheet.worksheets()
   for wb in workbooks:
     if wb.title == workbook_name:
       workbook = wb
       break
-  
   if workbook:
     return "WORKBOOK_ALREADY_EXISTS"
-  
+
   try:
     row, col = df.shape
     sheet.add_worksheet(workbook_name, row, col)
     set_with_dataframe(sheet.worksheet(workbook_name), df)
   except Exception as e:
     return "UNABLE_TO_UPLOAD_DATA"
-  
-  return "DATA_SHARED"
 
+  return "DATA_UPLOADED"
 requirements: |
   gspread-dataframe
-  google-cloud
-  db-dtypes
   gspread
   pandas
 quotas:
-  max_rows_per_user_per_day: 10000
+  max_rows_per_query: 1
