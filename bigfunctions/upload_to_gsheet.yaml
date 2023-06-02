@@ -1,0 +1,81 @@
+type: function_py
+category: transform_string
+author:
+  name: Shivam Singh
+  url: https://www.linkedin.com/in/shivamsingh012/
+  avatar_url: "https://media.licdn.com/dms/image/D4D03AQERv0qwECH0DA/profile-displayphoto-shrink_200_200/0/1675233460732?e=1686182400&v=beta&t=HqngiSx5zd4llZStwf3L0k2T_pE8qvnEj7NguWNJTOo"
+description: |
+  Hello
+arguments:
+  - name: json_string
+    type: string
+  - name: sheet_url
+    type: string
+  - name: workbook_name
+    type: string
+output:
+  name: info
+  type: string
+examples:
+  - description: "String with email in it."
+    arguments:
+      - '"My email is shivam@google.co.in"'
+      - '"PHONE_NUMBER, EMAIL_ADDRESS"'
+    output: 'My email is [EMAIL_ADDRESS]'
+    region: ALL
+code: |
+  import google.auth
+  import gspread
+  import json
+  import pandas as pd
+  from gspread_dataframe import set_with_dataframe
+  from json.decoder import JSONDecodeError
+  from gspread.exceptions import APIError
+  
+  scopes = [
+    "https://spreadsheets.google.com/feeds",
+    "https://www.googleapis.com/auth/drive"
+  ]
+  
+  credentials, project_id = google.auth.default(scopes=scopes)
+  client = gspread.authorize(credentials=credentials)
+  
+  try:
+    data = json.loads(json_string)
+  except JSONDecodeError:
+    return "INVALID_JSON"
+  
+  try:
+    sheet = client.open_by_url(sheet_url)
+  except APIError:
+    return "SHEET_NOT_FOUND"
+  
+  df = pd.DataFrame(data)
+  
+  workbook = None
+  workbooks = sheet.worksheets()
+  for wb in workbooks:
+    if wb.title == workbook_name:
+      workbook = wb
+      break
+  
+  if workbook:
+    return "WORKBOOK_ALREADY_EXISTS"
+  
+  try:
+    row, col = df.shape
+    sheet.add_worksheet(workbook_name, row, col)
+    set_with_dataframe(sheet.worksheet(workbook_name), df)
+  except Exception as e:
+    return "UNABLE_TO_UPLOAD_DATA"
+  
+  return "DATA_SHARED"
+
+requirements: |
+  gspread-dataframe
+  google-cloud
+  db-dtypes
+  gspread
+  pandas
+quotas:
+  max_rows_per_user_per_day: 10000
