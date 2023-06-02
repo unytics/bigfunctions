@@ -23,15 +23,28 @@ examples:
     output: "2020-05-29"
 code: |
   (
-    select old_date,
-    from unnest(
-      generate_date_array(
-        date_sub(date, interval years year) - 7,
-        date_sub(date, interval years year) + 7,
-        interval 1 day
-      )
-    ) old_date
-    where
-      extract(isoweek from old_date) = extract(isoweek from date) and
-      extract(dayofweek from old_date) = extract(dayofweek from date)
+    with dates as (
+      select
+        date_sub(date, interval x year) dt,
+      from unnest(generate_array(1, years)) x
+    ),
+
+    weeks_to_remove as (
+      select
+        sum(
+          if(
+            extract(dayofweek from date_trunc(dt, year)) = 5
+            or (
+              extract(day from date_add(date(extract(year from dt), 2, 28), interval 1 day)) = 29
+              and extract(dayofweek from date_trunc(dt, YEAR)) = 4
+            ),
+            53,
+            52
+          )
+        ) weeks_cnt
+      from dates
+    )
+    select
+      date_sub(date, interval weeks_cnt week)
+    from weeks_to_remove
   )
