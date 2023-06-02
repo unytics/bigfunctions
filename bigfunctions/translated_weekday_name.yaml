@@ -15,7 +15,7 @@ arguments:
   - name: language
     type: string
 output:
-  name: translated_day_name
+  name: translated_weekday_name
   type: string
 examples:
   - description: ""
@@ -29,5 +29,5 @@ code: |
     from {BIGFUNCTIONS_DATASET}.translated_days
     where
       lower(locale) = lower(language) and
-      day_nb = extract(dayofweek from from date)
+      day_nb = extract(dayofweek from date)
   )
