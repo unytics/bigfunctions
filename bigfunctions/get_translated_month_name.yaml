@@ -1,0 +1,28 @@
+type: function_py
+category: transform_date
+author:
+  name: Farida SADOUN
+  url: "https://www.linkedin.com/in/farida-sadoun/"
+  avatar_url: "https://media.licdn.com/dms/image/C4D03AQHJJCxdo82rrg/profile-displayphoto-shrink_200_200/0/1642020323982?e=1691020800&v=beta&t=B5FC6bqSd0128-WkwoTUGcldD6yKb_Zz0tMZ5M5sDHw"
+description: Get translated month name
+arguments:
+  - name: date
+    type: date
+  - name: language
+    type: string
+output:
+  name: month
+  type: string
+examples:
+  - description:""
+    arguments:
+      - "'2022-05-01'"
+      - "'es'"
+    output: "mayo"
+
+ 
+code: |
+  import locale
+  locale.setlocale(locale.LC_TIME, language)
+  month = date.strftime("%B")
+  return month
