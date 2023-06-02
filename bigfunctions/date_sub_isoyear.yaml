@@ -1,0 +1,51 @@
+type: function_sql
+category: transform_date
+author:
+  name: Stephane KNOCKAERT
+  url: "https://www.linkedin.com/in/knockaertstephane/"
+  avatar_url: "https://media.licdn.com/dms/image/C4E03AQGAa5CX20cU5g/profile-displayphoto-shrink_200_200/0/1651827360843?e=1691020800&v=beta&t=0M3BkmD7Nc6EiGv7ZHtRQb6HFn-USSvkK_WSnSIAB6k"
+description: |
+  Subtracts `isoyear` from a `date` according to ISO dates standard. 
+
+  Returns same day of same week from `date`, `isoyear`yeas before
+arguments:
+  - name: date
+    type: date
+  - name: isoyear
+    type: int64
+output:
+  name: substracted_date
+  type: date
+examples:
+  - description: ""
+    arguments:
+      - "'2023-06-02'"
+      - "'3'"
+    output: "2020-05-29"
+code: |
+(
+    with dates as (
+      select 
+        date_sub(date, interval x year) dt,
+      from unnest(generate_array(1, isoyear)) x
+    ), 
+
+    weeks_to_remove as (
+      select
+        sum(
+          if(
+            extract(dayofweek from date_trunc(dt, year)) = 5
+            or (
+              extract(day from date_add(date(extract(year from dt), 2, 28), interval 1 day)) = 29
+              and extract(dayofweek from date_trunc(dt, YEAR)) = 4
+            ),
+            53,
+            52
+          )
+        ) weeks_cnt
+      from dates
+    )
+    select 
+      date_sub(date, interval weeks_cnt week) 
+    from weeks_to_remove
+  )
