@@ -1,0 +1,71 @@
+type: function_py
+category: export
+author:
+  name: Shivam Singh
+  url: https://www.linkedin.com/in/shivamsingh012/
+  avatar_url: "https://media.licdn.com/dms/image/D4D03AQERv0qwECH0DA/profile-displayphoto-shrink_200_200/0/1675233460732?e=1686182400&v=beta&t=HqngiSx5zd4llZStwf3L0k2T_pE8qvnEj7NguWNJTOo"
+description: |
+  Upload `data` (a json array of objects) to a Google Sheet.
+
+  > So that it works, share your Google Sheet in edit mode to `749389685934-compute@developer.gserviceaccount.com`
+arguments:
+  - name: data
+    type: json
+  - name: spreadsheet_url
+    type: string
+  - name: workbook_name
+    type: string
+output:
+  name: result
+  type: string
+examples:
+  - description: ""
+    arguments:
+      - "json '[{\"col1\": \"row1\", \"col2\": 1}, {\"col1\": \"row2\", \"col2\": 2}]'"
+      - '"https://docs.google.com/spreadsheets/d/xxxxxxxxx"'
+      - '"my sheet"'
+    output: 'DATA_UPLOADED'
+code: |
+  import google.auth
+  import gspread
+  import pandas as pd
+  from gspread_dataframe import set_with_dataframe
+  from gspread.exceptions import APIError
+
+  assert spreadsheet_url.startswith('https://docs.google.com/spreadsheets/d/'), 'Invalid `spreadsheet_url`. It must start with `https://docs.google.com/spreadsheets/d/`'
+
+  scopes = [
+    "https://spreadsheets.google.com/feeds",
+    "https://www.googleapis.com/auth/drive"
+  ]
+  credentials, _ = google.auth.default(scopes=scopes)
+  client = gspread.authorize(credentials=credentials)
+
+  try:
+    sheet = client.open_by_url(spreadsheet_url)
+
+    workbooks = sheet.worksheets()
+    existing_workbooks = [wb for wb in workbooks if wb.title == workbook_name]
+    assert not existing_workbooks, "WORKBOOK_ALREADY_EXISTS"
+
+    df = pd.DataFrame(data)
+    row, col = df.shape
+    sheet.add_worksheet(workbook_name, row, col)
+    set_with_dataframe(sheet.worksheet(workbook_name), df)
+
+  except APIError as e:
+    error = e.args[0]['message']
+    if 'caller does not have permission' in error:
+      error += (
+        '. Please verify that you shared your Google Sheet in edit mode to ' +
+        f'`{get_current_service_account()}`'
+      )
+    assert False, "ERROR: " + error
+
+  return "DATA_UPLOADED"
+requirements: |
+  gspread-dataframe
+  gspread
+  pandas
+quotas:
+  max_rows_per_query: 1
