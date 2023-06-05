@@ -1,0 +1,59 @@
+type: procedure
+category: data_recovery
+author:
+  name: El-Walid
+  url: https://www.linkedin.com/in/el-walid/
+  avatar_url: https://media.licdn.com/dms/image/C4E03AQH6oIAxScy4gw/profile-displayphoto-shrink_800_800/0/1654708759415?e=1691625600&v=beta&t=U6Tgwl4JWamN4qYDJP2b498aJt5thWog84-qnbkz0bU
+description: This procedure recovers a BigQuery table from a snapshot based on a specific timestamp.
+arguments:
+  - name: fully_qualified_table
+    type: string
+  - name: snapshot_time_arg
+    type: timestamp
+output:
+  name: message
+  type: string
+examples:
+  - description: "Recovers a table from the closest specified snapshot."
+    arguments:
+      - '"my_project.my_dataset.my_table"'
+      - '2023-05-14 12:00:00 UTC'
+    output:  |
+      "Table 'my_project.my_dataset.my_table' recovered successfully."
+    region: ALL
+  - description: "Fails to recover a table because no snapshot was found at the given timestamp or before the given timestamp."
+    arguments:
+      - '"my_project.my_dataset.my_table"'
+      - '2023-05-14 12:00:00 UTC'
+    output: |
+      "Not found: no snapshot was found."
+    region: ALL
+code: |
+  begin
+    declare message, snapshot_query, clone_query STRING;
+    declare base_project_id, base_dataset_id, base_table_id, snapshot_fully_qualified_table STRING;
+    declare snapshot_time TIMESTAMP;
+    set snapshot_time = snapshot_time_arg;
+
+    set base_project_id = (select SPLIT(fully_qualified_table, '.')[OFFset(0)]);
+    set base_dataset_id = (select SPLIT(fully_qualified_table, '.')[OFFset(1)]);
+    set base_table_id = (select SPLIT(fully_qualified_table, '.')[OFFset(2)]);
+
+    set snapshot_query = concat('select concat(table_catalog, "." ,table_schema, ".", table_name) from `', base_project_id, '.', base_dataset_id, '`.INFORMATION_SCHEMA.TABLE_SNAPSHOTS where base_table_name = "', base_table_id, '" and snapshot_time <= TIMESTAMP "', cast(snapshot_time AS STRING), '" order by snapshot_time desc limit 1');
+    execute immediate snapshot_query INTO snapshot_fully_qualified_table;
+
+    if snapshot_fully_qualified_table is null then
+      set message = "Error: No snapshot was found.";
+    else
+      set clone_query = concat('create or replace table `', base_project_id, '.', base_dataset_id, '.', base_table_id, '` clone `', snapshot_fully_qualified_table, '`');
+
+      begin
+        execute immediate clone_query;
+        set message = concat("Table '", fully_qualified_table, "' recovered successfully.");
+      exception when error then
+        set message = concat('Error: ', @@error.message);
+      end;
+    end if;
+
+    select message AS message;
+  end;
