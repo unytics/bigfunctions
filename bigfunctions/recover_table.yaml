@@ -4,12 +4,14 @@ author:
   name: El-Walid
   url: https://www.linkedin.com/in/el-walid/
   avatar_url: https://media.licdn.com/dms/image/C4E03AQH6oIAxScy4gw/profile-displayphoto-shrink_800_800/0/1654708759415?e=1691625600&v=beta&t=U6Tgwl4JWamN4qYDJP2b498aJt5thWog84-qnbkz0bU
-description: This procedure recovers a BigQuery table from a snapshot based on a specific timestamp.
+description: This procedure recovers a BigQuery table from a snapshot based on a specific timestamp or hours ago. It tries to use BigQuery time travel first and, if that fails, it tries to use BigQuery snapshots.
 arguments:
   - name: fully_qualified_table
     type: string
   - name: snapshot_time_arg
     type: timestamp
+  - name: hours_ago
+    type: INT64
 output:
   name: message
   type: string
@@ -18,42 +20,100 @@ examples:
     arguments:
       - '"my_project.my_dataset.my_table"'
       - '2023-05-14 12:00:00 UTC'
+      - null
     output:  |
       "Table 'my_project.my_dataset.my_table' recovered successfully."
     region: ALL
-  - description: "Fails to recover a table because no snapshot was found at the given timestamp or before the given timestamp."
+  - description: "Recovers a table using time travel from 5 hours ago."
+    arguments:
+      - '"my_project.my_dataset.my_table"'
+      - null
+      - 5
+    output: |
+      "Table 'my_project.my_dataset.my_table' recovered successfully using Time Travel."
+    region: ALL
+  - description: "Fails to recover a table because no snapshot was found at the given timestamp or before the given timestamp and time travel failed."
+    arguments:
+      - '"my_project.my_dataset.my_table"'
+      - '2023-09-14 12:00:00 UTC'
+      - 169
+    output: |
+      "Not found: no snapshot was found and time travel failed."
+    region: ALL
+  - description: "Recovers a table using time travel first, if it fails uses the snapshot of the provided timestamp."
     arguments:
       - '"my_project.my_dataset.my_table"'
       - '2023-05-14 12:00:00 UTC'
+      - 5
     output: |
-      "Not found: no snapshot was found."
+      "Table 'my_project.my_dataset.my_table' recovered successfully."
     region: ALL
 code: |
-  begin
-    declare message, snapshot_query, clone_query STRING;
-    declare base_project_id, base_dataset_id, base_table_id, snapshot_fully_qualified_table STRING;
-    declare snapshot_time TIMESTAMP;
-    set snapshot_time = snapshot_time_arg;
+    begin
+      declare message, snapshot_query, clone_query STRING;
+      declare base_project_id, base_dataset_id, base_table_id, snapshot_fully_qualified_table STRING;
+      declare snapshot_time, time_travel_time TIMESTAMP;
 
-    set base_project_id = (select SPLIT(fully_qualified_table, '.')[OFFset(0)]);
-    set base_dataset_id = (select SPLIT(fully_qualified_table, '.')[OFFset(1)]);
-    set base_table_id = (select SPLIT(fully_qualified_table, '.')[OFFset(2)]);
+      if hours_ago is not null then
+        set time_travel_time = TIMESTAMP_SUB(CURRENT_TIMESTAMP(), INTERVAL hours_ago HOUR);
+      end if;
 
-    set snapshot_query = concat('select concat(table_catalog, "." ,table_schema, ".", table_name) from `', base_project_id, '.', base_dataset_id, '`.INFORMATION_SCHEMA.TABLE_SNAPSHOTS where base_table_name = "', base_table_id, '" and snapshot_time <= TIMESTAMP "', cast(snapshot_time AS STRING), '" order by snapshot_time desc limit 1');
-    execute immediate snapshot_query INTO snapshot_fully_qualified_table;
+      if snapshot_time_arg is not null then
+        set snapshot_time = snapshot_time_arg;
+      end if;
 
-    if snapshot_fully_qualified_table is null then
-      set message = "Error: No snapshot was found.";
-    else
-      set clone_query = concat('create or replace table `', base_project_id, '.', base_dataset_id, '.', base_table_id, '` clone `', snapshot_fully_qualified_table, '`');
+      set base_project_id = (select split(fully_qualified_table, '.')[offset(0)]);
+      set base_dataset_id = (select split(fully_qualified_table, '.')[offset(1)]);
+      set base_table_id = (select split(fully_qualified_table, '.')[offset(2)]);
 
-      begin
-        execute immediate clone_query;
-        set message = concat("Table '", fully_qualified_table, "' recovered successfully.");
-      exception when error then
-        set message = concat('Error: ', @@error.message);
-      end;
-    end if;
+      -- Case: If none is given return an error
+      if time_travel_time is null and snapshot_time is null then
+        set message = "Error: No recovery method specified.";
+        select message;
+        return;
+      end if;
 
-    select message AS message;
-  end;
+      -- Case: If both arguments are given, first try time travel technique and if it fails, the snapshot technique
+      -- Case: If only hours_ago is given, use the time travel technique
+      if time_travel_time is not null then
+        begin
+          set clone_query = concat('create or replace table `', base_project_id, '.', base_dataset_id, '.', base_table_id, '` as select * from `', fully_qualified_table, '` for system_time as of "', cast(time_travel_time as string), '"');
+          execute immediate clone_query;
+          set message = concat("Table '", fully_qualified_table, "' recovered successfully using Time Travel.");
+        exception when error then
+          -- If time travel fails, try snapshot technique if snapshot_time is available
+          if snapshot_time is not null then
+            set snapshot_query = concat('select concat(table_catalog, "." ,table_schema, ".", table_name) from `', base_project_id, '.', base_dataset_id, '`.INFORMATION_SCHEMA.TABLE_SNAPSHOTS where base_table_name = "', base_table_id, '" and snapshot_time <= "', cast(snapshot_time as string), '" order by snapshot_time desc limit 1');
+            execute immediate snapshot_query into snapshot_fully_qualified_table;
+
+            if snapshot_fully_qualified_table is not null then
+              set clone_query = concat('create or replace table `', base_project_id, '.', base_dataset_id, '.', base_table_id, '` as select * from `', snapshot_fully_qualified_table, '`');
+              execute immediate clone_query;
+              set message = concat("Table '", fully_qualified_table, "' recovered successfully from a snapshot.");
+            else
+              set message = "Not found: No snapshot was found.";
+            end if;
+          else
+            set message = "Not found: Time travel recovery failed.";
+          end if;
+        end;
+      end if;
+
+      -- Case: If only timestamp is given, use the snapshot technique
+      if snapshot_time is not null and time_travel_time is null then
+        begin
+          set snapshot_query = concat('select concat(table_catalog, "." ,table_schema, ".", table_name) from `', base_project_id, '.', base_dataset_id, '`.INFORMATION_SCHEMA.TABLE_SNAPSHOTS where base_table_name = "', base_table_id, '" and snapshot_time <= "', cast(snapshot_time as string), '" order by snapshot_time desc limit 1');
+          execute immediate snapshot_query into snapshot_fully_qualified_table;
+
+          if snapshot_fully_qualified_table is not null then
+            set clone_query = concat('create or replace table `', base_project_id, '.', base_dataset_id, '.', base_table_id, '` as select * from `', snapshot_fully_qualified_table, '`');
+            execute immediate clone_query;
+            set message = concat("Table '", fully_qualified_table, "' recovered successfully from a snapshot.");
+          else
+            set message = "Not found: No snapshot was found.";
+          end if;
+        end;
+      end if;
+
+      select message;
+    end;
