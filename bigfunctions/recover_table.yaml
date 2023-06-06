@@ -36,7 +36,7 @@ examples:
   - description: "Fails to recover a table because no snapshot was found at the given timestamp or before the given timestamp and time travel failed."
     arguments:
       - '"my_project.my_dataset.my_table"'
-      - '09-2023-14 12:00:00 UTC'
+      - '2023-09-14 12:00:00 UTC'
       - 169
     output: |
       "Not found: no snapshot was found and time travel failed."
@@ -67,18 +67,22 @@ code: |
       set base_dataset_id = (select split(fully_qualified_table, '.')[offset(1)]);
       set base_table_id = (select split(fully_qualified_table, '.')[offset(2)]);
 
+      -- Case: If none is given return an error
       if time_travel_time is null and snapshot_time is null then
         set message = "Error: No recovery method specified.";
         select message;
         return;
       end if;
 
+      -- Case: If both arguments are given, first try time travel technique and if it fails, the snapshot technique
+      -- Case: If only hours_ago is given, use the time travel technique
       if time_travel_time is not null then
         begin
           set clone_query = concat('create or replace table `', base_project_id, '.', base_dataset_id, '.', base_table_id, '` as select * from `', fully_qualified_table, '` for system_time as of "', cast(time_travel_time as string), '"');
           execute immediate clone_query;
           set message = concat("Table '", fully_qualified_table, "' recovered successfully using Time Travel.");
         exception when error then
+          -- If time travel fails, try snapshot technique if snapshot_time is available
           if snapshot_time is not null then
             set snapshot_query = concat('select concat(table_catalog, "." ,table_schema, ".", table_name) from `', base_project_id, '.', base_dataset_id, '`.INFORMATION_SCHEMA.TABLE_SNAPSHOTS where base_table_name = "', base_table_id, '" and snapshot_time <= "', cast(snapshot_time as string), '" order by snapshot_time desc limit 1');
             execute immediate snapshot_query into snapshot_fully_qualified_table;
@@ -96,6 +100,7 @@ code: |
         end;
       end if;
 
+      -- Case: If only timestamp is given, use the snapshot technique
       if snapshot_time is not null and time_travel_time is null then
         begin
           set snapshot_query = concat('select concat(table_catalog, "." ,table_schema, ".", table_name) from `', base_project_id, '.', base_dataset_id, '`.INFORMATION_SCHEMA.TABLE_SNAPSHOTS where base_table_name = "', base_table_id, '" and snapshot_time <= "', cast(snapshot_time as string), '" order by snapshot_time desc limit 1');
