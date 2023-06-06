@@ -76,7 +76,7 @@ code: |
 
       -- Case: If both arguments are given, first try time travel technique and if it fails, the snapshot technique
       -- Case: If only hours_ago is given, use the time travel technique
-      if time_travel_time is not null then
+      if time_travel_time is not null and hours_ago <= 167 then
         begin
           set clone_query = concat('create or replace table `', base_project_id, '.', base_dataset_id, '.', base_table_id, '` as select * from `', fully_qualified_table, '` for system_time as of "', cast(time_travel_time as string), '"');
           execute immediate clone_query;
@@ -101,7 +101,7 @@ code: |
       end if;
 
       -- Case: If only timestamp is given, use the snapshot technique
-      if snapshot_time is not null and time_travel_time is null then
+      if snapshot_time is not null and time_travel_time is null or hours_ago >= 168 then
         begin
           set snapshot_query = concat('select concat(table_catalog, "." ,table_schema, ".", table_name) from `', base_project_id, '.', base_dataset_id, '`.INFORMATION_SCHEMA.TABLE_SNAPSHOTS where base_table_name = "', base_table_id, '" and snapshot_time <= "', cast(snapshot_time as string), '" order by snapshot_time desc limit 1');
           execute immediate snapshot_query into snapshot_fully_qualified_table;
