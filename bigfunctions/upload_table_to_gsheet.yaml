@@ -29,14 +29,14 @@ arguments:
   - name: write_mode
     type: string
 examples:
-  - description: "with a query"
+  - description: "upload 1000 rows from a table"
     arguments:
       - |-
 
-        '(select 1 as foo)'
+        '{BIGFUNCTIONS_DATASET}.sales'
       - |-
 
-        null
+        1000
       - |-
 
         'https://docs.google.com/spreadsheets/d/xxxxxxxxx'
@@ -47,14 +47,14 @@ examples:
 
         'write_truncate'
     screenshot: upload_table_to_gsheet.png
-  - description: "with a table"
+  - description: "with a query"
     arguments:
       - |-
 
-        '{BIGFUNCTIONS_DATASET}.sales'
+        '(select 1 as foo)'
       - |-
 
-        1000
+        null
       - |-
 
         'https://docs.google.com/spreadsheets/d/xxxxxxxxx'
