@@ -73,8 +73,8 @@ code: |
       question,
       temperature=0.2,
       max_output_tokens=256,
-      top_k=0.8,
-      top_p=40,
+      top_k=40,
+      top_p=0.8,
   )
   answer = response.text
   if not answer:
