@@ -1,0 +1,34 @@
+name: Suggest improvement in a BigFunction
+description: "Tell us what's wrong"
+title: "[improve]: `function_name`: add this"
+labels: ["improve-bigfunction"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+         ## 🙏 Thanks for taking the time to help us improve! 
+         
+         Please fill the below fields to submit it.
+  - type: checkboxes
+    id: idea_does_not_exist
+    attributes:
+      label: Check the bug has not already been reported
+      description: Check in [existing issues](https://github.com/unytics/bigfunctions/issues?q=is%3Aissue+is%3Aopen+label%3Abug-bigfunction) if your idea has not already been suggested. If it has, please don't create a new issue but add a comment on the existing one such as `+1` to upvote it. 
+      options:
+        - label: I could not find the bug in [existing issues](https://github.com/unytics/bigfunctions/issues?q=is%3Aissue+is%3Aopen+label%3Abug-bigfunction)
+          required: true
+  - type: checkboxes
+    id: title_is_ok
+    attributes:
+      label: Edit `function_name` and the short error description in title above
+      description: Edit the `function_name` and the short error description in the issue title above. 
+      options:
+        - label: I wrote the correct function name and a short error description in the title above
+          required: true
+  - type: textarea
+    id: description
+    attributes:
+      label: Tell us everything
+      description: Tell us your idea and how/why it will help people
+    validations:
+      required: true
