@@ -17,7 +17,7 @@ description: |
   - `do_nothing`:  if the sheet already exists, nothing will be done.
   - `null`: same as `write_truncate`
 
-  > For this to work, share your Google Sheet in edit mode to `749389685934-compute@developer.gserviceaccount.com`
+  > 💡 For this to work, share your Google Sheet in edit mode to `749389685934-compute@developer.gserviceaccount.com`
 arguments:
   - name: table_or_view_or_query
     type: string

@@ -8,15 +8,15 @@ description: |
   Upload `data` (a json array of objects) to a Google Sheet
   in `write_mode`.
 
-  `write_mode` controls what is done if a worksheet with `worksheet_name` already exists. It must be one of:
+  > `write_mode` controls what is done if a worksheet with `worksheet_name` already exists. It must be one of:
+  >
+  > - `write_truncate`: if the sheet already exists, it will be recreated.
+  > - `write_append`: if the sheet already exists, data will be appended to it.
+  > - `raise_error`:  if the sheet already exists, an error will be raised.
+  > - `do_nothing`:  if the sheet already exists, nothing will be done.
+  > - `null`: same as `write_truncate`
 
-  - `write_truncate`: if the sheet already exists, it will be recreated.
-  - `write_append`: if the sheet already exists, data will be appended to it.
-  - `raise_error`:  if the sheet already exists, an error will be raised.
-  - `do_nothing`:  if the sheet already exists, nothing will be done.
-  - `null`: same as `write_truncate`
-
-  > For this to work, share your Google Sheet in edit mode to `749389685934-compute@developer.gserviceaccount.com`
+  > 💡 For this to work, share your Google Sheet in edit mode to `749389685934-compute@developer.gserviceaccount.com`
 arguments:
   - name: data
     type: json
@@ -68,8 +68,8 @@ code: |
         assert False, '`write_mode` is `raise_error` and `worksheet_name` already exists in Google Sheet'
 
       elif write_mode == 'write_truncate':
-        sheet.del_worksheet(existing_worksheet)
-        sheet.add_worksheet(worksheet_name, df.shape[0], df.shape[1], index=0)
+        existing_worksheet.clear()
+        existing_worksheet.resize(df.shape[0], df.shape[1])
 
       elif write_mode == 'write_append':
         existing_df = gspread_dataframe.get_as_dataframe(existing_worksheet)
