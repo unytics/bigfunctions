@@ -5,15 +5,26 @@ author:
   url: https://www.linkedin.com/in/shivamsingh012/
   avatar_url: "https://media.licdn.com/dms/image/D4D03AQERv0qwECH0DA/profile-displayphoto-shrink_200_200/0/1675233460732?e=1686182400&v=beta&t=HqngiSx5zd4llZStwf3L0k2T_pE8qvnEj7NguWNJTOo"
 description: |
-  Upload `data` (a json array of objects) to a Google Sheet.
+  Upload `data` (a json array of objects) to a Google Sheet
+  in `write_mode`.
 
-  > So that it works, share your Google Sheet in edit mode to `749389685934-compute@developer.gserviceaccount.com`
+  `write_mode` controls what is done if a worksheet with `whorksheet_name` already exists. It must be one of:
+
+  - `write_truncate`: if the sheet already exists, it will be recreated.
+  - `write_append`: if the sheet already exists, data will be appended to it.
+  - `raise_error`:  if the sheet already exists, an error will be raised.
+  - `do_nothing`:  if the sheet already exists, nothing will be done.
+  - `null`: same as `write_truncate`
+
+  > For this to work, share your Google Sheet in edit mode to `749389685934-compute@developer.gserviceaccount.com`
 arguments:
   - name: data
     type: json
   - name: spreadsheet_url
     type: string
-  - name: workbook_name
+  - name: whorksheet_name
+    type: string
+  - name: write_mode
     type: string
 output:
   name: result
@@ -23,7 +34,7 @@ examples:
     arguments:
       - "json '[{\"col1\": \"row1\", \"col2\": 1}, {\"col1\": \"row2\", \"col2\": 2}]'"
       - '"https://docs.google.com/spreadsheets/d/xxxxxxxxx"'
-      - '"my sheet"'
+      - '"my worksheet"'
     output: 'DATA_UPLOADED'
 code: |
   import google.auth
@@ -33,25 +44,31 @@ code: |
   from gspread.exceptions import APIError
 
   assert spreadsheet_url.startswith('https://docs.google.com/spreadsheets/d/'), 'Invalid `spreadsheet_url`. It must start with `https://docs.google.com/spreadsheets/d/`'
+  write_mode = write_mode or 'write_truncate'
 
-  scopes = [
-    "https://spreadsheets.google.com/feeds",
-    "https://www.googleapis.com/auth/drive"
-  ]
+  scopes = [https://www.googleapis.com/auth/spreadsheets]
   credentials, _ = google.auth.default(scopes=scopes)
   client = gspread.authorize(credentials=credentials)
 
   try:
     sheet = client.open_by_url(spreadsheet_url)
 
-    workbooks = sheet.worksheets()
-    existing_workbooks = [wb for wb in workbooks if wb.title == workbook_name]
-    assert not existing_workbooks, "WORKBOOK_ALREADY_EXISTS"
+    existing_whorksheets = [ws for ws in sheet.worksheets() if ws.title == whorksheet_name]
+    if existing_whorksheets:
+      existing_worksheet = existing_whorksheets[0]
+      if write_mode == 'do_nothing':
+        return 'NOTHING_DONE_AS_WORKSHEET_EXISTS'
+      elif write_mode == 'raise_error':
+        assert False, '`write_mode` is `raise_error` and `worksheet_name` already exists in Google Sheet'
+      elif write_mode == 'write_truncate':
+        sheet.del_worksheet(existing_worksheet)
+      else:
+        assert False, f'ERROR: `write_mode` `{write_mode}` is not handled yet'
 
     df = pd.DataFrame(data)
     row, col = df.shape
-    sheet.add_worksheet(workbook_name, row, col)
-    set_with_dataframe(sheet.worksheet(workbook_name), df)
+    sheet.add_worksheet(whorksheet_name, row, col)
+    set_with_dataframe(sheet.worksheet(whorksheet_name), df)
 
   except APIError as e:
     error = e.args[0]['message']
