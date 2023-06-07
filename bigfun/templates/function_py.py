@@ -44,6 +44,7 @@ class SimpleQuotaManager:
         self.user = data['sessionUser']
         self.row_count = len(data['calls'])
         self.message = {
+            "bigfunction": '{{ name }}',
             "status": 'started',
             "user": self.user,
             "row_count": self.row_count,

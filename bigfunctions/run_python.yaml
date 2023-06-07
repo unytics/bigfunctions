@@ -113,7 +113,6 @@ code: |
       }}''')
 
   def run_python_code(page, python_code, kwargs):
-      python_code = '\n' + python_code  # needed not to have unexpected indent error
       if kwargs:
           python_code = '\n'.join([line for line in python_code.split('\n') if line.strip()])
           indent = len(python_code) - len(python_code.lstrip())
@@ -124,6 +123,7 @@ code: |
           )
           python_code = f"{' ' * indent}{set_variables}\n{python_code}"
           print('python_code', python_code.replace('\n', '\\n').replace(' ', '-'))
+      python_code = '\n' + python_code  # needed not to have unexpected indent error
       try:
           return page.evaluate(f'''async () => {{
               return pyodide.runPython(`
@@ -134,8 +134,11 @@ code: |
           }}''')
       except Exception as e:
           error_message = str(e)
+          prefix_to_remove = ', in <module>'
+          if prefix_to_remove in error_message:
+              error_message = error_message[error_message.find(prefix_to_remove) + len(prefix_to_remove):]
           error_message = error_message[:error_message.find('at new_error (https://cdn.jsdelivr.net')]
-          raise ValueError(error_message)
+          raise ValueError(error_message.strip())
 
   if not (python_code or '').strip():
       return
@@ -159,5 +162,6 @@ cloud_run:
   max_instances: 1
   service_account: no-permission@bigfunctions.iam.gserviceaccount.com
 quotas:
-  max_rows_per_user_per_day: 10
   max_rows_per_query: 1
+  max_rows_per_user_per_day: 100
+  backend: "none"
