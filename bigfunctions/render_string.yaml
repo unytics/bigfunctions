@@ -57,6 +57,36 @@ code: |
       return Math.round(x / (1024)).toString() + ' KB';
   });
 
+  env.addFilter('table_or_view_or_query', function(x) {
+      if (x && x.toLowerCase().match(/^\s*select\s|^\s*with\s/g)) {
+        return '(\n' + x + '\n)';
+      }
+      return x;
+  });
+
+  env.addFilter('to_json', function(table_or_view_or_query, limit) {
+      if (!table_or_view_or_query) {
+        return table_or_view_or_query;
+      }
+
+      if (limit) {
+        limit = `limit ${limit}`;
+      }
+      else {
+        limit = '';
+      }
+
+      if (table_or_view_or_query.toLowerCase().match(/^\s*select\s|^\s*with\s/g)) {
+        table_or_view_or_query = '(\n' + table_or_view_or_query + '\n)';
+      }
+
+      return `
+        select
+          to_json(array_agg(struct(_res)._res ${limit})) as data
+        from ${table_or_view_or_query} _res
+      `
+  });
+
   return env.renderString(template, context);
 libraries:
   - nunjucks.min.js
