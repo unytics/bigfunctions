@@ -36,7 +36,7 @@ examples:
         '(select 1 as foo)'
       - |-
 
-        '1000'
+        null
       - |-
 
         'https://docs.google.com/spreadsheets/d/xxxxxxxxx'
@@ -46,7 +46,7 @@ examples:
       - |-
 
         'write_truncate'
-    screenshot: send_mail_with_excel.png
+    screenshot: upload_table_to_gsheet.png
   - description: "with a table"
     arguments:
       - |-
@@ -54,7 +54,7 @@ examples:
         '{BIGFUNCTIONS_DATASET}.sales'
       - |-
 
-        '1000'
+        1000
       - |-
 
         'https://docs.google.com/spreadsheets/d/xxxxxxxxx'
@@ -64,7 +64,6 @@ examples:
       - |-
 
         'write_truncate'
-    screenshot: send_mail_with_excel.png
 code: |
   execute immediate bigfunctions.eu.render_string(
     '''
