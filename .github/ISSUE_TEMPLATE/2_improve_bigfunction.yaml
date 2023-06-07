@@ -12,18 +12,18 @@ body:
   - type: checkboxes
     id: idea_does_not_exist
     attributes:
-      label: Check the bug has not already been reported
+      label: Check your idea has not already been reported
       description: Check in [existing issues](https://github.com/unytics/bigfunctions/issues?q=is%3Aissue+is%3Aopen+label%3Abug-bigfunction) if your idea has not already been suggested. If it has, please don't create a new issue but add a comment on the existing one such as `+1` to upvote it. 
       options:
-        - label: I could not find the bug in [existing issues](https://github.com/unytics/bigfunctions/issues?q=is%3Aissue+is%3Aopen+label%3Abug-bigfunction)
+        - label: I could not find the idea in [existing issues](https://github.com/unytics/bigfunctions/issues?q=is%3Aissue+is%3Aopen+label%3Abug-bigfunction)
           required: true
   - type: checkboxes
     id: title_is_ok
     attributes:
-      label: Edit `function_name` and the short error description in title above
-      description: Edit the `function_name` and the short error description in the issue title above. 
+      label: Edit `function_name` and the short idea description in title above
+      description: Edit the `function_name` and the short idea description in the issue title above. 
       options:
-        - label: I wrote the correct function name and a short error description in the title above
+        - label: I wrote the correct function name and a short idea description in the title above
           required: true
   - type: textarea
     id: description
