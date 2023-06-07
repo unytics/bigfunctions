@@ -15,7 +15,7 @@ body:
       label: Check your idea has not already been reported
       description: Check in [existing issues](https://github.com/unytics/bigfunctions/issues?q=is%3Aissue+is%3Aopen+label%3Aimprove-bigfun-CLI) if your idea has not already been suggested. If it has, please don't create a new issue but add a comment on the existing one such as `+1` to upvote it. 
       options:
-        - label: I could not find the bug in [existing issues](https://github.com/unytics/bigfunctions/issues?q=is%3Aissue+is%3Aopen+label%3Aimprove-bigfun-CLI)
+        - label: I could not find the idea in [existing issues](https://github.com/unytics/bigfunctions/issues?q=is%3Aissue+is%3Aopen+label%3Aimprove-bigfun-CLI)
           required: true
   - type: checkboxes
     id: title_is_ok
