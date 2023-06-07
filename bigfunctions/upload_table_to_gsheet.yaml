@@ -6,7 +6,8 @@ author:
   avatar_url: "https://media.licdn.com/dms/image/D4D03AQERv0qwECH0DA/profile-displayphoto-shrink_200_200/0/1675233460732?e=1686182400&v=beta&t=HqngiSx5zd4llZStwf3L0k2T_pE8qvnEj7NguWNJTOo"
 description: |
   Upload data from `table_or_view_or_query` to Google Sheet
-  (maximum `max_rows` rows will be uploaded)
+  (maximum `max_rows` rows will be uploaded).
+
 
   `write_mode` controls what is done if a worksheet with `worksheet_name` already exists. It must be one of:
 
@@ -65,9 +66,9 @@ examples:
 
         'write_truncate'
 code: |
-  execute immediate bigfunctions.eu.render_string(
+  execute immediate {BIGFUNCTIONS_DATASET}.render_string(
     '''
-    select bigfunctions.eu.upload_to_gsheet(
+    select {BIGFUNCTIONS_DATASET}.upload_to_gsheet(
         ({{ table_or_view_or_query | to_json(max_rows) | safe }}),
         "{{ spreadsheet_url }}",
         "{{ worksheet_name }}",
