@@ -8,7 +8,7 @@ description: |
   Upload `data` (a json array of objects) to a Google Sheet
   in `write_mode`.
 
-  `write_mode` controls what is done if a worksheet with `whorksheet_name` already exists. It must be one of:
+  `write_mode` controls what is done if a worksheet with `worksheet_name` already exists. It must be one of:
 
   - `write_truncate`: if the sheet already exists, it will be recreated.
   - `write_append`: if the sheet already exists, data will be appended to it.
@@ -22,7 +22,7 @@ arguments:
     type: json
   - name: spreadsheet_url
     type: string
-  - name: whorksheet_name
+  - name: worksheet_name
     type: string
   - name: write_mode
     type: string
@@ -40,37 +40,47 @@ code: |
   import google.auth
   import gspread
   import pandas as pd
-  from gspread_dataframe import set_with_dataframe
-  from gspread.exceptions import APIError
+  import gspread_dataframe
+  import gspread.exceptions
 
-  assert spreadsheet_url.startswith('https://docs.google.com/spreadsheets/d/'), 'Invalid `spreadsheet_url`. It must start with `https://docs.google.com/spreadsheets/d/`'
   write_mode = write_mode or 'write_truncate'
+  accepted_write_modes = ['write_truncate', 'write_append', 'raise_error', 'do_nothing']
+  assert write_mode in accepted_write_modes, f'`write_mode` should be one of: {accepted_write_modes}'
+  assert spreadsheet_url.startswith('https://docs.google.com/spreadsheets/d/'), 'Invalid `spreadsheet_url`. It must start with `https://docs.google.com/spreadsheets/d/`'
 
-  scopes = [https://www.googleapis.com/auth/spreadsheets]
+  scopes = ['https://www.googleapis.com/auth/spreadsheets']
   credentials, _ = google.auth.default(scopes=scopes)
   client = gspread.authorize(credentials=credentials)
 
   try:
+    df = pd.DataFrame(data)
+
     sheet = client.open_by_url(spreadsheet_url)
 
-    existing_whorksheets = [ws for ws in sheet.worksheets() if ws.title == whorksheet_name]
+    existing_whorksheets = [ws for ws in sheet.worksheets() if ws.title == worksheet_name]
     if existing_whorksheets:
       existing_worksheet = existing_whorksheets[0]
+
       if write_mode == 'do_nothing':
         return 'NOTHING_DONE_AS_WORKSHEET_EXISTS'
+
       elif write_mode == 'raise_error':
         assert False, '`write_mode` is `raise_error` and `worksheet_name` already exists in Google Sheet'
+
       elif write_mode == 'write_truncate':
         sheet.del_worksheet(existing_worksheet)
-      else:
-        assert False, f'ERROR: `write_mode` `{write_mode}` is not handled yet'
+        sheet.add_worksheet(worksheet_name, df.shape[0], df.shape[1], index=0)
 
-    df = pd.DataFrame(data)
-    row, col = df.shape
-    sheet.add_worksheet(whorksheet_name, row, col)
-    set_with_dataframe(sheet.worksheet(whorksheet_name), df)
+      elif write_mode == 'write_append':
+        existing_df = gspread_dataframe.get_as_dataframe(existing_worksheet)
+        df = pd.concat([existing_df, df], ignore_index=True)
 
-  except APIError as e:
+    else:
+      sheet.add_worksheet(worksheet_name, df.shape[0], df.shape[1], index=0)
+
+    gspread_dataframe.set_with_dataframe(sheet.worksheet(worksheet_name), df)
+
+  except gspread.exceptions.APIError as e:
     error = e.args[0]['message']
     if 'caller does not have permission' in error:
       error += (
