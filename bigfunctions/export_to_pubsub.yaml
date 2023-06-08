@@ -1,0 +1,46 @@
+type: function_py
+category: export
+author:
+  name: Valentin Cordonnier
+  url: https://www.linkedin.com/in/valentin-cordonnier-99482b1b5
+  avatar_url: "https://storage.googleapis.com/public-bucket-val/photo-output__01.jpg"
+description: Exports data and its attributes to a given Pub/Sub topic.
+arguments:
+  - name: project
+    type: string
+  - name: topic
+    type: string
+  - name: data
+    type: string
+  - name: attributes
+    type: json
+output:
+  name: result
+  type: string
+examples:
+  - description: ""
+    arguments:
+      - "'your-project'"
+      - "'my_topic'"
+      - "'Your message data'"
+      - '{"attribute1": "value1", "attribute2": "value2"}'
+    output: "'200 Message successfully published.'"
+    region: ALL
+code: |
+  import json
+  from google.cloud import pubsub_v1
+
+  attributes = json.loads(attributes) if attributes else {}
+  publisher = google.cloud.pubsub_v1.PublisherClient()
+  future = publisher.publish(
+      publisher.topic_path(project, topic), 
+      data.encode("utf-8"), 
+      **attributes)
+
+  try:
+      future.result()
+      return "200 Message successfully published."
+  except Exception as e:
+      return f"{type(e).__name__}: {str(e)}"
+requirements:
+  google-cloud-pubsub
