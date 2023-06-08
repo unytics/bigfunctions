@@ -1,0 +1,72 @@
+type: function_py                
+category: export_data       
+author:
+  name: El-Walid
+  url: https://www.linkedin.com/in/el-walid/
+  avatar_url: https://media.licdn.com/dms/image/C4E03AQH6oIAxScy4gw/profile-displayphoto-shrink_800_800/0/1654708759415?e=1691625600&v=beta&t=U6Tgwl4JWamN4qYDJP2b498aJt5thWog84-qnbkz0bU
+description: Exports a given value to the Google Cloud Datastore.
+arguments:                       
+  - name: project
+    type: string
+  - name: namespace
+    type: string
+  - name: kind
+    type: string
+  - name: key
+    type: string
+  - name: value
+    type: string
+output:                          
+  name: result
+  type: string
+examples:                        
+  - description: Export a JSON value to the Datastore.
+    arguments:
+      project: 'my_project'
+      namespace: 'my_namespace'
+      kind: 'User'
+      key: 'user1'
+      value: '{"name": "Marc Harris", "age": 30, "email": "marc@harris.com"}'
+    output: 'Data exported successfully.'
+    region: ALL
+   - description: Export a JSON value to the Datastore without specifying the key.
+    arguments:
+      project: 'my_project'
+      namespace: 'my_namespace'
+      kind: 'User'
+      key: NULL
+      value: '{"name": "Marc Harris", "age": 30, "email": "marc@harris.com"}'
+    output: 'Data exported successfully.'
+    region: ALL
+   - description: Export a JSON value to the Datastore without any value.
+    arguments:
+      project: 'my_project'
+      namespace: 'my_namespace'
+      kind: 'User'
+      key: 'user1
+      value: NULL
+    output: 'Data exported successfully.'
+    region: ALL
+code: |                          
+  from google.cloud import datastore
+  import json
+
+  client = datastore.Client(project=project)
+  
+  if key is None:
+        complete_key = client.key(kind, namespace=namespace)
+  else:
+      complete_key = client.key(kind, key, namespace=namespace)
+
+  entity = datastore.Entity(key=complete_key)
+  if value is not None:
+      data = json.loads(value)
+      entity.update(data)
+
+  client.put(entity)
+  return "Data exported successfully."
+
+requirements: |                  
+  google-cloud-datastore
+quotas:
+  max_rows_per_user_per_day: 10000
