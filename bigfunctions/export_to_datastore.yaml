@@ -54,14 +54,13 @@ code: |
   client = datastore.Client(project=project)
   
   if key is None:
-        complete_key = client.key(kind, namespace=namespace)
+      complete_key = client.key(kind, namespace=namespace)
   else:
       complete_key = client.key(kind, key, namespace=namespace)
 
   entity = datastore.Entity(key=complete_key)
   if value is not None:
-      data = json.loads(value)
-      entity.update(data)
+      entity.update(value)
 
   client.put(entity)
   return "Data exported successfully."
