@@ -172,9 +172,18 @@ secrets = SecretManager()
 {% endif %}
 
 
-def compute(args):
+{% if code_process_rows_as_batch %}
+
+def compute_all_rows(rows):
+    {{ code|replace('\n', '\n    ') }}
+
+{% else %}
+
+def compute_one_row(args):
     {% for argument in arguments %}{{ argument.name }}, {% endfor %} = args
     {{ code|replace('\n', '\n    ') }}
+
+{% endif %}
 
 
 @app.route("/", methods=['POST'])
@@ -188,7 +197,11 @@ def handle():
             quota_manager = SimpleQuotaManager(data)
         quota_manager.check_quotas()
         quota_manager.save_log()
-        replies = [compute(row) for row in rows]
+        {% if code_process_rows_as_batch %}
+        replies = compute_all_rows(rows)
+        {% else %}
+        replies = [compute_one_row(row) for row in rows]
+        {% endif %}
         response = jsonify( { "replies" :  replies} )
         quota_manager.save_log(status='success')
         return response
@@ -213,4 +226,4 @@ def handle():
         error_reporter.report_exception(google.cloud.error_reporting.build_flask_context(request))
         error_message = (str(e) + ' --- ' + traceback.format_exc())[:1000]
         quota_manager.save_log(status='error', status_info=error_message)
-        return jsonify({'errorMessage': str(e)}), 400
+        return jsonify({'errorMessage': f"{type(e).__name__}: {str(e)}"}), 400

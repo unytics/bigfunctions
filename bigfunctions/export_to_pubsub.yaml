@@ -4,7 +4,7 @@ author:
   name: Valentin Cordonnier
   url: https://www.linkedin.com/in/valentin-cordonnier-99482b1b5
   avatar_url: "https://storage.googleapis.com/public-bucket-val/photo-output__01.jpg"
-description: Exports data and its attributes to a given Pub/Sub topic.
+description: Exports `data` and `attributes` to Pub/Sub `topic`.
 arguments:
   - name: project
     type: string
@@ -15,32 +15,45 @@ arguments:
   - name: attributes
     type: json
 output:
-  name: result
-  type: string
+  name: published_message_id
+  type: int64
 examples:
   - description: ""
     arguments:
       - "'your-project'"
-      - "'my_topic'"
+      - "'your_topic'"
       - "'Your message data'"
-      - '{"attribute1": "value1", "attribute2": "value2"}'
+      - "'{\"attribute1\": \"value1\", \"attribute2\": \"value2\"}'"
     output: "'200 Message successfully published.'"
     region: ALL
+code_process_rows_as_batch: true
 code: |
-  import json
+  import concurrent.futures
   from google.cloud import pubsub_v1
+  import google.api_core.exceptions
 
-  attributes = json.loads(attributes) if attributes else {}
   publisher = google.cloud.pubsub_v1.PublisherClient()
-  future = publisher.publish(
-      publisher.topic_path(project, topic), 
-      data.encode("utf-8"), 
-      **attributes)
 
   try:
-      future.result()
-      return "200 Message successfully published."
-  except Exception as e:
-      return f"{type(e).__name__}: {str(e)}"
+    futures = []
+    for row in rows:
+      project, topic, data, attributes = row
+      topic_path = publisher.topic_path(project, topic)
+      attributes = attributes or {}
+      data = data.encode("utf-8")
+      future = publisher.publish(topic_path, data, **attributes)
+      futures.append(future)
+
+    concurrent.futures.wait(futures, return_when=concurrent.futures.ALL_COMPLETED)
+    return [future.result() for future in futures]
+
+  except google.api_core.exceptions.NotFound:
+    assert False, f'Given topic does not exist in given project OR service Account `{get_current_service_account()}` does not have publish permission into that topic'
+  except google.api_core.exceptions.PermissionDenied:
+    assert False, f'Service Account `{get_current_service_account()}` does not have publish permission into given topic of given project'
 requirements:
   google-cloud-pubsub
+cloud_run:
+  memory: 512Mi
+  concurrency: 16
+  max_instances: 10
