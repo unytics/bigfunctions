@@ -76,7 +76,7 @@ BigFunctions are open-source BigQuery routines that give you **SQL-superpowers**
 
 {% if datasets|length > 1 %}
 
-{% for dataset in datasets if example.region == 'ALL' or dataset.region == example.region %}
+{% for dataset in datasets if example.region is not defined or example.region == 'ALL' or dataset.region == example.region %}
 
 === "{{ dataset.region }}"
 
@@ -91,7 +91,7 @@ BigFunctions are open-source BigQuery routines that give you **SQL-superpowers**
 
 {% else %}
 
-{% for dataset in datasets if example.region == 'ALL' or dataset.region == example.region %}
+{% for dataset in datasets if example.region is not defined or example.region == 'ALL' or dataset.region == example.region %}
 
 ```sql
 {% if bigfunction.type == 'procedure' %}call{% elif bigfunction.type == 'table_function' %}select * from{% else %}select{% endif %} {{ dataset.name }}.{{ bigfunction.name }}({% for argument in example.arguments %}{{ argument | replace('{BIGFUNCTIONS_DATASET}', dataset.name) | replace('\n', '\n  ') }}{% if not loop.last %}, {% endif %}{% endfor %}){% if bigfunction.type == 'procedure' %};{% elif 'output' in bigfunction and bigfunction.type != 'table_function' %} as {{ bigfunction.output.name }}{% endif %}

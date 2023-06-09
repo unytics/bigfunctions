@@ -83,14 +83,17 @@ examples:
 code: |
   import json
   import googlemaps
-  key = secrets.get('gmaps_api_key')
-  gmaps = googlemaps.Client(key=key)
+  gmaps = googlemaps.Client(key=gmaps_api_key)
   results = gmaps.addressvalidation(address)
   if not results:
       return
   return json.dumps(results[0], ensure_ascii=False)
 requirements: |
   googlemaps
+secrets:
+  - name: gmaps_api_key
+    description: Google Maps Api Key
+    documentation_link: https://developers.google.com/maps/documentation/geocoding/get-api-key
 quotas:
   max_rows_per_user_per_day: 100
   max_rows_per_query: 10

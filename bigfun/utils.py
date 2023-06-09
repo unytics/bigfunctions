@@ -1,3 +1,4 @@
+import os
 import sys
 import subprocess
 import math
@@ -28,9 +29,6 @@ def print_warning(msg):
 def handle_error(msg):
     click.echo(click.style(f'ERROR: {msg}', fg='red'))
     sys.exit()
-
-
-CLOUD_RUN_IMAGES_CACHE = {}
 
 
 def prefix_lines_with_line_number(string: str, starting_index: int = 1) -> str:
@@ -179,14 +177,14 @@ class CloudRun:
                 for k, v in options.items()
             }
         }
-        if self.service in CLOUD_RUN_IMAGES_CACHE:
+        if self.service in os.environ:
             # This service image has already been built, let's use it
-            options['image'] = CLOUD_RUN_IMAGES_CACHE[self.service]
+            options['image'] = os.environ[self.service]
             return self.exec('gcloud run deploy', options=options)
 
         options['source'] = source_folder
         result = self.exec('gcloud run deploy', options=options)
-        CLOUD_RUN_IMAGES_CACHE[self.service] = self.exec('gcloud run services describe', options={'format': '"value(image)"'})
+        os.environ[self.service] = self.exec('gcloud run services describe', options={'format': '"value(image)"'})
         return result
 
     @property

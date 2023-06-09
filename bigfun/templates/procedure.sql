@@ -6,8 +6,5 @@ begin
 
 {{ code }}
 
-{%- if dataset.startswith('bigfunctions.') %}
-insert into {{ dataset }}.logs (bigfunction_name) values('{{ name }}');
-{% endif %}
 
 end;

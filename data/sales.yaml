@@ -1,0 +1,15 @@
+description: |
+  Sales
+schema:
+  - name: product_id
+    type: int64
+    description: "Product Identifier"
+  - name: price
+    type: float64
+    description: "Unit Price of product"
+  - name: quantity
+    type: int64
+    description: "Quantity of this product sold"
+  - name: sale_date
+    type: date
+    description: "Sale date"

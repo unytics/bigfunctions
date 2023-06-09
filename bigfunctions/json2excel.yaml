@@ -11,18 +11,17 @@ description: |
   > This function is useful to combine with `send_mail` if you want to send an excel file to some people.
 arguments:
   - name: data
-    type: string
+    type: json
 output:
   name: excel_base64
   type: string
 examples:
   - description: ""
     arguments:
-      - "'[{\"col1\": \"row1\", \"col2\": 1}, {\"col1\": \"row2\", \"col2\": 2}]'"
+      - "json '[{\"col1\": \"row1\", \"col2\": 1}, {\"col1\": \"row2\", \"col2\": 2}]'"
     output: UEsDBBQAAAAAA...
     region: ALL
 code: |
-  data = JSON.parse(data);
   var wb = XLSX.utils.book_new();
   var ws = XLSX.utils.json_to_sheet(data);
   XLSX.utils.book_append_sheet(wb, ws, "Sheet1");

@@ -1,0 +1,47 @@
+type: function_py
+category: notify
+author:
+  name: Pascal Castéran
+  url: https://www.linkedin.com/in/pascal-casteran/
+  avatar_url: "https://media.licdn.com/dms/image/C5603AQHZyyBya7CZSw/profile-displayphoto-shrink_200_200/0/1517520997975?e=1691020800&v=beta&t=sd9H4G4eMsnQ63UUMj8IuaMddxZ7tiuUiijWT4kmg0E"
+description: Sends `message` via SMS to `phone_number`
+arguments:
+  - name: message
+    type: string
+  - name: phone_number
+    type: string
+output:
+  name: response
+  type: string
+examples:
+  - description: "To a French phone number"
+    arguments:
+      - '"Hello 👋 from bigfunctions!"'
+      - '"+33xxxxxxxxx"'
+    output: |
+      {
+        "body": "Hello 👋 from bigfunctions!",
+        ...
+      }
+    region: ALL
+code: |
+  import requests
+  user, token = twilio_credentials.split(':')
+  url = f"https://api.twilio.com/2010-04-01/Accounts/{user}/Messages.json"
+  data={
+      'From': 'BigFunction',
+      'Body': message,
+      'To': phone_number,
+  }
+  resp = requests.post(url, data=data, auth=(user, token))
+  assert resp.ok, 'ERROR in sending Text message: ' + resp.text
+  return resp.text
+requirements: |
+  requests
+secrets:
+  - name: twilio_credentials
+    description: "Twilio credentials with following format: <YOUR_ACCOUNT_SID>:<YOUR_AUTH_TOKEN>"
+    documentation_link: https://www.twilio.com/docs/sms/api#sms-api-authentication
+quotas:
+  max_rows_per_query: 1
+  max_rows_per_user_per_day: 1

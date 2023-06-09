@@ -1,0 +1,167 @@
+type: function_py
+category: utils
+author:
+  name: Paul Marcombes
+  url: https://www.linkedin.com/in/paul-marcombes
+  avatar_url: "https://lh3.googleusercontent.com/a-/ACB-R5RDf2yxcw1p_IYLCKmiUIScreatDdhG8B83om6Ohw=s260"
+description: |
+  Run `python_code`
+  and return the `result` of the last line.
+
+  ⚠️ **WARNING**: For sandboxing reasons, this function is rather slow
+  (a new python environement is created for each query).
+  so you should use it for experimental use only.
+
+  ??? info
+
+      **How it works**: The provided `python_code` will run in [pyodide](https://pyodide.org/):
+      a python distribution which runs in a chrome headless browser.
+
+      This simplifies the implementation of:
+
+      - isolation between function calls,
+      - installation of python packages,
+      - isolation from the internet.
+
+      For every function call:
+
+      - we init a new browser context,
+      - download pyodide,
+      - detect python packages to install from `import` commands
+      - install them
+      - import them
+      - run the code.
+
+      **Limitations**:
+
+      - This workflow makes it quite slow.
+      - For sandboxing reasons, we only accept the installation of some whitelisted python packages.
+      - For sandboxing reasons, your python code cannot access to the internet
+
+arguments:
+  - name: python_code
+    type: string
+  - name: requirements
+    type: string
+  - name: kwargs
+    type: json
+output:
+  name: result
+  type: string
+examples:
+  - description: "Basic Example (beware that last `python_code` line must be a string)"
+    arguments:
+      - |
+
+        '''
+        str(sum(range(10)))
+        '''
+    output: '45'
+  - description: "Some non extenal packages such as `pandas` can be used. See above for a list."
+    arguments:
+      - |
+
+        '''
+        import pandas as pd
+        str(pd.Series(range(10)).sum())
+        '''
+    output: '45'
+  - description: "Replace words by their [stems](https://en.wikipedia.org/wiki/Word_stem)"
+    arguments:
+      - |
+
+        '''
+        import json
+        import snowballstemmer
+        stemmer = snowballstemmer.stemmer('english')
+        stems = stemmer.stemWords('go goes going gone'.split())
+        ' '.join(stems)
+        '''
+    output: 'go goe go gone'
+code: |
+  import tempfile
+  import re
+
+  PYODIDE_URL = 'https://cdn.jsdelivr.net/pyodide/v0.23.2/full/pyodide.js'
+
+  def create_browser_context():
+      if 'browser' not in CACHE:
+          from playwright.sync_api import sync_playwright
+          CACHE['playwright'] = sync_playwright().start()
+          CACHE['browser'] = CACHE['playwright'].chromium.launch()
+      return CACHE['browser'].new_context()
+
+  def init_python(page):
+      with tempfile.TemporaryDirectory() as folder:
+          filename = f'{folder}/index.html'
+          html = f'<html><head><script src="{PYODIDE_URL}"></script></head><body></body></html>'
+          open(filename, 'w', encoding='utf-8').write(html)
+          page.goto(f'file:///{filename}')
+          page.evaluate('async () => { window.pyodide = await loadPyodide(); }')
+
+  def install_python_packages(page, requirements):
+      requirements = (requirements or '').strip()
+      if not requirements:
+          return
+      bad_requirements = re.findall(r'[^a-zA-Z\d\s=\.]', requirements)
+      assert not bad_requirements, 'Bad requirements format! Expecting requirements to be like `pandas nltk==3.8.1` (multiple requirements separated with space)'
+      requirements = [r.strip() for r in requirements.split(' ') if r.strip()]
+      page.evaluate(f'''async () => {{
+          await pyodide.loadPackage("micropip");
+          const micropip = pyodide.pyimport("micropip");
+          await micropip.install({requirements});
+      }}''')
+
+  def run_python_code(page, python_code, kwargs):
+      if kwargs:
+          python_code = '\n'.join([line for line in python_code.split('\n') if line.strip()])
+          indent = len(python_code) - len(python_code.lstrip())
+          set_variables = (
+              ''.join([f'{k}, ' for k in kwargs.keys()]) +
+              '= ' +
+              f'{list(kwargs.values())}'
+          )
+          python_code = f"{' ' * indent}{set_variables}\n{python_code}"
+          print('python_code', python_code.replace('\n', '\\n').replace(' ', '-'))
+      python_code = '\n' + python_code  # needed not to have unexpected indent error
+      try:
+          return page.evaluate(f'''async () => {{
+              return pyodide.runPython(`
+
+  {python_code}
+
+              `);
+          }}''')
+      except Exception as e:
+          error_message = str(e)
+          prefix_to_remove = ', in <module>'
+          if prefix_to_remove in error_message:
+              error_message = error_message[error_message.find(prefix_to_remove) + len(prefix_to_remove):]
+          error_message = error_message[:error_message.find('at new_error (https://cdn.jsdelivr.net')]
+          raise ValueError(error_message.strip())
+
+  if not (python_code or '').strip():
+      return
+  browser_context = create_browser_context()
+  page = browser_context.new_page()
+  page.on("console", lambda msg: print('CONSOLE', msg.text))
+  init_python(page)
+  install_python_packages(page, requirements)
+  browser_context.set_offline(offline=True)
+  result = run_python_code(page, python_code, kwargs)
+  browser_context.close()
+  return result
+requirements: |
+  playwright
+additional_install_commands_in_dockerfile: |
+  ENV PLAYWRIGHT_BROWSERS_PATH=/opt/
+  RUN playwright install --with-deps chromium
+cloud_run:
+  memory: 1024Mi
+  concurrency: 1
+  max_instances: 1
+  service_account: no-permission@bigfunctions.iam.gserviceaccount.com
+quotas:
+  max_rows_per_query: 1
+  max_rows_per_user_per_day: 100
+  backend: "none"

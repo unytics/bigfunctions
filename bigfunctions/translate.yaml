@@ -1,0 +1,30 @@
+type: function_py
+category: transform_string
+author:
+  name: Florian Caringi
+  url: https://www.linkedin.com/in/floriancaringi/
+  avatar_url: "https://pbs.twimg.com/profile_images/1264658685755887621/Dlp36ch__400x400.jpg"
+description: Translate `text` into `target_language`
+arguments:
+  - name: text
+    type: string
+  - name: target_language
+    type: string
+output:
+  name: translated_text
+  type: string
+examples:
+  - description: ""
+    arguments:
+      - '"Salut 👋 Florian. Merci d''avoir contribué !"'
+      - "'en'"
+    output: "Hello 👋 Florian. Thanks for contributing!"
+code: |
+  from google.cloud import translate_v2 as translate
+  translator = translate.Client()
+  result = translator.translate(text, target_language=target_language, format_="text")
+  return result["translatedText"]
+requirements: |
+  google-cloud-translate
+quotas:
+  max_rows_per_query: 100

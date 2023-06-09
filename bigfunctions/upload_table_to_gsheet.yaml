@@ -1,0 +1,82 @@
+type: procedure
+category: export
+author:
+  name: Shivam Singh
+  url: https://www.linkedin.com/in/shivamsingh012/
+  avatar_url: "https://media.licdn.com/dms/image/D4D03AQERv0qwECH0DA/profile-displayphoto-shrink_200_200/0/1675233460732?e=1686182400&v=beta&t=HqngiSx5zd4llZStwf3L0k2T_pE8qvnEj7NguWNJTOo"
+description: |
+  Upload data from `table_or_view_or_query` to Google Sheet
+  (maximum `max_rows` rows will be uploaded).
+
+  > 1. 💡 For this to work, share your Google Sheet in edit mode to `749389685934-compute@developer.gserviceaccount.com`
+  > 2. `write_mode` controls what is done if a worksheet with `worksheet_name` already exists. It must be one of:
+  >     - `write_truncate`: if the sheet already exists, it will be recreated.
+  >     - `write_append`: if the sheet already exists, data will be appended to it.
+  >     - `raise_error`:  if the sheet already exists, an error will be raised.
+  >     - `do_nothing`:  if the sheet already exists, nothing will be done.
+  >     - `null`: same as `write_truncate`
+arguments:
+  - name: table_or_view_or_query
+    type: string
+  - name: max_rows
+    type: int64
+  - name: spreadsheet_url
+    type: string
+  - name: worksheet_name
+    type: string
+  - name: write_mode
+    type: string
+examples:
+  - description: "upload 1000 rows from a table"
+    arguments:
+      - |-
+
+        '{BIGFUNCTIONS_DATASET}.sales'
+      - |-
+
+        1000
+      - |-
+
+        'https://docs.google.com/spreadsheets/d/xxxxxxxxx'
+      - |-
+
+        'my worksheet'
+      - |-
+
+        'write_truncate'
+    screenshot: upload_table_to_gsheet.png
+  - description: "with a query"
+    arguments:
+      - |-
+
+        '(select 1 as foo)'
+      - |-
+
+        null
+      - |-
+
+        'https://docs.google.com/spreadsheets/d/xxxxxxxxx'
+      - |-
+
+        'my worksheet'
+      - |-
+
+        'write_truncate'
+code: |
+  execute immediate {BIGFUNCTIONS_DATASET}.render_string(
+    '''
+    select {BIGFUNCTIONS_DATASET}.upload_to_gsheet(
+        ({{ table_or_view_or_query | to_json(max_rows) | safe }}),
+        "{{ spreadsheet_url }}",
+        "{{ worksheet_name }}",
+        "{{ write_mode }}"
+    )
+    ''',
+    to_json_string(struct(
+      table_or_view_or_query as table_or_view_or_query,
+      max_rows as max_rows,
+      spreadsheet_url as spreadsheet_url,
+      worksheet_name as worksheet_name,
+      write_mode as write_mode
+    ))
+  );

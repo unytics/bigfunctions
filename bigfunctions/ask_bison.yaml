@@ -30,7 +30,7 @@ examples:
       - |
 
         '''
-        Question: get the 10 articles which generated the most revenue in 2023
+        Question: get the 10 products which generated the most revenue in 2023
         Table: sales
         Columns: product_id, price, quantity, timestamp
         Answer: bigquery sql query
@@ -64,7 +64,7 @@ code: |
   if cached:
       return cached
 
-  if len(question) > 1000:
+  if len(question) > 4000:
       raise QuotaException(f'Your question contains {len(question)} characters but it is limited to 1000 characters for now.')
 
   vertexai.init(location=location)
@@ -73,8 +73,8 @@ code: |
       question,
       temperature=0.2,
       max_output_tokens=256,
-      top_k=0.8,
-      top_p=40,
+      top_k=40,
+      top_p=0.8,
   )
   answer = response.text
   if not answer:
@@ -84,6 +84,6 @@ code: |
 requirements: |
   google-cloud-aiplatform
 quotas:
-  max_rows_per_user_per_day: 100
+  max_rows_per_user_per_day: 20
   max_rows_per_query: 1
 
