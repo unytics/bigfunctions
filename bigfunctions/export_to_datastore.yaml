@@ -29,24 +29,6 @@ examples:
       value: '{"name": "Marc Harris", "age": 30, "email": "marc@harris.com"}'
     output: 'Data exported successfully.'
     region: ALL
-   - description: Export a JSON value to the Datastore without specifying the key.
-    arguments:
-      project: 'my_project'
-      namespace: 'my_namespace'
-      kind: 'User'
-      key: NULL
-      value: '{"name": "Marc Harris", "age": 30, "email": "marc@harris.com"}'
-    output: 'Data exported successfully.'
-    region: ALL
-   - description: Export a JSON value to the Datastore without any value.
-    arguments:
-      project: 'my_project'
-      namespace: 'my_namespace'
-      kind: 'User'
-      key: 'user1
-      value: NULL
-    output: 'Data exported successfully.'
-    region: ALL
 code: |                          
   from google.cloud import datastore
   import json
@@ -60,7 +42,8 @@ code: |
 
   entity = datastore.Entity(key=complete_key)
   if value is not None:
-      entity.update(value)
+      data = json.loads(value)
+      entity.update(data)
 
   client.put(entity)
   return "Data exported successfully."
