@@ -27,8 +27,7 @@ examples:
       - "'your_topic'"
       - "'Your message data'"
       - "'{\"attribute1\": \"value1\", \"attribute2\": \"value2\"}'"
-    output: "'200 Message successfully published.'"
-    region: ALL
+    output: "1123432546"
 code_process_rows_as_batch: true
 code: |
   import concurrent.futures
