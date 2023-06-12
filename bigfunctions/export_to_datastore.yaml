@@ -1,4 +1,4 @@
-²type: function_py
+type: function_py
 category: export
 author:
   name: El-Walid
@@ -6,7 +6,7 @@ author:
   avatar_url: https://media.licdn.com/dms/image/C4E03AQH6oIAxScy4gw/profile-displayphoto-shrink_800_800/0/1654708759415?e=1691625600&v=beta&t=U6Tgwl4JWamN4qYDJP2b498aJt5thWog84-qnbkz0bU
 description: |
   Exports `data` to Datastore
-  (Firestore in Datastore mode) at `key` (for kind `kind` of `namespace` of `project`).
+  (Firestore in Datastore mode).
 
   (💡 *For this to work, `749389685934-compute@developer.gserviceaccount.com` must have datastore user role in your project.*)
 
