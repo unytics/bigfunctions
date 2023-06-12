@@ -1,11 +1,23 @@
-type: function_py                
-category: export_data       
+²type: function_py
+category: export_data
 author:
   name: El-Walid
   url: https://www.linkedin.com/in/el-walid/
   avatar_url: https://media.licdn.com/dms/image/C4E03AQH6oIAxScy4gw/profile-displayphoto-shrink_800_800/0/1654708759415?e=1691625600&v=beta&t=U6Tgwl4JWamN4qYDJP2b498aJt5thWog84-qnbkz0bU
-description: Exports a given value to the Google Cloud Datastore.
-arguments:                       
+description: |
+  Exports `data` to Datastore
+  (Firestore in Datastore mode) at `key` (for kind `kind` of `namespace` of `project`)
+
+  > 💡 For this to work, `749389685934-compute@developer.gserviceaccount.com` must have publish permission on your topic.
+
+  | Param       | Possible values  |
+  |-------------|---|
+  | `project`   | Google Cloud project hosting the Datastore data. Should be unique for one query  |
+  | `namespace` | A namespace is like a dataset/folder. If `null`, `default` Datastore namespace will be used. |
+  | `kind`      | `kind` is like a table: a set of similar objects. Cannot be `null`. |
+  | `key`       | Unique identifier where `data` is stored. Can be an integer represented as a string (`key` is then named `id` in Datastore) or any string (`key` is named `name` in Datastore). If `null` a integer key (represented as string) will be generated. |
+  | `data`      | A json dict of data  |
+arguments:
   - name: project
     type: string
   - name: namespace
@@ -14,41 +26,56 @@ arguments:
     type: string
   - name: key
     type: string
-  - name: value
-    type: string
-output:                          
-  name: result
+  - name: data
+    type: json
+output:
+  name: key
   type: string
-examples:                        
-  - description: Export a JSON value to the Datastore.
+examples:
+  - description: Export `data` to default namespace with auto-generated `key`.
     arguments:
-      project: 'my_project'
-      namespace: 'my_namespace'
-      kind: 'User'
-      key: 'user1'
-      value: '{"name": "Marc Harris", "age": 30, "email": "marc@harris.com"}'
-    output: 'Data exported successfully.'
-    region: ALL
-code: |                          
-  from google.cloud import datastore
-  import json
+      - "'your-project'"
+      - "null"
+      - "'user'"
+      - "null"
+      - "json '{\"name\": \"Marc Harris\", \"age\": 30, \"email\": \"marc@harris.com\"}'"
+    output: 4503604769587200
+code_process_rows_as_batch: true
+code: |
+  import google.cloud.datastore
+  import google.api_core.exceptions
 
-  client = datastore.Client(project=project)
-  
-  if key is None:
-      complete_key = client.key(kind, namespace=namespace)
-  else:
-      complete_key = client.key(kind, key, namespace=namespace)
+  store = None
+  entities = []
+  for row in rows:
+    project, namespace, kind, key, data = row
 
-  entity = datastore.Entity(key=complete_key)
-  if value is not None:
-      data = json.loads(value)
-      entity.update(data)
+    if store is None:
+      store = google.cloud.datastore.Client(project=project)
+      _project = project
+    elif project != _project:
+      assert False, "`project` for all rows must be equal"
 
-  client.put(entity)
-  return "Data exported successfully."
+    if key:
+      try:
+        key = int(key)
+      except:
+        pass
+      entity_key = store.key(kind, key, namespace=namespace)
+    else:
+      entity_key = store.key(kind, namespace=namespace)
 
-requirements: |                  
+    entity = google.cloud.datastore.Entity(entity_key)
+    entity.update(data)
+    entities.append(entity)
+
+  store.put_multi(entities)
+  return [str(entity.key.id_or_name) for entity in entities]
+requirements: |
   google-cloud-datastore
+cloud_run:
+  memory: 512Mi
+  concurrency: 16
+  max_instances: 10
 quotas:
-  max_rows_per_user_per_day: 10000
+  max_rows_per_user_per_day: 1000000
