@@ -31,7 +31,7 @@ examples:
 code_process_rows_as_batch: true
 code: |
   import concurrent.futures
-  from google.cloud import pubsub_v1
+  import google.cloud.pubsub_v1
   import google.api_core.exceptions
 
   publisher = google.cloud.pubsub_v1.PublisherClient()
@@ -59,3 +59,5 @@ cloud_run:
   memory: 512Mi
   concurrency: 16
   max_instances: 10
+quotas:
+  max_rows_per_user_per_day: 10000000
