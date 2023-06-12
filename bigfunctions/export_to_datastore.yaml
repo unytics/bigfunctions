@@ -40,7 +40,7 @@ examples:
       - "null"
       - "json '{\"name\": \"Marc Harris\", \"email\": \"marc@harris.com\"}'"
     output: "4503604769587200"
-  - description: Export `data` to default namespace email as `key`.
+  - description: Export `data` to default namespace, with email as `key`.
     arguments:
       - "'your-project'"
       - "null"
