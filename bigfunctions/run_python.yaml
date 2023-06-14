@@ -54,30 +54,49 @@ examples:
       - |
 
         '''
-        str(sum(range(10)))
+        return sum(range(10))
         '''
+      - |
+
+        null
+      - |
+
+        null
     output: '45'
-  - description: "Some non extenal packages such as `pandas` can be used. See above for a list."
+  - description: "Some packages such as `pandas` can be installed and used."
     arguments:
       - |
 
         '''
         import pandas as pd
-        str(pd.Series(range(10)).sum())
+        return pd.Series(range(10)).sum()
         '''
+      - |
+
+        'pandas'
+      - |
+
+        null
     output: '45'
-  - description: "Replace words by their [stems](https://en.wikipedia.org/wiki/Word_stem)"
+  - description: "Replace `word` passed as a variable by its [stem](https://en.wikipedia.org/wiki/Word_stem)"
     arguments:
       - |
 
         '''
-        import json
         import snowballstemmer
         stemmer = snowballstemmer.stemmer('english')
-        stems = stemmer.stemWords('go goes going gone'.split())
-        ' '.join(stems)
+        stems = stemmer.stemWords(word)
+        return stems[0]
         '''
-    output: 'go goe go gone'
+      - |
+
+        'snowballstemmer'
+      - |
+
+        to_json(struct(
+          'going' as word
+        ))
+    output: 'go'
 code_process_rows_as_batch: true
 code: |
   import tempfile
