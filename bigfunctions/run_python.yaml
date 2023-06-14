@@ -21,7 +21,7 @@ description: |
   | `kwargs`       | A json dict of variables. These variables will be defined and usable in your python code. |
 
 
-  ??? info "How sandboxing is done"
+  ??? question "How sandboxing is done"
 
       The provided `python_code` will run in [pyodide](https://pyodide.org/):
       a python distribution which runs in a chrome headless browser.
