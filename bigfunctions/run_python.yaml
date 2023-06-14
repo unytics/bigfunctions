@@ -7,11 +7,11 @@ author:
 description: |
   Run any `python_code`.
 
-  > ⚠️ **Be aware** that for security reasons (sandboxing):
-  >
-  > - this function is rather slow (a new python environement is created for each query). You may prefer to create a dedicated python function for your use case. You can suggest a new bigfunction [here](https://github.com/unytics/bigfunctions/issues/new?assignees=&labels=new-bigfunction&projects=&template=0_new_bigfunction.yaml&title=%5Bnew%5D%3A+%60function_name%28argument1%2C+argument2%29%60) if you want someone to create your function.
-  > - your python code won't have access to internet
-  > - not all python packages can be installed
+  ??? warning "For security reasons (sandboxing):"
+
+      - this function is rather slow (a new python environement is created for each query). You may prefer to create a dedicated python function for your use case. You can suggest a new bigfunction [here](https://github.com/unytics/bigfunctions/issues/new?assignees=&labels=new-bigfunction&projects=&template=0_new_bigfunction.yaml&title=%5Bnew%5D%3A+%60function_name%28argument1%2C+argument2%29%60) if you want someone to create your function.
+      - your python code won't have access to internet
+      - not all python packages can be installed
 
 
   | Param          | Possible values  |
