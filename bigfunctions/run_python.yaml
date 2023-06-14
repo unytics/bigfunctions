@@ -113,35 +113,43 @@ code: |
       }}''')
 
   def run_python_code(page, python_code, kwargs):
-      if kwargs:
-          python_code = '\n'.join([line for line in python_code.split('\n') if line.strip()])
-          indent = len(python_code) - len(python_code.lstrip())
-          set_variables = (
-              ''.join([f'{k}, ' for k in kwargs.keys()]) +
-              '= ' +
-              f'{list(kwargs.values())}'
-          )
-          python_code = f"{' ' * indent}{set_variables}\n{python_code}"
-          print('python_code', python_code.replace('\n', '\\n').replace(' ', '-'))
-      python_code = '\n' + python_code  # needed not to have unexpected indent error
+      # Manage indents
+      python_lines = [line for line in python_code.split('\n') if line.strip()]
+      indents = [len(line) - len(line.lstrip()) for line in python_lines]
+      assert min(indents) >= indents[0], "python indentation error: there should be no line in your code with an indent inferior to the indent of the first line."
+      python_code = '\n'.join(['    ' + line[indents[0]:] for line in python_lines])
+
+      variables_assignment = f"    {''.join([k + ', ' for k in kwargs.keys()])} = {list(kwargs.values())}" if kwargs else ''
+      javascript = '\n'.join([
+          'async () =>  pyodide.runPython(`',
+
+          'def compute():',
+          variables_assignment,
+          python_code,
+
+          'result = compute()',
+          'str(result)',
+
+          '`)',
+      ])
+
+      print(javascript, javascript.replace(' ', '-'))
+
       try:
-          return page.evaluate(f'''async () => {{
-              return pyodide.runPython(`
-
-  {python_code}
-
-              `);
-          }}''')
+          return page.evaluate(javascript)
       except Exception as e:
           error_message = str(e)
-          prefix_to_remove = ', in <module>'
+          prefix_to_remove = '"<exec>",'
+          suffix_to_remove = 'at new_error (https://cdn.jsdelivr.net'
           if prefix_to_remove in error_message:
-              error_message = error_message[error_message.find(prefix_to_remove) + len(prefix_to_remove):]
-          error_message = error_message[:error_message.find('at new_error (https://cdn.jsdelivr.net')]
-          raise ValueError(error_message.strip())
+              error_message = error_message[error_message.rfind(prefix_to_remove) + len(prefix_to_remove):]
+          error_message = error_message[:error_message.find(suffix_to_remove)]
+          raise Exception(error_message.strip())
 
   if not (python_code or '').strip():
       return
+  kwargs = kwargs or {}
+  assert isinstance(kwargs, dict), '`kwargs` argument must be a json dict (NOT a json array) or null'
   browser_context = create_browser_context()
   page = browser_context.new_page()
   page.on("console", lambda msg: print('CONSOLE', msg.text))
