@@ -16,7 +16,7 @@ description: |
 
   | Param          | Possible values  |
   |----------------|---|
-  | `python_code`  | Arbitrary python code (indented with 4 spaces)  |
+  | `python_code`  | Arbitrary python code (indented with 4 spaces).  |
   | `requirements` | requirements as you would pass them to `pip install` (separated with space). Keep note that for security reasons, not all python packages can be installed  |
   | `kwargs`       | A json dict of variables. These variables will be defined and usable in your python code. |
 
@@ -49,7 +49,7 @@ output:
   name: result
   type: string
 examples:
-  - description: "Basic Example (beware that last `python_code` line must be a string)"
+  - description: "Basic Example"
     arguments:
       - |
 
@@ -85,7 +85,7 @@ examples:
         '''
         import snowballstemmer
         stemmer = snowballstemmer.stemmer('english')
-        stems = stemmer.stemWords(word)
+        stems = stemmer.stemWords([word])
         return stems[0]
         '''
       - |
