@@ -5,14 +5,23 @@ author:
   url: https://www.linkedin.com/in/paul-marcombes
   avatar_url: "https://lh3.googleusercontent.com/a-/ACB-R5RDf2yxcw1p_IYLCKmiUIScreatDdhG8B83om6Ohw=s260"
 description: |
-  Run `python_code`
-  and return the `result` of the last line.
+  Run any `python_code`.
 
-  ⚠️ **WARNING**: For sandboxing reasons, this function is rather slow
-  (a new python environement is created for each query).
-  so you should use it for experimental use only.
+  ⚠️ **WARNING**: For security reasons (sandboxing):
 
-  ??? info
+  - this function is rather slow (a new python environement is created for each query). You may prefer to create a dedicated python function for your use case. You can suggest a new bigfunction [here](https://github.com/unytics/bigfunctions/issues/new?assignees=&labels=new-bigfunction&projects=&template=0_new_bigfunction.yaml&title=%5Bnew%5D%3A+%60function_name%28argument1%2C+argument2%29%60) if you want someone to create your function.
+  - your python code won't have access to internet
+  - not all python packages can be installed
+
+
+  | Param          | Possible values  |
+  |----------------|---|
+  | `python_code`  | Arbitrary python code (indented with 4 spaces)  |
+  | `requirements` | requirements as you would pass them to `pip install` (separated with space). Keep note that for security reasons, not all python packages can be installed  |
+  | `kwargs`       | A json dict of variables. These variables will be defined and usable in your python code. |
+
+
+  ??? How sandboxing is done
 
       **How it works**: The provided `python_code` will run in [pyodide](https://pyodide.org/):
       a python distribution which runs in a chrome headless browser.
@@ -27,17 +36,8 @@ description: |
 
       - we init a new browser context,
       - download pyodide,
-      - detect python packages to install from `import` commands
-      - install them
-      - import them
+      - install python packages
       - run the code.
-
-      **Limitations**:
-
-      - This workflow makes it quite slow.
-      - For sandboxing reasons, we only accept the installation of some whitelisted python packages.
-      - For sandboxing reasons, your python code cannot access to the internet
-
 arguments:
   - name: python_code
     type: string
@@ -78,6 +78,7 @@ examples:
         ' '.join(stems)
         '''
     output: 'go goe go gone'
+code_process_rows_as_batch: true
 code: |
   import tempfile
   import re
@@ -100,19 +101,33 @@ code: |
           page.evaluate('async () => { window.pyodide = await loadPyodide(); }')
 
   def install_python_packages(page, requirements):
-      requirements = (requirements or '').strip()
       if not requirements:
           return
-      bad_requirements = re.findall(r'[^a-zA-Z\d\s=\.]', requirements)
-      assert not bad_requirements, 'Bad requirements format! Expecting requirements to be like `pandas nltk==3.8.1` (multiple requirements separated with space)'
-      requirements = [r.strip() for r in requirements.split(' ') if r.strip()]
-      page.evaluate(f'''async () => {{
-          await pyodide.loadPackage("micropip");
-          const micropip = pyodide.pyimport("micropip");
-          await micropip.install({requirements});
-      }}''')
+      bad_requirements = re.findall(r'[^a-zA-Z\d\s=\.-]', ''.join(requirements))
+      assert not bad_requirements, 'Bad `requirements` argument format! Expecting `requirements` to be like `pandas nltk==3.8.1` (multiple requirements separated with space)'
+      try:
+          page.evaluate(f'''async () => {{
+              await pyodide.loadPackage("micropip");
+              const micropip = pyodide.pyimport("micropip");
+              await micropip.install({list(requirements)});
+          }}''')
+      except Exception as e:
+          error_message = str(e)
+          prefix_to_remove = 'ValueError: '
+          suffix_to_remove = 'at new_error (https://cdn.jsdelivr.net'
+          if prefix_to_remove in error_message:
+              error_message = error_message[error_message.rfind(prefix_to_remove) + len(prefix_to_remove):]
+          error_message = error_message[:error_message.find(suffix_to_remove)]
+          raise Exception(error_message.strip())
+
 
   def run_python_code(page, python_code, kwargs):
+      if not (python_code or '').strip():
+          return
+
+      kwargs = kwargs or {}
+      assert isinstance(kwargs, dict), '`kwargs` argument must be a json dict (NOT a json array) or null'
+
       # Manage indents
       python_lines = [line for line in python_code.split('\n') if line.strip()]
       indents = [len(line) - len(line.lstrip()) for line in python_lines]
@@ -121,7 +136,7 @@ code: |
 
       variables_assignment = f"    {''.join([k + ', ' for k in kwargs.keys()])} = {list(kwargs.values())}" if kwargs else ''
       javascript = '\n'.join([
-          'async () =>  pyodide.runPython(`',
+          'async () =>  pyodide.runPython(String.raw`',
 
           'def compute():',
           variables_assignment,
@@ -132,8 +147,6 @@ code: |
 
           '`)',
       ])
-
-      print(javascript, javascript.replace(' ', '-'))
 
       try:
           return page.evaluate(javascript)
@@ -146,17 +159,26 @@ code: |
           error_message = error_message[:error_message.find(suffix_to_remove)]
           raise Exception(error_message.strip())
 
-  if not (python_code or '').strip():
-      return
-  kwargs = kwargs or {}
-  assert isinstance(kwargs, dict), '`kwargs` argument must be a json dict (NOT a json array) or null'
+
   browser_context = create_browser_context()
   page = browser_context.new_page()
   page.on("console", lambda msg: print('CONSOLE', msg.text))
   init_python(page)
+
+  requirements = set([
+      req.strip()
+      for row in rows
+      for req in (row[1] or '').split(' ')
+      if req.strip()
+  ])
   install_python_packages(page, requirements)
+
   browser_context.set_offline(offline=True)
-  result = run_python_code(page, python_code, kwargs)
+
+  result = [
+      run_python_code(page, python_code, kwargs)
+      for python_code, _, kwargs in rows
+  ]
   browser_context.close()
   return result
 requirements: |
@@ -167,9 +189,7 @@ additional_install_commands_in_dockerfile: |
 cloud_run:
   memory: 1024Mi
   concurrency: 1
-  max_instances: 1
+  max_instances: 10
   service_account: no-permission@bigfunctions.iam.gserviceaccount.com
 quotas:
-  max_rows_per_query: 1
-  max_rows_per_user_per_day: 100
   backend: "none"
