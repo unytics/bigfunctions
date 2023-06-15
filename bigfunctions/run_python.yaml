@@ -85,8 +85,8 @@ examples:
         '''
         import snowballstemmer
         stemmer = snowballstemmer.stemmer('english')
-        stems = stemmer.stemWords([word])
-        return stems[0]
+        stems = stemmer.stemWords(text.split())
+        return ' '.join(stems)
         '''
       - |
 
@@ -94,7 +94,7 @@ examples:
       - |
 
         to_json(struct(
-          'going' as word
+          'care cared and caring' as text
         ))
     output: 'go'
 code_process_rows_as_batch: true
@@ -154,21 +154,29 @@ code: |
       python_code = '\n'.join(['    ' + line[indents[0]:] for line in python_lines])
 
       variables_assignment = f"    {''.join([k + ', ' for k in kwargs.keys()])} = {list(kwargs.values())}" if kwargs else ''
+      python_code = variables_assignment + '\n' + python_code
+      python_code = python_code.replace('`', 'BIGFUNCTION_BACKTICK')
+
       javascript = '\n'.join([
-          'async () =>  pyodide.runPython(String.raw`',
+          'async () =>  {',
+              'let code = String.raw`',
 
-          'def compute():',
-          variables_assignment,
-          python_code,
+              'def compute():',
+              python_code,
 
-          'result = compute()',
-          'str(result)',
+              'result = compute()',
+              'str(result)',
 
-          '`)',
+              '`;',
+              r"code = code.replaceAll('BIGFUNCTION_BACKTICK', '`');",
+              'return pyodide.runPython(code);',
+          '}',
       ])
+      print(javascript)
 
       try:
-          return page.evaluate(javascript)
+          result = page.evaluate(javascript)
+          return None if result == 'None' else result
       except Exception as e:
           error_message = str(e)
           prefix_to_remove = '"<exec>",'
