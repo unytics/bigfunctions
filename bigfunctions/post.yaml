@@ -1,0 +1,36 @@
+type: function_py
+category: post_data
+author:
+  name: Yves Marcel Ngabirano
+  url: https://www.linkedin.com/in/yves-marcel-ngabirano/
+  avatar_url: "https://storage.googleapis.com/public-bucket-marcyves/Yves_photo.jpg"
+description: Request `url`
+arguments:
+  - name: url
+    type: string
+  - name: data
+    type: string
+  - name: headers
+    type: string
+output:
+  name: response
+  type: string
+examples:
+  - description: "Without headers"
+    arguments:
+      - "'https://pastebin.com/api/api_post.php'"
+      - "'{\"api_dev_key\": \"6x60q57XG21tJ3U8C7dYCcO5HKUhL6Ae\",\"api_option\": \"paste\", \"api_paste_code\": \"SELECT * FROM PROJECT\", \"api_paste_format\": \"sql\"}'"
+      - "null"
+    output: "200"
+    region: ALL
+code: |
+  import json
+  import requests
+  data = json.loads(data)
+  headers = json.loads(headers or '{}')
+  result = requests.post(url=url, data=data, headers=headers)
+  return f'[{result.status_code}] {result.text}'
+requirements: |
+  requests
+quotas:
+  max_rows_per_query: 10
