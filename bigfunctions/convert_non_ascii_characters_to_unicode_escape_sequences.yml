@@ -1,5 +1,5 @@
 type: function_sql
-category: to_escaped_unicode
+category: convert_non_ascii_characters_to_unicode_escape_sequences
 author:
   name: "Benjamin Tabet"
   url: https://www.linkedin.com/in/benjamin-tabet
