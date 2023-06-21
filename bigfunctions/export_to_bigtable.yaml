@@ -1,0 +1,66 @@
+type: function_py
+category: export
+author:
+  name: Valentin Cordonnier
+  url: https://www.linkedin.com/in/valentin-cordonnier-99482b1b5
+  avatar_url: "https://storage.googleapis.com/public-bucket-val/photo-output__01.jpg"
+description: Exports a value to a given Bigtable table.
+arguments:
+  - name: project_id
+    type: string
+  - name: instance_id
+    type: string
+  - name: table_id
+    type: string
+  - name: column_family
+    type: string
+  - name: column_name
+    type: string
+  - name: row_key
+    type: string
+  - name: value
+    type: string
+output:
+  name: result
+  type: string
+examples:
+  - description: ""
+    arguments:
+      - "'your-project'"
+      - "'your-instance'"
+      - "'your-table'"
+      - "'your-family'"
+      - "'your-column-name'"
+      - "'your-row-key'"
+      - "'your-value'"
+    output: "'200 Message successfully published.'"
+    region: ALL
+code: |
+  import google.api_core.exceptions
+  from google.cloud import bigtable
+
+  client = bigtable.Client(project=project_id, admin=True)
+
+  try:
+    instance = client.instance(instance_id)
+
+    try:
+      table = instance.table(table_id)
+
+      row = table.direct_row(row_key.encode('utf-8'))
+      row.set_cell(column_family_id=column_family, column=column_name, value=value.encode('utf-8'))
+      table.mutate_rows(rows=[row])
+
+      return "200 Value successfully exported."
+      
+    except google.api_core.exceptions.NotFound:
+      assert False, f'Given table does not exist in given instance OR service Account `get_current_service_account()` does have the permission to access it'
+    except google.api_core.exceptions.PermissionDenied:
+      assert False, f'Service Account `get_current_service_account()` does not have publish permission into given topic of given project'
+  
+  except google.api_core.exceptions.NotFound:
+    assert False, f'Given instance does not exist in given project OR service Account `get_current_service_account()` does have the permission to access it'
+  except google.api_core.exceptions.PermissionDenied:
+    assert False, f'Service Account `get_current_service_account()` does not have publish permission into given topic of given project'
+requirements:
+  google-cloud-bigtable
