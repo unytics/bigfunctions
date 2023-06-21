@@ -20,12 +20,11 @@ hide:
     There are **7 must know** to use them:
 
     1. Location is important
-    2. Unlock data-vizualizations!
-    3. Be patient
-    4. Beware of BigQuery costs
-    5. We log executions
-    6. BigFunctions are open
-    7. Please help us & make suggestions --> contact@unytics.io
+    2. Be patient
+    3. Beware of BigQuery costs
+    4. We log executions
+    5. BigFunctions are open
+    6. Please help us & make suggestions --> contact@unytics.io
 
 
 
@@ -254,29 +253,6 @@ BigQuery routines must be located at the same location as your data. Otherwise t
 
 
 ---
-
-
-## 👀 Unlock data-vizualizations!
-
-Some BigFunctions return some html that can be transformed into data-vizualizations. To see the data-vizualization you must:
-
-1. Drag and drop BigFunctions button in your bookmark bar.
-2. Click on the created bookmark when in BigQuery Console.
-
-
-*1. Drag and drop BigFunctions button in your bookmark bar*
-
-
-<div style="width: 100%; text-align: center;"><a href="javascript:const setInnerHTML = function(elm, html) {   elm.innerHTML = html;   Array.from(elm.querySelectorAll('script')).forEach( oldScript => {     const newScript = document.createElement('script');     Array.from(oldScript.attributes)       .forEach( attr => newScript.setAttribute(attr.name, attr.value) );     newScript.appendChild(document.createTextNode(oldScript.innerHTML));     oldScript.parentNode.replaceChild(newScript, oldScript);   }); };   const renderHTML = function() {     const divs = document.querySelectorAll('bq-results-table td div');     if (divs.length !== 1) {         console.log(`divs.length = ${divs.length} != 1`);         return;     }     const div = divs[0];     const bq_results_table = div.closest('bq-results-table');     if (!bq_results_table) {         console.log('bq_results_table not found');         return;     }     const html = div.innerText;     document.querySelector('.bq-results-table thead th:nth-child(2)').style = 'width: 100%;';     setInnerHTML(bq_results_table, html);     console.log('bigfunctions: successfully replaced table content'); };   fetch('https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js').then((response) => response.text()).then((text) => {const script = document.createElement('script'); script.text = text; document.head.appendChild(script); setInterval(renderHTML, 1000); });  const bulma = document.createElement('link'); bulma.setAttribute('rel', 'stylesheet'); bulma.setAttribute('href', 'https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css'); document.head.appendChild(bulma); " class="md-button md-button--primary">BigFunctions</a></div>
-
-
-<a href="../assets/images/bookmarklet_install.gif"><img alt="install_bookmarklet" src="../assets/images/bookmarklet_install.gif" style="border: var(--md-code-bg-color) solid 1rem; margin-top: -1rem; width: 100%"></a>
-
-
-
-*2. Click on the created bookmark to transform BigFunctions html result into data-vizualisations when in BigQuery Console*
-
-<a href="../assets/images/bookmarklet_use.gif"><img alt="install_bookmarklet" src="../assets/images/bookmarklet_use.gif" style="border: var(--md-code-bg-color) solid 1rem; width: 100%; margin-top: 2rem;"></a>
 
 
 ## ⌛ Be patient
