@@ -17,7 +17,7 @@ hide:
 
     BigFunctions are open-source BigQuery routines that give you **SQL-superpowers** in BigQuery 💪.
 
-    There are **7 must know** to use them:
+    There are **6 must know** to use them:
 
     1. Location is important
     2. Be patient
