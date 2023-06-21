@@ -17,16 +17,14 @@ hide:
 
     BigFunctions are open-source BigQuery routines that give you **SQL-superpowers** in BigQuery 💪.
 
-    There are **7 must know** to use them:
+    There are **6 must know** to use them:
 
     1. Location is important
-    2. Unlock data-vizualizations!
-    3. Be patient
-    4. Beware of BigQuery costs
-    5. We log executions
-    6. BigFunctions are open
-    7. Please help us & make suggestions --> contact@unytics.io
-
+    2. Be patient
+    3. Beware of BigQuery costs
+    4. We log executions
+    5. BigFunctions are open
+    6. Please help us & make suggestions --> contact@unytics.io
 
 
 ## 🌍 Location is important
@@ -256,27 +254,6 @@ BigQuery routines must be located at the same location as your data. Otherwise t
 ---
 
 
-## 👀 Unlock data-vizualizations!
-
-Some BigFunctions return some html that can be transformed into data-vizualizations. To see the data-vizualization you must:
-
-1. Drag and drop BigFunctions button in your bookmark bar.
-2. Click on the created bookmark when in BigQuery Console.
-
-
-*1. Drag and drop BigFunctions button in your bookmark bar*
-
-
-<div style="width: 100%; text-align: center;"><a href="{{ bookmarklet }}" class="md-button md-button--primary">BigFunctions</a></div>
-
-
-<a href="../assets/images/bookmarklet_install.gif"><img alt="install_bookmarklet" src="../assets/images/bookmarklet_install.gif" style="border: var(--md-code-bg-color) solid 1rem; margin-top: -1rem; width: 100%"></a>
-
-
-
-*2. Click on the created bookmark to transform BigFunctions html result into data-vizualisations when in BigQuery Console*
-
-<a href="../assets/images/bookmarklet_use.gif"><img alt="install_bookmarklet" src="../assets/images/bookmarklet_use.gif" style="border: var(--md-code-bg-color) solid 1rem; width: 100%; margin-top: 2rem;"></a>
 
 
 ## ⌛ Be patient
@@ -291,7 +268,7 @@ BigFunctions make BigQuery queries from your project so incur costs like any Big
 
 ## 📝 We log executions
 
-We log executions with: timestamp of execution, name of executed BigFunction and the user email who executed them. We may use these data to know about service usage, for troubleshooting and to send emails with news about the project. We will never share these emails to anyone. If this seem unfair to you please contact contact@unytics.io.
+We log executions of remote functions to manage quotas and costs. Collected data include: timestamp of execution, name of executed BigFunction and the user email who executed them. We will never share these emails to anyone. We don't log data. If this seems unfair to you please contact contact@unytics.io.
 
 
 ## 😮 BigFunctions are open
