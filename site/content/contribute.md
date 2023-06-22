@@ -15,7 +15,7 @@ hide:
 
 <figure markdown>
 
-![Contribute!](../assets/images/clark-tibbs-oqStl2L5oxI-unsplash_cropped.jpg)
+![Contribute!](/bigfunctions/assets/images/clark-tibbs-oqStl2L5oxI-unsplash_cropped.jpg)
 <figcaption>Photo by <a href="https://unsplash.com/@clarktibbs?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Clark Tibbs</a> on <a href="https://unsplash.com/s/photos/help?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a></figcaption>
 
 </figure>
