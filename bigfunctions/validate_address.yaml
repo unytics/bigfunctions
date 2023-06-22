@@ -84,10 +84,9 @@ code: |
   import json
   import googlemaps
   gmaps = googlemaps.Client(key=gmaps_api_key)
-  results = gmaps.addressvalidation(address)
-  if not results:
-      return
-  return json.dumps(results[0], ensure_ascii=False)
+  result = gmaps.addressvalidation(address)
+  assert 'result' in result, f"Unexpected Response from Google Maps: {result}"
+  return json.dumps(result['result'], ensure_ascii=False)
 requirements: |
   googlemaps
 secrets:
