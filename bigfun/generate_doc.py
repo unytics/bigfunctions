@@ -46,26 +46,18 @@ class Page:
         raise NotImplementedError()
 
 
-class GettingStartedPage(Page):
-    name = 'getting_started'
-
-    def get_context(self):
-        bookmarklet = open(f'{THIS_FOLDER}/bookmarklet.js', encoding='utf-8').read()
-        bookmarklet = 'javascript:' + bookmarklet.replace('\n', ' ')
-        return {'bookmarklet': bookmarklet}
-
-
 class ReferencePage(Page):
     name = 'reference'
 
     def get_context(self):
-        bigfunctions = [
-            {
-                **yaml.safe_load(open(f'bigfunctions/{f}', encoding='utf-8').read()),
-                **{'name': f.replace('.yaml', '')},
-            }
-            for f in sorted(os.listdir('bigfunctions'))
-        ]
+        bigfunctions = []
+        for filename in sorted(os.listdir('bigfunctions')):
+            if not filename.endswith('.yaml'):
+                continue
+            conf = yaml.safe_load(open(f'bigfunctions/{filename}', encoding='utf-8').read())
+            assert isinstance(conf, dict), f'Could not load yaml config of bigfunction `{filename}`'
+            conf['name'] = filename.replace('.yaml', '')
+            bigfunctions.append(conf)
 
         categories = CONF['bigfunctions_categories']
         for category in categories:
@@ -78,7 +70,6 @@ class ReferencePage(Page):
 
 
 def generate_doc():
-    GettingStartedPage().generate()
     ReferencePage().generate()
 
 

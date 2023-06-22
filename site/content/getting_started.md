@@ -27,7 +27,6 @@ hide:
     6. Please help us & make suggestions --> contact@unytics.io
 
 
-
 ## 🌍 Location is important
 
 BigQuery routines must be located at the same location as your data. Otherwise the BigFunction OR your data will not be found by BigQuery. To explore your table `your-project.your_dataset.your_table` use one of the following commands regarding the location of `your_dataset`:
@@ -255,6 +254,8 @@ BigQuery routines must be located at the same location as your data. Otherwise t
 ---
 
 
+
+
 ## ⌛ Be patient
 
 For instance `explore_table` can take several minutes to compute the statistics of the table. The reason is that it computes multiple queries for each column.
@@ -267,7 +268,7 @@ BigFunctions make BigQuery queries from your project so incur costs like any Big
 
 ## 📝 We log executions
 
-We log executions of remote functions for quota management and cost management. Data collected include: timestamp of execution, name of executed BigFunction, the user email who executed them and the number of rows the query is made upon. We may use these data to know about service usage, for troubleshooting and to send emails with news about the project. We will never share these emails to anyone. If this seem unfair to you please contact contact@unytics.io.
+We log executions of remote functions to manage quotas and costs. Collected data include: timestamp of execution, name of executed BigFunction and the user email who executed them. We will never share these emails to anyone. We don't log function arguments data. If this seems unfair to you please contact contact@unytics.io.
 
 
 ## 😮 BigFunctions are open
