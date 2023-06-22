@@ -268,7 +268,7 @@ BigFunctions make BigQuery queries from your project so incur costs like any Big
 
 ## 📝 We log executions
 
-We log executions of remote functions to manage quotas and costs. Collected data include: timestamp of execution, name of executed BigFunction and the user email who executed them. We will never share these emails to anyone. We don't log data. If this seems unfair to you please contact contact@unytics.io.
+We log executions of remote functions to manage quotas and costs. Collected data include: timestamp of execution, name of executed BigFunction and the user email who executed them. We will never share these emails to anyone. We don't log function arguments data. If this seems unfair to you please contact contact@unytics.io.
 
 
 ## 😮 BigFunctions are open
