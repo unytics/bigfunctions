@@ -14,7 +14,7 @@ arguments:
     type: float64
 output:
   name: forecasted_records
-  type: string
+  type: json
 examples:
   - description: ""
     arguments:
@@ -22,19 +22,15 @@ examples:
       - 3
     output: '[["2020-01-03", 3], ["2020-01-04", 4], ["2020-01-05", 5]]'
 code: |
-  import json
   import pandas as pd
   from prophet import Prophet
-  df = pd.DataFrame(records, columns =['ds', 'y'])
+  df = pd.DataFrame(records)
   model = Prophet()
   model.fit(df)
-  future_df = model.make_future_dataframe(
-      periods=periods,
-      include_history=False
-  )
+  future_df = model.make_future_dataframe(periods=periods, include_history=False)
   forecast = model.predict(future_df)
   forecast['ds'] = forecast['ds'].astype(str)
-  return json.dumps([[x.ds, x.yhat] for x in forecast.itertuples()])
+  return forecast.to_dict(orient='records')
 requirements: |
   pandas
   prophet
