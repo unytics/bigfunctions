@@ -9,6 +9,9 @@ docs_dir: 'site/content'
 site_dir: 'docs'
 extra_css:
   - stylesheets/extra.css
+  - stylesheets/bu-bulma.min.css
+extra_javascript:
+  - javascripts/bulma.js
 theme:
   name: material
   custom_dir: site/overrides
@@ -20,6 +23,8 @@ theme:
     - content.code.copy
     - instant
     # - toc.integrate
+    - navigation.instant
+    - navigation.path
     - navigation.tabs
     - navigation.tracking
     - navigation.indexes
@@ -44,7 +49,6 @@ nav:
   - BigFunctions: reference.md
   - Getting Started: getting_started.md
   - Contribute!: contribute.md
-
 bigfunctions_categories:
   - name: "AI"
     emoticon: "🧠"
