@@ -1,5 +1,5 @@
 type: function_py
-category: geo
+category: transform_geo_data
 author:
   name: Guillaume Pivette
   url: https://www.linkedin.com/in/guillaume-pivette
