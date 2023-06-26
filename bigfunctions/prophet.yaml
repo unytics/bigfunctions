@@ -12,6 +12,8 @@ arguments:
     type: json
   - name: periods
     type: float64
+  - name: kwargs
+    type: json
 output:
   name: forecasted_records
   type: json
@@ -25,7 +27,8 @@ code: |
   import pandas as pd
   from prophet import Prophet
   df = pd.DataFrame(records)
-  model = Prophet()
+  kwargs = kwargs or {}
+  model = Prophet(**kwargs)
   model.fit(df)
   future_df = model.make_future_dataframe(periods=periods, include_history=False)
   forecast = model.predict(future_df)
@@ -34,5 +37,6 @@ code: |
 requirements: |
   pandas
   prophet
-
-
+cloud_run:
+  max_instances: 20
+  concurrency: 1
