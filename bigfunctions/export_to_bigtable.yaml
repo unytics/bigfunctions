@@ -37,41 +37,46 @@ examples:
     region: ALL
 code_process_rows_as_batch: true
 code: |
-  import google.api_core.exceptions
   import datetime
+  import google.api_core.exceptions
   from google.cloud import bigtable
 
-  i = 1
+  project_id, instance_id, table_id, *_ = rows[0]
 
-  for row in rows:
-    project_id, instance_id, table_id, column_family, column_name, row_key, value = row
-
+  try:
     client = bigtable.Client(project=project_id, admin=True)
+    instance = client.instance(instance_id)
+  except google.api_core.exceptions.NotFound:
+    assert False, f'Given instance does not exist in given project OR service Account `get_current_service_account()` does have the permission to access it'
+  except google.api_core.exceptions.PermissionDenied:
+    assert False, f'Service Account `get_current_service_account()` does not have access permission for given instance of given project'
 
-    entities = []
-    try:
-      instance = client.instance(instance_id)
 
-      try:
-        table = instance.table(table_id)
+  try:
+    table = instance.table(table_id)
+  except google.api_core.exceptions.NotFound:
+    assert False, f'Given table does not exist in given instance OR service Account `get_current_service_account()` does have the permission to access it'
+  except google.api_core.exceptions.PermissionDenied:
+    assert False, f'Service Account `get_current_service_account()` does not have access permission for given table of given instance'
 
-        row_bigtable = table.direct_row(row_key.encode('utf-8'))
-        row_bigtable.set_cell(column_family_id=column_family, column=column_name, value=value.encode('utf-8'), timestamp=datetime.datetime.now()+datetime.timedelta(0,i*0.1))
-        
-        entities.append(row_bigtable)
-        i+=1
-        
-      except google.api_core.exceptions.NotFound:
-        assert False, f'Given table does not exist in given instance OR service Account `get_current_service_account()` does have the permission to access it'
-      except google.api_core.exceptions.PermissionDenied:
-        assert False, f'Service Account `get_current_service_account()` does not have publish permission into given topic of given project'
-    
-    except google.api_core.exceptions.NotFound:
-      assert False, f'Given instance does not exist in given project OR service Account `get_current_service_account()` does have the permission to access it'
-    except google.api_core.exceptions.PermissionDenied:
-      assert False, f'Service Account `get_current_service_account()` does not have publish permission into given topic of given project'
-  
+  entities = []
+  for i, row in enumerate(rows):
+    *_, column_family, column_name, row_key, value = row
+
+    row_bigtable = table.direct_row(row_key.encode('utf-8'))
+
+
+    row_bigtable.set_cell(
+      column_family_id=column_family,
+      column=column_name,
+      value=value.encode('utf-8'),
+      timestamp=datetime.datetime.now()+datetime.timedelta(0, i * 0.1)
+    )
+
+    entities.append(row_bigtable)
+
+
   table.mutate_rows(rows=entities)
-  return ["200 Value successfully exported." for entity in entities]
+  return ["200 Value successfully exported."] * len(entities)
 requirements:
   google-cloud-bigtable
