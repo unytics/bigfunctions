@@ -38,8 +38,8 @@ code: |
                 datasets: [{
                   label: '%YLABEL%',
                   data: [%Y%],
-                  borderColor: 'rgb(75, 192, 192)',
-                  backgroundColor: 'rgb(75, 192, 192)',
+                  borderColor: 'rgb(64, 81, 181)',
+                  backgroundColor: 'rgb(64, 81, 181)',
                 }]
               },
               options: {}
