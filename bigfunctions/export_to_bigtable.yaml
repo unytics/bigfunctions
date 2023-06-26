@@ -70,7 +70,7 @@ code: |
       column_family_id=column_family,
       column=column_name,
       value=value.encode('utf-8'),
-      timestamp=datetime.datetime.now()+datetime.timedelta(0, i * 0.1)
+      timestamp=datetime.datetime.now()+datetime.timedelta(milliseconds=i)
     )
 
     entities.append(row_bigtable)
