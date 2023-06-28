@@ -4,7 +4,7 @@ author:
   name: Valentin Cordonnier
   url: https://www.linkedin.com/in/valentin-cordonnier-99482b1b5
   avatar_url: "https://storage.googleapis.com/public-bucket-val/photo-output__01.jpg"
-description: Exports a value to a given Bigtable table.
+description: Exports values to a given Bigtable table.
 arguments:
   - name: project_id
     type: string
