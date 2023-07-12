@@ -1,0 +1,27 @@
+type: function_js
+category: geo
+author:
+  name: Paul Marcombes
+  url: https://www.linkedin.com/in/paul-marcombes
+  avatar_url: "https://lh3.googleusercontent.com/a-/ACB-R5RDf2yxcw1p_IYLCKmiUIScreatDdhG8B83om6Ohw=s260"
+description: |
+  Wrapper around [Uber H3](https://github.com/uber/h3-js)
+  (A Hexagonal Hierarchical Geospatial Indexing System).
+arguments:
+  - name: function_name
+    type: string
+  - name: arguments
+    type: json
+output:
+  name: result
+  type: json
+examples:
+  - description: ""
+    arguments:
+      - "'latLngToCell'"
+      - "json '[37.3615593, -122.0553238, 7]'"
+    output: "87283472bffffff"
+code: |
+  return h3_js[function_name](...arguments);
+libraries:
+  - h3-js-v4.1.0.min.js
