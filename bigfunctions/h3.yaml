@@ -20,7 +20,7 @@ examples:
     arguments:
       - "'latLngToCell'"
       - "json '[37.3615593, -122.0553238, 7]'"
-    output: "87283472bffffff"
+    output: '"87283472bffffff"'
 code: |
   return h3_js[function_name](...arguments);
 libraries:
