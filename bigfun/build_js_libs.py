@@ -80,6 +80,9 @@ date-holidays:
 fast-xml-parser:
   versions:
     - 4.1.3
+h3-js:
+  versions:
+    - 4.1.0
 xpath:
   versions:
     - 0.0.32
