@@ -1,0 +1,48 @@
+type: procedure
+category: utils
+author:
+  name: "Paul Marcombes"
+  url: https://www.linkedin.com/in/paul-marcombes
+  avatar_url: "https://lh3.googleusercontent.com/a-/ACB-R5RDf2yxcw1p_IYLCKmiUIScreatDdhG8B83om6Ohw=s260"
+description: |
+  Get BigQuery View history
+arguments:
+  - name: fully_qualified_view
+    type: string
+examples:
+  - description: ""
+    arguments:
+      - "your_project.your_dataset.view_name"
+code: |
+  execute immediate {BIGFUNCTIONS_DATASET}.render_string(
+    '''
+    {%- set view_parts = fully_qualified_view.split('.') %}
+    {%- if view_parts | length == 3 %}
+      {%- set project = view_parts[0] %}
+      {%- set dataset = view_parts[1] %}
+      {%- set view = view_parts[2] %}
+
+      create or replace temp table bigfunction_result as (
+        select
+          creation_time,
+          user_email,
+          query,
+        from `{{ project }}`.INFORMATION_SCHEMA.JOBS
+        where
+          statement_type = 'CREATE_VIEW'
+          and destination_table.dataset_id = '{{ dataset }}'
+          and destination_table.table_id = '{{ view }}'
+        qualify
+          row_number() over(order by creation_time) = 1
+          of query != lag(query) over(order by creation_time)
+        order by creation_time desc
+      )
+
+    {%- else %}
+      select error('`fully_qualified_view` argument should be fully qualified such as PROJECT.DATASET.TABLE')
+    {%- endif -%}
+    ''',
+    to_json_string(struct(
+      fully_qualified_view as fully_qualified_view
+    ))
+  );
