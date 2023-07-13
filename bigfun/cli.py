@@ -7,9 +7,6 @@ import click
 from click_help_colors import HelpColorsGroup, HelpColorsCommand
 from watchdog.observers import Observer
 
-from .deploy import deploy as deploy_bigfunction
-from .load_table import load_table as upload_table
-from .generate_doc import generate_doc
 
 
 BIGFUNCTIONS_FOLDER = 'bigfunctions'
@@ -64,6 +61,7 @@ def deploy(bigfunction):
 
     - If BIGFUNCTION = 'ALL' then all bigfunctions contained in bigfunctions folder will be deployed in default datasets of default project in `config.yaml` file. If these default values are not defined yet, they will be prompted and saved in `config.yaml`.
     '''
+    from .deploy import deploy as deploy_bigfunction
     name = bigfunction
     if name == 'ALL':
         project = get_config_value('default_gcp_project')
@@ -131,6 +129,7 @@ def load_table(table):
 
     - If TABLE = 'ALL' then all tables contained in 'data' folder will be deployed in default datasets of default project in `config.yaml` file. If these default values are not defined yet, they will be prompted and saved in `config.yaml`.
     '''
+    from .load_table import load_table as upload_table
     name = table
     if name == 'ALL':
         project = get_config_value('default_gcp_project')
@@ -170,6 +169,7 @@ def generate():
     '''
     Generate markdown files for documentation from yaml bigfunctions files
     '''
+    from .generate_doc import generate_doc
     generate_doc()
 
 
@@ -178,6 +178,7 @@ def serve():
     '''
     Serve docs locally on http://localhost:8000
     '''
+    from .generate_doc import generate_doc
     class EventHandler:
         def dispatch(self, event):
             generate_doc()
