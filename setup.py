@@ -4,7 +4,7 @@ setup(
     name='bigfun',
     version='0.1.0',
     packages=['bigfun'],
-    include_package_data=False,
+    include_package_data=True,
     install_requires=[
         'google-cloud-bigquery',
         'google-cloud-bigquery_connection',
