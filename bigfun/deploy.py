@@ -21,7 +21,7 @@ def get_dataset_users(dataset):
         entity_type = 'user'
         if access_entry.entity_id.endswith('gserviceaccount.com'):
             entity_type = 'serviceAccount'
-        elif access_entry.entity_type == 'group':
+        elif access_entry.entity_type == 'groupByEmail':
             entity_type = 'group'
         return f'{entity_type}:{access_entry.entity_id}'
 
