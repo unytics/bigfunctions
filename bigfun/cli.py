@@ -15,8 +15,6 @@ CONFIG_FILENAME = 'config.yaml'
 CONFIG = {}
 if os.path.exists(CONFIG_FILENAME):
     CONFIG = yaml.safe_load(open(CONFIG_FILENAME, encoding='utf-8').read()) or {}
-BIGFUNCTIONS = [f.replace('.yaml', '') for f in os.listdir(BIGFUNCTIONS_FOLDER)]
-TABLES = [f.replace('.yaml', '') for f in os.listdir(TABLES_FOLDER) if f.endswith('.yaml')]
 
 
 def get_config_value(name):
@@ -66,7 +64,7 @@ def deploy(bigfunction):
     if name == 'ALL':
         project = get_config_value('default_gcp_project')
         datasets = get_config_value('default_datasets')
-        names = BIGFUNCTIONS
+        names = [f.replace('.yaml', '') for f in os.listdir(BIGFUNCTIONS_FOLDER)]
     elif len(name.split('.')) == 1:
         project = get_config_value('default_gcp_project')
         datasets = get_config_value('default_datasets')
@@ -134,7 +132,7 @@ def load_table(table):
     if name == 'ALL':
         project = get_config_value('default_gcp_project')
         datasets = get_config_value('default_datasets')
-        names = TABLES
+        names = [f.replace('.yaml', '') for f in os.listdir(TABLES_FOLDER) if f.endswith('.yaml')]
     elif len(name.split('.')) == 1:
         project = get_config_value('default_gcp_project')
         datasets = get_config_value('default_datasets')
