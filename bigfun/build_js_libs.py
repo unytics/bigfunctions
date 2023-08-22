@@ -83,6 +83,9 @@ fast-xml-parser:
 h3-js:
   versions:
     - 4.1.0
+ua-parser-js:
+  versions:
+    - 1.0.35
 xpath:
   versions:
     - 0.0.32
