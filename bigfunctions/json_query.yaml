@@ -53,5 +53,5 @@ code: |
     throw('could not parse ' + json_string)
   }
   return JSON.stringify(jmespath.search(obj, query));
-libraries:
-  - jmespath.min.js
+npm_packages:
+  - jmespath@0.16.0

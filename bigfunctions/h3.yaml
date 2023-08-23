@@ -23,5 +23,5 @@ examples:
     output: '"87283472bffffff"'
 code: |
   return h3_js[function_name](...arguments);
-libraries:
-  - h3-js-v4.1.0.min.js
+npm_packages:
+  - h3-js@4.1.0

@@ -88,5 +88,5 @@ code: |
   });
 
   return env.renderString(template, context);
-libraries:
-  - nunjucks.min.js
+npm_packages:
+  - nunjucks@3.2.4

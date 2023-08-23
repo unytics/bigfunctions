@@ -22,5 +22,5 @@ examples:
     region: ALL
 code: |
   return js_levenshtein(string1 || '', string2 || '');
-libraries:
-  - js-levenshtein-v1.1.6.js
+npm_packages:
+  - js-levenshtein@1.1.6

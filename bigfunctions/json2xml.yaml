@@ -36,5 +36,5 @@ code: |
   } catch (e) {
       return null
   }
-libraries:
-  - fast-xml-parser-v4.1.3.min.js
+npm_packages:
+  - fast-xml-parser@4.2.7

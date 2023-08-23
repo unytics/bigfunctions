@@ -42,6 +42,6 @@ code: |
   } catch (e){
     return null;
   }
-libraries:
-  - xmldom-v0.6.0.min.js
-  - xpath-v0.0.32.min.js
+npm_packages:
+  - xmldom@0.6.0
+  - xpath@0.0.32

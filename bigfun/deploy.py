@@ -6,7 +6,7 @@ import shutil
 import yaml
 import jinja2
 
-from .utils import BigQuery, CloudRun, handle_error, print_success, print_info, print_warning
+from .utils import BigQuery, CloudRun, handle_error, print_success, print_info, build_and_upload_npm_package
 
 
 REMOTE_CONNECTION_NAME = 'remote-bigfunctions'
@@ -59,6 +59,9 @@ def create_folder_with_cloudrun_code(conf, folder):
 
 
 def deploy_cloud_run(bigquery, bigfunction, conf, fully_qualified_dataset, project):
+    if shutil.which('gcloud') is None:
+        handle_error('`gcloud` is not installed while needed to deploy a Remote Function.')
+
     with tempfile.TemporaryDirectory() as folder:
 
         dataset = bigquery.get_dataset(fully_qualified_dataset)
@@ -88,7 +91,11 @@ def deploy(fully_qualified_bigfunction, quotas):
     bigquery = BigQuery(project)
     fully_qualified_dataset = f'`{project}`.{dataset}'
     filename = f'bigfunctions/{bigfunction}.yaml'
-    conf = yaml.safe_load(open(filename, encoding='utf-8').read().replace('{BIGFUNCTIONS_DATASET}', fully_qualified_dataset))
+    if not os.path.isfile(filename):
+        handle_error(f'File {filename} does not exist. Cannot deploy {fully_qualified_bigfunction}')
+    conf = open(filename, encoding='utf-8').read()
+    conf = conf.replace('{BIGFUNCTIONS_DATASET}', fully_qualified_dataset)
+    conf = yaml.safe_load(conf)
     conf['name'] = bigfunction
     conf['dataset'] = fully_qualified_dataset
     conf['filename'] = filename
@@ -108,15 +115,12 @@ def deploy(fully_qualified_bigfunction, quotas):
                 from bigfunction_result) as html
             ;
         '''
-    conf['libraries'] = [
-        {
-            'source_url': library,
-            # 'filename': library.replace('https://', '').replace('http://', '').split('/', 1)[1],
-            'cloudstorage_url': f"gs://bigfunctions_js_libs/{library}",
-        }
-        for library in conf.get('libraries', [])
-    ]
 
+    if 'npm_packages' in conf:
+        conf['js_libraries_urls'] = [
+            build_and_upload_npm_package(npm_package, 'bigfunctions_js_libs', project)
+            for npm_package in conf['npm_packages']
+        ]
     if conf['type'] == 'function_py':
         deploy_cloud_run(bigquery, bigfunction, conf, fully_qualified_dataset, project)
 

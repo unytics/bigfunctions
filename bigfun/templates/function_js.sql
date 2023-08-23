@@ -7,9 +7,9 @@ r'''
 '''
 options(
     description = '''{{ description }}'''
-    {% if libraries %}
+    {% if js_libraries_urls %}
     , library = [
-        {% for library in libraries %}"{{ library.cloudstorage_url }}"{% if not loop.last %}, {% endif %}{% endfor %}
+        {% for url in js_libraries_urls %}"{{ url }}"{% if not loop.last %}, {% endif %}{% endfor %}
     ]
     {% endif %}
 )

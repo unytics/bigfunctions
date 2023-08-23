@@ -1,3 +1,5 @@
+import tempfile
+import shutil
 import os
 import sys
 import subprocess
@@ -7,6 +9,7 @@ import google.api_core.exceptions
 import google.auth.exceptions
 import google.cloud.bigquery
 import google.cloud.bigquery_connection_v1
+import google.cloud.storage
 import google.iam.v1.policy_pb2
 import click
 
@@ -29,6 +32,13 @@ def print_warning(msg):
 def handle_error(msg):
     click.echo(click.style(f'ERROR: {msg}', fg='red'))
     sys.exit()
+
+def exec(command):
+    print_command(command)
+    try:
+        return subprocess.check_output(command, shell=True).decode().strip()
+    except subprocess.CalledProcessError as e:
+        handle_error('See error above. ' + e.output.decode(errors='ignore').strip())
 
 
 def prefix_lines_with_line_number(string: str, starting_index: int = 1) -> str:
@@ -140,6 +150,32 @@ class BigQuery:
         self.bq_connection_client.set_iam_policy(request=dict(resource=remote_connection, policy=policy))
 
 
+class Storage:
+
+    def __init__(self, project):
+        self.project = project
+        self._client = None
+
+    @property
+    def client(self):
+        if self._client is None:
+            try:
+                self._client = google.cloud.storage.Client(self.project)
+            except google.auth.exceptions.DefaultCredentialsError as e:
+                handle_error('Google Cloud Application-Default-Credentials are not set. Authenticate with `gcloud auth application-default login` and retry')
+        return self._client
+
+    def upload(self, source_filename, destination_filename):
+        print_info(f'Uploading file {source_filename} to {destination_filename}')
+        if not os.path.isfile(source_filename):
+            handle_error(f'{source_filename} file does not exist')
+        destination_filename = destination_filename.replace('gs://', '')
+        bucket_name, destination_filename = destination_filename.split('/', 1)
+        bucket = self.client.bucket(bucket_name)
+        blob = bucket.blob(destination_filename)
+        blob.upload_from_filename(source_filename)
+
+
 class CloudRun:
 
     def __init__(self, service, project, region):
@@ -154,11 +190,8 @@ class CloudRun:
         options['project'] = self.project
         options_str = ''.join([f' --{name} {value}' for name, value in options.items()])
         command += options_str
-        print_command(command)
-        try:
-            return subprocess.check_output(command, shell=True).decode().strip()
-        except subprocess.CalledProcessError as e:
-            handle_error('See error above. ' + e.output.decode(errors='ignore').strip())
+        return exec(command)
+
 
     def deploy(self, source_folder, options):
         print_info(f'Deploy Cloud Run service `{self.service}`')
@@ -208,3 +241,34 @@ class CloudRun:
                 'role': 'roles/run.invoker',
             }
         )
+
+
+def build_npm_package(npm_package, output_filename, destination_folder='.'):
+    if shutil.which('npm') is None:
+        handle_error(f'`npm` is not installed while needed to build {npm_package} npm package.')
+
+    print_info(f'Installing {npm_package} npm package and webpack in tmp folder {destination_folder}')
+    command = f'cd {destination_folder} && npm install webpack webpack-cli {npm_package}'
+    exec(command)
+
+    npm_package_wo_version = npm_package[:npm_package.find('@')]
+    js_entrypoint_variable = npm_package_wo_version.replace('-', '_')
+    print_info(f'Building {npm_package} into a single file using webpack')
+    command = f'cd {destination_folder} && npx webpack --mode production --entry ./node_modules/{npm_package_wo_version} --output-path . --output-filename {output_filename} --output-library {js_entrypoint_variable} --output-library-type var'
+    exec(command)
+
+
+def build_and_upload_npm_package(npm_package, bucket, project):
+
+    with tempfile.TemporaryDirectory() as folder:
+        folder = folder.replace('\\', '/')
+        output_filename = f'{npm_package}.min.js'
+        storage_filename = f'gs://{bucket}/{output_filename}'
+        if storage_filename in os.environ:
+            # This npm package has already been built and uploaded, let's use it
+            return storage_filename
+        print_info(f'Starting to build and upload npm package {npm_package}')
+        build_npm_package(npm_package, output_filename, folder)
+        Storage(project).upload(f'{folder}/{output_filename}', storage_filename)
+        os.environ[storage_filename] = 'uploaded'
+        return storage_filename
