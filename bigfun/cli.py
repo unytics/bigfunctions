@@ -25,6 +25,7 @@ def get_config_value(name):
         'default_gcp_project': ("Default GCP project where to deploy bigfunctions", "bigfunctions"),
         # 'default_datasets':    ("Default dataset(s) where to deploy bigfunctions (comma separated if many)", "eu,us,asia_east1,asia_east2,asia_northeast1,asia_northeast2,asia_northeast3,asia_south1,asia_southeast1,australia_southeast1,europe_north1,europe_west1,europe_west2,europe_west3,europe_west4,europe_west6,northamerica_northeast1,southamerica_east1,us_central1,us_east1,us_east4,us_west1,us_west2"),
         'default_datasets':    ("Default dataset(s) where to deploy bigfunctions (comma separated if many)", "eu"),
+        'default_bucket':    ("Default bucket where to upload npm packages used by js functions", ""),
         'quota_management_backend': ("Backend used for quota management (none or datastore)(if you choose datastore, additionnal intallation steps are required)(if you choose none: only `max_rows_per_query` quota will be checked)", 'none'),
         'quota_contact': ("Contact which appears when user receives a Quota Error", 'paul.marcombes@unytics.io'),
         'quota_max_cloud_run_requests_per_user_per_day': ("Maximum number of 'cloud run requests' a user can make a day while calling remote functions", 1000),
@@ -81,6 +82,8 @@ def deploy(bigfunction):
     else:
         raise
 
+    bucket = get_config_value('default_bucket')
+
     quotas = {
         'backend': get_config_value('quota_management_backend'),
         'contact': get_config_value('quota_contact'),
@@ -98,9 +101,9 @@ def deploy(bigfunction):
     for name in names:
         assert name in names, f'Could not find "{name}" in "{BIGFUNCTIONS_FOLDER}" folder'
         dataset = datasets[0]
-        deploy_bigfunction(f'{project}.{dataset}.{name}', quotas)
+        deploy_bigfunction(f'{project}.{dataset}.{name}', quotas, bucket)
         if len(datasets) > 1:
-            deploy = functools.partial(deploy_bigfunction, quotas=quotas)
+            deploy = functools.partial(deploy_bigfunction, quotas=quotas, bucket=bucket)
             with multiprocessing.Pool(processes=8) as pool:
                 pool.map(deploy, [f'{project}.{dataset}.{name}' for dataset in datasets[1:]])
 

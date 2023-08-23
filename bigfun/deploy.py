@@ -86,7 +86,7 @@ def deploy_cloud_run(bigquery, bigfunction, conf, fully_qualified_dataset, proje
         )
 
 
-def deploy(fully_qualified_bigfunction, quotas):
+def deploy(fully_qualified_bigfunction, quotas, bucket):
     project, dataset, bigfunction = fully_qualified_bigfunction.replace('`', '').split('.')
     bigquery = BigQuery(project)
     fully_qualified_dataset = f'`{project}`.{dataset}'
@@ -118,7 +118,7 @@ def deploy(fully_qualified_bigfunction, quotas):
 
     if 'npm_packages' in conf:
         conf['js_libraries_urls'] = [
-            build_and_upload_npm_package(npm_package, 'bigfunctions_js_libs', project)
+            build_and_upload_npm_package(npm_package, bucket, project)
             for npm_package in conf['npm_packages']
         ]
     if conf['type'] == 'function_py':
