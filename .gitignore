@@ -128,7 +128,6 @@ dmypy.json
 # Pyre type checker
 .pyre/
 
-build_js/
 config.yaml
 
 SECRET
