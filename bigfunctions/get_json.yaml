@@ -1,0 +1,27 @@
+type: function_sql
+category: get_data
+author:
+  name: Paul Marcombes
+  url: https://www.linkedin.com/in/paul-marcombes
+  avatar_url: "https://lh3.googleusercontent.com/a-/ACB-R5RDf2yxcw1p_IYLCKmiUIScreatDdhG8B83om6Ohw=s260"
+description: GET json `data` from `url`
+arguments:
+  - name: url
+    type: string
+  - name: headers
+    type: json
+output:
+  name: data
+  type: json
+examples:
+    arguments:
+      - "'https://api.github.com/repos/unytics/bigfunctions'"
+      - "null"
+    output: "{...}"
+code: |
+  parse_json(
+    {BIGFUNCTIONS_DATASET}.get(
+      url,
+      json_set(headers, '$.Content-Type', 'application/json')
+    )
+  )
