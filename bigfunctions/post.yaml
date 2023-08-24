@@ -20,7 +20,7 @@ output:
 examples:
   - description: "Without headers"
     arguments:
-      - "'https://httpbin.org/post"
+      - "'https://httpbin.org/post'"
       - "json '{\"hello\": \"world\"}'"
       - "null"
     output: |
