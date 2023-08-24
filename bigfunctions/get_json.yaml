@@ -14,6 +14,7 @@ output:
   name: data
   type: json
 examples:
+  - description: ""
     arguments:
       - "'https://api.github.com/repos/unytics/bigfunctions'"
       - "null"
