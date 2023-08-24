@@ -19,13 +19,11 @@ examples:
       - "'https://unytics.io/bigfunctions'"
       - "null"
     output: "&lt;html>...&lt;/html>"
-    region: ALL
   - description: "With Content-Type = application/json headers"
     arguments:
       - "'https://api.github.com/repos/unytics/bigfunctions'"
       - "json '{\"Content-Type\": \"application/json\"}'"
     output: "{...}"
-    region: ALL
 code: |
   import requests
   return requests.get(url, headers=headers).text
