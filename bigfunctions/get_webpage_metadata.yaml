@@ -1,0 +1,29 @@
+type: function_py
+category: get_data
+author:
+  name: Paul Marcombes
+  url: https://www.linkedin.com/in/paul-marcombes
+  avatar_url: "https://lh3.googleusercontent.com/a-/ACB-R5RDf2yxcw1p_IYLCKmiUIScreatDdhG8B83om6Ohw=s260"
+description: |
+  Get webpage metadata
+  (using [metadata_parser](https://github.com/jvanasco/metadata_parser) python library)
+arguments:
+  - name: url
+    type: string
+output:
+  name: metadata
+  type: json
+examples:
+  - description: ""
+    arguments:
+      - "'https://apps.apple.com/fr/app/nickel-compte-pour-tous/id1119225763'"
+    output: "{...}"
+code: |
+  import metadata_parser
+  page = metadata_parser.MetadataParser(url=url)
+  return page.metadata
+requirements: |
+  requests
+  metadata_parser
+quotas:
+  max_rows_per_query: 10
