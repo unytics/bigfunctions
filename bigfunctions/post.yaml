@@ -1,35 +1,44 @@
 type: function_py
-category: post_data
+category: export
 author:
   name: Yves Marcel Ngabirano
   url: https://www.linkedin.com/in/yves-marcel-ngabirano/
   avatar_url: "https://storage.googleapis.com/public-bucket-marcyves/Yves_photo.jpg"
-description: Request `url`
+description: |
+  POST `data` to `url`.
+  `response` is a json formatted as `{status_code, content}`
 arguments:
   - name: url
     type: string
   - name: data
-    type: string
+    type: json
   - name: headers
-    type: string
+    type: json
 output:
   name: response
-  type: string
+  type: json
 examples:
   - description: "Without headers"
     arguments:
-      - "'https://pastebin.com/api/api_post.php'"
-      - "'{\"api_dev_key\": \"6x60q57XG21tJ3U8C7dYCcO5HKUhL6Ae\",\"api_option\": \"paste\", \"api_paste_code\": \"SELECT * FROM PROJECT.DATASET.TABLE\", \"api_paste_format\": \"sql\"}'"
+      - "'https://httpbin.org/post"
+      - "json '{\"hello\": \"world\"}'"
       - "null"
-    output: "[200] url"
-    region: ALL
+    output: |
+      {
+        "content": {...},
+        "status_code": 200
+      }
 code: |
-  import json
   import requests
-  data = json.loads(data)
-  headers = json.loads(headers or '{}')
-  result = requests.post(url=url, data=data, headers=headers)
-  return f'[{result.status_code}] {result.text}'
+  response = requests.post(url, json=data, headers=headers)
+  try:
+    content = response.json()
+  except:
+    content = response.text
+  return {
+    'status_code': response.status_code,
+    'content': content,
+  }
 requirements: |
   requests
 quotas:
