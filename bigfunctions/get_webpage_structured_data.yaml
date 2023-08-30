@@ -1,0 +1,27 @@
+type: function_sql
+category: get_data
+author:
+  name: Paul Marcombes
+  url: https://www.linkedin.com/in/paul-marcombes
+  avatar_url: "https://lh3.googleusercontent.com/a-/ACB-R5RDf2yxcw1p_IYLCKmiUIScreatDdhG8B83om6Ohw=s260"
+description: |
+  Get webpage Structured Data
+  that [Google shows in search results](https://developers.google.com/search/docs/appearance/structured-data/intro-structured-data).
+arguments:
+  - name: url
+    type: string
+output:
+  name: structured_data
+  type: json
+examples:
+  - description: ""
+    arguments:
+      - "'https://apps.apple.com/fr/app/nickel-compte-pour-tous/id1119225763'"
+    output: "{...}"
+code: |
+  parse_json(
+    regexp_extract(
+      {BIGFUNCTIONS_DATASET}.get(url, null),
+      r'application/ld\+json[^>]*>([^<]*)</script>'
+    )
+  )
