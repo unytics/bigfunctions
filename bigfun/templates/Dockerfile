@@ -1,4 +1,4 @@
-FROM python:3.10-slim
+FROM {% if dockerfile is defined and dockerfile.base_image is defined %}{{ dockerfile.base_image }}{% else %}python:3.10-slim{% endif %}
 
 EXPOSE 8080
 
@@ -15,6 +15,7 @@ COPY . ./
 # Install production dependencies.
 RUN pip install --no-cache-dir -r requirements.txt
 
+{{ dockerfile.additional_commands }}
 {{ additional_install_commands_in_dockerfile }}
 
 # Run the web service on container startup. Here we use the gunicorn
