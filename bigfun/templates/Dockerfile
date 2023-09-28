@@ -15,7 +15,7 @@ COPY . ./
 # Install production dependencies.
 RUN pip install --no-cache-dir -r requirements.txt
 
-{{ dockerfile.additional_commands }}
+{% if dockerfile is defined %}{{ dockerfile.additional_commands }}{% endif %}
 {{ additional_install_commands_in_dockerfile }}
 
 # Run the web service on container startup. Here we use the gunicorn
