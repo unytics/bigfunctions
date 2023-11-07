@@ -1,0 +1,32 @@
+type: function_js
+category: convert_data_format
+author:
+  name: Paul Marcombes
+  url: https://www.linkedin.com/in/paul-marcombes
+  avatar_url: "https://lh3.googleusercontent.com/a-/ACB-R5RDf2yxcw1p_IYLCKmiUIScreatDdhG8B83om6Ohw=s260"
+description: |
+  Returns `json` object from array of `key_value_items`
+  . `key_value_items` is of type: array<struct<key string, value string>>.
+
+  ⚠️ Whatever the names of the struct fields: the first field is always considered as the key and the second as the value.
+arguments:
+  - name: key_value_items
+    type: array<struct<key string, value string>>
+output:
+  name: json
+  type: json
+examples:
+  - description: ""
+    arguments:
+      - "[('a', 'foo'), ('b': 'bar')]"
+    output: '{"a": "foo", "b": "bar"}'
+  - description: "⚠️ Whatever the names of the struct fields: the first field is always considered as the key and the second as the value."
+    arguments:
+      - "[struct('a' as value, 'foo' as key), struct('b' as one, 'bar' as two)]"
+    output: '{"a": "foo", "b": "bar"}'
+code: |
+  let obj = {};
+  for (const kv of key_value_items) {
+    obj[kv.key] = kv.value;
+  }
+  return obj;
