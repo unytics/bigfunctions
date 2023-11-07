@@ -6,9 +6,7 @@ author:
   avatar_url: "https://lh3.googleusercontent.com/a-/ACB-R5RDf2yxcw1p_IYLCKmiUIScreatDdhG8B83om6Ohw=s260"
 description: |
   Returns `json` object from array of `key_value_items`
-  which is of type: `array<struct<key string, value string>>`.
-
-  ⚠️ Whatever the names of the struct fields: the first field is always considered as the key and the second as the value.
+  which is a `array<struct<key string, value string>>`.
 arguments:
   - name: key_value_items
     type: array<struct<key string, value string>>
