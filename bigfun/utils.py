@@ -204,7 +204,7 @@ class CloudRun:
                 'platform': 'managed',
                 'quiet': '',
                 'no-allow-unauthenticated': '',
-                'ingress': 'internal',
+                'ingress': 'all',
             },
             **{
                 k.replace('_', '-'): v

@@ -1,5 +1,5 @@
 type: function_js
-category: convert_data_format
+category: transform_json
 author:
   name: Paul Marcombes
   url: https://www.linkedin.com/in/paul-marcombes

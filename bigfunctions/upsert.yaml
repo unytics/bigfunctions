@@ -18,7 +18,7 @@ description: |-
   | `destination_table` | Must be a fully qualified table `(<project-id>.)?<dataset_id>.<table_or_view_name>`. |
   | `insertion_mode` | Three insertion mode are available:<ul><li> `"insert_only"`: existing records in `query_or_table_or_view` and not existing in `destination_table` are inserted. Deletion and update are not possible. </li><li> `"delta"`: same as `insert_only` with the updatable records. Records existing both in `query_or_table_or_view` and in  `destination_table` are updated. If `recency_field` is filled, only the most recent version from source and destination is kept. </li><li> `"full"`: same as `delta` with the deletable records. Records not existing in `query_or_table_or_view` and existing in `destination_table` are deleted. </li> </ul> |
   | `primary_keys` | Combination of field identifying a record. If `primary_keys = []`, every row will be considered as a unique record. |
-  | `recency_field` | Orderable field (ie. `timestamp`, `integer`, ...) to identify the relative frechness of a record version. |
+  | `recency_field` | Orderable field (ie. `timestamp`, `integer`, ...) to identify the relative freshness of a record version. |
 arguments:
   - name: query_or_table_or_view
     type: string

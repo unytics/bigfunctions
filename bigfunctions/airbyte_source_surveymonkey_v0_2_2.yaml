@@ -1,0 +1,73 @@
+type: function_py
+category: get_data
+author:
+  name: Paul Marcombes
+  url: https://www.linkedin.com/in/paul-marcombes
+  avatar_url: "https://lh3.googleusercontent.com/a-/ACB-R5RDf2yxcw1p_IYLCKmiUIScreatDdhG8B83om6Ohw=s260"
+description: |
+  Get Survey Monkey data
+  using Airbyte connector.
+arguments:
+  - name: command
+    type: string
+  - name: config
+    type: string
+  - name: configured_catalog
+    type: string
+  - name: destination_dataset
+    type: string
+output:
+  name: status
+  type: json
+examples:
+  - description: ""
+    arguments:
+      - |
+
+        '''
+        origin: "Europe" # OPTIONAL | string | Depending on the originating datacenter of the SurveyMonkey account, the API access URL may be different.
+        credentials:
+          auth_method: "oauth2.0" # REQUIRED | string
+          access_token: "YOU_ACCESS_TOKEN" # REQUIRED | string | Access Token for making authenticated requests. See the &lt;a href=&#34;https://docs.airbyte.io/integrations/sources/surveymonkey&#34;&gt;docs&lt;/a&gt; for information on how to generate this key.
+        start_date: "2023-01-01T16:02:45Z"  # REQUIRED | string | UTC date and time in the format 2017-01-25T00:00:00Z. Any data before this date will not be replicated. | Example: 2021-01-01T00:00:00Z
+        survey_ids: [] # OPTIONAL | array | IDs of the surveys from which you&#39;d like to replicate data. If left empty, data from all boards to which you have access will be replicated.
+        '''
+      - |
+        '*'
+      - |
+        'my_project.my_dataset'
+
+    output: "{...}"
+dockerfile:
+  base_image: airbyte/source-surveymonkey:0.2.2
+  additional_commands: |
+    ENV AIRBYTE_SOURCE_ENTRYPOINT="python /airbyte/integration_code/main.py"
+    ENTRYPOINT []
+code: |
+  import os
+  from airbyte_serverless.sources import AirbyteSource
+  from airbyte_serverless.destinations import BigQueryDestination
+
+  airbyte_source_executable = os.environ.get('AIRBYTE_SOURCE_ENTRYPOINT')
+  source = AirbyteSource(airbyte_source_executable, config=config, configured_catalog=configured_catalog)
+
+  if command not in ['state', 'run']:
+    return getattr(source, command.replace('source.', ''))
+
+  destination = BigQueryDestination(dataset=destination_dataset)
+
+  state = destination.get_state()
+  if command == 'state':
+    return state
+
+  data = source.extract(state=state)
+  destination.load(data)
+  return {"status": "ok"}
+requirements: |
+  airbyte-serverless
+quotas:
+  max_rows_per_query: 1
+cloud_run:
+  concurrency: 1
+  max_instances: 10
+  timeout: 3600
