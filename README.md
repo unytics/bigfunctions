@@ -32,7 +32,7 @@ BigQuery, with native and remote routines, is really powerful. **BigFunctions ta
 
 We believe no-one should be reinventing the wheel and open-source is the best way to fight against that.
 
-Now, let's Play 👇
+Now let's Play 👇
 
 <br>
 
