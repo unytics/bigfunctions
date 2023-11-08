@@ -30,7 +30,9 @@ def print_warning(msg):
     click.echo(click.style(f'WARNING: {msg}', fg='cyan'))
 
 def handle_error(msg, details=''):
-    click.echo(click.style(f'ERROR: {msg}' + (('\nERROR_DETAILS: ' + details) if details else ''), fg='red'))
+    click.echo(click.style(f'ERROR: {msg}', fg='red'))
+    if details:
+        click.echo(click.style(f'ERROR_DETAILS: {details}', fg='red'))
     sys.exit()
 
 def exec(command):
@@ -94,8 +96,10 @@ class BigQuery:
             breakpoint()
             handle_error('Access Denied', e.message)
         except (google.api_core.exceptions.BadRequest, google.api_core.exceptions.NotFound) as e:
-            e.message += "\nQuery:\n" + prefix_lines_with_line_number(query)
-            raise e
+            handle_error(
+                e.message,
+                "Query:\n" + prefix_lines_with_line_number(query)
+            )
 
     def create_or_replace_destination_table(self, table, conf):
         return self.query(f'''
