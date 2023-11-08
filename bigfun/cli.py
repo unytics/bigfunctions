@@ -51,13 +51,7 @@ def deploy(bigfunction, project, dataset):
     '''
     Deploy BIGFUNCTION
 
-    - If BIGFUNCTION = '{project}.{dataset}.{name}' then bigfunction of name {name} in bigfunctions folder will be deployed in dataset {dataset} of project {project}
-
-    - If BIGFUNCTION = '{dataset}.{name}' then bigfunction of name {name} in bigfunctions folder will be deployed in dataset {dataset} of default project defined in `config.yaml` file. If no default dataset is defined yet, it will be prompted and saved in `config.yaml`.
-
-    - If BIGFUNCTION = '{name}' then bigfunction of name {name} in bigfunctions folder will be deployed in default datasets of default project defined in `config.yaml` file. If these default values are not defined yet, they will be prompted and saved in `config.yaml`.
-
-    - If BIGFUNCTION = 'ALL' then all bigfunctions contained in bigfunctions folder will be deployed in default datasets of default project in `config.yaml` file. If these default values are not defined yet, they will be prompted and saved in `config.yaml`.
+    Deploy the function defined in `bigfunctions/{BIGFUNCTION}.yaml` file. If BIGFUNCTION = 'ALL' then all bigfunctions contained in bigfunctions folder are deployed.
     '''
     from .deploy import deploy as deploy_bigfunction
     project = project or get_config_value('project')
@@ -107,19 +101,12 @@ def test(bigfunction):
 
 @cli.command()
 @click.argument('table')
-@click.option('--project', help='Google Cloud project where the function will be deployed')
-@click.option('--dataset', help='BigQuery dataset name where the function will be deployed')
+@click.option('--project', help='Google Cloud project where the table is created')
+@click.option('--dataset', help='BigQuery dataset name where the table is created')
 def load_table(table, project, dataset):
     '''
-    Create or replace bigquery table with data contained in data/{name}.csv
-
-    - If TABLE = '{project}.{dataset}.{name}' then table of name {name} in 'data' folder will be deployed in dataset {dataset} of project {project}
-
-    - If TABLE = '{dataset}.{name}' then table of name {name} in 'data' folder will be deployed in dataset {dataset} of default project defined in `config.yaml` file. If no default dataset is defined yet, it will be prompted and saved in `config.yaml`.
-
-    - If TABLE = '{name}' then table of name {name} in 'data' folder will be deployed in default datasets of default project defined in `config.yaml` file. If these default values are not defined yet, they will be prompted and saved in `config.yaml`.
-
-    - If TABLE = 'ALL' then all tables contained in 'data' folder will be deployed in default datasets of default project in `config.yaml` file. If these default values are not defined yet, they will be prompted and saved in `config.yaml`.
+    Create or replace bigquery table TABLE with data contained in `data/{TABLE}.csv`.
+    If TABLE=ALL, then all tables defined in `data` folder are created.
     '''
     from .load_table import load_table as upload_table
     project = project or get_config_value('project')
