@@ -58,14 +58,11 @@ def create_folder_with_cloudrun_code(conf, folder):
         out.write(dockerfile)
 
 
-def deploy_cloud_run(bigquery, bigfunction, conf, fully_qualified_dataset, project):
+def deploy_cloud_run(bigquery, bigfunction, dataset, conf, fully_qualified_dataset, project):
     if shutil.which('gcloud') is None:
         handle_error('`gcloud` is not installed while needed to deploy a Remote Function.')
 
     with tempfile.TemporaryDirectory() as folder:
-
-        dataset = bigquery.get_dataset(fully_qualified_dataset)
-
         remote_connection = bigquery.get_or_create_remote_connection(project, dataset.location, REMOTE_CONNECTION_NAME)
         remote_connection_users = get_dataset_users(dataset)
         bigquery.set_remote_connection_users(remote_connection.name, remote_connection_users)
@@ -86,13 +83,14 @@ def deploy_cloud_run(bigquery, bigfunction, conf, fully_qualified_dataset, proje
         )
 
 
-def deploy(fully_qualified_bigfunction, quotas, bucket):
-    project, dataset, bigfunction = fully_qualified_bigfunction.replace('`', '').split('.')
+def deploy(bigfunction, project, dataset_name, quotas, bucket):
     bigquery = BigQuery(project)
-    fully_qualified_dataset = f'`{project}`.{dataset}'
     filename = f'bigfunctions/{bigfunction}.yaml'
     if not os.path.isfile(filename):
-        handle_error(f'File {filename} does not exist. Cannot deploy {fully_qualified_bigfunction}')
+        handle_error(f'File {filename} does not exist. Cannot deploy {bigfunction}')
+    fully_qualified_bigfunction = f'`{project}`.`{dataset_name}`.{bigfunction}'
+    fully_qualified_dataset = f'`{project}`.`{dataset_name}`'
+    dataset = bigquery.get_dataset(fully_qualified_dataset)
     conf = open(filename, encoding='utf-8').read()
     conf = conf.replace('{BIGFUNCTIONS_DATASET}', fully_qualified_dataset)
     conf = yaml.safe_load(conf)
@@ -122,7 +120,7 @@ def deploy(fully_qualified_bigfunction, quotas, bucket):
             for npm_package in conf['npm_packages']
         ]
     if conf['type'] == 'function_py':
-        deploy_cloud_run(bigquery, bigfunction, conf, fully_qualified_dataset, project)
+        deploy_cloud_run(bigquery, bigfunction, dataset, conf, fully_qualified_dataset, project)
 
     template_file = f'{TEMPLATE_FOLDER}/{conf["type"]}.sql'
     template = jinja2.Template(open(template_file, encoding='utf-8').read())

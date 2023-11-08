@@ -29,8 +29,8 @@ def print_command(msg):
 def print_warning(msg):
     click.echo(click.style(f'WARNING: {msg}', fg='cyan'))
 
-def handle_error(msg):
-    click.echo(click.style(f'ERROR: {msg}', fg='red'))
+def handle_error(msg, details=''):
+    click.echo(click.style(f'ERROR: {msg}' + (('\nERROR_DETAILS: ' + details) if details else ''), fg='red'))
     sys.exit()
 
 def exec(command):
@@ -82,11 +82,17 @@ class BigQuery:
 
     def get_dataset(self, dataset):
         print_info('Getting dataset')
-        return self.client.get_dataset(dataset.replace('`', ''))
+        try:
+            return self.client.get_dataset(dataset.replace('`', ''))
+        except google.api_core.exceptions.NotFound as e:
+            handle_error('Not Found', e.message)
 
     def query(self, query):
         try:
             return self.client.query(query).result()
+        except google.api_core.exceptions.Forbidden as e:
+            breakpoint()
+            handle_error('Access Denied', e.message)
         except (google.api_core.exceptions.BadRequest, google.api_core.exceptions.NotFound) as e:
             e.message += "\nQuery:\n" + prefix_lines_with_line_number(query)
             raise e

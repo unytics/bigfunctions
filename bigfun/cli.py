@@ -101,11 +101,13 @@ def deploy(bigfunction):
     for name in names:
         assert name in names, f'Could not find "{name}" in "{BIGFUNCTIONS_FOLDER}" folder'
         dataset = datasets[0]
-        deploy_bigfunction(f'{project}.{dataset}.{name}', quotas, bucket)
+        deploy_bigfunction(name, project, dataset, quotas, bucket)
         if len(datasets) > 1:
-            deploy = functools.partial(deploy_bigfunction, quotas=quotas, bucket=bucket)
             with multiprocessing.Pool(processes=8) as pool:
-                pool.map(deploy, [f'{project}.{dataset}.{name}' for dataset in datasets[1:]])
+                pool.starmap(
+                    deploy_bigfunction,
+                    [[name, project, dataset, quotas, bucket] for dataset in datasets[1:]]
+                )
 
 
 @cli.command()
