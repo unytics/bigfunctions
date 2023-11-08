@@ -27,7 +27,6 @@ examples:
       |    1.0    |   0.5   |
       |    1.0    |   0     |
       +-----------+---------+
-    region: ALL
 code: |
   with
       unnested AS (

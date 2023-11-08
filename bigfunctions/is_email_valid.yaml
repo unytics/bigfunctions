@@ -18,17 +18,14 @@ examples:
     arguments:
       - "'paul.marcombes@unytics.io'"
     output: "true"
-    region: ALL
   - description: "with incorrect format"
     arguments:
       - "'paul/marcombes@example.com'"
     output: "false"
-    region: ALL
   - description: "with a domain not registrable"
     arguments:
       - "'paul.marcombes@example.con'"
     output: "false"
-    region: ALL
 code: |
   case
     when net.reg_domain(lower(email)) is null then false

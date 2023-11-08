@@ -19,7 +19,6 @@ examples:
       - "'I can eat candies'"
       - "['can', 'eat']"
     output: "I  dies"
-    region: ALL
 code: |
   (
   with escaped_strings_to_remove as (

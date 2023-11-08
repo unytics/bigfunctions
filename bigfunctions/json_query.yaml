@@ -26,25 +26,21 @@ examples:
       - "'{\"foo\": [{\"first\": \"a\"}, {\"first\": \"c\"}]}'"
       - "'foo'"
     output: "[{\"first\": \"a\"}, {\"first\": \"c\"}]"
-    region: ALL
   - description: "Getting array sub-items"
     arguments:
       - "'{\"foo\": [{\"first\": \"a\"}, {\"first\": \"c\"}]}'"
       - "'foo[*].first'"
     output: "['a', 'c']"
-    region: ALL
   - description: "Slicing"
     arguments:
       - "'{\"foo\": [{\"first\": \"a\"}, {\"first\": \"c\"}]}'"
       - "'foo[:1].first'"
     output: "['a']"
-    region: ALL
   - description: "Projecting"
     arguments:
       - "'{\"foo\": [{\"first\": \"a\"}, {\"first\": \"c\"}]}'"
       - "'foo[*].{name: first}'"
     output: "[{\"name\": \"a\"}, {\"name\": \"c\"}]"
-    region: ALL
 code: |
   try {
     obj = JSON.parse(json_string);

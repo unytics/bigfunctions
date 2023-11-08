@@ -18,37 +18,30 @@ examples:
     arguments:
       - "'2021-01-20 '"
     output: "date('2021-01-20')"
-    region: ALL
   - description: ""
     arguments:
       - "'2021-1-20 '"
     output: "date('2021-01-20')"
-    region: ALL
   - description: ""
     arguments:
       - "'2021/01/20 '"
     output: "date('2021-01-20')"
-    region: ALL
   - description: ""
     arguments:
       - "'2021/1/20 '"
     output: "date('2021-01-20')"
-    region: ALL
   - description: ""
     arguments:
       - "'01/20/21'"
     output: "date('2021-01-20')"
-    region: ALL
   - description: ""
     arguments:
       - "'1/20/21'"
     output: "date('2021-01-20')"
-    region: ALL
   - description: ""
     arguments:
       - "'Wed Jan 20 21:47:00 2021'"
     output: "date('2021-01-20')"
-    region: ALL
 code: |
     case
       when regexp_contains(date_string, r'\d{4}-\d{1,2}-\d{1,2}') then date(regexp_extract(date_string, r'\d{4}-\d{1,2}-\d{1,2}'))

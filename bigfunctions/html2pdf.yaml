@@ -23,7 +23,6 @@ examples:
       - '"<h1>Love It!</h1>"'
     output: 'JVBERi0xLjQK....'
     screenshot: html2pdf.png
-    region: ALL
 code: |
   import base64
   import tempfile

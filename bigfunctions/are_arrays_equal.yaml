@@ -21,11 +21,9 @@ examples:
       - "[1, 4, 3]"
       - "[1, 4, 3]"
     output: "true"
-    region: ALL
   - description: ""
     arguments:
       - "[1, 4, 3]"
       - "[1, 4]"
     output: "false"
-    region: ALL
 code: (to_json_string(array1) = to_json_string(array2))

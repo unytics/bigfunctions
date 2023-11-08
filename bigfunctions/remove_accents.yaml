@@ -16,5 +16,4 @@ examples:
     arguments:
       - "'Voilà !'"
     output: Voila !
-    region: ALL
 code: regexp_replace(normalize(str, nfd), r"\pm", '')

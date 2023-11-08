@@ -16,5 +16,4 @@ examples:
     arguments:
       - "[1, 4, 3]"
     output: "[4, 3, 1]"
-    region: ALL
 code: array(select value from unnest(arr) as value order by value desc)

@@ -16,7 +16,6 @@ examples:
     arguments:
       - "'BigFunctions Rocks!'"
     output: "0.945"
-    region: ALL
 code: |
   import google.cloud.language_v1 as language
   language_client = language.LanguageServiceClient()

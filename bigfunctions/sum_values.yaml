@@ -17,5 +17,4 @@ examples:
     arguments:
       - "[1, 4, 3]"
     output: "8"
-    region: ALL
 code: (select sum(value) from unnest(arr) value)

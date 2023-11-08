@@ -6,7 +6,7 @@ author:
   avatar_url: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSqTvjIcUoIG2dOnFeVUKQDmj2-iret_1eX43g5149obw&s"
 description: |
   Get `meteo`
-  for `latitude` , `longitude` and `date`  
+  for `latitude` , `longitude` and `date`
 arguments:
   - name: latitude
     type: float64
@@ -24,7 +24,6 @@ examples:
       - "13.41"
       - "'2023-05-10'"
     output: "{...}"
-    region: ALL
 code: |
   import json
   import requests

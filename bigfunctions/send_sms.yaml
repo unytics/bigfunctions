@@ -23,7 +23,6 @@ examples:
         "body": "Hello 👋 from bigfunctions!",
         ...
       }
-    region: ALL
 code: |
   import requests
   user, token = twilio_credentials.split(':')

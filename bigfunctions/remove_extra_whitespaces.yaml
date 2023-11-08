@@ -18,5 +18,4 @@ examples:
     arguments:
       - "'Hi   Madison  and Mateusz!\\n How are you doing?'"
     output: Hi Madison and Mateusz! How are you doing?
-    region: ALL
 code: trim(regexp_replace(str, r'\s\s+', ' '))

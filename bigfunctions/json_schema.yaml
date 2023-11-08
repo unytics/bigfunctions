@@ -24,7 +24,6 @@ examples:
       |   struct("user.name" as path, "string" as type),
       |   struct("user.friends" as path, "array" as type)
       | ]
-    region: ALL
 code: |
   const getValueType = (value) => {
       let type = {

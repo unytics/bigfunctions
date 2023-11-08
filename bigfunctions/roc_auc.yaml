@@ -18,17 +18,14 @@ examples:
     arguments:
       - "(select array_agg(struct(cast(predicted_score as float64), rand() > 0.5)) from unnest(generate_array(1, 1000)) as predicted_score)"
     output: "0.5"
-    region: ALL
   - description: "Good classifier"
     arguments:
       - "(select array_agg(struct(cast(predicted_score as float64), predicted_score > 500)) from unnest(generate_array(1, 1000)) as predicted_score)"
     output: "1.0"
-    region: ALL
   - description: "Bad classifier"
     arguments:
       - "(select array_agg(struct(cast(predicted_score as float64), predicted_score < 500)) from unnest(generate_array(1, 1000)) as predicted_score)"
     output: "0.0"
-    region: ALL
 code: |
   (
     select sum(auc_contrib)

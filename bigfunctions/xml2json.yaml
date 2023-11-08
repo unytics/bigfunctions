@@ -16,17 +16,14 @@ examples:
     arguments:
       - "'<a><b>foo</b></a>'"
     output: '{"a":{"b":"foo"}}'
-    region: ALL
   - description: ""
     arguments:
       - "'<a></a>'"
     output: '{"a":""}'
-    region: ALL
   - description: ""
     arguments:
       - "'<a></a'"
     output: "null"
-    region: ALL
 code: |
   const isValid = fast_xml_parser.XMLValidator.validate(xml);
   if (typeof isValid === "boolean"){

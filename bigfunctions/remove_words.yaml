@@ -19,6 +19,5 @@ examples:
       - "'I can eat candies'"
       - "['can', 'eat']"
     output: "I  candies"
-    region: ALL
 code: |
   (select regexp_replace(string, r'\b(' || array_to_string(words_to_remove, '|') || r')\b', ''))

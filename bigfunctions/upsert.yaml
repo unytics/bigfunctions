@@ -38,7 +38,6 @@ examples:
       - "'delta'"
       - "['id']"
       - "'timestamp_field'"
-    region: ALL
   - description: "Merge from query in full"
     arguments:
       - "'select * from dataset_id.source_table_or_view where filter_field = true'"
@@ -46,7 +45,6 @@ examples:
       - "'full'"
       - "['id']"
       - "null"
-    region: ALL
 code: |
   declare query string;
   declare context json;

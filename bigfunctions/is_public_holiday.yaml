@@ -24,6 +24,5 @@ examples:
       - "date('2022-07-14')"
       - "'FR'"
     output: "true"
-    region: ALL
 code: |
   date in (select holidays.date from {BIGFUNCTIONS_DATASET}.holidays where holidays.country = country_code)

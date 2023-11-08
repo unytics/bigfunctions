@@ -18,5 +18,4 @@ examples:
     arguments:
       - "[1, 2, 3]"
     output: "3"
-    region: ALL
 code: arr[ordinal(array_length(arr))]

@@ -18,10 +18,8 @@ examples:
     arguments:
       - "[1, 4, 3]"
     output: "3"
-    region: ALL
   - description: "When array length is even"
     arguments:
       - "[1, 4, 3, 2]"
     output: "2.5"
-    region: ALL
 code: (select percentile_cont(value, 0.5) over() from unnest(arr) value limit 1)

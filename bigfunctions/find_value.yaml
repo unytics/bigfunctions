@@ -21,11 +21,9 @@ examples:
       - "[3, 4]"
       - "4"
     output: "1"
-    region: ALL
   - description: "When `value` is not in array"
     arguments:
       - "[3, 4]"
       - "7"
     output: "null"
-    region: ALL
 code: (select offset from unnest(arr) as x with offset where x = value limit 1)

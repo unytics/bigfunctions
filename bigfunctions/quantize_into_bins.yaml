@@ -21,25 +21,21 @@ examples:
       - "-4"
       - "[0, 1, 5, 10]"
     output: "]-∞, 0["
-    region: ALL
   - description: ""
     arguments:
       - "3"
       - "[0, 1, 5, 10]"
     output: "[1, 5["
-    region: ALL
   - description: ""
     arguments:
       - "9"
       - "[0, 1, 5, 10]"
     output: "[5, 10]"
-    region: ALL
   - description: ""
     arguments:
       - "130"
       - "[0, 1, 5, 10]"
     output: "]10, +∞["
-    region: ALL
 code: |
   (
     select

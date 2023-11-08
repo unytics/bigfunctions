@@ -21,7 +21,6 @@ examples:
       +----------------------------+
       |         2023-01-10         |
       +----------------------------+
-    region: ALL
 code: |
   declare project, dataset, table, partition_col string;
 

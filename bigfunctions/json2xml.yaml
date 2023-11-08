@@ -16,17 +16,14 @@ examples:
     arguments:
       - "'{\"a\": {\"b\": \"foo\"}}'"
     output: '<a><b>foo</b></a>'
-    region: ALL
   - description: "With valid JSON and with one key that has empty string as a value"
     arguments:
       - "'{\"a\": \"\"}'"
     output: '<a></a>'
-    region: ALL
   - description: "With invalid JSON"
     arguments:
       - "'{\"a\": \"\"'"
     output: "null"
-    region: ALL
 code: |
   try{
     const parsedJSON = JSON.parse(json);

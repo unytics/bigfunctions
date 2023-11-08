@@ -16,7 +16,6 @@ examples:
     arguments:
       - "'Mozilla/5.0 (Linux; Android 12; SM-S906N Build/QP1A.190711.020; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/80.0.3987.119 Mobile Safari/537.36'"
     output: STRUCT<STRUCT<'Chrome WebView' as name, '80.0.3987.119' as version, '80' as major> as browser, STRUCT<'Blink' as name, '80.0.3987.119' as version> as engine, STRUCT<'Android' as name, '12' as version> as os, STRUCT<'Samsung' as vendor, 'SM-S906N' as model, 'mobile' as type> as device, null as arch>
-    region: ALL
 code: |
   var parser = new ua_parser_js.UAParser();
   parser.setUA(user_agent_string);

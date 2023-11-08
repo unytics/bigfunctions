@@ -41,7 +41,6 @@ examples:
         "createTime": ...,
         "text": "Hello 👋 from bigfunctions!"
       }
-    region: ALL
 code: |
   import requests
   assert webhook_url.startswith('https://chat.googleapis.com/'), 'webhook_url should start with `https://chat.googleapis.com/`'

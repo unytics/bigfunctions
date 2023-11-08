@@ -24,7 +24,6 @@ examples:
         Answer: formatted as alpha three code
         '''
     output: "FRA"
-    region: ALL
   - description: "Generate SQL"
     arguments:
       - |
@@ -42,7 +41,6 @@ examples:
       GROUP BY product_id
       ORDER BY revenue DESC
       LIMIT 10
-    region: ALL
 code: |
   import re
   import vertexai

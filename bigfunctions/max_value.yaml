@@ -18,5 +18,4 @@ examples:
     arguments:
       - "[1, 4, 3]"
     output: "4"
-    region: ALL
 code: (select max(value) from unnest(arr) value)

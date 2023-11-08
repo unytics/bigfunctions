@@ -28,7 +28,6 @@ examples:
       | 8   | 9   |
       | 9   | 9   |
       +-----+-----+
-    region: ALL
   - description: "When incorrect table name is passed as arguments."
     arguments:
       - '"my_project.my_dataset.my_tbl"'
@@ -38,7 +37,6 @@ examples:
       +-------------------------------------------------------------------------------------------------------------------------------------------+
       | Not found: Table my_project:my_dataset.my_tbl was not found in location US at [my_project:my_dataset.deduplicate_rows:2:13] |
       +-------------------------------------------------------------------------------------------------------------------------------------------+
-    region: ALL
   - description: "When a query is passed into the procedure."
     arguments:
       - '"select data from unnest([1, 2, 3, 1]) data"'
@@ -50,7 +48,6 @@ examples:
       | 2    |
       | 3    |
       +------+
-    region: ALL
 code: |
   declare formatted_sql string;
   declare sub_query string;

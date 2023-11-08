@@ -19,19 +19,16 @@ examples:
       - '"<customer><name>John Doe</name></customer>"'
       - '"/customer/name"'
     output: '["John Doe"]'
-    region: ALL
   - description: "Multiple elements for the xpath"
     arguments:
       - '"<customer><name>John Doe</name><name>Jane Doe</name></customer>"'
       - '"/customer/name"'
     output: '["John Doe", "Jane Doe"]'
-    region: ALL
   - description: "Incorrect xpath"
     arguments:
       - '"<customer><name>John Doe</name></customer>"'
       - '"/customer/na"'
     output: 'null'
-    region: ALL
 code: |
   try{
     const dom = new xmldom.DOMParser().parseFromString(xml);

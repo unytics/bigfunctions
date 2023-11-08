@@ -26,13 +26,11 @@ examples:
       - '"name"'
       - '"it_IT"'
     output: "Michela Beccaria"
-    region: ALL
   - description: "Generate fake IPv4 address (without specifying locale)"
     arguments:
       - '"ipv4_private"'
       - 'null'
     output: "10.52.207.187"
-    region: ALL
 
 code: |
   import datetime

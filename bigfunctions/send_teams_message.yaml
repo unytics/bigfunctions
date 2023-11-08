@@ -22,7 +22,6 @@ examples:
       - '"Hello 👋 from bigfunctions!"'
       - '"YOUR_WEBHOOK_URL"'
     output: 'ok'
-    region: ALL
 code: |
   import requests
   assert webhook_url.startswith('https://') and '.webhook.office.com/' in webhook_url, 'webhook_url should start with `https://<xxxxx>.webhook.office.com/`'

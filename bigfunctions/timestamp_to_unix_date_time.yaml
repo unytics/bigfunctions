@@ -5,7 +5,7 @@ author:
   url: https://www.linkedin.com/in/axel-thevenot/
   avatar_url: "https://avatars.githubusercontent.com/u/39374103?v=4"
 description: |-
-  Returns the number of `date_time_part` since `1970-01-01 00:00:00 UTC`. 
+  Returns the number of `date_time_part` since `1970-01-01 00:00:00 UTC`.
   Truncates higher levels of precision by rounding down to the beginning of the `date_time_part`.
 
   | Param  | Possible values  |
@@ -25,14 +25,13 @@ examples:
       - 'timestamp("2001-01-01")'
       - '"YEAR"'
     output: "31"
-    region: ALL
 code: |
   (
     case upper(date_time_part)
       when 'MICROSECOND'     then unix_micros(timestamp_expression)
       when 'MILLISECOND'     then unix_millis(timestamp_expression)
       when 'SECOND'          then unix_seconds(timestamp_expression)
-      when 'MINUTE'          then timestamp_diff(timestamp_trunc(timestamp_expression, MINUTE),  '1970-01-01', MINUTE) 
+      when 'MINUTE'          then timestamp_diff(timestamp_trunc(timestamp_expression, MINUTE),  '1970-01-01', MINUTE)
       when 'HOUR'            then timestamp_diff(timestamp_trunc(timestamp_expression, HOUR),  '1970-01-01', HOUR)
       when 'DAY'             then unix_date(date(timestamp_expression))
       when 'WEEK'            then date_diff(date(timestamp_expression), '1970-01-01', WEEK)

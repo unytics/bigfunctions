@@ -35,7 +35,6 @@ examples:
           "plus_code": {...},
           "types": ["street_address"]
       }
-    region: ALL
 code: |
   import json
   import googlemaps

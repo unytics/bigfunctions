@@ -19,7 +19,6 @@ examples:
       - "'Hello {{ username }}'"
       - "'{\"username\": \"James\"}'"
     output: Hello James
-    region: ALL
 code: |
   context = JSON.parse(context);
   var env = nunjucks.configure();

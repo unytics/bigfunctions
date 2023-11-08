@@ -18,7 +18,6 @@ examples:
     arguments:
       - "'https://www.yoursite.com/pricing/details?myparam1=123&myparam2=abc#newsfeed'"
     output: struct<'www.yoursite.com' as host, 'pricing/details' as path, 'myparam1=123&myparam2=abc#newsfeed' as query, 'newsfeed' as ref, 'https' as protocol>
-    region: ALL
 code: |
   struct(
     regexp_extract(url, r'(?:[a-za-z]+://)?([a-za-z0-9-.]+)/?') as host,

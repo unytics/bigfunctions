@@ -20,7 +20,6 @@ examples:
     arguments:
       - "json '[{\"col1\": \"row1\", \"col2\": 1}, {\"col1\": \"row2\", \"col2\": 2}]'"
     output: UEsDBBQAAAAAA...
-    region: ALL
 code: |
   var wb = xlsx.utils.book_new();
   var ws = xlsx.utils.json_to_sheet(data);

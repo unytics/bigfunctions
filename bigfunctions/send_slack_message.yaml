@@ -22,7 +22,6 @@ examples:
       - '"Hello 👋 from bigfunctions!"'
       - '"YOUR_WEBHOOK_URL"'
     output: 'ok'
-    region: ALL
 code: |
   import requests
   assert webhook_url.startswith('https://hooks.slack.com/'), 'webhook_url should start with `https://hooks.slack.com/`'

@@ -25,7 +25,6 @@ examples:
       - '31'
       - '"YEAR"'
     output: "2001-01-01 00:00:00 UTC"
-    region: ALL
 code: |
   (
     case upper(date_time_part)

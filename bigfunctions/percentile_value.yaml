@@ -6,7 +6,7 @@ author:
   avatar_url: "https://media.licdn.com/dms/image/D4D03AQERv0qwECH0DA/profile-displayphoto-shrink_200_200/0/1675233460732?e=1686182400&v=beta&t=HqngiSx5zd4llZStwf3L0k2T_pE8qvnEj7NguWNJTOo"
 description: |
   Returns percentile of an array with percentile a float in range [0, 1].
-  
+
   Algorithm to calculate percentile is based on *[R. J. Hyndman and Y. Fan, "Sample quantiles in statistical packages," The American Statistician, 50(4), pp. 361-365, 1996](https://www.amherst.edu/media/view/129116/original/Sample+Quantiles.pdf)*
 arguments:
   - name: arr
@@ -22,23 +22,20 @@ examples:
       - "[20, 16, 15, 13, 10, 9, 8, 8, 7, 6, 3]"
       - "0.74"
     output: '13.8'
-    region: ALL
   - description: ""
     arguments:
       - "[20, 16, 15, 13, 10, 9, 8, 8, 7, 6, 3, 2]"
       - "0.9"
     output: '15.9'
-    region: ALL
   - description: ""
     arguments:
       - "[20, 16, 15, 13, 10, 9, 8, 8, 7, 6, 3, 2]"
       - "2"
     output: 'null'
-    region: ALL
 code: |
   (
     select
-    case 
+    case
       when (percentile > 1)
         then null
     else
@@ -61,23 +58,23 @@ code: |
               select a from unnest(arr) as a order by a
               )[
                 safe_offset(cast(floor((array_length(array(select a from unnest(arr) as a order by a)) - 1) * percentile) as int64))
-                ] 
-        + 
+                ]
+        +
         (
           (
             array(
               select a from unnest(arr) as a order by a
               )[
                 safe_offset(cast(ceiling((array_length(array(select a from unnest(arr) as a order by a)) - 1) * percentile) as int64))
-                ] 
-            - 
+                ]
+            -
             array(
               select a from unnest(arr) as a order by a
             )[
               safe_offset(cast(floor((array_length(array(select a from unnest(arr) as a order by a)) - 1) * percentile) as int64))
               ]
-          ) 
-          * 
+          )
+          *
           (
             (array_length(array(select a from unnest(arr) as a order by a)) - 1) * percentile - floor((array_length(array(select a from unnest(arr) as a order by a)) - 1) * percentile)
           )

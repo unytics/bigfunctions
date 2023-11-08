@@ -27,7 +27,6 @@ examples:
       - "100"
       - "10"
     output: "]-∞, 0["
-    region: ALL
   - description: ""
     arguments:
       - "5"
@@ -35,7 +34,6 @@ examples:
       - "100"
       - "10"
     output: "[0, 10["
-    region: ALL
   - description: ""
     arguments:
       - "97"
@@ -43,7 +41,6 @@ examples:
       - "100"
       - "10"
     output: "[90, 100]"
-    region: ALL
   - description: ""
     arguments:
       - "130"
@@ -51,7 +48,6 @@ examples:
       - "100"
       - "10"
     output: "]100, +∞["
-    region: ALL
 code: |
   (
     select

@@ -16,5 +16,4 @@ examples:
     arguments:
       - "[1, 4, 3, 4]"
     output: "[1, 4, 3]"
-    region: ALL
 code: array(select distinct value from unnest(arr) as value)

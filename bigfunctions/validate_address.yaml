@@ -28,7 +28,6 @@ examples:
           'high': {'latitude': 48.8698877, 'longitude': 2.3079341}},
         ...}},
       'responseId': ...}
-    region: ALL
   - description: "Address with inference"
     arguments:
       - "'1 Avenue des Champs-Élysées, 75008 Paris, France'"
@@ -56,7 +55,6 @@ examples:
           'high': {'latitude': 48.8698877, 'longitude': 2.3079341}},
         ...}},
       'responseId': ...}
-    region: ALL
   - description: "Route granularity"
     arguments:
       - "'Avenue des Champs-Élysées, 75008 Paris, France'"
@@ -79,7 +77,6 @@ examples:
           'high': {'latitude': 48.8748338, 'longitude': 2.3200376}},
         ...}},
       'responseId': ...}
-    region: ALL
 code: |
   import json
   import googlemaps

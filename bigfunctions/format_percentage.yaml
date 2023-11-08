@@ -25,7 +25,6 @@ examples:
       - "3"
       - "2"
     output: 33.33 %
-    region: ALL
 code: |
     round
     (

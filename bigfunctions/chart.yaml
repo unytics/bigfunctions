@@ -23,7 +23,6 @@ examples:
       - "'bar'"
       - "'sales'"
     screenshot: chart.png
-    region: ALL
 code: |
   replace(replace(replace(replace(replace("""
     <div><canvas id="%ID%"></canvas></div>

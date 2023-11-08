@@ -26,7 +26,6 @@ examples:
       - "'USD'"
       - "'EUR'"
     output: "0.910437"
-    region: ALL
 code: |
   import requests
   import datetime
