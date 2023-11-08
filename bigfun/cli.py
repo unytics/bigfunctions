@@ -1,10 +1,9 @@
 import os
 import multiprocessing
-import functools
 
 import yaml
 import click
-from click_help_colors import HelpColorsGroup, HelpColorsCommand
+from click_help_colors import HelpColorsGroup
 from watchdog.observers import Observer
 
 
@@ -22,17 +21,14 @@ def get_config_value(name):
         return CONFIG[name]
 
     text, default = {
-        'default_gcp_project': ("Default GCP project where to deploy bigfunctions", "bigfunctions"),
-        # 'default_datasets':    ("Default dataset(s) where to deploy bigfunctions (comma separated if many)", "eu,us,asia_east1,asia_east2,asia_northeast1,asia_northeast2,asia_northeast3,asia_south1,asia_southeast1,australia_southeast1,europe_north1,europe_west1,europe_west2,europe_west3,europe_west4,europe_west6,northamerica_northeast1,southamerica_east1,us_central1,us_east1,us_east4,us_west1,us_west2"),
-        'default_datasets':    ("Default dataset(s) where to deploy bigfunctions (comma separated if many)", "eu"),
-        'default_bucket':    ("Default bucket where to upload npm packages used by js functions", ""),
+        'project':                   ("Default GCP project where to deploy bigfunctions", None),
+        'dataset':                   ("Default dataset where to deploy bigfunctions", "bigfunctions"),  # eu,us,asia_east1,asia_east2,asia_northeast1,asia_northeast2,asia_northeast3,asia_south1,asia_southeast1,australia_southeast1,europe_north1,europe_west1,europe_west2,europe_west3,europe_west4,europe_west6,northamerica_northeast1,southamerica_east1,us_central1,us_east1,us_east4,us_west1,us_west2
+        'bucket_js_dependencies':    ("Default bucket where to upload npm packages used by js functions", f"{CONFIG['project']}_bigfunctions_js_dependencies" if 'project' in CONFIG else None),
         'quota_management_backend': ("Backend used for quota management (none or datastore)(if you choose datastore, additionnal intallation steps are required)(if you choose none: only `max_rows_per_query` quota will be checked)", 'none'),
         'quota_contact': ("Contact which appears when user receives a Quota Error", 'paul.marcombes@unytics.io'),
         'quota_max_cloud_run_requests_per_user_per_day': ("Maximum number of 'cloud run requests' a user can make a day while calling remote functions", 1000),
     }[name]
     CONFIG[name] = click.prompt(text, default=default)
-    if name == 'default_datasets':
-        CONFIG[name] = CONFIG[name].split(',')
     with open(CONFIG_FILENAME, 'w', encoding='utf-8') as outfile:
         yaml.dump(CONFIG, outfile, default_flow_style=False)
     return CONFIG[name]
@@ -49,7 +45,9 @@ def cli():
 
 @cli.command()
 @click.argument('bigfunction')
-def deploy(bigfunction):
+@click.option('--project', help='Google Cloud project where the function will be deployed')
+@click.option('--dataset', help='BigQuery dataset name where the function will be deployed')
+def deploy(bigfunction, project, dataset):
     '''
     Deploy BIGFUNCTION
 
@@ -62,27 +60,14 @@ def deploy(bigfunction):
     - If BIGFUNCTION = 'ALL' then all bigfunctions contained in bigfunctions folder will be deployed in default datasets of default project in `config.yaml` file. If these default values are not defined yet, they will be prompted and saved in `config.yaml`.
     '''
     from .deploy import deploy as deploy_bigfunction
-    name = bigfunction
-    if name == 'ALL':
-        project = get_config_value('default_gcp_project')
-        datasets = get_config_value('default_datasets')
-        names = [f.replace('.yaml', '') for f in os.listdir(BIGFUNCTIONS_FOLDER)]
-    elif len(name.split('.')) == 1:
-        project = get_config_value('default_gcp_project')
-        datasets = get_config_value('default_datasets')
-        names = [name]
-    elif len(name.split('.')) == 2:
-        project = get_config_value('default_gcp_project')
-        datasets = [name.split('.')[0]]
-        names = [name.split('.')[1]]
-    elif len(name.split('.')) == 3:
-        project = name.split('.')[0]
-        datasets = [name.split('.')[1]]
-        names = [name.split('.')[2]]
-    else:
-        raise
+    project = project or get_config_value('project')
+    dataset = dataset or get_config_value('dataset')
+    datasets = [dataset.strip() for dataset in dataset.split(',')]
+    bigfunctions = [bigfunction.strip() for bigfunction in bigfunction.split(',')]
+    if bigfunction == 'ALL':
+        bigfunctions = [f.replace('.yaml', '') for f in os.listdir(BIGFUNCTIONS_FOLDER)]
 
-    bucket = get_config_value('default_bucket')
+    bucket = get_config_value('bucket_js_dependencies')
 
     quotas = {
         'backend': get_config_value('quota_management_backend'),
@@ -98,15 +83,15 @@ def deploy(bigfunction):
             ]
         }}
 
-    for name in names:
-        assert name in names, f'Could not find "{name}" in "{BIGFUNCTIONS_FOLDER}" folder'
+    for bigfunction in bigfunctions:
+        assert bigfunction in bigfunctions, f'Could not find "{bigfunction}" in "{BIGFUNCTIONS_FOLDER}" folder'
         dataset = datasets[0]
-        deploy_bigfunction(name, project, dataset, quotas, bucket)
+        deploy_bigfunction(bigfunction, project, dataset, quotas, bucket)
         if len(datasets) > 1:
             with multiprocessing.Pool(processes=8) as pool:
                 pool.starmap(
                     deploy_bigfunction,
-                    [[name, project, dataset, quotas, bucket] for dataset in datasets[1:]]
+                    [[bigfunction, project, dataset, quotas, bucket] for dataset in datasets[1:]]
                 )
 
 
@@ -121,7 +106,9 @@ def test(bigfunction):
 
 @cli.command()
 @click.argument('table')
-def load_table(table):
+@click.option('--project', help='Google Cloud project where the function will be deployed')
+@click.option('--dataset', help='BigQuery dataset name where the function will be deployed')
+def load_table(table, project, dataset):
     '''
     Create or replace bigquery table with data contained in data/{name}.csv
 
@@ -134,30 +121,18 @@ def load_table(table):
     - If TABLE = 'ALL' then all tables contained in 'data' folder will be deployed in default datasets of default project in `config.yaml` file. If these default values are not defined yet, they will be prompted and saved in `config.yaml`.
     '''
     from .load_table import load_table as upload_table
-    name = table
-    if name == 'ALL':
-        project = get_config_value('default_gcp_project')
-        datasets = get_config_value('default_datasets')
-        names = [f.replace('.yaml', '') for f in os.listdir(TABLES_FOLDER) if f.endswith('.yaml')]
-    elif len(name.split('.')) == 1:
-        project = get_config_value('default_gcp_project')
-        datasets = get_config_value('default_datasets')
-        names = [name]
-    elif len(name.split('.')) == 2:
-        project = get_config_value('default_gcp_project')
-        datasets = [name.split('.')[0]]
-        names = [name.split('.')[1]]
-    elif len(name.split('.')) == 3:
-        project = name.split('.')[0]
-        datasets = [name.split('.')[1]]
-        names = [name.split('.')[2]]
+    project = project or get_config_value('project')
+    dataset = dataset or get_config_value('dataset')
+    datasets = [dataset.strip() for dataset in dataset.split(',')]
+    if table == 'ALL':
+        tables = [f.replace('.yaml', '') for f in os.listdir(TABLES_FOLDER)]
     else:
-        raise
+        tables = [table]
 
     for dataset in datasets:
-        for name in names:
-            assert name in names, f'Could not find "{name}" in "{TABLES_FOLDER}" folder'
-            upload_table(f'{project}.{dataset}.{name}')
+        for table in tables:
+            assert table in tables, f'Could not find "{table}" in "{TABLES_FOLDER}" folder'
+            upload_table(f'{project}.{dataset}.{table}')
 
 
 
