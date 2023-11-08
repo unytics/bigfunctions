@@ -58,7 +58,7 @@ def create_folder_with_cloudrun_code(conf, folder):
         out.write(dockerfile)
 
 
-def deploy_cloud_run(bigquery, bigfunction, dataset, conf, fully_qualified_dataset, project):
+def deploy_cloud_run(bigquery, bigfunction, dataset, conf, project, cloud_run_options=None):
     if shutil.which('gcloud') is None:
         handle_error('`gcloud` is not installed while needed to deploy a Remote Function.')
 
@@ -71,7 +71,10 @@ def deploy_cloud_run(bigquery, bigfunction, dataset, conf, fully_qualified_datas
         cloud_run_service = 'bf-' + bigfunction.replace("_", "-")
         cloud_run_location = {'EU': 'europe-west1', 'US': 'us-west1'}.get(dataset.location, dataset.location)
         cloud_run = CloudRun(cloud_run_service, project, cloud_run_location)
-        cloud_run_options = conf.get('cloud_run', {})
+        cloud_run_options = {
+            **(cloud_run_options or {}),
+            **conf.get('cloud_run', {}),
+        }
         cloud_run.deploy(folder, cloud_run_options)
         cloud_run.add_invoker_permission(f'serviceAccount:{remote_connection.cloud_resource.service_account_id}')
 
@@ -83,7 +86,7 @@ def deploy_cloud_run(bigquery, bigfunction, dataset, conf, fully_qualified_datas
         )
 
 
-def deploy(bigfunction, project, dataset_name, quotas, bucket):
+def deploy(bigfunction, project, dataset_name, quotas, bucket, cloud_run_options=None):
     bigquery = BigQuery(project)
     filename = f'bigfunctions/{bigfunction}.yaml'
     if not os.path.isfile(filename):
@@ -120,7 +123,7 @@ def deploy(bigfunction, project, dataset_name, quotas, bucket):
             for npm_package in conf['npm_packages']
         ]
     if conf['type'] == 'function_py':
-        deploy_cloud_run(bigquery, bigfunction, dataset, conf, fully_qualified_dataset, project)
+        deploy_cloud_run(bigquery, bigfunction, dataset, conf, project, cloud_run_options)
 
     template_file = f'{TEMPLATE_FOLDER}/{conf["type"]}.sql'
     template = jinja2.Template(open(template_file, encoding='utf-8').read())

@@ -68,6 +68,7 @@ def deploy(bigfunction, project, dataset):
         bigfunctions = [f.replace('.yaml', '') for f in os.listdir(BIGFUNCTIONS_FOLDER)]
 
     bucket = get_config_value('bucket_js_dependencies')
+    cloud_run_options = CONFIG.get('cloud_run', {})
 
     quotas = {
         'backend': get_config_value('quota_management_backend'),
@@ -86,12 +87,12 @@ def deploy(bigfunction, project, dataset):
     for bigfunction in bigfunctions:
         assert bigfunction in bigfunctions, f'Could not find "{bigfunction}" in "{BIGFUNCTIONS_FOLDER}" folder'
         dataset = datasets[0]
-        deploy_bigfunction(bigfunction, project, dataset, quotas, bucket)
+        deploy_bigfunction(bigfunction, project, dataset, quotas, bucket, cloud_run_options)
         if len(datasets) > 1:
             with multiprocessing.Pool(processes=8) as pool:
                 pool.starmap(
                     deploy_bigfunction,
-                    [[bigfunction, project, dataset, quotas, bucket] for dataset in datasets[1:]]
+                    [[bigfunction, project, dataset, quotas, bucket, cloud_run_options] for dataset in datasets[1:]]
                 )
 
 
