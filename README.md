@@ -90,16 +90,25 @@ Commands:
 
 > 1. Make sure the `gcloud` command is [installed on your computer](https://cloud.google.com/sdk/docs/install)
 > 2. Activate the application-default account with `gcloud auth application-default login`. A browser window should open, and you should be prompted to log into your Google account. Once you've done that, `bigfun` will use your oauth'd credentials to connect to BigQuery through BigQuery python client!
-> 3. Get permissions to edit a dataset `DATASET` in a project `PROJECT` and to run BigQuery queries in that project.
+> 3. Get or create a `DATASET` where you have permission to edit data and where the function will be deployed.
+> 4. The `DATASET` must belong to a `PROJECT` in which you have permission to run BigQuery queries.
 
+You now can deploy `is_email_valid` function with:
 
-You should then be able to deploy the function `is_email_valid` by simply running
-
+```sh
+bigfun deploy is_email_valid
 ```
-bigfun deploy PROJECT.DATASET.is_email_valid
-```
 
-Test it with 👀 `select PROJECT.DATASET.is_email_valid('paul.marcombes@unytics.io')` !
+> The first time you run this command it will ask for `PROJECT` and `DATASET`.
+>
+> Your inputs will be written to `conf.yaml` file in current directory so that you won't be asked again (unless you delete the entries in `conf.yaml`). You can also override this config at deploy time: `bigfun deploy is_email_valid --project=PROJECT --dataset=DATASET`.
+
+
+Test it with 👀:
+
+```sql
+select PROJECT.DATASET.is_email_valid('paul.marcombes@unytics.io')
+```
 
 <br>
 
@@ -114,13 +123,17 @@ Test it with 👀 `select PROJECT.DATASET.is_email_valid('paul.marcombes@unytics
 > 4. A service account will be automatically created by Google along with the *BigQuery Remote Connection*. BigQuery will use this service account of the remote connection to invoke the *Cloud Run* service. You then must have the permission to authorize this service account to invoke the *Cloud Run* service. This permission is provided in the role *[roles/run.admin](https://cloud.google.com/run/docs/reference/iam/roles)*
 
 
-You now should be able to deploy `sentiment_score` function by running
+You now can deploy `faker` function with:
 
-```
-bigfun deploy PROJECT.DATASET.sentiment_score
+```sh
+bigfun deploy faker
 ```
 
-To make this specific function work, you first must [enable Google Cloud NLP API](https://cloud.google.com/natural-language/docs/setup#api) in your project `PROJECT`. You can then test it with 👀 `select PROJECT.DATASET.sentiment_score('This is awesome!')` !
+Test it with 👀:
+
+```sql
+select PROJECT.DATASET.faker("name", "it_IT")
+```
 
 
 <br>
