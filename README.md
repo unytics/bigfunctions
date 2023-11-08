@@ -106,7 +106,7 @@ bigfun deploy is_email_valid
 
 > The first time you run this command it will ask for `PROJECT` and `DATASET`.
 >
-> Your inputs will be written to `conf.yaml` file in current directory so that you won't be asked again (unless you delete the entries in `conf.yaml`). You can also override this config at deploy time: `bigfun deploy is_email_valid --project=PROJECT --dataset=DATASET`.
+> Your inputs will be written to `config.yaml` file in current directory so that you won't be asked again (unless you delete the entries in `config.yaml`). You can also override this config at deploy time: `bigfun deploy is_email_valid --project=PROJECT --dataset=DATASET`.
 
 
 Test it with 👀:
