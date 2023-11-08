@@ -14,7 +14,7 @@
 
 ## 🔍️ What is BigFunctions?
 
-BigFunctions gives **BigQuery superpowers** and will save you from reinventing the wheel with:
+BigFunctions is:
 
 1. 👉 a **framework** that helps you build a governed **catalog of powerful BigQuery functions** for your company.
 2. 👉 a **public catalog of open functions** that you can call directly (without install) or redeploy in your own catalog.
