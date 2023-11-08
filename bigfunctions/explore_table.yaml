@@ -11,8 +11,7 @@ arguments:
 examples:
   - description: ""
     arguments:
-      - '"bigquery-public-data.samples.natality"'
-    region: US
+      - '"{BIGFUNCTIONS_DATASET}.natality"'
     screenshot: explore_column.png
 code: |
   declare project, dataset, table, query string;

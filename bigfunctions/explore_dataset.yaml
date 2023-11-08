@@ -12,8 +12,7 @@ arguments:
 examples:
   - description: ""
     arguments:
-      - '"bigquery-public-data.samples"'
-    region: US
+      - '"{BIGFUNCTIONS_DATASET}"'
     screenshot: explore_dataset.png
 code: |
   declare project, dataset string;

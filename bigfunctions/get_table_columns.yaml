@@ -15,8 +15,7 @@ examples:
       call `bigfunctions.eu._get_columns`("bigfunctions.samples.natality");
       select column_name, data_type from bigfunction_result ;
     arguments:
-      - "'bigfunctions.samples.natality'"
-    region: EU
+      - '"{BIGFUNCTIONS_DATASET}.natality"'
 code: |
   declare project, dataset, table, query string;
   declare parts array<string> default split(replace(fully_qualified_table, '`', ''), '.');
