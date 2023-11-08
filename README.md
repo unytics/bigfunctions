@@ -20,11 +20,6 @@ BigFunctions gives you **BigQuery superpowers** and **saves you from reinventing
 2. 👉 a **catalog of public functions** that you can call directly (without install) or redeploy in your own catalog.
 
 
-> The framework comes with:
->
-> - 💚 A standard for BigQuery routines as yaml files be it sql/js/remote UDF or procedures
-> - 💚 `bigfun` **CLI** (Command Line Interface) to test, deploy, document and monitor these BigQuery routines in your project
-
 
 
 <br>
