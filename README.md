@@ -17,7 +17,7 @@
 BigFunctions gives you **BigQuery superpowers** and **saves you from reinventing the wheel** with:
 
 1. 👉 a **framework** that helps you build a governed **catalog of powerful BigQuery functions** for your company.
-2. 👉 a **catalog of public functions** that you can call directly (without install) or redeploy in your own catalog.
+2. 👉 a **public catalog of open functions** that you can call directly (without install) or redeploy in your own catalog.
 
 
 
@@ -27,9 +27,11 @@ BigFunctions gives you **BigQuery superpowers** and **saves you from reinventing
 
 ## 💡 Why BigFunctions?
 
-BigQuery, with native and remote routines, is really powerful. **BigFunctions take the most of that by offering ready-to-use functions with useful features for data-teams**.
+BigQuery, with native and remote routines, is really powerful. **BigFunctions take the most of that by offering ready-to-use functions + tooling to boost your data-teams**.
 
-We believe no-one should be reinventing the wheel and open-source is the best way to fight against that. 👉 Let's Play and Contribute!
+We believe no-one should be reinventing the wheel and open-source is the best way to fight against that.
+
+Now, let's Play 👇
 
 <br>
 
@@ -37,7 +39,14 @@ We believe no-one should be reinventing the wheel and open-source is the best wa
 
 All BigFunctions represented by a 'yaml' file in *bigfunctions* folder are automatically deployed in public datasets so that you can call them directly without install from your BigQuery project.
 
-To explore available bigfunctions and to get started, visit **<a href="https://unytics.github.io/bigfunctions/" target="_blank">BigFunctions website</a>**.
+Give it a try! Execute this SQL query from your GCP Project 👀:
+
+```sql
+select bigfunctions.eu.faker("name", "it_IT")
+```
+
+
+To explore all available bigfunctions and to get started, visit **<a href="https://unytics.github.io/bigfunctions/" target="_blank">BigFunctions website</a>**.
 
 <br>
 
