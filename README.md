@@ -159,6 +159,8 @@ Any contribution is more than welcome 🤗!
 - Raise an issue [there](https://github.com/unytics/bigfunctions/issues/new?assignees=&labels=bug-bigfun-CLI&template=3_bug_bigfun_cli.yaml&title=%5Bbug%5D%3A+it+does+not+work)
 - Open a PR! ([contributing instructions](https://github.com/unytics/bigfunctions/blob/main/CONTRIBUTING.md)).
 
+<br>
+
 **Contributors**
 
 <a href="https://github.com/unytics/bigfunctions/graphs/contributors">
