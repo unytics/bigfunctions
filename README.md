@@ -153,6 +153,7 @@ select PROJECT.DATASET.faker("name", "it_IT")
 ## 👋 Contribute
 
 Any contribution is more than welcome 🤗!
+
 - Add a ⭐ on the repo to show your support
 - [Join our Slack](https://join.slack.com/t/unytics/shared_invite/zt-1gbv491mu-cs03EJbQ1fsHdQMcFN7E1Q) and talk with us
 - Suggest a new function [here](https://github.com/unytics/bigfunctions/issues/new?assignees=&labels=new-bigfunction&projects=&template=0_new_bigfunction.yaml&title=%5Bnew%5D%3A+%60function_name%28argument1%2C+argument2%29%60)
