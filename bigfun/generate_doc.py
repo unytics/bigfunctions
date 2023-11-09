@@ -32,22 +32,38 @@ def get_author_avatar(bigfunction):
 
 
 
-class Page:
-    name = ''
+class BasePage:
+
+    output_filename = None
 
     def generate(self):
+        assert self.output_filename is not None, 'missing output filename attribute'
         context = self.get_context()
-        template = f'{TEMPLATE_FOLDER}/doc_{self.name}.md'
+        template = f'{TEMPLATE_FOLDER}/doc/{self.output_filename}'
         content = jinja2.Template(open(template, encoding='utf-8').read()).render(**context)
-        with open(f'site/content/{self.name}.md', 'w', encoding='utf-8') as out:
+        with open(f'site/content/{self.output_filename}', 'w', encoding='utf-8') as out:
             out.write(content)
 
     def get_context(self):
         raise NotImplementedError()
 
 
-class ReferencePage(Page):
-    name = 'reference'
+class ContentPage(BasePage):
+
+    def __init__(self, content_filename, output_filename):
+        self.output_filename = output_filename
+        self.content_filename = content_filename
+
+    def get_context(self):
+        if os.path.isfile(self.content_filename):
+            self.content = open(self.content_filename, encoding='utf-8').read()
+            return {'content': self.content}
+        return {'content': ''}
+
+
+class ReferencePage(BasePage):
+
+    output_filename = 'reference.md'
 
     def get_context(self):
         bigfunctions = []
@@ -70,6 +86,7 @@ class ReferencePage(Page):
 
 
 def generate_doc():
+    ContentPage('CONTRIBUTING.md', 'contribute.md').generate()
     ReferencePage().generate()
 
 
