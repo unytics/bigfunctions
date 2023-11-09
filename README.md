@@ -150,17 +150,14 @@ select PROJECT.DATASET.faker("name", "it_IT")
 
 
 
-## Contribute
+## 👋 Contribute
 
-You are more than welcome to contribute by:
-
-- adding a ⭐ on this repo 😁
-- reporting an issue [here](https://github.com/unytics/bigfunctions/issues/new?assignees=&labels=bug-bigfun-CLI&template=3_bug_bigfun_cli.yaml&title=%5Bbug%5D%3A+it+does+not+work).
-- suggesting new functions [here](https://github.com/unytics/bigfunctions/issues/new?assignees=&labels=new-bigfunction&template=new_bigfunction.yaml&title=%5Bnew%5D%3A+%60function_name%28argument1%2C+argument2%29%60)
-- adding/improving BigFunctions
-- improving the framework and `bigfun` CLI
-
-See [contributing instructions](https://github.com/unytics/bigfunctions/blob/main/CONTRIBUTING.md) for more details.
+Any contribution is more than welcome 🤗!
+- Add a ⭐ on the repo to show your support
+- [Join our Slack](https://join.slack.com/t/unytics/shared_invite/zt-1gbv491mu-cs03EJbQ1fsHdQMcFN7E1Q) and talk with us
+- Suggest new functions [here](https://github.com/unytics/bigfunctions/issues/new?assignees=&labels=new-bigfunction&template=new_bigfunction.yaml&title=%5Bnew%5D%3A+%60function_name%28argument1%2C+argument2%29%60)
+- Raise an issue [there](https://github.com/unytics/bigfunctions/issues/new?assignees=&labels=bug-bigfun-CLI&template=3_bug_bigfun_cli.yaml&title=%5Bbug%5D%3A+it+does+not+work)
+- Open a PR! ([contributing instructions](https://github.com/unytics/bigfunctions/blob/main/CONTRIBUTING.md)).
 
 **Contributors**
 
