@@ -18,7 +18,7 @@ BigFunctions is:
 
 ✅ **a framework** to build a **governed catalog of powerful BigQuery functions** at YOUR company.
 
-✅ **open-source functions** to supercharge BigQuery that you can call directly (no install) or redeploy in YOUR catalog.
+✅ **open-source functions to supercharge BigQuery** that you can call directly (no install) or redeploy in YOUR catalog.
 
 
 
