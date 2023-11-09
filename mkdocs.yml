@@ -1,6 +1,13 @@
 site_name: BigFunctions
-site_description: "BigFunctions are open-source BigQuery routines that give you SQL-superpowers. BigFunctions can show data-visualizations inside BigQuery console, compute advanced transforms such as sentiment score of a text, or send data to any of your favorite SAAS tool. BigFunctions is dbt's best friend."
+site_description: "BigFunctions are open-source BigQuery routines that give you SQL-superpowers. BigFunctions can compute advanced transforms such as sentiment score of a text, or send data to any of your favorite SAAS tool. BigFunctions is dbt's best friend."
 site_url: 'https://unytics.io/bigfunctions/'
+site_og_title: Bigfunctions supercharge BigQuery
+site_image:
+  url: "https://unytics.io/bigfunctions/assets/logo_and_name.png"
+  type: "image/png"
+  alt: "Supercharge BigQuery with BigFunctions"
+  width: "2500"
+  height: "541"
 repo_name: 'unytics/bigfunctions'
 repo_url: 'https://github.com/unytics/bigfunctions'
 edit_uri: 'edit/main/site/content'

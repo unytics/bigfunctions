@@ -1,24 +1,39 @@
 {% extends "base.html" %}
 
+
+
 {% block extrahead %}
-{% if page and page.meta and page.meta.ogtitle %}
-<meta property="og:title" content="{{ page.meta.ogtitle }}" />
+
+{% if page and page.meta and page.meta.title %}
+<meta property="og:title" content="{{ page.meta.title }} - {{ config.site_name }}" />
 <meta property="twitter:card" content="summary" />
-<meta property="twitter:title" content="{{ page.meta.ogtitle }}" />
-{% elif page and page.meta and page.meta.title %}
-<meta property="og:title" content="{{ page.meta.title }}" />
+<meta property="twitter:title" content="{{ page.meta.title }} - {{ config.site_name }}" />
+{% elif config.site_og_title %}
+<meta property="og:title" content="{{ config.site_og_title }}" />
 <meta property="twitter:card" content="summary" />
-<meta property="twitter:title" content="{{ page.meta.title }}" />
+<meta property="twitter:title" content="{{ config.site_og_title }}" />
 {% endif %}
+
 {% if page and page.meta and page.meta.description %}
 <meta property="og:description" content="{{ page.meta.description }}" />
+{% elif config.site_description %}
+<meta property="og:description" content="{{ config.site_description }}" />
 {% endif %}
-{% if page and page.meta and page.meta.image %}
-<meta property="og:image" content="{{ page.meta.image }}" />
-<meta property="og:image:type" content="image/png" />
-<meta property="og:image:width" content="{{ page.meta.image_width }}" />
-<meta property="og:image:height" content="{{ page.meta.image_height }}" />
-<meta property="twitter:image" content="{{ page.meta.image }}" />
-<meta property="twitter:image:alt" content="{{ page.meta.image_alt }}" />
+
+{% if page and page.meta and page.meta.image_url %}
+<meta property="og:image" content="{{ config.image_url }}" />
+<meta property="og:image:type" content="{{ config.image_type }}" />
+<meta property="og:image:width" content="{{ config.image_width }}" />
+<meta property="og:image:height" content="{{ config.image_height }}" />
+<meta property="twitter:image" content="{{ config.image_url }}" />
+<meta property="twitter:image:alt" content="{{ config.image_alt }}" />
+{% elif config.site_image %}
+<meta property="og:image" content="{{ config.site_image.url }}" />
+<meta property="og:image:type" content="{{ config.site_image.type }}" />
+<meta property="og:image:width" content="{{ config.site_image.width }}" />
+<meta property="og:image:height" content="{{ config.site_image.height }}" />
+<meta property="twitter:image" content="{{ config.site_image.url }}" />
+<meta property="twitter:image:alt" content="{{ config.site_image.alt }}" />
 {% endif %}
+
 {% endblock %}
