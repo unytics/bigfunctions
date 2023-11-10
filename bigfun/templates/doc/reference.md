@@ -5,7 +5,17 @@ hide:
   - navigation
 ---
 
+!!! note ""
+
+    **✅ You can call ANY BigFunction from your Google Cloud Project** (*no install*).
+
+    - For any question or difficulties, please read [Getting Started](/bigfunctions/getting_started/).
+    - If you prefer to deploy the BigFunction in your own project, also read [Getting Started](/bigfunctions/getting_started/).
+
+
+
 ## 📄 Overview
+
 
 BigFunctions are open-source BigQuery routines that give you **SQL-superpowers** in BigQuery 💪.
 
@@ -24,7 +34,6 @@ BigFunctions are open-source BigQuery routines that give you **SQL-superpowers**
 
     {% endfor %}
 
-    **🔴 Before using see --> [Getting Started](/bigfunctions/getting_started/)**
 
 
 

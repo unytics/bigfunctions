@@ -52,9 +52,8 @@ markdown_extensions:
       alternate_style: true
 plugins: []
 nav:
-  - Home: index.md
-  - BigFunctions: reference.md
-  - Getting Started: getting_started.md
+  - Get Started!: index.md
+  - Try it!: reference.md
   - Contribute!: contribute.md
 bigfunctions_categories:
   - name: "AI"

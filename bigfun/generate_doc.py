@@ -86,6 +86,7 @@ class ReferencePage(BasePage):
 
 
 def generate_doc():
+    ContentPage('README.md', 'index.md').generate()
     ContentPage('CONTRIBUTING.md', 'contribute.md').generate()
     ReferencePage().generate()
 
