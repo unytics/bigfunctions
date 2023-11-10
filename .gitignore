@@ -135,6 +135,7 @@ meetups/
 emails/
 TODO.md
 test.py
+site/content/index.md
 site/content/reference.md
 site/content/contribute.md
 node_modules
