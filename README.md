@@ -1,5 +1,5 @@
 
-![logo_and_name](https://user-images.githubusercontent.com/111615732/186508787-6af04ed0-4750-4c49-926a-eacfd4a3dfbb.png)
+<img class="hero-image" src="https://user-images.githubusercontent.com/111615732/186508787-6af04ed0-4750-4c49-926a-eacfd4a3dfbb.png" alt="logo_and_name" style="max-width: 100%;">
 <p align="center">
     <em>Open BigQuery Functions, SQL Superpowers</em>
 </p>
