@@ -138,7 +138,7 @@ BigFunctions are open-source BigQuery routines that give you **SQL-superpowers**
 {% endif %}
 
 
-{% if example.screenshot %}<a href="../site/assets/images/{{ example.screenshot }}"><img alt="screenshot" src="../site/assets/images/{{ example.screenshot }}" style="border: var(--md-code-bg-color) solid 1rem; margin-top: -1rem; width: 100%"></a>{% endif %}
+{% if example.screenshot %}<a href="{{ example.screenshot }}"><img alt="screenshot" src="{{ example.screenshot }}" style="border: var(--md-code-bg-color) solid 1rem; margin-top: -1rem; width: 100%"></a>{% endif %}
 {% endfor %}
 
 
