@@ -16,9 +16,6 @@ docs_dir: 'site/content'
 site_dir: 'docs'
 extra_css:
   - stylesheets/extra.css
-  - stylesheets/bu-bulma.min.css
-extra_javascript:
-  - javascripts/bulma.js
 theme:
   name: material
   custom_dir: site/overrides
@@ -37,7 +34,6 @@ theme:
     - navigation.indexes
     - navigation.hide
     - navigation.expand
-
 markdown_extensions:
   - attr_list
   - md_in_html
