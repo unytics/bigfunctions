@@ -1,1 +1,1 @@
-[my link](templates/Dockerfile)
+[my link](/bigfunctions/templates/Dockerfile)
