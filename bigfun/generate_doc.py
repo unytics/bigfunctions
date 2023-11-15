@@ -1,5 +1,4 @@
 import os
-from functools import reduce
 
 import yaml
 import jinja2
