@@ -3,58 +3,70 @@ import os
 import yaml
 import jinja2
 
-CONF = yaml.safe_load(open(f'mkdocs.yml', encoding='utf-8').read())
-
 THIS_FOLDER = os.path.dirname(os.path.realpath(__file__)).replace('\\', '/')
 TEMPLATE_FOLDER = THIS_FOLDER + '/templates'
+TEMPLATE_MKDOCS_YAML = TEMPLATE_FOLDER + '/mkdocs.yml'
+DOCUMENTATION_CONFIG_FILENAME = 'config_documentation.yaml'
+BIGFUNCTIONS_FOLDER = 'bigfunctions'
+
+
+def create_mkdocs_yaml_if_not_exist():
+    mkdocs_yaml = open(TEMPLATE_MKDOCS_YAML, encoding='utf-8').read()
+
+
+def get_bigfunctions():
+    bigfunctions = {}
+    for filename in sorted(os.listdir(BIGFUNCTIONS_FOLDER)):
+        if not filename.endswith('.yaml'):
+            continue
+        conf = yaml.safe_load(open(f'bigfunctions/{filename}', encoding='utf-8').read())
+        assert isinstance(conf, dict), f'Could not load yaml config of bigfunction `{filename}`'
+        name = filename.replace('.yaml', '')
+        conf['name'] = name
+        bigfunctions[name] = conf
+    return bigfunctions
+
+
+# def get_documentation_config():
+#     if not os.path.isfile(DOCUMENTATION_CONFIG_FILENAME):
+#         print(f'WARNING: Could not find file `{DOCUMENTATION_CONFIG_FILENAME}` in current directory.')
+#         print('WARNING: We generate `{DOCUMENTATION_CONFIG_FILENAME}` in current directory')
+#         print('Edit it to change how the documentation is generated')
+#         default_config = {
+#             ''
+#         }
+
+
+BIGFUNCTIONS = get_bigfunctions()
+# DOC_CONFIG = get_documentation_config()
+
+
+CONF = yaml.safe_load(open(f'site/mkdocs.yml', encoding='utf-8').read())
+
 
 
 class BasePage:
 
-    output_filename = None
 
     def generate(self):
-        assert self.output_filename is not None, 'missing output filename attribute'
         context = self.get_context()
-        template = f'{TEMPLATE_FOLDER}/doc/{self.output_filename}'
+        template = f'{TEMPLATE_FOLDER}/{self.template_filename}'
         content = jinja2.Template(open(template, encoding='utf-8').read()).render(**context)
-        with open(f'site/content/{self.output_filename}', 'w', encoding='utf-8') as out:
+        with open(f'bigfunctions/README.md', 'w', encoding='utf-8') as out:
             out.write(content)
 
     def get_context(self):
         raise NotImplementedError()
 
 
-class ContentPage(BasePage):
-
-    def __init__(self, content_filename, output_filename):
-        self.output_filename = output_filename
-        self.content_filename = content_filename
-
-    def get_context(self):
-        if os.path.isfile(self.content_filename):
-            self.content = open(self.content_filename, encoding='utf-8').read()
-            return {'content': self.content}
-        return {'content': ''}
-
-
 class ReferencePage(BasePage):
 
-    output_filename = 'reference.md'
+    template_filename = 'bigfunctions.md'
 
     def get_context(self):
-        bigfunctions = []
-        for filename in sorted(os.listdir('bigfunctions')):
-            if not filename.endswith('.yaml'):
-                continue
-            conf = yaml.safe_load(open(f'bigfunctions/{filename}', encoding='utf-8').read())
-            assert isinstance(conf, dict), f'Could not load yaml config of bigfunction `{filename}`'
-            conf['name'] = filename.replace('.yaml', '')
-            bigfunctions.append(conf)
-
         categories = CONF['bigfunctions_categories']
         for category in categories:
-            category['bigfunctions'] = [bigfunction for bigfunction in bigfunctions if bigfunction['category'] == category['name']]
+            category['bigfunctions'] = [bigfunction for bigfunction in BIGFUNCTIONS.values() if bigfunction['category'] == category['name']]
         return {
             'datasets': CONF['bigfunctions_datasets'],
             'repo_url': CONF['repo_url'],
@@ -63,8 +75,6 @@ class ReferencePage(BasePage):
 
 
 def generate_doc():
-    ContentPage('README.md', 'index.md').generate()
-    ContentPage('CONTRIBUTING.md', 'contribute.md').generate()
     ReferencePage().generate()
 
 

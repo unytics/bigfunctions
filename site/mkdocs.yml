@@ -10,17 +10,17 @@ site_image:
   height: "541"
 repo_name: 'unytics/bigfunctions'
 repo_url: 'https://github.com/unytics/bigfunctions'
-edit_uri: 'edit/main/site/content'
+edit_uri: 'edit/main'
 copyright: 'Copyright &copy; 2023 Unytics'
-docs_dir: 'site/content'
+docs_dir: '..'
 site_dir: 'docs'
 extra_css:
-  - stylesheets/extra.css
+  - site/stylesheets/extra.css
 theme:
   name: material
-  custom_dir: site/overrides
-  logo: assets/logo.png
-  favicon: assets/logo.png
+  custom_dir: overrides
+  logo: site/assets/logo.png
+  favicon: site/assets/logo.png
   features:
     - tabs
     - content.tabs.link
@@ -46,11 +46,13 @@ markdown_extensions:
   - pymdownx.superfences
   - pymdownx.tabbed:
       alternate_style: true
-plugins: []
+plugins:
+  - awesome-pages
 nav:
-  - Get Started!: index.md
-  - Try it!: reference.md
-  - Contribute!: contribute.md
+  - Get Started!: README.md
+  - ... | regex=.*README.md
+  - Contribute!: CONTRIBUTING.md
+  # - Contribute!: contribute.md
 bigfunctions_categories:
   - name: "AI"
     emoticon: "🧠"

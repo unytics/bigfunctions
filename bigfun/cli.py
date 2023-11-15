@@ -5,6 +5,8 @@ import yaml
 import click
 from click_help_colors import HelpColorsGroup
 from watchdog.observers import Observer
+from watchdog.events import RegexMatchingEventHandler
+
 
 
 
@@ -146,12 +148,13 @@ def serve():
     Serve docs locally on http://localhost:8000
     '''
     from .generate_doc import generate_doc
-    class EventHandler:
-        def dispatch(self, event):
+    class EventHandler(RegexMatchingEventHandler):
+        def on_any_event(self, event):
+            print(f'File {event.src_path} {event.event_type} --> generating README files...')
             generate_doc()
-    event_handler = EventHandler()
+    event_handler = EventHandler(regexes=[r'.*\.yaml'])
     observer = Observer()
     observer.schedule(event_handler, BIGFUNCTIONS_FOLDER, recursive=True)
     observer.start()
     generate_doc()
-    os.system('mkdocs serve')
+    os.system('mkdocs serve --config-file site/mkdocs.yml')

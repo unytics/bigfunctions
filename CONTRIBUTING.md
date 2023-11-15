@@ -1,6 +1,6 @@
 # 👋 Contribute to BigFunctions
 
-Any contribution is more than welcome 🤗!
+BigFunctions is fully open-source. Any contribution is more than welcome 🤗!
 
 > - Add a ⭐ on the repo to show your support
 > - [Join our Slack](https://join.slack.com/t/unytics/shared_invite/zt-1gbv491mu-cs03EJbQ1fsHdQMcFN7E1Q) and talk with us

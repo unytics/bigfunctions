@@ -13,6 +13,7 @@ setup(
         'pyyaml',
         'jinja2',
         'mkdocs-material',
+        'mkdocs-awesome-pages-plugin',
         'click',
         'click-help-colors',
     ],
