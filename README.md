@@ -7,8 +7,7 @@
     Supercharge <em>BigQuery</em><br>with <em>BigFunctions</em><br><br>
     <b>Upgrade your data skills</b><br>
     with 100+ ready-to-use BigQuery Functions<br>
-    <i>and build your catalog of functions</i>
-
+    <i>and build your catalog of functions</i><br>
 </p>
 
 <p align="center">
