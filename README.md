@@ -37,17 +37,24 @@ BigFunctions is:
 
 ## 💡 2. Why BigFunctions?
 
-!!! note ""
 
-    **Benefits**
+**As a data-analyst**,<br>
+BigFunctions will give you new powers such as loading data from any source or activating your data in a composable CDP style.
 
-    - *As a data-analyst*,<br>BigFunctions will give you new powers such as loading data from any source or activating your data in a composable CDP style.
-    - *As an analytics-engineer*, you will love BigFunctions style which imitates the one of dbt with a yaml standard + a CLI
-    - *As a data-engineer*, you will love avoiding reinventing the wheel by using functions already developed by the comunity.
-    - *As an open-source lover*, you'll be able to contribute and bring your functions to the worldwide community so that a problem solved for you is solved for everyone.
-    - *As a central data-team or security player*, you will enjoy the ability to validate the code of functions before continuous deployments thanks to your git CICD.
-    - Thanks to the collective intelligence of the community, you will benefit from better function that you would have done by yourself.
-    - BigFunctions standard provides a solid framework to develop functions with software-engineering best practices in mind.
+**As an analytics-engineer**,<br>
+you will love BigFunctions style which imitates the one of dbt with a yaml standard + a CLI
+
+**As a data-engineer**,<br>
+you will love avoiding reinventing the wheel by using functions already developed by the comunity.
+
+**As an open-source lover**,<br>
+you'll be able to contribute and bring your functions to the worldwide community so that a problem solved for you is solved for everyone.
+
+**As a central data-team or security player**,<br>
+you will enjoy the ability to validate the code of functions before continuous deployments thanks to your git CICD.
+
+- Thanks to the collective intelligence of the community, you will benefit from better function that you would have done by yourself.
+- BigFunctions standard provides a solid framework to develop functions with software-engineering best practices in mind.
 
 Now let's Play 👇
 
