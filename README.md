@@ -4,7 +4,7 @@
 </p>
 
 <p align="center">
-    <em>Open BigQuery Functions, SQL Superpowers</em>
+    Supercharge <u>BigQuery</u><br>with <u>BigFunctions</u>
 </p>
 
 <p align="center">
@@ -18,7 +18,7 @@
 
 <br>
 
-## 🔍️ What is BigFunctions?
+## 🔍️ 1. What is BigFunctions?
 
 BigFunctions is:
 
@@ -32,7 +32,7 @@ BigFunctions is:
 <br>
 
 
-## 💡 Why BigFunctions?
+## 💡 2. Why BigFunctions?
 
 BigQuery, with native and remote routines, is really powerful. **BigFunctions take the most of that by offering ready-to-use functions + tooling to boost your data-teams**.
 
@@ -42,7 +42,7 @@ Now let's Play 👇
 
 <br>
 
-## 👀 Call public BigFunctions without install from you GCP project
+## 👀 3. Call public BigFunctions without install from you GCP project
 
 All BigFunctions represented by a 'yaml' file in *bigfunctions* folder are automatically deployed in public datasets so that you can call them directly without install from your BigQuery project.
 
@@ -58,7 +58,7 @@ To explore all available bigfunctions and to get started, visit **<a href="https
 <br>
 
 
-## 🚀 Deploy BigFunctions in your GCP project
+## 🚀 4. Deploy BigFunctions in your GCP project
 
 You can also deploy any bigfunction in your project! To deploy *my_bigfunction* defined in *bigfunctions/my_bigfunction.yaml* file, simply call:
 
@@ -71,11 +71,11 @@ Details about `bigfun` command line are given below.
 <br>
 
 
-## 💥 `bigfun` CLI
+## 💥 5. `bigfun` CLI
 
 `bigfun` CLI (command-line-interface) facilitates BigFunctions development, test, deployment, documentation and monitoring.
 
-### Install `bigfun` 🛠️
+### 5.1 Install `bigfun` 🛠️
 
 Clone the repo and from the repo directory run:
 
@@ -85,7 +85,7 @@ virtualenv venv
 pip install --editable .
 ```
 
-### Use `bigfun` 🔥
+### 5.2 Use `bigfun` 🔥
 
 ``` sh
 $ bigfun --help
@@ -102,7 +102,7 @@ Commands:
 
 
 
-### Deploy you first function 👨‍💻
+### 5.3 Deploy you first function 👨‍💻
 
 > 1. Make sure the `gcloud` command is [installed on your computer](https://cloud.google.com/sdk/docs/install)
 > 2. Activate the application-default account with `gcloud auth application-default login`. A browser window should open, and you should be prompted to log into your Google account. Once you've done that, `bigfun` will use your oauth'd credentials to connect to BigQuery through BigQuery python client!
@@ -129,7 +129,7 @@ select PROJECT.DATASET.is_email_valid('paul.marcombes@unytics.io')
 <br>
 
 
-### Deploy you first *remote* function ⚡️
+### 5.4 Deploy you first *remote* function ⚡️
 
 *To deploy a **remote** function* (e.g. python function), there are additional requirements *in addition to the ones above*.
 
@@ -156,7 +156,7 @@ select PROJECT.DATASET.faker("name", "it_IT")
 
 
 
-## 👋 Contribute
+## 👋 6. Contribute
 
 Any contribution is more than welcome 🤗!
 
