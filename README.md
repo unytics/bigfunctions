@@ -5,9 +5,9 @@
 
 <p align="center">
     Supercharge <em>BigQuery</em><br>with <em>BigFunctions</em><br><br>
-    <b>Upgrade your data skills</b><br>
+    <b>Upgrade your data impact</b><br>
     with 100+ ready-to-use BigQuery Functions<br>
-    <i>and build your catalog of functions</i><br>
+    <i>(+ build a catalog of functions)</i><br>
 </p>
 
 <p align="center">
@@ -27,7 +27,7 @@ BigFunctions is:
 
 ✅ **a framework** to build a **governed catalog of powerful BigQuery functions** at YOUR company.
 
-✅ **open-source functions to supercharge BigQuery** that you can call directly (no install) or redeploy in YOUR catalog.
+✅ **100+ open-source functions to supercharge BigQuery** that you can call directly (no install) or redeploy in YOUR catalog.
 
 
 
@@ -37,17 +37,25 @@ BigFunctions is:
 
 ## 💡 2. Why BigFunctions?
 
-BigQuery, with native and remote routines, is really powerful. **BigFunctions take the most of that by offering ready-to-use functions + tooling to boost your data-teams**.
+!!! note ""
 
-We believe no-one should be reinventing the wheel and open-source is the best way to fight against that.
+    **Benefits**
+
+    - *As a data-analyst*,<br>BigFunctions will give you new powers such as loading data from any source or activating your data in a composable CDP style.
+    - *As an analytics-engineer*, you will love BigFunctions style which imitates the one of dbt with a yaml standard + a CLI
+    - *As a data-engineer*, you will love avoiding reinventing the wheel by using functions already developed by the comunity.
+    - *As an open-source lover*, you'll be able to contribute and bring your functions to the worldwide community so that a problem solved for you is solved for everyone.
+    - *As a central data-team or security player*, you will enjoy the ability to validate the code of functions before continuous deployments thanks to your git CICD.
+    - Thanks to the collective intelligence of the community, you will benefit from better function that you would have done by yourself.
+    - BigFunctions standard provides a solid framework to develop functions with software-engineering best practices in mind.
 
 Now let's Play 👇
 
 <br>
 
-## 👀 3. Call public BigFunctions without install from you GCP project
+## 👀 3. Call public BigFunctions without install from your GCP project
 
-All BigFunctions represented by a 'yaml' file in *bigfunctions* folder are automatically deployed in public datasets so that you can call them directly without install from your BigQuery project.
+All BigFunctions represented by a 'yaml' file in *bigfunctions* folder of the GitHub repo are automatically deployed in public datasets so that you can call them directly without install from your BigQuery project.
 
 Give it a try! Execute this SQL query from your GCP Project 👀:
 
@@ -56,7 +64,7 @@ select bigfunctions.eu.faker("name", "it_IT")
 ```
 
 
-To explore all available bigfunctions and to get started, visit **<a href="https://unytics.github.io/bigfunctions/" target="_blank">BigFunctions website</a>**.
+Explore all available bigfunctions **<a href="bigfunctions">here</a>**.
 
 <br>
 
@@ -161,7 +169,7 @@ select PROJECT.DATASET.faker("name", "it_IT")
 
 ## 👋 6. Contribute
 
-Any contribution is more than welcome 🤗!
+BigFunctions is fully open-source. Any contribution is more than welcome 🤗!
 
 - Add a ⭐ on the repo to show your support
 - [Join our Slack](https://join.slack.com/t/unytics/shared_invite/zt-1gbv491mu-cs03EJbQ1fsHdQMcFN7E1Q) and talk with us
