@@ -1,4 +1,5 @@
 import os
+import shutil
 
 import yaml
 import jinja2
@@ -9,9 +10,13 @@ TEMPLATE_MKDOCS_YAML = TEMPLATE_FOLDER + '/mkdocs.yml'
 DOCUMENTATION_CONFIG_FILENAME = 'config_documentation.yaml'
 BIGFUNCTIONS_FOLDER = 'bigfunctions'
 
+if not os.path.isfile('README.md'):
+    print('INFO: CREATING A README.md FILE IN CURRENT DIRECTORY WHICH WILL BE THE ROOT CONTENT OF THE WEBSITE')
+    open('README.md', encoding='utf-8').write('# Hello from README!')
 
-def create_mkdocs_yaml_if_not_exist():
-    mkdocs_yaml = open(TEMPLATE_MKDOCS_YAML, encoding='utf-8').read()
+if not os.path.isdir('site'):
+    print('INFO: CREATING site FOLDER in CURRENT DIRECTORY WHICH WILL CONTAIN WEBSITE MATERIAL...')
+    shutil.copytree(TEMPLATE_FOLDER + '/site', 'site')
 
 
 def get_bigfunctions():

@@ -51,7 +51,6 @@ plugins:
 nav:
   - Get Started!: README.md
   - ... | regex=.*README.md
-  - Contribute!: CONTRIBUTING.md
 bigfunctions_categories:
   - name: "AI"
     emoticon: "🧠"
