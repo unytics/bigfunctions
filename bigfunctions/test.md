@@ -1,1 +1,1 @@
-[my link](/are_arrays_equal.yaml)
+[my link](are_arrays_equal.yaml)
