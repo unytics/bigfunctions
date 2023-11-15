@@ -38,25 +38,27 @@ BigFunctions is:
 ## 💡 2. Why BigFunctions?
 
 
-**As a data-analyst**,<br>
-BigFunctions will give you new powers such as loading data from any source or activating your data in a composable CDP style.
+**As a data-analyst**<br>
+You'll have new powers! *(such as loading data from any source or activating your data through reverse ETL)*.
 
-**As an analytics-engineer**,<br>
-you will love BigFunctions style which imitates the one of dbt with a yaml standard + a CLI
+**As an analytics-engineer**<br>
+You'll feel at home with BigFunctions style which imitates the one of dbt *(with a yaml standard and a CLI)*.<br>
+You'll love the idea of getting more things done through SQL.
 
-**As a data-engineer**,<br>
-you will love avoiding reinventing the wheel by using functions already developed by the comunity.
+**As a data-engineer**<br>
+You'll easily build software-engineering best practices through unit testing, cicd, pull request validation, continuous deployment, etc.<br>
+You will love avoiding reinventing the wheel by using functions already developed by the community.
 
-**As an open-source lover**,<br>
-you'll be able to contribute and bring your functions to the worldwide community so that a problem solved for you is solved for everyone.
+**As a central data-team player in a large company**<br>
+You'll be proud of providing a governed catalog of curated functions to your 10000+ employees with mutualized and maintainable effort.
 
-**As a central data-team or security player**,<br>
-you will enjoy the ability to validate the code of functions before continuous deployments thanks to your git CICD.
+**As a security champion**<br>
+You will enjoy the ability to validate the code of functions before deployment thanks to your git validation workflow, CI Testing, binary authorization, etc.
 
-- Thanks to the collective intelligence of the community, you will benefit from better function that you would have done by yourself.
-- BigFunctions standard provides a solid framework to develop functions with software-engineering best practices in mind.
+**As an open-source lover**<br>
+You'll be able to contribute so that a problem solved for you is solved for everyone.
 
-Now let's Play 👇
+
 
 <br>
 
