@@ -4,7 +4,7 @@
 </p>
 
 <p align="center">
-    Supercharge <u>BigQuery</u><br>with <u>BigFunctions</u>
+    Supercharge <em>BigQuery</em><br>with <em>BigFunctions</em>
 </p>
 
 <p align="center">
