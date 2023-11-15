@@ -1389,7 +1389,7 @@ that [Google shows in search results](https://developers.google.com/search/docs/
 
 
 
-<a href="../site/assets/images/get_webpage_structured_data.png"><img alt="screenshot" src="../site/assets/images/get_webpage_structured_data.png" style="border: var(--md-code-bg-color) solid 1rem; margin-top: -1rem; width: 100%"></a>
+<a href="get_webpage_structured_data.png"><img alt="screenshot" src="get_webpage_structured_data.png" style="border: var(--md-code-bg-color) solid 1rem; margin-top: -1rem; width: 100%"></a>
 
 
 
@@ -1902,7 +1902,7 @@ Sends an email with `table_or_view_or_query` data attached as excel file
 
 
 
-<a href="../site/assets/images/send_mail_with_excel.png"><img alt="screenshot" src="../site/assets/images/send_mail_with_excel.png" style="border: var(--md-code-bg-color) solid 1rem; margin-top: -1rem; width: 100%"></a>
+<a href="send_mail_with_excel.png"><img alt="screenshot" src="send_mail_with_excel.png" style="border: var(--md-code-bg-color) solid 1rem; margin-top: -1rem; width: 100%"></a>
 
 
 
@@ -2681,7 +2681,7 @@ Upload data from `table_or_view_or_query` to Google Sheet
 
 
 
-<a href="../site/assets/images/upload_table_to_gsheet.png"><img alt="screenshot" src="../site/assets/images/upload_table_to_gsheet.png" style="border: var(--md-code-bg-color) solid 1rem; margin-top: -1rem; width: 100%"></a>
+<a href="upload_table_to_gsheet.png"><img alt="screenshot" src="upload_table_to_gsheet.png" style="border: var(--md-code-bg-color) solid 1rem; margin-top: -1rem; width: 100%"></a>
 
 
 <span style="color: var(--md-typeset-a-color);">2. with a query</span>
@@ -10896,7 +10896,7 @@ encoded as a base64 string.
 
 
 
-<a href="../site/assets/images/html2pdf.png"><img alt="screenshot" src="../site/assets/images/html2pdf.png" style="border: var(--md-code-bg-color) solid 1rem; margin-top: -1rem; width: 100%"></a>
+<a href="html2pdf.png"><img alt="screenshot" src="html2pdf.png" style="border: var(--md-code-bg-color) solid 1rem; margin-top: -1rem; width: 100%"></a>
 
 
 
@@ -11540,7 +11540,7 @@ Show column statistics
 
 
 
-<a href="../site/assets/images/explore_column.png"><img alt="screenshot" src="../site/assets/images/explore_column.png" style="border: var(--md-code-bg-color) solid 1rem; margin-top: -1rem; width: 100%"></a>
+<a href="explore_column.png"><img alt="screenshot" src="explore_column.png" style="border: var(--md-code-bg-color) solid 1rem; margin-top: -1rem; width: 100%"></a>
 
 
 
@@ -11621,7 +11621,7 @@ Show infos about dataset tables
 
 
 
-<a href="../site/assets/images/explore_dataset.png"><img alt="screenshot" src="../site/assets/images/explore_dataset.png" style="border: var(--md-code-bg-color) solid 1rem; margin-top: -1rem; width: 100%"></a>
+<a href="explore_dataset.png"><img alt="screenshot" src="explore_dataset.png" style="border: var(--md-code-bg-color) solid 1rem; margin-top: -1rem; width: 100%"></a>
 
 
 
@@ -11702,7 +11702,7 @@ Show table infos and column statistics
 
 
 
-<a href="../site/assets/images/explore_column.png"><img alt="screenshot" src="../site/assets/images/explore_column.png" style="border: var(--md-code-bg-color) solid 1rem; margin-top: -1rem; width: 100%"></a>
+<a href="explore_column.png"><img alt="screenshot" src="explore_column.png" style="border: var(--md-code-bg-color) solid 1rem; margin-top: -1rem; width: 100%"></a>
 
 
 
@@ -11802,7 +11802,7 @@ Return html with a chartjs chart
 
 
 
-<a href="../site/assets/images/chart.png"><img alt="screenshot" src="../site/assets/images/chart.png" style="border: var(--md-code-bg-color) solid 1rem; margin-top: -1rem; width: 100%"></a>
+<a href="chart.png"><img alt="screenshot" src="chart.png" style="border: var(--md-code-bg-color) solid 1rem; margin-top: -1rem; width: 100%"></a>
 
 
 
