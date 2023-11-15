@@ -13,7 +13,7 @@
 <p align="center">
     <strong>❯
       <a href="https://unytics.io/bigfunctions/" target="_blank">Website</a> |
-      <a href="https://unytics.github.io/bigfunctions/" target="_blank">GitHub</a>
+      <a href="https://github.com/unytics/bigfunctions" target="_blank">GitHub</a>
      ❮</strong>
 </p>
 
