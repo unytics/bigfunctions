@@ -38,9 +38,10 @@
 
 <style>
     {% if not page.parent or not page.parent.title %}
-        .md-sidebar--primary {
-            display: none;
-        }
+      @media screen and (min-width: 76.234375em)
+      .md-sidebar--primary {
+        display: none;
+      }
     {% endif %}
 </style>
 
