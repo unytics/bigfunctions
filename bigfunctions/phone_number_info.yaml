@@ -6,9 +6,15 @@ author:
   avatar_url: "https://lh3.googleusercontent.com/a-/ACB-R5RDf2yxcw1p_IYLCKmiUIScreatDdhG8B83om6Ohw=s260"
 description: |
   Get `phone_number` `info`
-  such as country, isValid, etc using [`libphonenumber-js` library](https://www.npmjs.com/package/libphonenumber-js).
+  such as:
 
-  `options` can be `null` or  can be a json with the following keys:
+  - `country`,
+  - `isValid`,
+  - etc
+
+  using [libphonenumber-js library](https://www.npmjs.com/package/libphonenumber-js).
+
+  Argument `options` can be `null` or can a json with the following keys:
   `defaultCountry`, `defaultCallingCode` and `extract` as described in the
   [library documentation](https://www.npmjs.com/package/libphonenumber-js#parsephonenumberstring-defaultcountry-string--options-object-phonenumber).
 arguments:
