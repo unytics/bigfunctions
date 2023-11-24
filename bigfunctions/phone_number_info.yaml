@@ -5,7 +5,7 @@ author:
   url: https://www.linkedin.com/in/paul-marcombes
   avatar_url: "https://lh3.googleusercontent.com/a-/ACB-R5RDf2yxcw1p_IYLCKmiUIScreatDdhG8B83om6Ohw=s260"
 description: |
-  Get `phone_number` `info`
+  Get `phone_number` info
   such as:
 
   - `country`,
@@ -14,7 +14,7 @@ description: |
 
   using [libphonenumber-js library](https://www.npmjs.com/package/libphonenumber-js).
 
-  Argument `options` can be `null` or can a json with the following keys:
+  Argument `options` can be `null` or must be a json with the following keys:
   `defaultCountry`, `defaultCallingCode` and `extract` as described in the
   [library documentation](https://www.npmjs.com/package/libphonenumber-js#parsephonenumberstring-defaultcountry-string--options-object-phonenumber).
 arguments:
@@ -26,14 +26,140 @@ output:
   name: info
   type: json
 examples:
-  - description: ""
+  - description: "Get info about an international `phone_number` (starting with `+`)"
     arguments:
-      - "'bak'"
-      - "'book'"
-    output: "2"
+      - "'+33123456789'"
+      - "null"
+    output: |
+      {
+        "isPossible": true,
+        "isValid": true,
+        "parseError": null,
+        "country": "FR",
+        "countryCallingCode": "33",
+        "formattedInternational": "+33 1 23 45 67 89",
+        "formattedNational": "01 23 45 67 89",
+        "isNonGeographic": false,
+        "nationalNumber": "123456789",
+        "number": "+33123456789",
+        "possibleCountries": ["FR"],
+        "type": "FIXED_LINE",
+        "uri": "tel:+33123456789"
+      }
+  - description: "Get info about a national `phone_number`"
+    arguments:
+      - "'0123456789'"
+      - "json '{\"defaultCountry\": \"FR\"}'"
+    output: |
+      {
+        "isPossible": true,
+        "isValid": true,
+        "parseError": null,
+        "country": "FR",
+        "countryCallingCode": "33",
+        "formattedInternational": "+33 1 23 45 67 89",
+        "formattedNational": "01 23 45 67 89",
+        "isNonGeographic": false,
+        "nationalNumber": "123456789",
+        "number": "+33123456789",
+        "possibleCountries": ["FR"],
+        "type": "FIXED_LINE",
+        "uri": "tel:+33123456789"
+      }
+  - description: "If no phone number is found in `phone_number` argument, a reason in given in `parseError`"
+    arguments:
+      - "'Hello!'"
+      - "null"
+    output: |
+      {
+        "isPossible": false,
+        "isValid": false,
+        "parseError": "NOT_A_NUMBER",
+        "country": null,
+        "countryCallingCode": null,
+        "formattedInternational": null,
+        "formattedNational": null,
+        "isNonGeographic": null,
+        "nationalNumber": null,
+        "number": null,
+        "possibleCountries": null,
+        "type": null,
+        "uri": null,
+      }
+  - description: "By default, if the given `phone_number` text contains a phone number among other text, it will be extracted it."
+    arguments:
+      - "'Hello +33123456789 !'"
+      - "null"
+    output: |
+      {
+        "isPossible": true,
+        "isValid": true,
+        "parseError": null,
+        "country": "FR",
+        "countryCallingCode": "33",
+        "formattedInternational": "+33 1 23 45 67 89",
+        "formattedNational": "01 23 45 67 89",
+        "isNonGeographic": false,
+        "nationalNumber": "123456789",
+        "number": "+33123456789",
+        "possibleCountries": ["FR"],
+        "type": "FIXED_LINE",
+        "uri": "tel:+33123456789"
+      }
+  - description: "To consider that `phone_number` cannot have additional text use `extract`:  false as option"
+    arguments:
+      - "'Hello +33123456789 !'"
+      - "null"
+    output: |
+      {
+        "isPossible": true,
+        "isValid": true,
+        "parseError": "NOT_A_NUMBER",
+        "country": "FR",
+        "countryCallingCode": "33",
+        "formattedInternational": "+33 1 23 45 67 89",
+        "formattedNational": "01 23 45 67 89",
+        "isNonGeographic": false,
+        "nationalNumber": "123456789",
+        "number": "+33123456789",
+        "possibleCountries": ["FR"],
+        "type": "FIXED_LINE",
+        "uri": "tel:+33123456789"
+      }
+
 code: |
-  const phoneNumber = libphonenumber_js.parsePhoneNumber(phone_number, options);
+  if (!phone_number.startsWith('+') && (!options || !options.defaultCountry)) {
+    throw('Given `phone_number` does not start with `+` AND `defaultCountry` is missing in `options`');
+  }
+  let phoneNumber;
+  try {
+    phoneNumber = libphonenumber_js.parsePhoneNumberWithError(phone_number, options)
+  } catch (error) {
+    if (error instanceof libphonenumber_js.ParseError) {
+      // Not a phone number, non-existent country, etc.
+      return {
+        parseError: error.message,
+        number: null,
+        nationalNumber: null,
+        formattedInternational: null,
+        formattedNational: null,
+        uri: null,
+        countryCallingCode: null,
+        country: null,
+        ext: null,
+        carrierCode: null,
+        isPossible: false,
+        isValid: false,
+        possibleCountries: null,
+        type: null,
+        isNonGeographic: null,
+      }
+    } else {
+      throw error
+    }
+  }
   return {
+    parseError: null,
     number: phoneNumber.number,
     nationalNumber: phoneNumber.nationalNumber,
     formattedInternational: phoneNumber.formatInternational(),
