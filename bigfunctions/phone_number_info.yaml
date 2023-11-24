@@ -1,0 +1,47 @@
+type: function_js
+category: transform_string
+author:
+  name: Paul Marcombes
+  url: https://www.linkedin.com/in/paul-marcombes
+  avatar_url: "https://lh3.googleusercontent.com/a-/ACB-R5RDf2yxcw1p_IYLCKmiUIScreatDdhG8B83om6Ohw=s260"
+description: |
+  Get `phone_number` `info`
+  such as country, isValid, etc using [`libphonenumber-js` library](https://www.npmjs.com/package/libphonenumber-js).
+
+  `options` can be `null` or  can be a json with the following keys:
+  `defaultCountry`, `defaultCallingCode` and `extract` as described in the
+  [library documentation](https://www.npmjs.com/package/libphonenumber-js#parsephonenumberstring-defaultcountry-string--options-object-phonenumber).
+arguments:
+  - name: phone_number
+    type: string
+  - name: options
+    type: json
+output:
+  name: info
+  type: json
+examples:
+  - description: ""
+    arguments:
+      - "'bak'"
+      - "'book'"
+    output: "2"
+code: |
+  const phoneNumber = libphonenumber_js.parsePhoneNumber(phone_number, options);
+  return {
+    number: phoneNumber.number,
+    nationalNumber: phoneNumber.nationalNumber,
+    formattedInternational: phoneNumber.formatInternational(),
+    formattedNational: phoneNumber.formatNational(),
+    uri: phoneNumber.getURI(),
+    countryCallingCode: phoneNumber.countryCallingCode,
+    country: phoneNumber.country,
+    ext: phoneNumber.ext,
+    carrierCode: phoneNumber.carrierCode,
+    isPossible: phoneNumber.isPossible(),
+    isValid: phoneNumber.isValid(),
+    possibleCountries: phoneNumber.getPossibleCountries(),
+    type: phoneNumber.getType(),
+    isNonGeographic: phoneNumber.isNonGeographic(),
+  };
+npm_packages:
+  - libphonenumber-js/max@1.10.51
