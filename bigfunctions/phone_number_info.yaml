@@ -112,19 +112,19 @@ examples:
       - "null"
     output: |
       {
-        "isPossible": true,
-        "isValid": true,
+        "isPossible": false,
+        "isValid": false,
         "parseError": "NOT_A_NUMBER",
-        "country": "FR",
-        "countryCallingCode": "33",
-        "formattedInternational": "+33 1 23 45 67 89",
-        "formattedNational": "01 23 45 67 89",
-        "isNonGeographic": false,
-        "nationalNumber": "123456789",
-        "number": "+33123456789",
-        "possibleCountries": ["FR"],
-        "type": "FIXED_LINE",
-        "uri": "tel:+33123456789"
+        "country": null,
+        "countryCallingCode": null,
+        "formattedInternational": null,
+        "formattedNational": null,
+        "isNonGeographic": null,
+        "nationalNumber": null,
+        "number": null,
+        "possibleCountries": null,
+        "type": null,
+        "uri": null,
       }
 
 code: |
