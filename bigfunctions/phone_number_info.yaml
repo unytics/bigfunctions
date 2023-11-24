@@ -106,7 +106,7 @@ examples:
         "type": "FIXED_LINE",
         "uri": "tel:+33123456789"
       }
-  - description: "To consider that `phone_number` cannot have additional text use `extract`:  false as option"
+  - description: "To consider that `phone_number` cannot have additional text use `extract:  false` as option"
     arguments:
       - "'Hello +33123456789 !'"
       - "null"
