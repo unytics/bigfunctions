@@ -115,7 +115,7 @@ def load_table(table, project, dataset):
     dataset = dataset or get_config_value('dataset')
     datasets = [dataset.strip() for dataset in dataset.split(',')]
     if table == 'ALL':
-        tables = [f.replace('.yaml', '') for f in os.listdir(TABLES_FOLDER)]
+        tables = [f.replace('.yaml', '') for f in os.listdir(TABLES_FOLDER) if f.endswith('.yaml')]
     else:
         tables = [table]
 
