@@ -257,14 +257,21 @@ def build_npm_package(npm_package, output_filename, destination_folder='.'):
     if shutil.which('npm') is None:
         handle_error(f'`npm` is not installed while needed to build {npm_package} npm package.')
 
-    print_info(f'Installing {npm_package} npm package and webpack in tmp folder {destination_folder}')
-    command = f'cd {destination_folder} && npm install webpack webpack-cli {npm_package}'
+    if not '@' in npm_package:
+        handle_error(f'expecting npm package with a version formatted as `package_name@x.x.x` but got: {npm_package}')
+
+    name, version = npm_package.split('@')
+    package_path = f'./node_modules/{name}'
+    if '/' in name:
+        name, _ = name.split('/')
+    js_entrypoint_variable = name.replace('-', '_')
+
+    print_info(f'Installing {name}@{version} npm package and webpack in tmp folder {destination_folder}')
+    command = f'cd {destination_folder} && npm install webpack webpack-cli {name}@{version}'
     exec(command)
 
-    npm_package_wo_version = npm_package[:npm_package.find('@')]
-    js_entrypoint_variable = npm_package_wo_version.replace('-', '_')
     print_info(f'Building {npm_package} into a single file using webpack')
-    command = f'cd {destination_folder} && npx webpack --mode production --entry ./node_modules/{npm_package_wo_version} --output-path . --output-filename {output_filename} --output-library {js_entrypoint_variable} --output-library-type var'
+    command = f'cd {destination_folder} && npx webpack --mode production --entry {package_path} --output-path . --output-filename {output_filename} --output-library {js_entrypoint_variable} --output-library-type var'
     exec(command)
 
 
@@ -272,7 +279,7 @@ def build_and_upload_npm_package(npm_package, bucket, project):
 
     with tempfile.TemporaryDirectory() as folder:
         folder = folder.replace('\\', '/')
-        output_filename = f'{npm_package}.min.js'
+        output_filename = f'{npm_package.replace("/", ".")}.min.js'
         storage_filename = f'gs://{bucket}/{output_filename}'
         if storage_filename in os.environ:
             # This npm package has already been built and uploaded, let's use it
