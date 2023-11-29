@@ -120,7 +120,7 @@ def load_table(table, project, dataset):
         tables = [table]
 
     with multiprocessing.Pool(processes=8) as pool:
-        pool.starmap(
+        pool.map(
             upload_table,
             [f'{project}.{dataset}.{table}' for dataset in datasets for table in tables]
         )
