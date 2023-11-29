@@ -1,0 +1,21 @@
+description: |
+  Contains mapping from IP ranges to country codes.
+
+  Data comes from free `IP to Country Lite` database offered by [DB-IP](https://db-ip.com) licensed under a [Creative Commons Attribution 4.0 International License](http://creativecommons.org/licenses/by/4.0/).
+  You can use the data under the license terms.
+
+  The csv file was generated with:
+
+  ```bash
+  curl "https://download.db-ip.com/free/dbip-country-lite-$(date +'%Y-%m').csv.gz" | gunzip -c > data/dbip_country_lite.csv
+  ```
+schema:
+  - name: first_ip
+    type: string
+    description: "First IP address of IP range"
+  - name: last_ip
+    type: string
+    description: "Last IP address of IP range"
+  - name: country_code
+    type: string
+    description: "Country ISO-3166-alpha2 code of this IP range"

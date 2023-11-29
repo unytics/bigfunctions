@@ -5,12 +5,57 @@ description: "Catalog of open-source BigFunctions"
 
 !!! note ""
 
-    **✅ You can call ANY BigFunction from your Google Cloud Project** (*no install*).
+    **✅ You can call ANY of the following public BigFunctions from your Google Cloud Project** (*no install*).
 
+    - The functions are deployed in `bigfunctions` GCP project in 37 datasets for all of the 37 BigQuery regions.
+    - They are public, so they can be called by anyone.
     - For any question or difficulties, please read [Getting Started](/bigfunctions/).
     - If you prefer to deploy the BigFunction in your own project, read [Getting Started](/bigfunctions/).
+    - Found a bug? Please raise an issue [here](https://github.com/unytics/bigfunctions/issues/new/choose)
 
+??? info "All BigFunctions Datasets >"
 
+    | Region | Dataset |
+    |--------|---------|
+    | `EU` | `bigfunctions.eu` |
+    | `US` | `bigfunctions.us` |
+    | `asia-east1` | `bigfunctions.asia_east1` |
+    | `asia-east2` | `bigfunctions.asia_east2` |
+    | `asia-northeast1` | `bigfunctions.asia_northeast1` |
+    | `asia-northeast2` | `bigfunctions.asia_northeast2` |
+    | `asia-northeast3` | `bigfunctions.asia_northeast3` |
+    | `asia-south1` | `bigfunctions.asia_south1` |
+    | `asia-south2` | `bigfunctions.asia_south2` |
+    | `asia-southeast1` | `bigfunctions.asia_southeast1` |
+    | `asia-southeast2` | `bigfunctions.asia_southeast2` |
+    | `australia-southeast1` | `bigfunctions.australia_southeast1` |
+    | `australia-southeast2` | `bigfunctions.australia_southeast2` |
+    | `europe-central2` | `bigfunctions.europe_central2` |
+    | `europe-north1` | `bigfunctions.europe_north1` |
+    | `europe-southwest1` | `bigfunctions.europe_southwest1` |
+    | `europe-west1` | `bigfunctions.europe_west1` |
+    | `europe-west2` | `bigfunctions.europe_west2` |
+    | `europe-west3` | `bigfunctions.europe_west3` |
+    | `europe-west4` | `bigfunctions.europe_west4` |
+    | `europe-west6` | `bigfunctions.europe_west6` |
+    | `europe-west8` | `bigfunctions.europe_west8` |
+    | `europe-west9` | `bigfunctions.europe_west9` |
+    | `europe-west12` | `bigfunctions.europe_west12` |
+    | `me-central1` | `bigfunctions.me_central1` |
+    | `me-west1` | `bigfunctions.me_west1` |
+    | `northamerica-northeast1` | `bigfunctions.northamerica_northeast1` |
+    | `northamerica-northeast2` | `bigfunctions.northamerica_northeast2` |
+    | `southamerica-east1` | `bigfunctions.southamerica_east1` |
+    | `southamerica-west1` | `bigfunctions.southamerica_west1` |
+    | `us-central1` | `bigfunctions.us_central1` |
+    | `us-east1` | `bigfunctions.us_east1` |
+    | `us-east4` | `bigfunctions.us_east4` |
+    | `us-east5` | `bigfunctions.us_east5` |
+    | `us-south1` | `bigfunctions.us_south1` |
+    | `us-west1` | `bigfunctions.us_west1` |
+    | `us-west2` | `bigfunctions.us_west2` |
+    | `us-west3` | `bigfunctions.us_west3` |
+    | `us-west4` | `bigfunctions.us_west4` |
 
 ## 📄 Overview
 
@@ -110,11 +155,15 @@ BigFunctions are open-source BigQuery routines that give you **SQL-superpowers**
     
     - [<code>is_email_valid(email)</code>](#is_email_valid): Return true if `email` is valid
     
+    - [<code>is_phone_number_valid(phone_number, default_country)</code>](#is_phone_number_valid): Compute levenshtein distance between `string1` and `string2`
+    
     - [<code>levenshtein(string1, string2)</code>](#levenshtein): Compute levenshtein distance between `string1` and `string2`
     
     - [<code>parse_url(url)</code>](#parse_url): Return `url` parts
     
     - [<code>parse_user_agent(user_agent_string)</code>](#parse_user_agent): Parses User Agent strings into several components
+    
+    - [<code>phone_number_info(phone_number, options)</code>](#phone_number_info): Get `phone_number` info
     
     - [<code>remove_accents(str)</code>](#remove_accents): Remove accents
     
@@ -4363,6 +4412,98 @@ Return true if `email` is valid
 
 
 
+### is_phone_number_valid
+<div style="position: relative; top: -2rem; margin-bottom:  -2rem; text-align: right; z-index: 9999;">
+  
+  <a href="https://www.linkedin.com/in/paul-marcombes" title="Author: Paul Marcombes" target="_blank">
+    <img src="https://lh3.googleusercontent.com/a-/ACB-R5RDf2yxcw1p_IYLCKmiUIScreatDdhG8B83om6Ohw=s260" width="32" style=" border-radius: 50% !important">
+  </a>
+  
+  <a href="https://github.com/unytics/bigfunctions/blob/main/bigfunctions/is_phone_number_valid.yaml" title="Edit on GitHub" target="_blank"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="#5d6cc0" d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg></a></div>
+```
+is_phone_number_valid(phone_number, default_country)
+```
+
+**Description**
+
+Compute levenshtein distance between `string1` and `string2`
+
+**Examples**
+
+
+
+
+
+
+
+
+
+
+=== "EU"
+
+    ```sql
+    select bigfunctions.eu.is_phone_number_valid('bak', 'book') as distance
+    
+    ```
+
+
+
+=== "US"
+
+    ```sql
+    select bigfunctions.us.is_phone_number_valid('bak', 'book') as distance
+    
+    ```
+
+
+
+=== "europe-west1"
+
+    ```sql
+    select bigfunctions.europe_west1.is_phone_number_valid('bak', 'book') as distance
+    
+    ```
+
+
+
+=== "your-region2"
+
+    ```sql
+    select bigfunctions.your_region2.is_phone_number_valid('bak', 'book') as distance
+    
+    ```
+
+
+
+
+
+
+
+
+
+<pre style="margin-top: -1rem;">
+<code style="padding-top: 0px; padding-bottom: 0px;">+----------+
+| distance |
++----------+
+| 2        |
++----------+
+</code>
+</pre>
+
+
+
+
+
+
+
+
+
+
+---
+
+
+
+
 ### levenshtein
 <div style="position: relative; top: -2rem; margin-bottom:  -2rem; text-align: right; z-index: 9999;">
   
@@ -4623,6 +4764,449 @@ Parses User Agent strings into several components
 +-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
 | STRUCT&lt;STRUCT&lt;&#39;Chrome WebView&#39; as name, &#39;80.0.3987.119&#39; as version, &#39;80&#39; as major&gt; as browser, STRUCT&lt;&#39;Blink&#39; as name, &#39;80.0.3987.119&#39; as version&gt; as engine, STRUCT&lt;&#39;Android&#39; as name, &#39;12&#39; as version&gt; as os, STRUCT&lt;&#39;Samsung&#39; as vendor, &#39;SM-S906N&#39; as model, &#39;mobile&#39; as type&gt; as device, null as arch&gt; |
 +-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+</code>
+</pre>
+
+
+
+
+
+
+
+
+
+
+---
+
+
+
+
+### phone_number_info
+<div style="position: relative; top: -2rem; margin-bottom:  -2rem; text-align: right; z-index: 9999;">
+  
+  <a href="https://www.linkedin.com/in/paul-marcombes" title="Author: Paul Marcombes" target="_blank">
+    <img src="https://lh3.googleusercontent.com/a-/ACB-R5RDf2yxcw1p_IYLCKmiUIScreatDdhG8B83om6Ohw=s260" width="32" style=" border-radius: 50% !important">
+  </a>
+  
+  <a href="https://github.com/unytics/bigfunctions/blob/main/bigfunctions/phone_number_info.yaml" title="Edit on GitHub" target="_blank"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="#5d6cc0" d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg></a></div>
+```
+phone_number_info(phone_number, options)
+```
+
+**Description**
+
+Get `phone_number` info
+such as:
+
+- `country`,
+- `isValid`,
+- etc
+
+using [libphonenumber-js library](https://www.npmjs.com/package/libphonenumber-js).
+
+Argument `options` can be `null` or must be a json with the following keys:
+`defaultCountry`, `defaultCallingCode` and `extract` as described in the
+[library documentation](https://www.npmjs.com/package/libphonenumber-js#parsephonenumberstring-defaultcountry-string--options-object-phonenumber).
+
+
+**Examples**
+
+
+
+<span style="color: var(--md-typeset-a-color);">1. Get info about an international `phone_number` (starting with `+`)</span>
+
+
+
+
+
+
+=== "EU"
+
+    ```sql
+    select bigfunctions.eu.phone_number_info('+33123456789', null) as info
+    
+    ```
+
+
+
+=== "US"
+
+    ```sql
+    select bigfunctions.us.phone_number_info('+33123456789', null) as info
+    
+    ```
+
+
+
+=== "europe-west1"
+
+    ```sql
+    select bigfunctions.europe_west1.phone_number_info('+33123456789', null) as info
+    
+    ```
+
+
+
+=== "your-region2"
+
+    ```sql
+    select bigfunctions.your_region2.phone_number_info('+33123456789', null) as info
+    
+    ```
+
+
+
+
+
+
+
+
+
+<pre style="margin-top: -1rem;">
+<code style="padding-top: 0px; padding-bottom: 0px;">+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| info                                                                                                                                                                                                                                                                                                                                                                                       |
++--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| {
+  &#34;isPossible&#34;: true,
+  &#34;isValid&#34;: true,
+  &#34;parseError&#34;: null,
+  &#34;country&#34;: &#34;FR&#34;,
+  &#34;countryCallingCode&#34;: &#34;33&#34;,
+  &#34;formattedInternational&#34;: &#34;+33 1 23 45 67 89&#34;,
+  &#34;formattedNational&#34;: &#34;01 23 45 67 89&#34;,
+  &#34;isNonGeographic&#34;: false,
+  &#34;nationalNumber&#34;: &#34;123456789&#34;,
+  &#34;number&#34;: &#34;+33123456789&#34;,
+  &#34;possibleCountries&#34;: [&#34;FR&#34;],
+  &#34;type&#34;: &#34;FIXED_LINE&#34;,
+  &#34;uri&#34;: &#34;tel:+33123456789&#34;
+}
+ |
++--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+</code>
+</pre>
+
+
+
+
+
+
+
+
+
+<span style="color: var(--md-typeset-a-color);">2. Get info about a national `phone_number`</span>
+
+
+
+
+
+
+=== "EU"
+
+    ```sql
+    select bigfunctions.eu.phone_number_info('0123456789', json '{"defaultCountry": "FR"}') as info
+    
+    ```
+
+
+
+=== "US"
+
+    ```sql
+    select bigfunctions.us.phone_number_info('0123456789', json '{"defaultCountry": "FR"}') as info
+    
+    ```
+
+
+
+=== "europe-west1"
+
+    ```sql
+    select bigfunctions.europe_west1.phone_number_info('0123456789', json '{"defaultCountry": "FR"}') as info
+    
+    ```
+
+
+
+=== "your-region2"
+
+    ```sql
+    select bigfunctions.your_region2.phone_number_info('0123456789', json '{"defaultCountry": "FR"}') as info
+    
+    ```
+
+
+
+
+
+
+
+
+
+<pre style="margin-top: -1rem;">
+<code style="padding-top: 0px; padding-bottom: 0px;">+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| info                                                                                                                                                                                                                                                                                                                                                                                       |
++--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| {
+  &#34;isPossible&#34;: true,
+  &#34;isValid&#34;: true,
+  &#34;parseError&#34;: null,
+  &#34;country&#34;: &#34;FR&#34;,
+  &#34;countryCallingCode&#34;: &#34;33&#34;,
+  &#34;formattedInternational&#34;: &#34;+33 1 23 45 67 89&#34;,
+  &#34;formattedNational&#34;: &#34;01 23 45 67 89&#34;,
+  &#34;isNonGeographic&#34;: false,
+  &#34;nationalNumber&#34;: &#34;123456789&#34;,
+  &#34;number&#34;: &#34;+33123456789&#34;,
+  &#34;possibleCountries&#34;: [&#34;FR&#34;],
+  &#34;type&#34;: &#34;FIXED_LINE&#34;,
+  &#34;uri&#34;: &#34;tel:+33123456789&#34;
+}
+ |
++--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+</code>
+</pre>
+
+
+
+
+
+
+
+
+
+<span style="color: var(--md-typeset-a-color);">3. If no phone number is found in `phone_number` argument, a reason in given in `parseError`</span>
+
+
+
+
+
+
+=== "EU"
+
+    ```sql
+    select bigfunctions.eu.phone_number_info('Hello!', null) as info
+    
+    ```
+
+
+
+=== "US"
+
+    ```sql
+    select bigfunctions.us.phone_number_info('Hello!', null) as info
+    
+    ```
+
+
+
+=== "europe-west1"
+
+    ```sql
+    select bigfunctions.europe_west1.phone_number_info('Hello!', null) as info
+    
+    ```
+
+
+
+=== "your-region2"
+
+    ```sql
+    select bigfunctions.your_region2.phone_number_info('Hello!', null) as info
+    
+    ```
+
+
+
+
+
+
+
+
+
+<pre style="margin-top: -1rem;">
+<code style="padding-top: 0px; padding-bottom: 0px;">+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| info                                                                                                                                                                                                                                                                                                                               |
++------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| {
+  &#34;isPossible&#34;: false,
+  &#34;isValid&#34;: false,
+  &#34;parseError&#34;: &#34;NOT_A_NUMBER&#34;,
+  &#34;country&#34;: null,
+  &#34;countryCallingCode&#34;: null,
+  &#34;formattedInternational&#34;: null,
+  &#34;formattedNational&#34;: null,
+  &#34;isNonGeographic&#34;: null,
+  &#34;nationalNumber&#34;: null,
+  &#34;number&#34;: null,
+  &#34;possibleCountries&#34;: null,
+  &#34;type&#34;: null,
+  &#34;uri&#34;: null,
+}
+ |
++------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+</code>
+</pre>
+
+
+
+
+
+
+
+
+
+<span style="color: var(--md-typeset-a-color);">4. By default, if the given `phone_number` text contains a phone number among other text, it will be extracted it.</span>
+
+
+
+
+
+
+=== "EU"
+
+    ```sql
+    select bigfunctions.eu.phone_number_info('Hello +33123456789 !', null) as info
+    
+    ```
+
+
+
+=== "US"
+
+    ```sql
+    select bigfunctions.us.phone_number_info('Hello +33123456789 !', null) as info
+    
+    ```
+
+
+
+=== "europe-west1"
+
+    ```sql
+    select bigfunctions.europe_west1.phone_number_info('Hello +33123456789 !', null) as info
+    
+    ```
+
+
+
+=== "your-region2"
+
+    ```sql
+    select bigfunctions.your_region2.phone_number_info('Hello +33123456789 !', null) as info
+    
+    ```
+
+
+
+
+
+
+
+
+
+<pre style="margin-top: -1rem;">
+<code style="padding-top: 0px; padding-bottom: 0px;">+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| info                                                                                                                                                                                                                                                                                                                                                                                       |
++--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| {
+  &#34;isPossible&#34;: true,
+  &#34;isValid&#34;: true,
+  &#34;parseError&#34;: null,
+  &#34;country&#34;: &#34;FR&#34;,
+  &#34;countryCallingCode&#34;: &#34;33&#34;,
+  &#34;formattedInternational&#34;: &#34;+33 1 23 45 67 89&#34;,
+  &#34;formattedNational&#34;: &#34;01 23 45 67 89&#34;,
+  &#34;isNonGeographic&#34;: false,
+  &#34;nationalNumber&#34;: &#34;123456789&#34;,
+  &#34;number&#34;: &#34;+33123456789&#34;,
+  &#34;possibleCountries&#34;: [&#34;FR&#34;],
+  &#34;type&#34;: &#34;FIXED_LINE&#34;,
+  &#34;uri&#34;: &#34;tel:+33123456789&#34;
+}
+ |
++--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+</code>
+</pre>
+
+
+
+
+
+
+
+
+
+<span style="color: var(--md-typeset-a-color);">5. To consider that `phone_number` cannot have additional text use `extract:  false` as option</span>
+
+
+
+
+
+
+=== "EU"
+
+    ```sql
+    select bigfunctions.eu.phone_number_info('Hello +33123456789 !', null) as info
+    
+    ```
+
+
+
+=== "US"
+
+    ```sql
+    select bigfunctions.us.phone_number_info('Hello +33123456789 !', null) as info
+    
+    ```
+
+
+
+=== "europe-west1"
+
+    ```sql
+    select bigfunctions.europe_west1.phone_number_info('Hello +33123456789 !', null) as info
+    
+    ```
+
+
+
+=== "your-region2"
+
+    ```sql
+    select bigfunctions.your_region2.phone_number_info('Hello +33123456789 !', null) as info
+    
+    ```
+
+
+
+
+
+
+
+
+
+<pre style="margin-top: -1rem;">
+<code style="padding-top: 0px; padding-bottom: 0px;">+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| info                                                                                                                                                                                                                                                                                                                               |
++------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| {
+  &#34;isPossible&#34;: false,
+  &#34;isValid&#34;: false,
+  &#34;parseError&#34;: &#34;NOT_A_NUMBER&#34;,
+  &#34;country&#34;: null,
+  &#34;countryCallingCode&#34;: null,
+  &#34;formattedInternational&#34;: null,
+  &#34;formattedNational&#34;: null,
+  &#34;isNonGeographic&#34;: null,
+  &#34;nationalNumber&#34;: null,
+  &#34;number&#34;: null,
+  &#34;possibleCountries&#34;: null,
+  &#34;type&#34;: null,
+  &#34;uri&#34;: null,
+}
+ |
++------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
 </code>
 </pre>
 

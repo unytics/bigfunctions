@@ -1,8 +1,9 @@
 description: |
-  Contains national public holidays for every country
-  Dates are issued from python-holidays python package with:
+  Contains national public holidays for every country.
 
-  ```
+  Dates were issued from [holidays python package](https://pypi.org/project/holidays/) with:
+
+  ```python
   import holidays
   countries = holidays.utils.list_supported_countries()
   for country in countries:
