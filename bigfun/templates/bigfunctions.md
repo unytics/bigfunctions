@@ -7,7 +7,7 @@ description: "Catalog of open-source BigFunctions"
 
     **✅ You can call ANY of the following public BigFunctions from your Google Cloud Project** (*no install*).
 
-    - The functions are deployed in `bigfunctions` GCP project in 37 datasets for all of the 37 BigQuery regions.
+    - The functions are deployed in `bigfunctions` GCP project in 39 datasets for all of the 39 BigQuery regions.
     - They are public, so they can be called by anyone.
     - For any question or difficulties, please read [Getting Started](/bigfunctions/).
     - If you prefer to deploy the BigFunction in your own project, read [Getting Started](/bigfunctions/).

@@ -7,7 +7,7 @@ description: "Catalog of open-source Tables"
 
     **✅ The following public tables** are
 
-    - deployed in `bigfunctions` GCP project in 37 datasets for all of the 37 BigQuery regions.
+    - deployed in `bigfunctions` GCP project in 39 datasets for all of the 39 BigQuery regions.
     - They are public, so they can be read by anyone under the eventual license given in the description of the table.
     - For any question or difficulties, please read [Getting Started](/bigfunctions/).
     - If you prefer to create the tables in your own project, read [Getting Started](/bigfunctions/).
