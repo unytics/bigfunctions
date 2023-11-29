@@ -119,11 +119,11 @@ def load_table(table, project, dataset):
     else:
         tables = [table]
 
-    for dataset in datasets:
-        for table in tables:
-            assert table in tables, f'Could not find "{table}" in "{TABLES_FOLDER}" folder'
-            upload_table(f'{project}.{dataset}.{table}')
-
+    with multiprocessing.Pool(processes=8) as pool:
+        pool.starmap(
+            upload_table,
+            [f'{project}.{dataset}.{table}' for dataset in datasets for table in tables]
+        )
 
 
 @cli.group()
