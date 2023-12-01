@@ -1,0 +1,37 @@
+type: function_py
+category: transform_string
+author:
+  name: Paul Marcombes
+  url: https://www.linkedin.com/in/paul-marcombes
+  avatar_url: "https://lh3.googleusercontent.com/a-/ACB-R5RDf2yxcw1p_IYLCKmiUIScreatDdhG8B83om6Ohw=s260"
+description: |
+  Convert an IP range into a json list of IP networks in CIDR notation
+  (the list can have only one element)
+arguments:
+  - name: first_ip
+    type: string
+  - name: last_ip
+    type: string
+output:
+  name: ip_networks
+  type: json
+examples:
+  - description: ""
+    arguments:
+      - "'1.0.0.0'"
+      - "'1.0.0.255'"
+    output: "[1.0.0.0/24]"
+  - description: ""
+    arguments:
+      - "'192.0.2.1'"
+      - "'192.0.2.15'"
+    output: "[192.0.2.1/32, 192.0.2.2/31, 192.0.2.4/30, 192.0.2.8/29]"
+code: |
+  import netaddr
+  ip_range = netaddr.IPRange(first_ip, last_ip)
+  cidrs = ip_range.cidrs()
+  return [str(cidr) for cidr in cidrs]
+requirements: |
+  netaddr
+cloud_run:
+  max_instances: 10
