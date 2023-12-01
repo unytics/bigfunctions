@@ -10,12 +10,13 @@ DATA_FOLDER = 'data'
 
 def load_table(table):
     project, dataset, table_name = table.split('.')
-    filename = f'{DATA_FOLDER}/{table_name}.csv'
+    conf = yaml.safe_load(open(f'{DATA_FOLDER}/{table_name}.yaml', encoding='utf-8').read())
+    load_config = conf['load_config']
+    source_format = load_config['source_format']
+    filename = f'{DATA_FOLDER}/{table_name}.{source_format.lower()}'
     if not os.path.isfile(filename):
         return
     bigquery = BigQuery(project)
-    conf = yaml.safe_load(open(f'{DATA_FOLDER}/{table_name}.yaml', encoding='utf-8').read())
-    load_config = conf['load_config']
     with open(filename, 'rb') as file:
         bigquery.create_or_replace_destination_table(table, conf)
         job_config = google.cloud.bigquery.job.LoadJobConfig(**load_config)
