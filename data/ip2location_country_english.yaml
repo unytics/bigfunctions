@@ -25,7 +25,7 @@ schema:
     type: string
     description: "Three-character country code based on ISO 3166."
   - name: country_numeric_code
-    type: string
+    type: int64
     description: "Three-character country numeric code based on ISO 3166."
   - name: country_name
     type: string
