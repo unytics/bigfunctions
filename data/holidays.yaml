@@ -18,3 +18,5 @@ schema:
   - name: date
     type: date
     description: "public holiday local date"
+load_config:
+  source_format: CSV

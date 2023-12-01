@@ -30,3 +30,6 @@ schema:
   - name: country_name
     type: string
     description: "Country name based on ISO 3166."
+load_config:
+  source_format: CSV
+  skip_leading_rows: 1

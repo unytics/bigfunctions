@@ -13,3 +13,5 @@ schema:
   - name: sale_date
     type: date
     description: "Sale date"
+load_config:
+  source_format: CSV

@@ -27,3 +27,5 @@ schema:
   - name: translated_day
     type: string
     description: "Translated day name for locale"
+load_config:
+  source_format: CSV

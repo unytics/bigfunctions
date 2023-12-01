@@ -21,3 +21,5 @@ schema:
   - name: country_code
     type: string
     description: "Country ISO-3166-alpha2 code of this IP range"
+load_config:
+  source_format: CSV

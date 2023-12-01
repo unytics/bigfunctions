@@ -7,3 +7,5 @@ schema:
   - name: node2
     type: int64
     description: "node id connected to node1"
+load_config:
+  source_format: CSV
