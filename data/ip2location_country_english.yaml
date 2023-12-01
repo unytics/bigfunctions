@@ -9,7 +9,7 @@ description: |
   The csv file was generated with:
 
   ```bash
-  curl "https://www.ip2location.com/downloads/ip2location-country-english.zip" | unzip -c > data/ip2location_country_english.csv
+  curl "https://www.ip2location.com/downloads/ip2location-country-english.zip" | zcat > data/ip2location_country_english.csv
   ```
 schema:
   - name: lang
