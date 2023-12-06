@@ -109,7 +109,7 @@ examples:
   - description: "To consider that `phone_number` cannot have additional text use `extract:  false` as option"
     arguments:
       - "'Hello +33123456789 !'"
-      - "null"
+      - "json '{\"extract\": false}'"
     output: |
       {
         "isPossible": false,
