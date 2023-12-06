@@ -16,10 +16,15 @@ output:
   name: offset
   type: int64
 examples:
-  - description: "When a lower `value` exists in array"
+  - description: "When a strictly lower `value` exists in array"
     arguments:
       - "[3, 4]"
       - "3.5"
+    output: "0"
+  - description: "When an identical `value` exists in array"
+    arguments:
+      - "[3, 4]"
+      - "3"
     output: "0"
   - description: "When a lower `value` does NOT exist in array"
     arguments:
