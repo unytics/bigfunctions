@@ -30,12 +30,12 @@ examples:
       - "'0123456789'"
       - "json '{\"defaultCountry\": \"FR\"}'"
     output: "true"
-  - description: "If no phone number is found in `phone_number` argument, a reason in given in `parseError`"
+  - description: "If no phone number is found in `phone_number`, it returns false"
     arguments:
       - "'Hello!'"
       - "null"
     output: "false"
-  - description: "By default, if the given `phone_number` text contains a phone number among other text, it will be extracted."
+  - description: "By default, if the given `phone_number` text contains a valid phone number among other text, it returns true."
     arguments:
       - "'Hello +33123456789 !'"
       - "null"

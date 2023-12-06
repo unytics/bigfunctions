@@ -128,9 +128,6 @@ examples:
       }
 
 code: |
-  if (!phone_number.startsWith('+') && (!options || !options.defaultCountry)) {
-    throw('Given `phone_number` does not start with `+` AND `defaultCountry` is missing in `options`');
-  }
   let phoneNumber;
   try {
     phoneNumber = libphonenumber_js.parsePhoneNumberWithError(phone_number, options)
