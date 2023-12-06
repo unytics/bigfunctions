@@ -1,0 +1,37 @@
+type: function_sql
+category: transform_array
+author:
+  name: Paul Marcombes
+  url: https://www.linkedin.com/in/paul-marcombes
+  avatar_url: "https://lh3.googleusercontent.com/a-/ACB-R5RDf2yxcw1p_IYLCKmiUIScreatDdhG8B83om6Ohw=s260"
+description: |
+  Return the `offset` (zero-based index) of the first `value` in `arr` where `value <= x`
+  (or `null` if no `value` is lower than `x`).
+arguments:
+  - name: arr
+    type: any type
+  - name: x
+    type: any type
+output:
+  name: offset
+  type: int64
+examples:
+  - description: "When a lower `value` exists in array"
+    arguments:
+      - "[3, 4]"
+      - "3.5"
+    output: "0"
+  - description: "When a lower `value` does NOT exist in array"
+    arguments:
+      - "[3, 4]"
+      - "1"
+    output: "null"
+code: |
+  (
+    select offset
+    from unnest(arr) as value
+    with offset
+    where value <= x
+    order by offset
+    limit 1
+  )
