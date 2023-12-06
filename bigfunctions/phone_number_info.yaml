@@ -86,7 +86,7 @@ examples:
         "type": null,
         "uri": null,
       }
-  - description: "By default, if the given `phone_number` text contains a phone number among other text, it will be extracted it."
+  - description: "By default, if the given `phone_number` text contains a phone number among other text, it will be extracted."
     arguments:
       - "'Hello +33123456789 !'"
       - "null"
