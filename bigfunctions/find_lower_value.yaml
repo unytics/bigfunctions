@@ -20,7 +20,7 @@ examples:
     arguments:
       - "[5, 4, 3, 100]"
       - "3.5"
-    output: "1"
+    output: "2"
   - description: "When an identical `value` exists in array"
     arguments:
       - "[5, 4, 3, 100]"
