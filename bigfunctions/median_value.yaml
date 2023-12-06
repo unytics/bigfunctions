@@ -3,7 +3,7 @@ category: transform_array
 author:
   name: "Credits: Taylor Brownlow"
   url: https://www.linkedin.com/in/taylorabrownlow/
-  avatar_url: "https://media-exp1.licdn.com/dms/image/C4E03AQFCRlj44wnbhA/profile-displayphoto-shrink_200_200/0/1579795128165?e=1672272000&v=beta&t=LxL7tn53S_dQU0jMAeT3lHiAP4anA8GSiYD71u63pMs"
+  avatar_url: "https://miro.medium.com/v2/resize:fit:120/2*4lF1qiVAwcDkw1AfDY6KBQ.jpeg"
 description: |-
   Return median value of array
   *(inspired from [sql-snippets repo](https://github.com/count/sql-snippets/blob/main/bigquery/median.md))*
