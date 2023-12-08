@@ -7,9 +7,9 @@ author:
 description: |
   Returns the intersection of two arrays.
 arguments:
-  - name: array_1
+  - name: array1
     type: any type
-  - name: array_2
+  - name: array2
     type: any type
 output:
   name: result
@@ -24,8 +24,8 @@ examples:
 code: |
   (
     array(
-      select * from unnest(array_1) 
-      intersect distinct 
-      select * from unnest(array_2)
+      select * from unnest(array1)
+      intersect distinct
+      select * from unnest(array2)
     )
   )
