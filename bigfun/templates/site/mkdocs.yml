@@ -3,7 +3,7 @@ site_description: "BigFunctions are open-source BigQuery routines that give you 
 site_url: 'https://unytics.io/bigfunctions/'
 site_og_title: Bigfunctions supercharge BigQuery
 site_image:
-  url: "https://unytics.io/bigfunctions/assets/logo_and_name.png"
+  url: "https://unytics.io/bigfunctions/site/assets/logo_and_name.png"
   type: "image/png"
   alt: "Supercharge BigQuery with BigFunctions"
   width: "2500"
