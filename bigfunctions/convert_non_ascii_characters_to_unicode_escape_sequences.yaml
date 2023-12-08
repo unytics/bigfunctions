@@ -4,12 +4,12 @@ author:
   name: "Benjamin Tabet"
   url: https://www.linkedin.com/in/benjamin-tabet
   avatar_url: "https://media.licdn.com/dms/image/C4D03AQGWnyJdEmZeZw/profile-displayphoto-shrink_200_200/0/1667928305931?e=1686787200&v=beta&t=sW-albet4-jvB_cv7krxCz16BFHdi6-ohc0bXbi-EIY"
-description: "Replace all Unicode characters with escape unicode"
+description: "Replace all non ASCII characters with escape unicode"
 arguments:
   - name: text
     type: string
 output:
-  name: string_unicode_escaped
+  name: text_unicode_escaped
   type: string
 examples:
   - description: ""
@@ -18,6 +18,12 @@ examples:
     output: "SCH\u00dcMANN"
     region: ALL
 code: |
-  (  select 
-    array_to_string(array(select if(code_point >= 128, format('\\u%04x', code_point), chr(code_point)) from unnest(to_code_points(text)) as code_point), '') as unicode_escaped_text,
-  from (select str as text))
+  (
+    select
+      array_to_string(
+        array(
+          select if(code_point >= 128, format('\\u%04x', code_point), chr(code_point))
+          from unnest(to_code_points(text)
+        ) as code_point
+      ), '')
+  )
