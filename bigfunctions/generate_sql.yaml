@@ -7,7 +7,7 @@ author:
 description: |
   Transform `question` to a SQL query.
 
-  >  This function sends the following enriched question to [`ask_bison`](#ask_bison) (*the schema of `fully_qualified_table` is sent so that the generated SQL query is adapted to your data*):
+  >  This function sends the following enriched question to [`ask_ai`](#ask_ai) (*the schema of `fully_qualified_table` is sent so that the generated SQL query is adapted to your data*):
   >
   >  ```
   >  Question: {{question}}
@@ -68,7 +68,7 @@ code: |
     ),
 
     answer as (
-      select {BIGFUNCTIONS_DATASET}.ask_bison(question.question) as raw_answer_before_clean
+      select {BIGFUNCTIONS_DATASET}.ask_ai(question.question, 'code-bison@002') as raw_answer_before_clean
       from question
     ),
 
