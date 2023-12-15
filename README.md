@@ -149,9 +149,32 @@ select PROJECT.DATASET.is_email_valid('paul.marcombes@unytics.io')
 <br>
 
 
-### 5.4 Deploy you first *remote* function ⚡️
+### 5.4 Deploy you first javascript function which depends on *npm packages* 👽
 
-*To deploy a **remote** function* (e.g. python function), there are additional requirements *in addition to the ones above*.
+*To deploy a **javascript** function* which depends on **npm packages** there are additional requirements *in addition to the ones above*.
+
+> 1. You will need to install each *npm package* on your machine and bundle it into one file. For that, you need to [install *nodejs*](https://nodejs.org/en/download/).
+> 2. The bundled js file will be uploaded into a cloud storage bucket in which you must have write access. The bucket name is asked when you run `bigfun deploy`. Users of your functions must have read access to the bucket.
+
+You now can deploy `render_string` function with:
+
+```sh
+bigfun deploy render_string
+```
+
+Test it with 👀:
+
+```sql
+select PROJECT.DATASET.render_string("name", "it_IT")
+```
+
+
+<br>
+
+
+### 5.5 Deploy you first *remote* function ⚡️
+
+*To deploy a **remote** function* (e.g. python function), there are additional requirements *in addition to the ones of **Deploy you first function** section*.
 
 > 1. A *Cloud Run* service will be deployed to host the code ([as seen here](https://cloud.google.com/bigquery/docs/reference/standard-sql/remote-functions)). So you must have [permissions to deploy a *Cloud Run* service](https://cloud.google.com/run/docs/deploying-source-code#permissions_required_to_deploy) in your project `PROJECT`.
 > 2. `gcloud` CLI will be used directly to deploy the service (using `gcloud run deploy`). Then, make sure you are logged in with `gcloud` by calling: `gcloud auth login`. A browser window should also open, and you should be prompted to log into your Google account. WARNING: you read correctly: you have to authenticate twice. Once for bigquery python client (to deploy any function including remote as seen above.) and once now to use `gcloud` (to deploy a *Cloud Run* service).
@@ -173,6 +196,7 @@ select PROJECT.DATASET.faker("name", "it_IT")
 
 
 <br>
+
 
 
 
