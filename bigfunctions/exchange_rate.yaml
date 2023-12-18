@@ -42,11 +42,11 @@ code: |
     url = 'https://theforexapi.com/api/latest'
     response = requests.get(url)
     data = response.json()
-    CACHE[today] = data['rates']
+    rates = data['rates']
+    rates['EUR'] = 1
+    CACHE[today] = rates
 
   rates = CACHE[today]
-  if base == 'EUR':
-    return rates[to]
   return rates[to] / rates[base]
 requirements: |
   requests
