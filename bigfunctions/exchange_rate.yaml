@@ -7,9 +7,9 @@ author:
 description: |
   Get `exchange_rate`
   from `base` (e.g. `USD`) to `to` (e.g. `EUR`)
-  *using [Yahoo Finance](https://finance.yahoo.com/quote/USDEUR=X/) through [yfinance python package](https://github.com/ranaroussi/yfinance)* (the returned rate is the average of bid price and ask price).
+  from [Yahoo Finance](https://finance.yahoo.com/quote/USDEUR=X/).
 
-  If the data is not available from Yahoo Finance, will return `null`
+  This functions uses [yfinance python package](https://github.com/ranaroussi/yfinance) and returns the average of the `bid price` and the `ask price`. If the data is not available in Yahoo Finance, will return `null`
 
   | Param  | Possible values  |
   |---|---|
