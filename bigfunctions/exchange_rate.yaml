@@ -3,7 +3,7 @@ category: get_data
 author:
   name: Johan PROTIN
   url: https://www.linkedin.com/in/johan-protin
-  avatar_url: "https://media.licdn.com/dms/image/C4E03AQH1sYz9Zik0TQ/profile-displayphoto-shrink_800_800/0/1653692064309?e=1688601600&v=beta&t=c6DsEpUE-cC_zdW5vTrfyyBgiTJLeBGg5oUlzJmsnKw"
+  avatar_url: "https://avatars.githubusercontent.com/u/16030047?v=4"
 description: |
   Get `exchange_rate`
   from `base` (e.g. `USD`) to `to` (e.g. `EUR`)
