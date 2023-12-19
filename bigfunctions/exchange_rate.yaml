@@ -7,11 +7,13 @@ author:
 description: |
   Get `exchange_rate`
   from `base` (e.g. `USD`) to `to` (e.g. `EUR`)
-  *using [https://theforexapi.com/](https://theforexapi.com/)*
+  *using [Yahoo Finance](https://finance.yahoo.com/quote/USDEUR=X/) through [yfinance python package](https://github.com/ranaroussi/yfinance)* (the returned rate is the average of bid price and ask price).
+
+  If the data is not available from Yahoo Finance, will return `null`
 
   | Param  | Possible values  |
   |---|---|
-  | `base`<br>and<br>`to`  | `EUR`, `USD`, `JPY`, `BGN`, `CZK`, `DKK`, `GBP`, `HUF`, `PLN`, `RON`, `SEK`, `CHF`, `ISK`, `NOK`, `TRY`, `AUD`, `BRL`, `CAD`, `CNY`, `HKD`, `IDR`, `INR`, `KRW`, `MXN`, `MYR`, `NZD`, `PHP`, `SGD`, `THB`, `ZAR` |
+  | `base`<br>and<br>`to`  | Iso 4217 currency codes such as `EUR` or `USD`. See active codes on [wikipedia](https://en.wikipedia.org/wiki/ISO_4217#Active_codes_(List_One)) |
 arguments:
   - name: base
     type: string
@@ -27,26 +29,27 @@ examples:
       - "'EUR'"
     output: "0.910437"
 code: |
-  import requests
   import datetime
+  import yfinance as yf
 
+  base = (base or '').upper()
+  to = (to or '').upper()
+  if (len(base) != 3) or (len(to) != 3):
+    return None
   if base == to:
     return 1
 
-  accepted_values = ["EUR", "USD", "JPY", "BGN", "CZK", "DKK", "GBP", "HUF", "PLN", "RON", "SEK", "CHF", "ISK", "NOK", "TRY", "AUD", "BRL", "CAD", "CNY", "HKD", "IDR", "INR", "KRW", "MXN", "MYR", "NZD", "PHP", "SGD", "THB", "ZAR"]
-  assert base in accepted_values, f'First argument `base` is `{base}` BUT must be among {accepted_values}'
-  assert to in accepted_values, f'Second argument `to` is `{to}` BUT must be among {accepted_values}'
-
   today = datetime.datetime.utcnow().strftime("%Y-%m-%d")
-  if today not in CACHE:
-    url = 'https://theforexapi.com/api/latest'
-    response = requests.get(url)
-    data = response.json()
-    rates = data['rates']
-    rates['EUR'] = 1
-    CACHE[today] = rates
+  cache_key = f'{today}_{base}_{to}'
+  if cache_key not in CACHE:
+    ticker_name = f'{base}{to}=X'
+    ticker = yf.Ticker(ticker_name)
+    try:
+      rate = 0.5 * (ticker.info['bid'] + ticker.info['ask'])
+    except:
+      rate = None
+    CACHE[cache_key] = rate
 
-  rates = CACHE[today]
-  return rates[to] / rates[base]
+  return CACHE[cache_key]
 requirements: |
-  requests
+  yfinance
