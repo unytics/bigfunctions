@@ -6,7 +6,12 @@ author:
   avatar_url: "https://lh3.googleusercontent.com/a-/ACB-R5RDf2yxcw1p_IYLCKmiUIScreatDdhG8B83om6Ohw=s260"
 description: |
   Get `country_code` of `ip`
-  using IP address data powered by [IPinfo](https://ipinfo.io) and released under [Creative Commons Attribution-ShareAlike 4.0 International License](https://creativecommons.org/licenses/by-sa/4.0/).
+
+  > This functions uses IP address data powered by [IPinfo](https://ipinfo.io)
+  > and released under [Creative Commons Attribution-ShareAlike 4.0 International License](https://creativecommons.org/licenses/by-sa/4.0/).
+  > You are required to attribute IPinfo to use their free datasets.
+  > The attribution requirements can be met by giving their service credit as your data source.
+  > Simply place a link to IPinfo on the website, application, or social media account that uses their data.
 arguments:
   - name: ip
     type: string
