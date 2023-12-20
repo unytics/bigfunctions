@@ -34,8 +34,10 @@ examples:
       - "json '[{\"col1\": \"row1\", \"col2\": 1}, {\"col1\": \"row2\", \"col2\": 2}]'"
       - '"https://docs.google.com/spreadsheets/d/xxxxxxxxx"'
       - '"my worksheet"'
+      - '"write_truncate"'
     output: 'DATA_UPLOADED'
 code: |
+  import time
   import google.auth
   import gspread
   import pandas as pd
@@ -51,43 +53,57 @@ code: |
   credentials, _ = google.auth.default(scopes=scopes)
   client = gspread.authorize(credentials=credentials)
 
-  try:
-    df = pd.DataFrame(data)
+  seconds_between_retries = 10
+  retry_nb = 0
+  max_retries = 10
 
-    sheet = client.open_by_url(spreadsheet_url)
+  df = pd.DataFrame(data)
 
-    existing_whorksheets = [ws for ws in sheet.worksheets() if ws.title == worksheet_name]
-    if existing_whorksheets:
-      existing_worksheet = existing_whorksheets[0]
+  def upload(retry_nb, seconds_between_retries):
+    new_df = df.copy()
 
-      if write_mode == 'do_nothing':
-        return 'NOTHING_DONE_AS_WORKSHEET_EXISTS'
+    try:
+      sheet = client.open_by_url(spreadsheet_url)
 
-      elif write_mode == 'raise_error':
-        assert False, '`write_mode` is `raise_error` and `worksheet_name` already exists in Google Sheet'
+      existing_whorksheets = [ws for ws in sheet.worksheets() if ws.title == worksheet_name]
+      if existing_whorksheets:
+        existing_worksheet = existing_whorksheets[0]
 
-      elif write_mode == 'write_truncate':
-        existing_worksheet.clear()
-        existing_worksheet.resize(df.shape[0], df.shape[1])
+        if write_mode == 'do_nothing':
+          return 'NOTHING_DONE_AS_WORKSHEET_EXISTS'
 
-      elif write_mode == 'write_append':
-        existing_df = gspread_dataframe.get_as_dataframe(existing_worksheet)
-        df = pd.concat([existing_df, df], ignore_index=True)
+        elif write_mode == 'raise_error':
+          assert False, '`write_mode` is `raise_error` and `worksheet_name` already exists in Google Sheet'
 
-    else:
-      sheet.add_worksheet(worksheet_name, df.shape[0], df.shape[1], index=0)
+        elif write_mode == 'write_truncate':
+          existing_worksheet.clear()
+          existing_worksheet.resize(df.shape[0], df.shape[1])
 
-    gspread_dataframe.set_with_dataframe(sheet.worksheet(worksheet_name), df)
+        elif write_mode == 'write_append':
+          existing_df = gspread_dataframe.get_as_dataframe(existing_worksheet)
+          new_df = pd.concat([existing_df, new_df], ignore_index=True)
 
-  except gspread.exceptions.APIError as e:
-    error = e.args[0]['message']
-    if 'caller does not have permission' in error:
-      error += (
-        '. Please verify that you shared your Google Sheet in edit mode to ' +
-        f'`{get_current_service_account()}`'
-      )
-    assert False, "ERROR: " + error
+      else:
+        sheet.add_worksheet(worksheet_name, df.shape[0], df.shape[1], index=0)
 
+      gspread_dataframe.set_with_dataframe(sheet.worksheet(worksheet_name), df)
+
+    except gspread.exceptions.APIError as e:
+      error = e.args[0]['message']
+      if 'caller does not have permission' in error:
+        error += (
+          '. Please verify that you shared your Google Sheet in edit mode to ' +
+          f'`{get_current_service_account()}`'
+        )
+      if 'quota exceeded' in error.lower() and retry_nb < max_retries:
+        time.sleep(seconds_between_retries)
+        seconds_between_retries = seconds_between_retries * 2
+        retry_nb += 1
+        upload(retry_nb, seconds_between_retries)
+      else:
+        assert False, "ERROR: " + error
+
+  upload(retry_nb, seconds_between_retries)
   return "DATA_UPLOADED"
 requirements: |
   gspread-dataframe
@@ -95,3 +111,5 @@ requirements: |
   pandas
 quotas:
   max_rows_per_query: 1
+cloud_run:
+  service_account: 749389685934-compute@developer.gserviceaccount.com
