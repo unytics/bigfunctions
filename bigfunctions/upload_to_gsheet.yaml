@@ -113,3 +113,4 @@ quotas:
   max_rows_per_query: 1
 cloud_run:
   service_account: 749389685934-compute@developer.gserviceaccount.com
+  memory: 512Mi
