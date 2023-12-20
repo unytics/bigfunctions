@@ -16,8 +16,8 @@ output:
 examples:
   - description: ""
     arguments:
-      - "'US'"
-    output: 'JVBERi0xLjQK....'
+      - "'152.216.7.110'"
+    output: 'US'
 init_code: |
   import urllib.request
   import maxminddb
