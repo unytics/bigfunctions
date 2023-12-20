@@ -172,6 +172,8 @@ secrets = SecretManager()
 {% endif %}
 
 
+{{ init_code }}
+
 {% if code_process_rows_as_batch %}
 
 def compute_all_rows(rows):
