@@ -1,0 +1,24 @@
+type: function_py
+category: utils
+author:
+  name: Paul Marcombes
+  url: https://www.linkedin.com/in/paul-marcombes
+  avatar_url: "https://lh3.googleusercontent.com/a-/ACB-R5RDf2yxcw1p_IYLCKmiUIScreatDdhG8B83om6Ohw=s260"
+description: Sleep during `seconds` seconds
+arguments:
+  - name: seconds
+    type: float64
+output:
+  name: response
+  type: string
+examples:
+  - description: "Wait for 10 seconds"
+    arguments:
+      - "10"
+    output: "ok"
+code: |
+  import time
+  time.sleep(seconds)
+  return 'ok'
+quotas:
+  max_rows_per_query: 1
