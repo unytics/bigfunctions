@@ -1,5 +1,5 @@
 type: function_sql
-category: utils
+category: explore
 author:
   name: Paul Marcombes
   url: https://www.linkedin.com/in/paul-marcombes
@@ -24,32 +24,15 @@ examples:
       - "'sales'"
     screenshot: chart.png
 code: |
-  replace(replace(replace(replace(replace("""
-    <div><canvas id="%ID%"></canvas></div>
-    <script>
-      (function() {
-        new Chart(
-          document.getElementById('%ID%'),
-          {
-              type: '%CHART_TYPE%',
-              data: {
-                labels: [%X%],
-                datasets: [{
-                  label: '%YLABEL%',
-                  data: [%Y%],
-                  borderColor: 'rgb(64, 81, 181)',
-                  backgroundColor: 'rgb(64, 81, 181)',
-                }]
-              },
-              options: {}
-            }
-        );
-      })();
-    </script>
-  """,
-  '%ID%', generate_uuid()),
-  '%CHART_TYPE%', chart_type),
-  '%YLABEL%', ylabel),
-  '%X%', (select array_to_string(array_agg(format('"%s"', data.x) order by offset), ',') from unnest(data) data with offset as offset)),
-  '%Y%', (select array_to_string(array_agg(cast(data.y as string) order by offset), ',') from unnest(data) data with offset as offset)
+  {BIGFUNCTIONS_DATASET}.render_template(
+
+    '''<html>
+    {{ chart(data, chart_type, ylabel=ylabel) }}
+    </html>''',
+
+    to_json(struct(
+      data,
+      chart_type,
+      ylabel
+    ))
   )
