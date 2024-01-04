@@ -28,7 +28,7 @@ code: |
   execute immediate replace(replace(replace('''
     select array_agg(
 
-      {BIGFUNCTIONS_DATASET}.render_string(
+      {BIGFUNCTIONS_DATASET}.render_template(
         """(
         with
 
@@ -165,16 +165,15 @@ code: |
           '{{column}}' as name,
           '{{data_type}}' as data_type,
           (select stats from stats) as stats,
-          (select hist.hist from hist) as hist,
-          (select {BIGFUNCTIONS_DATASET}.chart(hist.hist, 'bar', 'value_count') from hist) as hist_html
+          (select hist.hist from hist) as hist
         )) as json
         )""",
-        to_json_string(to_json(struct(
+        to_json(struct(
           column_name as column,
           data_type as data_type,
           10 as nbins,
           100 as nbins_top_values
-        )))
+        ))
       )
     )
 
@@ -261,7 +260,7 @@ template: |
           </table>
         </div>
         <div class="column">
-          {{ col.hist_html|safe }}
+          {{ chart(col.hist, 'bar', ylabel='value_count') }}
         </div>
       </div>
     </div>
