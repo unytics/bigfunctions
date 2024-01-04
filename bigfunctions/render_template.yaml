@@ -16,8 +16,8 @@ output:
 examples:
   - description: ""
     arguments:
-      - "'Hello {{ username }}'"
-      - "'{\"username\": \"James\"}'"
+      - "'Hello {{ user }}'"
+      - "json '{\"user\": \"James\"}'"
     output: Hello James
 code: |
   var env = nunjucks.configure();
