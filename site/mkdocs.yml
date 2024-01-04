@@ -53,6 +53,10 @@ nav:
   - ... | regex=.*README.md
   - Contribute!: CONTRIBUTING.md
 bigfunctions_categories:
+  - name: "explore"
+    emoticon: "👀"
+    title: "Explore data within BigQuery console"
+    subtitle: "Make computations on BigQuery and display the results as data-vizualizations directly in BigQuery console."
   - name: "AI"
     emoticon: "🧠"
     title: "Generative AI!"
@@ -101,10 +105,6 @@ bigfunctions_categories:
     emoticon: "🔨"
     title: "Convert data format"
     subtitle: ""
-  - name: "explore"
-    emoticon: "👀"
-    title: "Explore data within BigQuery console"
-    subtitle: "Make computations on BigQuery and display the results as data-vizualizations directly in BigQuery console."
   - name: "utils"
     emoticon: "🔨"
     title: "Utils BigFunctions"
