@@ -71,7 +71,7 @@ BigFunctions are open-source BigQuery routines that give you **SQL-superpowers**
     **🧠 AI**
 
     
-    - [<code>ask_bison(question)</code>](#ask_bison): Ask Anything!
+    - [<code>ask_ai(prompt, model)</code>](#ask_ai): Ask Anything!
     
     - [<code>ask_my_data(question, fully_qualified_table)</code>](#ask_my_data): Ask your data any `question` in natural language.
     
@@ -147,19 +147,27 @@ BigFunctions are open-source BigQuery routines that give you **SQL-superpowers**
     **✨ Transform string**
 
     
+    - [<code>convert_non_ascii_characters_to_unicode_escape_sequences(text)</code>](#convert_non_ascii_characters_to_unicode_escape_sequences): Replace all non ASCII characters with escape unicode
+    
     - [<code>deidentify(text, info_types)</code>](#deidentify): Masks sensitive information of type `info_types` in `text`
     
     - [<code>detect_sensitive_info(text)</code>](#detect_sensitive_info): Detect sensitive information in `text`
     
     - [<code>faker(what, locale)</code>](#faker): Generates fake data
     
-    - [<code>ip_range2cidr(first_ip, last_ip)</code>](#ip_range2cidr): Convert an IP range into a json list of IPs in CIDR notation
+    - [<code>ip2continent(ip)</code>](#ip2continent): Get `continent_code` of `ip`
+    
+    - [<code>ip2continent_name(ip)</code>](#ip2continent_name): Get `continent` of `ip`
+    
+    - [<code>ip2country(ip)</code>](#ip2country): Get `country_code` of `ip`
+    
+    - [<code>ip2country_name(ip)</code>](#ip2country_name): Get `country_name` of `ip`
     
     - [<code>ip_range2ip_networks(first_ip, last_ip)</code>](#ip_range2ip_networks): Convert an IP range into a json list of IP networks in CIDR notation
     
     - [<code>is_email_valid(email)</code>](#is_email_valid): Return true if `email` is valid
     
-    - [<code>is_phone_number_valid(phone_number, default_country)</code>](#is_phone_number_valid): Compute levenshtein distance between `string1` and `string2`
+    - [<code>is_phone_number_valid(phone_number, options)</code>](#is_phone_number_valid): Return if `phone_number` is valid
     
     - [<code>levenshtein(string1, string2)</code>](#levenshtein): Compute levenshtein distance between `string1` and `string2`
     
@@ -246,6 +254,10 @@ BigFunctions are open-source BigQuery routines that give you **SQL-superpowers**
 
     
     - [<code>are_arrays_equal(array1, array2)</code>](#are_arrays_equal): Return true if `array1` = `array2`
+    
+    - [<code>array_intersect(array1, array2)</code>](#array_intersect): Returns the intersection of two arrays.
+    
+    - [<code>array_union(array1, array2)</code>](#array_union): Returns the union of two arrays.
     
     - [<code>distinct_values(arr)</code>](#distinct_values): Return distinct values
     
@@ -347,6 +359,8 @@ BigFunctions are open-source BigQuery routines that give you **SQL-superpowers**
     
     - [<code>run_python(python_code, requirements, kwargs)</code>](#run_python): Run any `python_code`.
     
+    - [<code>sleep(seconds)</code>](#sleep): Sleep during `seconds` seconds
+    
     - [<code>timestamp_from_unix_date_time(unix_date_time, date_time_part)</code>](#timestamp_from_unix_date_time): Interprets `unix_date_time` as the number of `date_time_part` since `1970-01-01 00:00:00 UTC`.
     
     - [<code>timestamp_to_unix_date_time(timestamp_expression, date_time_part)</code>](#timestamp_to_unix_date_time): Returns the number of `date_time_part` since `1970-01-01 00:00:00 UTC`.
@@ -376,23 +390,36 @@ BigFunctions are open-source BigQuery routines that give you **SQL-superpowers**
 
 
 
-### ask_bison
+### ask_ai
 <div style="position: relative; top: -2rem; margin-bottom:  -2rem; text-align: right; z-index: 9999;">
   
   <a href="https://www.linkedin.com/in/paul-marcombes" title="Author: Paul Marcombes" target="_blank">
     <img src="https://lh3.googleusercontent.com/a-/ACB-R5RDf2yxcw1p_IYLCKmiUIScreatDdhG8B83om6Ohw=s260" width="32" style=" border-radius: 50% !important">
   </a>
   
-  <a href="https://github.com/unytics/bigfunctions/blob/main/bigfunctions/ask_bison.yaml" title="Edit on GitHub" target="_blank"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="#5d6cc0" d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg></a></div>
+  <a href="https://github.com/unytics/bigfunctions/blob/main/bigfunctions/ask_ai.yaml" title="Edit on GitHub" target="_blank"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="#5d6cc0" d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg></a></div>
 ```
-ask_bison(question)
+ask_ai(prompt, model)
 ```
 
 **Description**
 
 Ask Anything!
 
-Google Generative AI `bison` model will get you an answer.
+Google Generative AI `model` will get you an answer.
+
+`model` must be one of:
+
+- `gemini-pro`
+- `text-bison@001`
+- `text-bison@002`
+- `text-unicorn@001`
+- `code-bison@001`
+- `code-bison@002`
+- ... any future model
+- `null`, then `gemini-pro` will be used
+
+Default parameters are used for each model.
 
 
 **Examples**
@@ -409,12 +436,12 @@ Google Generative AI `bison` model will get you an answer.
 === "EU"
 
     ```sql
-    select bigfunctions.eu.ask_bison(
+    select bigfunctions.eu.ask_ai(
       '''
       Question: what is the country from the following user input: 'I live in frace' ?
       Answer: formatted as alpha three code
       '''
-      ) as answer
+      , 'gemini-pro') as answer
     
     ```
 
@@ -423,12 +450,12 @@ Google Generative AI `bison` model will get you an answer.
 === "US"
 
     ```sql
-    select bigfunctions.us.ask_bison(
+    select bigfunctions.us.ask_ai(
       '''
       Question: what is the country from the following user input: 'I live in frace' ?
       Answer: formatted as alpha three code
       '''
-      ) as answer
+      , 'gemini-pro') as answer
     
     ```
 
@@ -437,12 +464,12 @@ Google Generative AI `bison` model will get you an answer.
 === "europe-west1"
 
     ```sql
-    select bigfunctions.europe_west1.ask_bison(
+    select bigfunctions.europe_west1.ask_ai(
       '''
       Question: what is the country from the following user input: 'I live in frace' ?
       Answer: formatted as alpha three code
       '''
-      ) as answer
+      , 'gemini-pro') as answer
     
     ```
 
@@ -451,12 +478,12 @@ Google Generative AI `bison` model will get you an answer.
 === "your-region2"
 
     ```sql
-    select bigfunctions.your_region2.ask_bison(
+    select bigfunctions.your_region2.ask_ai(
       '''
       Question: what is the country from the following user input: 'I live in frace' ?
       Answer: formatted as alpha three code
       '''
-      ) as answer
+      , 'gemini-pro') as answer
     
     ```
 
@@ -495,14 +522,14 @@ Google Generative AI `bison` model will get you an answer.
 === "EU"
 
     ```sql
-    select bigfunctions.eu.ask_bison(
+    select bigfunctions.eu.ask_ai(
       '''
       Question: get the 10 products which generated the most revenue in 2023
       Table: sales
       Columns: product_id, price, quantity, timestamp
       Answer: bigquery sql query
       '''
-      ) as answer
+      , 'code-bison@002') as answer
     
     ```
 
@@ -511,14 +538,14 @@ Google Generative AI `bison` model will get you an answer.
 === "US"
 
     ```sql
-    select bigfunctions.us.ask_bison(
+    select bigfunctions.us.ask_ai(
       '''
       Question: get the 10 products which generated the most revenue in 2023
       Table: sales
       Columns: product_id, price, quantity, timestamp
       Answer: bigquery sql query
       '''
-      ) as answer
+      , 'code-bison@002') as answer
     
     ```
 
@@ -527,14 +554,14 @@ Google Generative AI `bison` model will get you an answer.
 === "europe-west1"
 
     ```sql
-    select bigfunctions.europe_west1.ask_bison(
+    select bigfunctions.europe_west1.ask_ai(
       '''
       Question: get the 10 products which generated the most revenue in 2023
       Table: sales
       Columns: product_id, price, quantity, timestamp
       Answer: bigquery sql query
       '''
-      ) as answer
+      , 'code-bison@002') as answer
     
     ```
 
@@ -543,14 +570,14 @@ Google Generative AI `bison` model will get you an answer.
 === "your-region2"
 
     ```sql
-    select bigfunctions.your_region2.ask_bison(
+    select bigfunctions.your_region2.ask_ai(
       '''
       Question: get the 10 products which generated the most revenue in 2023
       Table: sales
       Columns: product_id, price, quantity, timestamp
       Answer: bigquery sql query
       '''
-      ) as answer
+      , 'code-bison@002') as answer
     
     ```
 
@@ -712,7 +739,7 @@ generate_sql(question, fully_qualified_table)
 
 Transform `question` to a SQL query.
 
->  This function sends the following enriched question to [`ask_bison`](#ask_bison) (*the schema of `fully_qualified_table` is sent so that the generated SQL query is adapted to your data*):
+>  This function sends the following enriched question to [`ask_ai`](#ask_ai) (*the schema of `fully_qualified_table` is sent so that the generated SQL query is adapted to your data*):
 >
 >  ```
 >  Question: {{question}}
@@ -828,7 +855,7 @@ Transform `question` to a SQL query.
 <div style="position: relative; top: -2rem; margin-bottom:  -2rem; text-align: right; z-index: 9999;">
   
   <a href="https://www.linkedin.com/in/johan-protin" title="Author: Johan PROTIN" target="_blank">
-    <img src="https://media.licdn.com/dms/image/C4E03AQH1sYz9Zik0TQ/profile-displayphoto-shrink_800_800/0/1653692064309?e=1688601600&v=beta&t=c6DsEpUE-cC_zdW5vTrfyyBgiTJLeBGg5oUlzJmsnKw" width="32" style=" border-radius: 50% !important">
+    <img src="https://avatars.githubusercontent.com/u/16030047?v=4" width="32" style=" border-radius: 50% !important">
   </a>
   
   <a href="https://github.com/unytics/bigfunctions/blob/main/bigfunctions/exchange_rate.yaml" title="Edit on GitHub" target="_blank"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="#5d6cc0" d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg></a></div>
@@ -840,11 +867,13 @@ exchange_rate(base, to)
 
 Get `exchange_rate`
 from `base` (e.g. `USD`) to `to` (e.g. `EUR`)
-*using [https://exchangerate.host](https://exchangerate.host)*
+from [Yahoo Finance](https://finance.yahoo.com/quote/USDEUR=X/).
+
+This functions uses [yfinance python package](https://github.com/ranaroussi/yfinance) and returns the average of the `bid price` and the `ask price`. If the data is not available in Yahoo Finance, will return `null`
 
 | Param  | Possible values  |
 |---|---|
-| `base`<br>and<br>`to`  | `AED`, `AFN`, `ALL`, `AMD`, `ANG`, `AOA`, `ARS`, `AUD`, `AWG`, `AZN`, `BAM`, `BBD`, `BDT`, `BGN`, `BHD`, `BIF`, `BMD`, `BND`, `BOB`, `BRL`, `BSD`, `BTC`, `BTN`, `BWP`, `BYN`, `BZD`, `CAD`, `CDF`, `CHF`, `CLF`, `CLP`, `CNH`, `CNY`, `COP`, `CRC`, `CUC`, `CUP`, `CVE`, `CZK`, `DJF`, `DKK`, `DOP`, `DZD`, `EGP`, `ERN`, `ETB`, `EUR`, `FJD`, `FKP`, `GBP`, `GEL`, `GGP`, `GHS`, `GIP`, `GMD`, `GNF`, `GTQ`, `GYD`, `HKD`, `HNL`, `HRK`, `HTG`, `HUF`, `IDR`, `ILS`, `IMP`, `INR`, `IQD`, `IRR`, `ISK`, `JEP`, `JMD`, `JOD`, `JPY`, `KES`, `KGS`, `KHR`, `KMF`, `KPW`, `KRW`, `KWD`, `KYD`, `KZT`, `LAK`, `LBP`, `LKR`, `LRD`, `LSL`, `LYD`, `MAD`, `MDL`, `MGA`, `MKD`, `MMK`, `MNT`, `MOP`, `MRU`, `MUR`, `MVR`, `MWK`, `MXN`, `MYR`, `MZN`, `NAD`, `NGN`, `NIO`, `NOK`, `NPR`, `NZD`, `OMR`, `PAB`, `PEN`, `PGK`, `PHP`, `PKR`, `PLN`, `PYG`, `QAR`, `RON`, `RSD`, `RUB`, `RWF`, `SAR`, `SBD`, `SCR`, `SDG`, `SEK`, `SGD`, `SHP`, `SLL`, `SOS`, `SRD`, `SSP`, `STD`, `STN`, `SVC`, `SYP`, `SZL`, `THB`, `TJS`, `TMT`, `TND`, `TOP`, `TRY`, `TTD`, `TWD`, `TZS`, `UAH`, `UGX`, `USD`, `UYU`, `UZS`, `VES`, `VND`, `VUV`, `WST`, `XAF`, `XAG`, `XAU`, `XCD`, `XDR`, `XOF`, `XPD`, `XPF`, `XPT`, `YER`, `ZAR`, `ZMW`, `ZWL` |
+| `base`<br>and<br>`to`  | Iso 4217 currency codes such as `EUR` or `USD`. See active codes on [wikipedia](https://en.wikipedia.org/wiki/ISO_4217#Active_codes_(List_One)) |
 
 
 **Examples**
@@ -2862,7 +2891,7 @@ in `write_mode`.
 === "EU"
 
     ```sql
-    select bigfunctions.eu.upload_to_gsheet(json '[{"col1": "row1", "col2": 1}, {"col1": "row2", "col2": 2}]', "https://docs.google.com/spreadsheets/d/xxxxxxxxx", "my worksheet") as result
+    select bigfunctions.eu.upload_to_gsheet(json '[{"col1": "row1", "col2": 1}, {"col1": "row2", "col2": 2}]', "https://docs.google.com/spreadsheets/d/xxxxxxxxx", "my worksheet", "write_truncate") as result
     
     ```
 
@@ -2871,7 +2900,7 @@ in `write_mode`.
 === "US"
 
     ```sql
-    select bigfunctions.us.upload_to_gsheet(json '[{"col1": "row1", "col2": 1}, {"col1": "row2", "col2": 2}]', "https://docs.google.com/spreadsheets/d/xxxxxxxxx", "my worksheet") as result
+    select bigfunctions.us.upload_to_gsheet(json '[{"col1": "row1", "col2": 1}, {"col1": "row2", "col2": 2}]', "https://docs.google.com/spreadsheets/d/xxxxxxxxx", "my worksheet", "write_truncate") as result
     
     ```
 
@@ -2880,7 +2909,7 @@ in `write_mode`.
 === "europe-west1"
 
     ```sql
-    select bigfunctions.europe_west1.upload_to_gsheet(json '[{"col1": "row1", "col2": 1}, {"col1": "row2", "col2": 2}]', "https://docs.google.com/spreadsheets/d/xxxxxxxxx", "my worksheet") as result
+    select bigfunctions.europe_west1.upload_to_gsheet(json '[{"col1": "row1", "col2": 1}, {"col1": "row2", "col2": 2}]', "https://docs.google.com/spreadsheets/d/xxxxxxxxx", "my worksheet", "write_truncate") as result
     
     ```
 
@@ -2889,7 +2918,7 @@ in `write_mode`.
 === "your-region2"
 
     ```sql
-    select bigfunctions.your_region2.upload_to_gsheet(json '[{"col1": "row1", "col2": 1}, {"col1": "row2", "col2": 2}]', "https://docs.google.com/spreadsheets/d/xxxxxxxxx", "my worksheet") as result
+    select bigfunctions.your_region2.upload_to_gsheet(json '[{"col1": "row1", "col2": 1}, {"col1": "row2", "col2": 2}]', "https://docs.google.com/spreadsheets/d/xxxxxxxxx", "my worksheet", "write_truncate") as result
     
     ```
 
@@ -3640,6 +3669,98 @@ with bins defined so that there are `nb_bins` bins of same width between `min_bo
 
 
 
+### convert_non_ascii_characters_to_unicode_escape_sequences
+<div style="position: relative; top: -2rem; margin-bottom:  -2rem; text-align: right; z-index: 9999;">
+  
+  <a href="https://www.linkedin.com/in/benjamin-tabet" title="Author: Benjamin Tabet" target="_blank">
+    <img src="https://taskfilescsm.s3.amazonaws.com/uploads/speaker_thumb/2022-11-0912%253A07%253A34879766-BenjaminTabet.jpg" width="32" style=" border-radius: 50% !important">
+  </a>
+  
+  <a href="https://github.com/unytics/bigfunctions/blob/main/bigfunctions/convert_non_ascii_characters_to_unicode_escape_sequences.yaml" title="Edit on GitHub" target="_blank"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="#5d6cc0" d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg></a></div>
+```
+convert_non_ascii_characters_to_unicode_escape_sequences(text)
+```
+
+**Description**
+
+Replace all non ASCII characters with escape unicode
+
+**Examples**
+
+
+
+
+
+
+
+
+
+
+=== "EU"
+
+    ```sql
+    select bigfunctions.eu.convert_non_ascii_characters_to_unicode_escape_sequences('SCHÜMANN') as text_unicode_escaped
+    
+    ```
+
+
+
+=== "US"
+
+    ```sql
+    select bigfunctions.us.convert_non_ascii_characters_to_unicode_escape_sequences('SCHÜMANN') as text_unicode_escaped
+    
+    ```
+
+
+
+=== "europe-west1"
+
+    ```sql
+    select bigfunctions.europe_west1.convert_non_ascii_characters_to_unicode_escape_sequences('SCHÜMANN') as text_unicode_escaped
+    
+    ```
+
+
+
+=== "your-region2"
+
+    ```sql
+    select bigfunctions.your_region2.convert_non_ascii_characters_to_unicode_escape_sequences('SCHÜMANN') as text_unicode_escaped
+    
+    ```
+
+
+
+
+
+
+
+
+
+<pre style="margin-top: -1rem;">
+<code style="padding-top: 0px; padding-bottom: 0px;">+----------------------+
+| text_unicode_escaped |
++----------------------+
+| SCH\u00dcMANN        |
++----------------------+
+</code>
+</pre>
+
+
+
+
+
+
+
+
+
+
+---
+
+
+
+
 ### deidentify
 <div style="position: relative; top: -2rem; margin-bottom:  -2rem; text-align: right; z-index: 9999;">
   
@@ -4195,22 +4316,27 @@ of type `what` and localized with `locale` parameter (using [faker python librar
 
 
 
-### ip_range2cidr
+### ip2continent
 <div style="position: relative; top: -2rem; margin-bottom:  -2rem; text-align: right; z-index: 9999;">
   
   <a href="https://www.linkedin.com/in/paul-marcombes" title="Author: Paul Marcombes" target="_blank">
     <img src="https://lh3.googleusercontent.com/a-/ACB-R5RDf2yxcw1p_IYLCKmiUIScreatDdhG8B83om6Ohw=s260" width="32" style=" border-radius: 50% !important">
   </a>
   
-  <a href="https://github.com/unytics/bigfunctions/blob/main/bigfunctions/ip_range2cidr.yaml" title="Edit on GitHub" target="_blank"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="#5d6cc0" d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg></a></div>
+  <a href="https://github.com/unytics/bigfunctions/blob/main/bigfunctions/ip2continent.yaml" title="Edit on GitHub" target="_blank"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="#5d6cc0" d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg></a></div>
 ```
-ip_range2cidr(first_ip, last_ip)
+ip2continent(ip)
 ```
 
 **Description**
 
-Convert an IP range into a json list of IPs in CIDR notation
-(the list can have only one element)
+Get `continent_code` of `ip`
+
+> This functions uses IP address data powered by [IPinfo](https://ipinfo.io)
+> and released under [Creative Commons Attribution-ShareAlike 4.0 International License](https://creativecommons.org/licenses/by-sa/4.0/).
+> You are required to attribute IPinfo to use their free datasets.
+> The attribution requirements can be met by giving their service credit as your data source.
+> Simply place a link to IPinfo on the website, application, or social media account that uses their data.
 
 
 **Examples**
@@ -4227,7 +4353,7 @@ Convert an IP range into a json list of IPs in CIDR notation
 === "EU"
 
     ```sql
-    select bigfunctions.eu.ip_range2cidr('1.0.0.0', '1.0.0.255') as cidrs
+    select bigfunctions.eu.ip2continent('152.216.7.110') as continent_code
     
     ```
 
@@ -4236,7 +4362,7 @@ Convert an IP range into a json list of IPs in CIDR notation
 === "US"
 
     ```sql
-    select bigfunctions.us.ip_range2cidr('1.0.0.0', '1.0.0.255') as cidrs
+    select bigfunctions.us.ip2continent('152.216.7.110') as continent_code
     
     ```
 
@@ -4245,7 +4371,7 @@ Convert an IP range into a json list of IPs in CIDR notation
 === "europe-west1"
 
     ```sql
-    select bigfunctions.europe_west1.ip_range2cidr('1.0.0.0', '1.0.0.255') as cidrs
+    select bigfunctions.europe_west1.ip2continent('152.216.7.110') as continent_code
     
     ```
 
@@ -4254,7 +4380,7 @@ Convert an IP range into a json list of IPs in CIDR notation
 === "your-region2"
 
     ```sql
-    select bigfunctions.your_region2.ip_range2cidr('1.0.0.0', '1.0.0.255') as cidrs
+    select bigfunctions.your_region2.ip2continent('152.216.7.110') as continent_code
     
     ```
 
@@ -4267,11 +4393,11 @@ Convert an IP range into a json list of IPs in CIDR notation
 
 
 <pre style="margin-top: -1rem;">
-<code style="padding-top: 0px; padding-bottom: 0px;">+--------------+
-| cidrs        |
-+--------------+
-| [1.0.0.0/24] |
-+--------------+
+<code style="padding-top: 0px; padding-bottom: 0px;">+----------------+
+| continent_code |
++----------------+
+| NA             |
++----------------+
 </code>
 </pre>
 
@@ -4280,6 +4406,39 @@ Convert an IP range into a json list of IPs in CIDR notation
 
 
 
+
+
+
+
+---
+
+
+
+
+### ip2continent_name
+<div style="position: relative; top: -2rem; margin-bottom:  -2rem; text-align: right; z-index: 9999;">
+  
+  <a href="https://www.linkedin.com/in/paul-marcombes" title="Author: Paul Marcombes" target="_blank">
+    <img src="https://lh3.googleusercontent.com/a-/ACB-R5RDf2yxcw1p_IYLCKmiUIScreatDdhG8B83om6Ohw=s260" width="32" style=" border-radius: 50% !important">
+  </a>
+  
+  <a href="https://github.com/unytics/bigfunctions/blob/main/bigfunctions/ip2continent_name.yaml" title="Edit on GitHub" target="_blank"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="#5d6cc0" d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg></a></div>
+```
+ip2continent_name(ip)
+```
+
+**Description**
+
+Get `continent` of `ip`
+
+> This functions uses IP address data powered by [IPinfo](https://ipinfo.io)
+> and released under [Creative Commons Attribution-ShareAlike 4.0 International License](https://creativecommons.org/licenses/by-sa/4.0/).
+> You are required to attribute IPinfo to use their free datasets.
+> The attribution requirements can be met by giving their service credit as your data source.
+> Simply place a link to IPinfo on the website, application, or social media account that uses their data.
+
+
+**Examples**
 
 
 
@@ -4293,7 +4452,7 @@ Convert an IP range into a json list of IPs in CIDR notation
 === "EU"
 
     ```sql
-    select bigfunctions.eu.ip_range2cidr('192.0.2.1', '192.0.2.15') as cidrs
+    select bigfunctions.eu.ip2continent_name('152.216.7.110') as continent
     
     ```
 
@@ -4302,7 +4461,7 @@ Convert an IP range into a json list of IPs in CIDR notation
 === "US"
 
     ```sql
-    select bigfunctions.us.ip_range2cidr('192.0.2.1', '192.0.2.15') as cidrs
+    select bigfunctions.us.ip2continent_name('152.216.7.110') as continent
     
     ```
 
@@ -4311,7 +4470,7 @@ Convert an IP range into a json list of IPs in CIDR notation
 === "europe-west1"
 
     ```sql
-    select bigfunctions.europe_west1.ip_range2cidr('192.0.2.1', '192.0.2.15') as cidrs
+    select bigfunctions.europe_west1.ip2continent_name('152.216.7.110') as continent
     
     ```
 
@@ -4320,7 +4479,7 @@ Convert an IP range into a json list of IPs in CIDR notation
 === "your-region2"
 
     ```sql
-    select bigfunctions.your_region2.ip_range2cidr('192.0.2.1', '192.0.2.15') as cidrs
+    select bigfunctions.your_region2.ip2continent_name('152.216.7.110') as continent
     
     ```
 
@@ -4333,11 +4492,209 @@ Convert an IP range into a json list of IPs in CIDR notation
 
 
 <pre style="margin-top: -1rem;">
-<code style="padding-top: 0px; padding-bottom: 0px;">+----------------------------------------------------------+
-| cidrs                                                    |
-+----------------------------------------------------------+
-| [192.0.2.1/32, 192.0.2.2/31, 192.0.2.4/30, 192.0.2.8/29] |
-+----------------------------------------------------------+
+<code style="padding-top: 0px; padding-bottom: 0px;">+---------------+
+| continent     |
++---------------+
+| North America |
++---------------+
+</code>
+</pre>
+
+
+
+
+
+
+
+
+
+
+---
+
+
+
+
+### ip2country
+<div style="position: relative; top: -2rem; margin-bottom:  -2rem; text-align: right; z-index: 9999;">
+  
+  <a href="https://www.linkedin.com/in/paul-marcombes" title="Author: Paul Marcombes" target="_blank">
+    <img src="https://lh3.googleusercontent.com/a-/ACB-R5RDf2yxcw1p_IYLCKmiUIScreatDdhG8B83om6Ohw=s260" width="32" style=" border-radius: 50% !important">
+  </a>
+  
+  <a href="https://github.com/unytics/bigfunctions/blob/main/bigfunctions/ip2country.yaml" title="Edit on GitHub" target="_blank"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="#5d6cc0" d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg></a></div>
+```
+ip2country(ip)
+```
+
+**Description**
+
+Get `country_code` of `ip`
+
+> This functions uses IP address data powered by [IPinfo](https://ipinfo.io)
+> and released under [Creative Commons Attribution-ShareAlike 4.0 International License](https://creativecommons.org/licenses/by-sa/4.0/).
+> You are required to attribute IPinfo to use their free datasets.
+> The attribution requirements can be met by giving their service credit as your data source.
+> Simply place a link to IPinfo on the website, application, or social media account that uses their data.
+
+
+**Examples**
+
+
+
+
+
+
+
+
+
+
+=== "EU"
+
+    ```sql
+    select bigfunctions.eu.ip2country('152.216.7.110') as country_code
+    
+    ```
+
+
+
+=== "US"
+
+    ```sql
+    select bigfunctions.us.ip2country('152.216.7.110') as country_code
+    
+    ```
+
+
+
+=== "europe-west1"
+
+    ```sql
+    select bigfunctions.europe_west1.ip2country('152.216.7.110') as country_code
+    
+    ```
+
+
+
+=== "your-region2"
+
+    ```sql
+    select bigfunctions.your_region2.ip2country('152.216.7.110') as country_code
+    
+    ```
+
+
+
+
+
+
+
+
+
+<pre style="margin-top: -1rem;">
+<code style="padding-top: 0px; padding-bottom: 0px;">+--------------+
+| country_code |
++--------------+
+| US           |
++--------------+
+</code>
+</pre>
+
+
+
+
+
+
+
+
+
+
+---
+
+
+
+
+### ip2country_name
+<div style="position: relative; top: -2rem; margin-bottom:  -2rem; text-align: right; z-index: 9999;">
+  
+  <a href="https://www.linkedin.com/in/paul-marcombes" title="Author: Paul Marcombes" target="_blank">
+    <img src="https://lh3.googleusercontent.com/a-/ACB-R5RDf2yxcw1p_IYLCKmiUIScreatDdhG8B83om6Ohw=s260" width="32" style=" border-radius: 50% !important">
+  </a>
+  
+  <a href="https://github.com/unytics/bigfunctions/blob/main/bigfunctions/ip2country_name.yaml" title="Edit on GitHub" target="_blank"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="#5d6cc0" d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg></a></div>
+```
+ip2country_name(ip)
+```
+
+**Description**
+
+Get `country_name` of `ip`
+
+> This functions uses IP address data powered by [IPinfo](https://ipinfo.io)
+> and released under [Creative Commons Attribution-ShareAlike 4.0 International License](https://creativecommons.org/licenses/by-sa/4.0/).
+> You are required to attribute IPinfo to use their free datasets.
+> The attribution requirements can be met by giving their service credit as your data source.
+> Simply place a link to IPinfo on the website, application, or social media account that uses their data.
+
+
+**Examples**
+
+
+
+
+
+
+
+
+
+
+=== "EU"
+
+    ```sql
+    select bigfunctions.eu.ip2country_name('152.216.7.110') as country_name
+    
+    ```
+
+
+
+=== "US"
+
+    ```sql
+    select bigfunctions.us.ip2country_name('152.216.7.110') as country_name
+    
+    ```
+
+
+
+=== "europe-west1"
+
+    ```sql
+    select bigfunctions.europe_west1.ip2country_name('152.216.7.110') as country_name
+    
+    ```
+
+
+
+=== "your-region2"
+
+    ```sql
+    select bigfunctions.your_region2.ip2country_name('152.216.7.110') as country_name
+    
+    ```
+
+
+
+
+
+
+
+
+
+<pre style="margin-top: -1rem;">
+<code style="padding-top: 0px; padding-bottom: 0px;">+---------------+
+| country_name  |
++---------------+
+| United States |
++---------------+
 </code>
 </pre>
 
@@ -4749,18 +5106,24 @@ Return true if `email` is valid
   
   <a href="https://github.com/unytics/bigfunctions/blob/main/bigfunctions/is_phone_number_valid.yaml" title="Edit on GitHub" target="_blank"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="#5d6cc0" d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg></a></div>
 ```
-is_phone_number_valid(phone_number, default_country)
+is_phone_number_valid(phone_number, options)
 ```
 
 **Description**
 
-Compute levenshtein distance between `string1` and `string2`
+Return if `phone_number` is valid
+using [libphonenumber-js library](https://www.npmjs.com/package/libphonenumber-js).
+
+Argument `options` can be `null` or must be a json with the following keys:
+`defaultCountry`, `defaultCallingCode` and `extract` as described in the
+[library documentation](https://www.npmjs.com/package/libphonenumber-js#parsephonenumberstring-defaultcountry-string--options-object-phonenumber).
+
 
 **Examples**
 
 
 
-
+<span style="color: var(--md-typeset-a-color);">1. Check an international `phone_number` (starting with `+`)</span>
 
 
 
@@ -4770,7 +5133,7 @@ Compute levenshtein distance between `string1` and `string2`
 === "EU"
 
     ```sql
-    select bigfunctions.eu.is_phone_number_valid('bak', 'book') as distance
+    select bigfunctions.eu.is_phone_number_valid('+33123456789', null) as is_valid
     
     ```
 
@@ -4779,7 +5142,7 @@ Compute levenshtein distance between `string1` and `string2`
 === "US"
 
     ```sql
-    select bigfunctions.us.is_phone_number_valid('bak', 'book') as distance
+    select bigfunctions.us.is_phone_number_valid('+33123456789', null) as is_valid
     
     ```
 
@@ -4788,7 +5151,7 @@ Compute levenshtein distance between `string1` and `string2`
 === "europe-west1"
 
     ```sql
-    select bigfunctions.europe_west1.is_phone_number_valid('bak', 'book') as distance
+    select bigfunctions.europe_west1.is_phone_number_valid('+33123456789', null) as is_valid
     
     ```
 
@@ -4797,7 +5160,7 @@ Compute levenshtein distance between `string1` and `string2`
 === "your-region2"
 
     ```sql
-    select bigfunctions.your_region2.is_phone_number_valid('bak', 'book') as distance
+    select bigfunctions.your_region2.is_phone_number_valid('+33123456789', null) as is_valid
     
     ```
 
@@ -4811,9 +5174,273 @@ Compute levenshtein distance between `string1` and `string2`
 
 <pre style="margin-top: -1rem;">
 <code style="padding-top: 0px; padding-bottom: 0px;">+----------+
-| distance |
+| is_valid |
 +----------+
-| 2        |
+| true     |
++----------+
+</code>
+</pre>
+
+
+
+
+
+
+
+
+
+<span style="color: var(--md-typeset-a-color);">2. Check a national `phone_number`</span>
+
+
+
+
+
+
+=== "EU"
+
+    ```sql
+    select bigfunctions.eu.is_phone_number_valid('0123456789', json '{"defaultCountry": "FR"}') as is_valid
+    
+    ```
+
+
+
+=== "US"
+
+    ```sql
+    select bigfunctions.us.is_phone_number_valid('0123456789', json '{"defaultCountry": "FR"}') as is_valid
+    
+    ```
+
+
+
+=== "europe-west1"
+
+    ```sql
+    select bigfunctions.europe_west1.is_phone_number_valid('0123456789', json '{"defaultCountry": "FR"}') as is_valid
+    
+    ```
+
+
+
+=== "your-region2"
+
+    ```sql
+    select bigfunctions.your_region2.is_phone_number_valid('0123456789', json '{"defaultCountry": "FR"}') as is_valid
+    
+    ```
+
+
+
+
+
+
+
+
+
+<pre style="margin-top: -1rem;">
+<code style="padding-top: 0px; padding-bottom: 0px;">+----------+
+| is_valid |
++----------+
+| true     |
++----------+
+</code>
+</pre>
+
+
+
+
+
+
+
+
+
+<span style="color: var(--md-typeset-a-color);">3. If no phone number is found in `phone_number`, it returns false</span>
+
+
+
+
+
+
+=== "EU"
+
+    ```sql
+    select bigfunctions.eu.is_phone_number_valid('Hello!', null) as is_valid
+    
+    ```
+
+
+
+=== "US"
+
+    ```sql
+    select bigfunctions.us.is_phone_number_valid('Hello!', null) as is_valid
+    
+    ```
+
+
+
+=== "europe-west1"
+
+    ```sql
+    select bigfunctions.europe_west1.is_phone_number_valid('Hello!', null) as is_valid
+    
+    ```
+
+
+
+=== "your-region2"
+
+    ```sql
+    select bigfunctions.your_region2.is_phone_number_valid('Hello!', null) as is_valid
+    
+    ```
+
+
+
+
+
+
+
+
+
+<pre style="margin-top: -1rem;">
+<code style="padding-top: 0px; padding-bottom: 0px;">+----------+
+| is_valid |
++----------+
+| false    |
++----------+
+</code>
+</pre>
+
+
+
+
+
+
+
+
+
+<span style="color: var(--md-typeset-a-color);">4. By default, if the given `phone_number` text contains a valid phone number among other text, it returns true.</span>
+
+
+
+
+
+
+=== "EU"
+
+    ```sql
+    select bigfunctions.eu.is_phone_number_valid('Hello +33123456789 !', null) as is_valid
+    
+    ```
+
+
+
+=== "US"
+
+    ```sql
+    select bigfunctions.us.is_phone_number_valid('Hello +33123456789 !', null) as is_valid
+    
+    ```
+
+
+
+=== "europe-west1"
+
+    ```sql
+    select bigfunctions.europe_west1.is_phone_number_valid('Hello +33123456789 !', null) as is_valid
+    
+    ```
+
+
+
+=== "your-region2"
+
+    ```sql
+    select bigfunctions.your_region2.is_phone_number_valid('Hello +33123456789 !', null) as is_valid
+    
+    ```
+
+
+
+
+
+
+
+
+
+<pre style="margin-top: -1rem;">
+<code style="padding-top: 0px; padding-bottom: 0px;">+----------+
+| is_valid |
++----------+
+| true     |
++----------+
+</code>
+</pre>
+
+
+
+
+
+
+
+
+
+<span style="color: var(--md-typeset-a-color);">5. To consider that `phone_number` cannot have additional text use `extract:  false` as option</span>
+
+
+
+
+
+
+=== "EU"
+
+    ```sql
+    select bigfunctions.eu.is_phone_number_valid('Hello +33123456789 !', json '{"extract": false}') as is_valid
+    
+    ```
+
+
+
+=== "US"
+
+    ```sql
+    select bigfunctions.us.is_phone_number_valid('Hello +33123456789 !', json '{"extract": false}') as is_valid
+    
+    ```
+
+
+
+=== "europe-west1"
+
+    ```sql
+    select bigfunctions.europe_west1.is_phone_number_valid('Hello +33123456789 !', json '{"extract": false}') as is_valid
+    
+    ```
+
+
+
+=== "your-region2"
+
+    ```sql
+    select bigfunctions.your_region2.is_phone_number_valid('Hello +33123456789 !', json '{"extract": false}') as is_valid
+    
+    ```
+
+
+
+
+
+
+
+
+
+<pre style="margin-top: -1rem;">
+<code style="padding-top: 0px; padding-bottom: 0px;">+----------+
+| is_valid |
++----------+
+| false    |
 +----------+
 </code>
 </pre>
@@ -5384,7 +6011,7 @@ Argument `options` can be `null` or must be a json with the following keys:
 
 
 
-<span style="color: var(--md-typeset-a-color);">4. By default, if the given `phone_number` text contains a phone number among other text, it will be extracted it.</span>
+<span style="color: var(--md-typeset-a-color);">4. By default, if the given `phone_number` text contains a phone number among other text, it will be extracted.</span>
 
 
 
@@ -5475,7 +6102,7 @@ Argument `options` can be `null` or must be a json with the following keys:
 === "EU"
 
     ```sql
-    select bigfunctions.eu.phone_number_info('Hello +33123456789 !', null) as info
+    select bigfunctions.eu.phone_number_info('Hello +33123456789 !', json '{"extract": false}') as info
     
     ```
 
@@ -5484,7 +6111,7 @@ Argument `options` can be `null` or must be a json with the following keys:
 === "US"
 
     ```sql
-    select bigfunctions.us.phone_number_info('Hello +33123456789 !', null) as info
+    select bigfunctions.us.phone_number_info('Hello +33123456789 !', json '{"extract": false}') as info
     
     ```
 
@@ -5493,7 +6120,7 @@ Argument `options` can be `null` or must be a json with the following keys:
 === "europe-west1"
 
     ```sql
-    select bigfunctions.europe_west1.phone_number_info('Hello +33123456789 !', null) as info
+    select bigfunctions.europe_west1.phone_number_info('Hello +33123456789 !', json '{"extract": false}') as info
     
     ```
 
@@ -5502,7 +6129,7 @@ Argument `options` can be `null` or must be a json with the following keys:
 === "your-region2"
 
     ```sql
-    select bigfunctions.your_region2.phone_number_info('Hello +33123456789 !', null) as info
+    select bigfunctions.your_region2.phone_number_info('Hello +33123456789 !', json '{"extract": false}') as info
     
     ```
 
@@ -5741,7 +6368,7 @@ Remove unwanted whitespaces
 <div style="position: relative; top: -2rem; margin-bottom:  -2rem; text-align: right; z-index: 9999;">
   
   <a href="https://www.linkedin.com/in/benjamin-tabet" title="Author: Benjamin Tabet" target="_blank">
-    <img src="https://media.licdn.com/dms/image/C4D03AQGWnyJdEmZeZw/profile-displayphoto-shrink_200_200/0/1667928305931?e=1686787200&v=beta&t=sW-albet4-jvB_cv7krxCz16BFHdi6-ohc0bXbi-EIY" width="32" style=" border-radius: 50% !important">
+    <img src="https://taskfilescsm.s3.amazonaws.com/uploads/speaker_thumb/2022-11-0912%253A07%253A34879766-BenjaminTabet.jpg" width="32" style=" border-radius: 50% !important">
   </a>
   
   <a href="https://github.com/unytics/bigfunctions/blob/main/bigfunctions/remove_strings.yaml" title="Edit on GitHub" target="_blank"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="#5d6cc0" d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg></a></div>
@@ -5833,7 +6460,7 @@ Remove any string of `strings_to_remove` from `string`
 <div style="position: relative; top: -2rem; margin-bottom:  -2rem; text-align: right; z-index: 9999;">
   
   <a href="https://www.linkedin.com/in/benjamin-tabet" title="Author: Benjamin Tabet" target="_blank">
-    <img src="https://media.licdn.com/dms/image/C4D03AQGWnyJdEmZeZw/profile-displayphoto-shrink_200_200/0/1667928305931?e=1686787200&v=beta&t=sW-albet4-jvB_cv7krxCz16BFHdi6-ohc0bXbi-EIY" width="32" style=" border-radius: 50% !important">
+    <img src="https://taskfilescsm.s3.amazonaws.com/uploads/speaker_thumb/2022-11-0912%253A07%253A34879766-BenjaminTabet.jpg" width="32" style=" border-radius: 50% !important">
   </a>
   
   <a href="https://github.com/unytics/bigfunctions/blob/main/bigfunctions/remove_words.yaml" title="Edit on GitHub" target="_blank"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="#5d6cc0" d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg></a></div>
@@ -9243,6 +9870,192 @@ and false otherwise
 
 
 
+### array_intersect
+<div style="position: relative; top: -2rem; margin-bottom:  -2rem; text-align: right; z-index: 9999;">
+  
+  <a href="https://www.linkedin.com/in/axel-thevenot/" title="Author: Axel Thevenot" target="_blank">
+    <img src="https://avatars.githubusercontent.com/u/39374103?v=4" width="32" style=" border-radius: 50% !important">
+  </a>
+  
+  <a href="https://github.com/unytics/bigfunctions/blob/main/bigfunctions/array_intersect.yaml" title="Edit on GitHub" target="_blank"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="#5d6cc0" d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg></a></div>
+```
+array_intersect(array1, array2)
+```
+
+**Description**
+
+Returns the intersection of two arrays.
+
+
+**Examples**
+
+
+
+
+
+
+
+
+
+
+=== "EU"
+
+    ```sql
+    select bigfunctions.eu.array_intersect([1, 2, 3], [2, 6, 7]) as result
+    
+    ```
+
+
+
+=== "US"
+
+    ```sql
+    select bigfunctions.us.array_intersect([1, 2, 3], [2, 6, 7]) as result
+    
+    ```
+
+
+
+=== "europe-west1"
+
+    ```sql
+    select bigfunctions.europe_west1.array_intersect([1, 2, 3], [2, 6, 7]) as result
+    
+    ```
+
+
+
+=== "your-region2"
+
+    ```sql
+    select bigfunctions.your_region2.array_intersect([1, 2, 3], [2, 6, 7]) as result
+    
+    ```
+
+
+
+
+
+
+
+
+
+<pre style="margin-top: -1rem;">
+<code style="padding-top: 0px; padding-bottom: 0px;">+--------+
+| result |
++--------+
+| [2]    |
++--------+
+</code>
+</pre>
+
+
+
+
+
+
+
+
+
+
+---
+
+
+
+
+### array_union
+<div style="position: relative; top: -2rem; margin-bottom:  -2rem; text-align: right; z-index: 9999;">
+  
+  <a href="https://www.linkedin.com/in/axel-thevenot/" title="Author: Axel Thevenot" target="_blank">
+    <img src="https://avatars.githubusercontent.com/u/39374103?v=4" width="32" style=" border-radius: 50% !important">
+  </a>
+  
+  <a href="https://github.com/unytics/bigfunctions/blob/main/bigfunctions/array_union.yaml" title="Edit on GitHub" target="_blank"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="#5d6cc0" d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg></a></div>
+```
+array_union(array1, array2)
+```
+
+**Description**
+
+Returns the union of two arrays.
+
+
+**Examples**
+
+
+
+
+
+
+
+
+
+
+=== "EU"
+
+    ```sql
+    select bigfunctions.eu.array_union([1, 2, 3], [2, 6, 7]) as result
+    
+    ```
+
+
+
+=== "US"
+
+    ```sql
+    select bigfunctions.us.array_union([1, 2, 3], [2, 6, 7]) as result
+    
+    ```
+
+
+
+=== "europe-west1"
+
+    ```sql
+    select bigfunctions.europe_west1.array_union([1, 2, 3], [2, 6, 7]) as result
+    
+    ```
+
+
+
+=== "your-region2"
+
+    ```sql
+    select bigfunctions.your_region2.array_union([1, 2, 3], [2, 6, 7]) as result
+    
+    ```
+
+
+
+
+
+
+
+
+
+<pre style="margin-top: -1rem;">
+<code style="padding-top: 0px; padding-bottom: 0px;">+-----------------+
+| result          |
++-----------------+
+| [1, 2, 3, 6, 7] |
++-----------------+
+</code>
+</pre>
+
+
+
+
+
+
+
+
+
+
+---
+
+
+
+
 ### distinct_values
 <div style="position: relative; top: -2rem; margin-bottom:  -2rem; text-align: right; z-index: 9999;">
   
@@ -9636,7 +10449,7 @@ Return the `offset` (zero-based index) of the first `value` in `arr` where `valu
 <code style="padding-top: 0px; padding-bottom: 0px;">+--------+
 | offset |
 +--------+
-| 1      |
+| 2      |
 +--------+
 </code>
 </pre>
@@ -11117,7 +11930,7 @@ Return sorted array (descending)
 <div style="position: relative; top: -2rem; margin-bottom:  -2rem; text-align: right; z-index: 9999;">
   
   <a href="https://www.linkedin.com/in/benjamin-tabet" title="Author: Benjamin Tabet" target="_blank">
-    <img src="https://media.licdn.com/dms/image/C4D03AQGWnyJdEmZeZw/profile-displayphoto-shrink_200_200/0/1667928305931?e=1686787200&v=beta&t=sW-albet4-jvB_cv7krxCz16BFHdi6-ohc0bXbi-EIY" width="32" style=" border-radius: 50% !important">
+    <img src="https://taskfilescsm.s3.amazonaws.com/uploads/speaker_thumb/2022-11-0912%253A07%253A34879766-BenjaminTabet.jpg" width="32" style=" border-radius: 50% !important">
   </a>
   
   <a href="https://github.com/unytics/bigfunctions/blob/main/bigfunctions/sum_values.yaml" title="Edit on GitHub" target="_blank"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="#5d6cc0" d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg></a></div>
@@ -12848,6 +13661,25 @@ explore_column(fully_qualified_column)
 
 Show column statistics
 
+??? example "See the result as a data visualization in BigQuery Console!"
+
+    **The result of this function can be vizualized as an html report directly in BigQuery Console!**
+
+    1. Install this bookmarklet: <a href="javascript:(function()%7Blet%20isChartJsLoaded%20%3D%20false%3B%0A%0A%0Aconst%20escapeHTML%20%3D%20function(html)%20%7B%0A%20%20if(!trustedTypes)%20%7B%0A%20%20%20%20return%20html%3B%0A%20%20%7D%0A%20%20const%20policy%20%3D%20trustedTypes.createPolicy(%22forceInner%22%2C%20%7BcreateHTML%3A%20(to_escape)%20%3D%3E%20to_escape%7D)%3B%0A%20%20return%20policy.createHTML(html)%3B%0A%7D%3B%0A%0A%0Aconst%20escapeScript%20%3D%20function(script)%20%7B%0A%20%20if(!trustedTypes)%20%7B%0A%20%20%20%20return%20script%3B%0A%20%20%7D%0A%20%20const%20policy%20%3D%20trustedTypes.createPolicy(%22forceInner%22%2C%20%7BcreateScript%3A%20(to_escape)%20%3D%3E%20to_escape%7D)%3B%0A%20%20return%20policy.createScript(script)%3B%0A%7D%3B%0A%0A%0Aconst%20setInnerHTML%20%3D%20function(elm%2C%20html)%20%7B%0A%20%20elm.innerHTML%20%3D%20escapeHTML(html)%3B%0A%20%20Array.from(elm.querySelectorAll('script')).forEach(%20oldScript%20%3D%3E%20%7B%0A%20%20%20%20%20%20const%20newScript%20%3D%20document.createElement('script')%3B%0A%20%20%20%20%20%20Array.from(oldScript.attributes).forEach(%20attr%20%3D%3E%20newScript.setAttribute(attr.name%2C%20attr.value)%20)%3B%0A%20%20%20%20%20%20newScript.text%20%3D%20escapeScript(oldScript.innerHTML)%3B%0A%20%20%20%20%20%20oldScript.parentNode.replaceChild(newScript%2C%20oldScript)%3B%0A%20%20%7D)%3B%0A%7D%3B%0A%0A%0Aconst%20run%20%3D%20async%20function()%20%7B%0A%20%20if%20(!isChartJsLoaded)%20%7B%0A%20%20%20%20return%3B%0A%20%20%7D%0A%20%20const%20results_table_container%20%3D%20document.querySelector('bq-tab-content%3Anot(.cfc-hidden)%20bq-results-table')%3B%0A%20%20if%20(!results_table_container)%20%7B%0A%20%20%20%20return%3B%0A%20%20%7D%0A%20%20const%20cells%20%3D%20results_table_container.querySelectorAll('td%20div%3Anot(.cfc-flex-container)')%3B%0A%20%20if%20(cells.length%20!%3D%3D%201)%20%7B%0A%20%20%20%20return%3B%0A%20%20%7D%0A%20%20const%20cell%20%3D%20cells%5B0%5D%3B%0A%20%20const%20content%20%3D%20cell.innerText%3B%0A%20%20if%20(!content.startsWith(%22%3Chtml%22))%20%7B%0A%20%20%20%20return%3B%0A%20%20%7D%0A%20%20if%20(content.endsWith(%22...%22))%20%7B%0A%20%20%20%20cell.nextElementSibling.firstElementChild.click()%3B%0A%20%20%20%20return%3B%0A%20%20%7D%0A%20%20const%20html%20%3D%20%60%3Csection%20class%3D%22section%22%3E%24%7Bcontent%7D%3C%2Fsection%3E%60%0A%20%20setInnerHTML(results_table_container%2C%20html)%3B%0A%7D%3B%0A%0A%0Aconst%20loadBulmaCss%20%3D%20function()%20%7B%0A%20%20const%20bulma%20%3D%20document.createElement('link')%3B%0A%20%20bulma.setAttribute('rel'%2C%20'stylesheet')%3B%0A%20%20bulma.setAttribute('href'%2C%20'https%3A%2F%2Fcdn.jsdelivr.net%2Fnpm%2Fbulma%400.9.4%2Fcss%2Fbulma.min.css')%3B%0A%20%20document.head.appendChild(bulma)%3B%0A%7D%3B%0A%0A%0Aconst%20loadChartjs%20%3D%20function()%20%7B%0A%20%20fetch('https%3A%2F%2Fcdnjs.cloudflare.com%2Fajax%2Flibs%2FChart.js%2F3.9.1%2Fchart.min.js')%0A%20%20.then((response)%20%3D%3E%20response.text())%0A%20%20.then((text)%20%3D%3E%20%7B%0A%20%20%20%20const%20script%20%3D%20document.createElement('script')%3B%0A%20%20%20%20script.text%20%3D%20escapeScript(text)%3B%0A%20%20%20%20document.head.appendChild(script)%3B%0A%20%20%20%20isChartJsLoaded%20%3D%20true%3B%0A%20%20%7D)%3B%0A%7D%3B%0A%0A%0A%0A%0AloadBulmaCss()%3B%0AloadChartjs()%3B%0AsetInterval(run%2C%20100)%3B%7D)()%3B">bigfunctions</a> *(it has to be done only once)*
+    2. Open BigQuery console
+    3. Click on the installed bookmarklet.
+        - From now on, the bookmarklet code will observe the BigQuery console page.
+        - If a BigQuery result appears with a unique cell containing html content, it will be rendered.
+    4. You will have to click on the bookmarklet *again*:
+        - If you refresh the Bigquery console page,
+        - If you open the BigQuery console in a new tab of your browser.
+    5. Run the query of the example and open the result of the latest subquery. The result will be shown as a nice html content.
+
+    <br>
+
+    ![bookmarklet usage](/bigfunctions/site/assets/bookmarklet_usage.gif)
+
+
 **Examples**
 
 
@@ -12929,6 +13761,25 @@ explore_dataset(fully_qualified_dataset)
 
 Show infos about dataset tables
 
+??? example "See the result as a data visualization in BigQuery Console!"
+
+    **The result of this function can be vizualized as an html report directly in BigQuery Console!**
+
+    1. Install this bookmarklet: <a href="javascript:(function()%7Blet%20isChartJsLoaded%20%3D%20false%3B%0A%0A%0Aconst%20escapeHTML%20%3D%20function(html)%20%7B%0A%20%20if(!trustedTypes)%20%7B%0A%20%20%20%20return%20html%3B%0A%20%20%7D%0A%20%20const%20policy%20%3D%20trustedTypes.createPolicy(%22forceInner%22%2C%20%7BcreateHTML%3A%20(to_escape)%20%3D%3E%20to_escape%7D)%3B%0A%20%20return%20policy.createHTML(html)%3B%0A%7D%3B%0A%0A%0Aconst%20escapeScript%20%3D%20function(script)%20%7B%0A%20%20if(!trustedTypes)%20%7B%0A%20%20%20%20return%20script%3B%0A%20%20%7D%0A%20%20const%20policy%20%3D%20trustedTypes.createPolicy(%22forceInner%22%2C%20%7BcreateScript%3A%20(to_escape)%20%3D%3E%20to_escape%7D)%3B%0A%20%20return%20policy.createScript(script)%3B%0A%7D%3B%0A%0A%0Aconst%20setInnerHTML%20%3D%20function(elm%2C%20html)%20%7B%0A%20%20elm.innerHTML%20%3D%20escapeHTML(html)%3B%0A%20%20Array.from(elm.querySelectorAll('script')).forEach(%20oldScript%20%3D%3E%20%7B%0A%20%20%20%20%20%20const%20newScript%20%3D%20document.createElement('script')%3B%0A%20%20%20%20%20%20Array.from(oldScript.attributes).forEach(%20attr%20%3D%3E%20newScript.setAttribute(attr.name%2C%20attr.value)%20)%3B%0A%20%20%20%20%20%20newScript.text%20%3D%20escapeScript(oldScript.innerHTML)%3B%0A%20%20%20%20%20%20oldScript.parentNode.replaceChild(newScript%2C%20oldScript)%3B%0A%20%20%7D)%3B%0A%7D%3B%0A%0A%0Aconst%20run%20%3D%20async%20function()%20%7B%0A%20%20if%20(!isChartJsLoaded)%20%7B%0A%20%20%20%20return%3B%0A%20%20%7D%0A%20%20const%20results_table_container%20%3D%20document.querySelector('bq-tab-content%3Anot(.cfc-hidden)%20bq-results-table')%3B%0A%20%20if%20(!results_table_container)%20%7B%0A%20%20%20%20return%3B%0A%20%20%7D%0A%20%20const%20cells%20%3D%20results_table_container.querySelectorAll('td%20div%3Anot(.cfc-flex-container)')%3B%0A%20%20if%20(cells.length%20!%3D%3D%201)%20%7B%0A%20%20%20%20return%3B%0A%20%20%7D%0A%20%20const%20cell%20%3D%20cells%5B0%5D%3B%0A%20%20const%20content%20%3D%20cell.innerText%3B%0A%20%20if%20(!content.startsWith(%22%3Chtml%22))%20%7B%0A%20%20%20%20return%3B%0A%20%20%7D%0A%20%20if%20(content.endsWith(%22...%22))%20%7B%0A%20%20%20%20cell.nextElementSibling.firstElementChild.click()%3B%0A%20%20%20%20return%3B%0A%20%20%7D%0A%20%20const%20html%20%3D%20%60%3Csection%20class%3D%22section%22%3E%24%7Bcontent%7D%3C%2Fsection%3E%60%0A%20%20setInnerHTML(results_table_container%2C%20html)%3B%0A%7D%3B%0A%0A%0Aconst%20loadBulmaCss%20%3D%20function()%20%7B%0A%20%20const%20bulma%20%3D%20document.createElement('link')%3B%0A%20%20bulma.setAttribute('rel'%2C%20'stylesheet')%3B%0A%20%20bulma.setAttribute('href'%2C%20'https%3A%2F%2Fcdn.jsdelivr.net%2Fnpm%2Fbulma%400.9.4%2Fcss%2Fbulma.min.css')%3B%0A%20%20document.head.appendChild(bulma)%3B%0A%7D%3B%0A%0A%0Aconst%20loadChartjs%20%3D%20function()%20%7B%0A%20%20fetch('https%3A%2F%2Fcdnjs.cloudflare.com%2Fajax%2Flibs%2FChart.js%2F3.9.1%2Fchart.min.js')%0A%20%20.then((response)%20%3D%3E%20response.text())%0A%20%20.then((text)%20%3D%3E%20%7B%0A%20%20%20%20const%20script%20%3D%20document.createElement('script')%3B%0A%20%20%20%20script.text%20%3D%20escapeScript(text)%3B%0A%20%20%20%20document.head.appendChild(script)%3B%0A%20%20%20%20isChartJsLoaded%20%3D%20true%3B%0A%20%20%7D)%3B%0A%7D%3B%0A%0A%0A%0A%0AloadBulmaCss()%3B%0AloadChartjs()%3B%0AsetInterval(run%2C%20100)%3B%7D)()%3B">bigfunctions</a> *(it has to be done only once)*
+    2. Open BigQuery console
+    3. Click on the installed bookmarklet.
+        - From now on, the bookmarklet code will observe the BigQuery console page.
+        - If a BigQuery result appears with a unique cell containing html content, it will be rendered.
+    4. You will have to click on the bookmarklet *again*:
+        - If you refresh the Bigquery console page,
+        - If you open the BigQuery console in a new tab of your browser.
+    5. Run the query of the example and open the result of the latest subquery. The result will be shown as a nice html content.
+
+    <br>
+
+    ![bookmarklet usage](/bigfunctions/site/assets/bookmarklet_usage.gif)
+
+
 **Examples**
 
 
@@ -13009,6 +13860,25 @@ explore_table(fully_qualified_table)
 **Description**
 
 Show table infos and column statistics
+
+??? example "See the result as a data visualization in BigQuery Console!"
+
+    **The result of this function can be vizualized as an html report directly in BigQuery Console!**
+
+    1. Install this bookmarklet: <a href="javascript:(function()%7Blet%20isChartJsLoaded%20%3D%20false%3B%0A%0A%0Aconst%20escapeHTML%20%3D%20function(html)%20%7B%0A%20%20if(!trustedTypes)%20%7B%0A%20%20%20%20return%20html%3B%0A%20%20%7D%0A%20%20const%20policy%20%3D%20trustedTypes.createPolicy(%22forceInner%22%2C%20%7BcreateHTML%3A%20(to_escape)%20%3D%3E%20to_escape%7D)%3B%0A%20%20return%20policy.createHTML(html)%3B%0A%7D%3B%0A%0A%0Aconst%20escapeScript%20%3D%20function(script)%20%7B%0A%20%20if(!trustedTypes)%20%7B%0A%20%20%20%20return%20script%3B%0A%20%20%7D%0A%20%20const%20policy%20%3D%20trustedTypes.createPolicy(%22forceInner%22%2C%20%7BcreateScript%3A%20(to_escape)%20%3D%3E%20to_escape%7D)%3B%0A%20%20return%20policy.createScript(script)%3B%0A%7D%3B%0A%0A%0Aconst%20setInnerHTML%20%3D%20function(elm%2C%20html)%20%7B%0A%20%20elm.innerHTML%20%3D%20escapeHTML(html)%3B%0A%20%20Array.from(elm.querySelectorAll('script')).forEach(%20oldScript%20%3D%3E%20%7B%0A%20%20%20%20%20%20const%20newScript%20%3D%20document.createElement('script')%3B%0A%20%20%20%20%20%20Array.from(oldScript.attributes).forEach(%20attr%20%3D%3E%20newScript.setAttribute(attr.name%2C%20attr.value)%20)%3B%0A%20%20%20%20%20%20newScript.text%20%3D%20escapeScript(oldScript.innerHTML)%3B%0A%20%20%20%20%20%20oldScript.parentNode.replaceChild(newScript%2C%20oldScript)%3B%0A%20%20%7D)%3B%0A%7D%3B%0A%0A%0Aconst%20run%20%3D%20async%20function()%20%7B%0A%20%20if%20(!isChartJsLoaded)%20%7B%0A%20%20%20%20return%3B%0A%20%20%7D%0A%20%20const%20results_table_container%20%3D%20document.querySelector('bq-tab-content%3Anot(.cfc-hidden)%20bq-results-table')%3B%0A%20%20if%20(!results_table_container)%20%7B%0A%20%20%20%20return%3B%0A%20%20%7D%0A%20%20const%20cells%20%3D%20results_table_container.querySelectorAll('td%20div%3Anot(.cfc-flex-container)')%3B%0A%20%20if%20(cells.length%20!%3D%3D%201)%20%7B%0A%20%20%20%20return%3B%0A%20%20%7D%0A%20%20const%20cell%20%3D%20cells%5B0%5D%3B%0A%20%20const%20content%20%3D%20cell.innerText%3B%0A%20%20if%20(!content.startsWith(%22%3Chtml%22))%20%7B%0A%20%20%20%20return%3B%0A%20%20%7D%0A%20%20if%20(content.endsWith(%22...%22))%20%7B%0A%20%20%20%20cell.nextElementSibling.firstElementChild.click()%3B%0A%20%20%20%20return%3B%0A%20%20%7D%0A%20%20const%20html%20%3D%20%60%3Csection%20class%3D%22section%22%3E%24%7Bcontent%7D%3C%2Fsection%3E%60%0A%20%20setInnerHTML(results_table_container%2C%20html)%3B%0A%7D%3B%0A%0A%0Aconst%20loadBulmaCss%20%3D%20function()%20%7B%0A%20%20const%20bulma%20%3D%20document.createElement('link')%3B%0A%20%20bulma.setAttribute('rel'%2C%20'stylesheet')%3B%0A%20%20bulma.setAttribute('href'%2C%20'https%3A%2F%2Fcdn.jsdelivr.net%2Fnpm%2Fbulma%400.9.4%2Fcss%2Fbulma.min.css')%3B%0A%20%20document.head.appendChild(bulma)%3B%0A%7D%3B%0A%0A%0Aconst%20loadChartjs%20%3D%20function()%20%7B%0A%20%20fetch('https%3A%2F%2Fcdnjs.cloudflare.com%2Fajax%2Flibs%2FChart.js%2F3.9.1%2Fchart.min.js')%0A%20%20.then((response)%20%3D%3E%20response.text())%0A%20%20.then((text)%20%3D%3E%20%7B%0A%20%20%20%20const%20script%20%3D%20document.createElement('script')%3B%0A%20%20%20%20script.text%20%3D%20escapeScript(text)%3B%0A%20%20%20%20document.head.appendChild(script)%3B%0A%20%20%20%20isChartJsLoaded%20%3D%20true%3B%0A%20%20%7D)%3B%0A%7D%3B%0A%0A%0A%0A%0AloadBulmaCss()%3B%0AloadChartjs()%3B%0AsetInterval(run%2C%20100)%3B%7D)()%3B">bigfunctions</a> *(it has to be done only once)*
+    2. Open BigQuery console
+    3. Click on the installed bookmarklet.
+        - From now on, the bookmarklet code will observe the BigQuery console page.
+        - If a BigQuery result appears with a unique cell containing html content, it will be rendered.
+    4. You will have to click on the bookmarklet *again*:
+        - If you refresh the Bigquery console page,
+        - If you open the BigQuery console in a new tab of your browser.
+    5. Run the query of the example and open the result of the latest subquery. The result will be shown as a nice html content.
+
+    <br>
+
+    ![bookmarklet usage](/bigfunctions/site/assets/bookmarklet_usage.gif)
+
 
 **Examples**
 
@@ -14131,6 +15001,98 @@ Run any `python_code`.
 +--------+
 | go     |
 +--------+
+</code>
+</pre>
+
+
+
+
+
+
+
+
+
+
+---
+
+
+
+
+### sleep
+<div style="position: relative; top: -2rem; margin-bottom:  -2rem; text-align: right; z-index: 9999;">
+  
+  <a href="https://www.linkedin.com/in/paul-marcombes" title="Author: Paul Marcombes" target="_blank">
+    <img src="https://lh3.googleusercontent.com/a-/ACB-R5RDf2yxcw1p_IYLCKmiUIScreatDdhG8B83om6Ohw=s260" width="32" style=" border-radius: 50% !important">
+  </a>
+  
+  <a href="https://github.com/unytics/bigfunctions/blob/main/bigfunctions/sleep.yaml" title="Edit on GitHub" target="_blank"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="#5d6cc0" d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg></a></div>
+```
+sleep(seconds)
+```
+
+**Description**
+
+Sleep during `seconds` seconds
+
+**Examples**
+
+
+
+<span style="color: var(--md-typeset-a-color);">Wait for 10 seconds</span>
+
+
+
+
+
+
+=== "EU"
+
+    ```sql
+    select bigfunctions.eu.sleep(10) as response
+    
+    ```
+
+
+
+=== "US"
+
+    ```sql
+    select bigfunctions.us.sleep(10) as response
+    
+    ```
+
+
+
+=== "europe-west1"
+
+    ```sql
+    select bigfunctions.europe_west1.sleep(10) as response
+    
+    ```
+
+
+
+=== "your-region2"
+
+    ```sql
+    select bigfunctions.your_region2.sleep(10) as response
+    
+    ```
+
+
+
+
+
+
+
+
+
+<pre style="margin-top: -1rem;">
+<code style="padding-top: 0px; padding-bottom: 0px;">+----------+
+| response |
++----------+
+| ok       |
++----------+
 </code>
 </pre>
 
