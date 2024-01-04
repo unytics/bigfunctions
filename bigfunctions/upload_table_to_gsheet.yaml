@@ -63,7 +63,7 @@ examples:
 
         'write_truncate'
 code: |
-  execute immediate {BIGFUNCTIONS_DATASET}.render_string(
+  execute immediate {BIGFUNCTIONS_DATASET}.render_template(
     '''
     select {BIGFUNCTIONS_DATASET}.upload_to_gsheet(
         ({{ table_or_view_or_query | to_json(max_rows) | safe }}),
@@ -72,7 +72,7 @@ code: |
         "{{ write_mode }}"
     )
     ''',
-    to_json_string(struct(
+    to_json(struct(
       table_or_view_or_query as table_or_view_or_query,
       max_rows as max_rows,
       spreadsheet_url as spreadsheet_url,

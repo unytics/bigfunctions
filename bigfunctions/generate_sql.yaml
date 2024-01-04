@@ -39,7 +39,7 @@ examples:
 code: |
   assert array_length(split(fully_qualified_table, '.')) = 3 as 'BAD ARGUMENT FORMAT: `fully_qualified_table` argument must follow the pattern `PROJECT.DATASET.TABLE`';
 
-  execute immediate {BIGFUNCTIONS_DATASET}.render_string(
+  execute immediate {BIGFUNCTIONS_DATASET}.render_template(
     r'''
     {%- set fully_qualified_table = fully_qualified_table.replace('`', '') -%}
     {%- set table_parts = fully_qualified_table.split('.') -%}
@@ -90,7 +90,7 @@ code: |
     from cleaned_answer, question, answer
     ''',
 
-    to_json_string(struct(
+    to_json(struct(
         regexp_replace(question, r'\n\s*', ' ') as question,
         fully_qualified_table as fully_qualified_table
     ))
