@@ -108,9 +108,9 @@ def deploy(bigfunction, project, dataset_name, quotas, bucket, cloud_run_options
             select
                 (select json from bigfunction_result) as json,
                 (select {fully_qualified_dataset}.render_string(
-                    """
+                    """<html>
                     {conf['template']}
-                    """,
+                    </html>""",
                     to_json_string(json)
                 )
                 from bigfunction_result) as html

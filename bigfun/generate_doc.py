@@ -10,6 +10,7 @@ TEMPLATE_MKDOCS_YAML = TEMPLATE_FOLDER + '/mkdocs.yml'
 DOCUMENTATION_CONFIG_FILENAME = 'config_documentation.yaml'
 BIGFUNCTIONS_FOLDER = 'bigfunctions'
 TABLES_FOLDER = 'data'
+BOOKMARKLET_DOC = open(f'{TEMPLATE_FOLDER}/bookmarklet_doc.md', encoding='utf-8').read()
 
 if not os.path.isfile('README.md'):
     print('INFO: CREATING A README.md FILE IN CURRENT DIRECTORY WHICH WILL BE THE ROOT CONTENT OF THE WEBSITE')
@@ -29,6 +30,8 @@ def get_bigfunctions():
         assert isinstance(conf, dict), f'Could not load yaml config of bigfunction `{filename}`'
         name = filename.replace('.yaml', '')
         conf['name'] = name
+        if 'template' in conf:
+            conf['description'] += '\n\n' + BOOKMARKLET_DOC
         bigfunctions.append(conf)
     return bigfunctions
 
