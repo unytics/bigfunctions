@@ -30,7 +30,7 @@ def get_bigfunctions():
         assert isinstance(conf, dict), f'Could not load yaml config of bigfunction `{filename}`'
         name = filename.replace('.yaml', '')
         conf['name'] = name
-        if 'template' in conf:
+        if 'template' in conf or conf.get('output', {}).get('name') == 'html':
             conf['description'] += '\n\n' + BOOKMARKLET_DOC
         bigfunctions.append(conf)
     return bigfunctions
