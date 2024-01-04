@@ -107,11 +107,11 @@ def deploy(bigfunction, project, dataset_name, quotas, bucket, cloud_run_options
             create or replace temp table bigfunction_result as
             select
                 (select json from bigfunction_result) as json,
-                (select {fully_qualified_dataset}.render_string(
+                (select {fully_qualified_dataset}.render_template(
                     """<html>
                     {conf['template']}
                     </html>""",
-                    to_json_string(json)
+                    json
                 )
                 from bigfunction_result) as html
             ;

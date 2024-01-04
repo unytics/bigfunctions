@@ -179,8 +179,7 @@ code: |
       '{{column}}' as name,
       '{{data_type}}' as data_type,
       (select stats from stats) as stats,
-      (select hist.hist from hist) as hist,
-      (select {BIGFUNCTIONS_DATASET}.chart(hist.hist, 'bar', 'value_count') from hist) as hist_html
+      (select hist.hist from hist) as hist
     )) as json;
   ''';
 
@@ -194,7 +193,7 @@ code: |
     nbins_top_values as nbins_top_values
   ));
 
-  set query = (select {BIGFUNCTIONS_DATASET}.render_string(query, to_json_string(context)));
+  set query = (select {BIGFUNCTIONS_DATASET}.render_template(query, to_json(context)));
   execute immediate query;
 template: |
   <div class="container">
@@ -222,7 +221,7 @@ template: |
             </table>
           </div>
           <div class="column">
-            {{ hist_html|safe }}
+            {{ chart(hist, 'bar', ylabel='value_count') }}
           </div>
         </div>
     </div>

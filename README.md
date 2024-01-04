@@ -156,16 +156,16 @@ select PROJECT.DATASET.is_email_valid('paul.marcombes@unytics.io')
 > 1. You will need to install each *npm package* on your machine and bundle it into one file. For that, you need to [install *nodejs*](https://nodejs.org/en/download/).
 > 2. The bundled js file will be uploaded into a cloud storage bucket in which you must have write access. The bucket name is asked when you run `bigfun deploy`. Users of your functions must have read access to the bucket.
 
-You now can deploy `render_string` function with:
+You now can deploy `render_template` function with:
 
 ```sh
-bigfun deploy render_string
+bigfun deploy render_template
 ```
 
 Test it with 👀:
 
 ```sql
-select PROJECT.DATASET.render_string("name", "it_IT")
+select PROJECT.DATASET.render_template('Hello {{ user }}', json '{"user": "James"}')
 ```
 
 
