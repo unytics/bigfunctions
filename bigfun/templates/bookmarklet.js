@@ -1,4 +1,5 @@
 let isChartJsLoaded = false;
+let isGoogleChartsLoaded = false;
 
 
 const escapeHTML = function(html) {
@@ -31,7 +32,7 @@ const setInnerHTML = function(elm, html) {
 
 
 const run = async function() {
-  if (!isChartJsLoaded) {
+  if (!isChartJsLoaded || !isGoogleChartsLoaded) {
     return;
   }
   const results_table_container = document.querySelector('bq-tab-content:not(.cfc-hidden) bq-results-table');
@@ -64,7 +65,7 @@ const loadBulmaCss = function() {
 };
 
 
-const loadChartjs = function() {
+const loadChartJs = function() {
   fetch('https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js')
   .then((response) => response.text())
   .then((text) => {
@@ -76,10 +77,23 @@ const loadChartjs = function() {
 };
 
 
+const loadGoogleChart = function() {
+  fetch('https://www.gstatic.com/charts/loader.js')
+  .then((response) => response.text())
+  .then((text) => {
+    const script = document.createElement('script');
+    script.text = escapeScript(text);
+    document.head.appendChild(script);
+    google.charts.load('current', {packages: ['sankey']});
+    google.charts.setOnLoadCallback(function() { isGoogleChartsLoaded = true; });
+  });
+};
+
 
 
 loadBulmaCss();
-loadChartjs();
+loadChartJs();
+loadGoogleChart();
 setInterval(run, 100);
 
 
