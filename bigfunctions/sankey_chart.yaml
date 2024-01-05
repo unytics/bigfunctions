@@ -19,62 +19,25 @@ examples:
     screenshot: chart.png
 code: |
   replace(
-    '''
-    <html>
-
-    <div id="myPlot" style="width:100%;max-width:700px"></div>
-
+    '''<html>
+    <div id="bf-sankey" style="width: 100%; min-height: 400px; margin: 0 auto"></div>
     <script>
-      const data = {DATA};
+      (function() {
+        const data = {DATA};
 
-      let sources = data.map(({ source, target, value }) => source);
-      let targets = data.map(({ source, target, value }) => target);
-      const values = data.map(({ source, target, value }) => value);
+        var table = new google.visualization.DataTable();
+        table.addColumn('string', 'From');
+        table.addColumn('string', 'To');
+        table.addColumn('number', 'value');
+        table.addRows(data.map(({source, target, value}) => ([source, target, value])));
 
-      let nodes = [...new Set(sources.concat(targets))];
-      nodes = nodes.map((node, index) => [node, index]);
-      nodes = Object.fromEntries(nodes);
+        var options = { width: '100%' };
 
-      const node_names = Object.keys(nodes);
-      const colors = node_names.map(name => 'blue');
-      sources = sources.map(source => nodes[source]);
-      targets = targets.map(target => nodes[target]);
-
-      var plot = {
-        type: "sankey",
-        orientation: "h",
-        node: {
-          pad: 15,
-          thickness: 30,
-          line: {
-            color: "black",
-            width: 0.5
-          },
-          label: node_names,
-          color: colors,
-        },
-
-        link: {
-          source: sources,
-          target: targets,
-          value: values,
-        }
-      }
-
-      var plot = [plot]
-
-      var layout = {
-        title: "Basic Sankey",
-        font: {
-          size: 10
-        }
-      }
-
-      Plotly.react('myPlot', plot, layout)
+        var chart = new google.visualization.Sankey(document.getElementById('bf-sankey'));
+        chart.draw(table, options);
+      })();
     </script>
 
-
-    </html>
-    ''',
+    </html>''',
     '{DATA}', to_json_string(data)
   )
