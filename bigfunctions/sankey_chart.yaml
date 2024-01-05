@@ -1,0 +1,80 @@
+type: function_sql
+category: explore
+author:
+  name: Paul Marcombes
+  url: https://www.linkedin.com/in/paul-marcombes
+  avatar_url: "https://lh3.googleusercontent.com/a-/ACB-R5RDf2yxcw1p_IYLCKmiUIScreatDdhG8B83om6Ohw=s260"
+description: |-
+  Return html with a PlotlyJS Sankey chart
+arguments:
+  - name: data
+    type: array<struct<source string, target string, value float64>>
+output:
+  name: html
+  type: string
+examples:
+  - description: ""
+    arguments:
+      - "[('event1', 'event2', 12), ('event1', 'event3', 12)]"
+    screenshot: chart.png
+code: |
+  replace(
+    '''
+    <html>
+
+    <div id="myPlot" style="width:100%;max-width:700px"></div>
+
+    <script>
+      const data = {DATA};
+
+      let sources = data.map(({ source, target, value }) => source);
+      let targets = data.map(({ source, target, value }) => target);
+      const values = data.map(({ source, target, value }) => value);
+
+      let nodes = [...new Set(sources.concat(targets))];
+      nodes = nodes.map((node, index) => [node, index]);
+      nodes = Object.fromEntries(nodes);
+
+      const node_names = Object.keys(nodes);
+      const colors = node_names.map(name => 'blue');
+      sources = sources.map(source => nodes[source]);
+      targets = targets.map(target => nodes[target]);
+
+      var plot = {
+        type: "sankey",
+        orientation: "h",
+        node: {
+          pad: 15,
+          thickness: 30,
+          line: {
+            color: "black",
+            width: 0.5
+          },
+          label: node_names,
+          color: colors,
+        },
+
+        link: {
+          source: sources,
+          target: targets,
+          value: values,
+        }
+      }
+
+      var plot = [plot]
+
+      var layout = {
+        title: "Basic Sankey",
+        font: {
+          size: 10
+        }
+      }
+
+      Plotly.react('myPlot', plot, layout)
+    </script>
+
+
+    </html>
+    ''',
+    '{DATA}', to_json_string(data)
+  )
