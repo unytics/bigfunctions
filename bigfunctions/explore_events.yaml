@@ -4,7 +4,7 @@ author:
   name: Paul Marcombes
   url: https://www.linkedin.com/in/paul-marcombes
   avatar_url: "https://lh3.googleusercontent.com/a-/ACB-R5RDf2yxcw1p_IYLCKmiUIScreatDdhG8B83om6Ohw=s260"
-description: Show column statistics
+description: Show events
 arguments:
   - name: events_table
     type: string
@@ -14,7 +14,6 @@ examples:
   - description: ""
     arguments:
       - '"{BIGFUNCTIONS_DATASET}.natality.weight_pounds"'
-    screenshot: explore_column.png
 code: |
   assert array_length(split(events_table, '.')) = 3 as 'BAD ARGUMENT FORMAT: `events_table` argument must follow the pattern `PROJECT.DATASET.TABLE`';
 
