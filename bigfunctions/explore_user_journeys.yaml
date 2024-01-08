@@ -1,0 +1,129 @@
+type: procedure
+category: explore
+author:
+  name: Paul Marcombes
+  url: https://www.linkedin.com/in/paul-marcombes
+  avatar_url: "https://lh3.googleusercontent.com/a-/ACB-R5RDf2yxcw1p_IYLCKmiUIScreatDdhG8B83om6Ohw=s260"
+description: Show column statistics
+arguments:
+  - name: events_table
+    type: string
+  - name: max_minutes_between_events
+    type: int64
+examples:
+  - description: ""
+    arguments:
+      - '"{BIGFUNCTIONS_DATASET}.natality.weight_pounds"'
+    screenshot: explore_column.png
+code: |
+  assert array_length(split(events_table, '.')) = 3 as 'BAD ARGUMENT FORMAT: `events_table` argument must follow the pattern `PROJECT.DATASET.TABLE`';
+
+  execute immediate {BIGFUNCTIONS_DATASET}.render_template(
+    r'''
+    {%- set events_table = events_table.replace('`', '') -%}
+
+    create or replace temp table bigfunction_result as
+
+    with
+
+    events as (
+
+      select
+        user_id,
+        timestamp,
+        event_type,
+      from `{{ events_table }}`
+
+    ),
+
+
+    events_counts as (
+      select
+        event_type,
+        count(*) as nb,
+      from events
+      group by 1
+    ),
+
+
+    events_w_next as (
+
+      select
+        *,
+        lead(event_type) over (partition by user_id order by timestamp) as next_event_type,
+        lead(timestamp) over (partition by user_id order by timestamp) as next_timestamp,
+      from events
+      qualify
+        next_timestamp is null or
+        extract(minute from next_timestamp - timestamp) <= 30
+
+    ),
+
+
+    event_pairs as (
+
+      select
+        '1. ' || event_type as source,
+        '2. ' || ifnull(next_event_type, 'NONE') as target,
+        cast(count(*) as float64) as value,
+      from events_w_next
+      group by 1, 2
+
+    ),
+
+
+    event_pairs_by_source as (
+
+      select
+        source,
+        array_agg(struct(event_pairs).event_pairs) as event_pairs
+      from event_pairs
+      group by 1
+
+    ),
+
+
+    event_pairs_by_source_as_string as (
+
+      select '"' || source || '":' || to_json_string(event_pairs) as key_value
+      from event_pairs_by_source
+
+    )
+
+
+    select parse_json(
+      '{ "data": {' || array_to_string(array_agg(key_value), ',') || '} }'
+    ) as json
+    from event_pairs_by_source_as_string
+
+
+
+    ''',
+    to_json(struct(events_table))
+  );
+template: |
+  hello
+  <div id="bf-sankey" style="width: 100%; min-height: 500px; margin: 0 auto"></div>
+  <script>
+    (function() {
+      const globalData = {{ data | dump | safe }};
+
+      const draw = function(step) {
+        const data = globalData[step];
+
+        var table = new google.visualization.DataTable();
+        table.addColumn('string', 'From');
+        table.addColumn('string', 'To');
+        table.addColumn('number', 'value');
+        table.addRows(data.map(({source, target, value}) => ([source, target, value])));
+
+        var options = { width: '100%' };
+
+        var chart = new google.visualization.Sankey(document.getElementById('bf-sankey'));
+        chart.draw(table, options);
+      };
+
+      draw('AddBeneficiary');
+    })();
+  </script>
+
