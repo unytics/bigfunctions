@@ -80,7 +80,10 @@ code: |
 
       select
         array((
-          select event.event_type
+          select struct(
+            event.event_type,
+            event.timestamp
+          ) as event
           from unnest(journey) as event
           with offset index
           where index < ifnull((
@@ -101,11 +104,12 @@ code: |
     event_types_counts as (
 
       select
-        event_type,
+        event.event_type,
+        date(event.timestamp) as date,
         count(*) as nb,
       from journeys_cleaned,
-      unnest(journey) as event_type
-      group by 1 order by 2 desc
+      unnest(journey) as event
+      group by 1, 2 order by 2, 3 desc
 
     )
 
@@ -130,42 +134,55 @@ template: |
         background: #393862;
     }
 
-    .funnel {
-        margin: 24px auto;
-    }
-
     .flex {
         display: flex;
     }
 
-    .method-buttons {
-        display: flex;
-        justify-content: center;
-        margin-top: 48px;
-    }
-
-    button {
-        margin-left: 8px;
-        margin-right: 8px;
-    }
   </style>
 
-    <div class="flex">
-        <div class="funnel">
+  <div id="bf-dates" class="mb-4"></div>
+  <div class="flex">
+      <div id="bf-funnel"></div>
+  </div>
+
+
+  <script>
+    (function() {
+
+      const event_types_counts = {{ event_types_counts | dump | safe }};
+      const dates = [...new Set(event_types_counts.map( ({event_type, nb, date}) => date))];
+
+      let current_date = dates[dates.length - 1];
+
+      document.getElementById('bf-dates').innerHTML = window.escapeHTML(`
+        <div class="select">
+          <select id="bf-change-date">
+            ${
+              dates
+              .sort().reverse()
+              .map( date => '<option>' + date + '</option>')
+              .join('')
+            }
+          </select>
         </div>
-    </div>
+      `);
 
 
-    <script>
-      (function() {
+      document.getElementById('bf-change-date').addEventListener("change", (event) => {
+        current_date = event.target.value;
+        drawFunnel();
+      });
 
-        const event_types_counts = {{ event_types_counts | dump | safe }};
+      const drawFunnel = function() {
+
+
+        const event_types_counts_at_date = event_types_counts.filter( ({event_type, nb, date}) => date == current_date)
 
 
         var dataExample2 = {
-            labels: event_types_counts.map( ({event_type, nb}) => event_type),
+            labels: event_types_counts_at_date.map( ({event_type, nb, date}) => event_type),
             colors: ['#FFB178', '#FF3C8E'],
-            values: event_types_counts.map( ({event_type, nb}) => nb)
+            values: event_types_counts_at_date.map( ({event_type, nb, date}) => nb)
         };
 
         var dataExample3 = {
@@ -184,8 +201,9 @@ template: |
         };
 
         try {
+        document.getElementById('bf-funnel').innerText = '';
         var graph = new FunnelGraph({
-            container: '.funnel',
+            container: '#bf-funnel',
             gradientDirection: 'horizontal',
             data: dataExample2,
             displayPercent: true,
@@ -202,9 +220,13 @@ template: |
           // Expected output: ReferenceError: nonExistentFunction is not defined
           // (Note: the exact output may be browser-dependent)
         }
-      })();
+      };
 
-    </script>
+      drawFunnel();
+
+    })();
+
+  </script>
 
 
 

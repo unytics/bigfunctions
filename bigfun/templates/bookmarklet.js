@@ -107,7 +107,6 @@ const loadFunnelGraphJs = function() {
   .then((text) => {
     const regex = /innerHTML=(\w+)/gi;
     text = text.replace(regex, 'innerHTML=window.escapeHTML($1)');
-    console.log(text);
     const script = document.createElement('script');
     script.text = escapeScript(text);
     document.head.appendChild(script);
