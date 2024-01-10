@@ -1,8 +1,9 @@
 let isChartJsLoaded = false;
 let isGoogleChartsLoaded = false;
+let isFunnelGraphJsLoaded = false;
 
 
-const escapeHTML = function(html) {
+window.escapeHTML = function(html) {
   if(!trustedTypes) {
     return html;
   }
@@ -21,7 +22,7 @@ const escapeScript = function(script) {
 
 
 const setInnerHTML = function(elm, html) {
-  elm.innerHTML = escapeHTML(html);
+  elm.innerHTML = window.escapeHTML(html);
   Array.from(elm.querySelectorAll('script')).forEach( oldScript => {
       const newScript = document.createElement('script');
       Array.from(oldScript.attributes).forEach( attr => newScript.setAttribute(attr.name, attr.value) );
@@ -32,7 +33,7 @@ const setInnerHTML = function(elm, html) {
 
 
 const run = async function() {
-  if (!isChartJsLoaded || !isGoogleChartsLoaded) {
+  if (!isChartJsLoaded || !isGoogleChartsLoaded || !isFunnelGraphJsLoaded) {
     return;
   }
   const results_table_container = document.querySelector('bq-tab-content:not(.cfc-hidden) bq-results-table');
@@ -52,7 +53,7 @@ const run = async function() {
     cell.nextElementSibling.firstElementChild.click();
     return;
   }
-  const html = `<section class="section">${content}</section>`
+  const html = `<section id="bf-container" class="section">${content}</section>`
   setInnerHTML(results_table_container, html);
 };
 
@@ -90,8 +91,34 @@ const loadGoogleChart = function() {
 };
 
 
+const loadFunnelGraphJs = function() {
+  const css = document.createElement('link');
+  css.setAttribute('rel', 'stylesheet');
+  css.setAttribute('href', 'https://unpkg.com/funnel-graph-js@1.3.9/dist/css/main.min.css');
+  document.head.appendChild(css);
+
+  const css2 = document.createElement('link');
+  css2.setAttribute('rel', 'stylesheet');
+  css2.setAttribute('href', 'https://unpkg.com/funnel-graph-js@1.3.9/dist/css/theme.min.css');
+  document.head.appendChild(css2);
+
+  fetch('https://unpkg.com/funnel-graph-js@1.3.9/dist/js/funnel-graph.min.js')
+  .then((response) => response.text())
+  .then((text) => {
+    const regex = /innerHTML=(\w+)/gi;
+    text = text.replace(regex, 'innerHTML=window.escapeHTML($1)');
+    console.log(text);
+    const script = document.createElement('script');
+    script.text = escapeScript(text);
+    document.head.appendChild(script);
+    isFunnelGraphJsLoaded = true;
+  });
+
+
+}
 
 loadBulmaCss();
+loadFunnelGraphJs();
 loadChartJs();
 loadGoogleChart();
 setInterval(run, 100);

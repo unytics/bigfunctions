@@ -98,42 +98,22 @@ code: |
     ),
 
 
-    journey_event_pairs as (
+    event_types_counts as (
 
-      select
-        array((
-          select
-            struct(
-              event_type,
-              ifnull(journey[safe_offset(index + 1)], 'OTHER') as next_event_type
-            )
-          from unnest(journey) as event_type
-          with offset index
-        )) as journey
-      from journeys_cleaned
-
-    ),
-
-
-    journey_event_pairs_count as (
       select
         event_type,
-        next_event_type,
         count(*) as nb,
-      from journey_event_pairs,
-      unnest(journey)
-      where
-        event_type != '{{ event_types[-1] }}' and
-        next_event_type != 'OTHER'
-      group by 1, 2
-      order by 3 desc
+      from journeys_cleaned,
+      unnest(journey) as event_type
+      group by 1 order by 2 desc
 
     )
 
+
     select to_json(struct(
-      array_agg(struct(t).t order by nb desc) as event_pairs
+      array_agg(struct(t).t order by nb desc) as event_types_counts
     )) as json
-    from journey_event_pairs_count as t
+    from event_types_counts as t
 
 
     ''',
@@ -143,40 +123,88 @@ code: |
     ))
   );
 template: |
-  <p class="title is-size-4">Flow</p>
-  <div id="bf-sankey" style="width: 100%; height: 200px; margin: 0 auto"></div>
+  <style>
+    #bf-container {
+        min-height: 100%;
+        margin: 0;
+        background: #393862;
+    }
+
+    .funnel {
+        margin: 24px auto;
+    }
+
+    .flex {
+        display: flex;
+    }
+
+    .method-buttons {
+        display: flex;
+        justify-content: center;
+        margin-top: 48px;
+    }
+
+    button {
+        margin-left: 8px;
+        margin-right: 8px;
+    }
+  </style>
+
+    <div class="flex">
+        <div class="funnel">
+        </div>
+    </div>
 
 
-  <script>
-    (function() {
-      const event_pairs = {{ event_pairs | dump | safe }};
+    <script>
+      (function() {
 
-      const drawSankey = function() {
-        let data = event_pairs.map( ({event_type, next_event_type, nb}) => [event_type, next_event_type, nb]);
-        var table = new google.visualization.DataTable();
-        table.addColumn('string', 'From');
-        table.addColumn('string', 'To');
-        table.addColumn('number', 'value');
-        table.addRows(data);
+        const event_types_counts = {{ event_types_counts | dump | safe }};
 
-        var options = {
-          width: '100%',
-          sankey: {
-            iterations: 100,
-            node: { interactivity: true },
-            link: { colorMode: 'gradient' },
-          }
+
+        var dataExample2 = {
+            labels: event_types_counts.map( ({event_type, nb}) => event_type),
+            colors: ['#FFB178', '#FF3C8E'],
+            values: event_types_counts.map( ({event_type, nb}) => nb)
         };
 
-        var chart = new google.visualization.Sankey(document.getElementById('bf-sankey'));
-        chart.draw(table, options);
-      };
+        var dataExample3 = {
+            labels: ['Impressions', 'Add To Cart', 'Buy'],
+            subLabels: ['Direct', 'Social Media', 'Ads'],
+            colors: [
+                ['#FFB178', '#FF78B1', '#FF3C8E'],
+                ['#A0BBFF', '#EC77FF'],
+                ['#A0F9FF', '#7795FF']
+            ],
+            values: [
+                [3500, 2500, 6500],
+                [3300, 1400, 1000],
+                [600, 200, 130]
+            ],
+        };
 
+        try {
+        var graph = new FunnelGraph({
+            container: '.funnel',
+            gradientDirection: 'horizontal',
+            data: dataExample2,
+            displayPercent: true,
+            direction: 'horizontal',
+            width: 800,
+            height: 300,
+            subLabelValue: 'raw'
+        });
 
+        graph.draw();
 
-      drawSankey();
+        } catch (error) {
+          console.error(error);
+          // Expected output: ReferenceError: nonExistentFunction is not defined
+          // (Note: the exact output may be browser-dependent)
+        }
+      })();
 
-    })();
-  </script>
+    </script>
+
 
 
