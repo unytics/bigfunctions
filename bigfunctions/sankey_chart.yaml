@@ -5,7 +5,7 @@ author:
   url: https://www.linkedin.com/in/paul-marcombes
   avatar_url: "https://lh3.googleusercontent.com/a-/ACB-R5RDf2yxcw1p_IYLCKmiUIScreatDdhG8B83om6Ohw=s260"
 description: |-
-  Return html with a PlotlyJS Sankey chart
+  Return html with a Sankey Google chart
 arguments:
   - name: data
     type: array<struct<source string, target string, value float64>>
@@ -16,7 +16,6 @@ examples:
   - description: ""
     arguments:
       - "[('event1', 'event2', 12), ('event1', 'event3', 12)]"
-    screenshot: chart.png
 code: |
   replace(
     '''<html>
