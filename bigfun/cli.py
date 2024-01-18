@@ -28,7 +28,6 @@ def get_config_value(name):
         'bucket_js_dependencies':    ("Default bucket where to upload npm packages used by js functions", f"{CONFIG['project']}_bigfunctions_js_dependencies" if 'project' in CONFIG else None),
         'quota_management_backend': ("Backend used for quota management (none or datastore)(if you choose datastore, additionnal intallation steps are required)(if you choose none: only `max_rows_per_query` quota will be checked)", 'none'),
         'quota_contact': ("Contact which appears when user receives a Quota Error", 'paul.marcombes@unytics.io'),
-        'quota_max_cloud_run_requests_per_user_per_day': ("Maximum number of 'cloud run requests' a user can make a day while calling remote functions", 1000),
     }[name]
     CONFIG[name] = click.prompt(text, default=default)
     with open(CONFIG_FILENAME, 'w', encoding='utf-8') as outfile:
@@ -70,15 +69,6 @@ def deploy(bigfunction, project, dataset):
         'backend': get_config_value('quota_management_backend'),
         'contact': get_config_value('quota_contact'),
     }
-    if quotas['backend'] == 'datastore':
-        quotas = {**quotas, **{
-            'max_cloud_run_requests_per_user_per_day': get_config_value('quota_max_cloud_run_requests_per_user_per_day'),
-            'whitelisted_users': [
-                user.strip()
-                for user in CONFIG.get('quota_whitelisted_users', '').split(',')
-                if user.strip()
-            ]
-        }}
 
     for bigfunction in bigfunctions:
         assert bigfunction in bigfunctions, f'Could not find "{bigfunction}" in "{BIGFUNCTIONS_FOLDER}" folder'

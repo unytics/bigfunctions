@@ -46,7 +46,6 @@ class SimpleQuotaManager:
         self.request_id = data['requestId']
         self.caller = data['caller']
         self.date = self.created_at.strftime("%Y-%m-%d")
-        self.user_date = f'{self.user}/{self.date}'
         self.user_bigfunction_date = f'{self.user}/{{ name }}/{self.date}'
 
     def save_log(self, **kwargs):
@@ -85,7 +84,6 @@ class DatastoreQuotaManager(SimpleQuotaManager):
             self._datastore = google.cloud.datastore.Client()
         return self._datastore
 
-
     def compute_stat(self, aggregate_function, aggregate_attribute=None, filter=None):
         from google.cloud.datastore import query as filters
         aggregate_attributes = aggregate_attribute or []
@@ -98,9 +96,6 @@ class DatastoreQuotaManager(SimpleQuotaManager):
         print(f'{aggregate_function}({aggregate_attributes}) where {"".join(filter)}:', result)
         return result
 
-    def get_today_request_count(self):
-        return self.compute_stat('count', filter=["user_date", "=", self.user_date])
-
     def get_today_row_count_for_this_bigfunction(self):
         return self.compute_stat('sum', aggregate_attribute='row_count', filter=["user_bigfunction_date", "=", self.user_bigfunction_date])
 
@@ -110,30 +105,20 @@ class DatastoreQuotaManager(SimpleQuotaManager):
         entity = google.cloud.datastore.Entity(key)
         entity.update({
             'timestamp': self.created_at,
-            'user_date': self.user_date,
             'user_bigfunction_date': self.user_bigfunction_date,
             "row_count": self.row_count,
         })
         self.datastore.put(entity)
 
     def check_quotas(self):
-        if QUOTAS.get('max_rows_per_query') and (self.row_count > QUOTAS['max_rows_per_query']):
+        if 'max_rows_per_query' in QUOTAS and (self.row_count > QUOTAS['max_rows_per_query']):
             raise QuotaException(f"It only accepts {QUOTAS['max_rows_per_query']} rows per query and you called it now on {self.row_count} rows or more.")
-
-        if self.user in QUOTAS['whitelisted_users']:
-            return
 
         if 'max_rows_per_user_per_day' in QUOTAS:
             today_row_count_for_this_bigfunction = self.get_today_row_count_for_this_bigfunction()
             if today_row_count_for_this_bigfunction + self.row_count > QUOTAS['max_rows_per_user_per_day']:
                 raise QuotaException(f"It only accepts {QUOTAS['max_rows_per_user_per_day']} rows per day per user and you called it today for {today_row_count_for_this_bigfunction + self.row_count} rows.")
-
-        if 'max_cloud_run_requests_per_user_per_day' in QUOTAS:
-            today_request_count = self.get_today_request_count()
-            if today_request_count + 1 > QUOTAS['max_cloud_run_requests_per_user_per_day']:
-                raise QuotaException(f"This project only accepts {QUOTAS['max_cloud_run_requests_per_user_per_day']} requests per user per day over all bigfunctions and you made {today_request_count + 1} requests.")
-
-        self.save_usage()
+            self.save_usage()
 
 
 class SecretManager:
