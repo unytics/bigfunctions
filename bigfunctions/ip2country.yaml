@@ -29,42 +29,28 @@ init_code: |
   import urllib.request
   import maxminddb
 
-  with open('/storage/hello.txt', 'w', encoding='utf-8') as f:
-    f.write('world')
-  print(os.path.getmtime('/storage/hello.txt'))
-
-  with open('/storage/hello.txt', 'w', encoding='utf-8') as f:
-    f.write('foo')
-  print(os.path.getmtime('/storage/hello.txt'))
-
-  with open('/storage/foo/hello.txt', 'w', encoding='utf-8') as f:
-    f.write('world')
-
-  filename = '/tmp/db.mmdb'
   today = datetime.datetime.now().strftime('%Y-%m-%d')
+  filename = '/storage/country.mmdb'
 
-  blob = storage.bucket.get_blob(filename.lstrip('/'))
-  if blob is not None and blob.updated.strftime('%Y-%m-%d') == today:
-    blob.download_to_filename(filename)
-    print('downloaded file from bucket as it is up to date')
-  else:
+  update_date = None
+  if os.path.isfile(filename):
+    updated_at = os.path.getmtime(filename)
+    update_date = datetime.datetime.fromtimestamp(updated_at).strftime('%Y-%m-%d')
+
+  if update_date != today:
     url = f'https://ipinfo.io/data/free/country.mmdb?token={ipinfo_token}'
     try:
       urllib.request.urlretrieve(url, filename)
       print('downloaded file from ipinfo')
       assert os.path.isfile(filename)
     except:
-      if blob is not None:
-        blob.download_to_filename(filename)
-        print('error in downloading file from ipinfo. Downloaded latest file from bucket')
-    else:
-      blob = storage.bucket.blob(filename.lstrip('/'))
-      blob.upload_from_filename(filename)
-      print('uploaded file to bucket')
+      print('error in downloading file from ipinfo')
+  else:
+    print('using db file from storage')
 
   db = None
   if os.path.isfile(filename):
-    db = maxminddb.open_database("/tmp/db.mmdb")
+    db = maxminddb.open_database(filename)
 code: |
   assert db, "Could NOT load database"
   try:
@@ -75,7 +61,6 @@ code: |
     return 'ZZ'
   return result['country']
 requirements: |
-  google-cloud-storage
   maxminddb
 secrets:
   - name: ipinfo_token
@@ -86,4 +71,5 @@ cloud_run:
   max_instances: 10
   add_volume: '"name=storage,type=cloud-storage,bucket=bigfunctions_storage"'
   add_volume_mount: '"volume=storage,mount-path=/storage"'
+  execution-environment: gen2
 
