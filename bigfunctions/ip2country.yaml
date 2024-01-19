@@ -26,6 +26,7 @@ examples:
 init_code: |
   import datetime
   import os
+  import shutil
   import urllib.request
   import maxminddb
 
@@ -50,7 +51,8 @@ init_code: |
 
   db = None
   if os.path.isfile(filename):
-    db = maxminddb.open_database(filename)
+    shutil.copy(filename, filename.replace('/storage/', '/tmp/'))
+    db = maxminddb.open_database(filename.replace('/storage/', '/tmp/'))
 code: |
   assert db, "Could NOT load database"
   try:
