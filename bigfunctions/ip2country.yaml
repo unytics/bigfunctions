@@ -24,14 +24,36 @@ examples:
       - "'152.216.7.110'"
     output: 'US'
 init_code: |
+  import datetime
+  import os
   import urllib.request
   import maxminddb
-  url = f'https://ipinfo.io/data/free/country.mmdb?token={ipinfo_token}'
-  try:
-    urllib.request.urlretrieve(url, "/tmp/db.mmdb")
+
+  filename = '/tmp/db.mmdb'
+  today = datetime.datetime.now().strftime('%Y-%m-%d')
+
+  blob = storage.bucket.get_blob(filename.lstrip('/'))
+  if blob is not None and blob.updated.strftime('%Y-%m-%d') == today:
+    blob.download_to_filename(filename)
+    print('downloaded file from bucket as it is up to date')
+  else:
+    url = f'https://ipinfo.io/data/free/country.mmdb?token={ipinfo_token}'
+    try:
+      urllib.request.urlretrieve(url, filename)
+      print('downloaded file from ipinfo')
+      assert os.path.isfile(filename)
+    except:
+      if blob is not None:
+        blob.download_to_filename(filename)
+        print('error in downloading file from ipinfo. Downloaded latest file from bucket')
+    else:
+      blob = storage.bucket.blob(filename.lstrip('/'))
+      blob.upload_from_filename(filename)
+      print('uploaded file to bucket')
+
+  db = None
+  if os.path.isfile(filename):
     db = maxminddb.open_database("/tmp/db.mmdb")
-  except:
-    db = None
 code: |
   assert db, "Could NOT load database"
   try:
@@ -42,6 +64,7 @@ code: |
     return 'ZZ'
   return result['country']
 requirements: |
+  google-cloud-storage
   maxminddb
 secrets:
   - name: ipinfo_token
@@ -50,4 +73,6 @@ secrets:
 cloud_run:
   memory: 512Mi
   max_instances: 10
+  add_volume: "name=data,type=cloud-storage,bucket=bigfunctions_storage"
+  add_volume_mount: "volume=data,mount-path=/data"
 
