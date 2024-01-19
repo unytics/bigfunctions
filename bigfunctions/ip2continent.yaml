@@ -24,14 +24,35 @@ examples:
       - "'152.216.7.110'"
     output: 'NA'
 init_code: |
+  import datetime
+  import os
+  import shutil
   import urllib.request
   import maxminddb
-  url = f'https://ipinfo.io/data/free/country.mmdb?token={ipinfo_token}'
-  try:
-    urllib.request.urlretrieve(url, "/tmp/db.mmdb")
-    db = maxminddb.open_database("/tmp/db.mmdb")
-  except:
-    db = None
+
+  today = datetime.datetime.now().strftime('%Y-%m-%d')
+  filename = '/storage/country.mmdb'
+
+  update_date = None
+  if os.path.isfile(filename):
+    updated_at = os.path.getmtime(filename)
+    update_date = datetime.datetime.fromtimestamp(updated_at).strftime('%Y-%m-%d')
+
+  if update_date != today:
+    url = f'https://ipinfo.io/data/free/country.mmdb?token={ipinfo_token}'
+    try:
+      urllib.request.urlretrieve(url, filename)
+      print('downloaded file from ipinfo')
+      assert os.path.isfile(filename)
+    except:
+      print('error in downloading file from ipinfo')
+  else:
+    print('using db file from storage')
+
+  db = None
+  if os.path.isfile(filename):
+    shutil.copy(filename, filename.replace('/storage/', '/tmp/'))
+    db = maxminddb.open_database(filename.replace('/storage/', '/tmp/'))
 code: |
   assert db, "Could NOT load database"
   try:
@@ -50,4 +71,7 @@ secrets:
 cloud_run:
   memory: 512Mi
   max_instances: 10
+  add_volume: '"name=storage,type=cloud-storage,bucket=bigfunctions_storage"'
+  add_volume_mount: '"volume=storage,mount-path=/storage"'
+  execution-environment: gen2
 
