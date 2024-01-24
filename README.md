@@ -97,12 +97,9 @@ Details about `bigfun` command line are given below.
 
 ### 5.1 Install `bigfun` 🛠️
 
-Clone the repo and from the repo directory run:
 
 ``` sh
-virtualenv venv
-. venv/bin/activate
-pip install --editable .
+pip install bigfunctions
 ```
 
 ### 5.2 Use `bigfun` 🔥
@@ -115,14 +112,29 @@ Options:
   --help  Show this message and exit.
 
 Commands:
-  deploy  Deploy BIGFUNCTION
-  doc     Generate, serve and publish documentation
-  test    Test BIGFUNCTION
+  deploy      Deploy BIGFUNCTION
+  docs        Generate, serve and publish documentation
+  get         Download BIGFUNCTION yaml file from unytics/bigfunctions...
+  test        Test BIGFUNCTION
 ```
 
 
+### 5.3 Create you first function 👷
 
-### 5.3 Deploy you first function 👨‍💻
+Functions are defined as yaml files under `bigfunctions` folder. To create your first function locally, the easiest is to download an existing yaml file in unytics/bigfunctions Github repo. 
+
+For instance to download `is_email_valid.yaml` into bigfunctions folder, do:
+
+```sh
+bigfun get is_email_valid
+```
+
+You can then update the file to suit your needs.
+
+
+
+
+### 5.4 Deploy you first function 👨‍💻
 
 > 1. Make sure the `gcloud` command is [installed on your computer](https://cloud.google.com/sdk/docs/install)
 > 2. Activate the application-default account with `gcloud auth application-default login`. A browser window should open, and you should be prompted to log into your Google account. Once you've done that, `bigfun` will use your oauth'd credentials to connect to BigQuery through BigQuery python client!
@@ -149,7 +161,7 @@ select PROJECT.DATASET.is_email_valid('paul.marcombes@unytics.io')
 <br>
 
 
-### 5.4 Deploy you first javascript function which depends on *npm packages* 👽
+### 5.5 Deploy you first javascript function which depends on *npm packages* 👽
 
 *To deploy a **javascript** function* which depends on **npm packages** there are additional requirements *in addition to the ones above*.
 
@@ -172,7 +184,7 @@ select PROJECT.DATASET.render_template('Hello {{ user }}', json '{"user": "James
 <br>
 
 
-### 5.5 Deploy you first *remote* function ⚡️
+### 5.6 Deploy you first *remote* function ⚡️
 
 *To deploy a **remote** function* (e.g. python function), there are additional requirements *in addition to the ones of **Deploy you first function** section*.
 
