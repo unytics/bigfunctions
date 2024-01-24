@@ -4,6 +4,8 @@ import os
 import sys
 import subprocess
 import math
+import urllib.request
+
 
 import google.api_core.exceptions
 import google.auth.exceptions
@@ -12,6 +14,7 @@ import google.cloud.bigquery_connection_v1
 import google.cloud.storage
 import google.iam.v1.policy_pb2
 import click
+
 
 
 def print_color(msg):
@@ -322,3 +325,10 @@ def build_and_upload_npm_package(npm_package, bucket, project):
         Storage(project).upload(f"{folder}/{output_filename}", storage_filename)
         os.environ[storage_filename] = "uploaded"
         return storage_filename
+
+
+def download(url, destination_filename):
+    try:
+        urllib.request.urlretrieve(url, destination_filename)
+    except:
+        handle_error(f'Could not download file at url `{url}`')
