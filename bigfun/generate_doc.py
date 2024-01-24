@@ -96,6 +96,7 @@ class BigFunctionsPage(BasePage):
         categories = CONF['bigfunctions_categories']
         for category in categories:
             category['bigfunctions'] = [bigfunction for bigfunction in BIGFUNCTIONS if bigfunction['category'] == category['name']]
+        categories = [category for category in categories if category['bigfunctions']]
         return {
             'datasets': CONF['bigfunctions_datasets'],
             'repo_url': CONF['repo_url'],
