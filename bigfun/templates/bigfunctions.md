@@ -3,6 +3,10 @@ title: "Explore"
 description: "Catalog of open-source BigFunctions"
 ---
 
+
+{% if project == 'bigfunctions' %}
+
+
 !!! note ""
 
     **✅ You can call ANY of the following public BigFunctions from your Google Cloud Project** (*no install*).
@@ -56,6 +60,9 @@ description: "Catalog of open-source BigFunctions"
     | `us-west2` | `bigfunctions.us_west2` |
     | `us-west3` | `bigfunctions.us_west3` |
     | `us-west4` | `bigfunctions.us_west4` |
+
+
+{% endif %}
 
 ## 📄 Overview
 

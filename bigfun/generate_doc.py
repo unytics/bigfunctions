@@ -77,8 +77,12 @@ class BasePage:
 
     name = ''
 
+    def __init__(self, project):
+        self.project = project
+
     def generate(self):
         context = self.get_context()
+        context['project'] = self.project
         template = f'{TEMPLATE_FOLDER}/{self.name}.md'
         content = jinja2.Template(open(template, encoding='utf-8').read()).render(**context)
         with open(f'{self.name}/README.md', 'w', encoding='utf-8') as out:
@@ -114,9 +118,9 @@ class TablesPage(BasePage):
         }
 
 
-def generate_doc():
-    BigFunctionsPage().generate()
-    TablesPage().generate()
+def generate_doc(project):
+    BigFunctionsPage(project).generate()
+    TablesPage(project).generate()
 
 
 if __name__ == '__main__':

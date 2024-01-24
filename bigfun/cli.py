@@ -59,6 +59,18 @@ def get(bigfunction):
 
 @cli.command()
 @click.argument('bigfunction')
+def create(bigfunction):
+    '''
+    Create a new BIGFUNCTION yaml file in bigfunctions folder
+    '''
+    if not os.path.isdir('bigfunctions'):
+        os.makedirs('bigfunctions')
+    url = f'https://raw.githubusercontent.com/unytics/bigfunctions/main/bigfunctions/{bigfunction}.yaml'
+    utils.download(url, f'bigfunctions/{bigfunction}.yaml')    
+
+
+@cli.command()
+@click.argument('bigfunction')
 @click.option('--project', help='Google Cloud project where the function will be deployed')
 @click.option('--dataset', help='BigQuery dataset name where the function will be deployed')
 def deploy(bigfunction, project, dataset):
@@ -142,7 +154,8 @@ def generate():
     Generate markdown files for documentation from yaml bigfunctions files
     '''
     from .generate_doc import generate_doc
-    generate_doc()
+    project = get_config_value('project')
+    generate_doc(project)
 
 
 @docs.command()
@@ -151,13 +164,14 @@ def serve():
     Serve docs locally on http://localhost:8000
     '''
     from .generate_doc import generate_doc
+    project = get_config_value('project')
     class EventHandler(RegexMatchingEventHandler):
         def on_any_event(self, event):
             print(f'File {event.src_path} {event.event_type} --> generating README files...')
-            generate_doc()
+            generate_doc(project)
     event_handler = EventHandler(regexes=[r'.*\.yaml'])
     observer = Observer()
     observer.schedule(event_handler, BIGFUNCTIONS_FOLDER, recursive=True)
     observer.start()
-    generate_doc()
+    generate_doc(project)
     os.system('mkdocs serve --config-file site/mkdocs.yml')
