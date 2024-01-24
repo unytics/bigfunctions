@@ -7,7 +7,6 @@ import jinja2
 THIS_FOLDER = os.path.dirname(os.path.realpath(__file__)).replace('\\', '/')
 TEMPLATE_FOLDER = THIS_FOLDER + '/templates'
 TEMPLATE_MKDOCS_YAML = TEMPLATE_FOLDER + '/mkdocs.yml'
-DOCUMENTATION_CONFIG_FILENAME = 'config_documentation.yaml'
 BIGFUNCTIONS_FOLDER = 'bigfunctions'
 TABLES_FOLDER = 'data'
 BOOKMARKLET_DOC = open(f'{TEMPLATE_FOLDER}/bookmarklet_doc.md', encoding='utf-8').read()
@@ -54,19 +53,8 @@ def get_tables():
     return tables
 
 
-# def get_documentation_config():
-#     if not os.path.isfile(DOCUMENTATION_CONFIG_FILENAME):
-#         print(f'WARNING: Could not find file `{DOCUMENTATION_CONFIG_FILENAME}` in current directory.')
-#         print('WARNING: We generate `{DOCUMENTATION_CONFIG_FILENAME}` in current directory')
-#         print('Edit it to change how the documentation is generated')
-#         default_config = {
-#             ''
-#         }
-
-
 BIGFUNCTIONS = get_bigfunctions()
 TABLES = get_tables()
-# DOC_CONFIG = get_documentation_config()
 
 
 CONF = yaml.safe_load(open(f'site/mkdocs.yml', encoding='utf-8').read())
