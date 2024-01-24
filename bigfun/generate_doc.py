@@ -65,12 +65,16 @@ class BasePage:
 
     name = ''
 
-    def __init__(self, project):
+    def __init__(self, project, dataset):
         self.project = project
+        self.datasets = [f'{project}.{d.strip()}' for d in dataset.split(',')]
+        if len(self.datasets) > 3:
+            self.datasets = self.datasets[:3] + [f'{project}.your_region2']
 
     def generate(self):
         context = self.get_context()
         context['project'] = self.project
+        context['datasets'] = self.datasets
         template = f'{TEMPLATE_FOLDER}/{self.name}.md'
         content = jinja2.Template(open(template, encoding='utf-8').read()).render(**context)
         with open(f'{self.name}/README.md', 'w', encoding='utf-8') as out:
@@ -90,7 +94,6 @@ class BigFunctionsPage(BasePage):
             category['bigfunctions'] = [bigfunction for bigfunction in BIGFUNCTIONS if bigfunction['category'] == category['name']]
         categories = [category for category in categories if category['bigfunctions']]
         return {
-            'datasets': CONF['bigfunctions_datasets'],
             'repo_url': CONF['repo_url'],
             'categories': categories,
         }
@@ -106,10 +109,10 @@ class TablesPage(BasePage):
         }
 
 
-def generate_doc(project):
-    BigFunctionsPage(project).generate()
-    TablesPage(project).generate()
+def generate_doc(project, dataset):
+    BigFunctionsPage(project, dataset).generate()
+    TablesPage(project, dataset).generate()
 
 
 if __name__ == '__main__':
-    generate_doc('bigfunctions')
+    generate_doc('bigfunctions', 'eu,us,europe_west1,foo')

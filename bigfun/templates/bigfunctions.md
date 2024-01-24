@@ -131,10 +131,12 @@ BigFunctions are open-source BigQuery routines that give you **SQL-superpowers**
 
 {% for dataset in datasets %}
 
-=== "{{ dataset.region }}"
+{% set dataset_name = dataset.split('.')[1] %}
+
+=== "{% if dataset_name|length <=2 %}{{ dataset_name | upper | replace('_', '-') }}{% else %}{{ dataset_name | replace('_', '-') }}{% endif %}"
 
     ```sql
-    {% if bigfunction.type == 'procedure' %}call{% elif bigfunction.type == 'table_function' %}select * from{% else %}select{% endif %} {{ dataset.name }}.{{ bigfunction.name }}({% for argument in example.arguments %}{{ argument | replace('{BIGFUNCTIONS_DATASET}', dataset.name) | replace('\n', '\n      ') }}{% if not loop.last %}, {% endif %}{% endfor %}){% if bigfunction.type == 'procedure' %};{% elif 'output' in bigfunction and bigfunction.type != 'table_function' %} as {{ bigfunction.output.name }}{% endif %}
+    {% if bigfunction.type == 'procedure' %}call{% elif bigfunction.type == 'table_function' %}select * from{% else %}select{% endif %} {{ dataset }}.{{ bigfunction.name }}({% for argument in example.arguments %}{{ argument | replace('{BIGFUNCTIONS_DATASET}', dataset) | replace('\n', '\n      ') }}{% if not loop.last %}, {% endif %}{% endfor %}){% if bigfunction.type == 'procedure' %};{% elif 'output' in bigfunction and bigfunction.type != 'table_function' %} as {{ bigfunction.output.name }}{% endif %}
     {% if bigfunction.type == 'procedure' and bigfunction.template %}select html from bigfunction_result;{% endif %}
     {%- if bigfunction.type == 'procedure' and example.output %}select * from bigfunction_result;{% endif %}
     ```
@@ -147,7 +149,7 @@ BigFunctions are open-source BigQuery routines that give you **SQL-superpowers**
 {% for dataset in datasets %}
 
 ```sql
-{% if bigfunction.type == 'procedure' %}call{% elif bigfunction.type == 'table_function' %}select * from{% else %}select{% endif %} {{ dataset.name }}.{{ bigfunction.name }}({% for argument in example.arguments %}{{ argument | replace('{BIGFUNCTIONS_DATASET}', dataset.name) | replace('\n', '\n  ') }}{% if not loop.last %}, {% endif %}{% endfor %}){% if bigfunction.type == 'procedure' %};{% elif 'output' in bigfunction and bigfunction.type != 'table_function' %} as {{ bigfunction.output.name }}{% endif %}
+{% if bigfunction.type == 'procedure' %}call{% elif bigfunction.type == 'table_function' %}select * from{% else %}select{% endif %} {{ dataset }}.{{ bigfunction.name }}({% for argument in example.arguments %}{{ argument | replace('{BIGFUNCTIONS_DATASET}', dataset) | replace('\n', '\n  ') }}{% if not loop.last %}, {% endif %}{% endfor %}){% if bigfunction.type == 'procedure' %};{% elif 'output' in bigfunction and bigfunction.type != 'table_function' %} as {{ bigfunction.output.name }}{% endif %}
 {% if bigfunction.type == 'procedure' and bigfunction.template %}select html from bigfunction_result;{% endif %}
 {%- if bigfunction.type == 'procedure' and example.output %}select * from bigfunction_result;{% endif %}
 ```

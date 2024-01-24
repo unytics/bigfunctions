@@ -102,12 +102,3 @@ bigfunctions_categories:
     emoticon: "🔨"
     title: "Utils BigFunctions"
     subtitle: ""
-bigfunctions_datasets:
-  - name: "bigfunctions.eu"
-    region: "EU"
-  - name: "bigfunctions.us"
-    region: "US"
-  - name: "bigfunctions.europe_west1"
-    region: "europe-west1"
-  - name: "bigfunctions.your_region2"
-    region: "your-region2"
