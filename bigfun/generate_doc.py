@@ -14,12 +14,17 @@ BOOKMARKLET_DOC = open(f'{TEMPLATE_FOLDER}/bookmarklet_doc.md', encoding='utf-8'
 
 if not os.path.isfile('README.md'):
     print('INFO: CREATING A README.md FILE IN CURRENT DIRECTORY WHICH WILL BE THE ROOT CONTENT OF THE WEBSITE')
-    open('README.md', encoding='utf-8').write('# Hello from README!')
+    open('README.md', 'w', encoding='utf-8').write('# Hello from README!')
 
 if not os.path.isdir('site'):
     print('INFO: CREATING site FOLDER in CURRENT DIRECTORY WHICH WILL CONTAIN WEBSITE MATERIAL...')
     shutil.copytree(TEMPLATE_FOLDER + '/site', 'site')
 
+if not os.path.isdir('bigfunctions'):
+    os.makedirs('bigfunctions')
+
+if not os.path.isdir('data'):
+    os.makedirs('data')
 
 def get_bigfunctions():
     bigfunctions = []
