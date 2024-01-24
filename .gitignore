@@ -104,6 +104,7 @@ google-cloud-sdk/
 # Environments
 .env
 .venv
+.venv/
 env/
 venv/
 ENV/
