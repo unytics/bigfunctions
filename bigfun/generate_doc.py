@@ -124,4 +124,4 @@ def generate_doc(project):
 
 
 if __name__ == '__main__':
-    generate_doc()
+    generate_doc('bigfunctions')
