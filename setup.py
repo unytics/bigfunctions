@@ -1,9 +1,29 @@
-from setuptools import setup
+import setuptools
 
-setup(
-    name='bigfun',
-    version='0.1.0',
+
+VERSION = '0.1'
+
+
+with open('README.md', 'r', encoding='utf-8') as fh:
+    long_description = fh.read()
+
+
+setuptools.setup(
+    name='bigfunctions',
     packages=['bigfun'],
+    version=VERSION,
+    author='Unytics',
+    author_email='paul.marcombes@unytics.io',
+    description='Supercharge BigQuery with BigFunctions',
+    long_description=long_description,
+    long_description_content_type='text/markdown',
+    download_url=f'https://github.com/unytics/bigfunctions/archive/refs/tags/v{VERSION}.tar.gz',
+    classifiers=[
+        'Programming Language :: Python :: 3',
+        'License :: OSI Approved :: MIT License',
+        'Operating System :: OS Independent',
+    ],
+    python_requires='>=3.9',
     package_data={'': ['*', 'templates/*']},
     include_package_data=True,
     install_requires=[
