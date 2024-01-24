@@ -13,8 +13,8 @@ description: "Catalog of open-source BigFunctions"
 
     - The functions are deployed in `bigfunctions` GCP project in 39 datasets for all of the 39 BigQuery regions.
     - They are public, so they can be called by anyone.
-    - For any question or difficulties, please read [Getting Started](/bigfunctions/).
-    - If you prefer to deploy the BigFunction in your own project, read [Getting Started](/bigfunctions/).
+    - For any question or difficulties, please read [Getting Started](../).
+    - If you prefer to deploy the BigFunction in your own project, read [Getting Started](../).
     - Found a bug? Please raise an issue [here](https://github.com/unytics/bigfunctions/issues/new/choose)
 
 ??? info "All BigFunctions Datasets >"
