@@ -13,6 +13,9 @@ repo_url: 'https://github.com/unytics/bigfunctions'
 edit_uri: 'edit/main'
 copyright: 'Copyright &copy; 2023 Unytics'
 docs_dir: '..'
+exclude_docs: |
+  /venv/
+  /.venv/
 site_dir: '../../bigfunctions_website'
 extra_css:
   - site/stylesheets/extra.css

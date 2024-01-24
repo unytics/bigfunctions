@@ -171,9 +171,9 @@ def serve():
         def on_any_event(self, event):
             print(f'File {event.src_path} {event.event_type} --> generating README files...')
             generate_doc(project, dataset)
-    event_handler = EventHandler(regexes=[r'.*\.yaml'])
-    observer = Observer()
-    observer.schedule(event_handler, BIGFUNCTIONS_FOLDER, recursive=True)
-    observer.start()
+    # event_handler = EventHandler(regexes=[r'.*\.yaml'])
+    # observer = Observer()
+    # observer.schedule(event_handler, BIGFUNCTIONS_FOLDER, recursive=True)
+    # observer.start()
     generate_doc(project, dataset)
     os.system('mkdocs serve --config-file site/mkdocs.yml')

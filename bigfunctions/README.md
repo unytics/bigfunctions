@@ -3,14 +3,18 @@ title: "Explore"
 description: "Catalog of open-source BigFunctions"
 ---
 
+
+
+
+
 !!! note ""
 
     **✅ You can call ANY of the following public BigFunctions from your Google Cloud Project** (*no install*).
 
     - The functions are deployed in `bigfunctions` GCP project in 39 datasets for all of the 39 BigQuery regions.
     - They are public, so they can be called by anyone.
-    - For any question or difficulties, please read [Getting Started](/bigfunctions/).
-    - If you prefer to deploy the BigFunction in your own project, read [Getting Started](/bigfunctions/).
+    - For any question or difficulties, please read [Getting Started](../).
+    - If you prefer to deploy the BigFunction in your own project, read [Getting Started](../).
     - Found a bug? Please raise an issue [here](https://github.com/unytics/bigfunctions/issues/new/choose)
 
 ??? info "All BigFunctions Datasets >"
@@ -57,6 +61,9 @@ description: "Catalog of open-source BigFunctions"
     | `us-west3` | `bigfunctions.us_west3` |
     | `us-west4` | `bigfunctions.us_west4` |
 
+
+
+
 ## 📄 Overview
 
 
@@ -78,6 +85,8 @@ BigFunctions are open-source BigQuery routines that give you **SQL-superpowers**
     - [<code>explore_dataset(fully_qualified_dataset)</code>](#explore_dataset): Show infos about dataset tables
     
     - [<code>explore_table(fully_qualified_table)</code>](#explore_table): Show table infos and column statistics
+    
+    - [<code>sankey_chart(data)</code>](#sankey_chart): Return html with a Sankey Google chart
     
 
     
@@ -168,6 +177,8 @@ BigFunctions are open-source BigQuery routines that give you **SQL-superpowers**
     - [<code>detect_sensitive_info(text)</code>](#detect_sensitive_info): Detect sensitive information in `text`
     
     - [<code>faker(what, locale)</code>](#faker): Generates fake data
+    
+    - [<code>ip2asn(ip)</code>](#ip2asn): Get `asn` of `ip`
     
     - [<code>ip2continent(ip)</code>](#ip2continent): Get `continent_code` of `ip`
     
@@ -408,7 +419,7 @@ Return html with a chartjs chart
 
     **The result of this function can be vizualized as an html report directly in BigQuery Console!**
 
-    1. Install this bookmarklet: <a href="javascript:(function()%7Blet%20isChartJsLoaded%20%3D%20false%3B%0A%0A%0Aconst%20escapeHTML%20%3D%20function(html)%20%7B%0A%20%20if(!trustedTypes)%20%7B%0A%20%20%20%20return%20html%3B%0A%20%20%7D%0A%20%20const%20policy%20%3D%20trustedTypes.createPolicy(%22forceInner%22%2C%20%7BcreateHTML%3A%20(to_escape)%20%3D%3E%20to_escape%7D)%3B%0A%20%20return%20policy.createHTML(html)%3B%0A%7D%3B%0A%0A%0Aconst%20escapeScript%20%3D%20function(script)%20%7B%0A%20%20if(!trustedTypes)%20%7B%0A%20%20%20%20return%20script%3B%0A%20%20%7D%0A%20%20const%20policy%20%3D%20trustedTypes.createPolicy(%22forceInner%22%2C%20%7BcreateScript%3A%20(to_escape)%20%3D%3E%20to_escape%7D)%3B%0A%20%20return%20policy.createScript(script)%3B%0A%7D%3B%0A%0A%0Aconst%20setInnerHTML%20%3D%20function(elm%2C%20html)%20%7B%0A%20%20elm.innerHTML%20%3D%20escapeHTML(html)%3B%0A%20%20Array.from(elm.querySelectorAll('script')).forEach(%20oldScript%20%3D%3E%20%7B%0A%20%20%20%20%20%20const%20newScript%20%3D%20document.createElement('script')%3B%0A%20%20%20%20%20%20Array.from(oldScript.attributes).forEach(%20attr%20%3D%3E%20newScript.setAttribute(attr.name%2C%20attr.value)%20)%3B%0A%20%20%20%20%20%20newScript.text%20%3D%20escapeScript(oldScript.innerHTML)%3B%0A%20%20%20%20%20%20oldScript.parentNode.replaceChild(newScript%2C%20oldScript)%3B%0A%20%20%7D)%3B%0A%7D%3B%0A%0A%0Aconst%20run%20%3D%20async%20function()%20%7B%0A%20%20if%20(!isChartJsLoaded)%20%7B%0A%20%20%20%20return%3B%0A%20%20%7D%0A%20%20const%20results_table_container%20%3D%20document.querySelector('bq-tab-content%3Anot(.cfc-hidden)%20bq-results-table')%3B%0A%20%20if%20(!results_table_container)%20%7B%0A%20%20%20%20return%3B%0A%20%20%7D%0A%20%20const%20cells%20%3D%20results_table_container.querySelectorAll('td%20div%3Anot(.cfc-flex-container)')%3B%0A%20%20if%20(cells.length%20!%3D%3D%201)%20%7B%0A%20%20%20%20return%3B%0A%20%20%7D%0A%20%20const%20cell%20%3D%20cells%5B0%5D%3B%0A%20%20const%20content%20%3D%20cell.innerText%3B%0A%20%20if%20(!content.startsWith(%22%3Chtml%22))%20%7B%0A%20%20%20%20return%3B%0A%20%20%7D%0A%20%20if%20(content.endsWith(%22...%22))%20%7B%0A%20%20%20%20cell.nextElementSibling.firstElementChild.click()%3B%0A%20%20%20%20return%3B%0A%20%20%7D%0A%20%20const%20html%20%3D%20%60%3Csection%20class%3D%22section%22%3E%24%7Bcontent%7D%3C%2Fsection%3E%60%0A%20%20setInnerHTML(results_table_container%2C%20html)%3B%0A%7D%3B%0A%0A%0Aconst%20loadBulmaCss%20%3D%20function()%20%7B%0A%20%20const%20bulma%20%3D%20document.createElement('link')%3B%0A%20%20bulma.setAttribute('rel'%2C%20'stylesheet')%3B%0A%20%20bulma.setAttribute('href'%2C%20'https%3A%2F%2Fcdn.jsdelivr.net%2Fnpm%2Fbulma%400.9.4%2Fcss%2Fbulma.min.css')%3B%0A%20%20document.head.appendChild(bulma)%3B%0A%7D%3B%0A%0A%0Aconst%20loadChartjs%20%3D%20function()%20%7B%0A%20%20fetch('https%3A%2F%2Fcdnjs.cloudflare.com%2Fajax%2Flibs%2FChart.js%2F3.9.1%2Fchart.min.js')%0A%20%20.then((response)%20%3D%3E%20response.text())%0A%20%20.then((text)%20%3D%3E%20%7B%0A%20%20%20%20const%20script%20%3D%20document.createElement('script')%3B%0A%20%20%20%20script.text%20%3D%20escapeScript(text)%3B%0A%20%20%20%20document.head.appendChild(script)%3B%0A%20%20%20%20isChartJsLoaded%20%3D%20true%3B%0A%20%20%7D)%3B%0A%7D%3B%0A%0A%0A%0A%0AloadBulmaCss()%3B%0AloadChartjs()%3B%0AsetInterval(run%2C%20100)%3B%7D)()%3B">bigfunctions</a> *(it has to be done only once)*
+    1. Install this bookmarklet: <a href="javascript:(function()%7Blet%20isChartJsLoaded%20%3D%20false%3B%0Alet%20isGoogleChartsLoaded%20%3D%20false%3B%0Alet%20isFunnelGraphJsLoaded%20%3D%20false%3B%0A%0A%0Awindow.escapeHTML%20%3D%20function(html)%20%7B%0A%20%20if(!trustedTypes)%20%7B%0A%20%20%20%20return%20html%3B%0A%20%20%7D%0A%20%20const%20policy%20%3D%20trustedTypes.createPolicy(%22forceInner%22%2C%20%7BcreateHTML%3A%20(to_escape)%20%3D%3E%20to_escape%7D)%3B%0A%20%20return%20policy.createHTML(html)%3B%0A%7D%3B%0A%0A%0Aconst%20escapeScript%20%3D%20function(script)%20%7B%0A%20%20if(!trustedTypes)%20%7B%0A%20%20%20%20return%20script%3B%0A%20%20%7D%0A%20%20const%20policy%20%3D%20trustedTypes.createPolicy(%22forceInner%22%2C%20%7BcreateScript%3A%20(to_escape)%20%3D%3E%20to_escape%7D)%3B%0A%20%20return%20policy.createScript(script)%3B%0A%7D%3B%0A%0A%0Aconst%20setInnerHTML%20%3D%20function(elm%2C%20html)%20%7B%0A%20%20elm.innerHTML%20%3D%20window.escapeHTML(html)%3B%0A%20%20Array.from(elm.querySelectorAll('script')).forEach(%20oldScript%20%3D%3E%20%7B%0A%20%20%20%20%20%20const%20newScript%20%3D%20document.createElement('script')%3B%0A%20%20%20%20%20%20Array.from(oldScript.attributes).forEach(%20attr%20%3D%3E%20newScript.setAttribute(attr.name%2C%20attr.value)%20)%3B%0A%20%20%20%20%20%20newScript.text%20%3D%20escapeScript(oldScript.innerHTML)%3B%0A%20%20%20%20%20%20oldScript.parentNode.replaceChild(newScript%2C%20oldScript)%3B%0A%20%20%7D)%3B%0A%7D%3B%0A%0A%0Aconst%20run%20%3D%20async%20function()%20%7B%0A%20%20if%20(!isChartJsLoaded%20%7C%7C%20!isGoogleChartsLoaded%20%7C%7C%20!isFunnelGraphJsLoaded)%20%7B%0A%20%20%20%20return%3B%0A%20%20%7D%0A%20%20const%20results_table_container%20%3D%20document.querySelector('bq-tab-content%3Anot(.cfc-hidden)%20bq-results-table')%3B%0A%20%20if%20(!results_table_container)%20%7B%0A%20%20%20%20return%3B%0A%20%20%7D%0A%20%20const%20cells%20%3D%20results_table_container.querySelectorAll('td%20div%3Anot(.cfc-flex-container)')%3B%0A%20%20if%20(cells.length%20!%3D%3D%201)%20%7B%0A%20%20%20%20return%3B%0A%20%20%7D%0A%20%20const%20cell%20%3D%20cells%5B0%5D%3B%0A%20%20const%20content%20%3D%20cell.innerText%3B%0A%20%20if%20(!content.startsWith(%22%3Chtml%22))%20%7B%0A%20%20%20%20return%3B%0A%20%20%7D%0A%20%20if%20(content.endsWith(%22...%22))%20%7B%0A%20%20%20%20cell.nextElementSibling.firstElementChild.click()%3B%0A%20%20%20%20return%3B%0A%20%20%7D%0A%20%20const%20html%20%3D%20%60%3Csection%20id%3D%22bf-container%22%20class%3D%22section%22%3E%24%7Bcontent%7D%3C%2Fsection%3E%60%0A%20%20setInnerHTML(results_table_container%2C%20html)%3B%0A%7D%3B%0A%0A%0Aconst%20loadBulmaCss%20%3D%20function()%20%7B%0A%20%20const%20bulma%20%3D%20document.createElement('link')%3B%0A%20%20bulma.setAttribute('rel'%2C%20'stylesheet')%3B%0A%20%20bulma.setAttribute('href'%2C%20'https%3A%2F%2Fcdn.jsdelivr.net%2Fnpm%2Fbulma%400.9.4%2Fcss%2Fbulma.min.css')%3B%0A%20%20document.head.appendChild(bulma)%3B%0A%7D%3B%0A%0A%0Aconst%20loadChartJs%20%3D%20function()%20%7B%0A%20%20fetch('https%3A%2F%2Fcdnjs.cloudflare.com%2Fajax%2Flibs%2FChart.js%2F3.9.1%2Fchart.min.js')%0A%20%20.then((response)%20%3D%3E%20response.text())%0A%20%20.then((text)%20%3D%3E%20%7B%0A%20%20%20%20const%20script%20%3D%20document.createElement('script')%3B%0A%20%20%20%20script.text%20%3D%20escapeScript(text)%3B%0A%20%20%20%20document.head.appendChild(script)%3B%0A%20%20%20%20isChartJsLoaded%20%3D%20true%3B%0A%20%20%7D)%3B%0A%7D%3B%0A%0A%0Aconst%20loadGoogleChart%20%3D%20function()%20%7B%0A%20%20fetch('https%3A%2F%2Fwww.gstatic.com%2Fcharts%2Floader.js')%0A%20%20.then((response)%20%3D%3E%20response.text())%0A%20%20.then((text)%20%3D%3E%20%7B%0A%20%20%20%20const%20script%20%3D%20document.createElement('script')%3B%0A%20%20%20%20script.text%20%3D%20escapeScript(text)%3B%0A%20%20%20%20document.head.appendChild(script)%3B%0A%20%20%20%20google.charts.load('current'%2C%20%7Bpackages%3A%20%5B'sankey'%5D%7D)%3B%0A%20%20%20%20google.charts.setOnLoadCallback(function()%20%7B%20isGoogleChartsLoaded%20%3D%20true%3B%20%7D)%3B%0A%20%20%7D)%3B%0A%7D%3B%0A%0A%0Aconst%20loadFunnelGraphJs%20%3D%20function()%20%7B%0A%20%20const%20css%20%3D%20document.createElement('link')%3B%0A%20%20css.setAttribute('rel'%2C%20'stylesheet')%3B%0A%20%20css.setAttribute('href'%2C%20'https%3A%2F%2Funpkg.com%2Ffunnel-graph-js%401.3.9%2Fdist%2Fcss%2Fmain.min.css')%3B%0A%20%20document.head.appendChild(css)%3B%0A%0A%20%20const%20css2%20%3D%20document.createElement('link')%3B%0A%20%20css2.setAttribute('rel'%2C%20'stylesheet')%3B%0A%20%20css2.setAttribute('href'%2C%20'https%3A%2F%2Funpkg.com%2Ffunnel-graph-js%401.3.9%2Fdist%2Fcss%2Ftheme.min.css')%3B%0A%20%20document.head.appendChild(css2)%3B%0A%0A%20%20fetch('https%3A%2F%2Funpkg.com%2Ffunnel-graph-js%401.3.9%2Fdist%2Fjs%2Ffunnel-graph.min.js')%0A%20%20.then((response)%20%3D%3E%20response.text())%0A%20%20.then((text)%20%3D%3E%20%7B%0A%20%20%20%20const%20regex%20%3D%20%2FinnerHTML%3D(%5Cw%2B)%2Fgi%3B%0A%20%20%20%20text%20%3D%20text.replace(regex%2C%20'innerHTML%3Dwindow.escapeHTML(%241)')%3B%0A%20%20%20%20console.log(text)%3B%0A%20%20%20%20const%20script%20%3D%20document.createElement('script')%3B%0A%20%20%20%20script.text%20%3D%20escapeScript(text)%3B%0A%20%20%20%20document.head.appendChild(script)%3B%0A%20%20%20%20isFunnelGraphJsLoaded%20%3D%20true%3B%0A%20%20%7D)%3B%0A%0A%0A%7D%0A%0AloadBulmaCss()%3B%0AloadFunnelGraphJs()%3B%0AloadChartJs()%3B%0AloadGoogleChart()%3B%0AsetInterval(run%2C%20100)%3B%7D)()%3B">bigfunctions</a> *(it has to be done only once)*
     2. Open BigQuery console
     3. Click on the installed bookmarklet.
         - From now on, the bookmarklet code will observe the BigQuery console page.
@@ -434,12 +445,16 @@ Return html with a chartjs chart
 
 
 
+
+
 === "EU"
 
     ```sql
     select bigfunctions.eu.chart([('2022-08-01', 10000.), ('2022-08-02', 20000.), ('2022-08-03', 40000.), ('2022-08-04', 80000.)], 'bar', 'sales') as html
     
     ```
+
+
 
 
 
@@ -452,12 +467,16 @@ Return html with a chartjs chart
 
 
 
+
+
 === "europe-west1"
 
     ```sql
     select bigfunctions.europe_west1.chart([('2022-08-01', 10000.), ('2022-08-02', 20000.), ('2022-08-03', 40000.), ('2022-08-04', 80000.)], 'bar', 'sales') as html
     
     ```
+
+
 
 
 
@@ -508,7 +527,7 @@ Show column statistics
 
     **The result of this function can be vizualized as an html report directly in BigQuery Console!**
 
-    1. Install this bookmarklet: <a href="javascript:(function()%7Blet%20isChartJsLoaded%20%3D%20false%3B%0A%0A%0Aconst%20escapeHTML%20%3D%20function(html)%20%7B%0A%20%20if(!trustedTypes)%20%7B%0A%20%20%20%20return%20html%3B%0A%20%20%7D%0A%20%20const%20policy%20%3D%20trustedTypes.createPolicy(%22forceInner%22%2C%20%7BcreateHTML%3A%20(to_escape)%20%3D%3E%20to_escape%7D)%3B%0A%20%20return%20policy.createHTML(html)%3B%0A%7D%3B%0A%0A%0Aconst%20escapeScript%20%3D%20function(script)%20%7B%0A%20%20if(!trustedTypes)%20%7B%0A%20%20%20%20return%20script%3B%0A%20%20%7D%0A%20%20const%20policy%20%3D%20trustedTypes.createPolicy(%22forceInner%22%2C%20%7BcreateScript%3A%20(to_escape)%20%3D%3E%20to_escape%7D)%3B%0A%20%20return%20policy.createScript(script)%3B%0A%7D%3B%0A%0A%0Aconst%20setInnerHTML%20%3D%20function(elm%2C%20html)%20%7B%0A%20%20elm.innerHTML%20%3D%20escapeHTML(html)%3B%0A%20%20Array.from(elm.querySelectorAll('script')).forEach(%20oldScript%20%3D%3E%20%7B%0A%20%20%20%20%20%20const%20newScript%20%3D%20document.createElement('script')%3B%0A%20%20%20%20%20%20Array.from(oldScript.attributes).forEach(%20attr%20%3D%3E%20newScript.setAttribute(attr.name%2C%20attr.value)%20)%3B%0A%20%20%20%20%20%20newScript.text%20%3D%20escapeScript(oldScript.innerHTML)%3B%0A%20%20%20%20%20%20oldScript.parentNode.replaceChild(newScript%2C%20oldScript)%3B%0A%20%20%7D)%3B%0A%7D%3B%0A%0A%0Aconst%20run%20%3D%20async%20function()%20%7B%0A%20%20if%20(!isChartJsLoaded)%20%7B%0A%20%20%20%20return%3B%0A%20%20%7D%0A%20%20const%20results_table_container%20%3D%20document.querySelector('bq-tab-content%3Anot(.cfc-hidden)%20bq-results-table')%3B%0A%20%20if%20(!results_table_container)%20%7B%0A%20%20%20%20return%3B%0A%20%20%7D%0A%20%20const%20cells%20%3D%20results_table_container.querySelectorAll('td%20div%3Anot(.cfc-flex-container)')%3B%0A%20%20if%20(cells.length%20!%3D%3D%201)%20%7B%0A%20%20%20%20return%3B%0A%20%20%7D%0A%20%20const%20cell%20%3D%20cells%5B0%5D%3B%0A%20%20const%20content%20%3D%20cell.innerText%3B%0A%20%20if%20(!content.startsWith(%22%3Chtml%22))%20%7B%0A%20%20%20%20return%3B%0A%20%20%7D%0A%20%20if%20(content.endsWith(%22...%22))%20%7B%0A%20%20%20%20cell.nextElementSibling.firstElementChild.click()%3B%0A%20%20%20%20return%3B%0A%20%20%7D%0A%20%20const%20html%20%3D%20%60%3Csection%20class%3D%22section%22%3E%24%7Bcontent%7D%3C%2Fsection%3E%60%0A%20%20setInnerHTML(results_table_container%2C%20html)%3B%0A%7D%3B%0A%0A%0Aconst%20loadBulmaCss%20%3D%20function()%20%7B%0A%20%20const%20bulma%20%3D%20document.createElement('link')%3B%0A%20%20bulma.setAttribute('rel'%2C%20'stylesheet')%3B%0A%20%20bulma.setAttribute('href'%2C%20'https%3A%2F%2Fcdn.jsdelivr.net%2Fnpm%2Fbulma%400.9.4%2Fcss%2Fbulma.min.css')%3B%0A%20%20document.head.appendChild(bulma)%3B%0A%7D%3B%0A%0A%0Aconst%20loadChartjs%20%3D%20function()%20%7B%0A%20%20fetch('https%3A%2F%2Fcdnjs.cloudflare.com%2Fajax%2Flibs%2FChart.js%2F3.9.1%2Fchart.min.js')%0A%20%20.then((response)%20%3D%3E%20response.text())%0A%20%20.then((text)%20%3D%3E%20%7B%0A%20%20%20%20const%20script%20%3D%20document.createElement('script')%3B%0A%20%20%20%20script.text%20%3D%20escapeScript(text)%3B%0A%20%20%20%20document.head.appendChild(script)%3B%0A%20%20%20%20isChartJsLoaded%20%3D%20true%3B%0A%20%20%7D)%3B%0A%7D%3B%0A%0A%0A%0A%0AloadBulmaCss()%3B%0AloadChartjs()%3B%0AsetInterval(run%2C%20100)%3B%7D)()%3B">bigfunctions</a> *(it has to be done only once)*
+    1. Install this bookmarklet: <a href="javascript:(function()%7Blet%20isChartJsLoaded%20%3D%20false%3B%0Alet%20isGoogleChartsLoaded%20%3D%20false%3B%0Alet%20isFunnelGraphJsLoaded%20%3D%20false%3B%0A%0A%0Awindow.escapeHTML%20%3D%20function(html)%20%7B%0A%20%20if(!trustedTypes)%20%7B%0A%20%20%20%20return%20html%3B%0A%20%20%7D%0A%20%20const%20policy%20%3D%20trustedTypes.createPolicy(%22forceInner%22%2C%20%7BcreateHTML%3A%20(to_escape)%20%3D%3E%20to_escape%7D)%3B%0A%20%20return%20policy.createHTML(html)%3B%0A%7D%3B%0A%0A%0Aconst%20escapeScript%20%3D%20function(script)%20%7B%0A%20%20if(!trustedTypes)%20%7B%0A%20%20%20%20return%20script%3B%0A%20%20%7D%0A%20%20const%20policy%20%3D%20trustedTypes.createPolicy(%22forceInner%22%2C%20%7BcreateScript%3A%20(to_escape)%20%3D%3E%20to_escape%7D)%3B%0A%20%20return%20policy.createScript(script)%3B%0A%7D%3B%0A%0A%0Aconst%20setInnerHTML%20%3D%20function(elm%2C%20html)%20%7B%0A%20%20elm.innerHTML%20%3D%20window.escapeHTML(html)%3B%0A%20%20Array.from(elm.querySelectorAll('script')).forEach(%20oldScript%20%3D%3E%20%7B%0A%20%20%20%20%20%20const%20newScript%20%3D%20document.createElement('script')%3B%0A%20%20%20%20%20%20Array.from(oldScript.attributes).forEach(%20attr%20%3D%3E%20newScript.setAttribute(attr.name%2C%20attr.value)%20)%3B%0A%20%20%20%20%20%20newScript.text%20%3D%20escapeScript(oldScript.innerHTML)%3B%0A%20%20%20%20%20%20oldScript.parentNode.replaceChild(newScript%2C%20oldScript)%3B%0A%20%20%7D)%3B%0A%7D%3B%0A%0A%0Aconst%20run%20%3D%20async%20function()%20%7B%0A%20%20if%20(!isChartJsLoaded%20%7C%7C%20!isGoogleChartsLoaded%20%7C%7C%20!isFunnelGraphJsLoaded)%20%7B%0A%20%20%20%20return%3B%0A%20%20%7D%0A%20%20const%20results_table_container%20%3D%20document.querySelector('bq-tab-content%3Anot(.cfc-hidden)%20bq-results-table')%3B%0A%20%20if%20(!results_table_container)%20%7B%0A%20%20%20%20return%3B%0A%20%20%7D%0A%20%20const%20cells%20%3D%20results_table_container.querySelectorAll('td%20div%3Anot(.cfc-flex-container)')%3B%0A%20%20if%20(cells.length%20!%3D%3D%201)%20%7B%0A%20%20%20%20return%3B%0A%20%20%7D%0A%20%20const%20cell%20%3D%20cells%5B0%5D%3B%0A%20%20const%20content%20%3D%20cell.innerText%3B%0A%20%20if%20(!content.startsWith(%22%3Chtml%22))%20%7B%0A%20%20%20%20return%3B%0A%20%20%7D%0A%20%20if%20(content.endsWith(%22...%22))%20%7B%0A%20%20%20%20cell.nextElementSibling.firstElementChild.click()%3B%0A%20%20%20%20return%3B%0A%20%20%7D%0A%20%20const%20html%20%3D%20%60%3Csection%20id%3D%22bf-container%22%20class%3D%22section%22%3E%24%7Bcontent%7D%3C%2Fsection%3E%60%0A%20%20setInnerHTML(results_table_container%2C%20html)%3B%0A%7D%3B%0A%0A%0Aconst%20loadBulmaCss%20%3D%20function()%20%7B%0A%20%20const%20bulma%20%3D%20document.createElement('link')%3B%0A%20%20bulma.setAttribute('rel'%2C%20'stylesheet')%3B%0A%20%20bulma.setAttribute('href'%2C%20'https%3A%2F%2Fcdn.jsdelivr.net%2Fnpm%2Fbulma%400.9.4%2Fcss%2Fbulma.min.css')%3B%0A%20%20document.head.appendChild(bulma)%3B%0A%7D%3B%0A%0A%0Aconst%20loadChartJs%20%3D%20function()%20%7B%0A%20%20fetch('https%3A%2F%2Fcdnjs.cloudflare.com%2Fajax%2Flibs%2FChart.js%2F3.9.1%2Fchart.min.js')%0A%20%20.then((response)%20%3D%3E%20response.text())%0A%20%20.then((text)%20%3D%3E%20%7B%0A%20%20%20%20const%20script%20%3D%20document.createElement('script')%3B%0A%20%20%20%20script.text%20%3D%20escapeScript(text)%3B%0A%20%20%20%20document.head.appendChild(script)%3B%0A%20%20%20%20isChartJsLoaded%20%3D%20true%3B%0A%20%20%7D)%3B%0A%7D%3B%0A%0A%0Aconst%20loadGoogleChart%20%3D%20function()%20%7B%0A%20%20fetch('https%3A%2F%2Fwww.gstatic.com%2Fcharts%2Floader.js')%0A%20%20.then((response)%20%3D%3E%20response.text())%0A%20%20.then((text)%20%3D%3E%20%7B%0A%20%20%20%20const%20script%20%3D%20document.createElement('script')%3B%0A%20%20%20%20script.text%20%3D%20escapeScript(text)%3B%0A%20%20%20%20document.head.appendChild(script)%3B%0A%20%20%20%20google.charts.load('current'%2C%20%7Bpackages%3A%20%5B'sankey'%5D%7D)%3B%0A%20%20%20%20google.charts.setOnLoadCallback(function()%20%7B%20isGoogleChartsLoaded%20%3D%20true%3B%20%7D)%3B%0A%20%20%7D)%3B%0A%7D%3B%0A%0A%0Aconst%20loadFunnelGraphJs%20%3D%20function()%20%7B%0A%20%20const%20css%20%3D%20document.createElement('link')%3B%0A%20%20css.setAttribute('rel'%2C%20'stylesheet')%3B%0A%20%20css.setAttribute('href'%2C%20'https%3A%2F%2Funpkg.com%2Ffunnel-graph-js%401.3.9%2Fdist%2Fcss%2Fmain.min.css')%3B%0A%20%20document.head.appendChild(css)%3B%0A%0A%20%20const%20css2%20%3D%20document.createElement('link')%3B%0A%20%20css2.setAttribute('rel'%2C%20'stylesheet')%3B%0A%20%20css2.setAttribute('href'%2C%20'https%3A%2F%2Funpkg.com%2Ffunnel-graph-js%401.3.9%2Fdist%2Fcss%2Ftheme.min.css')%3B%0A%20%20document.head.appendChild(css2)%3B%0A%0A%20%20fetch('https%3A%2F%2Funpkg.com%2Ffunnel-graph-js%401.3.9%2Fdist%2Fjs%2Ffunnel-graph.min.js')%0A%20%20.then((response)%20%3D%3E%20response.text())%0A%20%20.then((text)%20%3D%3E%20%7B%0A%20%20%20%20const%20regex%20%3D%20%2FinnerHTML%3D(%5Cw%2B)%2Fgi%3B%0A%20%20%20%20text%20%3D%20text.replace(regex%2C%20'innerHTML%3Dwindow.escapeHTML(%241)')%3B%0A%20%20%20%20console.log(text)%3B%0A%20%20%20%20const%20script%20%3D%20document.createElement('script')%3B%0A%20%20%20%20script.text%20%3D%20escapeScript(text)%3B%0A%20%20%20%20document.head.appendChild(script)%3B%0A%20%20%20%20isFunnelGraphJsLoaded%20%3D%20true%3B%0A%20%20%7D)%3B%0A%0A%0A%7D%0A%0AloadBulmaCss()%3B%0AloadFunnelGraphJs()%3B%0AloadChartJs()%3B%0AloadGoogleChart()%3B%0AsetInterval(run%2C%20100)%3B%7D)()%3B">bigfunctions</a> *(it has to be done only once)*
     2. Open BigQuery console
     3. Click on the installed bookmarklet.
         - From now on, the bookmarklet code will observe the BigQuery console page.
@@ -534,12 +553,16 @@ Show column statistics
 
 
 
+
+
 === "EU"
 
     ```sql
     call bigfunctions.eu.explore_column("bigfunctions.eu.natality.weight_pounds");
     select html from bigfunction_result;
     ```
+
+
 
 
 
@@ -552,12 +575,16 @@ Show column statistics
 
 
 
+
+
 === "europe-west1"
 
     ```sql
     call bigfunctions.europe_west1.explore_column("bigfunctions.europe_west1.natality.weight_pounds");
     select html from bigfunction_result;
     ```
+
+
 
 
 
@@ -608,7 +635,7 @@ Show infos about dataset tables
 
     **The result of this function can be vizualized as an html report directly in BigQuery Console!**
 
-    1. Install this bookmarklet: <a href="javascript:(function()%7Blet%20isChartJsLoaded%20%3D%20false%3B%0A%0A%0Aconst%20escapeHTML%20%3D%20function(html)%20%7B%0A%20%20if(!trustedTypes)%20%7B%0A%20%20%20%20return%20html%3B%0A%20%20%7D%0A%20%20const%20policy%20%3D%20trustedTypes.createPolicy(%22forceInner%22%2C%20%7BcreateHTML%3A%20(to_escape)%20%3D%3E%20to_escape%7D)%3B%0A%20%20return%20policy.createHTML(html)%3B%0A%7D%3B%0A%0A%0Aconst%20escapeScript%20%3D%20function(script)%20%7B%0A%20%20if(!trustedTypes)%20%7B%0A%20%20%20%20return%20script%3B%0A%20%20%7D%0A%20%20const%20policy%20%3D%20trustedTypes.createPolicy(%22forceInner%22%2C%20%7BcreateScript%3A%20(to_escape)%20%3D%3E%20to_escape%7D)%3B%0A%20%20return%20policy.createScript(script)%3B%0A%7D%3B%0A%0A%0Aconst%20setInnerHTML%20%3D%20function(elm%2C%20html)%20%7B%0A%20%20elm.innerHTML%20%3D%20escapeHTML(html)%3B%0A%20%20Array.from(elm.querySelectorAll('script')).forEach(%20oldScript%20%3D%3E%20%7B%0A%20%20%20%20%20%20const%20newScript%20%3D%20document.createElement('script')%3B%0A%20%20%20%20%20%20Array.from(oldScript.attributes).forEach(%20attr%20%3D%3E%20newScript.setAttribute(attr.name%2C%20attr.value)%20)%3B%0A%20%20%20%20%20%20newScript.text%20%3D%20escapeScript(oldScript.innerHTML)%3B%0A%20%20%20%20%20%20oldScript.parentNode.replaceChild(newScript%2C%20oldScript)%3B%0A%20%20%7D)%3B%0A%7D%3B%0A%0A%0Aconst%20run%20%3D%20async%20function()%20%7B%0A%20%20if%20(!isChartJsLoaded)%20%7B%0A%20%20%20%20return%3B%0A%20%20%7D%0A%20%20const%20results_table_container%20%3D%20document.querySelector('bq-tab-content%3Anot(.cfc-hidden)%20bq-results-table')%3B%0A%20%20if%20(!results_table_container)%20%7B%0A%20%20%20%20return%3B%0A%20%20%7D%0A%20%20const%20cells%20%3D%20results_table_container.querySelectorAll('td%20div%3Anot(.cfc-flex-container)')%3B%0A%20%20if%20(cells.length%20!%3D%3D%201)%20%7B%0A%20%20%20%20return%3B%0A%20%20%7D%0A%20%20const%20cell%20%3D%20cells%5B0%5D%3B%0A%20%20const%20content%20%3D%20cell.innerText%3B%0A%20%20if%20(!content.startsWith(%22%3Chtml%22))%20%7B%0A%20%20%20%20return%3B%0A%20%20%7D%0A%20%20if%20(content.endsWith(%22...%22))%20%7B%0A%20%20%20%20cell.nextElementSibling.firstElementChild.click()%3B%0A%20%20%20%20return%3B%0A%20%20%7D%0A%20%20const%20html%20%3D%20%60%3Csection%20class%3D%22section%22%3E%24%7Bcontent%7D%3C%2Fsection%3E%60%0A%20%20setInnerHTML(results_table_container%2C%20html)%3B%0A%7D%3B%0A%0A%0Aconst%20loadBulmaCss%20%3D%20function()%20%7B%0A%20%20const%20bulma%20%3D%20document.createElement('link')%3B%0A%20%20bulma.setAttribute('rel'%2C%20'stylesheet')%3B%0A%20%20bulma.setAttribute('href'%2C%20'https%3A%2F%2Fcdn.jsdelivr.net%2Fnpm%2Fbulma%400.9.4%2Fcss%2Fbulma.min.css')%3B%0A%20%20document.head.appendChild(bulma)%3B%0A%7D%3B%0A%0A%0Aconst%20loadChartjs%20%3D%20function()%20%7B%0A%20%20fetch('https%3A%2F%2Fcdnjs.cloudflare.com%2Fajax%2Flibs%2FChart.js%2F3.9.1%2Fchart.min.js')%0A%20%20.then((response)%20%3D%3E%20response.text())%0A%20%20.then((text)%20%3D%3E%20%7B%0A%20%20%20%20const%20script%20%3D%20document.createElement('script')%3B%0A%20%20%20%20script.text%20%3D%20escapeScript(text)%3B%0A%20%20%20%20document.head.appendChild(script)%3B%0A%20%20%20%20isChartJsLoaded%20%3D%20true%3B%0A%20%20%7D)%3B%0A%7D%3B%0A%0A%0A%0A%0AloadBulmaCss()%3B%0AloadChartjs()%3B%0AsetInterval(run%2C%20100)%3B%7D)()%3B">bigfunctions</a> *(it has to be done only once)*
+    1. Install this bookmarklet: <a href="javascript:(function()%7Blet%20isChartJsLoaded%20%3D%20false%3B%0Alet%20isGoogleChartsLoaded%20%3D%20false%3B%0Alet%20isFunnelGraphJsLoaded%20%3D%20false%3B%0A%0A%0Awindow.escapeHTML%20%3D%20function(html)%20%7B%0A%20%20if(!trustedTypes)%20%7B%0A%20%20%20%20return%20html%3B%0A%20%20%7D%0A%20%20const%20policy%20%3D%20trustedTypes.createPolicy(%22forceInner%22%2C%20%7BcreateHTML%3A%20(to_escape)%20%3D%3E%20to_escape%7D)%3B%0A%20%20return%20policy.createHTML(html)%3B%0A%7D%3B%0A%0A%0Aconst%20escapeScript%20%3D%20function(script)%20%7B%0A%20%20if(!trustedTypes)%20%7B%0A%20%20%20%20return%20script%3B%0A%20%20%7D%0A%20%20const%20policy%20%3D%20trustedTypes.createPolicy(%22forceInner%22%2C%20%7BcreateScript%3A%20(to_escape)%20%3D%3E%20to_escape%7D)%3B%0A%20%20return%20policy.createScript(script)%3B%0A%7D%3B%0A%0A%0Aconst%20setInnerHTML%20%3D%20function(elm%2C%20html)%20%7B%0A%20%20elm.innerHTML%20%3D%20window.escapeHTML(html)%3B%0A%20%20Array.from(elm.querySelectorAll('script')).forEach(%20oldScript%20%3D%3E%20%7B%0A%20%20%20%20%20%20const%20newScript%20%3D%20document.createElement('script')%3B%0A%20%20%20%20%20%20Array.from(oldScript.attributes).forEach(%20attr%20%3D%3E%20newScript.setAttribute(attr.name%2C%20attr.value)%20)%3B%0A%20%20%20%20%20%20newScript.text%20%3D%20escapeScript(oldScript.innerHTML)%3B%0A%20%20%20%20%20%20oldScript.parentNode.replaceChild(newScript%2C%20oldScript)%3B%0A%20%20%7D)%3B%0A%7D%3B%0A%0A%0Aconst%20run%20%3D%20async%20function()%20%7B%0A%20%20if%20(!isChartJsLoaded%20%7C%7C%20!isGoogleChartsLoaded%20%7C%7C%20!isFunnelGraphJsLoaded)%20%7B%0A%20%20%20%20return%3B%0A%20%20%7D%0A%20%20const%20results_table_container%20%3D%20document.querySelector('bq-tab-content%3Anot(.cfc-hidden)%20bq-results-table')%3B%0A%20%20if%20(!results_table_container)%20%7B%0A%20%20%20%20return%3B%0A%20%20%7D%0A%20%20const%20cells%20%3D%20results_table_container.querySelectorAll('td%20div%3Anot(.cfc-flex-container)')%3B%0A%20%20if%20(cells.length%20!%3D%3D%201)%20%7B%0A%20%20%20%20return%3B%0A%20%20%7D%0A%20%20const%20cell%20%3D%20cells%5B0%5D%3B%0A%20%20const%20content%20%3D%20cell.innerText%3B%0A%20%20if%20(!content.startsWith(%22%3Chtml%22))%20%7B%0A%20%20%20%20return%3B%0A%20%20%7D%0A%20%20if%20(content.endsWith(%22...%22))%20%7B%0A%20%20%20%20cell.nextElementSibling.firstElementChild.click()%3B%0A%20%20%20%20return%3B%0A%20%20%7D%0A%20%20const%20html%20%3D%20%60%3Csection%20id%3D%22bf-container%22%20class%3D%22section%22%3E%24%7Bcontent%7D%3C%2Fsection%3E%60%0A%20%20setInnerHTML(results_table_container%2C%20html)%3B%0A%7D%3B%0A%0A%0Aconst%20loadBulmaCss%20%3D%20function()%20%7B%0A%20%20const%20bulma%20%3D%20document.createElement('link')%3B%0A%20%20bulma.setAttribute('rel'%2C%20'stylesheet')%3B%0A%20%20bulma.setAttribute('href'%2C%20'https%3A%2F%2Fcdn.jsdelivr.net%2Fnpm%2Fbulma%400.9.4%2Fcss%2Fbulma.min.css')%3B%0A%20%20document.head.appendChild(bulma)%3B%0A%7D%3B%0A%0A%0Aconst%20loadChartJs%20%3D%20function()%20%7B%0A%20%20fetch('https%3A%2F%2Fcdnjs.cloudflare.com%2Fajax%2Flibs%2FChart.js%2F3.9.1%2Fchart.min.js')%0A%20%20.then((response)%20%3D%3E%20response.text())%0A%20%20.then((text)%20%3D%3E%20%7B%0A%20%20%20%20const%20script%20%3D%20document.createElement('script')%3B%0A%20%20%20%20script.text%20%3D%20escapeScript(text)%3B%0A%20%20%20%20document.head.appendChild(script)%3B%0A%20%20%20%20isChartJsLoaded%20%3D%20true%3B%0A%20%20%7D)%3B%0A%7D%3B%0A%0A%0Aconst%20loadGoogleChart%20%3D%20function()%20%7B%0A%20%20fetch('https%3A%2F%2Fwww.gstatic.com%2Fcharts%2Floader.js')%0A%20%20.then((response)%20%3D%3E%20response.text())%0A%20%20.then((text)%20%3D%3E%20%7B%0A%20%20%20%20const%20script%20%3D%20document.createElement('script')%3B%0A%20%20%20%20script.text%20%3D%20escapeScript(text)%3B%0A%20%20%20%20document.head.appendChild(script)%3B%0A%20%20%20%20google.charts.load('current'%2C%20%7Bpackages%3A%20%5B'sankey'%5D%7D)%3B%0A%20%20%20%20google.charts.setOnLoadCallback(function()%20%7B%20isGoogleChartsLoaded%20%3D%20true%3B%20%7D)%3B%0A%20%20%7D)%3B%0A%7D%3B%0A%0A%0Aconst%20loadFunnelGraphJs%20%3D%20function()%20%7B%0A%20%20const%20css%20%3D%20document.createElement('link')%3B%0A%20%20css.setAttribute('rel'%2C%20'stylesheet')%3B%0A%20%20css.setAttribute('href'%2C%20'https%3A%2F%2Funpkg.com%2Ffunnel-graph-js%401.3.9%2Fdist%2Fcss%2Fmain.min.css')%3B%0A%20%20document.head.appendChild(css)%3B%0A%0A%20%20const%20css2%20%3D%20document.createElement('link')%3B%0A%20%20css2.setAttribute('rel'%2C%20'stylesheet')%3B%0A%20%20css2.setAttribute('href'%2C%20'https%3A%2F%2Funpkg.com%2Ffunnel-graph-js%401.3.9%2Fdist%2Fcss%2Ftheme.min.css')%3B%0A%20%20document.head.appendChild(css2)%3B%0A%0A%20%20fetch('https%3A%2F%2Funpkg.com%2Ffunnel-graph-js%401.3.9%2Fdist%2Fjs%2Ffunnel-graph.min.js')%0A%20%20.then((response)%20%3D%3E%20response.text())%0A%20%20.then((text)%20%3D%3E%20%7B%0A%20%20%20%20const%20regex%20%3D%20%2FinnerHTML%3D(%5Cw%2B)%2Fgi%3B%0A%20%20%20%20text%20%3D%20text.replace(regex%2C%20'innerHTML%3Dwindow.escapeHTML(%241)')%3B%0A%20%20%20%20console.log(text)%3B%0A%20%20%20%20const%20script%20%3D%20document.createElement('script')%3B%0A%20%20%20%20script.text%20%3D%20escapeScript(text)%3B%0A%20%20%20%20document.head.appendChild(script)%3B%0A%20%20%20%20isFunnelGraphJsLoaded%20%3D%20true%3B%0A%20%20%7D)%3B%0A%0A%0A%7D%0A%0AloadBulmaCss()%3B%0AloadFunnelGraphJs()%3B%0AloadChartJs()%3B%0AloadGoogleChart()%3B%0AsetInterval(run%2C%20100)%3B%7D)()%3B">bigfunctions</a> *(it has to be done only once)*
     2. Open BigQuery console
     3. Click on the installed bookmarklet.
         - From now on, the bookmarklet code will observe the BigQuery console page.
@@ -634,12 +661,16 @@ Show infos about dataset tables
 
 
 
+
+
 === "EU"
 
     ```sql
     call bigfunctions.eu.explore_dataset("bigfunctions.eu");
     select html from bigfunction_result;
     ```
+
+
 
 
 
@@ -652,12 +683,16 @@ Show infos about dataset tables
 
 
 
+
+
 === "europe-west1"
 
     ```sql
     call bigfunctions.europe_west1.explore_dataset("bigfunctions.europe_west1");
     select html from bigfunction_result;
     ```
+
+
 
 
 
@@ -708,7 +743,7 @@ Show table infos and column statistics
 
     **The result of this function can be vizualized as an html report directly in BigQuery Console!**
 
-    1. Install this bookmarklet: <a href="javascript:(function()%7Blet%20isChartJsLoaded%20%3D%20false%3B%0A%0A%0Aconst%20escapeHTML%20%3D%20function(html)%20%7B%0A%20%20if(!trustedTypes)%20%7B%0A%20%20%20%20return%20html%3B%0A%20%20%7D%0A%20%20const%20policy%20%3D%20trustedTypes.createPolicy(%22forceInner%22%2C%20%7BcreateHTML%3A%20(to_escape)%20%3D%3E%20to_escape%7D)%3B%0A%20%20return%20policy.createHTML(html)%3B%0A%7D%3B%0A%0A%0Aconst%20escapeScript%20%3D%20function(script)%20%7B%0A%20%20if(!trustedTypes)%20%7B%0A%20%20%20%20return%20script%3B%0A%20%20%7D%0A%20%20const%20policy%20%3D%20trustedTypes.createPolicy(%22forceInner%22%2C%20%7BcreateScript%3A%20(to_escape)%20%3D%3E%20to_escape%7D)%3B%0A%20%20return%20policy.createScript(script)%3B%0A%7D%3B%0A%0A%0Aconst%20setInnerHTML%20%3D%20function(elm%2C%20html)%20%7B%0A%20%20elm.innerHTML%20%3D%20escapeHTML(html)%3B%0A%20%20Array.from(elm.querySelectorAll('script')).forEach(%20oldScript%20%3D%3E%20%7B%0A%20%20%20%20%20%20const%20newScript%20%3D%20document.createElement('script')%3B%0A%20%20%20%20%20%20Array.from(oldScript.attributes).forEach(%20attr%20%3D%3E%20newScript.setAttribute(attr.name%2C%20attr.value)%20)%3B%0A%20%20%20%20%20%20newScript.text%20%3D%20escapeScript(oldScript.innerHTML)%3B%0A%20%20%20%20%20%20oldScript.parentNode.replaceChild(newScript%2C%20oldScript)%3B%0A%20%20%7D)%3B%0A%7D%3B%0A%0A%0Aconst%20run%20%3D%20async%20function()%20%7B%0A%20%20if%20(!isChartJsLoaded)%20%7B%0A%20%20%20%20return%3B%0A%20%20%7D%0A%20%20const%20results_table_container%20%3D%20document.querySelector('bq-tab-content%3Anot(.cfc-hidden)%20bq-results-table')%3B%0A%20%20if%20(!results_table_container)%20%7B%0A%20%20%20%20return%3B%0A%20%20%7D%0A%20%20const%20cells%20%3D%20results_table_container.querySelectorAll('td%20div%3Anot(.cfc-flex-container)')%3B%0A%20%20if%20(cells.length%20!%3D%3D%201)%20%7B%0A%20%20%20%20return%3B%0A%20%20%7D%0A%20%20const%20cell%20%3D%20cells%5B0%5D%3B%0A%20%20const%20content%20%3D%20cell.innerText%3B%0A%20%20if%20(!content.startsWith(%22%3Chtml%22))%20%7B%0A%20%20%20%20return%3B%0A%20%20%7D%0A%20%20if%20(content.endsWith(%22...%22))%20%7B%0A%20%20%20%20cell.nextElementSibling.firstElementChild.click()%3B%0A%20%20%20%20return%3B%0A%20%20%7D%0A%20%20const%20html%20%3D%20%60%3Csection%20class%3D%22section%22%3E%24%7Bcontent%7D%3C%2Fsection%3E%60%0A%20%20setInnerHTML(results_table_container%2C%20html)%3B%0A%7D%3B%0A%0A%0Aconst%20loadBulmaCss%20%3D%20function()%20%7B%0A%20%20const%20bulma%20%3D%20document.createElement('link')%3B%0A%20%20bulma.setAttribute('rel'%2C%20'stylesheet')%3B%0A%20%20bulma.setAttribute('href'%2C%20'https%3A%2F%2Fcdn.jsdelivr.net%2Fnpm%2Fbulma%400.9.4%2Fcss%2Fbulma.min.css')%3B%0A%20%20document.head.appendChild(bulma)%3B%0A%7D%3B%0A%0A%0Aconst%20loadChartjs%20%3D%20function()%20%7B%0A%20%20fetch('https%3A%2F%2Fcdnjs.cloudflare.com%2Fajax%2Flibs%2FChart.js%2F3.9.1%2Fchart.min.js')%0A%20%20.then((response)%20%3D%3E%20response.text())%0A%20%20.then((text)%20%3D%3E%20%7B%0A%20%20%20%20const%20script%20%3D%20document.createElement('script')%3B%0A%20%20%20%20script.text%20%3D%20escapeScript(text)%3B%0A%20%20%20%20document.head.appendChild(script)%3B%0A%20%20%20%20isChartJsLoaded%20%3D%20true%3B%0A%20%20%7D)%3B%0A%7D%3B%0A%0A%0A%0A%0AloadBulmaCss()%3B%0AloadChartjs()%3B%0AsetInterval(run%2C%20100)%3B%7D)()%3B">bigfunctions</a> *(it has to be done only once)*
+    1. Install this bookmarklet: <a href="javascript:(function()%7Blet%20isChartJsLoaded%20%3D%20false%3B%0Alet%20isGoogleChartsLoaded%20%3D%20false%3B%0Alet%20isFunnelGraphJsLoaded%20%3D%20false%3B%0A%0A%0Awindow.escapeHTML%20%3D%20function(html)%20%7B%0A%20%20if(!trustedTypes)%20%7B%0A%20%20%20%20return%20html%3B%0A%20%20%7D%0A%20%20const%20policy%20%3D%20trustedTypes.createPolicy(%22forceInner%22%2C%20%7BcreateHTML%3A%20(to_escape)%20%3D%3E%20to_escape%7D)%3B%0A%20%20return%20policy.createHTML(html)%3B%0A%7D%3B%0A%0A%0Aconst%20escapeScript%20%3D%20function(script)%20%7B%0A%20%20if(!trustedTypes)%20%7B%0A%20%20%20%20return%20script%3B%0A%20%20%7D%0A%20%20const%20policy%20%3D%20trustedTypes.createPolicy(%22forceInner%22%2C%20%7BcreateScript%3A%20(to_escape)%20%3D%3E%20to_escape%7D)%3B%0A%20%20return%20policy.createScript(script)%3B%0A%7D%3B%0A%0A%0Aconst%20setInnerHTML%20%3D%20function(elm%2C%20html)%20%7B%0A%20%20elm.innerHTML%20%3D%20window.escapeHTML(html)%3B%0A%20%20Array.from(elm.querySelectorAll('script')).forEach(%20oldScript%20%3D%3E%20%7B%0A%20%20%20%20%20%20const%20newScript%20%3D%20document.createElement('script')%3B%0A%20%20%20%20%20%20Array.from(oldScript.attributes).forEach(%20attr%20%3D%3E%20newScript.setAttribute(attr.name%2C%20attr.value)%20)%3B%0A%20%20%20%20%20%20newScript.text%20%3D%20escapeScript(oldScript.innerHTML)%3B%0A%20%20%20%20%20%20oldScript.parentNode.replaceChild(newScript%2C%20oldScript)%3B%0A%20%20%7D)%3B%0A%7D%3B%0A%0A%0Aconst%20run%20%3D%20async%20function()%20%7B%0A%20%20if%20(!isChartJsLoaded%20%7C%7C%20!isGoogleChartsLoaded%20%7C%7C%20!isFunnelGraphJsLoaded)%20%7B%0A%20%20%20%20return%3B%0A%20%20%7D%0A%20%20const%20results_table_container%20%3D%20document.querySelector('bq-tab-content%3Anot(.cfc-hidden)%20bq-results-table')%3B%0A%20%20if%20(!results_table_container)%20%7B%0A%20%20%20%20return%3B%0A%20%20%7D%0A%20%20const%20cells%20%3D%20results_table_container.querySelectorAll('td%20div%3Anot(.cfc-flex-container)')%3B%0A%20%20if%20(cells.length%20!%3D%3D%201)%20%7B%0A%20%20%20%20return%3B%0A%20%20%7D%0A%20%20const%20cell%20%3D%20cells%5B0%5D%3B%0A%20%20const%20content%20%3D%20cell.innerText%3B%0A%20%20if%20(!content.startsWith(%22%3Chtml%22))%20%7B%0A%20%20%20%20return%3B%0A%20%20%7D%0A%20%20if%20(content.endsWith(%22...%22))%20%7B%0A%20%20%20%20cell.nextElementSibling.firstElementChild.click()%3B%0A%20%20%20%20return%3B%0A%20%20%7D%0A%20%20const%20html%20%3D%20%60%3Csection%20id%3D%22bf-container%22%20class%3D%22section%22%3E%24%7Bcontent%7D%3C%2Fsection%3E%60%0A%20%20setInnerHTML(results_table_container%2C%20html)%3B%0A%7D%3B%0A%0A%0Aconst%20loadBulmaCss%20%3D%20function()%20%7B%0A%20%20const%20bulma%20%3D%20document.createElement('link')%3B%0A%20%20bulma.setAttribute('rel'%2C%20'stylesheet')%3B%0A%20%20bulma.setAttribute('href'%2C%20'https%3A%2F%2Fcdn.jsdelivr.net%2Fnpm%2Fbulma%400.9.4%2Fcss%2Fbulma.min.css')%3B%0A%20%20document.head.appendChild(bulma)%3B%0A%7D%3B%0A%0A%0Aconst%20loadChartJs%20%3D%20function()%20%7B%0A%20%20fetch('https%3A%2F%2Fcdnjs.cloudflare.com%2Fajax%2Flibs%2FChart.js%2F3.9.1%2Fchart.min.js')%0A%20%20.then((response)%20%3D%3E%20response.text())%0A%20%20.then((text)%20%3D%3E%20%7B%0A%20%20%20%20const%20script%20%3D%20document.createElement('script')%3B%0A%20%20%20%20script.text%20%3D%20escapeScript(text)%3B%0A%20%20%20%20document.head.appendChild(script)%3B%0A%20%20%20%20isChartJsLoaded%20%3D%20true%3B%0A%20%20%7D)%3B%0A%7D%3B%0A%0A%0Aconst%20loadGoogleChart%20%3D%20function()%20%7B%0A%20%20fetch('https%3A%2F%2Fwww.gstatic.com%2Fcharts%2Floader.js')%0A%20%20.then((response)%20%3D%3E%20response.text())%0A%20%20.then((text)%20%3D%3E%20%7B%0A%20%20%20%20const%20script%20%3D%20document.createElement('script')%3B%0A%20%20%20%20script.text%20%3D%20escapeScript(text)%3B%0A%20%20%20%20document.head.appendChild(script)%3B%0A%20%20%20%20google.charts.load('current'%2C%20%7Bpackages%3A%20%5B'sankey'%5D%7D)%3B%0A%20%20%20%20google.charts.setOnLoadCallback(function()%20%7B%20isGoogleChartsLoaded%20%3D%20true%3B%20%7D)%3B%0A%20%20%7D)%3B%0A%7D%3B%0A%0A%0Aconst%20loadFunnelGraphJs%20%3D%20function()%20%7B%0A%20%20const%20css%20%3D%20document.createElement('link')%3B%0A%20%20css.setAttribute('rel'%2C%20'stylesheet')%3B%0A%20%20css.setAttribute('href'%2C%20'https%3A%2F%2Funpkg.com%2Ffunnel-graph-js%401.3.9%2Fdist%2Fcss%2Fmain.min.css')%3B%0A%20%20document.head.appendChild(css)%3B%0A%0A%20%20const%20css2%20%3D%20document.createElement('link')%3B%0A%20%20css2.setAttribute('rel'%2C%20'stylesheet')%3B%0A%20%20css2.setAttribute('href'%2C%20'https%3A%2F%2Funpkg.com%2Ffunnel-graph-js%401.3.9%2Fdist%2Fcss%2Ftheme.min.css')%3B%0A%20%20document.head.appendChild(css2)%3B%0A%0A%20%20fetch('https%3A%2F%2Funpkg.com%2Ffunnel-graph-js%401.3.9%2Fdist%2Fjs%2Ffunnel-graph.min.js')%0A%20%20.then((response)%20%3D%3E%20response.text())%0A%20%20.then((text)%20%3D%3E%20%7B%0A%20%20%20%20const%20regex%20%3D%20%2FinnerHTML%3D(%5Cw%2B)%2Fgi%3B%0A%20%20%20%20text%20%3D%20text.replace(regex%2C%20'innerHTML%3Dwindow.escapeHTML(%241)')%3B%0A%20%20%20%20console.log(text)%3B%0A%20%20%20%20const%20script%20%3D%20document.createElement('script')%3B%0A%20%20%20%20script.text%20%3D%20escapeScript(text)%3B%0A%20%20%20%20document.head.appendChild(script)%3B%0A%20%20%20%20isFunnelGraphJsLoaded%20%3D%20true%3B%0A%20%20%7D)%3B%0A%0A%0A%7D%0A%0AloadBulmaCss()%3B%0AloadFunnelGraphJs()%3B%0AloadChartJs()%3B%0AloadGoogleChart()%3B%0AsetInterval(run%2C%20100)%3B%7D)()%3B">bigfunctions</a> *(it has to be done only once)*
     2. Open BigQuery console
     3. Click on the installed bookmarklet.
         - From now on, the bookmarklet code will observe the BigQuery console page.
@@ -734,12 +769,16 @@ Show table infos and column statistics
 
 
 
+
+
 === "EU"
 
     ```sql
     call bigfunctions.eu.explore_table("bigfunctions.eu.natality");
     select html from bigfunction_result;
     ```
+
+
 
 
 
@@ -752,12 +791,16 @@ Show table infos and column statistics
 
 
 
+
+
 === "europe-west1"
 
     ```sql
     call bigfunctions.europe_west1.explore_table("bigfunctions.europe_west1.natality");
     select html from bigfunction_result;
     ```
+
+
 
 
 
@@ -780,6 +823,114 @@ Show table infos and column statistics
 
 
 <a href="explore_column.png"><img alt="screenshot" src="explore_column.png" style="border: var(--md-code-bg-color) solid 1rem; margin-top: -1rem; width: 100%"></a>
+
+
+
+---
+
+
+
+
+### sankey_chart
+<div style="position: relative; top: -2rem; margin-bottom:  -2rem; text-align: right; z-index: 9999;">
+  
+  <a href="https://www.linkedin.com/in/paul-marcombes" title="Author: Paul Marcombes" target="_blank">
+    <img src="https://lh3.googleusercontent.com/a-/ACB-R5RDf2yxcw1p_IYLCKmiUIScreatDdhG8B83om6Ohw=s260" width="32" style=" border-radius: 50% !important">
+  </a>
+  
+  <a href="https://github.com/unytics/bigfunctions/blob/main/bigfunctions/sankey_chart.yaml" title="Edit on GitHub" target="_blank"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="#5d6cc0" d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg></a></div>
+```
+sankey_chart(data)
+```
+
+**Description**
+
+Return html with a Sankey Google chart
+
+??? example "See the result as a data visualization in BigQuery Console!"
+
+    **The result of this function can be vizualized as an html report directly in BigQuery Console!**
+
+    1. Install this bookmarklet: <a href="javascript:(function()%7Blet%20isChartJsLoaded%20%3D%20false%3B%0Alet%20isGoogleChartsLoaded%20%3D%20false%3B%0Alet%20isFunnelGraphJsLoaded%20%3D%20false%3B%0A%0A%0Awindow.escapeHTML%20%3D%20function(html)%20%7B%0A%20%20if(!trustedTypes)%20%7B%0A%20%20%20%20return%20html%3B%0A%20%20%7D%0A%20%20const%20policy%20%3D%20trustedTypes.createPolicy(%22forceInner%22%2C%20%7BcreateHTML%3A%20(to_escape)%20%3D%3E%20to_escape%7D)%3B%0A%20%20return%20policy.createHTML(html)%3B%0A%7D%3B%0A%0A%0Aconst%20escapeScript%20%3D%20function(script)%20%7B%0A%20%20if(!trustedTypes)%20%7B%0A%20%20%20%20return%20script%3B%0A%20%20%7D%0A%20%20const%20policy%20%3D%20trustedTypes.createPolicy(%22forceInner%22%2C%20%7BcreateScript%3A%20(to_escape)%20%3D%3E%20to_escape%7D)%3B%0A%20%20return%20policy.createScript(script)%3B%0A%7D%3B%0A%0A%0Aconst%20setInnerHTML%20%3D%20function(elm%2C%20html)%20%7B%0A%20%20elm.innerHTML%20%3D%20window.escapeHTML(html)%3B%0A%20%20Array.from(elm.querySelectorAll('script')).forEach(%20oldScript%20%3D%3E%20%7B%0A%20%20%20%20%20%20const%20newScript%20%3D%20document.createElement('script')%3B%0A%20%20%20%20%20%20Array.from(oldScript.attributes).forEach(%20attr%20%3D%3E%20newScript.setAttribute(attr.name%2C%20attr.value)%20)%3B%0A%20%20%20%20%20%20newScript.text%20%3D%20escapeScript(oldScript.innerHTML)%3B%0A%20%20%20%20%20%20oldScript.parentNode.replaceChild(newScript%2C%20oldScript)%3B%0A%20%20%7D)%3B%0A%7D%3B%0A%0A%0Aconst%20run%20%3D%20async%20function()%20%7B%0A%20%20if%20(!isChartJsLoaded%20%7C%7C%20!isGoogleChartsLoaded%20%7C%7C%20!isFunnelGraphJsLoaded)%20%7B%0A%20%20%20%20return%3B%0A%20%20%7D%0A%20%20const%20results_table_container%20%3D%20document.querySelector('bq-tab-content%3Anot(.cfc-hidden)%20bq-results-table')%3B%0A%20%20if%20(!results_table_container)%20%7B%0A%20%20%20%20return%3B%0A%20%20%7D%0A%20%20const%20cells%20%3D%20results_table_container.querySelectorAll('td%20div%3Anot(.cfc-flex-container)')%3B%0A%20%20if%20(cells.length%20!%3D%3D%201)%20%7B%0A%20%20%20%20return%3B%0A%20%20%7D%0A%20%20const%20cell%20%3D%20cells%5B0%5D%3B%0A%20%20const%20content%20%3D%20cell.innerText%3B%0A%20%20if%20(!content.startsWith(%22%3Chtml%22))%20%7B%0A%20%20%20%20return%3B%0A%20%20%7D%0A%20%20if%20(content.endsWith(%22...%22))%20%7B%0A%20%20%20%20cell.nextElementSibling.firstElementChild.click()%3B%0A%20%20%20%20return%3B%0A%20%20%7D%0A%20%20const%20html%20%3D%20%60%3Csection%20id%3D%22bf-container%22%20class%3D%22section%22%3E%24%7Bcontent%7D%3C%2Fsection%3E%60%0A%20%20setInnerHTML(results_table_container%2C%20html)%3B%0A%7D%3B%0A%0A%0Aconst%20loadBulmaCss%20%3D%20function()%20%7B%0A%20%20const%20bulma%20%3D%20document.createElement('link')%3B%0A%20%20bulma.setAttribute('rel'%2C%20'stylesheet')%3B%0A%20%20bulma.setAttribute('href'%2C%20'https%3A%2F%2Fcdn.jsdelivr.net%2Fnpm%2Fbulma%400.9.4%2Fcss%2Fbulma.min.css')%3B%0A%20%20document.head.appendChild(bulma)%3B%0A%7D%3B%0A%0A%0Aconst%20loadChartJs%20%3D%20function()%20%7B%0A%20%20fetch('https%3A%2F%2Fcdnjs.cloudflare.com%2Fajax%2Flibs%2FChart.js%2F3.9.1%2Fchart.min.js')%0A%20%20.then((response)%20%3D%3E%20response.text())%0A%20%20.then((text)%20%3D%3E%20%7B%0A%20%20%20%20const%20script%20%3D%20document.createElement('script')%3B%0A%20%20%20%20script.text%20%3D%20escapeScript(text)%3B%0A%20%20%20%20document.head.appendChild(script)%3B%0A%20%20%20%20isChartJsLoaded%20%3D%20true%3B%0A%20%20%7D)%3B%0A%7D%3B%0A%0A%0Aconst%20loadGoogleChart%20%3D%20function()%20%7B%0A%20%20fetch('https%3A%2F%2Fwww.gstatic.com%2Fcharts%2Floader.js')%0A%20%20.then((response)%20%3D%3E%20response.text())%0A%20%20.then((text)%20%3D%3E%20%7B%0A%20%20%20%20const%20script%20%3D%20document.createElement('script')%3B%0A%20%20%20%20script.text%20%3D%20escapeScript(text)%3B%0A%20%20%20%20document.head.appendChild(script)%3B%0A%20%20%20%20google.charts.load('current'%2C%20%7Bpackages%3A%20%5B'sankey'%5D%7D)%3B%0A%20%20%20%20google.charts.setOnLoadCallback(function()%20%7B%20isGoogleChartsLoaded%20%3D%20true%3B%20%7D)%3B%0A%20%20%7D)%3B%0A%7D%3B%0A%0A%0Aconst%20loadFunnelGraphJs%20%3D%20function()%20%7B%0A%20%20const%20css%20%3D%20document.createElement('link')%3B%0A%20%20css.setAttribute('rel'%2C%20'stylesheet')%3B%0A%20%20css.setAttribute('href'%2C%20'https%3A%2F%2Funpkg.com%2Ffunnel-graph-js%401.3.9%2Fdist%2Fcss%2Fmain.min.css')%3B%0A%20%20document.head.appendChild(css)%3B%0A%0A%20%20const%20css2%20%3D%20document.createElement('link')%3B%0A%20%20css2.setAttribute('rel'%2C%20'stylesheet')%3B%0A%20%20css2.setAttribute('href'%2C%20'https%3A%2F%2Funpkg.com%2Ffunnel-graph-js%401.3.9%2Fdist%2Fcss%2Ftheme.min.css')%3B%0A%20%20document.head.appendChild(css2)%3B%0A%0A%20%20fetch('https%3A%2F%2Funpkg.com%2Ffunnel-graph-js%401.3.9%2Fdist%2Fjs%2Ffunnel-graph.min.js')%0A%20%20.then((response)%20%3D%3E%20response.text())%0A%20%20.then((text)%20%3D%3E%20%7B%0A%20%20%20%20const%20regex%20%3D%20%2FinnerHTML%3D(%5Cw%2B)%2Fgi%3B%0A%20%20%20%20text%20%3D%20text.replace(regex%2C%20'innerHTML%3Dwindow.escapeHTML(%241)')%3B%0A%20%20%20%20console.log(text)%3B%0A%20%20%20%20const%20script%20%3D%20document.createElement('script')%3B%0A%20%20%20%20script.text%20%3D%20escapeScript(text)%3B%0A%20%20%20%20document.head.appendChild(script)%3B%0A%20%20%20%20isFunnelGraphJsLoaded%20%3D%20true%3B%0A%20%20%7D)%3B%0A%0A%0A%7D%0A%0AloadBulmaCss()%3B%0AloadFunnelGraphJs()%3B%0AloadChartJs()%3B%0AloadGoogleChart()%3B%0AsetInterval(run%2C%20100)%3B%7D)()%3B">bigfunctions</a> *(it has to be done only once)*
+    2. Open BigQuery console
+    3. Click on the installed bookmarklet.
+        - From now on, the bookmarklet code will observe the BigQuery console page.
+        - If a BigQuery result appears with a unique cell containing html content, it will be rendered.
+    4. You will have to click on the bookmarklet *again*:
+        - If you refresh the Bigquery console page,
+        - If you open the BigQuery console in a new tab of your browser.
+    5. Run the query of the example and open the result of the latest subquery. The result will be shown as a nice html content.
+
+    <br>
+
+    ![bookmarklet usage](/bigfunctions/site/assets/bookmarklet_usage.gif)
+
+
+**Examples**
+
+
+
+
+
+
+
+
+
+
+
+
+=== "EU"
+
+    ```sql
+    select bigfunctions.eu.sankey_chart([('event1', 'event2', 12), ('event1', 'event3', 12)]) as html
+    
+    ```
+
+
+
+
+
+=== "US"
+
+    ```sql
+    select bigfunctions.us.sankey_chart([('event1', 'event2', 12), ('event1', 'event3', 12)]) as html
+    
+    ```
+
+
+
+
+
+=== "europe-west1"
+
+    ```sql
+    select bigfunctions.europe_west1.sankey_chart([('event1', 'event2', 12), ('event1', 'event3', 12)]) as html
+    
+    ```
+
+
+
+
+
+=== "your-region2"
+
+    ```sql
+    select bigfunctions.your_region2.sankey_chart([('event1', 'event2', 12), ('event1', 'event3', 12)]) as html
+    
+    ```
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -850,6 +1001,8 @@ Default parameters are used for each model.
 
 
 
+
+
 === "EU"
 
     ```sql
@@ -861,6 +1014,8 @@ Default parameters are used for each model.
       , 'gemini-pro') as answer
     
     ```
+
+
 
 
 
@@ -878,6 +1033,8 @@ Default parameters are used for each model.
 
 
 
+
+
 === "europe-west1"
 
     ```sql
@@ -889,6 +1046,8 @@ Default parameters are used for each model.
       , 'gemini-pro') as answer
     
     ```
+
+
 
 
 
@@ -936,6 +1095,8 @@ Default parameters are used for each model.
 
 
 
+
+
 === "EU"
 
     ```sql
@@ -949,6 +1110,8 @@ Default parameters are used for each model.
       , 'code-bison@002') as answer
     
     ```
+
+
 
 
 
@@ -968,6 +1131,8 @@ Default parameters are used for each model.
 
 
 
+
+
 === "europe-west1"
 
     ```sql
@@ -981,6 +1146,8 @@ Default parameters are used for each model.
       , 'code-bison@002') as answer
     
     ```
+
+
 
 
 
@@ -1071,12 +1238,16 @@ Ask your data any `question` in natural language.
 
 
 
+
+
 === "EU"
 
     ```sql
     call bigfunctions.eu.ask_my_data('get the 3 products which generated the most revenue in 2023', 'bigfunctions.eu.sales');
     select * from bigfunction_result;
     ```
+
+
 
 
 
@@ -1089,12 +1260,16 @@ Ask your data any `question` in natural language.
 
 
 
+
+
 === "europe-west1"
 
     ```sql
     call bigfunctions.europe_west1.ask_my_data('get the 3 products which generated the most revenue in 2023', 'bigfunctions.europe_west1.sales');
     select * from bigfunction_result;
     ```
+
+
 
 
 
@@ -1182,12 +1357,16 @@ Transform `question` to a SQL query.
 
 
 
+
+
 === "EU"
 
     ```sql
     call bigfunctions.eu.generate_sql('get the 3 products which generated the most revenue in 2023', 'bigfunctions.eu.sales');
     select * from bigfunction_result;
     ```
+
+
 
 
 
@@ -1200,12 +1379,16 @@ Transform `question` to a SQL query.
 
 
 
+
+
 === "europe-west1"
 
     ```sql
     call bigfunctions.europe_west1.generate_sql('get the 3 products which generated the most revenue in 2023', 'bigfunctions.europe_west1.sales');
     select * from bigfunction_result;
     ```
+
+
 
 
 
@@ -1304,12 +1487,16 @@ This functions uses [yfinance python package](https://github.com/ranaroussi/yfin
 
 
 
+
+
 === "EU"
 
     ```sql
     select bigfunctions.eu.exchange_rate('USD', 'EUR') as exchange_rate
     
     ```
+
+
 
 
 
@@ -1322,12 +1509,16 @@ This functions uses [yfinance python package](https://github.com/ranaroussi/yfin
 
 
 
+
+
 === "europe-west1"
 
     ```sql
     select bigfunctions.europe_west1.exchange_rate('USD', 'EUR') as exchange_rate
     
     ```
+
+
 
 
 
@@ -1396,12 +1587,16 @@ Request `url`
 
 
 
+
+
 === "EU"
 
     ```sql
     select bigfunctions.eu.get('https://unytics.io/bigfunctions', null) as response
     
     ```
+
+
 
 
 
@@ -1414,12 +1609,16 @@ Request `url`
 
 
 
+
+
 === "europe-west1"
 
     ```sql
     select bigfunctions.europe_west1.get('https://unytics.io/bigfunctions', null) as response
     
     ```
+
+
 
 
 
@@ -1462,12 +1661,16 @@ Request `url`
 
 
 
+
+
 === "EU"
 
     ```sql
     select bigfunctions.eu.get('https://api.github.com/repos/unytics/bigfunctions', json '{"Content-Type": "application/json"}') as response
     
     ```
+
+
 
 
 
@@ -1480,12 +1683,16 @@ Request `url`
 
 
 
+
+
 === "europe-west1"
 
     ```sql
     select bigfunctions.europe_west1.get('https://api.github.com/repos/unytics/bigfunctions', json '{"Content-Type": "application/json"}') as response
     
     ```
+
+
 
 
 
@@ -1554,12 +1761,16 @@ GET json `data` from `url`
 
 
 
+
+
 === "EU"
 
     ```sql
     select bigfunctions.eu.get_json('https://api.github.com/repos/unytics/bigfunctions', null) as data
     
     ```
+
+
 
 
 
@@ -1572,12 +1783,16 @@ GET json `data` from `url`
 
 
 
+
+
 === "europe-west1"
 
     ```sql
     select bigfunctions.europe_west1.get_json('https://api.github.com/repos/unytics/bigfunctions', null) as data
     
     ```
+
+
 
 
 
@@ -1648,12 +1863,16 @@ for `latitude` , `longitude` and `date`
 
 
 
+
+
 === "EU"
 
     ```sql
     select bigfunctions.eu.get_meteo(52.52, 13.41, '2023-05-10') as meteo
     
     ```
+
+
 
 
 
@@ -1666,12 +1885,16 @@ for `latitude` , `longitude` and `date`
 
 
 
+
+
 === "europe-west1"
 
     ```sql
     select bigfunctions.europe_west1.get_meteo(52.52, 13.41, '2023-05-10') as meteo
     
     ```
+
+
 
 
 
@@ -1742,12 +1965,16 @@ Get webpage metadata
 
 
 
+
+
 === "EU"
 
     ```sql
     select bigfunctions.eu.get_webpage_metadata('https://apps.apple.com/fr/app/nickel-compte-pour-tous/id1119225763') as metadata
     
     ```
+
+
 
 
 
@@ -1760,12 +1987,16 @@ Get webpage metadata
 
 
 
+
+
 === "europe-west1"
 
     ```sql
     select bigfunctions.europe_west1.get_webpage_metadata('https://apps.apple.com/fr/app/nickel-compte-pour-tous/id1119225763') as metadata
     
     ```
+
+
 
 
 
@@ -1836,12 +2067,16 @@ that [Google shows in search results](https://developers.google.com/search/docs/
 
 
 
+
+
 === "EU"
 
     ```sql
     select bigfunctions.eu.get_webpage_structured_data('https://apps.apple.com/fr/app/nickel-compte-pour-tous/id1119225763') as structured_data
     
     ```
+
+
 
 
 
@@ -1854,12 +2089,16 @@ that [Google shows in search results](https://developers.google.com/search/docs/
 
 
 
+
+
 === "europe-west1"
 
     ```sql
     select bigfunctions.europe_west1.get_webpage_structured_data('https://apps.apple.com/fr/app/nickel-compte-pour-tous/id1119225763') as structured_data
     
     ```
+
+
 
 
 
@@ -1962,12 +2201,16 @@ using incoming webhook.
 
 
 
+
+
 === "EU"
 
     ```sql
     select bigfunctions.eu.send_google_chat_message("Hello 👋 from bigfunctions!", "YOUR_WEBHOOK_URL") as response
     
     ```
+
+
 
 
 
@@ -1980,12 +2223,16 @@ using incoming webhook.
 
 
 
+
+
 === "europe-west1"
 
     ```sql
     select bigfunctions.europe_west1.send_google_chat_message("Hello 👋 from bigfunctions!", "YOUR_WEBHOOK_URL") as response
     
     ```
+
+
 
 
 
@@ -2072,12 +2319,16 @@ to `to` email with `subject`, `content` and possible attachment (defined by `att
 
 
 
+
+
 === "EU"
 
     ```sql
     select bigfunctions.eu.send_mail('contact@unytics.io', 'I love BigFunctions', 'Hey Paul, could you deploy more BigFunctions 🙏?', null, null) as success
     
     ```
+
+
 
 
 
@@ -2090,12 +2341,16 @@ to `to` email with `subject`, `content` and possible attachment (defined by `att
 
 
 
+
+
 === "europe-west1"
 
     ```sql
     select bigfunctions.europe_west1.send_mail('contact@unytics.io', 'I love BigFunctions', 'Hey Paul, could you deploy more BigFunctions 🙏?', null, null) as success
     
     ```
+
+
 
 
 
@@ -2138,12 +2393,16 @@ to `to` email with `subject`, `content` and possible attachment (defined by `att
 
 
 
+
+
 === "EU"
 
     ```sql
     select bigfunctions.eu.send_mail('contact@unytics.io', 'I love BigFunctions', 'Hey Paul, could you deploy more BigFunctions 🙏?', 'report.csv', 'col1,col2\nval1,val2\nval3,val4') as success
     
     ```
+
+
 
 
 
@@ -2156,12 +2415,16 @@ to `to` email with `subject`, `content` and possible attachment (defined by `att
 
 
 
+
+
 === "europe-west1"
 
     ```sql
     select bigfunctions.europe_west1.send_mail('contact@unytics.io', 'I love BigFunctions', 'Hey Paul, could you deploy more BigFunctions 🙏?', 'report.csv', 'col1,col2\nval1,val2\nval3,val4') as success
     
     ```
+
+
 
 
 
@@ -2204,12 +2467,16 @@ to `to` email with `subject`, `content` and possible attachment (defined by `att
 
 
 
+
+
 === "EU"
 
     ```sql
     select bigfunctions.eu.send_mail('contact@unytics.io', 'I love BigFunctions', 'Hey Paul, could you deploy more BigFunctions 🙏?', 'report.xlsx', (select bigfunctions.eu.json2excel('[{"col1": "val1", "col2": "val2"}, {"col1": "val3", "col2": "val4"}]'))) as success
     
     ```
+
+
 
 
 
@@ -2222,12 +2489,16 @@ to `to` email with `subject`, `content` and possible attachment (defined by `att
 
 
 
+
+
 === "europe-west1"
 
     ```sql
     select bigfunctions.europe_west1.send_mail('contact@unytics.io', 'I love BigFunctions', 'Hey Paul, could you deploy more BigFunctions 🙏?', 'report.xlsx', (select bigfunctions.europe_west1.json2excel('[{"col1": "val1", "col2": "val2"}, {"col1": "val3", "col2": "val4"}]'))) as success
     
     ```
+
+
 
 
 
@@ -2308,6 +2579,8 @@ Sends an email with `table_or_view_or_query` data attached as excel file
 
 
 
+
+
 === "EU"
 
     ```sql
@@ -2327,6 +2600,8 @@ Sends an email with `table_or_view_or_query` data attached as excel file
       'bigfunctions.eu.sales');
     
     ```
+
+
 
 
 
@@ -2352,6 +2627,8 @@ Sends an email with `table_or_view_or_query` data attached as excel file
 
 
 
+
+
 === "europe-west1"
 
     ```sql
@@ -2371,6 +2648,8 @@ Sends an email with `table_or_view_or_query` data attached as excel file
       'bigfunctions.europe_west1.sales');
     
     ```
+
+
 
 
 
@@ -2444,12 +2723,16 @@ Sends `message` to a slack channel.
 
 
 
+
+
 === "EU"
 
     ```sql
     select bigfunctions.eu.send_slack_message("Hello 👋 from bigfunctions!", "YOUR_WEBHOOK_URL") as response
     
     ```
+
+
 
 
 
@@ -2462,12 +2745,16 @@ Sends `message` to a slack channel.
 
 
 
+
+
 === "europe-west1"
 
     ```sql
     select bigfunctions.europe_west1.send_slack_message("Hello 👋 from bigfunctions!", "YOUR_WEBHOOK_URL") as response
     
     ```
+
+
 
 
 
@@ -2536,12 +2823,16 @@ Sends `message` via SMS to `phone_number`
 
 
 
+
+
 === "EU"
 
     ```sql
     select bigfunctions.eu.send_sms("Hello 👋 from bigfunctions!", "+33xxxxxxxxx") as response
     
     ```
+
+
 
 
 
@@ -2554,12 +2845,16 @@ Sends `message` via SMS to `phone_number`
 
 
 
+
+
 === "europe-west1"
 
     ```sql
     select bigfunctions.europe_west1.send_sms("Hello 👋 from bigfunctions!", "+33xxxxxxxxx") as response
     
     ```
+
+
 
 
 
@@ -2635,12 +2930,16 @@ Sends `message` to a Microsoft Teams channel.
 
 
 
+
+
 === "EU"
 
     ```sql
     select bigfunctions.eu.send_teams_message("Hello 👋 from bigfunctions!", "YOUR_WEBHOOK_URL") as response
     
     ```
+
+
 
 
 
@@ -2653,12 +2952,16 @@ Sends `message` to a Microsoft Teams channel.
 
 
 
+
+
 === "europe-west1"
 
     ```sql
     select bigfunctions.europe_west1.send_teams_message("Hello 👋 from bigfunctions!", "YOUR_WEBHOOK_URL") as response
     
     ```
+
+
 
 
 
@@ -2758,12 +3061,16 @@ Exports `data` to Datastore
 
 
 
+
+
 === "EU"
 
     ```sql
     select bigfunctions.eu.export_to_datastore('your-project', null, 'user', null, json '{"name": "Marc Harris", "email": "marc@harris.com"}') as key
     
     ```
+
+
 
 
 
@@ -2776,12 +3083,16 @@ Exports `data` to Datastore
 
 
 
+
+
 === "europe-west1"
 
     ```sql
     select bigfunctions.europe_west1.export_to_datastore('your-project', null, 'user', null, json '{"name": "Marc Harris", "email": "marc@harris.com"}') as key
     
     ```
+
+
 
 
 
@@ -2824,12 +3135,16 @@ Exports `data` to Datastore
 
 
 
+
+
 === "EU"
 
     ```sql
     select bigfunctions.eu.export_to_datastore('your-project', null, 'user', 'marc@harris.com', json '{"name": "Marc Harris"}') as key
     
     ```
+
+
 
 
 
@@ -2842,12 +3157,16 @@ Exports `data` to Datastore
 
 
 
+
+
 === "europe-west1"
 
     ```sql
     select bigfunctions.europe_west1.export_to_datastore('your-project', null, 'user', 'marc@harris.com', json '{"name": "Marc Harris"}') as key
     
     ```
+
+
 
 
 
@@ -2919,12 +3238,16 @@ Exports `data` and `attributes` to Pub/Sub `topic`.
 
 
 
+
+
 === "EU"
 
     ```sql
     select bigfunctions.eu.export_to_pubsub('your-project', 'your_topic', 'Your message data', '{"attribute1": "value1", "attribute2": "value2"}') as published_message_id
     
     ```
+
+
 
 
 
@@ -2937,12 +3260,16 @@ Exports `data` and `attributes` to Pub/Sub `topic`.
 
 
 
+
+
 === "europe-west1"
 
     ```sql
     select bigfunctions.europe_west1.export_to_pubsub('your-project', 'your_topic', 'Your message data', '{"attribute1": "value1", "attribute2": "value2"}') as published_message_id
     
     ```
+
+
 
 
 
@@ -3013,12 +3340,16 @@ POST `data` to `url`.
 
 
 
+
+
 === "EU"
 
     ```sql
     select bigfunctions.eu.post('https://httpbin.org/post', json '{"hello": "world"}', null) as response
     
     ```
+
+
 
 
 
@@ -3031,12 +3362,16 @@ POST `data` to `url`.
 
 
 
+
+
 === "europe-west1"
 
     ```sql
     select bigfunctions.europe_west1.post('https://httpbin.org/post', json '{"hello": "world"}', null) as response
     
     ```
+
+
 
 
 
@@ -3119,6 +3454,8 @@ Upload data from `table_or_view_or_query` to Google Sheet
 
 
 
+
+
 === "EU"
 
     ```sql
@@ -3130,6 +3467,8 @@ Upload data from `table_or_view_or_query` to Google Sheet
       'write_truncate');
     
     ```
+
+
 
 
 
@@ -3147,6 +3486,8 @@ Upload data from `table_or_view_or_query` to Google Sheet
 
 
 
+
+
 === "europe-west1"
 
     ```sql
@@ -3158,6 +3499,8 @@ Upload data from `table_or_view_or_query` to Google Sheet
       'write_truncate');
     
     ```
+
+
 
 
 
@@ -3194,6 +3537,8 @@ Upload data from `table_or_view_or_query` to Google Sheet
 
 
 
+
+
 === "EU"
 
     ```sql
@@ -3205,6 +3550,8 @@ Upload data from `table_or_view_or_query` to Google Sheet
       'write_truncate');
     
     ```
+
+
 
 
 
@@ -3222,6 +3569,8 @@ Upload data from `table_or_view_or_query` to Google Sheet
 
 
 
+
+
 === "europe-west1"
 
     ```sql
@@ -3233,6 +3582,8 @@ Upload data from `table_or_view_or_query` to Google Sheet
       'write_truncate');
     
     ```
+
+
 
 
 
@@ -3305,12 +3656,16 @@ in `write_mode`.
 
 
 
+
+
 === "EU"
 
     ```sql
     select bigfunctions.eu.upload_to_gsheet(json '[{"col1": "row1", "col2": 1}, {"col1": "row2", "col2": 2}]', "https://docs.google.com/spreadsheets/d/xxxxxxxxx", "my worksheet", "write_truncate") as result
     
     ```
+
+
 
 
 
@@ -3323,12 +3678,16 @@ in `write_mode`.
 
 
 
+
+
 === "europe-west1"
 
     ```sql
     select bigfunctions.europe_west1.upload_to_gsheet(json '[{"col1": "row1", "col2": 1}, {"col1": "row2", "col2": 2}]', "https://docs.google.com/spreadsheets/d/xxxxxxxxx", "my worksheet", "write_truncate") as result
     
     ```
+
+
 
 
 
@@ -3418,12 +3777,16 @@ to handle a safe divide of the two numbers as well as your desired level of roun
 
 
 
+
+
 === "EU"
 
     ```sql
     select bigfunctions.eu.format_percentage(1, 3, 2) as formatted_percentage
     
     ```
+
+
 
 
 
@@ -3436,12 +3799,16 @@ to handle a safe divide of the two numbers as well as your desired level of roun
 
 
 
+
+
 === "europe-west1"
 
     ```sql
     select bigfunctions.europe_west1.format_percentage(1, 3, 2) as formatted_percentage
     
     ```
+
+
 
 
 
@@ -3512,12 +3879,16 @@ with bins defined by their `bin_bounds`.
 
 
 
+
+
 === "EU"
 
     ```sql
     select bigfunctions.eu.quantize_into_bins(-4, [0, 1, 5, 10]) as bin_range
     
     ```
+
+
 
 
 
@@ -3530,12 +3901,16 @@ with bins defined by their `bin_bounds`.
 
 
 
+
+
 === "europe-west1"
 
     ```sql
     select bigfunctions.europe_west1.quantize_into_bins(-4, [0, 1, 5, 10]) as bin_range
     
     ```
+
+
 
 
 
@@ -3578,12 +3953,16 @@ with bins defined by their `bin_bounds`.
 
 
 
+
+
 === "EU"
 
     ```sql
     select bigfunctions.eu.quantize_into_bins(3, [0, 1, 5, 10]) as bin_range
     
     ```
+
+
 
 
 
@@ -3596,12 +3975,16 @@ with bins defined by their `bin_bounds`.
 
 
 
+
+
 === "europe-west1"
 
     ```sql
     select bigfunctions.europe_west1.quantize_into_bins(3, [0, 1, 5, 10]) as bin_range
     
     ```
+
+
 
 
 
@@ -3644,12 +4027,16 @@ with bins defined by their `bin_bounds`.
 
 
 
+
+
 === "EU"
 
     ```sql
     select bigfunctions.eu.quantize_into_bins(9, [0, 1, 5, 10]) as bin_range
     
     ```
+
+
 
 
 
@@ -3662,12 +4049,16 @@ with bins defined by their `bin_bounds`.
 
 
 
+
+
 === "europe-west1"
 
     ```sql
     select bigfunctions.europe_west1.quantize_into_bins(9, [0, 1, 5, 10]) as bin_range
     
     ```
+
+
 
 
 
@@ -3710,12 +4101,16 @@ with bins defined by their `bin_bounds`.
 
 
 
+
+
 === "EU"
 
     ```sql
     select bigfunctions.eu.quantize_into_bins(130, [0, 1, 5, 10]) as bin_range
     
     ```
+
+
 
 
 
@@ -3728,12 +4123,16 @@ with bins defined by their `bin_bounds`.
 
 
 
+
+
 === "europe-west1"
 
     ```sql
     select bigfunctions.europe_west1.quantize_into_bins(130, [0, 1, 5, 10]) as bin_range
     
     ```
+
+
 
 
 
@@ -3804,12 +4203,16 @@ with bins defined so that there are `nb_bins` bins of same width between `min_bo
 
 
 
+
+
 === "EU"
 
     ```sql
     select bigfunctions.eu.quantize_into_fixed_width_bins(-4, 0, 100, 10) as bin_range
     
     ```
+
+
 
 
 
@@ -3822,12 +4225,16 @@ with bins defined so that there are `nb_bins` bins of same width between `min_bo
 
 
 
+
+
 === "europe-west1"
 
     ```sql
     select bigfunctions.europe_west1.quantize_into_fixed_width_bins(-4, 0, 100, 10) as bin_range
     
     ```
+
+
 
 
 
@@ -3870,12 +4277,16 @@ with bins defined so that there are `nb_bins` bins of same width between `min_bo
 
 
 
+
+
 === "EU"
 
     ```sql
     select bigfunctions.eu.quantize_into_fixed_width_bins(5, 0, 100, 10) as bin_range
     
     ```
+
+
 
 
 
@@ -3888,12 +4299,16 @@ with bins defined so that there are `nb_bins` bins of same width between `min_bo
 
 
 
+
+
 === "europe-west1"
 
     ```sql
     select bigfunctions.europe_west1.quantize_into_fixed_width_bins(5, 0, 100, 10) as bin_range
     
     ```
+
+
 
 
 
@@ -3936,12 +4351,16 @@ with bins defined so that there are `nb_bins` bins of same width between `min_bo
 
 
 
+
+
 === "EU"
 
     ```sql
     select bigfunctions.eu.quantize_into_fixed_width_bins(97, 0, 100, 10) as bin_range
     
     ```
+
+
 
 
 
@@ -3954,12 +4373,16 @@ with bins defined so that there are `nb_bins` bins of same width between `min_bo
 
 
 
+
+
 === "europe-west1"
 
     ```sql
     select bigfunctions.europe_west1.quantize_into_fixed_width_bins(97, 0, 100, 10) as bin_range
     
     ```
+
+
 
 
 
@@ -4002,12 +4425,16 @@ with bins defined so that there are `nb_bins` bins of same width between `min_bo
 
 
 
+
+
 === "EU"
 
     ```sql
     select bigfunctions.eu.quantize_into_fixed_width_bins(130, 0, 100, 10) as bin_range
     
     ```
+
+
 
 
 
@@ -4020,12 +4447,16 @@ with bins defined so that there are `nb_bins` bins of same width between `min_bo
 
 
 
+
+
 === "europe-west1"
 
     ```sql
     select bigfunctions.europe_west1.quantize_into_fixed_width_bins(130, 0, 100, 10) as bin_range
     
     ```
+
+
 
 
 
@@ -4113,12 +4544,16 @@ Replace all non ASCII characters with escape unicode
 
 
 
+
+
 === "EU"
 
     ```sql
     select bigfunctions.eu.convert_non_ascii_characters_to_unicode_escape_sequences('SCHÜMANN') as text_unicode_escaped
     
     ```
+
+
 
 
 
@@ -4131,12 +4566,16 @@ Replace all non ASCII characters with escape unicode
 
 
 
+
+
 === "europe-west1"
 
     ```sql
     select bigfunctions.europe_west1.convert_non_ascii_characters_to_unicode_escape_sequences('SCHÜMANN') as text_unicode_escaped
     
     ```
+
+
 
 
 
@@ -4211,12 +4650,16 @@ using [Cloud Data Loss Prevention](https://cloud.google.com/dlp)
 
 
 
+
+
 === "EU"
 
     ```sql
     select bigfunctions.eu.deidentify("My email is shivam@google.co.in", "PHONE_NUMBER, EMAIL_ADDRESS") as masked_info
     
     ```
+
+
 
 
 
@@ -4229,12 +4672,16 @@ using [Cloud Data Loss Prevention](https://cloud.google.com/dlp)
 
 
 
+
+
 === "europe-west1"
 
     ```sql
     select bigfunctions.europe_west1.deidentify("My email is shivam@google.co.in", "PHONE_NUMBER, EMAIL_ADDRESS") as masked_info
     
     ```
+
+
 
 
 
@@ -4277,12 +4724,16 @@ using [Cloud Data Loss Prevention](https://cloud.google.com/dlp)
 
 
 
+
+
 === "EU"
 
     ```sql
     select bigfunctions.eu.deidentify("My phone number is 0123456789", "PHONE_NUMBER, email_address") as masked_info
     
     ```
+
+
 
 
 
@@ -4295,12 +4746,16 @@ using [Cloud Data Loss Prevention](https://cloud.google.com/dlp)
 
 
 
+
+
 === "europe-west1"
 
     ```sql
     select bigfunctions.europe_west1.deidentify("My phone number is 0123456789", "PHONE_NUMBER, email_address") as masked_info
     
     ```
+
+
 
 
 
@@ -4343,12 +4798,16 @@ using [Cloud Data Loss Prevention](https://cloud.google.com/dlp)
 
 
 
+
+
 === "EU"
 
     ```sql
     select bigfunctions.eu.deidentify("My email is shivam@google.co.in", null) as masked_info
     
     ```
+
+
 
 
 
@@ -4361,12 +4820,16 @@ using [Cloud Data Loss Prevention](https://cloud.google.com/dlp)
 
 
 
+
+
 === "europe-west1"
 
     ```sql
     select bigfunctions.europe_west1.deidentify("My email is shivam@google.co.in", null) as masked_info
     
     ```
+
+
 
 
 
@@ -4437,12 +4900,16 @@ using [Cloud Data Loss Prevention](https://cloud.google.com/dlp)
 
 
 
+
+
 === "EU"
 
     ```sql
     select bigfunctions.eu.detect_sensitive_info("My email is shivam@google.co.in") as sensitive_info
     
     ```
+
+
 
 
 
@@ -4455,12 +4922,16 @@ using [Cloud Data Loss Prevention](https://cloud.google.com/dlp)
 
 
 
+
+
 === "europe-west1"
 
     ```sql
     select bigfunctions.europe_west1.detect_sensitive_info("My email is shivam@google.co.in") as sensitive_info
     
     ```
+
+
 
 
 
@@ -4503,12 +4974,16 @@ using [Cloud Data Loss Prevention](https://cloud.google.com/dlp)
 
 
 
+
+
 === "EU"
 
     ```sql
     select bigfunctions.eu.detect_sensitive_info("My phone number is 0123456789") as sensitive_info
     
     ```
+
+
 
 
 
@@ -4521,12 +4996,16 @@ using [Cloud Data Loss Prevention](https://cloud.google.com/dlp)
 
 
 
+
+
 === "europe-west1"
 
     ```sql
     select bigfunctions.europe_west1.detect_sensitive_info("My phone number is 0123456789") as sensitive_info
     
     ```
+
+
 
 
 
@@ -4602,12 +5081,16 @@ of type `what` and localized with `locale` parameter (using [faker python librar
 
 
 
+
+
 === "EU"
 
     ```sql
     select bigfunctions.eu.faker("name", "it_IT") as fake_data
     
     ```
+
+
 
 
 
@@ -4620,12 +5103,16 @@ of type `what` and localized with `locale` parameter (using [faker python librar
 
 
 
+
+
 === "europe-west1"
 
     ```sql
     select bigfunctions.europe_west1.faker("name", "it_IT") as fake_data
     
     ```
+
+
 
 
 
@@ -4668,12 +5155,16 @@ of type `what` and localized with `locale` parameter (using [faker python librar
 
 
 
+
+
 === "EU"
 
     ```sql
     select bigfunctions.eu.faker("ipv4_private", null) as fake_data
     
     ```
+
+
 
 
 
@@ -4686,12 +5177,16 @@ of type `what` and localized with `locale` parameter (using [faker python librar
 
 
 
+
+
 === "europe-west1"
 
     ```sql
     select bigfunctions.europe_west1.faker("ipv4_private", null) as fake_data
     
     ```
+
+
 
 
 
@@ -4716,6 +5211,113 @@ of type `what` and localized with `locale` parameter (using [faker python librar
 +---------------+
 | 10.52.207.187 |
 +---------------+
+</code>
+</pre>
+
+
+
+
+
+
+
+
+
+
+---
+
+
+
+
+### ip2asn
+<div style="position: relative; top: -2rem; margin-bottom:  -2rem; text-align: right; z-index: 9999;">
+  
+  <a href="https://www.linkedin.com/in/paul-marcombes" title="Author: Paul Marcombes" target="_blank">
+    <img src="https://lh3.googleusercontent.com/a-/ACB-R5RDf2yxcw1p_IYLCKmiUIScreatDdhG8B83om6Ohw=s260" width="32" style=" border-radius: 50% !important">
+  </a>
+  
+  <a href="https://github.com/unytics/bigfunctions/blob/main/bigfunctions/ip2asn.yaml" title="Edit on GitHub" target="_blank"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="#5d6cc0" d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg></a></div>
+```
+ip2asn(ip)
+```
+
+**Description**
+
+Get `asn` of `ip`
+
+> This functions uses IP address data powered by [IPinfo](https://ipinfo.io)
+> and released under [Creative Commons Attribution-ShareAlike 4.0 International License](https://creativecommons.org/licenses/by-sa/4.0/).
+> You are required to attribute IPinfo to use their free datasets.
+> The attribution requirements can be met by giving their service credit as your data source.
+> Simply place a link to IPinfo on the website, application, or social media account that uses their data.
+
+
+**Examples**
+
+
+
+
+
+
+
+
+
+
+
+
+=== "EU"
+
+    ```sql
+    select bigfunctions.eu.ip2asn('152.216.7.110') as asn
+    
+    ```
+
+
+
+
+
+=== "US"
+
+    ```sql
+    select bigfunctions.us.ip2asn('152.216.7.110') as asn
+    
+    ```
+
+
+
+
+
+=== "europe-west1"
+
+    ```sql
+    select bigfunctions.europe_west1.ip2asn('152.216.7.110') as asn
+    
+    ```
+
+
+
+
+
+=== "your-region2"
+
+    ```sql
+    select bigfunctions.your_region2.ip2asn('152.216.7.110') as asn
+    
+    ```
+
+
+
+
+
+
+
+
+
+<pre style="margin-top: -1rem;">
+<code style="padding-top: 0px; padding-bottom: 0px;">+------------------------------------------------------------------------+
+| asn                                                                    |
++------------------------------------------------------------------------+
+| {&#34;asn&#34;:&#34;AS30313&#34;,&#34;domain&#34;:&#34;irs.gov&#34;,&#34;name&#34;:&#34;Internal Revenue Service&#34;} |
++------------------------------------------------------------------------+
 </code>
 </pre>
 
@@ -4767,12 +5369,16 @@ Get `continent_code` of `ip`
 
 
 
+
+
 === "EU"
 
     ```sql
     select bigfunctions.eu.ip2continent('152.216.7.110') as continent_code
     
     ```
+
+
 
 
 
@@ -4785,12 +5391,16 @@ Get `continent_code` of `ip`
 
 
 
+
+
 === "europe-west1"
 
     ```sql
     select bigfunctions.europe_west1.ip2continent('152.216.7.110') as continent_code
     
     ```
+
+
 
 
 
@@ -4866,12 +5476,16 @@ Get `continent` of `ip`
 
 
 
+
+
 === "EU"
 
     ```sql
     select bigfunctions.eu.ip2continent_name('152.216.7.110') as continent
     
     ```
+
+
 
 
 
@@ -4884,12 +5498,16 @@ Get `continent` of `ip`
 
 
 
+
+
 === "europe-west1"
 
     ```sql
     select bigfunctions.europe_west1.ip2continent_name('152.216.7.110') as continent
     
     ```
+
+
 
 
 
@@ -4965,12 +5583,16 @@ Get `country_code` of `ip`
 
 
 
+
+
 === "EU"
 
     ```sql
     select bigfunctions.eu.ip2country('152.216.7.110') as country_code
     
     ```
+
+
 
 
 
@@ -4983,12 +5605,16 @@ Get `country_code` of `ip`
 
 
 
+
+
 === "europe-west1"
 
     ```sql
     select bigfunctions.europe_west1.ip2country('152.216.7.110') as country_code
     
     ```
+
+
 
 
 
@@ -5064,12 +5690,16 @@ Get `country_name` of `ip`
 
 
 
+
+
 === "EU"
 
     ```sql
     select bigfunctions.eu.ip2country_name('152.216.7.110') as country_name
     
     ```
+
+
 
 
 
@@ -5082,12 +5712,16 @@ Get `country_name` of `ip`
 
 
 
+
+
 === "europe-west1"
 
     ```sql
     select bigfunctions.europe_west1.ip2country_name('152.216.7.110') as country_name
     
     ```
+
+
 
 
 
@@ -5158,12 +5792,16 @@ Convert an IP range into a json list of IP networks in CIDR notation
 
 
 
+
+
 === "EU"
 
     ```sql
     select bigfunctions.eu.ip_range2ip_networks('1.0.0.0', '1.0.0.255') as ip_networks
     
     ```
+
+
 
 
 
@@ -5176,12 +5814,16 @@ Convert an IP range into a json list of IP networks in CIDR notation
 
 
 
+
+
 === "europe-west1"
 
     ```sql
     select bigfunctions.europe_west1.ip_range2ip_networks('1.0.0.0', '1.0.0.255') as ip_networks
     
     ```
+
+
 
 
 
@@ -5224,12 +5866,16 @@ Convert an IP range into a json list of IP networks in CIDR notation
 
 
 
+
+
 === "EU"
 
     ```sql
     select bigfunctions.eu.ip_range2ip_networks('192.0.2.1', '192.0.2.15') as ip_networks
     
     ```
+
+
 
 
 
@@ -5242,12 +5888,16 @@ Convert an IP range into a json list of IP networks in CIDR notation
 
 
 
+
+
 === "europe-west1"
 
     ```sql
     select bigfunctions.europe_west1.ip_range2ip_networks('192.0.2.1', '192.0.2.15') as ip_networks
     
     ```
+
+
 
 
 
@@ -5317,12 +5967,16 @@ Return true if `email` is valid
 
 
 
+
+
 === "EU"
 
     ```sql
     select bigfunctions.eu.is_email_valid('paul.marcombes@unytics.io') as is_email_valid
     
     ```
+
+
 
 
 
@@ -5335,12 +5989,16 @@ Return true if `email` is valid
 
 
 
+
+
 === "europe-west1"
 
     ```sql
     select bigfunctions.europe_west1.is_email_valid('paul.marcombes@unytics.io') as is_email_valid
     
     ```
+
+
 
 
 
@@ -5383,12 +6041,16 @@ Return true if `email` is valid
 
 
 
+
+
 === "EU"
 
     ```sql
     select bigfunctions.eu.is_email_valid('paul/marcombes@example.com') as is_email_valid
     
     ```
+
+
 
 
 
@@ -5401,12 +6063,16 @@ Return true if `email` is valid
 
 
 
+
+
 === "europe-west1"
 
     ```sql
     select bigfunctions.europe_west1.is_email_valid('paul/marcombes@example.com') as is_email_valid
     
     ```
+
+
 
 
 
@@ -5449,12 +6115,16 @@ Return true if `email` is valid
 
 
 
+
+
 === "EU"
 
     ```sql
     select bigfunctions.eu.is_email_valid('paul.marcombes@example.con') as is_email_valid
     
     ```
+
+
 
 
 
@@ -5467,12 +6137,16 @@ Return true if `email` is valid
 
 
 
+
+
 === "europe-west1"
 
     ```sql
     select bigfunctions.europe_west1.is_email_valid('paul.marcombes@example.con') as is_email_valid
     
     ```
+
+
 
 
 
@@ -5547,12 +6221,16 @@ Argument `options` can be `null` or must be a json with the following keys:
 
 
 
+
+
 === "EU"
 
     ```sql
     select bigfunctions.eu.is_phone_number_valid('+33123456789', null) as is_valid
     
     ```
+
+
 
 
 
@@ -5565,12 +6243,16 @@ Argument `options` can be `null` or must be a json with the following keys:
 
 
 
+
+
 === "europe-west1"
 
     ```sql
     select bigfunctions.europe_west1.is_phone_number_valid('+33123456789', null) as is_valid
     
     ```
+
+
 
 
 
@@ -5613,12 +6295,16 @@ Argument `options` can be `null` or must be a json with the following keys:
 
 
 
+
+
 === "EU"
 
     ```sql
     select bigfunctions.eu.is_phone_number_valid('0123456789', json '{"defaultCountry": "FR"}') as is_valid
     
     ```
+
+
 
 
 
@@ -5631,12 +6317,16 @@ Argument `options` can be `null` or must be a json with the following keys:
 
 
 
+
+
 === "europe-west1"
 
     ```sql
     select bigfunctions.europe_west1.is_phone_number_valid('0123456789', json '{"defaultCountry": "FR"}') as is_valid
     
     ```
+
+
 
 
 
@@ -5679,12 +6369,16 @@ Argument `options` can be `null` or must be a json with the following keys:
 
 
 
+
+
 === "EU"
 
     ```sql
     select bigfunctions.eu.is_phone_number_valid('Hello!', null) as is_valid
     
     ```
+
+
 
 
 
@@ -5697,12 +6391,16 @@ Argument `options` can be `null` or must be a json with the following keys:
 
 
 
+
+
 === "europe-west1"
 
     ```sql
     select bigfunctions.europe_west1.is_phone_number_valid('Hello!', null) as is_valid
     
     ```
+
+
 
 
 
@@ -5745,12 +6443,16 @@ Argument `options` can be `null` or must be a json with the following keys:
 
 
 
+
+
 === "EU"
 
     ```sql
     select bigfunctions.eu.is_phone_number_valid('Hello +33123456789 !', null) as is_valid
     
     ```
+
+
 
 
 
@@ -5763,12 +6465,16 @@ Argument `options` can be `null` or must be a json with the following keys:
 
 
 
+
+
 === "europe-west1"
 
     ```sql
     select bigfunctions.europe_west1.is_phone_number_valid('Hello +33123456789 !', null) as is_valid
     
     ```
+
+
 
 
 
@@ -5811,12 +6517,16 @@ Argument `options` can be `null` or must be a json with the following keys:
 
 
 
+
+
 === "EU"
 
     ```sql
     select bigfunctions.eu.is_phone_number_valid('Hello +33123456789 !', json '{"extract": false}') as is_valid
     
     ```
+
+
 
 
 
@@ -5829,12 +6539,16 @@ Argument `options` can be `null` or must be a json with the following keys:
 
 
 
+
+
 === "europe-west1"
 
     ```sql
     select bigfunctions.europe_west1.is_phone_number_valid('Hello +33123456789 !', json '{"extract": false}') as is_valid
     
     ```
+
+
 
 
 
@@ -5903,12 +6617,16 @@ Compute levenshtein distance between `string1` and `string2`
 
 
 
+
+
 === "EU"
 
     ```sql
     select bigfunctions.eu.levenshtein('bak', 'book') as distance
     
     ```
+
+
 
 
 
@@ -5921,12 +6639,16 @@ Compute levenshtein distance between `string1` and `string2`
 
 
 
+
+
 === "europe-west1"
 
     ```sql
     select bigfunctions.europe_west1.levenshtein('bak', 'book') as distance
     
     ```
+
+
 
 
 
@@ -5996,12 +6718,16 @@ Return `url` parts
 
 
 
+
+
 === "EU"
 
     ```sql
     select bigfunctions.eu.parse_url('https://www.yoursite.com/pricing/details?myparam1=123&myparam2=abc#newsfeed') as url_parts
     
     ```
+
+
 
 
 
@@ -6014,12 +6740,16 @@ Return `url` parts
 
 
 
+
+
 === "europe-west1"
 
     ```sql
     select bigfunctions.europe_west1.parse_url('https://www.yoursite.com/pricing/details?myparam1=123&myparam2=abc#newsfeed') as url_parts
     
     ```
+
+
 
 
 
@@ -6088,12 +6818,16 @@ Parses User Agent strings into several components
 
 
 
+
+
 === "EU"
 
     ```sql
     select bigfunctions.eu.parse_user_agent('Mozilla/5.0 (Linux; Android 12; SM-S906N Build/QP1A.190711.020; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/80.0.3987.119 Mobile Safari/537.36') as parsed_user_agent
     
     ```
+
+
 
 
 
@@ -6106,12 +6840,16 @@ Parses User Agent strings into several components
 
 
 
+
+
 === "europe-west1"
 
     ```sql
     select bigfunctions.europe_west1.parse_user_agent('Mozilla/5.0 (Linux; Android 12; SM-S906N Build/QP1A.190711.020; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/80.0.3987.119 Mobile Safari/537.36') as parsed_user_agent
     
     ```
+
+
 
 
 
@@ -6192,12 +6930,16 @@ Argument `options` can be `null` or must be a json with the following keys:
 
 
 
+
+
 === "EU"
 
     ```sql
     select bigfunctions.eu.phone_number_info('+33123456789', null) as info
     
     ```
+
+
 
 
 
@@ -6210,12 +6952,16 @@ Argument `options` can be `null` or must be a json with the following keys:
 
 
 
+
+
 === "europe-west1"
 
     ```sql
     select bigfunctions.europe_west1.phone_number_info('+33123456789', null) as info
     
     ```
+
+
 
 
 
@@ -6273,12 +7019,16 @@ Argument `options` can be `null` or must be a json with the following keys:
 
 
 
+
+
 === "EU"
 
     ```sql
     select bigfunctions.eu.phone_number_info('0123456789', json '{"defaultCountry": "FR"}') as info
     
     ```
+
+
 
 
 
@@ -6291,12 +7041,16 @@ Argument `options` can be `null` or must be a json with the following keys:
 
 
 
+
+
 === "europe-west1"
 
     ```sql
     select bigfunctions.europe_west1.phone_number_info('0123456789', json '{"defaultCountry": "FR"}') as info
     
     ```
+
+
 
 
 
@@ -6354,12 +7108,16 @@ Argument `options` can be `null` or must be a json with the following keys:
 
 
 
+
+
 === "EU"
 
     ```sql
     select bigfunctions.eu.phone_number_info('Hello!', null) as info
     
     ```
+
+
 
 
 
@@ -6372,12 +7130,16 @@ Argument `options` can be `null` or must be a json with the following keys:
 
 
 
+
+
 === "europe-west1"
 
     ```sql
     select bigfunctions.europe_west1.phone_number_info('Hello!', null) as info
     
     ```
+
+
 
 
 
@@ -6435,12 +7197,16 @@ Argument `options` can be `null` or must be a json with the following keys:
 
 
 
+
+
 === "EU"
 
     ```sql
     select bigfunctions.eu.phone_number_info('Hello +33123456789 !', null) as info
     
     ```
+
+
 
 
 
@@ -6453,12 +7219,16 @@ Argument `options` can be `null` or must be a json with the following keys:
 
 
 
+
+
 === "europe-west1"
 
     ```sql
     select bigfunctions.europe_west1.phone_number_info('Hello +33123456789 !', null) as info
     
     ```
+
+
 
 
 
@@ -6516,12 +7286,16 @@ Argument `options` can be `null` or must be a json with the following keys:
 
 
 
+
+
 === "EU"
 
     ```sql
     select bigfunctions.eu.phone_number_info('Hello +33123456789 !', json '{"extract": false}') as info
     
     ```
+
+
 
 
 
@@ -6534,12 +7308,16 @@ Argument `options` can be `null` or must be a json with the following keys:
 
 
 
+
+
 === "europe-west1"
 
     ```sql
     select bigfunctions.europe_west1.phone_number_info('Hello +33123456789 !', json '{"extract": false}') as info
     
     ```
+
+
 
 
 
@@ -6623,12 +7401,16 @@ Remove accents
 
 
 
+
+
 === "EU"
 
     ```sql
     select bigfunctions.eu.remove_accents('Voilà !') as cleaned_string
     
     ```
+
+
 
 
 
@@ -6641,12 +7423,16 @@ Remove accents
 
 
 
+
+
 === "europe-west1"
 
     ```sql
     select bigfunctions.europe_west1.remove_accents('Voilà !') as cleaned_string
     
     ```
+
+
 
 
 
@@ -6716,12 +7502,16 @@ Remove unwanted whitespaces
 
 
 
+
+
 === "EU"
 
     ```sql
     select bigfunctions.eu.remove_extra_whitespaces('Hi   Madison  and Mateusz!\n How are you doing?') as cleaned_string
     
     ```
+
+
 
 
 
@@ -6734,12 +7524,16 @@ Remove unwanted whitespaces
 
 
 
+
+
 === "europe-west1"
 
     ```sql
     select bigfunctions.europe_west1.remove_extra_whitespaces('Hi   Madison  and Mateusz!\n How are you doing?') as cleaned_string
     
     ```
+
+
 
 
 
@@ -6808,12 +7602,16 @@ Remove any string of `strings_to_remove` from `string`
 
 
 
+
+
 === "EU"
 
     ```sql
     select bigfunctions.eu.remove_strings('I can eat candies', ['can', 'eat']) as cleaned_string
     
     ```
+
+
 
 
 
@@ -6826,12 +7624,16 @@ Remove any string of `strings_to_remove` from `string`
 
 
 
+
+
 === "europe-west1"
 
     ```sql
     select bigfunctions.europe_west1.remove_strings('I can eat candies', ['can', 'eat']) as cleaned_string
     
     ```
+
+
 
 
 
@@ -6900,12 +7702,16 @@ Remove any word of `words_to_remove` from `string`
 
 
 
+
+
 === "EU"
 
     ```sql
     select bigfunctions.eu.remove_words('I can eat candies', ['can', 'eat']) as cleaned_string
     
     ```
+
+
 
 
 
@@ -6918,12 +7724,16 @@ Remove any word of `words_to_remove` from `string`
 
 
 
+
+
 === "europe-west1"
 
     ```sql
     select bigfunctions.europe_west1.remove_words('I can eat candies', ['can', 'eat']) as cleaned_string
     
     ```
+
+
 
 
 
@@ -6992,12 +7802,16 @@ Render template with context using nunjucks.js templating library
 
 
 
+
+
 === "EU"
 
     ```sql
     select bigfunctions.eu.render_template('Hello {{ user }}', json '{"user": "James"}') as rendered_content
     
     ```
+
+
 
 
 
@@ -7010,12 +7824,16 @@ Render template with context using nunjucks.js templating library
 
 
 
+
+
 === "europe-west1"
 
     ```sql
     select bigfunctions.europe_west1.render_template('Hello {{ user }}', json '{"user": "James"}') as rendered_content
     
     ```
+
+
 
 
 
@@ -7084,12 +7902,16 @@ Replace most common special characters in a `string` with `replacement`
 
 
 
+
+
 === "EU"
 
     ```sql
     select bigfunctions.eu.replace_special_characters('%♥!Hello!*♥#', '') as cleaned_string
     
     ```
+
+
 
 
 
@@ -7102,12 +7924,16 @@ Replace most common special characters in a `string` with `replacement`
 
 
 
+
+
 === "europe-west1"
 
     ```sql
     select bigfunctions.europe_west1.replace_special_characters('%♥!Hello!*♥#', '') as cleaned_string
     
     ```
+
+
 
 
 
@@ -7176,12 +8002,16 @@ Translate `text` into `target_language`
 
 
 
+
+
 === "EU"
 
     ```sql
     select bigfunctions.eu.translate("Salut 👋 Florian. Merci d'avoir contribué !", 'en') as translated_text
     
     ```
+
+
 
 
 
@@ -7194,12 +8024,16 @@ Translate `text` into `target_language`
 
 
 
+
+
 === "europe-west1"
 
     ```sql
     select bigfunctions.europe_west1.translate("Salut 👋 Florian. Merci d'avoir contribué !", 'en') as translated_text
     
     ```
+
+
 
 
 
@@ -7269,12 +8103,16 @@ Decode `url_encoded_string`
 
 
 
+
+
 === "EU"
 
     ```sql
     select bigfunctions.eu.url_decode('http%3A%2F%2Fwww.example.com%2Fhello%3Fv%3D12345') as string
     
     ```
+
+
 
 
 
@@ -7287,12 +8125,16 @@ Decode `url_encoded_string`
 
 
 
+
+
 === "europe-west1"
 
     ```sql
     select bigfunctions.europe_west1.url_decode('http%3A%2F%2Fwww.example.com%2Fhello%3Fv%3D12345') as string
     
     ```
+
+
 
 
 
@@ -7361,12 +8203,16 @@ Returns content extracted from XML from given XPATH
 
 
 
+
+
 === "EU"
 
     ```sql
     select bigfunctions.eu.xml_extract("<customer><name>John Doe</name></customer>", "/customer/name") as extracted_value
     
     ```
+
+
 
 
 
@@ -7379,12 +8225,16 @@ Returns content extracted from XML from given XPATH
 
 
 
+
+
 === "europe-west1"
 
     ```sql
     select bigfunctions.europe_west1.xml_extract("<customer><name>John Doe</name></customer>", "/customer/name") as extracted_value
     
     ```
+
+
 
 
 
@@ -7427,12 +8277,16 @@ Returns content extracted from XML from given XPATH
 
 
 
+
+
 === "EU"
 
     ```sql
     select bigfunctions.eu.xml_extract("<customer><name>John Doe</name><name>Jane Doe</name></customer>", "/customer/name") as extracted_value
     
     ```
+
+
 
 
 
@@ -7445,12 +8299,16 @@ Returns content extracted from XML from given XPATH
 
 
 
+
+
 === "europe-west1"
 
     ```sql
     select bigfunctions.europe_west1.xml_extract("<customer><name>John Doe</name><name>Jane Doe</name></customer>", "/customer/name") as extracted_value
     
     ```
+
+
 
 
 
@@ -7493,12 +8351,16 @@ Returns content extracted from XML from given XPATH
 
 
 
+
+
 === "EU"
 
     ```sql
     select bigfunctions.eu.xml_extract("<customer><name>John Doe</name></customer>", "/customer/na") as extracted_value
     
     ```
+
+
 
 
 
@@ -7511,12 +8373,16 @@ Returns content extracted from XML from given XPATH
 
 
 
+
+
 === "europe-west1"
 
     ```sql
     select bigfunctions.europe_west1.xml_extract("<customer><name>John Doe</name></customer>", "/customer/na") as extracted_value
     
     ```
+
+
 
 
 
@@ -7604,12 +8470,16 @@ Get `address` details from Google Maps
 
 
 
+
+
 === "EU"
 
     ```sql
     select bigfunctions.eu.geocode('1 rue des champs elysees, Paris') as address_details
     
     ```
+
+
 
 
 
@@ -7622,12 +8492,16 @@ Get `address` details from Google Maps
 
 
 
+
+
 === "europe-west1"
 
     ```sql
     select bigfunctions.europe_west1.geocode('1 rue des champs elysees, Paris') as address_details
     
     ```
+
+
 
 
 
@@ -7712,12 +8586,16 @@ Wrapper around [Uber H3](https://github.com/uber/h3-js)
 
 
 
+
+
 === "EU"
 
     ```sql
     select bigfunctions.eu.h3('latLngToCell', json '[37.3615593, -122.0553238, 7]') as result
     
     ```
+
+
 
 
 
@@ -7730,12 +8608,16 @@ Wrapper around [Uber H3](https://github.com/uber/h3-js)
 
 
 
+
+
 === "europe-west1"
 
     ```sql
     select bigfunctions.europe_west1.h3('latLngToCell', json '[37.3615593, -122.0553238, 7]') as result
     
     ```
+
+
 
 
 
@@ -7806,12 +8688,16 @@ using Google Maps
 
 
 
+
+
 === "EU"
 
     ```sql
     select bigfunctions.eu.reverse_geocode(48.86988770000001, 2.3079341) as address_details
     
     ```
+
+
 
 
 
@@ -7824,12 +8710,16 @@ using Google Maps
 
 
 
+
+
 === "europe-west1"
 
     ```sql
     select bigfunctions.europe_west1.reverse_geocode(48.86988770000001, 2.3079341) as address_details
     
     ```
+
+
 
 
 
@@ -7912,12 +8802,16 @@ Validate `address` using Google Maps
 
 
 
+
+
 === "EU"
 
     ```sql
     select bigfunctions.eu.validate_address('1 Avenue des Champs-Élysées, 75008 Paris, France') as validation_result
     
     ```
+
+
 
 
 
@@ -7930,12 +8824,16 @@ Validate `address` using Google Maps
 
 
 
+
+
 === "europe-west1"
 
     ```sql
     select bigfunctions.europe_west1.validate_address('1 Avenue des Champs-Élysées, 75008 Paris, France') as validation_result
     
     ```
+
+
 
 
 
@@ -7990,12 +8888,16 @@ Validate `address` using Google Maps
 
 
 
+
+
 === "EU"
 
     ```sql
     select bigfunctions.eu.validate_address('1 Avenue des Champs-Élysées, 75008 Paris, France') as validation_result
     
     ```
+
+
 
 
 
@@ -8008,12 +8910,16 @@ Validate `address` using Google Maps
 
 
 
+
+
 === "europe-west1"
 
     ```sql
     select bigfunctions.europe_west1.validate_address('1 Avenue des Champs-Élysées, 75008 Paris, France') as validation_result
     
     ```
+
+
 
 
 
@@ -8079,12 +8985,16 @@ Validate `address` using Google Maps
 
 
 
+
+
 === "EU"
 
     ```sql
     select bigfunctions.eu.validate_address('Avenue des Champs-Élysées, 75008 Paris, France') as validation_result
     
     ```
+
+
 
 
 
@@ -8097,12 +9007,16 @@ Validate `address` using Google Maps
 
 
 
+
+
 === "europe-west1"
 
     ```sql
     select bigfunctions.europe_west1.validate_address('Avenue des Champs-Élysées, 75008 Paris, France') as validation_result
     
     ```
+
+
 
 
 
@@ -8210,12 +9124,16 @@ Returns same day `years` before
 
 
 
+
+
 === "EU"
 
     ```sql
     select bigfunctions.eu.date_sub_isoyear('2023-06-02', 3) as substracted_date
     
     ```
+
+
 
 
 
@@ -8228,12 +9146,16 @@ Returns same day `years` before
 
 
 
+
+
 === "europe-west1"
 
     ```sql
     select bigfunctions.europe_west1.date_sub_isoyear('2023-06-02', 3) as substracted_date
     
     ```
+
+
 
 
 
@@ -8302,12 +9224,16 @@ Generate a table of dates
 
 
 
+
+
 === "EU"
 
     ```sql
     select * from bigfunctions.eu.generate_dates(date('2023-01-01'), date('2023-01-05'))
     
     ```
+
+
 
 
 
@@ -8320,12 +9246,16 @@ Generate a table of dates
 
 
 
+
+
 === "europe-west1"
 
     ```sql
     select * from bigfunctions.europe_west1.generate_dates(date('2023-01-01'), date('2023-01-05'))
     
     ```
+
+
 
 
 
@@ -8405,12 +9335,16 @@ Return true if `date` corresponds to a public holiday in `country_code`
 
 
 
+
+
 === "EU"
 
     ```sql
     select bigfunctions.eu.is_public_holiday(date('2022-07-14'), 'FR') as is_public_holiday
     
     ```
+
+
 
 
 
@@ -8423,12 +9357,16 @@ Return true if `date` corresponds to a public holiday in `country_code`
 
 
 
+
+
 === "europe-west1"
 
     ```sql
     select bigfunctions.europe_west1.is_public_holiday(date('2022-07-14'), 'FR') as is_public_holiday
     
     ```
+
+
 
 
 
@@ -8498,12 +9436,16 @@ Parse date with automatic format detection
 
 
 
+
+
 === "EU"
 
     ```sql
     select bigfunctions.eu.parse_date('2021-01-20 ') as cleaned_date
     
     ```
+
+
 
 
 
@@ -8516,12 +9458,16 @@ Parse date with automatic format detection
 
 
 
+
+
 === "europe-west1"
 
     ```sql
     select bigfunctions.europe_west1.parse_date('2021-01-20 ') as cleaned_date
     
     ```
+
+
 
 
 
@@ -8564,12 +9510,16 @@ Parse date with automatic format detection
 
 
 
+
+
 === "EU"
 
     ```sql
     select bigfunctions.eu.parse_date('2021-1-20 ') as cleaned_date
     
     ```
+
+
 
 
 
@@ -8582,12 +9532,16 @@ Parse date with automatic format detection
 
 
 
+
+
 === "europe-west1"
 
     ```sql
     select bigfunctions.europe_west1.parse_date('2021-1-20 ') as cleaned_date
     
     ```
+
+
 
 
 
@@ -8630,12 +9584,16 @@ Parse date with automatic format detection
 
 
 
+
+
 === "EU"
 
     ```sql
     select bigfunctions.eu.parse_date('2021/01/20 ') as cleaned_date
     
     ```
+
+
 
 
 
@@ -8648,12 +9606,16 @@ Parse date with automatic format detection
 
 
 
+
+
 === "europe-west1"
 
     ```sql
     select bigfunctions.europe_west1.parse_date('2021/01/20 ') as cleaned_date
     
     ```
+
+
 
 
 
@@ -8696,12 +9658,16 @@ Parse date with automatic format detection
 
 
 
+
+
 === "EU"
 
     ```sql
     select bigfunctions.eu.parse_date('2021/1/20 ') as cleaned_date
     
     ```
+
+
 
 
 
@@ -8714,12 +9680,16 @@ Parse date with automatic format detection
 
 
 
+
+
 === "europe-west1"
 
     ```sql
     select bigfunctions.europe_west1.parse_date('2021/1/20 ') as cleaned_date
     
     ```
+
+
 
 
 
@@ -8762,12 +9732,16 @@ Parse date with automatic format detection
 
 
 
+
+
 === "EU"
 
     ```sql
     select bigfunctions.eu.parse_date('01/20/21') as cleaned_date
     
     ```
+
+
 
 
 
@@ -8780,12 +9754,16 @@ Parse date with automatic format detection
 
 
 
+
+
 === "europe-west1"
 
     ```sql
     select bigfunctions.europe_west1.parse_date('01/20/21') as cleaned_date
     
     ```
+
+
 
 
 
@@ -8828,12 +9806,16 @@ Parse date with automatic format detection
 
 
 
+
+
 === "EU"
 
     ```sql
     select bigfunctions.eu.parse_date('1/20/21') as cleaned_date
     
     ```
+
+
 
 
 
@@ -8846,12 +9828,16 @@ Parse date with automatic format detection
 
 
 
+
+
 === "europe-west1"
 
     ```sql
     select bigfunctions.europe_west1.parse_date('1/20/21') as cleaned_date
     
     ```
+
+
 
 
 
@@ -8894,12 +9880,16 @@ Parse date with automatic format detection
 
 
 
+
+
 === "EU"
 
     ```sql
     select bigfunctions.eu.parse_date('Wed Jan 20 21:47:00 2021') as cleaned_date
     
     ```
+
+
 
 
 
@@ -8912,12 +9902,16 @@ Parse date with automatic format detection
 
 
 
+
+
 === "europe-west1"
 
     ```sql
     select bigfunctions.europe_west1.parse_date('Wed Jan 20 21:47:00 2021') as cleaned_date
     
     ```
+
+
 
 
 
@@ -8990,12 +9984,16 @@ in targeted `language`
 
 
 
+
+
 === "EU"
 
     ```sql
     select bigfunctions.eu.translated_month_name('2022-05-01', 'es') as translated_month_name
     
     ```
+
+
 
 
 
@@ -9008,12 +10006,16 @@ in targeted `language`
 
 
 
+
+
 === "europe-west1"
 
     ```sql
     select bigfunctions.europe_west1.translated_month_name('2022-05-01', 'es') as translated_month_name
     
     ```
+
+
 
 
 
@@ -9086,12 +10088,16 @@ in targeted `language`
 
 
 
+
+
 === "EU"
 
     ```sql
     select bigfunctions.eu.translated_weekday_name('2023-06-02', 'fr') as translated_weekday_name
     
     ```
+
+
 
 
 
@@ -9104,12 +10110,16 @@ in targeted `language`
 
 
 
+
+
 === "europe-west1"
 
     ```sql
     select bigfunctions.europe_west1.translated_weekday_name('2023-06-02', 'fr') as translated_weekday_name
     
     ```
+
+
 
 
 
@@ -9199,12 +10209,16 @@ which is a `array<struct<key string, value string>>`.
 
 
 
+
+
 === "EU"
 
     ```sql
     select bigfunctions.eu.items2json([('a', 'foo'), ('b': 'bar')]) as json
     
     ```
+
+
 
 
 
@@ -9217,12 +10231,16 @@ which is a `array<struct<key string, value string>>`.
 
 
 
+
+
 === "europe-west1"
 
     ```sql
     select bigfunctions.europe_west1.items2json([('a', 'foo'), ('b': 'bar')]) as json
     
     ```
+
+
 
 
 
@@ -9265,12 +10283,16 @@ which is a `array<struct<key string, value string>>`.
 
 
 
+
+
 === "EU"
 
     ```sql
     select bigfunctions.eu.items2json([struct('a' as value, 'foo' as key), struct('b' as one, 'bar' as two)]) as json
     
     ```
+
+
 
 
 
@@ -9283,12 +10305,16 @@ which is a `array<struct<key string, value string>>`.
 
 
 
+
+
 === "europe-west1"
 
     ```sql
     select bigfunctions.europe_west1.items2json([struct('a' as value, 'foo' as key), struct('b' as one, 'bar' as two)]) as json
     
     ```
+
+
 
 
 
@@ -9360,12 +10386,16 @@ Return `key_value_items` as `array< struct<key string, value string> >`
 
 
 
+
+
 === "EU"
 
     ```sql
     select bigfunctions.eu.json_items('{"created_at": "2022-01-01", "user": "sidali"}') as key_value_items
     
     ```
+
+
 
 
 
@@ -9378,12 +10408,16 @@ Return `key_value_items` as `array< struct<key string, value string> >`
 
 
 
+
+
 === "europe-west1"
 
     ```sql
     select bigfunctions.europe_west1.json_items('{"created_at": "2022-01-01", "user": "sidali"}') as key_value_items
     
     ```
+
+
 
 
 
@@ -9459,12 +10493,16 @@ Return `keys` as an `array<string>`
 
 
 
+
+
 === "EU"
 
     ```sql
     select bigfunctions.eu.json_keys('{"created_at": "2022-01-01", "user": "sidali"}') as keys
     
     ```
+
+
 
 
 
@@ -9477,12 +10515,16 @@ Return `keys` as an `array<string>`
 
 
 
+
+
 === "europe-west1"
 
     ```sql
     select bigfunctions.europe_west1.json_keys('{"created_at": "2022-01-01", "user": "sidali"}') as keys
     
     ```
+
+
 
 
 
@@ -9551,12 +10593,16 @@ Merge `json_string1` and `json_string2`
 
 
 
+
+
 === "EU"
 
     ```sql
     select bigfunctions.eu.json_merge('{"k1": "v1"}', '{"k2": "v2"}') as merged_json
     
     ```
+
+
 
 
 
@@ -9569,12 +10615,16 @@ Merge `json_string1` and `json_string2`
 
 
 
+
+
 === "europe-west1"
 
     ```sql
     select bigfunctions.europe_west1.json_merge('{"k1": "v1"}', '{"k2": "v2"}') as merged_json
     
     ```
+
+
 
 
 
@@ -9650,12 +10700,16 @@ offered by [JMESPath](https://jmespath.org/).
 
 
 
+
+
 === "EU"
 
     ```sql
     select bigfunctions.eu.json_query('{"foo": [{"first": "a"}, {"first": "c"}]}', 'foo') as result
     
     ```
+
+
 
 
 
@@ -9668,12 +10722,16 @@ offered by [JMESPath](https://jmespath.org/).
 
 
 
+
+
 === "europe-west1"
 
     ```sql
     select bigfunctions.europe_west1.json_query('{"foo": [{"first": "a"}, {"first": "c"}]}', 'foo') as result
     
     ```
+
+
 
 
 
@@ -9716,12 +10774,16 @@ offered by [JMESPath](https://jmespath.org/).
 
 
 
+
+
 === "EU"
 
     ```sql
     select bigfunctions.eu.json_query('{"foo": [{"first": "a"}, {"first": "c"}]}', 'foo[*].first') as result
     
     ```
+
+
 
 
 
@@ -9734,12 +10796,16 @@ offered by [JMESPath](https://jmespath.org/).
 
 
 
+
+
 === "europe-west1"
 
     ```sql
     select bigfunctions.europe_west1.json_query('{"foo": [{"first": "a"}, {"first": "c"}]}', 'foo[*].first') as result
     
     ```
+
+
 
 
 
@@ -9782,12 +10848,16 @@ offered by [JMESPath](https://jmespath.org/).
 
 
 
+
+
 === "EU"
 
     ```sql
     select bigfunctions.eu.json_query('{"foo": [{"first": "a"}, {"first": "c"}]}', 'foo[:1].first') as result
     
     ```
+
+
 
 
 
@@ -9800,12 +10870,16 @@ offered by [JMESPath](https://jmespath.org/).
 
 
 
+
+
 === "europe-west1"
 
     ```sql
     select bigfunctions.europe_west1.json_query('{"foo": [{"first": "a"}, {"first": "c"}]}', 'foo[:1].first') as result
     
     ```
+
+
 
 
 
@@ -9848,12 +10922,16 @@ offered by [JMESPath](https://jmespath.org/).
 
 
 
+
+
 === "EU"
 
     ```sql
     select bigfunctions.eu.json_query('{"foo": [{"first": "a"}, {"first": "c"}]}', 'foo[*].{name: first}') as result
     
     ```
+
+
 
 
 
@@ -9866,12 +10944,16 @@ offered by [JMESPath](https://jmespath.org/).
 
 
 
+
+
 === "europe-west1"
 
     ```sql
     select bigfunctions.europe_west1.json_query('{"foo": [{"first": "a"}, {"first": "c"}]}', 'foo[*].{name: first}') as result
     
     ```
+
+
 
 
 
@@ -9943,12 +11025,16 @@ and `type` among (`string`, `numeric`, `bool`, `date`, `timestamp`)
 
 
 
+
+
 === "EU"
 
     ```sql
     select bigfunctions.eu.json_schema('{"created_at": "2022-01-01", "user": {"name": "James", "friends": ["Jack", "Peter"]}}') as schema
     
     ```
+
+
 
 
 
@@ -9961,12 +11047,16 @@ and `type` among (`string`, `numeric`, `bool`, `date`, `timestamp`)
 
 
 
+
+
 === "europe-west1"
 
     ```sql
     select bigfunctions.europe_west1.json_schema('{"created_at": "2022-01-01", "user": {"name": "James", "friends": ["Jack", "Peter"]}}') as schema
     
     ```
+
+
 
 
 
@@ -10043,12 +11133,16 @@ Return `values` as an `array<string>`
 
 
 
+
+
 === "EU"
 
     ```sql
     select bigfunctions.eu.json_values('{"created_at": "2022-01-01", "user": "sidali"}') as values
     
     ```
+
+
 
 
 
@@ -10061,12 +11155,16 @@ Return `values` as an `array<string>`
 
 
 
+
+
 === "europe-west1"
 
     ```sql
     select bigfunctions.europe_west1.json_values('{"created_at": "2022-01-01", "user": "sidali"}') as values
     
     ```
+
+
 
 
 
@@ -10156,12 +11254,16 @@ and false otherwise
 
 
 
+
+
 === "EU"
 
     ```sql
     select bigfunctions.eu.are_arrays_equal([1, 4, 3], [1, 4, 3]) as are_arrays_equal
     
     ```
+
+
 
 
 
@@ -10174,12 +11276,16 @@ and false otherwise
 
 
 
+
+
 === "europe-west1"
 
     ```sql
     select bigfunctions.europe_west1.are_arrays_equal([1, 4, 3], [1, 4, 3]) as are_arrays_equal
     
     ```
+
+
 
 
 
@@ -10222,12 +11328,16 @@ and false otherwise
 
 
 
+
+
 === "EU"
 
     ```sql
     select bigfunctions.eu.are_arrays_equal([1, 4, 3], [1, 4]) as are_arrays_equal
     
     ```
+
+
 
 
 
@@ -10240,12 +11350,16 @@ and false otherwise
 
 
 
+
+
 === "europe-west1"
 
     ```sql
     select bigfunctions.europe_west1.are_arrays_equal([1, 4, 3], [1, 4]) as are_arrays_equal
     
     ```
+
+
 
 
 
@@ -10315,12 +11429,16 @@ Returns the intersection of two arrays.
 
 
 
+
+
 === "EU"
 
     ```sql
     select bigfunctions.eu.array_intersect([1, 2, 3], [2, 6, 7]) as result
     
     ```
+
+
 
 
 
@@ -10333,12 +11451,16 @@ Returns the intersection of two arrays.
 
 
 
+
+
 === "europe-west1"
 
     ```sql
     select bigfunctions.europe_west1.array_intersect([1, 2, 3], [2, 6, 7]) as result
     
     ```
+
+
 
 
 
@@ -10408,12 +11530,16 @@ Returns the union of two arrays.
 
 
 
+
+
 === "EU"
 
     ```sql
     select bigfunctions.eu.array_union([1, 2, 3], [2, 6, 7]) as result
     
     ```
+
+
 
 
 
@@ -10426,12 +11552,16 @@ Returns the union of two arrays.
 
 
 
+
+
 === "europe-west1"
 
     ```sql
     select bigfunctions.europe_west1.array_union([1, 2, 3], [2, 6, 7]) as result
     
     ```
+
+
 
 
 
@@ -10500,12 +11630,16 @@ Return distinct values
 
 
 
+
+
 === "EU"
 
     ```sql
     select bigfunctions.eu.distinct_values([1, 4, 3, 4]) as distinct_values
     
     ```
+
+
 
 
 
@@ -10518,12 +11652,16 @@ Return distinct values
 
 
 
+
+
 === "europe-west1"
 
     ```sql
     select bigfunctions.europe_west1.distinct_values([1, 4, 3, 4]) as distinct_values
     
     ```
+
+
 
 
 
@@ -10594,12 +11732,16 @@ Return the `offset` (zero-based index) of the first `value` in `arr` where `valu
 
 
 
+
+
 === "EU"
 
     ```sql
     select bigfunctions.eu.find_greater_value([0, 20, 50, 80, 100], 25) as offset
     
     ```
+
+
 
 
 
@@ -10612,12 +11754,16 @@ Return the `offset` (zero-based index) of the first `value` in `arr` where `valu
 
 
 
+
+
 === "europe-west1"
 
     ```sql
     select bigfunctions.europe_west1.find_greater_value([0, 20, 50, 80, 100], 25) as offset
     
     ```
+
+
 
 
 
@@ -10660,12 +11806,16 @@ Return the `offset` (zero-based index) of the first `value` in `arr` where `valu
 
 
 
+
+
 === "EU"
 
     ```sql
     select bigfunctions.eu.find_greater_value([0, 20, 50, 80, 100], 20) as offset
     
     ```
+
+
 
 
 
@@ -10678,12 +11828,16 @@ Return the `offset` (zero-based index) of the first `value` in `arr` where `valu
 
 
 
+
+
 === "europe-west1"
 
     ```sql
     select bigfunctions.europe_west1.find_greater_value([0, 20, 50, 80, 100], 20) as offset
     
     ```
+
+
 
 
 
@@ -10726,12 +11880,16 @@ Return the `offset` (zero-based index) of the first `value` in `arr` where `valu
 
 
 
+
+
 === "EU"
 
     ```sql
     select bigfunctions.eu.find_greater_value([0, 20, 50, 80, 100], 110) as offset
     
     ```
+
+
 
 
 
@@ -10744,12 +11902,16 @@ Return the `offset` (zero-based index) of the first `value` in `arr` where `valu
 
 
 
+
+
 === "europe-west1"
 
     ```sql
     select bigfunctions.europe_west1.find_greater_value([0, 20, 50, 80, 100], 110) as offset
     
     ```
+
+
 
 
 
@@ -10820,12 +11982,16 @@ Return the `offset` (zero-based index) of the first `value` in `arr` where `valu
 
 
 
+
+
 === "EU"
 
     ```sql
     select bigfunctions.eu.find_lower_value([5, 4, 3, 100], 3.5) as offset
     
     ```
+
+
 
 
 
@@ -10838,12 +12004,16 @@ Return the `offset` (zero-based index) of the first `value` in `arr` where `valu
 
 
 
+
+
 === "europe-west1"
 
     ```sql
     select bigfunctions.europe_west1.find_lower_value([5, 4, 3, 100], 3.5) as offset
     
     ```
+
+
 
 
 
@@ -10886,12 +12056,16 @@ Return the `offset` (zero-based index) of the first `value` in `arr` where `valu
 
 
 
+
+
 === "EU"
 
     ```sql
     select bigfunctions.eu.find_lower_value([5, 4, 3, 100], 4) as offset
     
     ```
+
+
 
 
 
@@ -10904,12 +12078,16 @@ Return the `offset` (zero-based index) of the first `value` in `arr` where `valu
 
 
 
+
+
 === "europe-west1"
 
     ```sql
     select bigfunctions.europe_west1.find_lower_value([5, 4, 3, 100], 4) as offset
     
     ```
+
+
 
 
 
@@ -10952,12 +12130,16 @@ Return the `offset` (zero-based index) of the first `value` in `arr` where `valu
 
 
 
+
+
 === "EU"
 
     ```sql
     select bigfunctions.eu.find_lower_value([5, 4, 3, 100], 2) as offset
     
     ```
+
+
 
 
 
@@ -10970,12 +12152,16 @@ Return the `offset` (zero-based index) of the first `value` in `arr` where `valu
 
 
 
+
+
 === "europe-west1"
 
     ```sql
     select bigfunctions.europe_west1.find_lower_value([5, 4, 3, 100], 2) as offset
     
     ```
+
+
 
 
 
@@ -11045,12 +12231,16 @@ Return the first `offset` (zero-based index) of `value` in array `arr`
 
 
 
+
+
 === "EU"
 
     ```sql
     select bigfunctions.eu.find_value([3, 4], 4) as offset
     
     ```
+
+
 
 
 
@@ -11063,12 +12253,16 @@ Return the first `offset` (zero-based index) of `value` in array `arr`
 
 
 
+
+
 === "europe-west1"
 
     ```sql
     select bigfunctions.europe_west1.find_value([3, 4], 4) as offset
     
     ```
+
+
 
 
 
@@ -11111,12 +12305,16 @@ Return the first `offset` (zero-based index) of `value` in array `arr`
 
 
 
+
+
 === "EU"
 
     ```sql
     select bigfunctions.eu.find_value([3, 4], 7) as offset
     
     ```
+
+
 
 
 
@@ -11129,12 +12327,16 @@ Return the first `offset` (zero-based index) of `value` in array `arr`
 
 
 
+
+
 === "europe-west1"
 
     ```sql
     select bigfunctions.europe_west1.find_value([3, 4], 7) as offset
     
     ```
+
+
 
 
 
@@ -11205,12 +12407,16 @@ Return the first `value` with a key `search_key` from `key_value_items`
 
 
 
+
+
 === "EU"
 
     ```sql
     select bigfunctions.eu.get_value([struct('a' as key, 8 as value), struct('b' as key, 9 as value)], 'a') as value
     
     ```
+
+
 
 
 
@@ -11223,12 +12429,16 @@ Return the first `value` with a key `search_key` from `key_value_items`
 
 
 
+
+
 === "europe-west1"
 
     ```sql
     select bigfunctions.europe_west1.get_value([struct('a' as key, 8 as value), struct('b' as key, 9 as value)], 'a') as value
     
     ```
+
+
 
 
 
@@ -11271,12 +12481,16 @@ Return the first `value` with a key `search_key` from `key_value_items`
 
 
 
+
+
 === "EU"
 
     ```sql
     select bigfunctions.eu.get_value([struct('a' as key, 8 as value), struct('b' as key, 9 as value)], 'c') as value
     
     ```
+
+
 
 
 
@@ -11289,12 +12503,16 @@ Return the first `value` with a key `search_key` from `key_value_items`
 
 
 
+
+
 === "europe-west1"
 
     ```sql
     select bigfunctions.europe_west1.get_value([struct('a' as key, 8 as value), struct('b' as key, 9 as value)], 'c') as value
     
     ```
+
+
 
 
 
@@ -11337,12 +12555,16 @@ Return the first `value` with a key `search_key` from `key_value_items`
 
 
 
+
+
 === "EU"
 
     ```sql
     select bigfunctions.eu.get_value([struct('a' as key, 8 as value), struct('a' as key, 9 as value)], 'a') as value
     
     ```
+
+
 
 
 
@@ -11355,12 +12577,16 @@ Return the first `value` with a key `search_key` from `key_value_items`
 
 
 
+
+
 === "europe-west1"
 
     ```sql
     select bigfunctions.europe_west1.get_value([struct('a' as key, 8 as value), struct('a' as key, 9 as value)], 'a') as value
     
     ```
+
+
 
 
 
@@ -11430,12 +12656,16 @@ Return last value of array
 
 
 
+
+
 === "EU"
 
     ```sql
     select bigfunctions.eu.last_value([1, 2, 3]) as value
     
     ```
+
+
 
 
 
@@ -11448,12 +12678,16 @@ Return last value of array
 
 
 
+
+
 === "europe-west1"
 
     ```sql
     select bigfunctions.europe_west1.last_value([1, 2, 3]) as value
     
     ```
+
+
 
 
 
@@ -11523,12 +12757,16 @@ Return max value of array
 
 
 
+
+
 === "EU"
 
     ```sql
     select bigfunctions.eu.max_value([1, 4, 3]) as value
     
     ```
+
+
 
 
 
@@ -11541,12 +12779,16 @@ Return max value of array
 
 
 
+
+
 === "europe-west1"
 
     ```sql
     select bigfunctions.europe_west1.max_value([1, 4, 3]) as value
     
     ```
+
+
 
 
 
@@ -11616,12 +12858,16 @@ Return median value of array
 
 
 
+
+
 === "EU"
 
     ```sql
     select bigfunctions.eu.median_value([1, 4, 3]) as value
     
     ```
+
+
 
 
 
@@ -11634,12 +12880,16 @@ Return median value of array
 
 
 
+
+
 === "europe-west1"
 
     ```sql
     select bigfunctions.europe_west1.median_value([1, 4, 3]) as value
     
     ```
+
+
 
 
 
@@ -11682,12 +12932,16 @@ Return median value of array
 
 
 
+
+
 === "EU"
 
     ```sql
     select bigfunctions.eu.median_value([1, 4, 3, 2]) as value
     
     ```
+
+
 
 
 
@@ -11700,12 +12954,16 @@ Return median value of array
 
 
 
+
+
 === "europe-west1"
 
     ```sql
     select bigfunctions.europe_west1.median_value([1, 4, 3, 2]) as value
     
     ```
+
+
 
 
 
@@ -11775,12 +13033,16 @@ Return min value of array
 
 
 
+
+
 === "EU"
 
     ```sql
     select bigfunctions.eu.min_value([1, 4, 3]) as value
     
     ```
+
+
 
 
 
@@ -11793,12 +13055,16 @@ Return min value of array
 
 
 
+
+
 === "europe-west1"
 
     ```sql
     select bigfunctions.europe_west1.min_value([1, 4, 3]) as value
     
     ```
+
+
 
 
 
@@ -11870,12 +13136,16 @@ Algorithm to calculate percentile is based on *[R. J. Hyndman and Y. Fan, "Sampl
 
 
 
+
+
 === "EU"
 
     ```sql
     select bigfunctions.eu.percentile_value([20, 16, 15, 13, 10, 9, 8, 8, 7, 6, 3], 0.74) as percentile_value
     
     ```
+
+
 
 
 
@@ -11888,12 +13158,16 @@ Algorithm to calculate percentile is based on *[R. J. Hyndman and Y. Fan, "Sampl
 
 
 
+
+
 === "europe-west1"
 
     ```sql
     select bigfunctions.europe_west1.percentile_value([20, 16, 15, 13, 10, 9, 8, 8, 7, 6, 3], 0.74) as percentile_value
     
     ```
+
+
 
 
 
@@ -11936,12 +13210,16 @@ Algorithm to calculate percentile is based on *[R. J. Hyndman and Y. Fan, "Sampl
 
 
 
+
+
 === "EU"
 
     ```sql
     select bigfunctions.eu.percentile_value([20, 16, 15, 13, 10, 9, 8, 8, 7, 6, 3, 2], 0.9) as percentile_value
     
     ```
+
+
 
 
 
@@ -11954,12 +13232,16 @@ Algorithm to calculate percentile is based on *[R. J. Hyndman and Y. Fan, "Sampl
 
 
 
+
+
 === "europe-west1"
 
     ```sql
     select bigfunctions.europe_west1.percentile_value([20, 16, 15, 13, 10, 9, 8, 8, 7, 6, 3, 2], 0.9) as percentile_value
     
     ```
+
+
 
 
 
@@ -12002,12 +13284,16 @@ Algorithm to calculate percentile is based on *[R. J. Hyndman and Y. Fan, "Sampl
 
 
 
+
+
 === "EU"
 
     ```sql
     select bigfunctions.eu.percentile_value([20, 16, 15, 13, 10, 9, 8, 8, 7, 6, 3, 2], 2) as percentile_value
     
     ```
+
+
 
 
 
@@ -12020,12 +13306,16 @@ Algorithm to calculate percentile is based on *[R. J. Hyndman and Y. Fan, "Sampl
 
 
 
+
+
 === "europe-west1"
 
     ```sql
     select bigfunctions.europe_west1.percentile_value([20, 16, 15, 13, 10, 9, 8, 8, 7, 6, 3, 2], 2) as percentile_value
     
     ```
+
+
 
 
 
@@ -12094,12 +13384,16 @@ Return an array with all values except `value`.
 
 
 
+
+
 === "EU"
 
     ```sql
     select bigfunctions.eu.remove_value([1, 4, 3, 8], 4) as arr
     
     ```
+
+
 
 
 
@@ -12112,12 +13406,16 @@ Return an array with all values except `value`.
 
 
 
+
+
 === "europe-west1"
 
     ```sql
     select bigfunctions.europe_west1.remove_value([1, 4, 3, 8], 4) as arr
     
     ```
+
+
 
 
 
@@ -12186,12 +13484,16 @@ Return sorted array (ascending)
 
 
 
+
+
 === "EU"
 
     ```sql
     select bigfunctions.eu.sort_values([1, 4, 3]) as sorted_array
     
     ```
+
+
 
 
 
@@ -12204,12 +13506,16 @@ Return sorted array (ascending)
 
 
 
+
+
 === "europe-west1"
 
     ```sql
     select bigfunctions.europe_west1.sort_values([1, 4, 3]) as sorted_array
     
     ```
+
+
 
 
 
@@ -12278,12 +13584,16 @@ Return sorted array (descending)
 
 
 
+
+
 === "EU"
 
     ```sql
     select bigfunctions.eu.sort_values_desc([1, 4, 3]) as sorted_array
     
     ```
+
+
 
 
 
@@ -12296,12 +13606,16 @@ Return sorted array (descending)
 
 
 
+
+
 === "europe-west1"
 
     ```sql
     select bigfunctions.europe_west1.sort_values_desc([1, 4, 3]) as sorted_array
     
     ```
+
+
 
 
 
@@ -12370,12 +13684,16 @@ Return the sum of array values
 
 
 
+
+
 === "EU"
 
     ```sql
     select bigfunctions.eu.sum_values([1, 4, 3]) as value
     
     ```
+
+
 
 
 
@@ -12388,12 +13706,16 @@ Return the sum of array values
 
 
 
+
+
 === "europe-west1"
 
     ```sql
     select bigfunctions.europe_west1.sum_values([1, 4, 3]) as value
     
     ```
+
+
 
 
 
@@ -12482,12 +13804,16 @@ given a set of predicted scores and ground truth labels using the trapezoidal ru
 
 
 
+
+
 === "EU"
 
     ```sql
     select bigfunctions.eu.precision_recall_auc((select array_agg(struct(cast(predicted_score as float64), rand() > 0.5)) from unnest(generate_array(1, 1000)) as predicted_score)) as auc_pr
     
     ```
+
+
 
 
 
@@ -12500,12 +13826,16 @@ given a set of predicted scores and ground truth labels using the trapezoidal ru
 
 
 
+
+
 === "europe-west1"
 
     ```sql
     select bigfunctions.europe_west1.precision_recall_auc((select array_agg(struct(cast(predicted_score as float64), rand() > 0.5)) from unnest(generate_array(1, 1000)) as predicted_score)) as auc_pr
     
     ```
+
+
 
 
 
@@ -12548,12 +13878,16 @@ given a set of predicted scores and ground truth labels using the trapezoidal ru
 
 
 
+
+
 === "EU"
 
     ```sql
     select bigfunctions.eu.precision_recall_auc((select array_agg(struct(cast(predicted_score as float64), predicted_score > 500)) from unnest(generate_array(1, 1000)) as predicted_score)) as auc_pr
     
     ```
+
+
 
 
 
@@ -12566,12 +13900,16 @@ given a set of predicted scores and ground truth labels using the trapezoidal ru
 
 
 
+
+
 === "europe-west1"
 
     ```sql
     select bigfunctions.europe_west1.precision_recall_auc((select array_agg(struct(cast(predicted_score as float64), predicted_score > 500)) from unnest(generate_array(1, 1000)) as predicted_score)) as auc_pr
     
     ```
+
+
 
 
 
@@ -12641,12 +13979,16 @@ Returns the Precision-Recall Curve
 
 
 
+
+
 === "EU"
 
     ```sql
     select * from bigfunctions.eu.precision_recall_curve([(0.1, false), (0.4, false), (0.35, true), (0.8, true)])
     
     ```
+
+
 
 
 
@@ -12659,12 +14001,16 @@ Returns the Precision-Recall Curve
 
 
 
+
+
 === "europe-west1"
 
     ```sql
     select * from bigfunctions.europe_west1.precision_recall_curve([(0.1, false), (0.4, false), (0.35, true), (0.8, true)])
     
     ```
+
+
 
 
 
@@ -12741,12 +14087,16 @@ Forecast time-series using prophet
 
 
 
+
+
 === "EU"
 
     ```sql
     select bigfunctions.eu.prophet(json'[["2020-01-01", 1], ["2020-01-02", 2]]', 3) as forecasted_records
     
     ```
+
+
 
 
 
@@ -12759,12 +14109,16 @@ Forecast time-series using prophet
 
 
 
+
+
 === "europe-west1"
 
     ```sql
     select bigfunctions.europe_west1.prophet(json'[["2020-01-01", 1], ["2020-01-02", 2]]', 3) as forecasted_records
     
     ```
+
+
 
 
 
@@ -12834,12 +14188,16 @@ given a set of predicted scores and ground truth labels using the trapezoidal ru
 
 
 
+
+
 === "EU"
 
     ```sql
     select bigfunctions.eu.roc_auc((select array_agg(struct(cast(predicted_score as float64), rand() > 0.5)) from unnest(generate_array(1, 1000)) as predicted_score)) as roc_auc
     
     ```
+
+
 
 
 
@@ -12852,12 +14210,16 @@ given a set of predicted scores and ground truth labels using the trapezoidal ru
 
 
 
+
+
 === "europe-west1"
 
     ```sql
     select bigfunctions.europe_west1.roc_auc((select array_agg(struct(cast(predicted_score as float64), rand() > 0.5)) from unnest(generate_array(1, 1000)) as predicted_score)) as roc_auc
     
     ```
+
+
 
 
 
@@ -12900,12 +14262,16 @@ given a set of predicted scores and ground truth labels using the trapezoidal ru
 
 
 
+
+
 === "EU"
 
     ```sql
     select bigfunctions.eu.roc_auc((select array_agg(struct(cast(predicted_score as float64), predicted_score > 500)) from unnest(generate_array(1, 1000)) as predicted_score)) as roc_auc
     
     ```
+
+
 
 
 
@@ -12918,12 +14284,16 @@ given a set of predicted scores and ground truth labels using the trapezoidal ru
 
 
 
+
+
 === "europe-west1"
 
     ```sql
     select bigfunctions.europe_west1.roc_auc((select array_agg(struct(cast(predicted_score as float64), predicted_score > 500)) from unnest(generate_array(1, 1000)) as predicted_score)) as roc_auc
     
     ```
+
+
 
 
 
@@ -12966,12 +14336,16 @@ given a set of predicted scores and ground truth labels using the trapezoidal ru
 
 
 
+
+
 === "EU"
 
     ```sql
     select bigfunctions.eu.roc_auc((select array_agg(struct(cast(predicted_score as float64), predicted_score < 500)) from unnest(generate_array(1, 1000)) as predicted_score)) as roc_auc
     
     ```
+
+
 
 
 
@@ -12984,12 +14358,16 @@ given a set of predicted scores and ground truth labels using the trapezoidal ru
 
 
 
+
+
 === "europe-west1"
 
     ```sql
     select bigfunctions.europe_west1.roc_auc((select array_agg(struct(cast(predicted_score as float64), predicted_score < 500)) from unnest(generate_array(1, 1000)) as predicted_score)) as roc_auc
     
     ```
+
+
 
 
 
@@ -13059,12 +14437,16 @@ given a set of predicted scores and ground truth labels
 
 
 
+
+
 === "EU"
 
     ```sql
     select * from bigfunctions.eu.roc_curve([(0.1, false), (0.4, false), (0.35, true), (0.8, true)])
     
     ```
+
+
 
 
 
@@ -13077,12 +14459,16 @@ given a set of predicted scores and ground truth labels
 
 
 
+
+
 === "europe-west1"
 
     ```sql
     select * from bigfunctions.europe_west1.roc_curve([(0.1, false), (0.4, false), (0.35, true), (0.8, true)])
     
     ```
+
+
 
 
 
@@ -13157,12 +14543,16 @@ Compute sentiment score of `content`
 
 
 
+
+
 === "EU"
 
     ```sql
     select bigfunctions.eu.sentiment_score('BigFunctions Rocks!') as sentiment_score
     
     ```
+
+
 
 
 
@@ -13175,12 +14565,16 @@ Compute sentiment score of `content`
 
 
 
+
+
 === "europe-west1"
 
     ```sql
     select bigfunctions.europe_west1.sentiment_score('BigFunctions Rocks!') as sentiment_score
     
     ```
+
+
 
 
 
@@ -13310,12 +14704,16 @@ in the resulting graph, there is two possible ways to achieve this:
 
 
 
+
+
 === "EU"
 
     ```sql
     call bigfunctions.eu.connected_components('bigfunctions.eu.sample_graph');
     select * from bigfunction_result;
     ```
+
+
 
 
 
@@ -13328,12 +14726,16 @@ in the resulting graph, there is two possible ways to achieve this:
 
 
 
+
+
 === "europe-west1"
 
     ```sql
     call bigfunctions.europe_west1.connected_components('bigfunctions.europe_west1.sample_graph');
     select * from bigfunction_result;
     ```
+
+
 
 
 
@@ -13434,12 +14836,16 @@ encoded as a base64 string.
 
 
 
+
+
 === "EU"
 
     ```sql
     select bigfunctions.eu.html2pdf("<h1>Love It!</h1>") as pdf_base64
     
     ```
+
+
 
 
 
@@ -13452,12 +14858,16 @@ encoded as a base64 string.
 
 
 
+
+
 === "europe-west1"
 
     ```sql
     select bigfunctions.europe_west1.html2pdf("<h1>Love It!</h1>") as pdf_base64
     
     ```
+
+
 
 
 
@@ -13530,12 +14940,16 @@ encoded as a base64 string.
 
 
 
+
+
 === "EU"
 
     ```sql
     select bigfunctions.eu.json2excel(json '[{"col1": "row1", "col2": 1}, {"col1": "row2", "col2": 2}]') as excel_base64
     
     ```
+
+
 
 
 
@@ -13548,12 +14962,16 @@ encoded as a base64 string.
 
 
 
+
+
 === "europe-west1"
 
     ```sql
     select bigfunctions.europe_west1.json2excel(json '[{"col1": "row1", "col2": 1}, {"col1": "row2", "col2": 2}]') as excel_base64
     
     ```
+
+
 
 
 
@@ -13622,12 +15040,16 @@ Returns XML for given JSON string
 
 
 
+
+
 === "EU"
 
     ```sql
     select bigfunctions.eu.json2xml('{"a": {"b": "foo"}}') as xml
     
     ```
+
+
 
 
 
@@ -13640,12 +15062,16 @@ Returns XML for given JSON string
 
 
 
+
+
 === "europe-west1"
 
     ```sql
     select bigfunctions.europe_west1.json2xml('{"a": {"b": "foo"}}') as xml
     
     ```
+
+
 
 
 
@@ -13688,12 +15114,16 @@ Returns XML for given JSON string
 
 
 
+
+
 === "EU"
 
     ```sql
     select bigfunctions.eu.json2xml('{"a": ""}') as xml
     
     ```
+
+
 
 
 
@@ -13706,12 +15136,16 @@ Returns XML for given JSON string
 
 
 
+
+
 === "europe-west1"
 
     ```sql
     select bigfunctions.europe_west1.json2xml('{"a": ""}') as xml
     
     ```
+
+
 
 
 
@@ -13754,12 +15188,16 @@ Returns XML for given JSON string
 
 
 
+
+
 === "EU"
 
     ```sql
     select bigfunctions.eu.json2xml('{"a": ""') as xml
     
     ```
+
+
 
 
 
@@ -13772,12 +15210,16 @@ Returns XML for given JSON string
 
 
 
+
+
 === "europe-west1"
 
     ```sql
     select bigfunctions.europe_west1.json2xml('{"a": ""') as xml
     
     ```
+
+
 
 
 
@@ -13846,12 +15288,16 @@ Returns JSON as a string for given XML string
 
 
 
+
+
 === "EU"
 
     ```sql
     select bigfunctions.eu.xml2json('<a><b>foo</b></a>') as json
     
     ```
+
+
 
 
 
@@ -13864,12 +15310,16 @@ Returns JSON as a string for given XML string
 
 
 
+
+
 === "europe-west1"
 
     ```sql
     select bigfunctions.europe_west1.xml2json('<a><b>foo</b></a>') as json
     
     ```
+
+
 
 
 
@@ -13912,12 +15362,16 @@ Returns JSON as a string for given XML string
 
 
 
+
+
 === "EU"
 
     ```sql
     select bigfunctions.eu.xml2json('<a></a>') as json
     
     ```
+
+
 
 
 
@@ -13930,12 +15384,16 @@ Returns JSON as a string for given XML string
 
 
 
+
+
 === "europe-west1"
 
     ```sql
     select bigfunctions.europe_west1.xml2json('<a></a>') as json
     
     ```
+
+
 
 
 
@@ -13978,12 +15436,16 @@ Returns JSON as a string for given XML string
 
 
 
+
+
 === "EU"
 
     ```sql
     select bigfunctions.eu.xml2json('<a></a') as json
     
     ```
+
+
 
 
 
@@ -13996,12 +15458,16 @@ Returns JSON as a string for given XML string
 
 
 
+
+
 === "europe-west1"
 
     ```sql
     select bigfunctions.europe_west1.xml2json('<a></a') as json
     
     ```
+
+
 
 
 
@@ -14089,12 +15555,16 @@ Returns the deduplicated rows of `query_or_table_or_view`
 
 
 
+
+
 === "EU"
 
     ```sql
     call bigfunctions.eu.deduplicate_rows("my_project.my_dataset.my_table");
     select * from bigfunction_result;
     ```
+
+
 
 
 
@@ -14107,12 +15577,16 @@ Returns the deduplicated rows of `query_or_table_or_view`
 
 
 
+
+
 === "europe-west1"
 
     ```sql
     call bigfunctions.europe_west1.deduplicate_rows("my_project.my_dataset.my_table");
     select * from bigfunction_result;
     ```
+
+
 
 
 
@@ -14164,12 +15638,16 @@ Returns the deduplicated rows of `query_or_table_or_view`
 
 
 
+
+
 === "EU"
 
     ```sql
     call bigfunctions.eu.deduplicate_rows("my_project.my_dataset.my_tbl");
     select * from bigfunction_result;
     ```
+
+
 
 
 
@@ -14182,12 +15660,16 @@ Returns the deduplicated rows of `query_or_table_or_view`
 
 
 
+
+
 === "europe-west1"
 
     ```sql
     call bigfunctions.europe_west1.deduplicate_rows("my_project.my_dataset.my_tbl");
     select * from bigfunction_result;
     ```
+
+
 
 
 
@@ -14232,12 +15714,16 @@ Returns the deduplicated rows of `query_or_table_or_view`
 
 
 
+
+
 === "EU"
 
     ```sql
     call bigfunctions.eu.deduplicate_rows("select data from unnest([1, 2, 3, 1]) data");
     select * from bigfunction_result;
     ```
+
+
 
 
 
@@ -14250,12 +15736,16 @@ Returns the deduplicated rows of `query_or_table_or_view`
 
 
 
+
+
 === "europe-west1"
 
     ```sql
     call bigfunctions.europe_west1.deduplicate_rows("select data from unnest([1, 2, 3, 1]) data");
     select * from bigfunction_result;
     ```
+
+
 
 
 
@@ -14328,12 +15818,16 @@ Return the maximum of the partition column of `fully_qualified_table`
 
 
 
+
+
 === "EU"
 
     ```sql
     call bigfunctions.eu.get_latest_partition_timestamp("my_project.my_dataset.my_table");
     select * from bigfunction_result;
     ```
+
+
 
 
 
@@ -14346,12 +15840,16 @@ Return the maximum of the partition column of `fully_qualified_table`
 
 
 
+
+
 === "europe-west1"
 
     ```sql
     call bigfunctions.europe_west1.get_latest_partition_timestamp("my_project.my_dataset.my_table");
     select * from bigfunction_result;
     ```
+
+
 
 
 
@@ -14426,12 +15924,16 @@ select column_name, data_type from bigfunction_result ;
 
 
 
+
+
 === "EU"
 
     ```sql
     call bigfunctions.eu.get_table_columns("bigfunctions.eu.natality");
     
     ```
+
+
 
 
 
@@ -14444,12 +15946,16 @@ select column_name, data_type from bigfunction_result ;
 
 
 
+
+
 === "europe-west1"
 
     ```sql
     call bigfunctions.europe_west1.get_table_columns("bigfunctions.europe_west1.natality");
     
     ```
+
+
 
 
 
@@ -14508,12 +16014,16 @@ Get BigQuery View history
 
 
 
+
+
 === "EU"
 
     ```sql
     call bigfunctions.eu.get_view_history(your_project.your_dataset.view_name);
     
     ```
+
+
 
 
 
@@ -14526,12 +16036,16 @@ Get BigQuery View history
 
 
 
+
+
 === "europe-west1"
 
     ```sql
     call bigfunctions.europe_west1.get_view_history(your_project.your_dataset.view_name);
     
     ```
+
+
 
 
 
@@ -14622,6 +16136,8 @@ Run any `python_code`.
 
 
 
+
+
 === "EU"
 
     ```sql
@@ -14636,6 +16152,8 @@ Run any `python_code`.
       ) as result
     
     ```
+
+
 
 
 
@@ -14656,6 +16174,8 @@ Run any `python_code`.
 
 
 
+
+
 === "europe-west1"
 
     ```sql
@@ -14670,6 +16190,8 @@ Run any `python_code`.
       ) as result
     
     ```
+
+
 
 
 
@@ -14720,6 +16242,8 @@ Run any `python_code`.
 
 
 
+
+
 === "EU"
 
     ```sql
@@ -14735,6 +16259,8 @@ Run any `python_code`.
       ) as result
     
     ```
+
+
 
 
 
@@ -14756,6 +16282,8 @@ Run any `python_code`.
 
 
 
+
+
 === "europe-west1"
 
     ```sql
@@ -14771,6 +16299,8 @@ Run any `python_code`.
       ) as result
     
     ```
+
+
 
 
 
@@ -14822,6 +16352,8 @@ Run any `python_code`.
 
 
 
+
+
 === "EU"
 
     ```sql
@@ -14841,6 +16373,8 @@ Run any `python_code`.
       ) as result
     
     ```
+
+
 
 
 
@@ -14866,6 +16400,8 @@ Run any `python_code`.
 
 
 
+
+
 === "europe-west1"
 
     ```sql
@@ -14885,6 +16421,8 @@ Run any `python_code`.
       ) as result
     
     ```
+
+
 
 
 
@@ -14966,12 +16504,16 @@ Sleep during `seconds` seconds
 
 
 
+
+
 === "EU"
 
     ```sql
     select bigfunctions.eu.sleep(10) as response
     
     ```
+
+
 
 
 
@@ -14984,12 +16526,16 @@ Sleep during `seconds` seconds
 
 
 
+
+
 === "europe-west1"
 
     ```sql
     select bigfunctions.europe_west1.sleep(10) as response
     
     ```
+
+
 
 
 
@@ -15063,12 +16609,16 @@ Truncates higher levels of precision by rounding down to the beginning of the `d
 
 
 
+
+
 === "EU"
 
     ```sql
     select bigfunctions.eu.timestamp_from_unix_date_time(31, "YEAR") as from_unix
     
     ```
+
+
 
 
 
@@ -15081,12 +16631,16 @@ Truncates higher levels of precision by rounding down to the beginning of the `d
 
 
 
+
+
 === "europe-west1"
 
     ```sql
     select bigfunctions.europe_west1.timestamp_from_unix_date_time(31, "YEAR") as from_unix
     
     ```
+
+
 
 
 
@@ -15160,12 +16714,16 @@ Truncates higher levels of precision by rounding down to the beginning of the `d
 
 
 
+
+
 === "EU"
 
     ```sql
     select bigfunctions.eu.timestamp_to_unix_date_time(timestamp("2001-01-01"), "YEAR") as unix_value
     
     ```
+
+
 
 
 
@@ -15178,12 +16736,16 @@ Truncates higher levels of precision by rounding down to the beginning of the `d
 
 
 
+
+
 === "europe-west1"
 
     ```sql
     select bigfunctions.europe_west1.timestamp_to_unix_date_time(timestamp("2001-01-01"), "YEAR") as unix_value
     
     ```
+
+
 
 
 
@@ -15265,12 +16827,16 @@ If `recency_field` is filled then the last record version is kept else it is cho
 
 
 
+
+
 === "EU"
 
     ```sql
     call bigfunctions.eu.upsert('dataset_id.source_table_or_view', 'dataset_id.destination_table', 'delta', ['id'], 'timestamp_field');
     
     ```
+
+
 
 
 
@@ -15283,12 +16849,16 @@ If `recency_field` is filled then the last record version is kept else it is cho
 
 
 
+
+
 === "europe-west1"
 
     ```sql
     call bigfunctions.europe_west1.upsert('dataset_id.source_table_or_view', 'dataset_id.destination_table', 'delta', ['id'], 'timestamp_field');
     
     ```
+
+
 
 
 
@@ -15320,12 +16890,16 @@ If `recency_field` is filled then the last record version is kept else it is cho
 
 
 
+
+
 === "EU"
 
     ```sql
     call bigfunctions.eu.upsert('select * from dataset_id.source_table_or_view where filter_field = true', 'dataset_id.destination_table', 'full', ['id'], null);
     
     ```
+
+
 
 
 
@@ -15338,12 +16912,16 @@ If `recency_field` is filled then the last record version is kept else it is cho
 
 
 
+
+
 === "europe-west1"
 
     ```sql
     call bigfunctions.europe_west1.upsert('select * from dataset_id.source_table_or_view where filter_field = true', 'dataset_id.destination_table', 'full', ['id'], null);
     
     ```
+
+
 
 
 
