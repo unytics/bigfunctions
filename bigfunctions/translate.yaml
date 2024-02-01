@@ -19,12 +19,13 @@ examples:
       - '"Salut 👋 Florian. Merci d''avoir contribué !"'
       - "'en'"
     output: "Hello 👋 Florian. Thanks for contributing!"
-code: |
+init_code: |    
   from google.cloud import translate_v2 as translate
   translator = translate.Client()
+code: |
   result = translator.translate(text, target_language=target_language, format_="text")
   return result["translatedText"]
 requirements: |
   google-cloud-translate
 quotas:
-  max_rows_per_query: 100
+  max_rows_per_user_per_day: 1000
