@@ -29,3 +29,4 @@ requirements: |
   google-cloud-translate
 quotas:
   max_rows_per_user_per_day: 1000
+
