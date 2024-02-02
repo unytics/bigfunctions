@@ -1,0 +1,91 @@
+type: function_py
+category: export
+author:
+  name: Antoine Giraud
+  url: https://www.linkedin.com/in/antgiraud/
+  avatar_url: "https://media.licdn.com/dms/image/C4D03AQG2Orctig4ycg/profile-displayphoto-shrink_200_200/0/1532385599321?e=1712188800&v=beta&t=VPFKpN1WIzDyPIbB4zofLUVS3HsIADd2ENh-MdmGGC0"
+description: |
+  refresh a tableau dataset or report via it's API
+  api version num: https://help.tableau.com/current/api/rest_api/en-us/REST/rest_api_concepts_versions.htm
+arguments:
+  - name: server_name
+    type: string
+  - name: site_id
+    type: string
+  - name: api_version
+    type: string
+  - name: obj_id_to_be_updated
+    type: string
+output:
+  name: response_code
+  type: int
+examples:
+  - description: "refresh tableau datasource"
+    arguments:
+      - "eu-west-1a.online.tableau.com"
+      - "homeserve"
+      - "3.21"
+      - "datasources/40313485"
+    output: 200
+  - description: "refresh tableau workbook"
+    arguments:
+      - "eu-west-1a.online.tableau.com"
+      - "homeserve"
+      - "3.21"
+      - "workbooks/1184474"
+    output: 200
+code: |
+  import requests, json
+
+  # login
+
+  signin_url = f"https://{server_name}/api/{api_version}/auth/signin"
+  headers = { 'accept': 'application/json', 'content-type': 'application/json' }
+  response = requests.post(signin_url, json=tableau_credentials_json, headers=headers)
+  try:
+    content = response.json()
+
+    token = content["credentials"]["token"]
+    site_id = content["credentials"]["site"]["id"]
+
+    # Set the authentication header using the token returned by the Sign In method.
+    headers['X-tableau-auth']=token
+  except:
+    return response.status_code
+
+  # tableau refresh
+
+  # https://help.tableau.com/current/api/rest_api/en-us/REST/rest_api_ref_workbooks_and_views.htm#update_workbook_now
+  # POST /api/api-version/sites/site-id/workbooks/workbook-id/refresh
+  # https://help.tableau.com/current/api/rest_api/en-us/REST/rest_api_ref_data_sources.htm#update_data_source_now
+  # POST /api/api-version/sites/site-id/datasources/datasource-id/refresh
+
+  refresh_url = f"https://{server_name}/api/{api_version}/sites/{site-id}/{obj_id_to_be_updated}/refresh"
+  response = requests.post(refresh_url, headers=headers)
+  try:
+    content = response.json()
+  except:
+    return response.status_code
+    # content = response.text
+
+  # Sign out
+  signout_url = f"https://{server_name}/api/{api_version}/auth/signout"
+  req = requests.post(signout_url, data=b'', headers=headers, verify=False)
+  req.raise_for_status()
+
+  # retour à BigQuery
+  return response.status_code
+secrets:
+  - name: tableau_credentials_json
+    description: |
+      JSON comportant les credentials tableau (Personnal Access Token or user/pswd)
+      {"credentials": {
+          "personalAccessTokenName": "xxxx",
+          "personalAccessTokenSecret": "xxx",
+          "site": {"contentUrl": "monsite" }
+      }}
+    documentation_link: https://help.tableau.com/current/api/rest_api/en-us/REST/rest_api_concepts_auth.htm
+requirements: |
+  requests, json
+quotas:
+  max_rows_per_query: 10
