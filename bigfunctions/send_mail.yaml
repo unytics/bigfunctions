@@ -64,6 +64,11 @@ code: |
   import markdown
   import css_inline
 
+  if not to:
+    return True
+  subject = subject or ''
+  content = content or ''
+
   sender = {
       'name': 'BigFunctions',
       'email': 'bigfunctions@unytics.io'
@@ -405,7 +410,7 @@ code: |
                 <table role="presentation" border="0" cellpadding="0" cellspacing="0">
                   <tr>
                     <td class="content-block">
-                      <p><a href="https://unytics.io/bigfunctions/"><img src="https://unytics.io/bigfunctions/assets/logo_and_name.png" style="max-width: 50%;"></a></p>
+                      <p><a href="https://unytics.io/bigfunctions/"><img src="https://unytics.io/bigfunctions/site/assets/logo_and_name.png" style="max-width: 50%;"></a></p>
                       <p>Sent by <a href="https://unytics.io/bigfunctions/">BigFunctions</a>:<br>👉 a catalog of open-source functions to supercharge BigQuery.</p>
                       <p>Show your ❤️!<br><a href="https://github.com/unytics/bigfunctions">Give a ⭐ on GitHub</a>.</em> 🙏</p>
                     </td>
@@ -432,6 +437,7 @@ code: |
 
 
   def check_emails(to):
+      to = to.replace(';', ',')
       emails = [email.strip() for email in to.split(',')]
       email_regex = r'\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,7}\b'
       for email in emails:
