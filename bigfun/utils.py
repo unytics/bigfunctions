@@ -330,5 +330,5 @@ def build_and_upload_npm_package(npm_package, bucket, project):
 def download(url, destination_filename):
     try:
         urllib.request.urlretrieve(url, destination_filename)
-    except:
-        handle_error(f'Could not download file at url `{url}`')
+    except Exception as e:
+        handle_error(f'Could not download file at url `{url}`. Reason: {e}')
