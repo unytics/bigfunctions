@@ -121,7 +121,7 @@ Commands:
 
 ### 5.3 Create you first function 👷
 
-Functions are defined as yaml files under `bigfunctions` folder. To create your first function locally, the easiest is to download an existing yaml file in unytics/bigfunctions Github repo. 
+Functions are defined as yaml files under `bigfunctions` folder. To create your first function locally, the easiest is to download an existing yaml file of unytics/bigfunctions Github repo. 
 
 For instance to download `is_email_valid.yaml` into bigfunctions folder, do:
 
@@ -141,7 +141,7 @@ You can then update the file to suit your needs.
 > 3. Get or create a `DATASET` where you have permission to edit data and where the function will be deployed.
 > 4. The `DATASET` must belong to a `PROJECT` in which you have permission to run BigQuery queries.
 
-You now can deploy `is_email_valid` function with:
+You now can deploy the function `is_email_valid` defined in `bigfunctions/is_email_valid.yaml` yaml file by running:
 
 ```sh
 bigfun deploy is_email_valid
