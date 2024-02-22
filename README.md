@@ -168,7 +168,7 @@ select PROJECT.DATASET.is_email_valid('paul.marcombes@unytics.io')
 > 1. You will need to install each *npm package* on your machine and bundle it into one file. For that, you need to [install *nodejs*](https://nodejs.org/en/download/).
 > 2. The bundled js file will be uploaded into a cloud storage bucket in which you must have write access. The bucket name is asked when you run `bigfun deploy`. Users of your functions must have read access to the bucket.
 
-You now can deploy `render_template` function with:
+You now can deploy the function `render_template` defined in `bigfunctions/render_template.yaml` yaml file by running:
 
 ```sh
 bigfun deploy render_template
@@ -194,7 +194,7 @@ select PROJECT.DATASET.render_template('Hello {{ user }}', json '{"user": "James
 > 4. A service account will be automatically created by Google along with the *BigQuery Remote Connection*. BigQuery will use this service account of the remote connection to invoke the *Cloud Run* service. You then must have the permission to authorize this service account to invoke the *Cloud Run* service. This permission is provided in the role *[roles/run.admin](https://cloud.google.com/run/docs/reference/iam/roles)*
 
 
-You now can deploy `faker` function with:
+You now can deploy the function `faker` defined in `bigfunctions/faker.yaml` yaml file by running:
 
 ```sh
 bigfun deploy faker
