@@ -26,7 +26,6 @@ def get_config_value(name):
     text, default = {
         'project':                   ("Default GCP project where to deploy bigfunctions", None),
         'dataset':                   ("Default dataset where to deploy bigfunctions", None),  # eu,us,asia_east1,asia_east2,asia_northeast1,asia_northeast2,asia_northeast3,asia_south1,asia_southeast1,australia_southeast1,europe_north1,europe_west1,europe_west2,europe_west3,europe_west4,europe_west6,northamerica_northeast1,southamerica_east1,us_central1,us_east1,us_east4,us_west1,us_west2
-        'bucket_js_dependencies':    ("Default bucket where to upload npm packages used by js functions", f"{CONFIG['project']}_bigfunctions_js_dependencies" if 'project' in CONFIG else None),
     }[name]
     CONFIG[name] = click.prompt(text, default=default)
     with open(CONFIG_FILENAME, 'w', encoding='utf-8') as outfile:
@@ -57,18 +56,6 @@ def get(bigfunction):
 
 @cli.command()
 @click.argument('bigfunction')
-def create(bigfunction):
-    '''
-    Create a new BIGFUNCTION yaml file in bigfunctions folder
-    '''
-    if not os.path.isdir('bigfunctions'):
-        os.makedirs('bigfunctions')
-    url = f'https://raw.githubusercontent.com/unytics/bigfunctions/main/bigfunctions/{bigfunction}.yaml'
-    utils.download(url, f'bigfunctions/{bigfunction}.yaml')    
-
-
-@cli.command()
-@click.argument('bigfunction')
 @click.option('--project', help='Google Cloud project where the function will be deployed')
 @click.option('--dataset', help='BigQuery dataset name where the function will be deployed')
 def deploy(bigfunction, project, dataset):
@@ -85,7 +72,7 @@ def deploy(bigfunction, project, dataset):
     if bigfunction == 'ALL':
         bigfunctions = [f.replace('.yaml', '') for f in os.listdir(BIGFUNCTIONS_FOLDER)]
 
-    bucket = get_config_value('bucket_js_dependencies')
+    bucket = CONFIG.get('bucket_js_dependencies')
     cloud_run_options = CONFIG.get('cloud_run', {})
     quotas = CONFIG.get('quotas', {})
 

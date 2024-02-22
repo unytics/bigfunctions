@@ -321,6 +321,8 @@ def build_and_upload_npm_package(npm_package, bucket, project):
             # This npm package has already been built and uploaded, let's use it
             return storage_filename
         print_info(f"Starting to build and upload npm package {npm_package}")
+        if not bucket:
+            handle_error('Please provide the name of the cloud storage bucket to host js dependencies. The bucket name must be set in config as a variable named: `bucket_js_dependencies`. You must have objectAdmin permissions on it to create or replace files. The users of your function must have read access')
         build_npm_package(npm_package, output_filename, folder)
         Storage(project).upload(f"{folder}/{output_filename}", storage_filename)
         os.environ[storage_filename] = "uploaded"

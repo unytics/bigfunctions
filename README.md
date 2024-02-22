@@ -166,7 +166,7 @@ select PROJECT.DATASET.is_email_valid('paul.marcombes@unytics.io')
 *To deploy a **javascript** function* which depends on **npm packages** there are additional requirements *in addition to the ones above*.
 
 > 1. You will need to install each *npm package* on your machine and bundle it into one file. For that, you need to [install *nodejs*](https://nodejs.org/en/download/).
-> 2. The bundled js file will be uploaded into a cloud storage bucket in which you must have write access. The bucket name is asked when you run `bigfun deploy`. Users of your functions must have read access to the bucket.
+> 2. The bundled js file will be uploaded into a cloud storage bucket in which you must have write access. The bucket name must be provided in `config.yaml` file in a variable named `bucket_js_dependencies`. Users of your functions must have read access to the bucket.
 
 You now can deploy the function `render_template` defined in `bigfunctions/render_template.yaml` yaml file by running:
 
