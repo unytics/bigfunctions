@@ -199,7 +199,7 @@ def handle():
         quota_manager.save_log(status='assertion_error', status_info=error_message)
         return jsonify({'errorMessage': error_message}), 400
     except Exception as e:
-        error_reporter.report_exception(google.cloud.error_reporting.build_flask_context(request))
         error_message = (str(e) + ' --- ' + traceback.format_exc())[:1000]
         quota_manager.save_log(status='error', status_info=error_message)
+        error_reporter.report_exception(google.cloud.error_reporting.build_flask_context(request))
         return jsonify({'errorMessage': f"{type(e).__name__}: {str(e)}"}), 400
