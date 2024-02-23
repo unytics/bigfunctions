@@ -26,6 +26,8 @@ def get_config_value(name):
     text, default = {
         'project':                   ("Default GCP project where to deploy bigfunctions", None),
         'dataset':                   ("Default dataset where to deploy bigfunctions", None),  # eu,us,asia_east1,asia_east2,asia_northeast1,asia_northeast2,asia_northeast3,asia_south1,asia_southeast1,australia_southeast1,europe_north1,europe_west1,europe_west2,europe_west3,europe_west4,europe_west6,northamerica_northeast1,southamerica_east1,us_central1,us_east1,us_east4,us_west1,us_west2
+        'project_for_tests':         ("Default GCP project where to deploy bigfunctions for TESTING purposes", None),
+        'dataset_for_tests':         ("Default dataset where to deploy bigfunctions for TESTING purposes", None),  # eu,us,asia_east1,asia_east2,asia_northeast1,asia_northeast2,asia_northeast3,asia_south1,asia_southeast1,australia_southeast1,europe_north1,europe_west1,europe_west2,europe_west3,europe_west4,europe_west6,northamerica_northeast1,southamerica_east1,us_central1,us_east1,us_east4,us_west1,us_west2
     }[name]
     CONFIG[name] = click.prompt(text, default=default)
     with open(CONFIG_FILENAME, 'w', encoding='utf-8') as outfile:
@@ -63,7 +65,9 @@ def test(bigfunction):
     Test BIGFUNCTION
     '''
     from .bigfunctions import BigFunction
-    bigfunction = BigFunction(bigfunction)
+    project = get_config_value('project_for_tests')
+    dataset = get_config_value('dataset_for_tests')
+    bigfunction = BigFunction(bigfunction, project=project, dataset=dataset)
     bigfunction.test()
 
 

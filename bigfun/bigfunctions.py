@@ -8,7 +8,7 @@ import functools
 import yaml
 import jinja2
 
-from .utils import BigQuery, CloudRun, handle_error, print_success, print_info, build_and_upload_npm_package, merge_dict
+from .utils import BigQuery, CloudRun, handle_error, print_success, print_info, print_command, build_and_upload_npm_package, merge_dict
 
 BIGFUNCTIONS_FOLDER = 'bigfunctions'
 DEFAULT_CONFIG_FILENAME = './config.yaml'
@@ -81,6 +81,23 @@ class BigFunction:
         return self._dataset
 
     def test(self):
+        if self.config['type'] == 'function_py':
+            return self._test_python_function_locally()
+        self.deploy()
+        print_info('Executing function with examples')
+        template_file = f'{TEMPLATE_FOLDER}/{self.config["type"]}_test.sql'
+        template = jinja2.Template(open(template_file, encoding='utf-8').read())
+        for example in self.config['examples']:
+            query = template.render(example=example, **self.config).strip()
+            print('')
+            print_command(query)
+            rows = self.bigquery.query(query)
+            print('EXPECTING RESULT:', example['output'])
+            print('RESULT:')
+            for row in rows:
+                print(dict(row))
+
+    def _test_python_function_locally(self):
         argument_names = [arg['name'] for arg in self.config['arguments']]
         argument_values = [value.strip() for value in self.config['examples'][0]['arguments']]
         arguments = zip(argument_names, argument_values)
