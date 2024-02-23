@@ -62,7 +62,9 @@ def test(bigfunction):
     '''
     Test BIGFUNCTION
     '''
-    print(bigfunction)
+    from .bigfunctions import BigFunction
+    bigfunction = BigFunction(bigfunction)
+    bigfunction.test()
 
 
 @cli.command()

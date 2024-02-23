@@ -15,6 +15,7 @@ DEFAULT_CONFIG_FILENAME = './config.yaml'
 REMOTE_CONNECTION_NAME = 'remote-bigfunctions'
 TEMPLATE_FOLDER = os.path.dirname(os.path.realpath(__file__)).replace('\\', '/') + '/templates'
 DEFAULT_CONFIG = yaml.safe_load(open(DEFAULT_CONFIG_FILENAME, encoding='utf-8').read()) if os.path.isfile(DEFAULT_CONFIG_FILENAME) else {}
+TESTS_FOLDER = 'tests'
 
 
 class BigFunction:
@@ -79,6 +80,23 @@ class BigFunction:
             self._dataset = self.bigquery.get_dataset(f'{self.project}.{self.dataset_name}')
         return self._dataset
 
+    def test(self):
+        argument_names = [arg['name'] for arg in self.config['arguments']]
+        argument_values = [value.strip() for value in self.config['examples'][0]['arguments']]
+        arguments = zip(argument_names, argument_values)
+        template_file = f'{TEMPLATE_FOLDER}/function_py_test.py'
+        template = jinja2.Template(open(template_file, encoding='utf-8').read())
+        code = template.render(arguments=arguments, code=self.config['code'].strip())
+
+        print(code)
+        os.makedirs(TESTS_FOLDER, exist_ok=True)
+        code_filename = f'{TESTS_FOLDER}/{self.name}.py'
+        print_info(f'Generating python code file {code_filename}')
+        with open(code_filename, 'w', encoding='utf-8') as out:
+            out.write(code)
+        print_info(f'Executing python code file {code_filename}')
+        os.system(f'python {code_filename}')
+
     def deploy(self):
         if 'npm_packages' in self.config:
             self._deploy_npm_packages()
@@ -112,6 +130,7 @@ class BigFunction:
             cloud_run.add_invoker_permission(f'serviceAccount:{remote_connection.cloud_resource.service_account_id}')
 
             self.config['remote_endpoint'] = cloud_run.url
+            self.config['cloud_run_location'] = cloud_run_location
             self.config['remote_connection'] = re.sub(
                 r"projects/(\d+)/locations/([\w-]+)/connections/([\w-]+)",
                 r"\g<1>.\g<2>.\g<3>",
