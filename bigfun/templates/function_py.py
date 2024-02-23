@@ -162,13 +162,13 @@ secrets = SecretManager()
 {% if code_process_rows_as_batch %}
 
 def compute_all_rows(rows):
-    {{ code|replace('\n', '\n    ') }}
+    {{ code | replace('\n', '\n    ') | replace('{BIGFUNCTIONS_DATASET}',  '`' +  project + '`.`' + dataset + '`' ) }}
 
 {% else %}
 
 def compute_one_row(args):
     {% for argument in arguments %}{{ argument.name }}, {% endfor %} = args
-    {{ code|replace('\n', '\n    ') }}
+    {{ code | replace('\n', '\n    ') | replace('{BIGFUNCTIONS_DATASET}',  '`' +  project + '`.`' + dataset + '`' ) }}
 
 {% endif %}
 

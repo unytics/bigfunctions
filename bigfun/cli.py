@@ -75,7 +75,7 @@ def deploy(bigfunction, project, dataset):
 
     Deploy the function defined in `bigfunctions/{BIGFUNCTION}.yaml` file. If BIGFUNCTION = 'ALL' then all bigfunctions contained in bigfunctions folder are deployed.
     '''
-    from .bigfunctions import BaseBigFunction
+    from .bigfunctions import BigFunction
     project = project or get_config_value('project')
     dataset = dataset or get_config_value('dataset')
     datasets = [dataset.strip() for dataset in dataset.split(',')]
@@ -83,15 +83,17 @@ def deploy(bigfunction, project, dataset):
     if bigfunction == 'ALL':
         bigfunctions = [f.replace('.yaml', '') for f in os.listdir(BIGFUNCTIONS_FOLDER)]
 
-    for bigfunction_name in bigfunctions:
-        bigfunction = BaseBigFunction(bigfunction_name)
-        dataset = datasets[0]
-        bigfunction.deploy(project, dataset)
+    for name in bigfunctions:
+        bigfunction = BigFunction(name, project=project, dataset=datasets[0])
+        bigfunction.deploy()
         if len(datasets) > 1:
             with multiprocessing.Pool(processes=8) as pool:
-                pool.starmap(
-                    bigfunction.deploy,
-                    [[project, dataset] for dataset in datasets[1:]]
+                pool.map(
+                    BigFunction.deploy,
+                    [
+                        BigFunction(name, project=project, dataset=dataset)
+                        for dataset in datasets[1:]
+                    ]
                 )
 
 

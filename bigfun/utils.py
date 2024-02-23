@@ -49,8 +49,10 @@ def merge_dict(a: dict, b: dict, path=[]):
         if key in a:
             if isinstance(a[key], dict) and isinstance(b[key], dict):
                 merge_dict(a[key], b[key], path + [str(key)])
-            elif a[key] != b[key]:
-                raise Exception('Conflict at ' + '.'.join(path + [str(key)]))
+            elif type(a[key]) != type(b[key]):
+                raise Exception('Conflict at ' + '.'.join(path + [str(key)]) + ': key is in both dicts but type is different')
+            else:
+                a[key] = b[key]
         else:
             a[key] = b[key]
     return a
