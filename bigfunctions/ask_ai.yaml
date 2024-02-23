@@ -89,7 +89,14 @@ code: |
       from vertexai.preview.generative_models import GenerativeModel
       model = GenerativeModel(model)
       responses = model.generate_content(prompt, stream=True)
-      answer = '\n'.join([response.text for response in responses])
+      try:
+        answer = '\n'.join([response.text for response in responses])
+      except Exception as e:
+        print('ERROR:', e)
+        print('RESPONSES:')
+        for response in responses:
+          print(response)
+        return 'ERROR IN GOOGLE ANSWER'
 
   if not answer:
       return 'GOOGLE LANGUAGE MODEL QUOTA REACHED'
