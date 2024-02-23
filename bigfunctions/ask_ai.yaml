@@ -58,48 +58,42 @@ examples:
       GROUP BY product_id
       ORDER BY revenue DESC
       LIMIT 10
-code: |
+init_code: |
   import vertexai
-
+  from vertexai.preview.language_models import TextGenerationModel, CodeGenerationModel
+  from vertexai.preview.generative_models import GenerativeModel
+  vertexai.init(location=CURRENT_LOCATION)
+code: |
   model = model or 'gemini-pro'
-  location = 'us-central1'
-
   prompt = (prompt or '').strip()
   if not prompt:
-      return
+    return
 
   cache_key = hash(model + prompt)
   cached = CACHE.get(cache_key)
   if cached:
-      return cached
-
-  vertexai.init(location=location)
+    return cached
 
   if model.startswith('text-'):
-      from vertexai.preview.language_models import TextGenerationModel
-      model = TextGenerationModel.from_pretrained(model)
-      response = model.predict(prompt)
-      answer = response.text
+    model = TextGenerationModel.from_pretrained(model)
+    response = model.predict(prompt)
   elif model.startswith('code-'):
-      from vertexai.preview.language_models import CodeGenerationModel
-      model = CodeGenerationModel.from_pretrained(model)
-      response = model.predict(prompt)
-      answer = response.text
+    model = CodeGenerationModel.from_pretrained(model)
+    response = model.predict(prompt)
   else:
-      from vertexai.preview.generative_models import GenerativeModel
-      model = GenerativeModel(model)
-      responses = model.generate_content(prompt, stream=True)
-      try:
-        answer = '\n'.join([response.text for response in responses])
-      except Exception as e:
-        print('ERROR:', e)
-        print('RESPONSES:')
-        for response in responses:
-          print(response)
-        return 'ERROR IN GOOGLE ANSWER'
+    model = GenerativeModel(model)
+    response = model.generate_content(prompt)
+
+  try:
+    answer = response.text
+  except Exception as e:
+    print('ERROR:', e)
+    print('RESPONSE:')
+    print(response)
+    return 'ERROR IN GOOGLE RESPONSE: \n' + str(response)
 
   if not answer:
-      return 'GOOGLE LANGUAGE MODEL QUOTA REACHED'
+    return 'GOOGLE LANGUAGE MODEL QUOTA REACHED'
 
   CACHE[cache_key] = answer
   return answer
