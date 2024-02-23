@@ -13,6 +13,7 @@ app = Flask(__name__)
 
 
 CACHE = {}
+CURRENT_LOCATION = '{{ cloud_run_location }}'
 
 QUOTAS = {{ quotas }}
 
