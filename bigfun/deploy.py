@@ -98,7 +98,7 @@ def deploy(bigfunction, project, dataset_name, quotas, bucket, cloud_run_options
     conf = conf.replace('{BIGFUNCTIONS_DATASET}', fully_qualified_dataset)
     conf = yaml.safe_load(conf)
     conf['name'] = bigfunction
-    conf['dataset'] = fully_qualified_dataset
+    conf['fully_qualified_dataset'] = fully_qualified_dataset
     conf['filename'] = filename
     conf['quotas'] = {**quotas, **conf.get('quotas', {})}
 
