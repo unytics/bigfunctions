@@ -6,5 +6,18 @@ begin
 
 {{ code }}
 
+{% if template %}
+create or replace temp table bigfunction_result as
+select
+    (select json from bigfunction_result) as json,
+    (select {{ fully_qualified_dataset }}.render_template(
+        """<html>
+        {{ template }}
+        </html>""",
+        json
+    )
+    from bigfunction_result) as html
+;
+{% endif %}
 
 end;

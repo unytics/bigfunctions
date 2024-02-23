@@ -44,6 +44,18 @@ def handle_error(msg, details=""):
     sys.exit()
 
 
+def merge_dict(a: dict, b: dict, path=[]):
+    for key in b:
+        if key in a:
+            if isinstance(a[key], dict) and isinstance(b[key], dict):
+                merge_dict(a[key], b[key], path + [str(key)])
+            elif a[key] != b[key]:
+                raise Exception('Conflict at ' + '.'.join(path + [str(key)]))
+        else:
+            a[key] = b[key]
+    return a
+
+
 def exec(command):
     print_command(command)
     try:
@@ -67,6 +79,17 @@ def prefix_lines_with_line_number(string: str, starting_index: int = 1) -> str:
         for index, line in enumerate(lines)
     ]
     return "\n".join(numbered_lines)
+
+
+def dataset_access_entry2user(access_entry):
+    if access_entry.entity_id == 'allAuthenticatedUsers':
+        return 'allAuthenticatedUsers'
+    entity_type = 'user'
+    if access_entry.entity_id.endswith('gserviceaccount.com'):
+        entity_type = 'serviceAccount'
+    elif access_entry.entity_type == 'groupByEmail':
+        entity_type = 'group'
+    return f'{entity_type}:{access_entry.entity_id}'
 
 
 class BigQuery:
@@ -102,9 +125,15 @@ class BigQuery:
     def get_dataset(self, dataset):
         print_info("Getting dataset")
         try:
-            return self.client.get_dataset(dataset.replace("`", ""))
+            dataset = self.client.get_dataset(dataset.replace("`", ""))
         except google.api_core.exceptions.NotFound as e:
             handle_error("Not Found", e.message)
+        dataset.users = [
+            dataset_access_entry2user(access_entry)
+            for access_entry in dataset.access_entries
+            if access_entry.entity_id not in ['projectOwners', 'projectWriters', 'projectReaders']
+        ]
+        return dataset
 
     def query(self, query):
         try:
@@ -225,6 +254,8 @@ class CloudRun:
         self.region = region
 
     def exec(self, command, options=None):
+        if shutil.which('gcloud') is None:
+            handle_error('`gcloud` is not installed while needed to deploy a Remote Function.')
         command += " " + self.service
         options = options or {}
         options["region"] = self.region
@@ -321,8 +352,6 @@ def build_and_upload_npm_package(npm_package, bucket, project):
             # This npm package has already been built and uploaded, let's use it
             return storage_filename
         print_info(f"Starting to build and upload npm package {npm_package}")
-        if not bucket:
-            handle_error('Please provide the name of the cloud storage bucket to host js dependencies. The bucket name must be set in config as a variable named: `bucket_js_dependencies`. You must have objectAdmin permissions on it to create or replace files. The users of your function must have read access')
         build_npm_package(npm_package, output_filename, folder)
         Storage(project).upload(f"{folder}/{output_filename}", storage_filename)
         os.environ[storage_filename] = "uploaded"

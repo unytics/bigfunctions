@@ -54,6 +54,17 @@ def get(bigfunction):
     utils.download(url, f'bigfunctions/{bigfunction}.yaml')
 
 
+
+
+@cli.command()
+@click.argument('bigfunction')
+def test(bigfunction):
+    '''
+    Test BIGFUNCTION
+    '''
+    print(bigfunction)
+
+
 @cli.command()
 @click.argument('bigfunction')
 @click.option('--project', help='Google Cloud project where the function will be deployed')
@@ -64,7 +75,7 @@ def deploy(bigfunction, project, dataset):
 
     Deploy the function defined in `bigfunctions/{BIGFUNCTION}.yaml` file. If BIGFUNCTION = 'ALL' then all bigfunctions contained in bigfunctions folder are deployed.
     '''
-    from .deploy import deploy as deploy_bigfunction
+    from .bigfunctions import BaseBigFunction
     project = project or get_config_value('project')
     dataset = dataset or get_config_value('dataset')
     datasets = [dataset.strip() for dataset in dataset.split(',')]
@@ -72,29 +83,17 @@ def deploy(bigfunction, project, dataset):
     if bigfunction == 'ALL':
         bigfunctions = [f.replace('.yaml', '') for f in os.listdir(BIGFUNCTIONS_FOLDER)]
 
-    bucket = CONFIG.get('bucket_js_dependencies')
-    cloud_run_options = CONFIG.get('cloud_run', {})
-    quotas = CONFIG.get('quotas', {})
-
-    for bigfunction in bigfunctions:
-        assert bigfunction in bigfunctions, f'Could not find "{bigfunction}" in "{BIGFUNCTIONS_FOLDER}" folder'
+    for bigfunction_name in bigfunctions:
+        bigfunction = BaseBigFunction(bigfunction_name)
         dataset = datasets[0]
-        deploy_bigfunction(bigfunction, project, dataset, quotas, bucket, cloud_run_options)
+        bigfunction.deploy(project, dataset)
         if len(datasets) > 1:
             with multiprocessing.Pool(processes=8) as pool:
                 pool.starmap(
-                    deploy_bigfunction,
-                    [[bigfunction, project, dataset, quotas, bucket, cloud_run_options] for dataset in datasets[1:]]
+                    bigfunction.deploy,
+                    [[project, dataset] for dataset in datasets[1:]]
                 )
 
-
-@cli.command()
-@click.argument('bigfunction')
-def test(bigfunction):
-    '''
-    Test BIGFUNCTION
-    '''
-    # [TODO] make some tests
 
 
 @cli.command()

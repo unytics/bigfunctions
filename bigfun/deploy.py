@@ -2,6 +2,7 @@ import tempfile
 import re
 import os
 import shutil
+import json
 
 import yaml
 import jinja2
@@ -11,25 +12,6 @@ from .utils import BigQuery, CloudRun, handle_error, print_success, print_info, 
 
 REMOTE_CONNECTION_NAME = 'remote-bigfunctions'
 TEMPLATE_FOLDER = os.path.dirname(os.path.realpath(__file__)).replace('\\', '/') + '/templates'
-
-
-def get_dataset_users(dataset):
-
-    def access_entry2user(access_entry):
-        if access_entry.entity_id == 'allAuthenticatedUsers':
-            return 'allAuthenticatedUsers'
-        entity_type = 'user'
-        if access_entry.entity_id.endswith('gserviceaccount.com'):
-            entity_type = 'serviceAccount'
-        elif access_entry.entity_type == 'groupByEmail':
-            entity_type = 'group'
-        return f'{entity_type}:{access_entry.entity_id}'
-
-    return [
-        access_entry2user(access_entry)
-        for access_entry in dataset.access_entries
-        if access_entry.entity_id not in ['projectOwners', 'projectWriters', 'projectReaders']
-    ]
 
 
 def create_folder_with_cloudrun_code(conf, folder):
@@ -58,24 +40,16 @@ def create_folder_with_cloudrun_code(conf, folder):
         out.write(dockerfile)
 
 
-def deploy_cloud_run(bigquery, bigfunction, dataset, conf, project, cloud_run_options=None):
-    if shutil.which('gcloud') is None:
-        handle_error('`gcloud` is not installed while needed to deploy a Remote Function.')
-
+def deploy_cloud_run(bigquery, bigfunction_name, conf, project, dataset):
     with tempfile.TemporaryDirectory() as folder:
         remote_connection = bigquery.get_or_create_remote_connection(project, dataset.location, REMOTE_CONNECTION_NAME)
-        remote_connection_users = get_dataset_users(dataset)
-        bigquery.set_remote_connection_users(remote_connection.name, remote_connection_users)
+        bigquery.set_remote_connection_users(remote_connection.name, dataset.users)
 
         create_folder_with_cloudrun_code(conf, folder)
-        cloud_run_service = 'bf-' + bigfunction.replace("_", "-")
+        cloud_run_service = 'bf-' + bigfunction_name.replace("_", "-")
         cloud_run_location = {'EU': 'europe-west1', 'US': 'us-west1'}.get(dataset.location, dataset.location)
         cloud_run = CloudRun(cloud_run_service, project, cloud_run_location)
-        cloud_run_options = {
-            **(cloud_run_options or {}),
-            **conf.get('cloud_run', {}),
-        }
-        cloud_run.deploy(folder, cloud_run_options)
+        cloud_run.deploy(folder, conf.get('cloud_run', {}))
         cloud_run.add_invoker_permission(f'serviceAccount:{remote_connection.cloud_resource.service_account_id}')
 
         conf['remote_endpoint'] = cloud_run.url
@@ -86,50 +60,28 @@ def deploy_cloud_run(bigquery, bigfunction, dataset, conf, project, cloud_run_op
         )
 
 
-def deploy(bigfunction, project, dataset_name, quotas, bucket, cloud_run_options=None):
-    bigquery = BigQuery(project)
-    filename = f'bigfunctions/{bigfunction}.yaml'
-    if not os.path.isfile(filename):
-        handle_error(f'File {filename} does not exist. Cannot deploy {bigfunction}')
-    fully_qualified_bigfunction = f'`{project}`.`{dataset_name}`.{bigfunction}'
+def deploy(bigfunction, project, dataset_name):
     fully_qualified_dataset = f'`{project}`.`{dataset_name}`'
-    dataset = bigquery.get_dataset(fully_qualified_dataset)
-    conf = open(filename, encoding='utf-8').read()
-    conf = conf.replace('{BIGFUNCTIONS_DATASET}', fully_qualified_dataset)
-    conf = yaml.safe_load(conf)
-    conf['name'] = bigfunction
+    conf = json.loads(json.dumps(bigfunction.config).replace('{BIGFUNCTIONS_DATASET}', fully_qualified_dataset))
     conf['fully_qualified_dataset'] = fully_qualified_dataset
-    conf['filename'] = filename
-    conf['quotas'] = {**quotas, **conf.get('quotas', {})}
-
-    if 'template' in conf:
-        conf['code'] += f'''
-            create or replace temp table bigfunction_result as
-            select
-                (select json from bigfunction_result) as json,
-                (select {fully_qualified_dataset}.render_template(
-                    """<html>
-                    {conf['template']}
-                    </html>""",
-                    json
-                )
-                from bigfunction_result) as html
-            ;
-        '''
+    bigquery = BigQuery(project)
+    dataset = bigquery.get_dataset(fully_qualified_dataset)
 
     if 'npm_packages' in conf:
+        if 'bucket_js_dependencies' not in conf:
+            handle_error('Please provide the name of the cloud storage bucket to host js dependencies. The bucket name must be set in config as a variable named: `bucket_js_dependencies`. You must have objectAdmin permissions on it to create or replace files. The users of your function must have read access')
         conf['js_libraries_urls'] = [
-            build_and_upload_npm_package(npm_package, bucket, project)
+            build_and_upload_npm_package(npm_package, conf['bucket_js_dependencies'], project)
             for npm_package in conf['npm_packages']
         ]
     if conf['type'] == 'function_py':
-        deploy_cloud_run(bigquery, bigfunction, dataset, conf, project, cloud_run_options)
+        deploy_cloud_run(bigquery, bigfunction.name, conf, project, dataset)
 
     template_file = f'{TEMPLATE_FOLDER}/{conf["type"]}.sql'
     template = jinja2.Template(open(template_file, encoding='utf-8').read())
     query = template.render(**conf)
     print_info('Creating function in dataset')
     bigquery.query(query)
-    print_success('successfully created ' + fully_qualified_bigfunction)
+    print_success(f'successfully created {fully_qualified_dataset}.{bigfunction.name}')
 
 

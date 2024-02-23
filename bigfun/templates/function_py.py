@@ -129,7 +129,7 @@ class DatastoreQuotaManager(BaseQuotaManager):
             self.save_usage()
 
 
-QuotaManager = DatastoreQuotaManager if QUOTAS['backend'] == 'datastore' else BaseQuotaManager
+QuotaManager = DatastoreQuotaManager if QUOTAS.get('backend') == 'datastore' else BaseQuotaManager
 
 
 class SecretManager:
