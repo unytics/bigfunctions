@@ -43,6 +43,8 @@ examples:
       }
 code: |
   import requests
+  if not message:
+    return 'EMPTY MESSAGE. NOT SENDING'
   assert webhook_url.startswith('https://chat.googleapis.com/'), 'webhook_url should start with `https://chat.googleapis.com/`'
   response = requests.post(
       webhook_url,
