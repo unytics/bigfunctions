@@ -81,6 +81,7 @@ class BigFunction:
         return self._dataset
 
     def test(self):
+        # WARNING: TO CHANGE THIS AND DEPLOY A PYTHON FUNCTION HERE WE NEED TO HAVE A REMOTE CONNECTION PER DATASET AS users between dataset and remote connection are identical
         if self.config['type'] == 'function_py':
             return self._test_python_function_locally()
         self.deploy()
