@@ -100,6 +100,6 @@ code: |
 requirements: |
   google-cloud-aiplatform
 quotas:
-  max_rows_per_user_per_day: 100
+  max_rows_per_user_per_day: 1000
   max_rows_per_query: 10
 
