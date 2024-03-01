@@ -1,5 +1,7 @@
 ---
 description: "Catalog of open-source BigFunctions"
+search:
+  exclude: true
 ---
 
 # BigFunctions
