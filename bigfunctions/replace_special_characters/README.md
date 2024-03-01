@@ -3,7 +3,9 @@ title: "replace_special_characters"
 description: "BigFunction replace_special_characters: Replace most common special characters in a `string` with `replacement`"
 ---
 
-<span>style="color: gray; position: relative; top: -1rem"><a href="..">BigFunctions </a> / replace_special_characters</span>
+<span style="color: gray; position: relative; top: -1rem">
+  <a href=".." style="color: gray">bigfunctions </a> ＞ replace_special_characters
+</span>
 
 # replace_special_characters
 

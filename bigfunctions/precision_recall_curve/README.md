@@ -4,7 +4,9 @@ description: "BigFunction precision_recall_curve: Returns the Precision-Recall C
 (as a table) given `predictions`, an array  of `(predicted_score, ground_truth_label)`"
 ---
 
-<span>style="color: gray; position: relative; top: -1rem"><a href="..">BigFunctions </a> / precision_recall_curve</span>
+<span style="color: gray; position: relative; top: -1rem">
+  <a href=".." style="color: gray">bigfunctions </a> ＞ precision_recall_curve
+</span>
 
 # precision_recall_curve
 

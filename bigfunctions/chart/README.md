@@ -3,7 +3,9 @@ title: "chart"
 description: "BigFunction chart: Return html with a chartjs chart"
 ---
 
-<span>style="color: gray; position: relative; top: -1rem"><a href="..">BigFunctions </a> / chart</span>
+<span style="color: gray; position: relative; top: -1rem">
+  <a href=".." style="color: gray">bigfunctions </a> ＞ chart
+</span>
 
 # chart
 

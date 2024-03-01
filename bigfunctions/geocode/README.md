@@ -3,7 +3,9 @@ title: "geocode"
 description: "BigFunction geocode: Get `address` details from Google Maps"
 ---
 
-<span>style="color: gray; position: relative; top: -1rem"><a href="..">BigFunctions </a> / geocode</span>
+<span style="color: gray; position: relative; top: -1rem">
+  <a href=".." style="color: gray">bigfunctions </a> ＞ geocode
+</span>
 
 # geocode
 

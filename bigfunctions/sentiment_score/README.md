@@ -3,7 +3,9 @@ title: "sentiment_score"
 description: "BigFunction sentiment_score: Compute sentiment score of `content`"
 ---
 
-<span>style="color: gray; position: relative; top: -1rem"><a href="..">BigFunctions </a> / sentiment_score</span>
+<span style="color: gray; position: relative; top: -1rem">
+  <a href=".." style="color: gray">bigfunctions </a> ＞ sentiment_score
+</span>
 
 # sentiment_score
 

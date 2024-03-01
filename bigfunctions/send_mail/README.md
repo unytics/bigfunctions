@@ -15,7 +15,9 @@ to `to` email with `subject`, `content` and possible attachment (defined by `att
 "
 ---
 
-<span>style="color: gray; position: relative; top: -1rem"><a href="..">BigFunctions </a> / send_mail</span>
+<span style="color: gray; position: relative; top: -1rem">
+  <a href=".." style="color: gray">bigfunctions </a> ＞ send_mail
+</span>
 
 # send_mail
 

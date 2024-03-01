@@ -15,7 +15,9 @@ description: "BigFunction send_mail_with_excel: Sends an email with `table_or_vi
 "
 ---
 
-<span>style="color: gray; position: relative; top: -1rem"><a href="..">BigFunctions </a> / send_mail_with_excel</span>
+<span style="color: gray; position: relative; top: -1rem">
+  <a href=".." style="color: gray">bigfunctions </a> ＞ send_mail_with_excel
+</span>
 
 # send_mail_with_excel
 

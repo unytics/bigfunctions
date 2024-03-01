@@ -6,7 +6,9 @@ Return `key_value_items` as `array< struct<key string, value string> >`
 "
 ---
 
-<span>style="color: gray; position: relative; top: -1rem"><a href="..">BigFunctions </a> / json_items</span>
+<span style="color: gray; position: relative; top: -1rem">
+  <a href=".." style="color: gray">bigfunctions </a> ＞ json_items
+</span>
 
 # json_items
 

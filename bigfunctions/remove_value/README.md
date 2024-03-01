@@ -3,7 +3,9 @@ title: "remove_value"
 description: "BigFunction remove_value: Return an array with all values except `value`."
 ---
 
-<span>style="color: gray; position: relative; top: -1rem"><a href="..">BigFunctions </a> / remove_value</span>
+<span style="color: gray; position: relative; top: -1rem">
+  <a href=".." style="color: gray">bigfunctions </a> ＞ remove_value
+</span>
 
 # remove_value
 

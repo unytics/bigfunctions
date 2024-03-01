@@ -3,7 +3,9 @@ title: "distinct_values"
 description: "BigFunction distinct_values: Return distinct values"
 ---
 
-<span>style="color: gray; position: relative; top: -1rem"><a href="..">BigFunctions </a> / distinct_values</span>
+<span style="color: gray; position: relative; top: -1rem">
+  <a href=".." style="color: gray">bigfunctions </a> ＞ distinct_values
+</span>
 
 # distinct_values
 

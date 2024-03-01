@@ -3,7 +3,9 @@ title: "sort_values_desc"
 description: "BigFunction sort_values_desc: Return sorted array (descending)"
 ---
 
-<span>style="color: gray; position: relative; top: -1rem"><a href="..">BigFunctions </a> / sort_values_desc</span>
+<span style="color: gray; position: relative; top: -1rem">
+  <a href=".." style="color: gray">bigfunctions </a> ＞ sort_values_desc
+</span>
 
 # sort_values_desc
 

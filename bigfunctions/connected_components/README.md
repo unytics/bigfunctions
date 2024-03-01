@@ -34,7 +34,9 @@ in the resulting graph, there is two possible ways to achieve this:
 "
 ---
 
-<span>style="color: gray; position: relative; top: -1rem"><a href="..">BigFunctions </a> / connected_components</span>
+<span style="color: gray; position: relative; top: -1rem">
+  <a href=".." style="color: gray">bigfunctions </a> ＞ connected_components
+</span>
 
 # connected_components
 

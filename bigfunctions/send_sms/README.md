@@ -3,7 +3,9 @@ title: "send_sms"
 description: "BigFunction send_sms: Sends `message` via SMS to `phone_number`"
 ---
 
-<span>style="color: gray; position: relative; top: -1rem"><a href="..">BigFunctions </a> / send_sms</span>
+<span style="color: gray; position: relative; top: -1rem">
+  <a href=".." style="color: gray">bigfunctions </a> ＞ send_sms
+</span>
 
 # send_sms
 

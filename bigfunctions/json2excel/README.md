@@ -7,7 +7,9 @@ encoded as a base64 string.
 "
 ---
 
-<span>style="color: gray; position: relative; top: -1rem"><a href="..">BigFunctions </a> / json2excel</span>
+<span style="color: gray; position: relative; top: -1rem">
+  <a href=".." style="color: gray">bigfunctions </a> ＞ json2excel
+</span>
 
 # json2excel
 

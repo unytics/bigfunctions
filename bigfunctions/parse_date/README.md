@@ -4,7 +4,9 @@ description: "BigFunction parse_date: Parse date with automatic format detection
 *(inspired from [Sebabrata BigQuery tutorial](https://www.linkedin.com/feed/update/urn:li:activity:6989555205612670976/))*"
 ---
 
-<span>style="color: gray; position: relative; top: -1rem"><a href="..">BigFunctions </a> / parse_date</span>
+<span style="color: gray; position: relative; top: -1rem">
+  <a href=".." style="color: gray">bigfunctions </a> ＞ parse_date
+</span>
 
 # parse_date
 

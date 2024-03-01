@@ -5,7 +5,9 @@ using Google Maps
 "
 ---
 
-<span>style="color: gray; position: relative; top: -1rem"><a href="..">BigFunctions </a> / reverse_geocode</span>
+<span style="color: gray; position: relative; top: -1rem">
+  <a href=".." style="color: gray">bigfunctions </a> ＞ reverse_geocode
+</span>
 
 # reverse_geocode
 

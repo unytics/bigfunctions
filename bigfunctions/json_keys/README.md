@@ -6,7 +6,9 @@ Return `keys` as an `array<string>`
 "
 ---
 
-<span>style="color: gray; position: relative; top: -1rem"><a href="..">BigFunctions </a> / json_keys</span>
+<span style="color: gray; position: relative; top: -1rem">
+  <a href=".." style="color: gray">bigfunctions </a> ＞ json_keys
+</span>
 
 # json_keys
 

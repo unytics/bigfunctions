@@ -3,7 +3,9 @@ title: "render_string"
 description: "BigFunction render_string: Render template with context using nunjucks.js templating library"
 ---
 
-<span>style="color: gray; position: relative; top: -1rem"><a href="..">BigFunctions </a> / render_string</span>
+<span style="color: gray; position: relative; top: -1rem">
+  <a href=".." style="color: gray">bigfunctions </a> ＞ render_string
+</span>
 
 # render_string
 

@@ -4,7 +4,9 @@ description: "BigFunction is_email_valid: Return true if `email` is valid
 *(inspired from [this reddit answer](https://www.reddit.com/r/bigquery/comments/dshge0/comment/f6r7rpt/))*"
 ---
 
-<span>style="color: gray; position: relative; top: -1rem"><a href="..">BigFunctions </a> / is_email_valid</span>
+<span style="color: gray; position: relative; top: -1rem">
+  <a href=".." style="color: gray">bigfunctions </a> ＞ is_email_valid
+</span>
 
 # is_email_valid
 

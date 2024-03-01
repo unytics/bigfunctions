@@ -13,7 +13,9 @@ description: "BigFunction upload_table_to_gsheet: Upload data from `table_or_vie
 "
 ---
 
-<span>style="color: gray; position: relative; top: -1rem"><a href="..">BigFunctions </a> / upload_table_to_gsheet</span>
+<span style="color: gray; position: relative; top: -1rem">
+  <a href=".." style="color: gray">bigfunctions </a> ＞ upload_table_to_gsheet
+</span>
 
 # upload_table_to_gsheet
 

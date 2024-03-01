@@ -8,7 +8,9 @@ description: "BigFunction is_public_holiday: Return true if `date` corresponds t
 "
 ---
 
-<span>style="color: gray; position: relative; top: -1rem"><a href="..">BigFunctions </a> / is_public_holiday</span>
+<span style="color: gray; position: relative; top: -1rem">
+  <a href=".." style="color: gray">bigfunctions </a> ＞ is_public_holiday
+</span>
 
 # is_public_holiday
 

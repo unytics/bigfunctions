@@ -5,7 +5,9 @@ description: "BigFunction find_greater_value: Return the `offset` (zero-based in
 "
 ---
 
-<span>style="color: gray; position: relative; top: -1rem"><a href="..">BigFunctions </a> / find_greater_value</span>
+<span style="color: gray; position: relative; top: -1rem">
+  <a href=".." style="color: gray">bigfunctions </a> ＞ find_greater_value
+</span>
 
 # find_greater_value
 

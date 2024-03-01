@@ -10,7 +10,9 @@ description: "BigFunction ip2continent_name: Get `continent` of `ip`
 "
 ---
 
-<span>style="color: gray; position: relative; top: -1rem"><a href="..">BigFunctions </a> / ip2continent_name</span>
+<span style="color: gray; position: relative; top: -1rem">
+  <a href=".." style="color: gray">bigfunctions </a> ＞ ip2continent_name
+</span>
 
 # ip2continent_name
 

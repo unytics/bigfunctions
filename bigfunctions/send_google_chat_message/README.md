@@ -18,7 +18,9 @@ using incoming webhook.
 "
 ---
 
-<span>style="color: gray; position: relative; top: -1rem"><a href="..">BigFunctions </a> / send_google_chat_message</span>
+<span style="color: gray; position: relative; top: -1rem">
+  <a href=".." style="color: gray">bigfunctions </a> ＞ send_google_chat_message
+</span>
 
 # send_google_chat_message
 

@@ -3,7 +3,9 @@ title: "levenshtein"
 description: "BigFunction levenshtein: Compute levenshtein distance between `string1` and `string2`"
 ---
 
-<span>style="color: gray; position: relative; top: -1rem"><a href="..">BigFunctions </a> / levenshtein</span>
+<span style="color: gray; position: relative; top: -1rem">
+  <a href=".." style="color: gray">bigfunctions </a> ＞ levenshtein
+</span>
 
 # levenshtein
 

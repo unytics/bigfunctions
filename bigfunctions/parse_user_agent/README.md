@@ -3,7 +3,9 @@ title: "parse_user_agent"
 description: "BigFunction parse_user_agent: Parses User Agent strings into several components"
 ---
 
-<span>style="color: gray; position: relative; top: -1rem"><a href="..">BigFunctions </a> / parse_user_agent</span>
+<span style="color: gray; position: relative; top: -1rem">
+  <a href=".." style="color: gray">bigfunctions </a> ＞ parse_user_agent
+</span>
 
 # parse_user_agent
 

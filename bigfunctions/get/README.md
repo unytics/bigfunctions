@@ -3,7 +3,9 @@ title: "get"
 description: "BigFunction get: Request `url`"
 ---
 
-<span>style="color: gray; position: relative; top: -1rem"><a href="..">BigFunctions </a> / get</span>
+<span style="color: gray; position: relative; top: -1rem">
+  <a href=".." style="color: gray">bigfunctions </a> ＞ get
+</span>
 
 # get
 

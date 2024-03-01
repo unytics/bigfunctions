@@ -4,7 +4,9 @@ description: "BigFunction get_view_history: Get BigQuery View history
 "
 ---
 
-<span>style="color: gray; position: relative; top: -1rem"><a href="..">BigFunctions </a> / get_view_history</span>
+<span style="color: gray; position: relative; top: -1rem">
+  <a href=".." style="color: gray">bigfunctions </a> ＞ get_view_history
+</span>
 
 # get_view_history
 

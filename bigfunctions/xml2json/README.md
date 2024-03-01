@@ -3,7 +3,9 @@ title: "xml2json"
 description: "BigFunction xml2json: Returns JSON as a string for given XML string"
 ---
 
-<span>style="color: gray; position: relative; top: -1rem"><a href="..">BigFunctions </a> / xml2json</span>
+<span style="color: gray; position: relative; top: -1rem">
+  <a href=".." style="color: gray">bigfunctions </a> ＞ xml2json
+</span>
 
 # xml2json
 

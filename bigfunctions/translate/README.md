@@ -3,7 +3,9 @@ title: "translate"
 description: "BigFunction translate: Translate `text` into `target_language`"
 ---
 
-<span>style="color: gray; position: relative; top: -1rem"><a href="..">BigFunctions </a> / translate</span>
+<span style="color: gray; position: relative; top: -1rem">
+  <a href=".." style="color: gray">bigfunctions </a> ＞ translate
+</span>
 
 # translate
 
