@@ -4,7 +4,7 @@ description: "BigFunction parse_url: Return `url` parts
 *(inspired from [sql-snippets repo](https://github.com/count/sql-snippets/blob/main/bigquery/regex-parse-url.md))*"
 ---
 
-<a style="color: gray; position: relative; top: -1rem" href="..">BigFunctions </a> / 
+<span>style="color: gray; position: relative; top: -1rem"><a href="..">BigFunctions </a> / parse_url</span>
 
 # parse_url
 

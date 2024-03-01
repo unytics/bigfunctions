@@ -3,7 +3,7 @@ title: "remove_accents"
 description: "BigFunction remove_accents: Remove accents"
 ---
 
-<a style="color: gray; position: relative; top: -1rem" href="..">BigFunctions </a> / 
+<span>style="color: gray; position: relative; top: -1rem"><a href="..">BigFunctions </a> / remove_accents</span>
 
 # remove_accents
 

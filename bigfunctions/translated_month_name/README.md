@@ -7,7 +7,7 @@ in targeted `language`
 "
 ---
 
-<a style="color: gray; position: relative; top: -1rem" href="..">BigFunctions </a> / 
+<span>style="color: gray; position: relative; top: -1rem"><a href="..">BigFunctions </a> / translated_month_name</span>
 
 # translated_month_name
 

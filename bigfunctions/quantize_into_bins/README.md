@@ -5,7 +5,7 @@ with bins defined by their `bin_bounds`.
 "
 ---
 
-<a style="color: gray; position: relative; top: -1rem" href="..">BigFunctions </a> / 
+<span>style="color: gray; position: relative; top: -1rem"><a href="..">BigFunctions </a> / quantize_into_bins</span>
 
 # quantize_into_bins
 

@@ -12,7 +12,7 @@ This functions uses [yfinance python package](https://github.com/ranaroussi/yfin
 "
 ---
 
-<a style="color: gray; position: relative; top: -1rem" href="..">BigFunctions </a> / 
+<span>style="color: gray; position: relative; top: -1rem"><a href="..">BigFunctions </a> / exchange_rate</span>
 
 # exchange_rate
 

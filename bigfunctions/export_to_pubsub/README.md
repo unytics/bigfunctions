@@ -6,7 +6,7 @@ description: "BigFunction export_to_pubsub: Exports `data` and `attributes` to P
 "
 ---
 
-<a style="color: gray; position: relative; top: -1rem" href="..">BigFunctions </a> / 
+<span>style="color: gray; position: relative; top: -1rem"><a href="..">BigFunctions </a> / export_to_pubsub</span>
 
 # export_to_pubsub
 

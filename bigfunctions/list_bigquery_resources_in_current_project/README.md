@@ -18,7 +18,7 @@ The result is written into `bigfunction_result` temporary table which has the fo
 "
 ---
 
-<a style="color: gray; position: relative; top: -1rem" href="..">BigFunctions </a> / 
+<span>style="color: gray; position: relative; top: -1rem"><a href="..">BigFunctions </a> / list_bigquery_resources_in_current_project</span>
 
 # list_bigquery_resources_in_current_project
 

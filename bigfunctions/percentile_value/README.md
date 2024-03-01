@@ -6,7 +6,7 @@ Algorithm to calculate percentile is based on *[R. J. Hyndman and Y. Fan, "Sampl
 "
 ---
 
-<a style="color: gray; position: relative; top: -1rem" href="..">BigFunctions </a> / 
+<span>style="color: gray; position: relative; top: -1rem"><a href="..">BigFunctions </a> / percentile_value</span>
 
 # percentile_value
 

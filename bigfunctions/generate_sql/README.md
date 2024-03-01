@@ -18,7 +18,7 @@ description: "BigFunction generate_sql: Transform `question` to a SQL query.
 "
 ---
 
-<a style="color: gray; position: relative; top: -1rem" href="..">BigFunctions </a> / 
+<span>style="color: gray; position: relative; top: -1rem"><a href="..">BigFunctions </a> / generate_sql</span>
 
 # generate_sql
 

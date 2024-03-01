@@ -5,7 +5,7 @@ and put them in a temporary table called `bigfunction_result`.
 "
 ---
 
-<a style="color: gray; position: relative; top: -1rem" href="..">BigFunctions </a> / 
+<span>style="color: gray; position: relative; top: -1rem"><a href="..">BigFunctions </a> / get_table_columns</span>
 
 # get_table_columns
 

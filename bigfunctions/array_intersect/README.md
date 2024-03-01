@@ -4,7 +4,7 @@ description: "BigFunction array_intersect: Returns the intersection of two array
 "
 ---
 
-<a style="color: gray; position: relative; top: -1rem" href="..">BigFunctions </a> / 
+<span>style="color: gray; position: relative; top: -1rem"><a href="..">BigFunctions </a> / array_intersect</span>
 
 # array_intersect
 

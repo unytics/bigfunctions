@@ -3,7 +3,7 @@ title: "json2xml"
 description: "BigFunction json2xml: Returns XML for given JSON string"
 ---
 
-<a style="color: gray; position: relative; top: -1rem" href="..">BigFunctions </a> / 
+<span>style="color: gray; position: relative; top: -1rem"><a href="..">BigFunctions </a> / json2xml</span>
 
 # json2xml
 

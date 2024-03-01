@@ -3,7 +3,7 @@ title: "render_template"
 description: "BigFunction render_template: Render template with context using nunjucks.js templating library"
 ---
 
-<a style="color: gray; position: relative; top: -1rem" href="..">BigFunctions </a> / 
+<span>style="color: gray; position: relative; top: -1rem"><a href="..">BigFunctions </a> / render_template</span>
 
 # render_template
 

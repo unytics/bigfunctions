@@ -3,7 +3,7 @@ title: "explore_column"
 description: "BigFunction explore_column: Show column statistics"
 ---
 
-<a style="color: gray; position: relative; top: -1rem" href="..">BigFunctions </a> / 
+<span>style="color: gray; position: relative; top: -1rem"><a href="..">BigFunctions </a> / explore_column</span>
 
 # explore_column
 

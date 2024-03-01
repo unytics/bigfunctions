@@ -10,7 +10,7 @@ description: "BigFunction ip2country: Get `country_code` of `ip`
 "
 ---
 
-<a style="color: gray; position: relative; top: -1rem" href="..">BigFunctions </a> / 
+<span>style="color: gray; position: relative; top: -1rem"><a href="..">BigFunctions </a> / ip2country</span>
 
 # ip2country
 

@@ -9,7 +9,7 @@ using [Cloud Data Loss Prevention](https://cloud.google.com/dlp)
 "
 ---
 
-<a style="color: gray; position: relative; top: -1rem" href="..">BigFunctions </a> / 
+<span>style="color: gray; position: relative; top: -1rem"><a href="..">BigFunctions </a> / deidentify</span>
 
 # deidentify
 

@@ -13,7 +13,7 @@ in `write_mode`.
 "
 ---
 
-<a style="color: gray; position: relative; top: -1rem" href="..">BigFunctions </a> / 
+<span>style="color: gray; position: relative; top: -1rem"><a href="..">BigFunctions </a> / upload_to_gsheet</span>
 
 # upload_to_gsheet
 

@@ -12,7 +12,7 @@ description: "BigFunction ask_my_data: Ask your data any `question` in natural l
 "
 ---
 
-<a style="color: gray; position: relative; top: -1rem" href="..">BigFunctions </a> / 
+<span>style="color: gray; position: relative; top: -1rem"><a href="..">BigFunctions </a> / ask_my_data</span>
 
 # ask_my_data
 

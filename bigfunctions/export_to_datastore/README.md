@@ -15,7 +15,7 @@ description: "BigFunction export_to_datastore: Exports `data` to Datastore
 "
 ---
 
-<a style="color: gray; position: relative; top: -1rem" href="..">BigFunctions </a> / 
+<span>style="color: gray; position: relative; top: -1rem"><a href="..">BigFunctions </a> / export_to_datastore</span>
 
 # export_to_datastore
 

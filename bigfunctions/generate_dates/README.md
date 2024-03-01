@@ -3,7 +3,7 @@ title: "generate_dates"
 description: "BigFunction generate_dates: Generate a table of dates"
 ---
 
-<a style="color: gray; position: relative; top: -1rem" href="..">BigFunctions </a> / 
+<span>style="color: gray; position: relative; top: -1rem"><a href="..">BigFunctions </a> / generate_dates</span>
 
 # generate_dates
 

@@ -3,7 +3,7 @@ title: "sum_values"
 description: "BigFunction sum_values: Return the sum of array values"
 ---
 
-<a style="color: gray; position: relative; top: -1rem" href="..">BigFunctions </a> / 
+<span>style="color: gray; position: relative; top: -1rem"><a href="..">BigFunctions </a> / sum_values</span>
 
 # sum_values
 

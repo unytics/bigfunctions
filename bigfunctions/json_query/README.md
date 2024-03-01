@@ -10,7 +10,7 @@ offered by [JMESPath](https://jmespath.org/).
 "
 ---
 
-<a style="color: gray; position: relative; top: -1rem" href="..">BigFunctions </a> / 
+<span>style="color: gray; position: relative; top: -1rem"><a href="..">BigFunctions </a> / json_query</span>
 
 # json_query
 

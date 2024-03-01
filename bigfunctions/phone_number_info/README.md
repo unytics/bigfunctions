@@ -15,7 +15,7 @@ Argument `options` can be `null` or must be a json with the following keys:
 "
 ---
 
-<a style="color: gray; position: relative; top: -1rem" href="..">BigFunctions </a> / 
+<span>style="color: gray; position: relative; top: -1rem"><a href="..">BigFunctions </a> / phone_number_info</span>
 
 # phone_number_info
 

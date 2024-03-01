@@ -3,7 +3,7 @@ title: "explore_dataset"
 description: "BigFunction explore_dataset: Show infos about dataset tables"
 ---
 
-<a style="color: gray; position: relative; top: -1rem" href="..">BigFunctions </a> / 
+<span>style="color: gray; position: relative; top: -1rem"><a href="..">BigFunctions </a> / explore_dataset</span>
 
 # explore_dataset
 

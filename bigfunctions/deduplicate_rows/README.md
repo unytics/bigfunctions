@@ -3,7 +3,7 @@ title: "deduplicate_rows"
 description: "BigFunction deduplicate_rows: Returns the deduplicated rows of `query_or_table_or_view`"
 ---
 
-<a style="color: gray; position: relative; top: -1rem" href="..">BigFunctions </a> / 
+<span>style="color: gray; position: relative; top: -1rem"><a href="..">BigFunctions </a> / deduplicate_rows</span>
 
 # deduplicate_rows
 

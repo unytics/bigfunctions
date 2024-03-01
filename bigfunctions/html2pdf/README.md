@@ -9,7 +9,7 @@ encoded as a base64 string.
 "
 ---
 
-<a style="color: gray; position: relative; top: -1rem" href="..">BigFunctions </a> / 
+<span>style="color: gray; position: relative; top: -1rem"><a href="..">BigFunctions </a> / html2pdf</span>
 
 # html2pdf
 

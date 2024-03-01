@@ -5,7 +5,7 @@ with bins defined so that there are `nb_bins` bins of same width between `min_bo
 "
 ---
 
-<a style="color: gray; position: relative; top: -1rem" href="..">BigFunctions </a> / 
+<span>style="color: gray; position: relative; top: -1rem"><a href="..">BigFunctions </a> / quantize_into_fixed_width_bins</span>
 
 # quantize_into_fixed_width_bins
 

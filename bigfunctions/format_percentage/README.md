@@ -5,7 +5,7 @@ in a user-friendly format. You can use this function
 to handle a safe divide of the two numbers as well as your desired level of rounding."
 ---
 
-<a style="color: gray; position: relative; top: -1rem" href="..">BigFunctions </a> / 
+<span>style="color: gray; position: relative; top: -1rem"><a href="..">BigFunctions </a> / format_percentage</span>
 
 # format_percentage
 

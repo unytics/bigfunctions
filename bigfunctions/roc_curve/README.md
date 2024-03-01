@@ -4,7 +4,7 @@ description: "BigFunction roc_curve: Returns the Receiver Operating Characterist
 given a set of predicted scores and ground truth labels"
 ---
 
-<a style="color: gray; position: relative; top: -1rem" href="..">BigFunctions </a> / 
+<span>style="color: gray; position: relative; top: -1rem"><a href="..">BigFunctions </a> / roc_curve</span>
 
 # roc_curve
 

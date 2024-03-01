@@ -4,7 +4,7 @@ description: "BigFunction url_decode: Decode `url_encoded_string`
 *(inspired from [this stackoverflow solution](https://stackoverflow.com/questions/13831391/bigquery-url-decode))*"
 ---
 
-<a style="color: gray; position: relative; top: -1rem" href="..">BigFunctions </a> / 
+<span>style="color: gray; position: relative; top: -1rem"><a href="..">BigFunctions </a> / url_decode</span>
 
 # url_decode
 

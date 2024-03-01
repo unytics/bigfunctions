@@ -16,7 +16,7 @@ If `recency_field` is filled then the last record version is kept else it is cho
 | `recency_field` | Orderable field (ie. `timestamp`, `integer`, ...) to identify the relative frechness of a record version. |"
 ---
 
-<a style="color: gray; position: relative; top: -1rem" href="..">BigFunctions </a> / 
+<span>style="color: gray; position: relative; top: -1rem"><a href="..">BigFunctions </a> / upsert</span>
 
 # upsert
 

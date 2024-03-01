@@ -3,7 +3,7 @@ title: "explore_funnels"
 description: "BigFunction explore_funnels: Show funnels (WORK IN PROGRESS)"
 ---
 
-<a style="color: gray; position: relative; top: -1rem" href="..">BigFunctions </a> / 
+<span>style="color: gray; position: relative; top: -1rem"><a href="..">BigFunctions </a> / explore_funnels</span>
 
 # explore_funnels
 

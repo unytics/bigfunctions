@@ -6,7 +6,7 @@ description: "BigFunction send_teams_message: Sends `message` to a Microsoft Tea
 "
 ---
 
-<a style="color: gray; position: relative; top: -1rem" href="..">BigFunctions </a> / 
+<span>style="color: gray; position: relative; top: -1rem"><a href="..">BigFunctions </a> / send_teams_message</span>
 
 # send_teams_message
 
