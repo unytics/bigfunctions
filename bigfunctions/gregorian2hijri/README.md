@@ -4,8 +4,8 @@ description: "BigFunction gregorian2hijri: Convert Gregorian Date to Hijri Date 
 "
 ---
 
-<span style="color: gray; position: relative; top: -1rem">
-  <a href=".." style="color: gray">bigfunctions </a> ＞ gregorian2hijri
+<span style="color: silver; position: relative; top: -1rem">
+  <a href=".." style="color: silver">bigfunctions </a> > gregorian2hijri
 </span>
 
 # gregorian2hijri

@@ -3,8 +3,8 @@ title: "remove_strings"
 description: "BigFunction remove_strings: Remove any string of `strings_to_remove` from `string`"
 ---
 
-<span style="color: gray; position: relative; top: -1rem">
-  <a href=".." style="color: gray">bigfunctions </a> ＞ remove_strings
+<span style="color: silver; position: relative; top: -1rem">
+  <a href=".." style="color: silver">bigfunctions </a> > remove_strings
 </span>
 
 # remove_strings

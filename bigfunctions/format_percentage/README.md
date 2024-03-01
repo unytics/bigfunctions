@@ -5,8 +5,8 @@ in a user-friendly format. You can use this function
 to handle a safe divide of the two numbers as well as your desired level of rounding."
 ---
 
-<span style="color: gray; position: relative; top: -1rem">
-  <a href=".." style="color: gray">bigfunctions </a> ＞ format_percentage
+<span style="color: silver; position: relative; top: -1rem">
+  <a href=".." style="color: silver">bigfunctions </a> > format_percentage
 </span>
 
 # format_percentage

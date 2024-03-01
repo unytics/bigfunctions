@@ -3,8 +3,8 @@ title: "sleep"
 description: "BigFunction sleep: Sleep during `seconds` seconds"
 ---
 
-<span style="color: gray; position: relative; top: -1rem">
-  <a href=".." style="color: gray">bigfunctions </a> ＞ sleep
+<span style="color: silver; position: relative; top: -1rem">
+  <a href=".." style="color: silver">bigfunctions </a> > sleep
 </span>
 
 # sleep

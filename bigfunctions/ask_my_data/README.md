@@ -12,8 +12,8 @@ description: "BigFunction ask_my_data: Ask your data any `question` in natural l
 "
 ---
 
-<span style="color: gray; position: relative; top: -1rem">
-  <a href=".." style="color: gray">bigfunctions </a> ＞ ask_my_data
+<span style="color: silver; position: relative; top: -1rem">
+  <a href=".." style="color: silver">bigfunctions </a> > ask_my_data
 </span>
 
 # ask_my_data

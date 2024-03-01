@@ -5,8 +5,8 @@ description: "BigFunction get_value: Return the first `value` with a key `search
 "
 ---
 
-<span style="color: gray; position: relative; top: -1rem">
-  <a href=".." style="color: gray">bigfunctions </a> ＞ get_value
+<span style="color: silver; position: relative; top: -1rem">
+  <a href=".." style="color: silver">bigfunctions </a> > get_value
 </span>
 
 # get_value

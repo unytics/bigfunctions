@@ -3,8 +3,8 @@ title: "sum_values"
 description: "BigFunction sum_values: Return the sum of array values"
 ---
 
-<span style="color: gray; position: relative; top: -1rem">
-  <a href=".." style="color: gray">bigfunctions </a> ＞ sum_values
+<span style="color: silver; position: relative; top: -1rem">
+  <a href=".." style="color: silver">bigfunctions </a> > sum_values
 </span>
 
 # sum_values

@@ -10,8 +10,8 @@ of type `what` and localized with `locale` parameter (using [faker python librar
 "
 ---
 
-<span style="color: gray; position: relative; top: -1rem">
-  <a href=".." style="color: gray">bigfunctions </a> ＞ faker
+<span style="color: silver; position: relative; top: -1rem">
+  <a href=".." style="color: silver">bigfunctions </a> > faker
 </span>
 
 # faker

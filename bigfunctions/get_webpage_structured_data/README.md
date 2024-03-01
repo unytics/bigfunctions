@@ -5,8 +5,8 @@ that [Google shows in search results](https://developers.google.com/search/docs/
 "
 ---
 
-<span style="color: gray; position: relative; top: -1rem">
-  <a href=".." style="color: gray">bigfunctions </a> ＞ get_webpage_structured_data
+<span style="color: silver; position: relative; top: -1rem">
+  <a href=".." style="color: silver">bigfunctions </a> > get_webpage_structured_data
 </span>
 
 # get_webpage_structured_data

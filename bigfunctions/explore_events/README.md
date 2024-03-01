@@ -3,8 +3,8 @@ title: "explore_events"
 description: "BigFunction explore_events: Show events (WORK IN PROGRESS)"
 ---
 
-<span style="color: gray; position: relative; top: -1rem">
-  <a href=".." style="color: gray">bigfunctions </a> ＞ explore_events
+<span style="color: silver; position: relative; top: -1rem">
+  <a href=".." style="color: silver">bigfunctions </a> > explore_events
 </span>
 
 # explore_events

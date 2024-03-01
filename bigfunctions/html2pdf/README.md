@@ -9,8 +9,8 @@ encoded as a base64 string.
 "
 ---
 
-<span style="color: gray; position: relative; top: -1rem">
-  <a href=".." style="color: gray">bigfunctions </a> ＞ html2pdf
+<span style="color: silver; position: relative; top: -1rem">
+  <a href=".." style="color: silver">bigfunctions </a> > html2pdf
 </span>
 
 # html2pdf

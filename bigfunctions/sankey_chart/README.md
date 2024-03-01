@@ -3,8 +3,8 @@ title: "sankey_chart"
 description: "BigFunction sankey_chart: Return html with a Sankey Google chart"
 ---
 
-<span style="color: gray; position: relative; top: -1rem">
-  <a href=".." style="color: gray">bigfunctions </a> ＞ sankey_chart
+<span style="color: silver; position: relative; top: -1rem">
+  <a href=".." style="color: silver">bigfunctions </a> > sankey_chart
 </span>
 
 # sankey_chart

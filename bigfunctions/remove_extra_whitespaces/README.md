@@ -4,8 +4,8 @@ description: "BigFunction remove_extra_whitespaces: Remove unwanted whitespaces
 *(inspired from [re_data dbt repo](https://github.com/re-data/dbt-re-data/blob/main/macros/public/cleaning/clean_additional_whitespace.sql))*"
 ---
 
-<span style="color: gray; position: relative; top: -1rem">
-  <a href=".." style="color: gray">bigfunctions </a> ＞ remove_extra_whitespaces
+<span style="color: silver; position: relative; top: -1rem">
+  <a href=".." style="color: silver">bigfunctions </a> > remove_extra_whitespaces
 </span>
 
 # remove_extra_whitespaces

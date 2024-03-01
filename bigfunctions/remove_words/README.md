@@ -3,8 +3,8 @@ title: "remove_words"
 description: "BigFunction remove_words: Remove any word of `words_to_remove` from `string`"
 ---
 
-<span style="color: gray; position: relative; top: -1rem">
-  <a href=".." style="color: gray">bigfunctions </a> ＞ remove_words
+<span style="color: silver; position: relative; top: -1rem">
+  <a href=".." style="color: silver">bigfunctions </a> > remove_words
 </span>
 
 # remove_words

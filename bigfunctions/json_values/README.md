@@ -6,8 +6,8 @@ Return `values` as an `array<string>`
 "
 ---
 
-<span style="color: gray; position: relative; top: -1rem">
-  <a href=".." style="color: gray">bigfunctions </a> ＞ json_values
+<span style="color: silver; position: relative; top: -1rem">
+  <a href=".." style="color: silver">bigfunctions </a> > json_values
 </span>
 
 # json_values

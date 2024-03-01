@@ -4,8 +4,8 @@ description: "BigFunction find_value: Return the first `offset` (zero-based inde
 (or `null` if `value` is not in `arr`)."
 ---
 
-<span style="color: gray; position: relative; top: -1rem">
-  <a href=".." style="color: gray">bigfunctions </a> ＞ find_value
+<span style="color: silver; position: relative; top: -1rem">
+  <a href=".." style="color: silver">bigfunctions </a> > find_value
 </span>
 
 # find_value

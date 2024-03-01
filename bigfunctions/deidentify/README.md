@@ -9,8 +9,8 @@ using [Cloud Data Loss Prevention](https://cloud.google.com/dlp)
 "
 ---
 
-<span style="color: gray; position: relative; top: -1rem">
-  <a href=".." style="color: gray">bigfunctions </a> ＞ deidentify
+<span style="color: silver; position: relative; top: -1rem">
+  <a href=".." style="color: silver">bigfunctions </a> > deidentify
 </span>
 
 # deidentify

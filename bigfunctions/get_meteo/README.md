@@ -5,8 +5,8 @@ for `latitude` , `longitude` and `date`
 "
 ---
 
-<span style="color: gray; position: relative; top: -1rem">
-  <a href=".." style="color: gray">bigfunctions </a> ＞ get_meteo
+<span style="color: silver; position: relative; top: -1rem">
+  <a href=".." style="color: silver">bigfunctions </a> > get_meteo
 </span>
 
 # get_meteo

@@ -18,8 +18,8 @@ The result is written into `bigfunction_result` temporary table which has the fo
 "
 ---
 
-<span style="color: gray; position: relative; top: -1rem">
-  <a href=".." style="color: gray">bigfunctions </a> ＞ list_bigquery_resources_in_current_project
+<span style="color: silver; position: relative; top: -1rem">
+  <a href=".." style="color: silver">bigfunctions </a> > list_bigquery_resources_in_current_project
 </span>
 
 # list_bigquery_resources_in_current_project

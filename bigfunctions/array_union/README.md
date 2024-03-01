@@ -4,8 +4,8 @@ description: "BigFunction array_union: Returns the union of two arrays.
 "
 ---
 
-<span style="color: gray; position: relative; top: -1rem">
-  <a href=".." style="color: gray">bigfunctions </a> ＞ array_union
+<span style="color: silver; position: relative; top: -1rem">
+  <a href=".." style="color: silver">bigfunctions </a> > array_union
 </span>
 
 # array_union

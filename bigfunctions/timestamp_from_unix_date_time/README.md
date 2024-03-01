@@ -8,8 +8,8 @@ Truncates higher levels of precision by rounding down to the beginning of the `d
 | `date_time_part` | `MICROSECOND`, `MILLISECOND`, `SECOND`, `MINUTE`, `HOUR`, `DAY`, `WEEK`, `WEEK(MONDAY)`, `WEEK(TUESDAY)`, `WEEK(WEDNESDAY)`, `WEEK(THURSDAY)`, `WEEK(FRIDAY)`, `WEEK(SATURDAY)`, `WEEK(SUNDAY)`, `MONTH`, `QUARTER`, `YEAR` |"
 ---
 
-<span style="color: gray; position: relative; top: -1rem">
-  <a href=".." style="color: gray">bigfunctions </a> ＞ timestamp_from_unix_date_time
+<span style="color: silver; position: relative; top: -1rem">
+  <a href=".." style="color: silver">bigfunctions </a> > timestamp_from_unix_date_time
 </span>
 
 # timestamp_from_unix_date_time

@@ -6,8 +6,8 @@ and `type` among (`string`, `numeric`, `bool`, `date`, `timestamp`)
 "
 ---
 
-<span style="color: gray; position: relative; top: -1rem">
-  <a href=".." style="color: gray">bigfunctions </a> ＞ json_schema
+<span style="color: silver; position: relative; top: -1rem">
+  <a href=".." style="color: silver">bigfunctions </a> > json_schema
 </span>
 
 # json_schema

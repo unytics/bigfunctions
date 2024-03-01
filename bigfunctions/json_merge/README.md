@@ -3,8 +3,8 @@ title: "json_merge"
 description: "BigFunction json_merge: Merge `json_string1` and `json_string2`"
 ---
 
-<span style="color: gray; position: relative; top: -1rem">
-  <a href=".." style="color: gray">bigfunctions </a> ＞ json_merge
+<span style="color: silver; position: relative; top: -1rem">
+  <a href=".." style="color: silver">bigfunctions </a> > json_merge
 </span>
 
 # json_merge

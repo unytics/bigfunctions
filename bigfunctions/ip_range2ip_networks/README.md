@@ -5,8 +5,8 @@ description: "BigFunction ip_range2ip_networks: Convert an IP range into a json 
 "
 ---
 
-<span style="color: gray; position: relative; top: -1rem">
-  <a href=".." style="color: gray">bigfunctions </a> ＞ ip_range2ip_networks
+<span style="color: silver; position: relative; top: -1rem">
+  <a href=".." style="color: silver">bigfunctions </a> > ip_range2ip_networks
 </span>
 
 # ip_range2ip_networks

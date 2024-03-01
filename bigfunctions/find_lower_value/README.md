@@ -5,8 +5,8 @@ description: "BigFunction find_lower_value: Return the `offset` (zero-based inde
 "
 ---
 
-<span style="color: gray; position: relative; top: -1rem">
-  <a href=".." style="color: gray">bigfunctions </a> ＞ find_lower_value
+<span style="color: silver; position: relative; top: -1rem">
+  <a href=".." style="color: silver">bigfunctions </a> > find_lower_value
 </span>
 
 # find_lower_value

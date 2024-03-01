@@ -3,8 +3,8 @@ title: "validate_address"
 description: "BigFunction validate_address: Validate `address` using Google Maps"
 ---
 
-<span style="color: gray; position: relative; top: -1rem">
-  <a href=".." style="color: gray">bigfunctions </a> ＞ validate_address
+<span style="color: silver; position: relative; top: -1rem">
+  <a href=".." style="color: silver">bigfunctions </a> > validate_address
 </span>
 
 # validate_address

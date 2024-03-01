@@ -5,8 +5,8 @@ description: "BigFunction get_webpage_metadata: Get webpage metadata
 "
 ---
 
-<span style="color: gray; position: relative; top: -1rem">
-  <a href=".." style="color: gray">bigfunctions </a> ＞ get_webpage_metadata
+<span style="color: silver; position: relative; top: -1rem">
+  <a href=".." style="color: silver">bigfunctions </a> > get_webpage_metadata
 </span>
 
 # get_webpage_metadata

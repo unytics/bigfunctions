@@ -3,8 +3,8 @@ title: "get_latest_partition_timestamp"
 description: "BigFunction get_latest_partition_timestamp: Return the maximum of the partition column of `fully_qualified_table`"
 ---
 
-<span style="color: gray; position: relative; top: -1rem">
-  <a href=".." style="color: gray">bigfunctions </a> ＞ get_latest_partition_timestamp
+<span style="color: silver; position: relative; top: -1rem">
+  <a href=".." style="color: silver">bigfunctions </a> > get_latest_partition_timestamp
 </span>
 
 # get_latest_partition_timestamp

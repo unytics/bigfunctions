@@ -36,8 +36,8 @@ description: "BigFunction run_python: Run any `python_code`.
 "
 ---
 
-<span style="color: gray; position: relative; top: -1rem">
-  <a href=".." style="color: gray">bigfunctions </a> ＞ run_python
+<span style="color: silver; position: relative; top: -1rem">
+  <a href=".." style="color: silver">bigfunctions </a> > run_python
 </span>
 
 # run_python

@@ -4,8 +4,8 @@ description: "BigFunction roc_auc: Returns the Area Under the Receiver Operating
 given a set of predicted scores and ground truth labels using the trapezoidal rule"
 ---
 
-<span style="color: gray; position: relative; top: -1rem">
-  <a href=".." style="color: gray">bigfunctions </a> ＞ roc_auc
+<span style="color: silver; position: relative; top: -1rem">
+  <a href=".." style="color: silver">bigfunctions </a> > roc_auc
 </span>
 
 # roc_auc

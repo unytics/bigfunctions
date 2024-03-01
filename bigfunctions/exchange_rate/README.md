@@ -12,8 +12,8 @@ This functions uses [yfinance python package](https://github.com/ranaroussi/yfin
 "
 ---
 
-<span style="color: gray; position: relative; top: -1rem">
-  <a href=".." style="color: gray">bigfunctions </a> ＞ exchange_rate
+<span style="color: silver; position: relative; top: -1rem">
+  <a href=".." style="color: silver">bigfunctions </a> > exchange_rate
 </span>
 
 # exchange_rate

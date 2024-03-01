@@ -3,8 +3,8 @@ title: "convert_non_ascii_characters_to_unicode_escape_sequences"
 description: "BigFunction convert_non_ascii_characters_to_unicode_escape_sequences: Replace all non ASCII characters with escape unicode"
 ---
 
-<span style="color: gray; position: relative; top: -1rem">
-  <a href=".." style="color: gray">bigfunctions </a> ＞ convert_non_ascii_characters_to_unicode_escape_sequences
+<span style="color: silver; position: relative; top: -1rem">
+  <a href=".." style="color: silver">bigfunctions </a> > convert_non_ascii_characters_to_unicode_escape_sequences
 </span>
 
 # convert_non_ascii_characters_to_unicode_escape_sequences

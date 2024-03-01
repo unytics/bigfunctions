@@ -5,8 +5,8 @@ description: "BigFunction h3: Wrapper around [Uber H3](https://github.com/uber/h
 "
 ---
 
-<span style="color: gray; position: relative; top: -1rem">
-  <a href=".." style="color: gray">bigfunctions </a> ＞ h3
+<span style="color: silver; position: relative; top: -1rem">
+  <a href=".." style="color: silver">bigfunctions </a> > h3
 </span>
 
 # h3

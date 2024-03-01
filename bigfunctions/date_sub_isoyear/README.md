@@ -5,8 +5,8 @@ description: "BigFunction date_sub_isoyear: Returns same day `years` before
 "
 ---
 
-<span style="color: gray; position: relative; top: -1rem">
-  <a href=".." style="color: gray">bigfunctions </a> ＞ date_sub_isoyear
+<span style="color: silver; position: relative; top: -1rem">
+  <a href=".." style="color: silver">bigfunctions </a> > date_sub_isoyear
 </span>
 
 # date_sub_isoyear

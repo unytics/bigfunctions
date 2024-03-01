@@ -5,8 +5,8 @@ description: "BigFunction prophet: Forecast time-series using prophet
 "
 ---
 
-<span style="color: gray; position: relative; top: -1rem">
-  <a href=".." style="color: gray">bigfunctions </a> ＞ prophet
+<span style="color: silver; position: relative; top: -1rem">
+  <a href=".." style="color: silver">bigfunctions </a> > prophet
 </span>
 
 # prophet

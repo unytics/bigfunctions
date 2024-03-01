@@ -5,8 +5,8 @@ description: "BigFunction post: POST `data` to `url`.
 "
 ---
 
-<span style="color: gray; position: relative; top: -1rem">
-  <a href=".." style="color: gray">bigfunctions </a> ＞ post
+<span style="color: silver; position: relative; top: -1rem">
+  <a href=".." style="color: silver">bigfunctions </a> > post
 </span>
 
 # post

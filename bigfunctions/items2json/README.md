@@ -5,8 +5,8 @@ which is a `array<struct<key string, value string>>`.
 "
 ---
 
-<span style="color: gray; position: relative; top: -1rem">
-  <a href=".." style="color: gray">bigfunctions </a> ＞ items2json
+<span style="color: silver; position: relative; top: -1rem">
+  <a href=".." style="color: silver">bigfunctions </a> > items2json
 </span>
 
 # items2json

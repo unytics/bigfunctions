@@ -3,8 +3,8 @@ title: "get_json"
 description: "BigFunction get_json: GET json `data` from `url`"
 ---
 
-<span style="color: gray; position: relative; top: -1rem">
-  <a href=".." style="color: gray">bigfunctions </a> ＞ get_json
+<span style="color: silver; position: relative; top: -1rem">
+  <a href=".." style="color: silver">bigfunctions </a> > get_json
 </span>
 
 # get_json
