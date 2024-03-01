@@ -1,0 +1,30 @@
+type: function_sql
+category: transform_string
+author:
+  name: "Credits: Mikhail Berlyant"
+  url: https://stackoverflow.com/users/5221944/mikhail-berlyant
+  avatar_url: https://i.stack.imgur.com/iqXab.png?s=256&g=1
+description: |-
+  Decode `url_encoded_string`
+  *(inspired from [this stackoverflow solution](https://stackoverflow.com/questions/13831391/bigquery-url-decode))*
+arguments:
+  - name: url_encoded_string
+    type: string
+output:
+  name: string
+  type: string
+examples:
+  - description: ""
+    arguments:
+      - "'http%3A%2F%2Fwww.example.com%2Fhello%3Fv%3D12345'"
+    output: "http://www.example.com/hello?v=12345"
+code: |
+  (
+    select string_agg(
+      if(regexp_contains(y, r'^%[0-9a-fA-F]{2}'),
+        safe_convert_bytes_to_string(from_hex(replace(y, '%', ''))), y), ''
+      order by i
+      )
+    from unnest(regexp_extract_all(url_encoded_string, r"%[0-9a-fA-F]{2}(?:%[0-9a-fA-F]{2})*|[^%]+")) y
+    with offset as i
+  )

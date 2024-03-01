@@ -1,0 +1,29 @@
+type: function_sql
+category: transform_array
+author:
+  name: Sid Ali
+  url: https://www.linkedin.com/company/esmoz/
+  avatar_url: "https://esmoz.fr/wp-content/uploads/2022/03/logo_esmoz_40x20-1.png"
+description: |
+  Return true if `array1` = `array2`
+  and false otherwise
+arguments:
+  - name: array1
+    type: any type
+  - name: array2
+    type: any type
+output:
+  name: are_arrays_equal
+  type: bool
+examples:
+  - description: ""
+    arguments:
+      - "[1, 4, 3]"
+      - "[1, 4, 3]"
+    output: "true"
+  - description: ""
+    arguments:
+      - "[1, 4, 3]"
+      - "[1, 4]"
+    output: "false"
+code: (to_json_string(array1) = to_json_string(array2))

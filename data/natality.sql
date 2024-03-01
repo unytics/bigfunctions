@@ -1,0 +1,36 @@
+CREATE TABLE `bigfunctions.us.natality`
+(
+  source_year INT64 NOT NULL OPTIONS(description="Four-digit year of the birth. Example: 1975."),
+  year INT64 OPTIONS(description="Four-digit year of the birth. Example: 1975."),
+  month INT64 OPTIONS(description="Month index of the date of birth, where 1=January."),
+  day INT64 OPTIONS(description="Day of birth, starting from 1."),
+  wday INT64 OPTIONS(description="Day of the week, where 1 is Sunday and 7 is Saturday."),
+  state STRING OPTIONS(description="The two character postal code for the state. Entries after 2004 do not include this value."),
+  is_male BOOL NOT NULL OPTIONS(description="TRUE if the child is male, FALSE if female."),
+  child_race INT64 OPTIONS(description="The race of the child. One of the following numbers:\n\n1 - White\n2 - Black\n3 - American Indian\n4 - Chinese\n5 - Japanese\n6 - Hawaiian\n7 - Filipino\n9 - Unknown/Other\n18 - Asian Indian\n28 - Korean\n39 - Samoan\n48 - Vietnamese"),
+  weight_pounds FLOAT64 OPTIONS(description="Weight of the child, in pounds."),
+  plurality INT64 OPTIONS(description="How many children were born as a result of this pregnancy. twins=2, triplets=3, and so on."),
+  apgar_1min INT64 OPTIONS(description="Apgar scores measure the health of a newborn child on a scale from 0-10. Value after 1 minute. Available from 1978-2002."),
+  apgar_5min INT64 OPTIONS(description="Apgar scores measure the health of a newborn child on a scale from 0-10. Value after 5 minutes. Available from 1978-2002."),
+  mother_residence_state STRING OPTIONS(description="The two-letter postal code of the mother's state of residence when the child was born."),
+  mother_race INT64 OPTIONS(description="Race of the mother. Same values as child_race."),
+  mother_age INT64 OPTIONS(description="Reported age of the mother when giving birth."),
+  gestation_weeks INT64 OPTIONS(description="The number of weeks of the pregnancy."),
+  lmp STRING OPTIONS(description="Date of the last menstrual period in the format MMDDYYYY. Unknown values are recorded as \"99\" or \"9999\"."),
+  mother_married BOOL OPTIONS(description="True if the mother was married when she gave birth."),
+  mother_birth_state STRING OPTIONS(description="The two-letter postal code of the mother's birth state."),
+  cigarette_use BOOL OPTIONS(description="True if the mother smoked cigarettes. Available starting 2003."),
+  cigarettes_per_day INT64 OPTIONS(description="Number of cigarettes smoked by the mother per day. Available starting 2003."),
+  alcohol_use BOOL OPTIONS(description="True if the mother used alcohol. Available starting 1989."),
+  drinks_per_week INT64 OPTIONS(description="Number of drinks per week consumed by the mother. Available starting 1989."),
+  weight_gain_pounds INT64 OPTIONS(description="Number of pounds gained by the mother during pregnancy."),
+  born_alive_alive INT64 OPTIONS(description="Number of children previously born to the mother who are now living."),
+  born_alive_dead INT64 OPTIONS(description="Number of children previously born to the mother who are now dead."),
+  born_dead INT64 OPTIONS(description="Number of children who were born dead (i.e. miscarriages)"),
+  ever_born INT64 OPTIONS(description="Total number of children to whom the woman has ever given birth (includes the current birth)."),
+  father_race INT64 OPTIONS(description="Race of the father. Same values as child_race."),
+  father_age INT64 OPTIONS(description="Age of the father when the child was born."),
+  record_weight INT64 OPTIONS(description="1 or 2, where 1 is a row from a full-reporting area, and 2 is a row from a 50% sample area.")
+)
+as
+select * from `bigquery-public-data.samples.natality` tablesample system (10 percent)

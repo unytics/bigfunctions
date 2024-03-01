@@ -1,0 +1,36 @@
+type: function_js
+category: transform_json
+author:
+  name: Thomas Lépine
+  url: https://www.linkedin.com/company/esmoz/
+  avatar_url: "https://esmoz.fr/wp-content/uploads/2022/03/logo_esmoz_40x20-1.png"
+description: Merge `json_string1` and `json_string2`
+arguments:
+  - name: json_string1
+    type: string
+  - name: json_string2
+    type: string
+output:
+  name: merged_json
+  type: string
+examples:
+  - description: ""
+    arguments:
+      - "'{\"k1\": \"v1\"}'"
+      - "'{\"k2\": \"v2\"}'"
+    output: "'{\"k1\": \"v1\", \"k2\": \"v2\"}'"
+code: |
+  try {
+    var obj1 = JSON.parse(json_string1);
+  }
+  catch {
+    throw('could not parse json_string1');
+  }
+  try {
+    var obj2 = JSON.parse(json_string2);
+  }
+  catch {
+    throw('could not parse json_string2');
+  }
+  merged = Object.assign({}, obj1, obj2);
+  return JSON.stringify(merged);

@@ -1,0 +1,59 @@
+type: table_function
+category: machine_learning
+author:
+  name: "Anatole Callies"
+  url: https://www.linkedin.com/in/anatolec/
+  avatar_url: "https://ca.slack-edge.com/T01LGTNUWTE-U044NKG25GX-7469e33feefb-512"
+description: |-
+  Returns the Precision-Recall Curve
+  (as a table) given `predictions`, an array  of `(predicted_score, ground_truth_label)`
+arguments:
+  - name: predictions
+    type: array<struct<predicted_score float64, ground_truth_label bool>>
+output:
+  name: table_of_precisions_and_recalls
+  type: table
+examples:
+  - description: ""
+    arguments:
+      - "[(0.1, false), (0.4, false), (0.35, true), (0.8, true)]"
+    output: |
+      +-----------+---------+
+      | precision |  recall |
+      +-----------+---------+
+      |    0.5    |   1.0   |
+      |    0.667  |   1.0   |
+      |    0.5    |   0.5   |
+      |    1.0    |   0.5   |
+      |    1.0    |   0     |
+      +-----------+---------+
+code: |
+  with
+      unnested AS (
+          select
+              predicted_score,
+              ground_truth_label,
+          from unnest(predictions)
+          where
+              predicted_score is not null
+              and ground_truth_label is not null
+      )
+  select distinct
+      round(
+          safe_divide(
+              countif(ground_truth_label) over (order by predicted_score, ground_truth_label rows between current row and unbounded following), -- True Positives
+              count(*) over (order by predicted_score, ground_truth_label rows between current row and unbounded following) -- All Positive predictions
+          ),
+          3
+      ) AS precision,
+      round(
+          safe_divide(
+              countif(ground_truth_label) over (order by predicted_score, ground_truth_label rows between current row and unbounded following), -- True Positives
+              (select countif(ground_truth_label) from unnested) -- All Positive labels
+          ),
+          3
+      ) AS recall
+  from unnested
+  union all
+  select 1, 0
+  order by recall desc

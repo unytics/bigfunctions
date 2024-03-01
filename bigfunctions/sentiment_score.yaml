@@ -1,0 +1,30 @@
+type: function_py
+category: machine_learning
+author:
+  name: Paul Marcombes
+  url: https://www.linkedin.com/in/paul-marcombes
+  avatar_url: "https://lh3.googleusercontent.com/a-/ACB-R5RDf2yxcw1p_IYLCKmiUIScreatDdhG8B83om6Ohw=s260"
+description: Compute sentiment score of `content`
+arguments:
+  - name: content
+    type: string
+output:
+  name: sentiment_score
+  type: float64
+examples:
+  - description: ""
+    arguments:
+      - "'BigFunctions Rocks!'"
+    output: "0.945"
+code: |
+  import google.cloud.language_v1 as language
+  language_client = language.LanguageServiceClient()
+  document = language.Document(content=content, type_=language.Document.Type.PLAIN_TEXT)
+  request = language.AnalyzeSentimentRequest(document=document)
+  sentiment = language_client.analyze_sentiment(request=request).document_sentiment
+  return sentiment.score
+requirements: |
+  google-cloud-language
+quotas:
+  max_rows_per_user_per_day: 500
+  max_rows_per_query: 100

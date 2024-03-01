@@ -1,0 +1,25 @@
+type: function_js
+category: transform_string
+author:
+  name: Paul Marcombes
+  url: https://www.linkedin.com/in/paul-marcombes
+  avatar_url: "https://lh3.googleusercontent.com/a-/ACB-R5RDf2yxcw1p_IYLCKmiUIScreatDdhG8B83om6Ohw=s260"
+description: Compute levenshtein distance between `string1` and `string2`
+arguments:
+  - name: string1
+    type: string
+  - name: string2
+    type: string
+output:
+  name: distance
+  type: int64
+examples:
+  - description: ""
+    arguments:
+      - "'bak'"
+      - "'book'"
+    output: "2"
+code: |
+  return js_levenshtein(string1 || '', string2 || '');
+npm_packages:
+  - js-levenshtein@1.1.6

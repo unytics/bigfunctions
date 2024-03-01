@@ -1,0 +1,54 @@
+type: procedure
+category: utils
+author:
+  name: jihene cherif
+  url: https://www.linkedin.com/company/esmoz/
+  avatar_url: "https://esmoz.fr/wp-content/uploads/2022/03/logo_esmoz_40x20-1.png"
+description: Return the maximum of the partition column of `fully_qualified_table`
+arguments:
+  - name: fully_qualified_table
+    type: string
+output:
+  name: latest_partition_timestamp
+  type: timestamp
+examples:
+  - description: ""
+    arguments:
+      - '"my_project.my_dataset.my_table"'
+    output:  |
+      +----------------------------+
+      | latest_partition_timestamp |
+      +----------------------------+
+      |         2023-01-10         |
+      +----------------------------+
+code: |
+  declare project, dataset, table, partition_col string;
+
+  declare parts array<string> default split(replace(fully_qualified_table, '`', ''), '.');
+  set project = parts[offset(0)];
+  set dataset = parts[offset(1)];
+  set table = parts[offset(2)];
+
+  execute immediate replace(replace(replace('''
+    select column_name
+    from `{{project}}.{{dataset}}.INFORMATION_SCHEMA.COLUMNS`
+    where table_name = '{{table}}' and is_partitioning_column = 'YES'
+  ''',
+  '{{project}}', project),
+  '{{dataset}}', dataset),
+  '{{table}}', table
+  ) into partition_col;
+
+  execute immediate replace(replace(replace(
+    format(
+      '''
+      select
+        cast(max(%s) as timestamp) as latest_partition_timestamp,
+      from `{{project}}.{{dataset}}.{{table}}`
+      ''',
+      partition_col
+    ),
+    '{{project}}', project),
+    '{{dataset}}', dataset),
+    '{{table}}', table
+  ) into bigfunction_result;

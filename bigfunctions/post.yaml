@@ -1,0 +1,45 @@
+type: function_py
+category: export
+author:
+  name: Yves Marcel Ngabirano
+  url: https://www.linkedin.com/in/yves-marcel-ngabirano/
+  avatar_url: "https://storage.googleapis.com/public-bucket-marcyves/Yves_photo.jpg"
+description: |
+  POST `data` to `url`.
+  `response` is a json formatted as `{status_code, content}`
+arguments:
+  - name: url
+    type: string
+  - name: data
+    type: json
+  - name: headers
+    type: json
+output:
+  name: response
+  type: json
+examples:
+  - description: "Without headers"
+    arguments:
+      - "'https://httpbin.org/post'"
+      - "json '{\"hello\": \"world\"}'"
+      - "null"
+    output: |
+      {
+        "content": {...},
+        "status_code": 200
+      }
+code: |
+  import requests
+  response = requests.post(url, json=data, headers=headers)
+  try:
+    content = response.json()
+  except:
+    content = response.text
+  return {
+    'status_code': response.status_code,
+    'content': content,
+  }
+requirements: |
+  requests
+quotas:
+  max_rows_per_query: 10

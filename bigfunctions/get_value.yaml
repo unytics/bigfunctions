@@ -1,0 +1,34 @@
+type: function_sql
+category: transform_array
+author:
+  name: Thomas Lépine
+  url: https://www.linkedin.com/company/esmoz/
+  avatar_url: "https://esmoz.fr/wp-content/uploads/2022/03/logo_esmoz_40x20-1.png"
+description: |
+  Return the first `value` with a key `search_key` from `key_value_items`
+  (or return `null` if `search_key` does not exist in `key_value_items`).
+arguments:
+  - name: key_value_items
+    type: any type
+  - name: search_key
+    type: any type
+output:
+  name: value
+  type: any type
+examples:
+  - description: ""
+    arguments:
+      - "[struct('a' as key, 8 as value), struct('b' as key, 9 as value)]"
+      - "'a'"
+    output: "8"
+  - description: ""
+    arguments:
+      - "[struct('a' as key, 8 as value), struct('b' as key, 9 as value)]"
+      - "'c'"
+    output: "null"
+  - description: "When there are multiple occurences of `search_key`, return the first found `value`"
+    arguments:
+      - "[struct('a' as key, 8 as value), struct('a' as key, 9 as value)]"
+      - "'a'"
+    output: "8"
+code: (select value from unnest(key_value_items) item where item.key = search_key limit 1)

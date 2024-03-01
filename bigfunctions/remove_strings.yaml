@@ -1,0 +1,33 @@
+type: function_sql
+category: transform_string
+author:
+  name: "Benjamin Tabet"
+  url: https://www.linkedin.com/in/benjamin-tabet
+  avatar_url: "https://taskfilescsm.s3.amazonaws.com/uploads/speaker_thumb/2022-11-0912%253A07%253A34879766-BenjaminTabet.jpg"
+description: "Remove any string of `strings_to_remove` from `string`"
+arguments:
+  - name: string
+    type: string
+  - name: strings_to_remove
+    type: array<string>
+output:
+  name: cleaned_string
+  type: string
+examples:
+  - description: ""
+    arguments:
+      - "'I can eat candies'"
+      - "['can', 'eat']"
+    output: "I  dies"
+code: |
+  (
+  with escaped_strings_to_remove as (
+    select regexp_replace(str, r'(\.|\+|\*|\?|\^|\$|\(|\)|\[|\]|\{|\}|\||\\)', r'\\\1') as str
+    from unnest(strings_to_remove) as str
+  )
+  select regexp_replace(
+    string,
+    '(' || array_to_string((select array_agg(str) from escaped_strings_to_remove), '|') || ')',
+    ''
+  )
+  )

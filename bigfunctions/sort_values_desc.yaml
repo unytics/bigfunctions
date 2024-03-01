@@ -1,0 +1,19 @@
+type: function_sql
+category: transform_array
+author:
+  name: Paul Marcombes
+  url: https://www.linkedin.com/in/paul-marcombes
+  avatar_url: "https://lh3.googleusercontent.com/a-/ACB-R5RDf2yxcw1p_IYLCKmiUIScreatDdhG8B83om6Ohw=s260"
+description: Return sorted array (descending)
+arguments:
+  - name: arr
+    type: any type
+output:
+  name: sorted_array
+  type: any type
+examples:
+  - description: ""
+    arguments:
+      - "[1, 4, 3]"
+    output: "[4, 3, 1]"
+code: array(select value from unnest(arr) as value order by value desc)

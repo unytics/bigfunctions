@@ -1,0 +1,106 @@
+type: procedure
+category: explore
+author:
+  name: Paul Marcombes
+  url: https://www.linkedin.com/in/paul-marcombes
+  avatar_url: "https://lh3.googleusercontent.com/a-/ACB-R5RDf2yxcw1p_IYLCKmiUIScreatDdhG8B83om6Ohw=s260"
+description: |-
+  Show infos about dataset tables
+arguments:
+  - name: fully_qualified_dataset
+    type: string
+examples:
+  - description: ""
+    arguments:
+      - '"{BIGFUNCTIONS_DATASET}"'
+    screenshot: explore_dataset.png
+code: |
+  declare project, dataset string;
+
+  declare parts array<string> default split(replace(fully_qualified_dataset, '`', ''), '.');
+  set project = parts[offset(0)];
+  set dataset = parts[offset(1)];
+
+
+  execute immediate replace(replace(
+    '''
+      create or replace temp table bigfunction_result as
+      with tables as (
+        select
+          infos.* except(is_typed, is_insertable_into),
+          stats.last_modified_time,
+          stats.row_count,
+          stats.size_bytes,
+          (select option_value from `{{project}}.{{dataset}}.INFORMATION_SCHEMA.TABLE_OPTIONS` opts where opts.table_name = infos.table_name and option_name = 'partition_expiration_days') as partition_expiration_days,
+          (select option_value from `{{project}}.{{dataset}}.INFORMATION_SCHEMA.TABLE_OPTIONS` opts where opts.table_name = infos.table_name and option_name = 'expiration_timestamp') as expiration_timestamp,
+          (select option_value from `{{project}}.{{dataset}}.INFORMATION_SCHEMA.TABLE_OPTIONS` opts where opts.table_name = infos.table_name and option_name = 'kms_key_name') as kms_key_name,
+          (select option_value from `{{project}}.{{dataset}}.INFORMATION_SCHEMA.TABLE_OPTIONS` opts where opts.table_name = infos.table_name and option_name = 'friendly_name') as friendly_name,
+          (select option_value from `{{project}}.{{dataset}}.INFORMATION_SCHEMA.TABLE_OPTIONS` opts where opts.table_name = infos.table_name and option_name = 'description') as description,
+          (select option_value from `{{project}}.{{dataset}}.INFORMATION_SCHEMA.TABLE_OPTIONS` opts where opts.table_name = infos.table_name and option_name = 'labels') as labels,
+          (select option_value from `{{project}}.{{dataset}}.INFORMATION_SCHEMA.TABLE_OPTIONS` opts where opts.table_name = infos.table_name and option_name = 'require_partition_filter') as require_partition_filter,
+          (select option_value from `{{project}}.{{dataset}}.INFORMATION_SCHEMA.TABLE_OPTIONS` opts where opts.table_name = infos.table_name and option_name = 'enable_refresh') as enable_refresh,
+          (select option_value from `{{project}}.{{dataset}}.INFORMATION_SCHEMA.TABLE_OPTIONS` opts where opts.table_name = infos.table_name and option_name = 'refresh_interval_minutes') as refresh_interval_minutes,
+          (select array_agg(struct(columns).columns)  from `{{project}}.{{dataset}}.INFORMATION_SCHEMA.COLUMNS` columns where columns.table_name = infos.table_name) as columns,
+        from `{{project}}.{{dataset}}.INFORMATION_SCHEMA.TABLES` infos
+        inner join `{{project}}.{{dataset}}.__TABLES__` stats on (infos.table_name = stats.table_id)
+      )
+
+      select to_json (struct(
+        (select array_agg(struct(tables).tables) from tables) as tables
+      )) as json
+    ''',
+    '{{project}}', project),
+    '{{dataset}}', dataset
+  );
+template: |-
+  <div class="container">
+    <section class="hero">
+      <div class="hero-body">
+        <p class="is-size-3" style="max-width: none; color: #3367d6;">Tables of Dataset <code>{{ tables[0].table_catalog }}.{{ tables[0].table_schema }}</code></p>
+      </div>
+    </section>
+
+    <hr>
+    {% for table in tables -%}
+      <p class="is-size-4">Table <code>{{ table.table_name }}</code></p>
+      <div class="columns">
+        <div class="column">
+          <div class="box">
+            <table class="table is-narrow">
+              <thead>
+                <tr>
+                  <th>Infos</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for label in ['description', 'table_type', 'row_count', 'size_bytes', 'last_modified_time'] -%}
+                  <tr><th class="has-text-weight-bold">{{ label }}</th><td>{{ table[label] }}</td></tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="column">
+          <div class="box">
+            <table class="table is-narrow">
+              <thead>
+                <tr>
+                  <th>Columns</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for column in table.columns -%}
+                  <tr><th class="has-text-weight-bold">{{ column.column_name }}</th><td>{{ column.data_type }}</td></tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <hr>
+    {% endfor %}
+  </div>
+
+

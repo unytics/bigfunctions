@@ -1,0 +1,1 @@
+select `{{ project }}`.`{{ dataset }}`.{{ name }}({% for argument in example.arguments %}{{ argument | replace('{BIGFUNCTIONS_DATASET}',  '`' +  project + '`.`' + dataset + '`' ) }}{% if not loop.last %}, {% endif %}{% endfor %}) as {{ output.name }}

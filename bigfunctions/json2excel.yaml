@@ -1,0 +1,29 @@
+type: function_js
+category: convert_data_format
+author:
+  name: Paul Marcombes
+  url: https://www.linkedin.com/in/paul-marcombes
+  avatar_url: "https://lh3.googleusercontent.com/a-/ACB-R5RDf2yxcw1p_IYLCKmiUIScreatDdhG8B83om6Ohw=s260"
+description: |
+  Dump data to excel file
+  encoded as a base64 string.
+
+  > This function is useful to combine with `send_mail` if you want to send an excel file to some people.
+arguments:
+  - name: data
+    type: json
+output:
+  name: excel_base64
+  type: string
+examples:
+  - description: ""
+    arguments:
+      - "json '[{\"col1\": \"row1\", \"col2\": 1}, {\"col1\": \"row2\", \"col2\": 2}]'"
+    output: UEsDBBQAAAAAA...
+code: |
+  var wb = xlsx.utils.book_new();
+  var ws = xlsx.utils.json_to_sheet(data);
+  xlsx.utils.book_append_sheet(wb, ws, "Sheet1");
+  return xlsx.write(wb, {type: "base64", bookType: "xlsx"});
+npm_packages:
+  - xlsx@0.18.5

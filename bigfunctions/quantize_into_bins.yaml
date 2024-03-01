@@ -1,0 +1,66 @@
+type: function_sql
+category: transform_numeric
+author:
+  name: Paul Marcombes
+  url: https://www.linkedin.com/in/paul-marcombes
+  avatar_url: "https://lh3.googleusercontent.com/a-/ACB-R5RDf2yxcw1p_IYLCKmiUIScreatDdhG8B83om6Ohw=s260"
+description: |
+  Get the `bin_range` in which belongs `value`
+  with bins defined by their `bin_bounds`.
+arguments:
+  - name: value
+    type: any type
+  - name: bin_bounds
+    type: any type
+output:
+  name: bin_range
+  type: string
+examples:
+  - description: ""
+    arguments:
+      - "-4"
+      - "[0, 1, 5, 10]"
+    output: "]-∞, 0["
+  - description: ""
+    arguments:
+      - "3"
+      - "[0, 1, 5, 10]"
+    output: "[1, 5["
+  - description: ""
+    arguments:
+      - "9"
+      - "[0, 1, 5, 10]"
+    output: "[5, 10]"
+  - description: ""
+    arguments:
+      - "130"
+      - "[0, 1, 5, 10]"
+    output: "]10, +∞["
+code: |
+  (
+    select
+      case
+        when value < bin_bounds[offset(0)] then "]-∞, " || cast(bin_bounds[offset(0)] as string) || "["
+        when value > bin_bounds[ordinal(array_length(bin_bounds))] then "]"     || cast(bin_bounds[ordinal(array_length(bin_bounds))] as string) || ", +∞["
+        when value = bin_bounds[ordinal(array_length(bin_bounds))] and array_length(bin_bounds) = 1 then cast(bin_bounds[offset(0)] as string)
+        when value = bin_bounds[ordinal(array_length(bin_bounds))] then "["     || cast(bin_bounds[ordinal(array_length(bin_bounds) - 1)] as string) || ", " || cast(bin_bounds[ordinal(array_length(bin_bounds))] as string) || "]"
+        else (
+          with offsets as (
+            select
+              offset - 1 as lower_offset,
+              offset as upper_offset,
+            from unnest(bin_bounds) as x
+            with offset
+            where x > value limit 1
+          )
+
+          select (
+            "[" ||
+              cast(bin_bounds[offset(greatest(0, lower_offset))] as string) || ", " ||
+              cast(bin_bounds[offset(upper_offset)] as string) ||
+            if(upper_offset < array_length(bin_bounds) - 1, "[", "]")
+          )
+          from offsets
+        )
+      end
+  )

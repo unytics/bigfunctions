@@ -1,0 +1,40 @@
+type: function_py
+category: notify
+author:
+  name: Guillaume Pivette from Neoxia
+  url: https://www.linkedin.com/in/guillaume-pivette/
+  avatar_url: "https://cdn-images-1.medium.com/v2/resize:fit:92/1*jHdQzX82eU5lyjBYp63NqQ@2x.png"
+description: |
+    Sends `message` to a slack channel.
+
+    > To get the `webhook_url` for a channel, follow this [doc from Slack](https://api.slack.com/messaging/webhooks).
+arguments:
+  - name: message
+    type: string
+  - name: webhook_url
+    type: string
+output:
+  name: response
+  type: string
+examples:
+  - description: ""
+    arguments:
+      - '"Hello 👋 from bigfunctions!"'
+      - '"YOUR_WEBHOOK_URL"'
+    output: 'ok'
+code: |
+  import requests
+  if not message:
+    return 'EMPTY MESSAGE. NOT SENDING'
+  assert webhook_url.startswith('https://hooks.slack.com/'), 'webhook_url should start with `https://hooks.slack.com/`'
+  response = requests.post(
+      webhook_url,
+      headers={'Content-Type': 'application/json; charset=UTF-8'},
+      json={'text': message}
+  )
+  assert response.ok, 'ERROR: ' + response.text
+  return response.text
+requirements: |
+  requests
+quotas:
+  max_rows_per_query: 10

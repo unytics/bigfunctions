@@ -1,0 +1,105 @@
+type: function_py
+category: AI
+author:
+  name: Paul Marcombes
+  url: https://www.linkedin.com/in/paul-marcombes
+  avatar_url: "https://lh3.googleusercontent.com/a-/ACB-R5RDf2yxcw1p_IYLCKmiUIScreatDdhG8B83om6Ohw=s260"
+description: |
+  Ask Anything!
+
+  Google Generative AI `model` will get you an answer.
+
+  `model` must be one of:
+
+  - `gemini-pro`
+  - `text-bison@001`
+  - `text-bison@002`
+  - `text-unicorn@001`
+  - `code-bison@001`
+  - `code-bison@002`
+  - ... any future model
+  - `null`, then `gemini-pro` will be used
+
+  Default parameters are used for each model.
+arguments:
+  - name: prompt
+    type: string
+  - name: model
+    type: string
+output:
+  name: answer
+  type: string
+examples:
+  - description: "Clean data"
+    arguments:
+      - |
+
+        '''
+        Question: what is the country from the following user input: 'I live in frace' ?
+        Answer: formatted as alpha three code
+        '''
+      - "'gemini-pro'"
+    output: "FRA"
+  - description: "Generate SQL"
+    arguments:
+      - |
+
+        '''
+        Question: get the 10 products which generated the most revenue in 2023
+        Table: sales
+        Columns: product_id, price, quantity, timestamp
+        Answer: bigquery sql query
+        '''
+      - "'code-bison@002'"
+    output: |
+      SELECT product_id, SUM(price * quantity) AS revenue
+      FROM sales
+      WHERE timestamp BETWEEN '2023-01-01' AND '2023-12-31'
+      GROUP BY product_id
+      ORDER BY revenue DESC
+      LIMIT 10
+init_code: |
+  import vertexai
+  from vertexai.preview.language_models import TextGenerationModel, CodeGenerationModel
+  from vertexai.preview.generative_models import GenerativeModel
+  vertexai.init(location=CURRENT_LOCATION)
+code: |
+  model = model or 'gemini-pro'
+  prompt = (prompt or '').strip()
+  if not prompt:
+    return
+
+  cache_key = hash(model + prompt)
+  cached = CACHE.get(cache_key)
+  if cached:
+    return cached
+
+  if model.startswith('text-'):
+    model = TextGenerationModel.from_pretrained(model)
+    response = model.predict(prompt)
+  elif model.startswith('code-'):
+    model = CodeGenerationModel.from_pretrained(model)
+    response = model.predict(prompt)
+  else:
+    model = GenerativeModel(model)
+    response = model.generate_content(prompt)
+
+  try:
+    answer = response.text
+  except Exception as e:
+    print('ERROR:', e)
+    print('RESPONSE:')
+    print(response)
+    return 'ERROR IN GOOGLE RESPONSE: \n' + str(response)
+
+  if not answer:
+    return 'GOOGLE LANGUAGE MODEL QUOTA REACHED'
+
+  CACHE[cache_key] = answer
+  return answer
+requirements: |
+  google-cloud-aiplatform
+quotas:
+  max_rows_per_user_per_day: 1000
+  max_rows_per_query: 10
+

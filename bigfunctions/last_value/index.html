@@ -1,0 +1,7296 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="BigFunction last_value: Return last value of array *(inspired from [sql-snippets repo](https://github.com/count/sql-snippets/blob/main/bigquery/get-last-array-element.md))*">
+      
+      
+      
+        <link rel="canonical" href="https://unytics.io/bigfunctions/bigfunctions/last_value/">
+      
+      
+        <link rel="prev" href="../json_values/">
+      
+      
+        <link rel="next" href="../levenshtein/">
+      
+      
+      <link rel="icon" href="../../site/assets/logo.png">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.12">
+    
+    
+      
+        <title>last_value - BigFunctions</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.7e359304.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../site/stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+
+
+<meta property="og:title" content="last_value - BigFunctions" />
+<meta property="twitter:card" content="summary" />
+<meta property="twitter:title" content="last_value - BigFunctions" />
+
+
+
+<meta property="og:description" content="BigFunction last_value: Return last value of array *(inspired from [sql-snippets repo](https://github.com/count/sql-snippets/blob/main/bigquery/get-last-array-element.md))*" />
+
+
+
+<meta property="og:image" content="https://unytics.io/bigfunctions/site/assets/logo_and_name.png" />
+<meta property="og:image:type" content="image/png" />
+<meta property="og:image:width" content="2500" />
+<meta property="og:image:height" content="541" />
+<meta property="twitter:image" content="https://unytics.io/bigfunctions/site/assets/logo_and_name.png" />
+<meta property="twitter:image:alt" content="Supercharge BigQuery with BigFunctions" />
+
+
+<style>
+  @media screen and (min-width: 76.25em) {
+    .md-sidebar--primary {
+      display: none;
+    }
+  }
+</style>
+
+
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#last_value" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+        <aside class="md-banner">
+          <div class="md-banner__inner md-grid md-typeset">
+            
+            
+  <style>
+    .md-banner a {
+      color: white;
+    }
+    .md-banner a:hover {
+      color: gold;
+    }
+  </style>
+  <p style="text-align: center;">
+    <em>
+      BigFunctions is fully open-source</em>
+        <svg width="11" height="10" viewBox="0 0 11 10" fill="none" style="margin-left:2px"><path d="M1 5.16772H9.5M9.5 5.16772L6.5 1.66772M9.5 5.16772L6.5 8.66772" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+        <span style="margin: 0 0.25rem 0 0.5rem">⭐</span><a href="https://github.com/unytics/bigfunctions"><u>Star us on GitHub!</u></a>
+  </p>
+
+          </div>
+          
+        </aside>
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="BigFunctions" class="md-header__button md-logo" aria-label="BigFunctions" data-md-component="logo">
+      
+  <img src="../../site/assets/logo.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            BigFunctions
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              last_value
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var media,input,key,value,palette=__md_get("__palette");if(palette&&palette.color){"(prefers-color-scheme)"===palette.color.media&&(media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']"),palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent"));for([key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/unytics/bigfunctions" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    unytics/bigfunctions
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+  
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+    
+  
+  Get Started!
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../" class="md-tabs__link">
+          
+  
+    
+  
+  Bigfunctions
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../data/" class="md-tabs__link">
+          
+  
+    
+  
+  Data
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../CONTRIBUTING/" class="md-tabs__link">
+        
+  
+    
+  
+  Contribute!
+
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+
+
+  
+
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="BigFunctions" class="md-nav__button md-logo" aria-label="BigFunctions" data-md-component="logo">
+      
+  <img src="../../site/assets/logo.png" alt="logo">
+
+    </a>
+    BigFunctions
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/unytics/bigfunctions" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    unytics/bigfunctions
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Get Started!
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+        
+        
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Bigfunctions
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2" id="__nav_2_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Bigfunctions
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../are_arrays_equal/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Are arrays equal
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            Are arrays equal
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_3" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../array_intersect/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Array intersect
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_3">
+            <span class="md-nav__icon md-icon"></span>
+            Array intersect
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../array_union/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Array union
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_4">
+            <span class="md-nav__icon md-icon"></span>
+            Array union
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_5" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../ask_ai/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Ask ai
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_5">
+            <span class="md-nav__icon md-icon"></span>
+            Ask ai
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_6" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../ask_my_data/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Ask my data
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_6">
+            <span class="md-nav__icon md-icon"></span>
+            Ask my data
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_7" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../chart/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Chart
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_7">
+            <span class="md-nav__icon md-icon"></span>
+            Chart
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_8" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../connected_components/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Connected components
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_8">
+            <span class="md-nav__icon md-icon"></span>
+            Connected components
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_9" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../convert_non_ascii_characters_to_unicode_escape_sequences/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Convert non ascii characters to unicode escape sequences
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_9">
+            <span class="md-nav__icon md-icon"></span>
+            Convert non ascii characters to unicode escape sequences
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_10" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../date_sub_isoyear/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Date sub isoyear
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_10_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_10">
+            <span class="md-nav__icon md-icon"></span>
+            Date sub isoyear
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_11" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../deduplicate_rows/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Deduplicate rows
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_11_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_11">
+            <span class="md-nav__icon md-icon"></span>
+            Deduplicate rows
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_12" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../deidentify/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Deidentify
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_12_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_12">
+            <span class="md-nav__icon md-icon"></span>
+            Deidentify
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_13" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../detect_sensitive_info/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Detect sensitive info
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_13_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_13">
+            <span class="md-nav__icon md-icon"></span>
+            Detect sensitive info
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_14" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../distinct_values/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Distinct values
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_14_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_14">
+            <span class="md-nav__icon md-icon"></span>
+            Distinct values
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_15" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../exchange_rate/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Exchange rate
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_15_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_15">
+            <span class="md-nav__icon md-icon"></span>
+            Exchange rate
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_16" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../explore_column/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Explore column
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_16_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_16">
+            <span class="md-nav__icon md-icon"></span>
+            Explore column
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_17" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../explore_dataset/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Explore dataset
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_17_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_17">
+            <span class="md-nav__icon md-icon"></span>
+            Explore dataset
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_18" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../explore_events/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Explore events
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_18_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_18">
+            <span class="md-nav__icon md-icon"></span>
+            Explore events
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_19" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../explore_funnels/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Explore funnels
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_19_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_19">
+            <span class="md-nav__icon md-icon"></span>
+            Explore funnels
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_20" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../explore_table/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Explore table
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_20_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_20">
+            <span class="md-nav__icon md-icon"></span>
+            Explore table
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_21" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../export_to_datastore/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Export to datastore
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_21_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_21">
+            <span class="md-nav__icon md-icon"></span>
+            Export to datastore
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_22" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../export_to_pubsub/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Export to pubsub
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_22_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_22">
+            <span class="md-nav__icon md-icon"></span>
+            Export to pubsub
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_23" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../faker/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Faker
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_23_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_23">
+            <span class="md-nav__icon md-icon"></span>
+            Faker
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_24" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../find_greater_value/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Find greater value
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_24_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_24">
+            <span class="md-nav__icon md-icon"></span>
+            Find greater value
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_25" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../find_lower_value/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Find lower value
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_25_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_25">
+            <span class="md-nav__icon md-icon"></span>
+            Find lower value
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_26" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../find_value/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Find value
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_26_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_26">
+            <span class="md-nav__icon md-icon"></span>
+            Find value
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_27" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../format_percentage/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Format percentage
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_27_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_27">
+            <span class="md-nav__icon md-icon"></span>
+            Format percentage
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_28" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../generate_dates/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Generate dates
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_28_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_28">
+            <span class="md-nav__icon md-icon"></span>
+            Generate dates
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_29" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../generate_sql/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Generate sql
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_29_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_29">
+            <span class="md-nav__icon md-icon"></span>
+            Generate sql
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_30" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../geocode/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Geocode
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_30_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_30">
+            <span class="md-nav__icon md-icon"></span>
+            Geocode
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_31" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../get/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Get
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_31_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_31">
+            <span class="md-nav__icon md-icon"></span>
+            Get
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_32" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../get_json/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Get json
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_32_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_32">
+            <span class="md-nav__icon md-icon"></span>
+            Get json
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_33" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../get_latest_partition_timestamp/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Get latest partition timestamp
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_33_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_33">
+            <span class="md-nav__icon md-icon"></span>
+            Get latest partition timestamp
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_34" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../get_meteo/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Get meteo
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_34_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_34">
+            <span class="md-nav__icon md-icon"></span>
+            Get meteo
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_35" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../get_table_columns/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Get table columns
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_35_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_35">
+            <span class="md-nav__icon md-icon"></span>
+            Get table columns
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_36" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../get_value/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Get value
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_36_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_36">
+            <span class="md-nav__icon md-icon"></span>
+            Get value
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_37" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../get_view_history/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Get view history
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_37_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_37">
+            <span class="md-nav__icon md-icon"></span>
+            Get view history
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_38" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../get_webpage_metadata/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Get webpage metadata
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_38_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_38">
+            <span class="md-nav__icon md-icon"></span>
+            Get webpage metadata
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_39" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../get_webpage_structured_data/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Get webpage structured data
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_39_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_39">
+            <span class="md-nav__icon md-icon"></span>
+            Get webpage structured data
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_40" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../gregorian2hijri/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Gregorian2hijri
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_40_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_40">
+            <span class="md-nav__icon md-icon"></span>
+            Gregorian2hijri
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_41" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../h3/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    H3
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_41_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_41">
+            <span class="md-nav__icon md-icon"></span>
+            H3
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_42" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../html2pdf/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Html2pdf
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_42_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_42">
+            <span class="md-nav__icon md-icon"></span>
+            Html2pdf
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_43" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../ip2asn/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Ip2asn
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_43_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_43">
+            <span class="md-nav__icon md-icon"></span>
+            Ip2asn
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_44" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../ip2continent/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Ip2continent
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_44_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_44">
+            <span class="md-nav__icon md-icon"></span>
+            Ip2continent
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_45" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../ip2continent_name/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Ip2continent name
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_45_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_45">
+            <span class="md-nav__icon md-icon"></span>
+            Ip2continent name
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_46" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../ip2country/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Ip2country
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_46_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_46">
+            <span class="md-nav__icon md-icon"></span>
+            Ip2country
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_47" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../ip2country_name/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Ip2country name
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_47_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_47">
+            <span class="md-nav__icon md-icon"></span>
+            Ip2country name
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_48" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../ip_range2ip_networks/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Ip range2ip networks
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_48_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_48">
+            <span class="md-nav__icon md-icon"></span>
+            Ip range2ip networks
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_49" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../is_email_valid/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Is email valid
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_49_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_49">
+            <span class="md-nav__icon md-icon"></span>
+            Is email valid
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_50" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../is_phone_number_valid/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Is phone number valid
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_50_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_50">
+            <span class="md-nav__icon md-icon"></span>
+            Is phone number valid
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_51" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../is_public_holiday/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Is public holiday
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_51_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_51">
+            <span class="md-nav__icon md-icon"></span>
+            Is public holiday
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_52" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../items2json/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Items2json
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_52_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_52">
+            <span class="md-nav__icon md-icon"></span>
+            Items2json
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_53" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../json2excel/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Json2excel
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_53_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_53">
+            <span class="md-nav__icon md-icon"></span>
+            Json2excel
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_54" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../json2xml/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Json2xml
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_54_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_54">
+            <span class="md-nav__icon md-icon"></span>
+            Json2xml
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_55" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../json_items/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Json items
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_55_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_55">
+            <span class="md-nav__icon md-icon"></span>
+            Json items
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_56" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../json_keys/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Json keys
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_56_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_56">
+            <span class="md-nav__icon md-icon"></span>
+            Json keys
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_57" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../json_merge/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Json merge
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_57_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_57">
+            <span class="md-nav__icon md-icon"></span>
+            Json merge
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_58" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../json_query/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Json query
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_58_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_58">
+            <span class="md-nav__icon md-icon"></span>
+            Json query
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_59" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../json_schema/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Json schema
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_59_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_59">
+            <span class="md-nav__icon md-icon"></span>
+            Json schema
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_60" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../json_values/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Json values
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_60_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_60">
+            <span class="md-nav__icon md-icon"></span>
+            Json values
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_61" checked>
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="./" class="md-nav__link md-nav__link--active">
+              
+  
+  <span class="md-ellipsis">
+    Last value
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_61_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_61">
+            <span class="md-nav__icon md-icon"></span>
+            Last value
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_62" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../levenshtein/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Levenshtein
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_62_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_62">
+            <span class="md-nav__icon md-icon"></span>
+            Levenshtein
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_63" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../list_bigquery_resources_in_current_project/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    List bigquery resources in current project
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_63_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_63">
+            <span class="md-nav__icon md-icon"></span>
+            List bigquery resources in current project
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_64" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../max_value/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Max value
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_64_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_64">
+            <span class="md-nav__icon md-icon"></span>
+            Max value
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_65" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../median_value/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Median value
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_65_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_65">
+            <span class="md-nav__icon md-icon"></span>
+            Median value
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_66" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../min_value/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Min value
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_66_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_66">
+            <span class="md-nav__icon md-icon"></span>
+            Min value
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_67" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../parse_date/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Parse date
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_67_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_67">
+            <span class="md-nav__icon md-icon"></span>
+            Parse date
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_68" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../parse_url/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Parse url
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_68_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_68">
+            <span class="md-nav__icon md-icon"></span>
+            Parse url
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_69" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../parse_user_agent/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Parse user agent
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_69_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_69">
+            <span class="md-nav__icon md-icon"></span>
+            Parse user agent
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_70" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../percentile_value/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Percentile value
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_70_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_70">
+            <span class="md-nav__icon md-icon"></span>
+            Percentile value
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_71" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../phone_number_info/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Phone number info
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_71_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_71">
+            <span class="md-nav__icon md-icon"></span>
+            Phone number info
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_72" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../post/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Post
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_72_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_72">
+            <span class="md-nav__icon md-icon"></span>
+            Post
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_73" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../precision_recall_auc/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Precision recall auc
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_73_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_73">
+            <span class="md-nav__icon md-icon"></span>
+            Precision recall auc
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_74" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../precision_recall_curve/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Precision recall curve
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_74_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_74">
+            <span class="md-nav__icon md-icon"></span>
+            Precision recall curve
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_75" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../prophet/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Prophet
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_75_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_75">
+            <span class="md-nav__icon md-icon"></span>
+            Prophet
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_76" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../quantize_into_bins/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Quantize into bins
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_76_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_76">
+            <span class="md-nav__icon md-icon"></span>
+            Quantize into bins
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_77" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../quantize_into_fixed_width_bins/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Quantize into fixed width bins
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_77_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_77">
+            <span class="md-nav__icon md-icon"></span>
+            Quantize into fixed width bins
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_78" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../remove_accents/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Remove accents
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_78_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_78">
+            <span class="md-nav__icon md-icon"></span>
+            Remove accents
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_79" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../remove_extra_whitespaces/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Remove extra whitespaces
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_79_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_79">
+            <span class="md-nav__icon md-icon"></span>
+            Remove extra whitespaces
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_80" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../remove_strings/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Remove strings
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_80_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_80">
+            <span class="md-nav__icon md-icon"></span>
+            Remove strings
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_81" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../remove_value/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Remove value
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_81_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_81">
+            <span class="md-nav__icon md-icon"></span>
+            Remove value
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_82" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../remove_words/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Remove words
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_82_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_82">
+            <span class="md-nav__icon md-icon"></span>
+            Remove words
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_83" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../render_string/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Render string
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_83_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_83">
+            <span class="md-nav__icon md-icon"></span>
+            Render string
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_84" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../render_template/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Render template
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_84_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_84">
+            <span class="md-nav__icon md-icon"></span>
+            Render template
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_85" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../replace_special_characters/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Replace special characters
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_85_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_85">
+            <span class="md-nav__icon md-icon"></span>
+            Replace special characters
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_86" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../reverse_geocode/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Reverse geocode
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_86_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_86">
+            <span class="md-nav__icon md-icon"></span>
+            Reverse geocode
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_87" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../roc_auc/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Roc auc
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_87_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_87">
+            <span class="md-nav__icon md-icon"></span>
+            Roc auc
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_88" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../roc_curve/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Roc curve
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_88_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_88">
+            <span class="md-nav__icon md-icon"></span>
+            Roc curve
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_89" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../run_python/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Run python
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_89_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_89">
+            <span class="md-nav__icon md-icon"></span>
+            Run python
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_90" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../sankey_chart/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Sankey chart
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_90_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_90">
+            <span class="md-nav__icon md-icon"></span>
+            Sankey chart
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_91" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../send_google_chat_message/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Send google chat message
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_91_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_91">
+            <span class="md-nav__icon md-icon"></span>
+            Send google chat message
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_92" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../send_mail/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Send mail
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_92_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_92">
+            <span class="md-nav__icon md-icon"></span>
+            Send mail
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_93" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../send_mail_with_excel/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Send mail with excel
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_93_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_93">
+            <span class="md-nav__icon md-icon"></span>
+            Send mail with excel
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_94" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../send_slack_message/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Send slack message
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_94_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_94">
+            <span class="md-nav__icon md-icon"></span>
+            Send slack message
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_95" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../send_sms/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Send sms
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_95_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_95">
+            <span class="md-nav__icon md-icon"></span>
+            Send sms
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_96" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../send_teams_message/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Send teams message
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_96_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_96">
+            <span class="md-nav__icon md-icon"></span>
+            Send teams message
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_97" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../sentiment_score/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Sentiment score
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_97_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_97">
+            <span class="md-nav__icon md-icon"></span>
+            Sentiment score
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_98" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../sleep/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Sleep
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_98_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_98">
+            <span class="md-nav__icon md-icon"></span>
+            Sleep
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_99" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../sort_values/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Sort values
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_99_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_99">
+            <span class="md-nav__icon md-icon"></span>
+            Sort values
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_100" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../sort_values_desc/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Sort values desc
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_100_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_100">
+            <span class="md-nav__icon md-icon"></span>
+            Sort values desc
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_101" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../sum_values/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Sum values
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_101_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_101">
+            <span class="md-nav__icon md-icon"></span>
+            Sum values
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_102" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../timestamp_from_unix_date_time/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Timestamp from unix date time
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_102_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_102">
+            <span class="md-nav__icon md-icon"></span>
+            Timestamp from unix date time
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_103" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../timestamp_to_unix_date_time/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Timestamp to unix date time
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_103_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_103">
+            <span class="md-nav__icon md-icon"></span>
+            Timestamp to unix date time
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_104" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../translate/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Translate
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_104_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_104">
+            <span class="md-nav__icon md-icon"></span>
+            Translate
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_105" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../translated_month_name/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Translated month name
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_105_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_105">
+            <span class="md-nav__icon md-icon"></span>
+            Translated month name
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_106" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../translated_weekday_name/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Translated weekday name
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_106_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_106">
+            <span class="md-nav__icon md-icon"></span>
+            Translated weekday name
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_107" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../upload_table_to_gsheet/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Upload table to gsheet
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_107_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_107">
+            <span class="md-nav__icon md-icon"></span>
+            Upload table to gsheet
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_108" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../upload_to_gsheet/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Upload to gsheet
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_108_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_108">
+            <span class="md-nav__icon md-icon"></span>
+            Upload to gsheet
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_109" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../upsert/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Upsert
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_109_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_109">
+            <span class="md-nav__icon md-icon"></span>
+            Upsert
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_110" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../url_decode/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Url decode
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_110_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_110">
+            <span class="md-nav__icon md-icon"></span>
+            Url decode
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_111" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../validate_address/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Validate address
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_111_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_111">
+            <span class="md-nav__icon md-icon"></span>
+            Validate address
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_112" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../xml2json/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Xml2json
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_112_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_112">
+            <span class="md-nav__icon md-icon"></span>
+            Xml2json
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_113" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../xml_extract/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Xml extract
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_113_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_113">
+            <span class="md-nav__icon md-icon"></span>
+            Xml extract
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../data/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Data
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Data
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../CONTRIBUTING/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Contribute!
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  <!-- Tags -->
+
+
+<!-- Actions -->
+
+  
+  
+
+
+<!--
+  Hack: check whether the content contains a h1 headline. If it doesn't, the
+  page title (or respectively site name) is used as the main headline.
+-->
+
+
+<!-- Page content -->
+<p><span style="color: silver; position: relative; top: -1rem">
+  <a href=".." style="color: silver">bigfunctions </a> &gt; last_value
+</span></p>
+<h1 id="last_value">last_value<a class="headerlink" href="#last_value" title="Permanent link">¶</a></h1>
+<div style="position: relative; top: -4rem; margin-bottom:  -2rem; text-align: right; z-index: 9999;">
+
+  <a href="https://www.linkedin.com/in/taylorabrownlow/" title="Credits: Taylor Brownlow" target="_blank">
+    <img src="https://miro.medium.com/v2/resize:fit:120/2*4lF1qiVAwcDkw1AfDY6KBQ.jpeg" width="32" style=" border-radius: 50% !important">
+  </a>
+
+  <a href="https://github.com/unytics/bigfunctions/tree/main/bigfunctions/last_value.yaml" title="Edit on GitHub" target="_blank"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="#5d6cc0" d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg></a>
+</div>
+
+<p><strong>Signature</strong> 
+<div class="highlight"><pre><span></span><code>last_value(arr)
+</code></pre></div></p>
+<p><strong>Description</strong></p>
+<p>Return last value of array
+<em>(inspired from <a href="https://github.com/count/sql-snippets/blob/main/bigquery/get-last-array-element.md">sql-snippets repo</a>)</em></p>
+<p><strong>Examples</strong></p>
+<div class="tabbed-set tabbed-alternate" data-tabs="1:3"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><input id="__tabbed_1_3" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">EU</label><label for="__tabbed_1_2">US</label><label for="__tabbed_1_3">europe-west1</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code><span class="k">select</span><span class="w"> </span><span class="n">bigfunctions</span><span class="p">.</span><span class="n">eu</span><span class="p">.</span><span class="n">last_value</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">])</span>
+</code></pre></div>
+</div>
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code><span class="k">select</span><span class="w"> </span><span class="n">bigfunctions</span><span class="p">.</span><span class="n">us</span><span class="p">.</span><span class="n">last_value</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">])</span>
+</code></pre></div>
+</div>
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code><span class="k">select</span><span class="w"> </span><span class="n">bigfunctions</span><span class="p">.</span><span class="n">europe_west1</span><span class="p">.</span><span class="n">last_value</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">])</span>
+</code></pre></div>
+</div>
+</div>
+</div>
+<pre style="margin-top: -1rem;">
+<code style="padding-top: 0px; padding-bottom: 0px;">+-------+
+| value |
++-------+
+| 3     |
++-------+
+</code>
+</pre>
+
+<!-- Source file information -->
+
+
+
+
+
+
+
+  
+  
+
+
+
+<!-- Was this page helpful? -->
+
+
+
+
+<!-- Comment system -->
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var tab,labels=set.querySelector(".tabbed-labels");for(tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        
+
+<!-- Application footer -->
+<footer class="md-footer">
+  <!-- Further information -->
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+
+      <!-- Copyright and theme information -->
+      <div class="md-footer-copyright">
+        <img
+          src="https://unytics.io/bigfunctions/site/assets/logo_and_name.png"
+          alt=""
+          draggable="false"
+          width="300"
+        >
+        
+          <div class="md-footer-copyright__highlight" style="color: rgb(92, 92, 92);">
+            Copyright &copy; 2024 Unytics
+          </div>
+        
+      </div>
+
+      <!-- Social links -->
+      <div class="md-social">
+  
+</div>
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": ["tabs", "content.tabs.link", "content.code.copy", "navigation.path", "navigation.tabs", "navigation.tracking", "navigation.indexes", "navigation.hide"], "search": "../../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.c8d2eff1.min.js"></script>
+      
+    
+  </body>
+</html>

@@ -1,0 +1,19 @@
+type: function_sql
+category: transform_string
+author:
+  name: Sid Ali
+  url: https://www.linkedin.com/company/esmoz/
+  avatar_url: "https://esmoz.fr/wp-content/uploads/2022/03/logo_esmoz_40x20-1.png"
+description: Remove accents
+arguments:
+  - name: str
+    type: string
+output:
+  name: cleaned_string
+  type: string
+examples:
+  - description: ""
+    arguments:
+      - "'Voilà !'"
+    output: Voila !
+code: regexp_replace(normalize(str, nfd), r"\pm", '')

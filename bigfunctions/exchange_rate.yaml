@@ -1,0 +1,55 @@
+type: function_py
+category: get_data
+author:
+  name: Johan PROTIN
+  url: https://www.linkedin.com/in/johan-protin
+  avatar_url: "https://avatars.githubusercontent.com/u/16030047?v=4"
+description: |
+  Get `exchange_rate`
+  from `base` (e.g. `USD`) to `to` (e.g. `EUR`)
+  from [Yahoo Finance](https://finance.yahoo.com/quote/USDEUR=X/).
+
+  This functions uses [yfinance python package](https://github.com/ranaroussi/yfinance) and returns the average of the `bid price` and the `ask price`. If the data is not available in Yahoo Finance, will return `null`
+
+  | Param  | Possible values  |
+  |---|---|
+  | `base`<br>and<br>`to`  | Iso 4217 currency codes such as `EUR` or `USD`. See active codes on [wikipedia](https://en.wikipedia.org/wiki/ISO_4217#Active_codes_(List_One)) |
+arguments:
+  - name: base
+    type: string
+  - name: to
+    type: string
+output:
+  name: exchange_rate
+  type: float64
+examples:
+  - description: "To know how many euros a dollar is worth"
+    arguments:
+      - "'USD'"
+      - "'EUR'"
+    output: "0.910437"
+code: |
+  import datetime
+  import yfinance as yf
+
+  base = (base or '').upper()
+  to = (to or '').upper()
+  if (len(base) != 3) or (len(to) != 3):
+    return None
+  if base == to:
+    return 1
+
+  today = datetime.datetime.utcnow().strftime("%Y-%m-%d")
+  cache_key = f'{today}_{base}_{to}'
+  if cache_key not in CACHE:
+    ticker_name = f'{base}{to}=X'
+    ticker = yf.Ticker(ticker_name)
+    try:
+      rate = 0.5 * (ticker.info['bid'] + ticker.info['ask'])
+    except:
+      rate = None
+    CACHE[cache_key] = rate
+
+  return CACHE[cache_key]
+requirements: |
+  yfinance

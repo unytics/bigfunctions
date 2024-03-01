@@ -1,0 +1,255 @@
+type: procedure
+category: wip
+author:
+  name: Paul Marcombes
+  url: https://www.linkedin.com/in/paul-marcombes
+  avatar_url: "https://lh3.googleusercontent.com/a-/ACB-R5RDf2yxcw1p_IYLCKmiUIScreatDdhG8B83om6Ohw=s260"
+description: Show events (WORK IN PROGRESS)
+arguments:
+  - name: events_table
+    type: string
+  - name: max_minutes_between_events
+    type: int64
+examples:
+  - description: ""
+    arguments:
+      - '"{BIGFUNCTIONS_DATASET}.natality.weight_pounds"'
+code: |
+  assert array_length(split(events_table, '.')) = 3 as 'BAD ARGUMENT FORMAT: `events_table` argument must follow the pattern `PROJECT.DATASET.TABLE`';
+
+  execute immediate {BIGFUNCTIONS_DATASET}.render_template(
+    r'''
+    {%- set events_table = events_table.replace('`', '') -%}
+
+    create or replace temp table bigfunction_result as
+
+    with
+
+    events as (
+
+      select
+        user_id,
+        timestamp,
+        event_type,
+      from `{{ events_table }}`
+
+    ),
+
+
+    event_counts as (
+
+      select
+        event_type,
+        count(*) as nb,
+      from events
+      group by 1
+
+    ),
+
+
+    events_w_next as (
+
+      select
+        *,
+        lead(event_type) over (partition by user_id order by timestamp) as next_event_type,
+        lead(timestamp) over (partition by user_id order by timestamp) as next_timestamp,
+      from events
+      qualify
+        next_timestamp is null or
+        extract(minute from next_timestamp - timestamp) <= 30
+
+    ),
+
+
+    event_pairs as (
+
+      select
+        event_type as source,
+        ifnull(next_event_type, 'NONE') as target,
+        cast(count(*) as float64) as value,
+      from events_w_next
+      group by 1, 2
+
+    )
+
+
+    select to_json(struct(
+      (select array_agg(struct(event_pairs).event_pairs order by source, value desc) from event_pairs) as event_pairs,
+      (select array_agg(struct(event_counts).event_counts order by nb desc) from event_counts) as event_counts
+    )) as json
+
+
+
+    ''',
+    to_json(struct(events_table))
+  );
+template: |
+  <div id="bf-summary" class="columns">
+    <div class="column is-2">
+      <p class="heading has-text-centered">Event Types</p>
+      <div><canvas id="bf-pie-chart" style="cursor: pointer"></canvas></div>
+    </div>
+    <div class="column">
+      <nav class="level">
+        <div class="level-item has-text-centered">
+          <div>
+            <p class="heading"># Events</p>
+            <p id="nb-events" class="title is-size-4"></p>
+          </div>
+        </div>
+        <div class="level-item has-text-centered">
+          <div>
+            <p class="heading"># Event Types</p>
+            <p id="nb-event-types" class="title is-size-4"></p>
+          </div>
+        </div>
+        <div class="level-item has-text-centered">
+          <div>
+            <p class="heading">Most represented</p>
+            <p id="most-represented-event-type" class="title is-size-4"></p>
+          </div>
+        </div>
+      </nav>
+    </div>
+  </div>
+
+
+  <hr class="mb-6">
+
+  <p class="title is-size-4">Flows</p>
+  <label class="checkbox mb-4">
+    <input id="bf-sankey-checkbox" type="checkbox">
+    Keep the top 10 flows only (for readability)
+  </label>
+  <div id="bf-sankey" style="width: 100%; max-height: 800px; margin: 0 auto"></div>
+
+
+  <script>
+    (function() {
+      const event_pairs = {{ event_pairs | dump | safe }};
+      const event_counts = {{ event_counts | dump | safe }};
+
+      let selectedEventType = null;
+
+      const colors = ['#36A2EB', '#FF6384', '#4BC0C0', '#FF9F40', '#9966FF', '#FFCD56', '#C9CBCF'];
+
+      const sankeyCheckbox = document.getElementById('bf-sankey-checkbox');
+
+      const setKPIs = function() {
+        if (selectedEventType) {
+          const nb = event_counts.filter( ({event_type, nb}) => event_type == selectedEventType )[0]['nb'];
+          document.getElementById('nb-events').innerText = nb.toLocaleString();
+          document.getElementById('nb-event-types').innerText = 1;
+          document.getElementById('most-represented-event-type').innerText = selectedEventType;
+          return;
+        }
+
+        document.getElementById('nb-events').innerText = event_counts
+        .map( ({event_type, nb}) => (nb) )
+        .reduce((accumulator, currentValue) => {
+          return accumulator + currentValue
+        }).toLocaleString();
+        document.getElementById('nb-event-types').innerText = event_counts.length.toLocaleString();
+        document.getElementById('most-represented-event-type').innerText = event_counts[0]['event_type'];
+      }
+
+      const drawBarChart = function() {
+        const chart = new Chart(
+          document.getElementById('bf-pie-chart'),
+          {
+            type: 'pie',
+            data: {
+              labels: event_counts.map( ({event_type, nb}) => (event_type) ),
+              datasets: [{
+                label: 'nb',
+                data: event_counts.map( ({event_type, nb}) => (nb) ),
+                borderAlign: 'inner',
+                borderWidth: 3,
+                backgroundColor: event_counts.map( (event, index) => colors[Math.min(index, 6)]),
+              }]
+            },
+            options: {
+              indexAxis: 'y',
+              plugins: {
+                legend: { display: false }
+              },
+            }
+          }
+        );
+
+        const resetView = function(eventTypeToSelect) {
+          selectedEventType = eventTypeToSelect;
+          chart.data.datasets[0].borderColor = event_counts.map( ({event_type, nb}) => ((event_type == selectedEventType) ? 'rgb(64, 81, 181)' : "#fff") )
+          chart.update()
+          drawSankey();
+          setKPIs();
+        };
+
+        document.getElementById('bf-pie-chart').onclick = function(evt) {
+          const points = chart.getElementsAtEventForMode(evt, 'nearest', { intersect: true }, true);
+          if (points[0]) {
+            const index = points[0].index;
+            const eventTypeToSelect = event_counts[index].event_type;
+            resetView(eventTypeToSelect == selectedEventType ? null : eventTypeToSelect);
+          }
+          else {
+            resetView(null);
+          }
+          evt.stopPropagation();
+        };
+
+        document.getElementById('bf-summary').onclick = function(evt) {
+          resetView(null);
+        };
+      };
+
+
+      const drawSankey = function() {
+        if (!selectedEventType) {
+          document.getElementById('bf-sankey').innerText = 'Please select one event type on the pie chart above 👆';
+          return;
+        }
+        let data = event_pairs
+        .filter(({source, target, value}) => (source == selectedEventType) || (target == selectedEventType))
+        .map(({source, target, value}) => (
+          (source == selectedEventType) ? ["1. " + source, "2. " + target, value] : ["0. " + source, "1. " + target, value]
+        ));
+
+        const missingCountFromNone = data.reduce((accumulator, currentValue) => {
+          return accumulator + currentValue[2] * ((currentValue[0] == '1. ' + selectedEventType) ? 1 : -1)
+        }, 0);
+        data.push(['NONE', '1. ' + selectedEventType, missingCountFromNone]);
+        data = data.sort( (a, b) => (a[2] <= b[2] ? 1 : -1) );
+
+        if (sankeyCheckbox.checked) {
+          data = data.slice(0, 10);
+          document.getElementById('bf-sankey').style.height = '200px';
+        }
+        else {
+          document.getElementById('bf-sankey').style.height = (data.length * 200. / 10) + 'px';
+        }
+
+        var table = new google.visualization.DataTable();
+        table.addColumn('string', 'From');
+        table.addColumn('string', 'To');
+        table.addColumn('number', 'value');
+        table.addRows(data);
+
+        var options = { width: '100%' };
+
+        var chart = new google.visualization.Sankey(document.getElementById('bf-sankey'));
+        chart.draw(table, options);
+      };
+
+
+
+      setKPIs();
+      drawBarChart();
+      drawSankey();
+
+      document.getElementById('bf-sankey-checkbox').onclick = function(evt) {
+        drawSankey();
+      }
+    })();
+  </script>
+

@@ -1,0 +1,29 @@
+type: function_sql
+category: transform_array
+author:
+  name: Thomas Lépine
+  url: https://www.linkedin.com/company/esmoz/
+  avatar_url: "https://esmoz.fr/wp-content/uploads/2022/03/logo_esmoz_40x20-1.png"
+description: |-
+  Return the first `offset` (zero-based index) of `value` in array `arr`
+  (or `null` if `value` is not in `arr`).
+arguments:
+  - name: arr
+    type: any type
+  - name: value
+    type: any type
+output:
+  name: offset
+  type: int64
+examples:
+  - description: "When `value` is in array"
+    arguments:
+      - "[3, 4]"
+      - "4"
+    output: "1"
+  - description: "When `value` is not in array"
+    arguments:
+      - "[3, 4]"
+      - "7"
+    output: "null"
+code: (select offset from unnest(arr) as x with offset where x = value order by offset limit 1)

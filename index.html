@@ -1,0 +1,7742 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="BigFunctions are open-source BigQuery routines that give you SQL-superpowers. BigFunctions can compute advanced transforms such as sentiment score of a text, or send data to any of your favorite SAAS tool. BigFunctions is dbt's best friend.">
+      
+      
+      
+        <link rel="canonical" href="https://unytics.io/bigfunctions/">
+      
+      
+      
+        <link rel="next" href="bigfunctions/">
+      
+      
+      <link rel="icon" href="site/assets/logo.png">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.12">
+    
+    
+      
+        <title>BigFunctions</title>
+      
+    
+    
+      <link rel="stylesheet" href="assets/stylesheets/main.7e359304.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="site/stylesheets/extra.css">
+    
+    <script>__md_scope=new URL(".",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+
+
+<meta property="og:title" content="Bigfunctions supercharge BigQuery" />
+<meta property="twitter:card" content="summary" />
+<meta property="twitter:title" content="Bigfunctions supercharge BigQuery" />
+
+
+
+<meta property="og:description" content="BigFunctions are open-source BigQuery routines that give you SQL-superpowers. BigFunctions can compute advanced transforms such as sentiment score of a text, or send data to any of your favorite SAAS tool. BigFunctions is dbt's best friend." />
+
+
+
+<meta property="og:image" content="https://unytics.io/bigfunctions/site/assets/logo_and_name.png" />
+<meta property="og:image:type" content="image/png" />
+<meta property="og:image:width" content="2500" />
+<meta property="og:image:height" content="541" />
+<meta property="twitter:image" content="https://unytics.io/bigfunctions/site/assets/logo_and_name.png" />
+<meta property="twitter:image:alt" content="Supercharge BigQuery with BigFunctions" />
+
+
+<style>
+  @media screen and (min-width: 76.25em) {
+    .md-sidebar--primary {
+      display: none;
+    }
+  }
+</style>
+
+
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#1-what-is-bigfunctions" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+        <aside class="md-banner">
+          <div class="md-banner__inner md-grid md-typeset">
+            
+            
+  <style>
+    .md-banner a {
+      color: white;
+    }
+    .md-banner a:hover {
+      color: gold;
+    }
+  </style>
+  <p style="text-align: center;">
+    <em>
+      BigFunctions is fully open-source</em>
+        <svg width="11" height="10" viewBox="0 0 11 10" fill="none" style="margin-left:2px"><path d="M1 5.16772H9.5M9.5 5.16772L6.5 1.66772M9.5 5.16772L6.5 8.66772" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+        <span style="margin: 0 0.25rem 0 0.5rem">⭐</span><a href="https://github.com/unytics/bigfunctions"><u>Star us on GitHub!</u></a>
+  </p>
+
+          </div>
+          
+        </aside>
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="." title="BigFunctions" class="md-header__button md-logo" aria-label="BigFunctions" data-md-component="logo">
+      
+  <img src="site/assets/logo.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            BigFunctions
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Get Started!
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var media,input,key,value,palette=__md_get("__palette");if(palette&&palette.color){"(prefers-color-scheme)"===palette.color.media&&(media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']"),palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent"));for([key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/unytics/bigfunctions" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    unytics/bigfunctions
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+  
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+    
+  
+  
+    <li class="md-tabs__item md-tabs__item--active">
+      <a href="." class="md-tabs__link">
+        
+  
+    
+  
+  Get Started!
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="bigfunctions/" class="md-tabs__link">
+          
+  
+    
+  
+  Bigfunctions
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="data/" class="md-tabs__link">
+          
+  
+    
+  
+  Data
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="CONTRIBUTING/" class="md-tabs__link">
+        
+  
+    
+  
+  Contribute!
+
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+
+
+  
+
+
+  <!-- Additional styles for landing page -->
+<style>
+
+
+/* Get started button */
+.md-typeset .md-button--primary:hover, .md-typeset .md-button--primary-white, .md-typeset .md-button--primary-white:hover {
+  color: var(--md-primary-fg-color);
+  background-color: var(--md-primary-bg-color);
+  border-color: var(--md-primary-fg-color);
+}
+.md-typeset .md-button--primary {
+  color: var(--md-primary-bg-color);
+  background-color: var(--md-primary-fg-color);
+  border-color: var(--md-primary-bg-color);
+}
+
+.tx-hero {
+  max-width: 700px;
+  display: flex;
+  padding: .4rem;
+  margin: 0 auto;
+  text-align: center;
+}
+.tx-hero h1 {
+  font-weight: 700;
+  font-size: 38px;
+  line-height: 46px;
+  color: rgb(38, 38, 38);
+}
+.tx-hero p {
+  color: rgb(92, 92, 92);
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 32px;
+}
+.tx-hero__image {
+  max-width: 1000px;
+  /*min-width: 600px;*/
+  width: 100%;
+  height: auto;
+  margin: 0 auto;
+  display: flex;
+  align-items: stretch;
+}
+
+.tx-hero__image img {
+  width: 100%;
+  height: 100%;
+  min-width: 0;
+}
+
+</style>
+
+  <!-- Hero for landing page -->
+  <div class="md-container tx-hero">
+    <div class="md-grid md-typeset">
+      <div class="md-main__inner">
+        <div>
+          <h1>Supercharge <u>BigQuery</u><br>with <u>BigFunctions</u></h1>
+          <p>100+ ready-to-use Functions</p>
+          <a href="bigfunctions/" class="md-button md-button--primary">
+            Explore Functions
+            <svg width="11" height="10" viewBox="0 0 11 10" fill="none" style="margin-left:2px"><path d="M1 5.16772H9.5M9.5 5.16772L6.5 1.66772M9.5 5.16772L6.5 8.66772" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- <div class="md-container">
+    <div class="tx-hero__image">
+      <img
+        src="https://unytics.io/bigfunctions/assets/images/bigfunctions_intro.gif"
+        alt=""
+        draggable="false"
+        style="border: black solid 1rem; width: 100%; margin-top: 5rem;"
+      >
+    </div>
+  </div> -->
+
+  <hr style="margin: 16em 1em 1.5em 1em;  border-bottom: 0.05rem solid var(--md-default-fg-color--lightest); display: flow-root;">
+
+
+  
+
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="." title="BigFunctions" class="md-nav__button md-logo" aria-label="BigFunctions" data-md-component="logo">
+      
+  <img src="site/assets/logo.png" alt="logo">
+
+    </a>
+    BigFunctions
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/unytics/bigfunctions" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    unytics/bigfunctions
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Get Started!
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="." class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    Get Started!
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-what-is-bigfunctions" class="md-nav__link">
+    <span class="md-ellipsis">
+      🔍️ 1. What is BigFunctions?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-why-bigfunctions" class="md-nav__link">
+    <span class="md-ellipsis">
+      💡 2. Why BigFunctions?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-call-public-bigfunctions-without-install-from-your-gcp-project" class="md-nav__link">
+    <span class="md-ellipsis">
+      👀 3. Call public BigFunctions without install from your GCP project
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-deploy-bigfunctions-in-your-gcp-project" class="md-nav__link">
+    <span class="md-ellipsis">
+      🚀 4. Deploy BigFunctions in your GCP project
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-bigfun-cli" class="md-nav__link">
+    <span class="md-ellipsis">
+      💥 5. bigfun CLI
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="💥 5. bigfun CLI">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#51-install-bigfun" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.1 Install bigfun 🛠️
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#52-use-bigfun" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.2 Use bigfun 🔥
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#53-create-you-first-function" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.3 Create you first function 👷
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#54-deploy-you-first-function" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.4 Deploy you first function 👨‍💻
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#55-deploy-you-first-javascript-function-which-depends-on-npm-packages" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.5 Deploy you first javascript function which depends on npm packages 👽
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#56-deploy-you-first-remote-function" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.6 Deploy you first remote function ⚡️
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-contribute" class="md-nav__link">
+    <span class="md-ellipsis">
+      👋 6. Contribute
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="bigfunctions/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Bigfunctions
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2" id="__nav_2_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Bigfunctions
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="bigfunctions/are_arrays_equal/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Are arrays equal
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            Are arrays equal
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_3" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="bigfunctions/array_intersect/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Array intersect
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_3">
+            <span class="md-nav__icon md-icon"></span>
+            Array intersect
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="bigfunctions/array_union/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Array union
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_4">
+            <span class="md-nav__icon md-icon"></span>
+            Array union
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_5" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="bigfunctions/ask_ai/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Ask ai
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_5">
+            <span class="md-nav__icon md-icon"></span>
+            Ask ai
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_6" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="bigfunctions/ask_my_data/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Ask my data
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_6">
+            <span class="md-nav__icon md-icon"></span>
+            Ask my data
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_7" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="bigfunctions/chart/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Chart
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_7">
+            <span class="md-nav__icon md-icon"></span>
+            Chart
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_8" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="bigfunctions/connected_components/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Connected components
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_8">
+            <span class="md-nav__icon md-icon"></span>
+            Connected components
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_9" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="bigfunctions/convert_non_ascii_characters_to_unicode_escape_sequences/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Convert non ascii characters to unicode escape sequences
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_9">
+            <span class="md-nav__icon md-icon"></span>
+            Convert non ascii characters to unicode escape sequences
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_10" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="bigfunctions/date_sub_isoyear/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Date sub isoyear
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_10_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_10">
+            <span class="md-nav__icon md-icon"></span>
+            Date sub isoyear
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_11" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="bigfunctions/deduplicate_rows/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Deduplicate rows
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_11_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_11">
+            <span class="md-nav__icon md-icon"></span>
+            Deduplicate rows
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_12" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="bigfunctions/deidentify/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Deidentify
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_12_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_12">
+            <span class="md-nav__icon md-icon"></span>
+            Deidentify
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_13" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="bigfunctions/detect_sensitive_info/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Detect sensitive info
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_13_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_13">
+            <span class="md-nav__icon md-icon"></span>
+            Detect sensitive info
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_14" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="bigfunctions/distinct_values/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Distinct values
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_14_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_14">
+            <span class="md-nav__icon md-icon"></span>
+            Distinct values
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_15" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="bigfunctions/exchange_rate/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Exchange rate
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_15_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_15">
+            <span class="md-nav__icon md-icon"></span>
+            Exchange rate
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_16" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="bigfunctions/explore_column/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Explore column
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_16_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_16">
+            <span class="md-nav__icon md-icon"></span>
+            Explore column
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_17" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="bigfunctions/explore_dataset/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Explore dataset
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_17_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_17">
+            <span class="md-nav__icon md-icon"></span>
+            Explore dataset
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_18" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="bigfunctions/explore_events/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Explore events
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_18_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_18">
+            <span class="md-nav__icon md-icon"></span>
+            Explore events
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_19" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="bigfunctions/explore_funnels/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Explore funnels
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_19_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_19">
+            <span class="md-nav__icon md-icon"></span>
+            Explore funnels
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_20" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="bigfunctions/explore_table/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Explore table
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_20_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_20">
+            <span class="md-nav__icon md-icon"></span>
+            Explore table
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_21" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="bigfunctions/export_to_datastore/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Export to datastore
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_21_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_21">
+            <span class="md-nav__icon md-icon"></span>
+            Export to datastore
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_22" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="bigfunctions/export_to_pubsub/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Export to pubsub
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_22_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_22">
+            <span class="md-nav__icon md-icon"></span>
+            Export to pubsub
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_23" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="bigfunctions/faker/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Faker
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_23_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_23">
+            <span class="md-nav__icon md-icon"></span>
+            Faker
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_24" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="bigfunctions/find_greater_value/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Find greater value
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_24_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_24">
+            <span class="md-nav__icon md-icon"></span>
+            Find greater value
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_25" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="bigfunctions/find_lower_value/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Find lower value
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_25_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_25">
+            <span class="md-nav__icon md-icon"></span>
+            Find lower value
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_26" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="bigfunctions/find_value/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Find value
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_26_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_26">
+            <span class="md-nav__icon md-icon"></span>
+            Find value
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_27" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="bigfunctions/format_percentage/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Format percentage
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_27_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_27">
+            <span class="md-nav__icon md-icon"></span>
+            Format percentage
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_28" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="bigfunctions/generate_dates/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Generate dates
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_28_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_28">
+            <span class="md-nav__icon md-icon"></span>
+            Generate dates
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_29" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="bigfunctions/generate_sql/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Generate sql
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_29_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_29">
+            <span class="md-nav__icon md-icon"></span>
+            Generate sql
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_30" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="bigfunctions/geocode/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Geocode
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_30_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_30">
+            <span class="md-nav__icon md-icon"></span>
+            Geocode
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_31" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="bigfunctions/get/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Get
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_31_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_31">
+            <span class="md-nav__icon md-icon"></span>
+            Get
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_32" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="bigfunctions/get_json/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Get json
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_32_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_32">
+            <span class="md-nav__icon md-icon"></span>
+            Get json
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_33" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="bigfunctions/get_latest_partition_timestamp/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Get latest partition timestamp
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_33_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_33">
+            <span class="md-nav__icon md-icon"></span>
+            Get latest partition timestamp
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_34" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="bigfunctions/get_meteo/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Get meteo
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_34_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_34">
+            <span class="md-nav__icon md-icon"></span>
+            Get meteo
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_35" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="bigfunctions/get_table_columns/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Get table columns
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_35_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_35">
+            <span class="md-nav__icon md-icon"></span>
+            Get table columns
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_36" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="bigfunctions/get_value/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Get value
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_36_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_36">
+            <span class="md-nav__icon md-icon"></span>
+            Get value
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_37" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="bigfunctions/get_view_history/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Get view history
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_37_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_37">
+            <span class="md-nav__icon md-icon"></span>
+            Get view history
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_38" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="bigfunctions/get_webpage_metadata/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Get webpage metadata
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_38_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_38">
+            <span class="md-nav__icon md-icon"></span>
+            Get webpage metadata
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_39" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="bigfunctions/get_webpage_structured_data/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Get webpage structured data
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_39_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_39">
+            <span class="md-nav__icon md-icon"></span>
+            Get webpage structured data
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_40" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="bigfunctions/gregorian2hijri/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Gregorian2hijri
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_40_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_40">
+            <span class="md-nav__icon md-icon"></span>
+            Gregorian2hijri
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_41" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="bigfunctions/h3/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    H3
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_41_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_41">
+            <span class="md-nav__icon md-icon"></span>
+            H3
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_42" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="bigfunctions/html2pdf/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Html2pdf
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_42_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_42">
+            <span class="md-nav__icon md-icon"></span>
+            Html2pdf
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_43" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="bigfunctions/ip2asn/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Ip2asn
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_43_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_43">
+            <span class="md-nav__icon md-icon"></span>
+            Ip2asn
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_44" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="bigfunctions/ip2continent/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Ip2continent
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_44_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_44">
+            <span class="md-nav__icon md-icon"></span>
+            Ip2continent
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_45" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="bigfunctions/ip2continent_name/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Ip2continent name
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_45_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_45">
+            <span class="md-nav__icon md-icon"></span>
+            Ip2continent name
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_46" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="bigfunctions/ip2country/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Ip2country
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_46_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_46">
+            <span class="md-nav__icon md-icon"></span>
+            Ip2country
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_47" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="bigfunctions/ip2country_name/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Ip2country name
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_47_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_47">
+            <span class="md-nav__icon md-icon"></span>
+            Ip2country name
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_48" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="bigfunctions/ip_range2ip_networks/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Ip range2ip networks
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_48_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_48">
+            <span class="md-nav__icon md-icon"></span>
+            Ip range2ip networks
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_49" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="bigfunctions/is_email_valid/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Is email valid
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_49_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_49">
+            <span class="md-nav__icon md-icon"></span>
+            Is email valid
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_50" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="bigfunctions/is_phone_number_valid/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Is phone number valid
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_50_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_50">
+            <span class="md-nav__icon md-icon"></span>
+            Is phone number valid
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_51" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="bigfunctions/is_public_holiday/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Is public holiday
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_51_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_51">
+            <span class="md-nav__icon md-icon"></span>
+            Is public holiday
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_52" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="bigfunctions/items2json/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Items2json
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_52_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_52">
+            <span class="md-nav__icon md-icon"></span>
+            Items2json
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_53" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="bigfunctions/json2excel/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Json2excel
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_53_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_53">
+            <span class="md-nav__icon md-icon"></span>
+            Json2excel
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_54" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="bigfunctions/json2xml/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Json2xml
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_54_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_54">
+            <span class="md-nav__icon md-icon"></span>
+            Json2xml
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_55" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="bigfunctions/json_items/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Json items
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_55_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_55">
+            <span class="md-nav__icon md-icon"></span>
+            Json items
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_56" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="bigfunctions/json_keys/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Json keys
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_56_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_56">
+            <span class="md-nav__icon md-icon"></span>
+            Json keys
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_57" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="bigfunctions/json_merge/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Json merge
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_57_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_57">
+            <span class="md-nav__icon md-icon"></span>
+            Json merge
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_58" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="bigfunctions/json_query/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Json query
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_58_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_58">
+            <span class="md-nav__icon md-icon"></span>
+            Json query
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_59" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="bigfunctions/json_schema/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Json schema
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_59_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_59">
+            <span class="md-nav__icon md-icon"></span>
+            Json schema
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_60" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="bigfunctions/json_values/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Json values
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_60_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_60">
+            <span class="md-nav__icon md-icon"></span>
+            Json values
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_61" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="bigfunctions/last_value/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Last value
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_61_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_61">
+            <span class="md-nav__icon md-icon"></span>
+            Last value
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_62" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="bigfunctions/levenshtein/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Levenshtein
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_62_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_62">
+            <span class="md-nav__icon md-icon"></span>
+            Levenshtein
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_63" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="bigfunctions/list_bigquery_resources_in_current_project/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    List bigquery resources in current project
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_63_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_63">
+            <span class="md-nav__icon md-icon"></span>
+            List bigquery resources in current project
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_64" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="bigfunctions/max_value/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Max value
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_64_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_64">
+            <span class="md-nav__icon md-icon"></span>
+            Max value
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_65" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="bigfunctions/median_value/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Median value
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_65_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_65">
+            <span class="md-nav__icon md-icon"></span>
+            Median value
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_66" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="bigfunctions/min_value/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Min value
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_66_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_66">
+            <span class="md-nav__icon md-icon"></span>
+            Min value
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_67" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="bigfunctions/parse_date/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Parse date
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_67_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_67">
+            <span class="md-nav__icon md-icon"></span>
+            Parse date
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_68" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="bigfunctions/parse_url/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Parse url
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_68_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_68">
+            <span class="md-nav__icon md-icon"></span>
+            Parse url
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_69" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="bigfunctions/parse_user_agent/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Parse user agent
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_69_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_69">
+            <span class="md-nav__icon md-icon"></span>
+            Parse user agent
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_70" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="bigfunctions/percentile_value/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Percentile value
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_70_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_70">
+            <span class="md-nav__icon md-icon"></span>
+            Percentile value
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_71" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="bigfunctions/phone_number_info/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Phone number info
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_71_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_71">
+            <span class="md-nav__icon md-icon"></span>
+            Phone number info
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_72" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="bigfunctions/post/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Post
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_72_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_72">
+            <span class="md-nav__icon md-icon"></span>
+            Post
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_73" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="bigfunctions/precision_recall_auc/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Precision recall auc
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_73_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_73">
+            <span class="md-nav__icon md-icon"></span>
+            Precision recall auc
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_74" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="bigfunctions/precision_recall_curve/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Precision recall curve
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_74_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_74">
+            <span class="md-nav__icon md-icon"></span>
+            Precision recall curve
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_75" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="bigfunctions/prophet/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Prophet
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_75_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_75">
+            <span class="md-nav__icon md-icon"></span>
+            Prophet
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_76" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="bigfunctions/quantize_into_bins/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Quantize into bins
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_76_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_76">
+            <span class="md-nav__icon md-icon"></span>
+            Quantize into bins
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_77" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="bigfunctions/quantize_into_fixed_width_bins/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Quantize into fixed width bins
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_77_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_77">
+            <span class="md-nav__icon md-icon"></span>
+            Quantize into fixed width bins
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_78" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="bigfunctions/remove_accents/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Remove accents
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_78_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_78">
+            <span class="md-nav__icon md-icon"></span>
+            Remove accents
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_79" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="bigfunctions/remove_extra_whitespaces/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Remove extra whitespaces
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_79_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_79">
+            <span class="md-nav__icon md-icon"></span>
+            Remove extra whitespaces
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_80" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="bigfunctions/remove_strings/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Remove strings
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_80_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_80">
+            <span class="md-nav__icon md-icon"></span>
+            Remove strings
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_81" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="bigfunctions/remove_value/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Remove value
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_81_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_81">
+            <span class="md-nav__icon md-icon"></span>
+            Remove value
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_82" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="bigfunctions/remove_words/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Remove words
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_82_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_82">
+            <span class="md-nav__icon md-icon"></span>
+            Remove words
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_83" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="bigfunctions/render_string/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Render string
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_83_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_83">
+            <span class="md-nav__icon md-icon"></span>
+            Render string
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_84" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="bigfunctions/render_template/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Render template
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_84_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_84">
+            <span class="md-nav__icon md-icon"></span>
+            Render template
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_85" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="bigfunctions/replace_special_characters/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Replace special characters
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_85_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_85">
+            <span class="md-nav__icon md-icon"></span>
+            Replace special characters
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_86" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="bigfunctions/reverse_geocode/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Reverse geocode
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_86_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_86">
+            <span class="md-nav__icon md-icon"></span>
+            Reverse geocode
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_87" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="bigfunctions/roc_auc/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Roc auc
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_87_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_87">
+            <span class="md-nav__icon md-icon"></span>
+            Roc auc
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_88" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="bigfunctions/roc_curve/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Roc curve
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_88_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_88">
+            <span class="md-nav__icon md-icon"></span>
+            Roc curve
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_89" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="bigfunctions/run_python/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Run python
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_89_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_89">
+            <span class="md-nav__icon md-icon"></span>
+            Run python
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_90" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="bigfunctions/sankey_chart/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Sankey chart
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_90_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_90">
+            <span class="md-nav__icon md-icon"></span>
+            Sankey chart
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_91" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="bigfunctions/send_google_chat_message/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Send google chat message
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_91_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_91">
+            <span class="md-nav__icon md-icon"></span>
+            Send google chat message
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_92" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="bigfunctions/send_mail/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Send mail
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_92_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_92">
+            <span class="md-nav__icon md-icon"></span>
+            Send mail
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_93" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="bigfunctions/send_mail_with_excel/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Send mail with excel
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_93_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_93">
+            <span class="md-nav__icon md-icon"></span>
+            Send mail with excel
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_94" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="bigfunctions/send_slack_message/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Send slack message
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_94_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_94">
+            <span class="md-nav__icon md-icon"></span>
+            Send slack message
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_95" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="bigfunctions/send_sms/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Send sms
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_95_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_95">
+            <span class="md-nav__icon md-icon"></span>
+            Send sms
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_96" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="bigfunctions/send_teams_message/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Send teams message
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_96_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_96">
+            <span class="md-nav__icon md-icon"></span>
+            Send teams message
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_97" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="bigfunctions/sentiment_score/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Sentiment score
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_97_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_97">
+            <span class="md-nav__icon md-icon"></span>
+            Sentiment score
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_98" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="bigfunctions/sleep/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Sleep
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_98_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_98">
+            <span class="md-nav__icon md-icon"></span>
+            Sleep
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_99" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="bigfunctions/sort_values/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Sort values
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_99_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_99">
+            <span class="md-nav__icon md-icon"></span>
+            Sort values
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_100" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="bigfunctions/sort_values_desc/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Sort values desc
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_100_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_100">
+            <span class="md-nav__icon md-icon"></span>
+            Sort values desc
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_101" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="bigfunctions/sum_values/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Sum values
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_101_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_101">
+            <span class="md-nav__icon md-icon"></span>
+            Sum values
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_102" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="bigfunctions/timestamp_from_unix_date_time/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Timestamp from unix date time
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_102_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_102">
+            <span class="md-nav__icon md-icon"></span>
+            Timestamp from unix date time
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_103" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="bigfunctions/timestamp_to_unix_date_time/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Timestamp to unix date time
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_103_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_103">
+            <span class="md-nav__icon md-icon"></span>
+            Timestamp to unix date time
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_104" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="bigfunctions/translate/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Translate
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_104_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_104">
+            <span class="md-nav__icon md-icon"></span>
+            Translate
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_105" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="bigfunctions/translated_month_name/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Translated month name
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_105_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_105">
+            <span class="md-nav__icon md-icon"></span>
+            Translated month name
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_106" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="bigfunctions/translated_weekday_name/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Translated weekday name
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_106_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_106">
+            <span class="md-nav__icon md-icon"></span>
+            Translated weekday name
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_107" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="bigfunctions/upload_table_to_gsheet/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Upload table to gsheet
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_107_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_107">
+            <span class="md-nav__icon md-icon"></span>
+            Upload table to gsheet
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_108" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="bigfunctions/upload_to_gsheet/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Upload to gsheet
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_108_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_108">
+            <span class="md-nav__icon md-icon"></span>
+            Upload to gsheet
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_109" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="bigfunctions/upsert/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Upsert
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_109_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_109">
+            <span class="md-nav__icon md-icon"></span>
+            Upsert
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_110" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="bigfunctions/url_decode/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Url decode
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_110_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_110">
+            <span class="md-nav__icon md-icon"></span>
+            Url decode
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_111" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="bigfunctions/validate_address/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Validate address
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_111_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_111">
+            <span class="md-nav__icon md-icon"></span>
+            Validate address
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_112" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="bigfunctions/xml2json/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Xml2json
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_112_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_112">
+            <span class="md-nav__icon md-icon"></span>
+            Xml2json
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_113" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="bigfunctions/xml_extract/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Xml extract
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_113_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_113">
+            <span class="md-nav__icon md-icon"></span>
+            Xml extract
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="data/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Data
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Data
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="CONTRIBUTING/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Contribute!
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-what-is-bigfunctions" class="md-nav__link">
+    <span class="md-ellipsis">
+      🔍️ 1. What is BigFunctions?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-why-bigfunctions" class="md-nav__link">
+    <span class="md-ellipsis">
+      💡 2. Why BigFunctions?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-call-public-bigfunctions-without-install-from-your-gcp-project" class="md-nav__link">
+    <span class="md-ellipsis">
+      👀 3. Call public BigFunctions without install from your GCP project
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-deploy-bigfunctions-in-your-gcp-project" class="md-nav__link">
+    <span class="md-ellipsis">
+      🚀 4. Deploy BigFunctions in your GCP project
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-bigfun-cli" class="md-nav__link">
+    <span class="md-ellipsis">
+      💥 5. bigfun CLI
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="💥 5. bigfun CLI">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#51-install-bigfun" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.1 Install bigfun 🛠️
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#52-use-bigfun" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.2 Use bigfun 🔥
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#53-create-you-first-function" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.3 Create you first function 👷
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#54-deploy-you-first-function" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.4 Deploy you first function 👨‍💻
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#55-deploy-you-first-javascript-function-which-depends-on-npm-packages" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.5 Deploy you first javascript function which depends on npm packages 👽
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#56-deploy-you-first-remote-function" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.6 Deploy you first remote function ⚡️
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-contribute" class="md-nav__link">
+    <span class="md-ellipsis">
+      👋 6. Contribute
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  <!-- Tags -->
+
+
+<!-- Actions -->
+
+  
+  
+
+
+<!--
+  Hack: check whether the content contains a h1 headline. If it doesn't, the
+  page title (or respectively site name) is used as the main headline.
+-->
+
+  <h1>Get Started!</h1>
+
+
+<!-- Page content -->
+<p align="center">
+  <img class="hero-image" src="https://user-images.githubusercontent.com/111615732/186508787-6af04ed0-4750-4c49-926a-eacfd4a3dfbb.png" alt="logo_and_name" style="width: 100%; max-width: 600px">
+</p>
+
+<p align="center">
+    Supercharge <em>BigQuery</em><br>with <em>BigFunctions</em><br><br>
+    <b>Upgrade your data impact</b><br>
+    with 100+ ready-to-use BigQuery Functions<br>
+    <i>(+ build a catalog of functions)</i><br>
+</p>
+
+<p align="center">
+    <strong>❯
+      <a href="https://unytics.io/bigfunctions/" target="_blank">Website</a> |
+      <a href="https://github.com/unytics/bigfunctions" target="_blank">GitHub</a>
+     ❮</strong>
+</p>
+
+<hr />
+<p><br></p>
+<h2 id="1-what-is-bigfunctions">🔍️ 1. What is BigFunctions?<a class="headerlink" href="#1-what-is-bigfunctions" title="Permanent link">¶</a></h2>
+<p>BigFunctions is:</p>
+<p>✅ <strong>a framework</strong> to build a <strong>governed catalog of powerful BigQuery functions</strong> at YOUR company.</p>
+<p>✅ <strong>100+ open-source functions to supercharge BigQuery</strong> that you can call directly (no install) or redeploy in YOUR catalog.</p>
+<p><br></p>
+<h2 id="2-why-bigfunctions">💡 2. Why BigFunctions?<a class="headerlink" href="#2-why-bigfunctions" title="Permanent link">¶</a></h2>
+<p><strong>As a data-analyst</strong><br>
+You'll have new powers! <em>(such as loading data from any source or activating your data through reverse ETL)</em>.</p>
+<p><strong>As an analytics-engineer</strong><br>
+You'll feel at home with BigFunctions style which imitates the one of dbt <em>(with a yaml standard and a CLI)</em>.<br>
+You'll love the idea of getting more things done through SQL.</p>
+<p><strong>As a data-engineer</strong><br>
+You'll easily build software-engineering best practices through unit testing, cicd, pull request validation, continuous deployment, etc.<br>
+You will love avoiding reinventing the wheel by using functions already developed by the community.</p>
+<p><strong>As a central data-team player in a large company</strong><br>
+You'll be proud of providing a governed catalog of curated functions to your 10000+ employees with mutualized and maintainable effort.</p>
+<p><strong>As a security champion</strong><br>
+You will enjoy the ability to validate the code of functions before deployment thanks to your git validation workflow, CI Testing, binary authorization, etc.</p>
+<p><strong>As an open-source lover</strong><br>
+You'll be able to contribute so that a problem solved for you is solved for everyone.</p>
+<p><br></p>
+<h2 id="3-call-public-bigfunctions-without-install-from-your-gcp-project">👀 3. Call public BigFunctions without install from your GCP project<a class="headerlink" href="#3-call-public-bigfunctions-without-install-from-your-gcp-project" title="Permanent link">¶</a></h2>
+<p>All BigFunctions represented by a 'yaml' file in <em>bigfunctions</em> folder of the GitHub repo are automatically deployed in public datasets so that you can call them directly without install from your BigQuery project.</p>
+<p>Give it a try! Execute this SQL query from your GCP Project 👀:</p>
+<div class="highlight"><pre><span></span><code><span class="k">select</span><span class="w"> </span><span class="n">bigfunctions</span><span class="p">.</span><span class="n">eu</span><span class="p">.</span><span class="n">faker</span><span class="p">(</span><span class="ss">&quot;name&quot;</span><span class="p">,</span><span class="w"> </span><span class="ss">&quot;it_IT&quot;</span><span class="p">)</span>
+</code></pre></div>
+<p>Explore all available bigfunctions <strong><a href="bigfunctions">here</a></strong>.</p>
+<p><br></p>
+<h2 id="4-deploy-bigfunctions-in-your-gcp-project">🚀 4. Deploy BigFunctions in your GCP project<a class="headerlink" href="#4-deploy-bigfunctions-in-your-gcp-project" title="Permanent link">¶</a></h2>
+<p>You can also deploy any bigfunction in your project! To deploy <em>my_bigfunction</em> defined in <em>bigfunctions/my_bigfunction.yaml</em> file, simply call:</p>
+<div class="highlight"><pre><span></span><code>bigfun<span class="w"> </span>deploy<span class="w"> </span>my_bigfunction
+</code></pre></div>
+<p>Details about <code>bigfun</code> command line are given below.</p>
+<p><br></p>
+<h2 id="5-bigfun-cli">💥 5. <code>bigfun</code> CLI<a class="headerlink" href="#5-bigfun-cli" title="Permanent link">¶</a></h2>
+<p><code>bigfun</code> CLI (command-line-interface) facilitates BigFunctions development, test, deployment, documentation and monitoring.</p>
+<h3 id="51-install-bigfun">5.1 Install <code>bigfun</code> 🛠️<a class="headerlink" href="#51-install-bigfun" title="Permanent link">¶</a></h3>
+<div class="highlight"><pre><span></span><code>pip<span class="w"> </span>install<span class="w"> </span>bigfunctions
+</code></pre></div>
+<h3 id="52-use-bigfun">5.2 Use <code>bigfun</code> 🔥<a class="headerlink" href="#52-use-bigfun" title="Permanent link">¶</a></h3>
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>bigfun<span class="w"> </span>--help
+Usage:<span class="w"> </span>bigfun<span class="w"> </span><span class="o">[</span>OPTIONS<span class="o">]</span><span class="w"> </span>COMMAND<span class="w"> </span><span class="o">[</span>ARGS<span class="o">]</span>...
+
+Options:
+<span class="w">  </span>--help<span class="w">  </span>Show<span class="w"> </span>this<span class="w"> </span>message<span class="w"> </span>and<span class="w"> </span>exit.
+
+Commands:
+<span class="w">  </span>deploy<span class="w">      </span>Deploy<span class="w"> </span>BIGFUNCTION
+<span class="w">  </span>docs<span class="w">        </span>Generate,<span class="w"> </span>serve<span class="w"> </span>and<span class="w"> </span>publish<span class="w"> </span>documentation
+<span class="w">  </span>get<span class="w">         </span>Download<span class="w"> </span>BIGFUNCTION<span class="w"> </span>yaml<span class="w"> </span>file<span class="w"> </span>from<span class="w"> </span>unytics/bigfunctions...
+<span class="w">  </span><span class="nb">test</span><span class="w">        </span>Test<span class="w"> </span>BIGFUNCTION
+</code></pre></div>
+<h3 id="53-create-you-first-function">5.3 Create you first function 👷<a class="headerlink" href="#53-create-you-first-function" title="Permanent link">¶</a></h3>
+<p>Functions are defined as yaml files under <code>bigfunctions</code> folder. To create your first function locally, the easiest is to download an existing yaml file of unytics/bigfunctions Github repo. </p>
+<p>For instance to download <code>is_email_valid.yaml</code> into bigfunctions folder, do:</p>
+<div class="highlight"><pre><span></span><code>bigfun<span class="w"> </span>get<span class="w"> </span>is_email_valid
+</code></pre></div>
+<p>You can then update the file to suit your needs.</p>
+<h3 id="54-deploy-you-first-function">5.4 Deploy you first function 👨‍💻<a class="headerlink" href="#54-deploy-you-first-function" title="Permanent link">¶</a></h3>
+<blockquote>
+<ol>
+<li>Make sure the <code>gcloud</code> command is <a href="https://cloud.google.com/sdk/docs/install">installed on your computer</a></li>
+<li>Activate the application-default account with <code>gcloud auth application-default login</code>. A browser window should open, and you should be prompted to log into your Google account. Once you've done that, <code>bigfun</code> will use your oauth'd credentials to connect to BigQuery through BigQuery python client!</li>
+<li>Get or create a <code>DATASET</code> where you have permission to edit data and where the function will be deployed.</li>
+<li>The <code>DATASET</code> must belong to a <code>PROJECT</code> in which you have permission to run BigQuery queries.</li>
+</ol>
+</blockquote>
+<p>You now can deploy the function <code>is_email_valid</code> defined in <code>bigfunctions/is_email_valid.yaml</code> yaml file by running:</p>
+<div class="highlight"><pre><span></span><code>bigfun<span class="w"> </span>deploy<span class="w"> </span>is_email_valid
+</code></pre></div>
+<blockquote>
+<p>The first time you run this command it will ask for <code>PROJECT</code> and <code>DATASET</code>.</p>
+<p>Your inputs will be written to <code>config.yaml</code> file in current directory so that you won't be asked again (unless you delete the entries in <code>config.yaml</code>). You can also override this config at deploy time: <code>bigfun deploy is_email_valid --project=PROJECT --dataset=DATASET</code>.</p>
+</blockquote>
+<p>Test it with 👀:</p>
+<div class="highlight"><pre><span></span><code><span class="k">select</span><span class="w"> </span><span class="n">PROJECT</span><span class="p">.</span><span class="n">DATASET</span><span class="p">.</span><span class="n">is_email_valid</span><span class="p">(</span><span class="s1">&#39;paul.marcombes@unytics.io&#39;</span><span class="p">)</span>
+</code></pre></div>
+<p><br></p>
+<h3 id="55-deploy-you-first-javascript-function-which-depends-on-npm-packages">5.5 Deploy you first javascript function which depends on <em>npm packages</em> 👽<a class="headerlink" href="#55-deploy-you-first-javascript-function-which-depends-on-npm-packages" title="Permanent link">¶</a></h3>
+<p><em>To deploy a </em><em>javascript</em><em> function</em> which depends on <strong>npm packages</strong> there are additional requirements <em>in addition to the ones above</em>.</p>
+<blockquote>
+<ol>
+<li>You will need to install each <em>npm package</em> on your machine and bundle it into one file. For that, you need to <a href="https://nodejs.org/en/download/">install <em>nodejs</em></a>.</li>
+<li>The bundled js file will be uploaded into a cloud storage bucket in which you must have write access. The bucket name must be provided in <code>config.yaml</code> file in a variable named <code>bucket_js_dependencies</code>. Users of your functions must have read access to the bucket.</li>
+</ol>
+</blockquote>
+<p>You now can deploy the function <code>render_template</code> defined in <code>bigfunctions/render_template.yaml</code> yaml file by running:</p>
+<div class="highlight"><pre><span></span><code>bigfun<span class="w"> </span>deploy<span class="w"> </span>render_template
+</code></pre></div>
+<p>Test it with 👀:</p>
+<div class="highlight"><pre><span></span><code><span class="k">select</span><span class="w"> </span><span class="n">PROJECT</span><span class="p">.</span><span class="n">DATASET</span><span class="p">.</span><span class="n">render_template</span><span class="p">(</span><span class="s1">&#39;Hello {{ user }}&#39;</span><span class="p">,</span><span class="w"> </span><span class="n">json</span><span class="w"> </span><span class="s1">&#39;{&quot;user&quot;: &quot;James&quot;}&#39;</span><span class="p">)</span>
+</code></pre></div>
+<p><br></p>
+<h3 id="56-deploy-you-first-remote-function">5.6 Deploy you first <em>remote</em> function ⚡️<a class="headerlink" href="#56-deploy-you-first-remote-function" title="Permanent link">¶</a></h3>
+<p><em>To deploy a </em><em>remote</em><em> function</em> (e.g. python function), there are additional requirements <em>in addition to the ones of </em><em>Deploy you first function</em><em> section</em>.</p>
+<blockquote>
+<ol>
+<li>A <em>Cloud Run</em> service will be deployed to host the code (<a href="https://cloud.google.com/bigquery/docs/reference/standard-sql/remote-functions">as seen here</a>). So you must have <a href="https://cloud.google.com/run/docs/deploying-source-code#permissions_required_to_deploy">permissions to deploy a <em>Cloud Run</em> service</a> in your project <code>PROJECT</code>.</li>
+<li><code>gcloud</code> CLI will be used directly to deploy the service (using <code>gcloud run deploy</code>). Then, make sure you are logged in with <code>gcloud</code> by calling: <code>gcloud auth login</code>. A browser window should also open, and you should be prompted to log into your Google account. WARNING: you read correctly: you have to authenticate twice. Once for bigquery python client (to deploy any function including remote as seen above.) and once now to use <code>gcloud</code> (to deploy a <em>Cloud Run</em> service).</li>
+<li>A <em>BigQuery Remote Connection</em> will be created to link BigQuery with the <em>Cloud Run</em> service. You then should have permissions to create a remote connection. <em><a href="https://cloud.google.com/bigquery/docs/access-control#bigquery.connectionAdmin">BigQuery Connection Admin</a></em> or <em><a href="https://cloud.google.com/bigquery/docs/access-control#bigquery.admin">BigQuery Admin</a></em> roles have these permissions.</li>
+<li>A service account will be automatically created by Google along with the <em>BigQuery Remote Connection</em>. BigQuery will use this service account of the remote connection to invoke the <em>Cloud Run</em> service. You then must have the permission to authorize this service account to invoke the <em>Cloud Run</em> service. This permission is provided in the role <em><a href="https://cloud.google.com/run/docs/reference/iam/roles">roles/run.admin</a></em></li>
+</ol>
+</blockquote>
+<p>You now can deploy the function <code>faker</code> defined in <code>bigfunctions/faker.yaml</code> yaml file by running:</p>
+<div class="highlight"><pre><span></span><code>bigfun<span class="w"> </span>deploy<span class="w"> </span>faker
+</code></pre></div>
+<p>Test it with 👀:</p>
+<div class="highlight"><pre><span></span><code><span class="k">select</span><span class="w"> </span><span class="n">PROJECT</span><span class="p">.</span><span class="n">DATASET</span><span class="p">.</span><span class="n">faker</span><span class="p">(</span><span class="ss">&quot;name&quot;</span><span class="p">,</span><span class="w"> </span><span class="ss">&quot;it_IT&quot;</span><span class="p">)</span>
+</code></pre></div>
+<p><br></p>
+<h2 id="6-contribute">👋 6. Contribute<a class="headerlink" href="#6-contribute" title="Permanent link">¶</a></h2>
+<p>BigFunctions is fully open-source. Any contribution is more than welcome 🤗!</p>
+<ul>
+<li>Add a ⭐ on the repo to show your support</li>
+<li><a href="https://join.slack.com/t/unytics/shared_invite/zt-1gbv491mu-cs03EJbQ1fsHdQMcFN7E1Q">Join our Slack</a> and talk with us</li>
+<li>Suggest a new function <a href="https://github.com/unytics/bigfunctions/issues/new?assignees=&amp;labels=new-bigfunction&amp;projects=&amp;template=0_new_bigfunction.yaml&amp;title=%5Bnew%5D%3A+%60function_name%28argument1%2C+argument2%29%60">here</a></li>
+<li>Raise an issue <a href="https://github.com/unytics/bigfunctions/issues/new/choose">there</a></li>
+<li>Open a Pull-Request! (See <a href="https://github.com/unytics/bigfunctions/blob/main/CONTRIBUTING.md">contributing instructions</a>).</li>
+</ul>
+<p><br></p>
+<p><strong>Contributors</strong></p>
+<p><a href="https://github.com/unytics/bigfunctions/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=unytics/bigfunctions" />
+</a></p>
+
+<!-- Source file information -->
+
+
+
+
+
+
+
+
+
+<!-- Was this page helpful? -->
+
+
+
+
+<!-- Comment system -->
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var tab,labels=set.querySelector(".tabbed-labels");for(tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        
+
+<!-- Application footer -->
+<footer class="md-footer">
+  <!-- Further information -->
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+
+      <!-- Copyright and theme information -->
+      <div class="md-footer-copyright">
+        <img
+          src="https://unytics.io/bigfunctions/site/assets/logo_and_name.png"
+          alt=""
+          draggable="false"
+          width="300"
+        >
+        
+          <div class="md-footer-copyright__highlight" style="color: rgb(92, 92, 92);">
+            Copyright &copy; 2024 Unytics
+          </div>
+        
+      </div>
+
+      <!-- Social links -->
+      <div class="md-social">
+  
+</div>
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": ".", "features": ["tabs", "content.tabs.link", "content.code.copy", "navigation.path", "navigation.tabs", "navigation.tracking", "navigation.indexes", "navigation.hide"], "search": "assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="assets/javascripts/bundle.c8d2eff1.min.js"></script>
+      
+    
+  </body>
+</html>

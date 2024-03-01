@@ -1,0 +1,38 @@
+type: function_sql
+category: explore
+author:
+  name: Paul Marcombes
+  url: https://www.linkedin.com/in/paul-marcombes
+  avatar_url: "https://lh3.googleusercontent.com/a-/ACB-R5RDf2yxcw1p_IYLCKmiUIScreatDdhG8B83om6Ohw=s260"
+description: |-
+  Return html with a chartjs chart
+arguments:
+  - name: data
+    type: array<struct<x string, y float64>>
+  - name: chart_type
+    type: string
+  - name: ylabel
+    type: string
+output:
+  name: html
+  type: string
+examples:
+  - description: ""
+    arguments:
+      - "[('2022-08-01', 10000.), ('2022-08-02', 20000.), ('2022-08-03', 40000.), ('2022-08-04', 80000.)]"
+      - "'bar'"
+      - "'sales'"
+    screenshot: chart.png
+code: |
+  {BIGFUNCTIONS_DATASET}.render_template(
+
+    '''<html>
+    {{ chart(data, chart_type, ylabel=ylabel) }}
+    </html>''',
+
+    to_json(struct(
+      data,
+      chart_type,
+      ylabel
+    ))
+  )

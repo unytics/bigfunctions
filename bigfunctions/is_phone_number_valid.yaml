@@ -1,0 +1,48 @@
+type: function_sql
+category: transform_string
+author:
+  name: Paul Marcombes
+  url: https://www.linkedin.com/in/paul-marcombes
+  avatar_url: "https://lh3.googleusercontent.com/a-/ACB-R5RDf2yxcw1p_IYLCKmiUIScreatDdhG8B83om6Ohw=s260"
+description: |
+  Return if `phone_number` is valid
+  using [libphonenumber-js library](https://www.npmjs.com/package/libphonenumber-js).
+
+  Argument `options` can be `null` or must be a json with the following keys:
+  `defaultCountry`, `defaultCallingCode` and `extract` as described in the
+  [library documentation](https://www.npmjs.com/package/libphonenumber-js#parsephonenumberstring-defaultcountry-string--options-object-phonenumber).
+arguments:
+  - name: phone_number
+    type: string
+  - name: options
+    type: json
+output:
+  name: is_valid
+  type: bool
+examples:
+  - description: "Check an international `phone_number` (starting with `+`)"
+    arguments:
+      - "'+33123456789'"
+      - "null"
+    output: "true"
+  - description: "Check a national `phone_number`"
+    arguments:
+      - "'0123456789'"
+      - "json '{\"defaultCountry\": \"FR\"}'"
+    output: "true"
+  - description: "If no phone number is found in `phone_number`, it returns false"
+    arguments:
+      - "'Hello!'"
+      - "null"
+    output: "false"
+  - description: "By default, if the given `phone_number` text contains a valid phone number among other text, it returns true."
+    arguments:
+      - "'Hello +33123456789 !'"
+      - "null"
+    output: "true"
+  - description: "To consider that `phone_number` cannot have additional text use `extract:  false` as option"
+    arguments:
+      - "'Hello +33123456789 !'"
+      - "json '{\"extract\": false}'"
+    output: "false"
+code: bool({BIGFUNCTIONS_DATASET}.phone_number_info(phone_number, options).isValid)

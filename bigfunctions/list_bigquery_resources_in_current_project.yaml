@@ -1,0 +1,291 @@
+type: procedure
+category: wip
+author:
+  name: Paul Marcombes
+  url: https://www.linkedin.com/in/paul-marcombes
+  avatar_url: "https://lh3.googleusercontent.com/a-/ACB-R5RDf2yxcw1p_IYLCKmiUIScreatDdhG8B83om6Ohw=s260"
+description: |
+  List BigQuery resources
+  in current Google Cloud `project` enriched with their BigQuery usage in current `project`.
+
+  BigQuery resources include tables, views, columns, datasets, users.
+
+  For each data asset, a `popularity` score is computed. For example, for a table, it is equal to the number of distinct users which read the table in the latest 30 days using `execution_projects`.
+
+  The result is written into `bigfunction_result` temporary table which has the following columns:
+
+  - `id`: unique identifier of the data asset
+  - `type`: asset type such as tables, views, datasets, users, etc.
+  - `name`: asset name
+  - `description`: asset description
+  - `popularity`: popularity as float64 (the higher the more popular)
+  - `details`: a json blob with asset additional details such as the tables of a dataset or the users of a table.
+examples:
+  - description: ""
+    arguments:
+      - "'you-bigquery-project'"
+code: |
+  execute immediate replace(r'''
+    create or replace temp table bigfunction_result as
+
+    with
+
+
+    ----------------------------------------
+    --        DATASET SOURCES             --
+    ----------------------------------------
+    datasets as (
+      select
+        catalog_name || '.' || schema_name as id,
+        catalog_name as parent,
+        schema_name as name,
+      from `{PROJECT}`.`region-eu`.INFORMATION_SCHEMA.SCHEMATA
+    ),
+
+    datasets_descriptions as (
+      select
+        catalog_name || '.' || schema_name as id,
+        trim(option_value, '"') as description,
+      from `{PROJECT}`.`region-eu`.INFORMATION_SCHEMA.SCHEMATA_OPTIONS
+      where option_name = 'description'
+    ),
+
+    datasets_labels as (
+      select
+        catalog_name || '.' || schema_name as id,
+        parse_json(replace(replace(replace(replace(replace(replace(
+          option_value,
+          '[', '{'),
+          ']', '}'),
+          '", "', '": "'),
+          'STRUCT', ''),
+          '(', ''),
+          ')', ''
+        )) as labels,
+      from `{PROJECT}`.`region-eu`.INFORMATION_SCHEMA.SCHEMATA_OPTIONS
+      where option_name = 'labels'
+    ),
+
+
+    ----------------------------------------
+    --         TABLES SOURCES             --
+    ----------------------------------------
+    tables as (
+      select
+        table_catalog || '.' || table_schema || '.' || table_name as id,
+        table_catalog || '.' || table_schema as parent,
+        table_name as name,
+        table_schema as dataset,
+        creation_time as created_at,
+      from `{PROJECT}`.`region-eu`.INFORMATION_SCHEMA.TABLES
+      where not starts_with(table_schema, '_')
+    ),
+
+    table_storage as (
+      select
+        table_catalog || '.' || table_schema || '.' || table_name as id,
+        total_rows,
+        total_logical_bytes as total_logical_bytes,
+        ifnull(storage_last_modified_time, creation_time) as last_updated_at,
+      from `{PROJECT}`.`region-eu`.INFORMATION_SCHEMA.TABLE_STORAGE
+      where
+        not starts_with(table_schema, '_')
+        and deleted is false
+    ),
+
+    table_descriptions as (
+      select
+        table_catalog || '.' || table_schema || '.' || table_name as id,
+        trim(option_value, '"') as description,
+      from `{PROJECT}`.`region-eu`.INFORMATION_SCHEMA.TABLE_OPTIONS
+      where option_name = 'description'
+    ),
+
+    table_labels as (
+      select
+        table_catalog || '.' || table_schema || '.' || table_name as id,
+        parse_json(replace(replace(replace(replace(replace(replace(
+          option_value,
+          '[', '{'),
+          ']', '}'),
+          '", "', '": "'),
+          'STRUCT', ''),
+          '(', ''),
+          ')', ''
+        )) as labels,
+      from `{PROJECT}`.`region-eu`.INFORMATION_SCHEMA.TABLE_OPTIONS
+      where option_name = 'description'
+    ),
+
+
+    ----------------------------------------
+    --        COLUMNS SOURCES             --
+    ----------------------------------------
+    columns as (
+      select
+        table_catalog || '.' || table_schema || '.' || table_name || '.' || field_path as id,
+        table_catalog || '.' || table_schema || '.' || table_name as parent,
+        field_path as name,
+        table_schema || '.' || table_name as table,
+        data_type,
+        description,
+      from `{PROJECT}`.`region-eu`.INFORMATION_SCHEMA.COLUMN_FIELD_PATHS
+    ),
+
+    columns_details as (
+      select
+        table_catalog || '.' || table_schema || '.' || table_name || '.' || column_name as id,
+        ordinal_position,
+        is_partitioning_column,
+      from `{PROJECT}`.`region-eu`.INFORMATION_SCHEMA.COLUMNS
+    ),
+
+
+    ----------------------------------------
+    --        USAGE SOURCES             --
+    ----------------------------------------
+    tables_usage_by_user as (
+      select
+        referenced_table.project_id || '.' || referenced_table.dataset_id || '.' || referenced_table.table_id as id,
+        user_email as user,
+        count(*) as nb_queries_30d
+      from `{PROJECT}`.`region-eu`.INFORMATION_SCHEMA.JOBS,
+      unnest(referenced_tables) referenced_table
+      where
+        date(creation_time) >= current_date - 30
+        and not starts_with(referenced_table.dataset_id, '_')
+        and parent_job_id is null
+      group by 1, 2
+    ),
+
+    datasets_usage_by_user as (
+      select
+        regexp_extract(id, r'^[^\.]*\.[^\.]*') as id,
+        user,
+        sum(nb_queries_30d) as nb_queries_30d,
+      from tables_usage_by_user
+      group by 1, 2
+    ),
+
+
+
+    ----------------------------------------
+    --            TRANSFORMS              --
+    ----------------------------------------
+    datasets_usage as (
+      select
+        id,
+        count(*) as nb_users_30d,
+        array_agg(struct(user, nb_queries_30d) order by nb_queries_30d desc) as nb_queries_by_user_30d,
+      from datasets_usage_by_user
+      group by id
+    ),
+
+    tables_usage as (
+      select
+        id,
+        count(*) as nb_users_30d,
+        array_agg(struct(user, nb_queries_30d) order by nb_queries_30d desc) as nb_queries_by_user_30d,
+      from tables_usage_by_user
+      group by id
+    ),
+
+    users_usage as (
+      select
+        user as id,
+        user as name,
+        sum(nb_queries_30d) as nb_queries_30d,
+        count(*) as nb_tables_queried_30d,
+        array_agg(struct(id, nb_queries_30d) order by nb_queries_30d desc) as nb_queries_by_table_30d,
+      from tables_usage_by_user
+      group by user
+    ),
+
+
+    ----------------------------------------
+    --              JOINS                 --
+    ----------------------------------------
+    datasets_enriched as (
+      select
+        *,
+        'dataset' as type,
+        nb_users_30d as popularity,
+        (select count(*) from tables where tables.parent = datasets.id) as nb_tables,
+        array(select tables.id from tables where tables.parent = datasets.id) as tables,
+      from datasets
+      left join datasets_descriptions using(id)
+      left join datasets_labels using(id)
+      left join datasets_usage using(id)
+    ),
+
+
+    columns_enriched as (
+      select *
+      from columns
+      left join columns_details using(id)
+    ),
+
+    tables_enriched as (
+      select
+        *,
+        'table' as type,
+        nb_users_30d as popularity,
+        (select array_agg((select as struct columns_enriched.* except(table))) from columns_enriched where columns_enriched.parent = tables.id) as columns,
+      from tables
+      left join table_storage using(id)
+      left join table_descriptions using (id)
+      left join tables_usage using (id)
+    ),
+
+    columns_stats as (
+      select
+        name,
+        count(*) as nb_tables,
+        array_agg(table) as tables,
+        array_agg(data_type) as data_types,
+        array_agg(description) as descriptions,
+      from columns_enriched
+      group by name
+    ),
+
+    columns_stats_enriched as (
+      select
+        * except(data_types, descriptions),
+        'column' as type,
+        'column.' || name as id,
+        nb_tables as popularity,
+        (select struct(v as value, count(v) as nb) from columns_stats.data_types v group by v order by count(1) desc limit 1 ) as most_represented_data_type,
+        (select struct(v as value, count(v) as nb) from columns_stats.descriptions v where v is not null group by v order by count(1) desc limit 1 ) as most_represented_description,
+        ifnull((select v from columns_stats.descriptions v where v is not null group by v order by count(1) desc limit 1 ), '') as description,
+      from columns_stats
+    ),
+
+    users_enriched as (
+      select
+        *,
+        'user' as type,
+        'user' as description,
+        nb_queries_30d as popularity,
+      from users_usage
+    ),
+
+
+
+    ----------------------------------------
+    --              FINAL                 --
+    ----------------------------------------
+    joined as  (
+      select id, name, type, description, popularity, to_json_string((select as struct datasets_enriched.* except (id, name, type, description, popularity))) as details from datasets_enriched union all
+      select id, name, type, description, popularity, to_json_string((select as struct tables_enriched.* except (id, name, type, description, popularity))) as details from tables_enriched union all
+      select id, name, type, description, popularity, to_json_string((select as struct columns_stats_enriched.* except (id, name, type, description, popularity))) as details from columns_stats_enriched union all
+      select id, name, type, description, popularity, to_json_string((select as struct users_enriched.* except (id, name, type, description, popularity))) as details from users_enriched
+    )
+
+    select
+      * replace(
+        ifnull(description, '') as description,
+        ifnull(popularity, 0) as popularity
+      ),
+      regexp_replace(id, r'[^a-zA-Z]', ' ') as broken_id,
+    from joined
+  ''', '{PROJECT}', @@project_id);

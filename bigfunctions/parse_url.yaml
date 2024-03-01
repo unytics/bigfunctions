@@ -1,0 +1,28 @@
+type: function_sql
+category: transform_string
+author:
+  name: "Credits: Taylor Brownlow"
+  url: https://www.linkedin.com/in/taylorabrownlow/
+  avatar_url: "https://miro.medium.com/v2/resize:fit:120/2*4lF1qiVAwcDkw1AfDY6KBQ.jpeg"
+description: |-
+  Return `url` parts
+  *(inspired from [sql-snippets repo](https://github.com/count/sql-snippets/blob/main/bigquery/regex-parse-url.md))*
+arguments:
+  - name: url
+    type: string
+output:
+  name: url_parts
+  type: struct<host string, path string, query string, ref string, protocol string>
+examples:
+  - description: ""
+    arguments:
+      - "'https://www.yoursite.com/pricing/details?myparam1=123&myparam2=abc#newsfeed'"
+    output: struct<'www.yoursite.com' as host, 'pricing/details' as path, 'myparam1=123&myparam2=abc#newsfeed' as query, 'newsfeed' as ref, 'https' as protocol>
+code: |
+  struct(
+    regexp_extract(url, r'(?:[a-za-z]+://)?([a-za-z0-9-.]+)/?') as host,
+    regexp_extract(url, r'(?:[a-zA-Z]+://)?(?:[a-zA-Z0-9-.]+)/{1}([a-zA-Z0-9-.~_/]+)') as path,
+    regexp_extract(url, r'\?(.*)') as query,
+    regexp_extract(url, r'#(.*)') as ref,
+    regexp_extract(url, r'^([a-za-z]+)://') as protocol
+  )
