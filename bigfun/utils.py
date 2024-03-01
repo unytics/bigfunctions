@@ -329,7 +329,7 @@ def build_npm_package(npm_package, output_filename, destination_folder="."):
     name, version = npm_package.split("@")
     package_path = f"./node_modules/{name}"
     if "/" in name:
-        name, _ = name.split("/")
+        name, _ = name.split("/", 1)
     js_entrypoint_variable = name.replace("-", "_")
 
     print_info(

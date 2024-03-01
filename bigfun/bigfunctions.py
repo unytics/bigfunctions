@@ -14,15 +14,59 @@ BIGFUNCTIONS_FOLDER = 'bigfunctions'
 DEFAULT_CONFIG_FILENAME = './config.yaml'
 REMOTE_CONNECTION_NAME = 'remote-bigfunctions'
 TEMPLATE_FOLDER = os.path.dirname(os.path.realpath(__file__)).replace('\\', '/') + '/templates'
+BIGFUNCTION_DOC_TEMPLATE_FILENAME = f'{TEMPLATE_FOLDER}/bigfunction.md'
+CATEGORIES_DOC_TEMPLATE_FILENAME = f'{TEMPLATE_FOLDER}/categories.md'
 DEFAULT_CONFIG = yaml.safe_load(open(DEFAULT_CONFIG_FILENAME, encoding='utf-8').read()) if os.path.isfile(DEFAULT_CONFIG_FILENAME) else {}
 TESTS_FOLDER = 'tests'
+CATEGORIES_FILENAME = 'categories.yaml'
+
+
+BIGFUNCTION_DOC_TEMPLATE = jinja2.Template(open(BIGFUNCTION_DOC_TEMPLATE_FILENAME, encoding='utf-8').read())
+
+
+
+
+
+
+def list_bigfunctions():
+    return [f.replace('.yaml', '') for f in os.listdir(BIGFUNCTIONS_FOLDER) if f.endswith('.yaml')]
+
+
+def generate_doc(project, dataset):
+    if not os.path.isfile('README.md'):
+        print('INFO: CREATING A README.md FILE IN CURRENT DIRECTORY WHICH WILL BE THE ROOT CONTENT OF THE WEBSITE')
+        open('README.md', 'w', encoding='utf-8').write('# Hello from README!')
+
+    if not os.path.isfile(CATEGORIES_FILENAME):
+        print('INFO: CREATING A categories.yaml FILE IN CURRENT DIRECTORY CONTAINING BIGFUNCTIONS CATEGORIES FOR DOCUMENTATION')
+        shutil.copyfile(f'{TEMPLATE_FOLDER}/{CATEGORIES_FILENAME}', CATEGORIES_FILENAME)
+
+    if not os.path.isdir('site'):
+        print('INFO: CREATING site FOLDER in CURRENT DIRECTORY WHICH WILL CONTAIN WEBSITE MATERIAL...')
+        shutil.copytree(TEMPLATE_FOLDER + '/site', 'site')
+
+    bigfunctions = [
+        BigFunction(bigfunction_name, project=project, dataset=dataset)
+        for bigfunction_name in list_bigfunctions()
+    ]
+    for bigfunction in bigfunctions:
+        bigfunction.generate_readme()
+    
+    categories = yaml.safe_load(open(CATEGORIES_FILENAME, encoding='utf-8').read())
+    for category in categories:
+        category['bigfunctions'] = [b.config for b in bigfunctions if b.config['category'] == category['name']]
+    categories = [category for category in categories if category['bigfunctions']]
+    categories_template = jinja2.Template(open(CATEGORIES_DOC_TEMPLATE_FILENAME, encoding='utf-8').read())
+    categories_doc = categories_template.render(categories=categories, project=project, dataset=dataset)
+    open('bigfunctions/README.md', 'w', encoding='utf-8').write(categories_doc)
+
 
 
 class BigFunction:
 
-    def __init__(self, name, project=None, dataset=None):
+    def __init__(self, name, project=None, dataset=None, **config_override):
         self.name = name
-        self.config_override = {}
+        self.config_override = config_override
         if project:
             self.config_override['project'] = project
         if dataset:
@@ -126,6 +170,14 @@ class BigFunction:
         print_info('Creating function in dataset')
         self.bigquery.query(query)
         print_success(f'successfully created {self.project}.{self.dataset_name}.{self.name}')
+
+    @property
+    def doc(self):
+        return BIGFUNCTION_DOC_TEMPLATE.render(**self.config)
+
+    def generate_readme(self):
+        os.makedirs(f'bigfunctions/{self.name}', exist_ok=True)
+        open(f'bigfunctions/{self.name}/README.md', 'w', encoding='utf-8').write(self.doc)
 
     def _deploy_npm_packages(self):
         if 'bucket_js_dependencies' not in self.config:

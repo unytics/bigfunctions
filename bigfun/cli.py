@@ -81,13 +81,13 @@ def deploy(bigfunction, project, dataset):
 
     Deploy the function defined in `bigfunctions/{BIGFUNCTION}.yaml` file. If BIGFUNCTION = 'ALL' then all bigfunctions contained in bigfunctions folder are deployed.
     '''
-    from .bigfunctions import BigFunction
+    from .bigfunctions import BigFunction, list_bigfunctions
     project = project or get_config_value('project')
     dataset = dataset or get_config_value('dataset')
     datasets = [dataset.strip() for dataset in dataset.split(',')]
     bigfunctions = [bigfunction.strip() for bigfunction in bigfunction.split(',')]
     if bigfunction == 'ALL':
-        bigfunctions = [f.replace('.yaml', '') for f in os.listdir(BIGFUNCTIONS_FOLDER)]
+        bigfunctions = list_bigfunctions()
 
     for name in bigfunctions:
         bigfunction = BigFunction(name, project=project, dataset=datasets[0])
@@ -136,14 +136,15 @@ def docs():
     '''
     pass
 
+
 @docs.command()
 def generate():
     '''
     Generate markdown files for documentation from yaml bigfunctions files
     '''
-    from .generate_doc import generate_doc
+    from .bigfunctions import generate_doc
     project = get_config_value('project')
-    dataset = get_config_value('project')
+    dataset = get_config_value('dataset')
     generate_doc(project, dataset)
 
 
@@ -152,9 +153,11 @@ def serve():
     '''
     Serve docs locally on http://localhost:8000
     '''
-    from .generate_doc import generate_doc
+    from .bigfunctions import generate_doc
     project = get_config_value('project')
     dataset = get_config_value('dataset')
+    generate_doc(project, dataset)
+
     class EventHandler(RegexMatchingEventHandler):
         def on_any_event(self, event):
             print(f'File {event.src_path} {event.event_type} --> generating README files...')
@@ -163,5 +166,5 @@ def serve():
     # observer = Observer()
     # observer.schedule(event_handler, BIGFUNCTIONS_FOLDER, recursive=True)
     # observer.start()
-    generate_doc(project, dataset)
+    # generate_doc(project, dataset)
     os.system('mkdocs serve --config-file site/mkdocs.yml')
