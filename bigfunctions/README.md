@@ -83,6 +83,7 @@ BigFunctions are open-source BigQuery routines that give you **SQL-superpowers**
 
 ## 🧠 AI
 
+- [<code>ask_appstore_reviews(prompt, app_url_in_appstore)</code>](ask_appstore_reviews/): Ask AI what your app users think
 - [<code>generate_sql(question, fully_qualified_table)</code>](generate_sql/): Transform `question` to a SQL query.
 - [<code>ask_my_data(question, fully_qualified_table)</code>](ask_my_data/): Ask your data any `question` in natural language.
 - [<code>ask_ai(prompt, model)</code>](ask_ai/): Ask Anything!
@@ -91,6 +92,7 @@ BigFunctions are open-source BigQuery routines that give you **SQL-superpowers**
 ## 🛢 Get data
 
 - [<code>get_webpage_metadata(url)</code>](get_webpage_metadata/): Get webpage metadata
+- [<code>get_appstore_reviews(url)</code>](get_appstore_reviews/): GET Apple App Store Reviews of an app 
 - [<code>get_meteo(latitude, longitude, date)</code>](get_meteo/): Get `meteo`
 - [<code>get_webpage_structured_data(url)</code>](get_webpage_structured_data/): Get webpage Structured Data
 - [<code>get_json(url, headers)</code>](get_json/): GET json `data` from `url`
