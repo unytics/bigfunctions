@@ -83,7 +83,7 @@ BigFunctions are open-source BigQuery routines that give you **SQL-superpowers**
 
 ## 🧠 AI
 
-- [<code>ask_appstore_reviews(prompt, app_url_in_appstore)</code>](ask_appstore_reviews/): Ask AI what your app users think
+- [<code>ask_appstore_reviews(prompt, app_url_in_appstore)</code>](ask_appstore_reviews/): Ask AI what your app users think.
 - [<code>generate_sql(question, fully_qualified_table)</code>](generate_sql/): Transform `question` to a SQL query.
 - [<code>ask_my_data(question, fully_qualified_table)</code>](ask_my_data/): Ask your data any `question` in natural language.
 - [<code>ask_ai(prompt, model)</code>](ask_ai/): Ask Anything!

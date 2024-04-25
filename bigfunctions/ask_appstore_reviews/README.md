@@ -1,6 +1,14 @@
 ---
 title: "ask_appstore_reviews"
-description: "BigFunction ask_appstore_reviews: Ask AI what your app users think
+description: "BigFunction ask_appstore_reviews: Ask AI what your app users think.
+
+This function:
+
+1. Calls [`get_appstore_reviews`](https://unytics.io/bigfunctions/bigfunctions/get_appstore_reviews/) function to retrieve the 500 latest user reviews of the mobile app.
+2. Builds a prompt using your question and including the retrieved user reviews.
+3. Calls [`ask_ai`](https://unytics.io/bigfunctions/bigfunctions/ask_ai/) function to get the prompt answer using `gemini-1.5-pro-preview-0409` model.
+
+Click the GitHub icon to see the code. 
 "
 ---
 
@@ -29,7 +37,15 @@ ask_appstore_reviews(prompt, app_url_in_appstore)
 
 **Description**
 
-Ask AI what your app users think
+Ask AI what your app users think.
+
+This function:
+
+1. Calls [`get_appstore_reviews`](https://unytics.io/bigfunctions/bigfunctions/get_appstore_reviews/) function to retrieve the 500 latest user reviews of the mobile app.
+2. Builds a prompt using your question and including the retrieved user reviews.
+3. Calls [`ask_ai`](https://unytics.io/bigfunctions/bigfunctions/ask_ai/) function to get the prompt answer using `gemini-1.5-pro-preview-0409` model.
+
+Click the GitHub icon to see the code. 
 
 
 

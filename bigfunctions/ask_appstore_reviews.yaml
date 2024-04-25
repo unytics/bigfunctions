@@ -5,7 +5,15 @@ author:
   url: https://www.linkedin.com/in/paul-marcombes
   avatar_url: "https://lh3.googleusercontent.com/a-/ACB-R5RDf2yxcw1p_IYLCKmiUIScreatDdhG8B83om6Ohw=s260"
 description: |
-  Ask AI what your app users think
+  Ask AI what your app users think.
+
+  This function:
+  
+  1. Calls [`get_appstore_reviews`](https://unytics.io/bigfunctions/bigfunctions/get_appstore_reviews/) function to retrieve the 500 latest user reviews of the mobile app.
+  2. Builds a prompt using your question and including the retrieved user reviews.
+  3. Calls [`ask_ai`](https://unytics.io/bigfunctions/bigfunctions/ask_ai/) function to get the prompt answer using `gemini-1.5-pro-preview-0409` model.
+
+  Click the GitHub icon to see the code. 
 arguments:
   - name: prompt
     type: string
