@@ -1,0 +1,27 @@
+type: aggregate_function_sql
+category: weighted_average
+author:
+  name: Axel Thevenot
+  url: https://www.linkedin.com/in/axel-thevenot/
+  avatar_url: "https://avatars.githubusercontent.com/u/39374103?v=4"
+description: |
+  Returns the weigthed average elements.
+arguments:
+  - name: element
+    type: float64
+  - name: weight
+    type: float64
+output:
+  name: weighted_average
+  type: float64
+examples:
+  - description: "Calculate average unit price"
+    arguments:
+      - "grade"
+      - "ponderation"
+    output: "average_grade"
+    region: ALL
+code: |
+  (
+    sum(element * weight) / sum(weight)
+  )
