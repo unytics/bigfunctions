@@ -71,7 +71,15 @@ description: "BigFunction {{ name }}: {{ description }}"
 === "{% if dataset|length <=2 %}{{ dataset | upper | replace('_', '-') }}{% else %}{{ dataset | replace('_', '-') }}{% endif %}"
 
     ```sql
+    {% if example.with_clause is defined %}
+    with sample_data as (
+      {{ example.with_clause | indent(2) }}
+    )
+    {% endif %}
     {% if type == 'procedure' %}call{% elif type == 'table_function' %}select * from{% else %}select{% endif %} {{ project }}.{{ dataset }}.{{ name }}({% for argument in example.arguments %}{{ argument | replace('{BIGFUNCTIONS_DATASET}', dataset) | replace('\n', '\n      ') }}{% if not loop.last %}, {% endif %}{% endfor %}){% if type == 'procedure' %};{% elif 'output' in bigfunction and type != 'table_function' %} as {{ output.name }}{% endif %}
+    {%- if example.with_clause is defined %}
+    from sample_data
+    {% endif %}
     {% if type == 'procedure' and template %}select html from bigfunction_result;{% endif %}
     {%- if type == 'procedure' and example.output %}select * from bigfunction_result;{% endif %}
     ```
@@ -84,9 +92,17 @@ description: "BigFunction {{ name }}: {{ description }}"
 {% for dataset in datasets %}
 
 ```sql
-{% if type == 'procedure' %}call{% elif type == 'table_function' %}select * from{% else %}select{% endif %} {{ project }}.{{ dataset }}.{{ name }}({% for argument in example.arguments %}{{ argument | replace('{BIGFUNCTIONS_DATASET}', dataset) | replace('\n', '\n  ') }}{% if not loop.last %}, {% endif %}{% endfor %}){% if type == 'procedure' %};{% elif 'output' in bigfunction and type != 'table_function' %} as {{ output.name }}{% endif %}
+{% if example.with_clause is defined %}
+with sample_data as (
+  {{ example.with_clause | indent(2) }}
+)
+{% endif %}{% if type == 'procedure' %}call{% elif type == 'table_function' %}select * from{% else %}select{% endif %} {{ project }}.{{ dataset }}.{{ name }}({% for argument in example.arguments %}{{ argument | replace('{BIGFUNCTIONS_DATASET}', dataset) | replace('\n', '\n  ') }}{% if not loop.last %}, {% endif %}{% endfor %}){% if type == 'procedure' %};{% elif 'output' in bigfunction and type != 'table_function' %} as {{ output.name }}{% endif %}
+{%- if example.with_clause is defined %}
+from sample_data
+{% endif %}
 {% if type == 'procedure' and template %}select html from bigfunction_result;{% endif %}
 {%- if type == 'procedure' and example.output %}select * from bigfunction_result;{% endif %}
+
 ```
 
 {% endfor %}
@@ -129,5 +145,3 @@ description: "BigFunction {{ name }}: {{ description }}"
 
 {% if example.screenshot %}<a href="{{ example.screenshot }}"><img alt="screenshot" src="{{ example.screenshot }}" style="border: var(--md-code-bg-color) solid 1rem; margin-top: -1rem; width: 100%"></a>{% endif %}
 {% endfor %}
-
-
