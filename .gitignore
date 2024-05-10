@@ -133,11 +133,13 @@ config.yaml
 
 SECRET
 meetups/
+docs/
 emails/
 TODO.md
 test.py
 node_modules
 tests/
 .idea
+site/
 
 TEST

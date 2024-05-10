@@ -8,10 +8,10 @@
 <meta property="og:title" content="{{ page.meta.title }} - {{ config.site_name }}" />
 <meta property="twitter:card" content="summary" />
 <meta property="twitter:title" content="{{ page.meta.title }} - {{ config.site_name }}" />
-{% elif config.site_og_title %}
-<meta property="og:title" content="{{ config.site_og_title }}" />
+{% else %}
+<meta property="og:title" content="Bigfunctions supercharge BigQuery" />
 <meta property="twitter:card" content="summary" />
-<meta property="twitter:title" content="{{ config.site_og_title }}" />
+<meta property="twitter:title" content="Bigfunctions supercharge BigQuery" />
 {% endif %}
 
 {% if page and page.meta and page.meta.description %}
@@ -21,19 +21,19 @@
 {% endif %}
 
 {% if page and page.meta and page.meta.image_url %}
-<meta property="og:image" content="{{ config.image_url }}" />
-<meta property="og:image:type" content="{{ config.image_type }}" />
-<meta property="og:image:width" content="{{ config.image_width }}" />
-<meta property="og:image:height" content="{{ config.image_height }}" />
-<meta property="twitter:image" content="{{ config.image_url }}" />
-<meta property="twitter:image:alt" content="{{ config.image_alt }}" />
-{% elif config.site_image %}
-<meta property="og:image" content="{{ config.site_image.url }}" />
-<meta property="og:image:type" content="{{ config.site_image.type }}" />
-<meta property="og:image:width" content="{{ config.site_image.width }}" />
-<meta property="og:image:height" content="{{ config.site_image.height }}" />
-<meta property="twitter:image" content="{{ config.site_image.url }}" />
-<meta property="twitter:image:alt" content="{{ config.site_image.alt }}" />
+<meta property="og:image" content="{{ page.meta.image_url }}" />
+<meta property="og:image:type" content="{{ page.meta.image_type }}" />
+<meta property="og:image:width" content="{{ page.meta.image_width }}" />
+<meta property="og:image:height" content="{{ page.meta.image_height }}" />
+<meta property="twitter:image" content="{{ page.meta.image_url }}" />
+<meta property="twitter:image:alt" content="{{ page.meta.image_alt }}" />
+{% else %}
+<meta property="og:image" content="https://unytics.io/bigfunctions/assets/logo_and_name.png" />
+<meta property="og:image:type" content="image/png" />
+<meta property="og:image:width" content="2500" />
+<meta property="og:image:height" content="541" />
+<meta property="twitter:image" content="https://unytics.io/bigfunctions/assets/logo_and_name.png" />
+<meta property="twitter:image:alt" content="Supercharge BigQuery with BigFunctions" />
 {% endif %}
 
 <style>
@@ -42,6 +42,64 @@
       display: none;
     }
   }
+span.title {
+  font-weight: bold;
+}
+
+span.em {
+  font-weight: bold;
+}
+
+.separator {
+  border-bottom: 1px solid #e3e8ee;
+}
+
+a.field {
+  font-weight: 600;
+  /* color: #3c4257; */
+  font-size: .8rem;
+}
+
+span.parent-field {
+  font-weight: 600;
+  color:#a3acb9;
+  font-size: .85em;
+}
+
+span.type {
+  color: #8792a2;
+  font-size: .7rem;
+  margin-right: 4px;
+}
+
+span.version {
+  color: #8792a2;
+  font-size: .7rem;
+  float: right;
+}
+
+.md-typeset .admonition.abstract,
+.md-typeset details.abstract {
+  border-color: rgb(43, 155, 70);
+}
+.md-typeset .abstract > .admonition-title,
+.md-typeset .abstract > summary {
+  background-color: var(--md-primary-fg-color);
+}
+.md-typeset .abstract > .admonition-title::before,
+.md-typeset .abstract > summary::before {
+  background-color: var(--md-primary-fg-color);
+  -webkit-mask-image: var(--md-admonition-icon--abstract);
+          mask-image: var(--md-admonition-icon--abstract);
+}
+
+.md-typeset__table {
+   min-width: 100%;
+}
+
+.admonition.note {
+  font-size: .8rem;
+}
 </style>
 
 {% endblock %}
@@ -69,9 +127,8 @@
 {% block tabs %}
   {{ super() }}
 
-
   <!-- Hero for landing page -->
-  {% if page.previous_page is not defined or not page.previous_page.title %}
+  {% if page and page.file and page.file.url == './' %}
 
 
   <!-- Additional styles for landing page -->
@@ -162,7 +219,7 @@
 
   {% endif %}
   <!-- END OF Hero for landing page -->
-  
+
 
 {% endblock %}
 

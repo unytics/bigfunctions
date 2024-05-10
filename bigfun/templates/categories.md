@@ -19,15 +19,15 @@ BigFunctions are open-source BigQuery routines that give you **SQL-superpowers**
 
     - The functions are deployed in `bigfunctions` GCP project in 39 datasets for all of the 39 BigQuery regions.
     - They are public, so they can be called by anyone.
-    - For any question or difficulties, please read [Getting Started](../).
-    - If you prefer to deploy the BigFunction in your own project, read [Getting Started](../).
+    - For any question or difficulties, please read [Getting Started](../README.md).
+    - If you prefer to deploy the BigFunction in your own project, read [Getting Started](../README.md).
     - Found a bug? Please raise an issue [here](https://github.com/unytics/bigfunctions/issues/new/choose)
 
 ??? info "All BigFunctions Datasets >"
 
     | Region | Dataset |
     |--------|---------|
-    {% for dataset in dataset.split(',') -%}    
+    {% for dataset in dataset.split(',') -%}
     | `{{ dataset.replace('_', '-') }}` | `{{ project }}.{{ dataset }}` |
     {% endfor %}
 
@@ -41,7 +41,7 @@ BigFunctions are open-source BigQuery routines that give you **SQL-superpowers**
 
 {% for bigfunction in category.bigfunctions -%}
 {% set bigfunction_short_description = bigfunction.description.split('\n')[0] -%}
-- [<code>{{ bigfunction.name }}({% for argument in bigfunction.arguments %}{{ argument.name }}{% if not loop.last %}, {% endif %}{% endfor %})</code>]({{ bigfunction.name }}/): {{ bigfunction_short_description }}
+- [<code>{{ bigfunction.name }}({% for argument in bigfunction.arguments %}{{ argument.name }}{% if not loop.last %}, {% endif %}{% endfor %})</code>]({{ bigfunction.name }}.md): {{ bigfunction_short_description }}
 {% endfor %}
 
 {% endfor %}

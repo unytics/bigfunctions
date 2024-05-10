@@ -21,7 +21,7 @@ description: "BigFunction {{ name }}: {{ description.split('\n')[0] }}"
 
 
 
-**Signature** 
+**Signature**
 ```
 {{ name }}({% for argument in arguments %}{{ argument.name }}{% if not loop.last %}, {% endif %}{% endfor %})
 ```
@@ -49,7 +49,7 @@ description: "BigFunction {{ name }}: {{ description.split('\n')[0] }}"
 
     <br>
 
-    ![bookmarklet usage](/bigfunctions/site/assets/bookmarklet_usage.gif)
+    ![bookmarklet usage](../assets/bookmarklet_usage.gif)
 
 {% endif %}
 
