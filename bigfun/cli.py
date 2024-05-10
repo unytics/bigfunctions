@@ -65,6 +65,9 @@ def generate_doc():
     dataset = get_config_value('dataset')
     bf.generate_doc(project, dataset)
 
+    for image in [f for f in os.listdir('bigfunctions') if f.endswith('.png')]:
+        shutil.copy(f'bigfunctions/{image}', f'docs/bigfunctions/{image}')
+
 
 @click.group(
     cls=HelpColorsGroup,

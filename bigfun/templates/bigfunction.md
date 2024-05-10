@@ -127,7 +127,7 @@ description: "BigFunction {{ name }}: {{ description.split('\n')[0] }}"
 {% endif %}
 
 
-{% if example.screenshot %}<a href="{{ example.screenshot }}"><img alt="screenshot" src="{{ example.screenshot }}" style="border: var(--md-code-bg-color) solid 1rem; margin-top: -1rem; width: 100%"></a>{% endif %}
+{% if example.screenshot %}<a href="../{{ example.screenshot }}"><img alt="screenshot" src="../{{ example.screenshot }}" style="border: var(--md-code-bg-color) solid 1rem; margin-top: -1rem; width: 100%"></a>{% endif %}
 {% endfor %}
 
 
