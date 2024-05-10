@@ -15,14 +15,10 @@ DEFAULT_CONFIG_FILENAME = './config.yaml'
 REMOTE_CONNECTION_NAME = 'remote-bigfunctions'
 TEMPLATE_FOLDER = os.path.dirname(os.path.realpath(__file__)).replace('\\', '/') + '/templates'
 BIGFUNCTION_DOC_TEMPLATE_FILENAME = f'{TEMPLATE_FOLDER}/bigfunction.md'
-CATEGORIES_DOC_TEMPLATE_FILENAME = f'{TEMPLATE_FOLDER}/categories.md'
 DEFAULT_CONFIG = yaml.safe_load(open(DEFAULT_CONFIG_FILENAME, encoding='utf-8').read()) if os.path.isfile(DEFAULT_CONFIG_FILENAME) else {}
 TESTS_FOLDER = 'tests'
-CATEGORIES_FILENAME = 'categories.yaml'
-
 
 BIGFUNCTION_DOC_TEMPLATE = jinja2.Template(open(BIGFUNCTION_DOC_TEMPLATE_FILENAME, encoding='utf-8').read())
-DOC_FOLDER = 'docs/'
 
 
 
@@ -30,30 +26,6 @@ DOC_FOLDER = 'docs/'
 
 def list_bigfunctions():
     return [f.replace('.yaml', '') for f in os.listdir(BIGFUNCTIONS_FOLDER) if f.endswith('.yaml')]
-
-
-def generate_doc(project, dataset):
-    shutil.rmtree(f'{DOC_FOLDER}/bigfunctions', ignore_errors=True)
-    os.makedirs(f'{DOC_FOLDER}/bigfunctions')
-
-    if not os.path.isfile(CATEGORIES_FILENAME):
-        print('INFO: CREATING A categories.yaml FILE IN CURRENT DIRECTORY CONTAINING BIGFUNCTIONS CATEGORIES FOR DOCUMENTATION')
-        shutil.copyfile(f'{TEMPLATE_FOLDER}/{CATEGORIES_FILENAME}', CATEGORIES_FILENAME)
-
-    bigfunctions = [
-        BigFunction(bigfunction_name, project=project, dataset=dataset)
-        for bigfunction_name in list_bigfunctions()
-    ]
-    for bigfunction in bigfunctions:
-        open(f'{DOC_FOLDER}/bigfunctions/{bigfunction.name}.md', 'w', encoding='utf-8').write(bigfunction.doc)
-
-    categories = yaml.safe_load(open(CATEGORIES_FILENAME, encoding='utf-8').read())
-    for category in categories:
-        category['bigfunctions'] = [b.config for b in bigfunctions if b.config['category'] == category['name']]
-    categories = [category for category in categories if category['bigfunctions']]
-    categories_template = jinja2.Template(open(CATEGORIES_DOC_TEMPLATE_FILENAME, encoding='utf-8').read())
-    categories_doc = categories_template.render(categories=categories, project=project, dataset=dataset)
-    open(f'{DOC_FOLDER}/bigfunctions/README.md', 'w', encoding='utf-8').write(categories_doc)
 
 
 

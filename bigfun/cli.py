@@ -2,6 +2,7 @@ import os
 import shutil
 import multiprocessing
 
+import jinja2
 import yaml
 import click
 from click_help_colors import HelpColorsGroup
@@ -12,10 +13,10 @@ from . import bigfunctions as bf
 from . import utils
 
 
-
 TABLES_FOLDER = 'data'
 THIS_FOLDER = os.path.dirname(os.path.realpath(__file__)).replace('\\', '/')
 WEBSITE_CONFIG_FOLDER = THIS_FOLDER + '/website'
+CATEGORIES_DOC_TEMPLATE_FILENAME = f'{THIS_FOLDER}/templates/categories.md'
 CONFIG_FILENAME = 'config.yaml'
 CONFIG = {}
 if os.path.exists(CONFIG_FILENAME):
@@ -39,32 +40,60 @@ def get_config_value(name):
 
 
 def generate_doc(project, dataset):
-    os.makedirs('docs', exist_ok=True)
 
-    if not os.path.isfile('README.md'):
-        print('INFO: CREATING A README.md FILE IN CURRENT DIRECTORY WHICH WILL BE THE ROOT CONTENT OF THE WEBSITE')
-        open('README.md', 'w', encoding='utf-8').write('# Hello from README!')
+    def init_docs_folder():
+        os.makedirs('docs', exist_ok=True)
+        shutil.rmtree('docs/bigfunctions', ignore_errors=True)
+        os.makedirs('docs/bigfunctions')
 
-    if not os.path.isfile('mkdocs.yml'):
-        print('INFO: CREATING mkdocs.yml FILE in CURRENT DIRECTORY. It is the configuration file of the website...')
-        shutil.copyfile(WEBSITE_CONFIG_FOLDER + '/mkdocs.yml', 'mkdocs.yml')
+    def copy_readme_and_contributing():
+        if not os.path.isfile('README.md'):
+            print('INFO: CREATING A README.md FILE IN CURRENT DIRECTORY WHICH WILL BE THE ROOT CONTENT OF THE WEBSITE')
+            open('README.md', 'w', encoding='utf-8').write('# Hello from README!')
+        shutil.copyfile('README.md', 'docs/README.md')
+        if os.path.isfile('CONTRIBUTING.md'):
+            shutil.copyfile('CONTRIBUTING.md', 'docs/CONTRIBUTING.md')
 
-    if not os.path.isdir('docs/assets'):
-        print('INFO: COPYING assets FOLDER into docs FOLDER...')
-        shutil.copytree(WEBSITE_CONFIG_FOLDER + '/assets', 'docs/assets')
+    def copy_default_site_config():
+        if not os.path.isfile('mkdocs.yml'):
+            print('INFO: CREATING mkdocs.yml FILE in CURRENT DIRECTORY. It is the configuration file of the website...')
+            shutil.copyfile(WEBSITE_CONFIG_FOLDER + '/mkdocs.yml', 'mkdocs.yml')
+        if not os.path.isdir('docs/assets'):
+            print('INFO: COPYING assets FOLDER into docs FOLDER...')
+            shutil.copytree(WEBSITE_CONFIG_FOLDER + '/assets', 'docs/assets')
+        if not os.path.isdir('docs/theme_overrides'):
+            print('INFO: COPYING theme_overrides FOLDER into docs FOLDER...')
+            shutil.copytree(WEBSITE_CONFIG_FOLDER + '/theme_overrides', 'docs/theme_overrides')
 
-    if not os.path.isdir('docs/theme_overrides'):
-        print('INFO: COPYING theme_overrides FOLDER into docs FOLDER...')
-        shutil.copytree(WEBSITE_CONFIG_FOLDER + '/theme_overrides', 'docs/theme_overrides')
+    def generate_bigfunctions_markdown(bigfunctions):
+        for bigfunction in bigfunctions:
+            open(f'docs/bigfunctions/{bigfunction.name}.md', 'w', encoding='utf-8').write(bigfunction.doc)
 
-    shutil.copyfile('README.md', 'docs/README.md')
-    if os.path.isfile('CONTRIBUTING.md'):
-        shutil.copyfile('CONTRIBUTING.md', 'docs/CONTRIBUTING.md')
+    def copy_screenshots_to_docs_folder():
+        for image in [f for f in os.listdir('bigfunctions') if f.endswith('.png')]:
+            shutil.copy(f'bigfunctions/{image}', f'docs/bigfunctions/{image}')
 
-    bf.generate_doc(project, dataset)
+    def generate_bigfunctions_list_markdown(bigfunctions):
+        mkdocs_config = yaml.safe_load(open('mkdocs.yml', encoding='utf-8').read())
+        categories = mkdocs_config['bigfunctions_categories']
+        for category in categories:
+            category['bigfunctions'] = [b.config for b in bigfunctions if b.config['category'] == category['name']]
+        categories = [category for category in categories if category['bigfunctions']]
+        categories_template = jinja2.Template(open(CATEGORIES_DOC_TEMPLATE_FILENAME, encoding='utf-8').read())
+        categories_doc = categories_template.render(categories=categories, project=project, dataset=dataset)
+        open('bigfunctions/README.md', 'w', encoding='utf-8').write(categories_doc)
+        open('docs/bigfunctions/README.md', 'w', encoding='utf-8').write(categories_doc)
 
-    for image in [f for f in os.listdir('bigfunctions') if f.endswith('.png')]:
-        shutil.copy(f'bigfunctions/{image}', f'docs/bigfunctions/{image}')
+    bigfunctions = [
+        bf.BigFunction(bigfunction_name, project=project, dataset=dataset)
+        for bigfunction_name in bf.list_bigfunctions()
+    ]
+    init_docs_folder()
+    copy_readme_and_contributing()
+    copy_default_site_config()
+    generate_bigfunctions_markdown(bigfunctions)
+    copy_screenshots_to_docs_folder()
+    generate_bigfunctions_list_markdown(bigfunctions)
 
 
 @click.group(
