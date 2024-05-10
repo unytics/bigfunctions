@@ -13,5 +13,5 @@ jobs:
         with:
           python-version: 3.x
       - run: pip install -e .
-      - run: bigfun docs generate
+      - run: bigfun docs generate --project bigfunctions --dataset eu,us,europe_west1,asia_east1
       - run: mkdocs gh-deploy --force

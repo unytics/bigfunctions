@@ -38,7 +38,7 @@ def get_config_value(name):
     return CONFIG[name]
 
 
-def generate_doc():
+def generate_doc(project, dataset):
     os.makedirs('docs', exist_ok=True)
 
     if not os.path.isfile('README.md'):
@@ -64,8 +64,6 @@ def generate_doc():
     if os.path.isfile('CONTRIBUTING.md'):
         shutil.copyfile('CONTRIBUTING.md', 'docs/CONTRIBUTING.md')
 
-    project = get_config_value('project')
-    dataset = get_config_value('dataset')
     bf.generate_doc(project, dataset)
 
     for image in [f for f in os.listdir('bigfunctions') if f.endswith('.png')]:
@@ -173,26 +171,34 @@ def docs():
 
 
 @docs.command()
-def generate():
+@click.option('--project', help='Google Cloud project where the table is created')
+@click.option('--dataset', help='BigQuery dataset name where the table is created')
+def generate(project, dataset):
     '''
     Generate markdown files for documentation from yaml bigfunctions files
     '''
-    generate_doc()
+    project = project or get_config_value('project')
+    dataset = dataset or get_config_value('dataset')
+    generate_doc(project, dataset)
     os.system('mkdocs build')
 
 
 
 @docs.command()
-def serve():
+@click.option('--project', help='Google Cloud project where the table is created')
+@click.option('--dataset', help='BigQuery dataset name where the table is created')
+def serve(project, dataset):
     '''
     Serve docs locally on http://localhost:8000
     '''
-    generate_doc()
+    project = project or get_config_value('project')
+    dataset = dataset or get_config_value('dataset')
+    generate_doc(project, dataset)
 
     class EventHandler(RegexMatchingEventHandler):
         def on_any_event(self, event):
             print(f'File {event.src_path} {event.event_type} --> generating README files...')
-            generate_doc()
+            generate_doc(project, dataset)
     # event_handler = EventHandler(regexes=[r'.*\.yaml'])
     # observer = Observer()
     # observer.schedule(event_handler, BIGFUNCTIONS_FOLDER, recursive=True)
