@@ -4,7 +4,7 @@ repo_url: 'https://github.com/unytics/bigfunctions'
 edit_uri: 'edit/main'
 theme:
   name: material
-  custom_dir: docs/mkdocs_material_overrides
+  custom_dir: docs/theme_overrides
   logo: assets/logo.png
   favicon: assets/logo.png
   features:

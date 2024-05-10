@@ -53,9 +53,9 @@ def generate_doc(project, dataset):
         print('INFO: COPYING assets FOLDER into docs FOLDER...')
         shutil.copytree(WEBSITE_CONFIG_FOLDER + '/assets', 'docs/assets')
 
-    if not os.path.isdir('docs/mkdocs_material_overrides'):
-        print('INFO: COPYING mkdocs_material_overrides FOLDER into docs FOLDER...')
-        shutil.copytree(WEBSITE_CONFIG_FOLDER + '/mkdocs_material_overrides', 'docs/mkdocs_material_overrides')
+    if not os.path.isdir('docs/theme_overrides'):
+        print('INFO: COPYING theme_overrides FOLDER into docs FOLDER...')
+        shutil.copytree(WEBSITE_CONFIG_FOLDER + '/theme_overrides', 'docs/theme_overrides')
 
     shutil.copyfile('README.md', 'docs/README.md')
     if os.path.isfile('CONTRIBUTING.md'):
