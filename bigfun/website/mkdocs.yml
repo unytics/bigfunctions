@@ -36,7 +36,7 @@ plugins:
   - search
 nav:
   - Get Started!: README.md
-  - BigFunctions: bigfunctions/README.md
+  - Explore BigFunctions: bigfunctions/README.md
 validation:
   nav:
     omitted_files: ignore

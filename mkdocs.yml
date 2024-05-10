@@ -39,7 +39,7 @@ plugins:
   - search
 nav:
   - Get Started!: README.md
-  - BigFunctions: bigfunctions/README.md
+  - Explore BigFunctions!: bigfunctions/README.md
   - Contribute!: CONTRIBUTING.md
 validation:
   nav:
