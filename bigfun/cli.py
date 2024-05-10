@@ -45,6 +45,9 @@ def generate_doc():
         print('INFO: CREATING A README.md FILE IN CURRENT DIRECTORY WHICH WILL BE THE ROOT CONTENT OF THE WEBSITE')
         open('README.md', 'w', encoding='utf-8').write('# Hello from README!')
 
+    print('LIST FILES')
+    print(os.listdir(WEBSITE_CONFIG_FOLDER))
+
     if not os.path.isfile('mkdocs.yml'):
         print('INFO: CREATING mkdocs.yml FILE in CURRENT DIRECTORY. It is the configuration file of the website...')
         shutil.copyfile(WEBSITE_CONFIG_FOLDER + '/mkdocs.yml', 'mkdocs.yml')
