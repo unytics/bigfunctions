@@ -33,7 +33,7 @@ def list_bigfunctions():
 
 
 def generate_doc(project, dataset):
-    shutil.rmtree(f'{DOC_FOLDER}/bigfunctions')
+    shutil.rmtree(f'{DOC_FOLDER}/bigfunctions', ignore_errors=True)
     os.makedirs(f'{DOC_FOLDER}/bigfunctions')
 
     if not os.path.isfile(CATEGORIES_FILENAME):
