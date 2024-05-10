@@ -91,6 +91,10 @@ class BigFunction:
             self._dataset = self.bigquery.get_dataset(f'{self.project}.{self.dataset_name}')
         return self._dataset
 
+    @property
+    def location(self):
+        return self.dataset.location
+
     def test(self):
         # WARNING: TO CHANGE THIS AND DEPLOY A PYTHON FUNCTION HERE WE NEED TO HAVE A REMOTE CONNECTION PER DATASET AS users between dataset and remote connection are identical
         if self.config['type'] == 'function_py':
@@ -135,7 +139,7 @@ class BigFunction:
         template = jinja2.Template(open(template_file, encoding='utf-8').read())
         query = template.render(**self.config)
         print_info('Creating function in dataset')
-        self.bigquery.query(query)
+        self.bigquery.query(query, location=self.location)
         print_success(f'successfully created {self.project}.{self.dataset_name}.{self.name}')
 
     @property

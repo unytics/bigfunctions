@@ -124,6 +124,7 @@ BigFunctions are open-source BigQuery routines that give you **SQL-superpowers**
 - [<code>format_percentage(first_number, second_number, nb_decimals)</code>](format_percentage.md): Return `first_number / second_number` as a formatted percentage
 - [<code>quantize_into_fixed_width_bins(value, min_bound, max_bound, nb_bins)</code>](quantize_into_fixed_width_bins.md): Get the `bin_range` in which belongs `value`
 - [<code>quantize_into_bins(value, bin_bounds)</code>](quantize_into_bins.md): Get the `bin_range` in which belongs `value`
+- [<code>weighted_average(element, weight)</code>](weighted_average.md): Returns the weigthed average elements.
 
 
 ## ✨ Transform string

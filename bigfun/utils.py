@@ -137,9 +137,9 @@ class BigQuery:
         ]
         return dataset
 
-    def query(self, query):
+    def query(self, query, **kwargs):
         try:
-            return self.client.query(query).result()
+            return self.client.query(query, **kwargs).result()
         except google.api_core.exceptions.Forbidden as e:
             handle_error("Access Denied", e.message)
         except (

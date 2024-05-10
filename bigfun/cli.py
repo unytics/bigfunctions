@@ -154,7 +154,7 @@ def deploy(bigfunction, project, dataset):
         if len(datasets) > 1:
             with multiprocessing.Pool(processes=8) as pool:
                 pool.map(
-                    BigFunction.deploy,
+                    bf.BigFunction.deploy,
                     [
                         bf.BigFunction(name, project=project, dataset=dataset)
                         for dataset in datasets[1:]
