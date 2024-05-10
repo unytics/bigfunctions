@@ -1,7 +1,7 @@
 import setuptools
 
 
-VERSION = '0.1'
+VERSION = '0.2'
 
 
 with open('README.md', 'r', encoding='utf-8') as fh:
