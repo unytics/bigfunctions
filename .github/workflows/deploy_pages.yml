@@ -12,6 +12,6 @@ jobs:
       - uses: actions/setup-python@v2
         with:
           python-version: 3.x
-      - run: pip install bigfunctions==0.2
+      - run: pip install .
       - run: bigfun docs generate --project bigfunctions --dataset eu,us,europe_west1,asia_east1
       - run: mkdocs gh-deploy --force
