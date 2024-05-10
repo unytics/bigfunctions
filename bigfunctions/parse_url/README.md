@@ -1,7 +1,6 @@
 ---
 title: "parse_url"
-description: "BigFunction parse_url: Return `url` parts
-*(inspired from [sql-snippets repo](https://github.com/count/sql-snippets/blob/main/bigquery/regex-parse-url.md))*"
+description: "BigFunction parse_url: Return `url` parts"
 ---
 
 <span style="color: silver; position: relative; top: -1rem">

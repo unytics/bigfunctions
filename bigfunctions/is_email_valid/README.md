@@ -1,7 +1,6 @@
 ---
 title: "is_email_valid"
-description: "BigFunction is_email_valid: Return true if `email` is valid
-*(inspired from [this reddit answer](https://www.reddit.com/r/bigquery/comments/dshge0/comment/f6r7rpt/))*"
+description: "BigFunction is_email_valid: Return true if `email` is valid"
 ---
 
 <span style="color: silver; position: relative; top: -1rem">

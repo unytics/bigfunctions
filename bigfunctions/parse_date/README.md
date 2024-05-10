@@ -1,7 +1,6 @@
 ---
 title: "parse_date"
-description: "BigFunction parse_date: Parse date with automatic format detection
-*(inspired from [Sebabrata BigQuery tutorial](https://www.linkedin.com/feed/update/urn:li:activity:6989555205612670976/))*"
+description: "BigFunction parse_date: Parse date with automatic format detection"
 ---
 
 <span style="color: silver; position: relative; top: -1rem">

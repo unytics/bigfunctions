@@ -1,7 +1,6 @@
 ---
 title: "url_decode"
-description: "BigFunction url_decode: Decode `url_encoded_string`
-*(inspired from [this stackoverflow solution](https://stackoverflow.com/questions/13831391/bigquery-url-decode))*"
+description: "BigFunction url_decode: Decode `url_encoded_string`"
 ---
 
 <span style="color: silver; position: relative; top: -1rem">

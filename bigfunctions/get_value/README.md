@@ -1,8 +1,6 @@
 ---
 title: "get_value"
-description: "BigFunction get_value: Return the first `value` with a key `search_key` from `key_value_items`
-(or return `null` if `search_key` does not exist in `key_value_items`).
-"
+description: "BigFunction get_value: Return the first `value` with a key `search_key` from `key_value_items`"
 ---
 
 <span style="color: silver; position: relative; top: -1rem">

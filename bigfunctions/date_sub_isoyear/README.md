@@ -1,8 +1,6 @@
 ---
 title: "date_sub_isoyear"
-description: "BigFunction date_sub_isoyear: Returns same day `years` before
-(same week number and same day of week)
-"
+description: "BigFunction date_sub_isoyear: Returns same day `years` before"
 ---
 
 <span style="color: silver; position: relative; top: -1rem">

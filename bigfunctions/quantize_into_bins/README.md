@@ -1,8 +1,6 @@
 ---
 title: "quantize_into_bins"
-description: "BigFunction quantize_into_bins: Get the `bin_range` in which belongs `value`
-with bins defined by their `bin_bounds`.
-"
+description: "BigFunction quantize_into_bins: Get the `bin_range` in which belongs `value`"
 ---
 
 <span style="color: silver; position: relative; top: -1rem">

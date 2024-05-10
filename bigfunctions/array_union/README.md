@@ -1,7 +1,6 @@
 ---
 title: "array_union"
-description: "BigFunction array_union: Returns the union of two arrays.
-"
+description: "BigFunction array_union: Returns the union of two arrays."
 ---
 
 <span style="color: silver; position: relative; top: -1rem">

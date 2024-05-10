@@ -1,8 +1,6 @@
 ---
 title: "prophet"
-description: "BigFunction prophet: Forecast time-series using prophet
-(inspired from [this Felipe Hoffa medium's post](https://medium.com/snowflake/facebook-prophet-forecasts-running-in-snowflake-with-snowpark-14fc870b56ae))
-"
+description: "BigFunction prophet: Forecast time-series using prophet"
 ---
 
 <span style="color: silver; position: relative; top: -1rem">

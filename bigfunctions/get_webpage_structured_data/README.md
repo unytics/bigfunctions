@@ -1,8 +1,6 @@
 ---
 title: "get_webpage_structured_data"
-description: "BigFunction get_webpage_structured_data: Get webpage Structured Data
-that [Google shows in search results](https://developers.google.com/search/docs/appearance/structured-data/intro-structured-data).
-"
+description: "BigFunction get_webpage_structured_data: Get webpage Structured Data"
 ---
 
 <span style="color: silver; position: relative; top: -1rem">

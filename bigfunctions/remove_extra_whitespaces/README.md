@@ -1,7 +1,6 @@
 ---
 title: "remove_extra_whitespaces"
-description: "BigFunction remove_extra_whitespaces: Remove unwanted whitespaces
-*(inspired from [re_data dbt repo](https://github.com/re-data/dbt-re-data/blob/main/macros/public/cleaning/clean_additional_whitespace.sql))*"
+description: "BigFunction remove_extra_whitespaces: Remove unwanted whitespaces"
 ---
 
 <span style="color: silver; position: relative; top: -1rem">

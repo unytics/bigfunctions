@@ -1,22 +1,6 @@
 ---
 title: "ask_ai"
-description: "BigFunction ask_ai: Ask Anything!
-
-Google Generative AI `model` will get you an answer.
-
-`model` must be one of:
-
-- `gemini-pro`
-- `text-bison@001`
-- `text-bison@002`
-- `text-unicorn@001`
-- `code-bison@001`
-- `code-bison@002`
-- ... any future model
-- `null`, then `gemini-pro` will be used
-
-Default parameters are used for each model.
-"
+description: "BigFunction ask_ai: Ask Anything!"
 ---
 
 <span style="color: silver; position: relative; top: -1rem">

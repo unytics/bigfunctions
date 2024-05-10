@@ -1,8 +1,6 @@
 ---
 title: "are_arrays_equal"
-description: "BigFunction are_arrays_equal: Return true if `array1` = `array2`
-and false otherwise
-"
+description: "BigFunction are_arrays_equal: Return true if `array1` = `array2`"
 ---
 
 <span style="color: silver; position: relative; top: -1rem">

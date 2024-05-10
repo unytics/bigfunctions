@@ -1,8 +1,6 @@
 ---
 title: "get_table_columns"
-description: "BigFunction get_table_columns: Get the column information of the given table from `INFORMATION_SCHEMA.COLUMNS`
-and put them in a temporary table called `bigfunction_result`.
-"
+description: "BigFunction get_table_columns: Get the column information of the given table from `INFORMATION_SCHEMA.COLUMNS`"
 ---
 
 <span style="color: silver; position: relative; top: -1rem">

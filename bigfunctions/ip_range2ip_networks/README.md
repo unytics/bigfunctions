@@ -1,8 +1,6 @@
 ---
 title: "ip_range2ip_networks"
-description: "BigFunction ip_range2ip_networks: Convert an IP range into a json list of IP networks in CIDR notation
-(the list can have only one element)
-"
+description: "BigFunction ip_range2ip_networks: Convert an IP range into a json list of IP networks in CIDR notation"
 ---
 
 <span style="color: silver; position: relative; top: -1rem">

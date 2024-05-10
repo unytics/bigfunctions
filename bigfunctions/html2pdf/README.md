@@ -1,12 +1,6 @@
 ---
 title: "html2pdf"
-description: "BigFunction html2pdf: Convert `html` to `pdf`
-encoded as a base64 string.
-
-> This function is useful to combine with `send_mail` if you want to send a personnalized pdf to some people.
->
-> To have a beautiful pdf, we advise you to get inspired by [this invoice template](https://github.com/sparksuite/simple-html-invoice-template).
-"
+description: "BigFunction html2pdf: Convert `html` to `pdf`"
 ---
 
 <span style="color: silver; position: relative; top: -1rem">

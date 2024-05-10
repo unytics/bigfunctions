@@ -1,7 +1,6 @@
 ---
 title: "gregorian2hijri"
-description: "BigFunction gregorian2hijri: Convert Gregorian Date to Hijri Date (taken from [here](https://stackoverflow.com/questions/78072960/convert-dates-gregorian-to-hijri-bigquery#answer-78079872))
-"
+description: "BigFunction gregorian2hijri: Convert Gregorian Date to Hijri Date (taken from [here](https://stackoverflow.com/questions/78072960/convert-dates-gregorian-to-hijri-bigquery#answer-78079872))"
 ---
 
 <span style="color: silver; position: relative; top: -1rem">

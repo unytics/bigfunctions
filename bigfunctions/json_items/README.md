@@ -1,9 +1,6 @@
 ---
 title: "json_items"
-description: "BigFunction json_items: Extract `key_value_items` from `json_string`
-which has only flat (no nested) key-values.
-Return `key_value_items` as `array< struct<key string, value string> >`
-"
+description: "BigFunction json_items: Extract `key_value_items` from `json_string`"
 ---
 
 <span style="color: silver; position: relative; top: -1rem">

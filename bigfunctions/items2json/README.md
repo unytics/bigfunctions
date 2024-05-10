@@ -1,8 +1,6 @@
 ---
 title: "items2json"
-description: "BigFunction items2json: Returns `json` object from array of `key_value_items`
-which is a `array<struct<key string, value string>>`.
-"
+description: "BigFunction items2json: Returns `json` object from array of `key_value_items`"
 ---
 
 <span style="color: silver; position: relative; top: -1rem">

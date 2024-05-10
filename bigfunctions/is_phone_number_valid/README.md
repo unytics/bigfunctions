@@ -1,12 +1,6 @@
 ---
 title: "is_phone_number_valid"
-description: "BigFunction is_phone_number_valid: Return if `phone_number` is valid
-using [libphonenumber-js library](https://www.npmjs.com/package/libphonenumber-js).
-
-Argument `options` can be `null` or must be a json with the following keys:
-`defaultCountry`, `defaultCallingCode` and `extract` as described in the
-[library documentation](https://www.npmjs.com/package/libphonenumber-js#parsephonenumberstring-defaultcountry-string--options-object-phonenumber).
-"
+description: "BigFunction is_phone_number_valid: Return if `phone_number` is valid"
 ---
 
 <span style="color: silver; position: relative; top: -1rem">

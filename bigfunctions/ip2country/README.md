@@ -1,13 +1,6 @@
 ---
 title: "ip2country"
-description: "BigFunction ip2country: Get `country_code` of `ip`
-
-> This functions uses IP address data powered by [IPinfo](https://ipinfo.io)
-> and released under [Creative Commons Attribution-ShareAlike 4.0 International License](https://creativecommons.org/licenses/by-sa/4.0/).
-> You are required to attribute IPinfo to use their free datasets.
-> The attribution requirements can be met by giving their service credit as your data source.
-> Simply place a link to IPinfo on the website, application, or social media account that uses their data.
-"
+description: "BigFunction ip2country: Get `country_code` of `ip`"
 ---
 
 <span style="color: silver; position: relative; top: -1rem">

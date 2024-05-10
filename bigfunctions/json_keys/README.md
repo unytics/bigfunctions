@@ -1,9 +1,6 @@
 ---
 title: "json_keys"
-description: "BigFunction json_keys: Extract `keys` from `json_string`
-which has only flat (no nested) key-values.
-Return `keys` as an `array<string>`
-"
+description: "BigFunction json_keys: Extract `keys` from `json_string`"
 ---
 
 <span style="color: silver; position: relative; top: -1rem">

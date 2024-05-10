@@ -1,9 +1,6 @@
 ---
 title: "percentile_value"
-description: "BigFunction percentile_value: Returns percentile of an array with percentile a float in range [0, 1].
-
-Algorithm to calculate percentile is based on *[R. J. Hyndman and Y. Fan, "Sample quantiles in statistical packages," The American Statistician, 50(4), pp. 361-365, 1996](https://www.amherst.edu/media/view/129116/original/Sample+Quantiles.pdf)*
-"
+description: "BigFunction percentile_value: Returns percentile of an array with percentile a float in range [0, 1]."
 ---
 
 <span style="color: silver; position: relative; top: -1rem">

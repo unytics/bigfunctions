@@ -1,8 +1,6 @@
 ---
 title: "get_appstore_reviews"
-description: "BigFunction get_appstore_reviews: GET Apple App Store Reviews of an app 
-given its `url`
-"
+description: "BigFunction get_appstore_reviews: GET Apple App Store Reviews of an app "
 ---
 
 <span style="color: silver; position: relative; top: -1rem">

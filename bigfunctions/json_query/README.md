@@ -1,13 +1,6 @@
 ---
 title: "json_query"
-description: "BigFunction json_query: Extract data from `json_string` using advanced json querying
-offered by [JMESPath](https://jmespath.org/).
-
-> *JMESPath Links:*
->
-> - See [JMESPath Tutorial](https://jmespath.org/tutorial.html) for exhaustive `query` possibilities
-> - [GitHub of jmespath.js](https://github.com/jmespath/jmespath.js)
-"
+description: "BigFunction json_query: Extract data from `json_string` using advanced json querying"
 ---
 
 <span style="color: silver; position: relative; top: -1rem">

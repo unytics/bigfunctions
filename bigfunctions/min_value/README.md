@@ -1,7 +1,6 @@
 ---
 title: "min_value"
-description: "BigFunction min_value: Return min value of array
-*(inspired from [sql-snippets repo](https://github.com/count/sql-snippets/blob/main/bigquery/least-array.md))*"
+description: "BigFunction min_value: Return min value of array"
 ---
 
 <span style="color: silver; position: relative; top: -1rem">

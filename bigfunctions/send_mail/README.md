@@ -1,18 +1,6 @@
 ---
 title: "send_mail"
-description: "BigFunction send_mail: Sends an email
-to `to` email with `subject`, `content` and possible attachment (defined by `attachment_filename` and `attachment_content`).
-
-| Param      | Possible values  |
-|------------|------------------|
-| `to     `  | One or multiple comma separated emails.<br>For instance `contact@unytics.io` or `contact@unytics.io, paul.marcombes@unytics.io`   |
-| `subject`  | Email subject |
-| `content`  | Can be plain text, html or **markdown**   |
-| `attachment_filename`  | `null` or filename with extension such as `report.xlsx`  |
-| `attachment_content`  | `null` or can be plain text or base64 encoded content (useful to send excel files, pdf or images)  |
-
-> This function uses [SendGrid](https://sendgrid.com/) to send the emails and [Lee Munroe HTML template](https://github.com/leemunroe/responsive-html-email-template) for styling emails.
-"
+description: "BigFunction send_mail: Sends an email"
 ---
 
 <span style="color: silver; position: relative; top: -1rem">

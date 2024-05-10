@@ -1,7 +1,6 @@
 ---
 title: "precision_recall_curve"
-description: "BigFunction precision_recall_curve: Returns the Precision-Recall Curve
-(as a table) given `predictions`, an array  of `(predicted_score, ground_truth_label)`"
+description: "BigFunction precision_recall_curve: Returns the Precision-Recall Curve"
 ---
 
 <span style="color: silver; position: relative; top: -1rem">

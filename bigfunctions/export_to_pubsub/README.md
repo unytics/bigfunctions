@@ -1,9 +1,6 @@
 ---
 title: "export_to_pubsub"
-description: "BigFunction export_to_pubsub: Exports `data` and `attributes` to Pub/Sub `topic`.
-
-> 💡 For this to work, `749389685934-compute@developer.gserviceaccount.com` must have publish permission on your topic.
-"
+description: "BigFunction export_to_pubsub: Exports `data` and `attributes` to Pub/Sub `topic`."
 ---
 
 <span style="color: silver; position: relative; top: -1rem">

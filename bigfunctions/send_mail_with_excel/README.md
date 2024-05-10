@@ -1,18 +1,6 @@
 ---
 title: "send_mail_with_excel"
-description: "BigFunction send_mail_with_excel: Sends an email with `table_or_view_or_query` data attached as excel file
-(only the first 1000 rows will be copied to the excel file)
-
-> This function calls `json2excel` and `send_mail` functions.
-
-| Param      | Possible values  |
-|------------|------------------|
-| `to     `  | One or multiple comma separated emails.<br>For instance `contact@unytics.io` or `contact@unytics.io, paul.marcombes@unytics.io`   |
-| `subject`  | Email subject |
-| `content`  | Can be plain text, html or **markdown**   |
-| `attachment_filename`  | filename with extension such as `report.xlsx`  |
-| `table_or_view_or_query`  | A fully qualified table or view you have permission to read or a sql query starting with `select`  |
-"
+description: "BigFunction send_mail_with_excel: Sends an email with `table_or_view_or_query` data attached as excel file"
 ---
 
 <span style="color: silver; position: relative; top: -1rem">

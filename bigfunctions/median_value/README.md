@@ -1,7 +1,6 @@
 ---
 title: "median_value"
-description: "BigFunction median_value: Return median value of array
-*(inspired from [sql-snippets repo](https://github.com/count/sql-snippets/blob/main/bigquery/median.md))*"
+description: "BigFunction median_value: Return median value of array"
 ---
 
 <span style="color: silver; position: relative; top: -1rem">

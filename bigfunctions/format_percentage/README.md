@@ -1,8 +1,6 @@
 ---
 title: "format_percentage"
-description: "BigFunction format_percentage: Return `first_number / second_number` as a formatted percentage
-in a user-friendly format. You can use this function
-to handle a safe divide of the two numbers as well as your desired level of rounding."
+description: "BigFunction format_percentage: Return `first_number / second_number` as a formatted percentage"
 ---
 
 <span style="color: silver; position: relative; top: -1rem">

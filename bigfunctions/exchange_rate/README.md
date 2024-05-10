@@ -1,15 +1,6 @@
 ---
 title: "exchange_rate"
-description: "BigFunction exchange_rate: Get `exchange_rate`
-from `base` (e.g. `USD`) to `to` (e.g. `EUR`)
-from [Yahoo Finance](https://finance.yahoo.com/quote/USDEUR=X/).
-
-This functions uses [yfinance python package](https://github.com/ranaroussi/yfinance) and returns the average of the `bid price` and the `ask price`. If the data is not available in Yahoo Finance, will return `null`
-
-| Param  | Possible values  |
-|---|---|
-| `base`<br>and<br>`to`  | Iso 4217 currency codes such as `EUR` or `USD`. See active codes on [wikipedia](https://en.wikipedia.org/wiki/ISO_4217#Active_codes_(List_One)) |
-"
+description: "BigFunction exchange_rate: Get `exchange_rate`"
 ---
 
 <span style="color: silver; position: relative; top: -1rem">

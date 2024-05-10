@@ -1,7 +1,6 @@
 ---
 title: "roc_curve"
-description: "BigFunction roc_curve: Returns the Receiver Operating Characteristic Curve (a.k.a. ROC Curve)
-given a set of predicted scores and ground truth labels"
+description: "BigFunction roc_curve: Returns the Receiver Operating Characteristic Curve (a.k.a. ROC Curve)"
 ---
 
 <span style="color: silver; position: relative; top: -1rem">

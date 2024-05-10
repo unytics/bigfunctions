@@ -1,19 +1,6 @@
 ---
 title: "upsert"
-description: "BigFunction upsert: Merges `query_or_table_or_view` into the `destination_table`.
-
-A record is identified by its `primary_keys`. A unique combination of those fields is a unique record.
-Before the merging operation, the records are identified and deduplicated according to the `primary_keys`.
-If `recency_field` is filled then the last record version is kept else it is chosen arbitrarily.
-
-
-| Param  | Possible values  |
-|---|---|
-| `query_or_table_or_view` | Can be a fully qualified table or view `(<project-id>.)?<dataset_id>.<table_or_view_name>`. <br> Can also be a plain query in BigQuery Standard SQL. |
-| `destination_table` | Must be a fully qualified table `(<project-id>.)?<dataset_id>.<table_or_view_name>`. |
-| `insertion_mode` | Three insertion mode are available:<ul><li> `"insert_only"`: existing records in `query_or_table_or_view` and not existing in `destination_table` are inserted. Deletion and update are not possible. </li><li> `"delta"`: same as `insert_only` with the updatable records. Records existing both in `query_or_table_or_view` and in  `destination_table` are updated. If `recency_field` is filled, only the most recent version from source and destination is kept. </li><li> `"full"`: same as `delta` with the deletable records. Records not existing in `query_or_table_or_view` and existing in `destination_table` are deleted. </li> </ul> |
-| `primary_keys` | Combination of field identifying a record. If `primary_keys = []`, every row will be considered as a unique record. |
-| `recency_field` | Orderable field (ie. `timestamp`, `integer`, ...) to identify the relative frechness of a record version. |"
+description: "BigFunction upsert: Merges `query_or_table_or_view` into the `destination_table`."
 ---
 
 <span style="color: silver; position: relative; top: -1rem">

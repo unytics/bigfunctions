@@ -1,7 +1,6 @@
 ---
 title: "roc_auc"
-description: "BigFunction roc_auc: Returns the Area Under the Receiver Operating Characteristic Curve (a.k.a. ROC AUC)
-given a set of predicted scores and ground truth labels using the trapezoidal rule"
+description: "BigFunction roc_auc: Returns the Area Under the Receiver Operating Characteristic Curve (a.k.a. ROC AUC)"
 ---
 
 <span style="color: silver; position: relative; top: -1rem">

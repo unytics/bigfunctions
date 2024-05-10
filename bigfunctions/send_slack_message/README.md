@@ -1,9 +1,6 @@
 ---
 title: "send_slack_message"
-description: "BigFunction send_slack_message: Sends `message` to a slack channel.
-
-> To get the `webhook_url` for a channel, follow this [doc from Slack](https://api.slack.com/messaging/webhooks).
-"
+description: "BigFunction send_slack_message: Sends `message` to a slack channel."
 ---
 
 <span style="color: silver; position: relative; top: -1rem">

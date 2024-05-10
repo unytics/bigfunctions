@@ -1,9 +1,6 @@
 ---
 title: "json_schema"
-description: "BigFunction json_schema: Return the schema of a json string as `[{path, type}]`
-with `path` the path of the nested field
-and `type` among (`string`, `numeric`, `bool`, `date`, `timestamp`)
-"
+description: "BigFunction json_schema: Return the schema of a json string as `[{path, type}]`"
 ---
 
 <span style="color: silver; position: relative; top: -1rem">

@@ -1,8 +1,6 @@
 ---
 title: "h3"
-description: "BigFunction h3: Wrapper around [Uber H3](https://github.com/uber/h3-js)
-(A Hexagonal Hierarchical Geospatial Indexing System).
-"
+description: "BigFunction h3: Wrapper around [Uber H3](https://github.com/uber/h3-js)"
 ---
 
 <span style="color: silver; position: relative; top: -1rem">

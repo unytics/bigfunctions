@@ -1,21 +1,6 @@
 ---
 title: "generate_sql"
-description: "BigFunction generate_sql: Transform `question` to a SQL query.
-
->  This function sends the following enriched question to [`ask_ai`](#ask_ai) (*the schema of `fully_qualified_table` is sent so that the generated SQL query is adapted to your data*):
->
->  ```
->  Question: {{question}}
->  Table:    {{fully_qualified_table}}
->  Columns:  {{columns of fully_qualified_table}}
->  Answer:   bigquery sql query
->  ```
-
-| Param  | Description  |
-|---|---|
-| `question`  | A question to ask over your data. It may start with a verb |
-| `fully_qualified_table`  | A table whose schema will be given to the generative AI model for context.<br> - `fully_qualified_table` format must be like `PROJECT.DATASET.TABLE`.<br>  - `fully_qualified_table` must exist.<br>  - You must have read permission on the table schema  |
-"
+description: "BigFunction generate_sql: Transform `question` to a SQL query."
 ---
 
 <span style="color: silver; position: relative; top: -1rem">

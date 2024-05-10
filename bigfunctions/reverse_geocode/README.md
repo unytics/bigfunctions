@@ -1,8 +1,6 @@
 ---
 title: "reverse_geocode"
-description: "BigFunction reverse_geocode: Get address details at `latitude`, `longitude`
-using Google Maps
-"
+description: "BigFunction reverse_geocode: Get address details at `latitude`, `longitude`"
 ---
 
 <span style="color: silver; position: relative; top: -1rem">

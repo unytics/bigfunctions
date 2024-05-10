@@ -1,8 +1,6 @@
 ---
 title: "post"
-description: "BigFunction post: POST `data` to `url`.
-`response` is a json formatted as `{status_code, content}`
-"
+description: "BigFunction post: POST `data` to `url`."
 ---
 
 <span style="color: silver; position: relative; top: -1rem">

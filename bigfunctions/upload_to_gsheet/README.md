@@ -1,16 +1,6 @@
 ---
 title: "upload_to_gsheet"
-description: "BigFunction upload_to_gsheet: Upload `data` (a json array of objects) to a Google Sheet
-in `write_mode`.
-
-> 1. 💡 For this to work, share your Google Sheet in edit mode to `749389685934-compute@developer.gserviceaccount.com`
-> 2. `write_mode` controls what is done if a worksheet with `worksheet_name` already exists. It must be one of:
->     - `write_truncate`: if the sheet already exists, it will be recreated.
->     - `write_append`: if the sheet already exists, data will be appended to it.
->     - `raise_error`:  if the sheet already exists, an error will be raised.
->     - `do_nothing`:  if the sheet already exists, nothing will be done.
->     - `null`: same as `write_truncate`
-"
+description: "BigFunction upload_to_gsheet: Upload `data` (a json array of objects) to a Google Sheet"
 ---
 
 <span style="color: silver; position: relative; top: -1rem">

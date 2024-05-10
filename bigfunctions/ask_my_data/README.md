@@ -1,15 +1,6 @@
 ---
 title: "ask_my_data"
-description: "BigFunction ask_my_data: Ask your data any `question` in natural language.
-
-> This function calls  [`generate_sql`](#generate_sql) to convert the `question` into a SQL query adapted to your data and execute it.<br>
-> *(If the execution fails, the temporary table `bigfunction_result` gives details).*
-
-| Param                   | Description  |
-|-------------------------|--------------|
-| `question`              | A question to ask over your data. It may start with a verb |
-| `fully_qualified_table` | A table whose schema will be given to the generative AI model for context.<br> - `fully_qualified_table` format must be like `PROJECT.DATASET.TABLE`.<br>  - `fully_qualified_table` must exist.<br>  - You must have read permission on the table schema  |
-"
+description: "BigFunction ask_my_data: Ask your data any `question` in natural language."
 ---
 
 <span style="color: silver; position: relative; top: -1rem">

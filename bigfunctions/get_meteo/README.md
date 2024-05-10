@@ -1,8 +1,6 @@
 ---
 title: "get_meteo"
-description: "BigFunction get_meteo: Get `meteo`
-for `latitude` , `longitude` and `date`
-"
+description: "BigFunction get_meteo: Get `meteo`"
 ---
 
 <span style="color: silver; position: relative; top: -1rem">

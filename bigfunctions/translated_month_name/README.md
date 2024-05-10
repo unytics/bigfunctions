@@ -1,10 +1,6 @@
 ---
 title: "translated_month_name"
-description: "BigFunction translated_month_name: Get `translated_month_name`
-in targeted `language`
-
-`language` has locale format such as `fr`, `fr_FR`, `fr_BE`, etc.
-"
+description: "BigFunction translated_month_name: Get `translated_month_name`"
 ---
 
 <span style="color: silver; position: relative; top: -1rem">

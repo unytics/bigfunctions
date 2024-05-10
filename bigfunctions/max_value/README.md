@@ -1,7 +1,6 @@
 ---
 title: "max_value"
-description: "BigFunction max_value: Return max value of array
-*(inspired from [sql-snippets repo](https://github.com/count/sql-snippets/blob/main/bigquery/least-array.md))*"
+description: "BigFunction max_value: Return max value of array"
 ---
 
 <span style="color: silver; position: relative; top: -1rem">

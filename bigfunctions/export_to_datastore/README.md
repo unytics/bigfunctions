@@ -1,18 +1,6 @@
 ---
 title: "export_to_datastore"
-description: "BigFunction export_to_datastore: Exports `data` to Datastore
-(Firestore in Datastore mode).
-
-(💡 *For this to work, `749389685934-compute@developer.gserviceaccount.com` must have datastore user role in your project.*)
-
-| Param       | Possible values  |
-|-------------|---|
-| `project`   | Google Cloud project hosting the Datastore data. Should be unique for one query  |
-| `namespace` | A namespace is like a dataset / a folder. It has many `kinds` which are like tables. If `namespace`is `null`, `default` namespace will be used. |
-| `kind`      | `kind` is like a table: a set of similar objects. Cannot be `null`. |
-| `key`       | Unique identifier where `data` is stored inside `kind`. Can be an integer represented as a string (`key` is then named `id` in Datastore) or any string (`key` is named `name` in Datastore). If `null` a integer key (represented as string) will be generated. |
-| `data`      | A json dict of data  |
-"
+description: "BigFunction export_to_datastore: Exports `data` to Datastore"
 ---
 
 <span style="color: silver; position: relative; top: -1rem">

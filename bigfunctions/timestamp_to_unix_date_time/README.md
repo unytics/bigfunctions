@@ -1,11 +1,6 @@
 ---
 title: "timestamp_to_unix_date_time"
-description: "BigFunction timestamp_to_unix_date_time: Returns the number of `date_time_part` since `1970-01-01 00:00:00 UTC`.
-Truncates higher levels of precision by rounding down to the beginning of the `date_time_part`.
-
-| Param  | Possible values  |
-|---|---|
-| `date_time_part` | `MICROSECOND`, `MILLISECOND`, `SECOND`, `MINUTE`, `HOUR`, `DAY`, `WEEK`, `WEEK(MONDAY)`, `WEEK(TUESDAY)`, `WEEK(WEDNESDAY)`, `WEEK(THURSDAY)`, `WEEK(FRIDAY)`, `WEEK(SATURDAY)`, `WEEK(SUNDAY)`, `MONTH`, `QUARTER`, `YEAR` |"
+description: "BigFunction timestamp_to_unix_date_time: Returns the number of `date_time_part` since `1970-01-01 00:00:00 UTC`."
 ---
 
 <span style="color: silver; position: relative; top: -1rem">

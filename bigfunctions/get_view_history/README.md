@@ -1,7 +1,6 @@
 ---
 title: "get_view_history"
-description: "BigFunction get_view_history: Get BigQuery View history
-"
+description: "BigFunction get_view_history: Get BigQuery View history"
 ---
 
 <span style="color: silver; position: relative; top: -1rem">

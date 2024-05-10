@@ -1,8 +1,6 @@
 ---
 title: "quantize_into_fixed_width_bins"
-description: "BigFunction quantize_into_fixed_width_bins: Get the `bin_range` in which belongs `value`
-with bins defined so that there are `nb_bins` bins of same width between `min_bound` and `max_bound` plus a bin `]-∞, min_bound[` and a bin `]max_bound, +∞[`
-"
+description: "BigFunction quantize_into_fixed_width_bins: Get the `bin_range` in which belongs `value`"
 ---
 
 <span style="color: silver; position: relative; top: -1rem">

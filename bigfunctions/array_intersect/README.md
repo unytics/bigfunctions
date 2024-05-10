@@ -1,7 +1,6 @@
 ---
 title: "array_intersect"
-description: "BigFunction array_intersect: Returns the intersection of two arrays.
-"
+description: "BigFunction array_intersect: Returns the intersection of two arrays."
 ---
 
 <span style="color: silver; position: relative; top: -1rem">

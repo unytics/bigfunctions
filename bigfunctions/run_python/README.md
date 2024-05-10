@@ -1,39 +1,6 @@
 ---
 title: "run_python"
-description: "BigFunction run_python: Run any `python_code`.
-
-!!! warning "For security reasons (sandboxing):"
-
-    - this function is rather slow (a new python environement is created for each query). You may prefer to create a dedicated python function for your use case. You can suggest a new bigfunction [here](https://github.com/unytics/bigfunctions/issues/new?assignees=&labels=new-bigfunction&projects=&template=0_new_bigfunction.yaml&title=%5Bnew%5D%3A+%60function_name%28argument1%2C+argument2%29%60) if you want someone to create your function.
-    - your python code won't have access to internet
-    - not all python packages can be installed
-
-
-| Param          | Possible values  |
-|----------------|---|
-| `python_code`  | Arbitrary python code (indented with 4 spaces).  |
-| `requirements` | requirements as you would pass them to `pip install` (separated with space). Keep note that for security reasons, not all python packages can be installed  |
-| `kwargs`       | A json dict of variables. These variables will be defined and usable in your python code. |
-
-
-??? question "How sandboxing is done"
-
-    The provided `python_code` will run in [pyodide](https://pyodide.org/):
-    a python distribution which runs in a chrome headless browser.
-
-    This simplifies the implementation of:
-
-    - isolation between function calls,
-    - installation of python packages,
-    - isolation from the internet.
-
-    For every function call:
-
-    - we init a new browser context,
-    - download pyodide,
-    - install python packages
-    - run the code.
-"
+description: "BigFunction run_python: Run any `python_code`."
 ---
 
 <span style="color: silver; position: relative; top: -1rem">

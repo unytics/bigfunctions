@@ -1,8 +1,6 @@
 ---
 title: "get_webpage_metadata"
-description: "BigFunction get_webpage_metadata: Get webpage metadata
-(using [metadata_parser](https://github.com/jvanasco/metadata_parser) python library)
-"
+description: "BigFunction get_webpage_metadata: Get webpage metadata"
 ---
 
 <span style="color: silver; position: relative; top: -1rem">

@@ -1,7 +1,6 @@
 ---
 title: "last_value"
-description: "BigFunction last_value: Return last value of array
-*(inspired from [sql-snippets repo](https://github.com/count/sql-snippets/blob/main/bigquery/get-last-array-element.md))*"
+description: "BigFunction last_value: Return last value of array"
 ---
 
 <span style="color: silver; position: relative; top: -1rem">

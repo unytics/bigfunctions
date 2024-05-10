@@ -1,7 +1,6 @@
 ---
 title: "find_value"
-description: "BigFunction find_value: Return the first `offset` (zero-based index) of `value` in array `arr`
-(or `null` if `value` is not in `arr`)."
+description: "BigFunction find_value: Return the first `offset` (zero-based index) of `value` in array `arr`"
 ---
 
 <span style="color: silver; position: relative; top: -1rem">

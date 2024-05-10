@@ -1,21 +1,6 @@
 ---
 title: "list_bigquery_resources_in_current_project"
-description: "BigFunction list_bigquery_resources_in_current_project: List BigQuery resources
-in current Google Cloud `project` enriched with their BigQuery usage in current `project`.
-
-BigQuery resources include tables, views, columns, datasets, users.
-
-For each data asset, a `popularity` score is computed. For example, for a table, it is equal to the number of distinct users which read the table in the latest 30 days using `execution_projects`.
-
-The result is written into `bigfunction_result` temporary table which has the following columns:
-
-- `id`: unique identifier of the data asset
-- `type`: asset type such as tables, views, datasets, users, etc.
-- `name`: asset name
-- `description`: asset description
-- `popularity`: popularity as float64 (the higher the more popular)
-- `details`: a json blob with asset additional details such as the tables of a dataset or the users of a table.
-"
+description: "BigFunction list_bigquery_resources_in_current_project: List BigQuery resources"
 ---
 
 <span style="color: silver; position: relative; top: -1rem">

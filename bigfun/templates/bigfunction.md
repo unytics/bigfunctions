@@ -1,6 +1,6 @@
 ---
 title: "{{ name }}"
-description: "BigFunction {{ name }}: {{ description }}"
+description: "BigFunction {{ name }}: {{ description.split('\n')[0] }}"
 ---
 
 <span style="color: silver; position: relative; top: -1rem">

@@ -1,18 +1,6 @@
 ---
 title: "phone_number_info"
-description: "BigFunction phone_number_info: Get `phone_number` info
-such as:
-
-- `country`,
-- `isValid`,
-- etc
-
-using [libphonenumber-js library](https://www.npmjs.com/package/libphonenumber-js).
-
-Argument `options` can be `null` or must be a json with the following keys:
-`defaultCountry`, `defaultCallingCode` and `extract` as described in the
-[library documentation](https://www.npmjs.com/package/libphonenumber-js#parsephonenumberstring-defaultcountry-string--options-object-phonenumber).
-"
+description: "BigFunction phone_number_info: Get `phone_number` info"
 ---
 
 <span style="color: silver; position: relative; top: -1rem">

@@ -1,37 +1,6 @@
 ---
 title: "connected_components"
-description: "BigFunction connected_components: Compute the connected components of a non-directed graph.
-
-Given a table with two columns of the same type STRING or INTEGER representing the edges of a graph,
-this computes a new temporary table called `bigfunction_result` containing two columns of the same type
-named `node_id` and `connected_component_id`.
-
-This is an implementation of the Alternating Algorithm (large-star, small-star) described in the 2014 paper
-"Connected Components in MapReduce and Beyond" written by {rkiveris, silviol, mirrokni, rvibhor, sergeiv} @google.com
-
-PERFORMANCE AND COST CONSIDERATIONS
-
-- This algorithm has been proved to converge in O(log(n)²) and is conjectured to converge in O(log(n)), where n
-is the number of nodes in the graph. It was the most performant known distributed connected component algorithm
-last time I checked (in 2017).
-- This implementation persists temporary results at each iteration loop: for the BigQuery pricing, you should
-be expecting it to cost the equivalent of 15 to 30 scans on your input table. Since the input table has only
-two columns, this should be reasonable, and we recommend using INTEGER columns rather than STRING when possible.
-- If your graph contains nodes with a very high number of neighbors, the algorithm may crash. It is recommended
-to apply a pre-filtering on your nodes and remove nodes with a pathologically high cardinality.
-You should also monitor actively the number of nodes filtered this way and their cardinality, as this could help
-you detect a data quality deterioration in your input graph.
-If the input graph contains duplicate edges, they will be automatically removed by the algorithm.
-
-ISOLATED NODES: If you want to have isolated nodes (nodes that have no neighbors)
-in the resulting graph, there is two possible ways to achieve this:
-
-- Add self-loops edges to all your nodes in your input graph (it also works if you add edges between all the graph
-   nodes and a fictitious node with id NULL)
-- Only add edges between distinct nodes to your input, and perform a join between your input graph and the
-   algorithm's output to find all the nodes that have disappeared. These will be the isolated nodes.
-   This second method requires a little more work but it should also be cheaper.
-"
+description: "BigFunction connected_components: Compute the connected components of a non-directed graph."
 ---
 
 <span style="color: silver; position: relative; top: -1rem">

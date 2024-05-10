@@ -1,8 +1,6 @@
 ---
 title: "find_greater_value"
-description: "BigFunction find_greater_value: Return the `offset` (zero-based index) of the first `value` in `arr` where `value >= x`
-(or `null` if no `value` is greater than `x`).
-"
+description: "BigFunction find_greater_value: Return the `offset` (zero-based index) of the first `value` in `arr` where `value >= x`"
 ---
 
 <span style="color: silver; position: relative; top: -1rem">

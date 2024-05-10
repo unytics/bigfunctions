@@ -1,8 +1,6 @@
 ---
 title: "detect_sensitive_info"
-description: "BigFunction detect_sensitive_info: Detect sensitive information in `text`
-using [Cloud Data Loss Prevention](https://cloud.google.com/dlp)
-"
+description: "BigFunction detect_sensitive_info: Detect sensitive information in `text`"
 ---
 
 <span style="color: silver; position: relative; top: -1rem">

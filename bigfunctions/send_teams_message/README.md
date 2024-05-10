@@ -1,9 +1,6 @@
 ---
 title: "send_teams_message"
-description: "BigFunction send_teams_message: Sends `message` to a Microsoft Teams channel.
-
-> To get the `webhook_url` for a channel, follow this [doc from Microsoft](https://learn.microsoft.com/en-us/microsoftteams/platform/webhooks-and-connectors/how-to/add-incoming-webhook).
-"
+description: "BigFunction send_teams_message: Sends `message` to a Microsoft Teams channel."
 ---
 
 <span style="color: silver; position: relative; top: -1rem">

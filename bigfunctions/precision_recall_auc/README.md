@@ -1,7 +1,6 @@
 ---
 title: "precision_recall_auc"
-description: "BigFunction precision_recall_auc: Returns the Area Under the Precision Recall Curve (a.k.a. AUC PR)
-given a set of predicted scores and ground truth labels using the trapezoidal rule"
+description: "BigFunction precision_recall_auc: Returns the Area Under the Precision Recall Curve (a.k.a. AUC PR)"
 ---
 
 <span style="color: silver; position: relative; top: -1rem">

@@ -1,10 +1,6 @@
 ---
 title: "translated_weekday_name"
-description: "BigFunction translated_weekday_name: Get `translated_weekday_name`
-in targeted `language`
-
-`language` has locale format such as `fr`, `fr_FR`, `fr_BE`, etc.
-"
+description: "BigFunction translated_weekday_name: Get `translated_weekday_name`"
 ---
 
 <span style="color: silver; position: relative; top: -1rem">

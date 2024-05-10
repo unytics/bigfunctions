@@ -1,10 +1,6 @@
 ---
 title: "json2excel"
-description: "BigFunction json2excel: Dump data to excel file
-encoded as a base64 string.
-
-> This function is useful to combine with `send_mail` if you want to send an excel file to some people.
-"
+description: "BigFunction json2excel: Dump data to excel file"
 ---
 
 <span style="color: silver; position: relative; top: -1rem">

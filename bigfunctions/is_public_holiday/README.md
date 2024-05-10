@@ -1,11 +1,6 @@
 ---
 title: "is_public_holiday"
-description: "BigFunction is_public_holiday: Return true if `date` corresponds to a public holiday in `country_code`
-
-- Always return `false` if date is not between year 1974 and year 2076.
-- `country_code` must be among `[AO, AR, AW, AU, AT, AZ, BD, BY, BE, BO, BW, BR, BG, BI, CA, CL, CN, CO, HR, CU, CW, CY, CZ, DK, DJ, DO, EG, EE, ET, FI, FR, GE, DE, GR, HN, HK, HU, IS, IN, IE, IL, IT, JM, JP, KZ, KE, KR, LV, LS, LT, LU, MG, MW, MY, MT, MX, MD, MA, MZ, NA, NL, NZ, NI, NG, MK, NO, PY, PE, PL, PT, RO, RU, SA, RS, SG, SK, SI, ZA, ES, SZ, SE, CH, TW, TN, TR, UA, AE, GB, US, UY, UZ, VE, VN, ZM, ZW]`
-- Holiday dates come from <a href="https://python-holidays.readthedocs.io/" target="_blank">`python-holidays`</a>.
-"
+description: "BigFunction is_public_holiday: Return true if `date` corresponds to a public holiday in `country_code`"
 ---
 
 <span style="color: silver; position: relative; top: -1rem">
