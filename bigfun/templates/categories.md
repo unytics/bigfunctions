@@ -40,8 +40,8 @@ BigFunctions are open-source BigQuery routines that give you **SQL-superpowers**
 ## {{ category.emoticon }} {% if category.name == 'AI' %}AI{% else %}{{ category.name | replace('_', ' ') | capitalize }}{% endif %}
 
 {% for bigfunction in category.bigfunctions -%}
-{% set bigfunction_description_lines = bigfunction.description.split('\n') -%}
-- [<code>{{ bigfunction.name }}({% for argument in bigfunction.arguments %}{{ argument.name }}{% if not loop.last %}, {% endif %}{% endfor %})</code>]({{ bigfunction.name }}/): {{ bigfunction_description_lines[0] }}
+{% set bigfunction_short_description = bigfunction.description.split('\n')[0] -%}
+- [<code>{{ bigfunction.name }}({% for argument in bigfunction.arguments %}{{ argument.name }}{% if not loop.last %}, {% endif %}{% endfor %})</code>]({{ bigfunction.name }}/): {{ bigfunction_short_description }}
 {% endfor %}
 
 {% endfor %}
