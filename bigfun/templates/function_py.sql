@@ -3,4 +3,5 @@ returns {{ output.type }}
 remote with connection `{{ remote_connection }}`
 options (
     endpoint = '{{ remote_endpoint }}'
+    {% if max_batching_rows %}, max_batching_rows = {{ max_batching_rows }}{% endif %}
 );

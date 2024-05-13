@@ -1,0 +1,62 @@
+type: function_py
+category: AI
+author:
+  name: Paul Marcombes
+  url: https://www.linkedin.com/in/paul-marcombes
+  avatar_url: "https://lh3.googleusercontent.com/a-/ACB-R5RDf2yxcw1p_IYLCKmiUIScreatDdhG8B83om6Ohw=s260"
+description: |
+  Detect Face on image and Generate its Embedding
+  using [deepface](https://github.com/serengil/deepface).
+
+  - `image_url` is the url of a photo which contains a face. It can be a signed url of a cloud storage object. Then this function works well with [object tables](https://cloud.google.com/bigquery/docs/object-table-introduction#signed_urls).
+  - `output` is the output of `DeepFace.represent` method. It is like:
+
+  ```
+  {
+    embedding: [...],      # A 4096 float vector
+    facial_areal: {...},   # Coordinated of detected face
+    face_confidence: 1.0,  # Confidence score for face detection
+  }
+  ```
+max_batching_rows: 1
+arguments:
+  - name: image_url
+    type: string
+output:
+  name: output
+  type: json
+examples:
+  - description: "Public test image from deepface"
+    arguments:
+      - "'https://raw.githubusercontent.com/serengil/deepface/master/tests/dataset/img1.jpg'"
+    output: |
+      {
+        embedding: [...],
+        facial_areal: {...},
+        face_confidence: 1.0,
+      }
+additional_install_commands_in_dockerfile: |
+  RUN apt-get update -y && apt-get install -y libgl1-mesa-glx libglib2.0-0
+  RUN python -c "import deepface.DeepFace; import deepface.detectors.DetectorWrapper; deepface.DeepFace.build_model('Facenet512'); deepface.detectors.DetectorWrapper.build_model('retinaface')"
+code: |
+  import urllib.request
+  from deepface import DeepFace
+
+  with tempfile.TemporaryDirectory() as folder:
+    filename = f'{folder}/img'
+    urllib.request.urlretrieve(image_url, filename)
+    embedding_objs = DeepFace.represent(
+      img_path=filename,
+      detector_backend="retinaface",
+      model_name="Facenet512",
+    )
+    return embedding_objs[0]
+requirements: |
+  deepface
+  tf-keras
+quotas:
+  max_rows_per_user_per_day: 1000
+cloud_run:
+  memory: 1024Mi
+  concurrency: 1
+  max_instances: 10
