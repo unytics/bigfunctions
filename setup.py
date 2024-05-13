@@ -1,7 +1,7 @@
 import setuptools
 
 
-VERSION = '0.5'
+VERSION = '0.6'
 
 
 with open('README.md', 'r', encoding='utf-8') as fh:
@@ -23,7 +23,7 @@ setuptools.setup(
         'License :: OSI Approved :: MIT License',
         'Operating System :: OS Independent',
     ],
-    python_requires='>=3.10',
+    python_requires='>=3.6',
     include_package_data=True,
     install_requires=[
         'google-cloud-bigquery',
