@@ -46,12 +46,17 @@ code: |
   with tempfile.TemporaryDirectory() as folder:
     filename = f'{folder}/img'
     urllib.request.urlretrieve(image_url, filename)
-    embedding_objs = DeepFace.represent(
-      img_path=filename,
-      detector_backend="retinaface",
-      model_name="Facenet512",
-    )
-    return embedding_objs[0]
+    try:
+      faces = DeepFace.represent(
+        img_path=filename,
+        detector_backend="retinaface",
+        model_name="Facenet512",
+      )
+    except:
+      return {'face_confidence': 0.}
+    sorted_faces = sorted(faces, key=lambda face: face['face_confidence'])
+    best_face = sorted_faces[-1]
+    return best_face
 requirements: |
   deepface
   tf-keras
