@@ -45,14 +45,12 @@ validation:
   nav:
     omitted_files: ignore
 bigfunctions_categories:
-  - name: "explore"
-    emoticon: "👀"
   - name: "AI"
     emoticon: "🧠"
-  - name: "get_data"
-    emoticon: "🛢"
   - name: "notify"
     emoticon: "💬"
+  - name: "get_data"
+    emoticon: "🛢"
   - name: "export"
     emoticon: "🚀"
   - name: "transform_numeric"
@@ -73,5 +71,7 @@ bigfunctions_categories:
     emoticon: "🌐"
   - name: "convert_data_format"
     emoticon: "🔨"
+  - name: "explore"
+    emoticon: "👀"
   - name: "utils"
     emoticon: "🔨"
