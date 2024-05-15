@@ -1,0 +1,32 @@
+type: function_js
+category: utils
+author:
+  name: Julien Awonga
+  url: https://linkedin.com/in/julienawonga
+  avatar_url: "https://media.licdn.com/dms/image/D4E03AQFf9Qpnl0adhg/profile-displayphoto-shrink_400_400/0/1690023383639?e=1721260800&v=beta&t=StL_M-62Xv8rvUaHFxdFu4kCnKr-tSm7PDMkjKn72L8"
+description: This function performs min-max scaling on an array. It takes an array as input and returns the scaled values between 0 and 1.
+
+arguments:
+  - name: arr
+    type: any type
+output:
+  name: value
+  type: any type
+examples:
+  - description: ""
+    arguments:
+      - "[1, 4, 3, 2, 5]"
+    output: |
+      +---------+---------+
+      | arr     | scaled  |
+      +---------+---------+
+      |    1    |   0.0   |
+      |    4    |   0.75  |
+      |    3    |   0.5   |
+      |    2    |   0.25  |
+      |    5    |   1.0   |
+      +---------+---------+
+code: |
+  const min = Math.min(...arr);
+  const max = Math.max(...arr);
+  return arr.map(x => (x - min) / (max - min));
