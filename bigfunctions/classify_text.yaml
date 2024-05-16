@@ -22,12 +22,13 @@ examples:
   - description: ""
     arguments:
       - "'one day I will see the world'"
-      - '"urgent, not urgent, phone, tablet, computer"'
+      - '"travel, cooking, dancing, exploration"'
     output: |
       [
-        {'label': 'travel', 'score': 0.993},
-        {'label': 'dancing', 'score': 0.003},
-        {'label': 'cooking', 'score': 0.002}
+        {'label': 'travel',      'score': 0.995},
+        {'label': 'exploration', 'score': 0.938},
+        {'label': 'dancing',     'score': 0.005},
+        {'label': 'cooking',     'score': 0.002}
       ]
 
 additional_install_commands_in_dockerfile: |
