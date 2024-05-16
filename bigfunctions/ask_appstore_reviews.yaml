@@ -8,12 +8,12 @@ description: |
   Ask AI what your app users think.
 
   This function:
-  
+
   1. Calls [`get_appstore_reviews`](https://unytics.io/bigfunctions/bigfunctions/get_appstore_reviews/) function to retrieve the 500 latest user reviews of the mobile app.
   2. Builds a prompt using your question and including the retrieved user reviews.
-  3. Calls [`ask_ai`](https://unytics.io/bigfunctions/bigfunctions/ask_ai/) function to get the prompt answer using `gemini-1.5-pro-preview-0409` model.
+  3. Calls [`ask_ai`](https://unytics.io/bigfunctions/bigfunctions/ask_ai/) function to get the prompt answer using `gemini-1.5-flash-preview-0514` model.
 
-  Click the GitHub icon to see the code. 
+  Click the GitHub icon to see the code.
 arguments:
   - name: prompt
     type: string
@@ -29,14 +29,14 @@ examples:
       - "'https://apps.apple.com/fr/app/blablacar-covoiturage-et-bus/id341329033'"
     output: |
       ## Blablacar App Review Analysis: Coolest Feature?
-      
-      A recurring positive theme emerges: **the concept of community and shared journeys.**  
+
+      A recurring positive theme emerges: **the concept of community and shared journeys.**
       Users appreciate the opportunity to connect with others, share costs, and contribute to a more sustainable way of travel
 
       ...
 code: |
   (
-    with 
+    with
 
     reviews as (
 
@@ -46,7 +46,7 @@ code: |
     ),
 
     generated_prompt as (
-      select 
+      select
         format('Given the following customer reviews, %s', prompt) ||
         '\n\n' ||
         array_to_string(
@@ -57,6 +57,6 @@ code: |
     )
 
 
-    select {BIGFUNCTIONS_DATASET}.ask_ai(query, 'gemini-1.5-pro-preview-0409')
+    select {BIGFUNCTIONS_DATASET}.ask_ai(query, 'gemini-1.5-flash-preview-0514')
     from generated_prompt
   )
