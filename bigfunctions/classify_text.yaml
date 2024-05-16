@@ -1,0 +1,55 @@
+type: function_py
+category: AI
+author:
+  name: Paul Marcombes
+  url: https://www.linkedin.com/in/paul-marcombes
+  avatar_url: "https://lh3.googleusercontent.com/a-/ACB-R5RDf2yxcw1p_IYLCKmiUIScreatDdhG8B83om6Ohw=s260"
+description: |
+  Classify `text` among `candidate_labels`
+  using [zero-shot classification](https://huggingface.co/tasks/zero-shot-classification)
+
+  - `candidate_labels` is a string of comma separated classes used for classification
+  - Output is probability `scores` for each label.
+arguments:
+  - name: text
+    type: string
+  - name: candidate_labels
+    type: string
+output:
+  name: scores
+  type: json
+examples:
+  - description: ""
+    arguments:
+      - "'one day I will see the world'"
+      - '"urgent, not urgent, phone, tablet, computer"'
+    output: |
+      [
+        {'label': 'travel', 'score': 0.993},
+        {'label': 'dancing', 'score': 0.003},
+        {'label': 'cooking', 'score': 0.002}
+      ]
+
+additional_install_commands_in_dockerfile: |
+  RUN python -c "from transformers import pipeline; pipeline('zero-shot-classification', model='facebook/bart-large-mnli').save_pretrained('./mymodel')"
+init_code: |
+  from transformers import pipeline
+  classifier = pipeline("zero-shot-classification", model="./mymodel")
+code: |
+  if not text or not candidate_labels or not candidate_labels.strip():
+    return
+  candidate_labels = [l.strip() for l in candidate_labels.split(',')]
+  result = classifier(text, candidate_labels)
+  return [
+    {'label': label, 'score': score}
+    for label, score in zip(result['labels'], result['scores'])
+  ]
+requirements: |
+  transformers[torch]
+max_batching_rows: 1
+quotas:
+  max_rows_per_user_per_day: 1000
+cloud_run:
+  cpu: 2
+  memory: 8Gi
+  max_instances: 10
