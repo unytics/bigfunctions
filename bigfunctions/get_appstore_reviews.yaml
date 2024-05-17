@@ -18,10 +18,19 @@ examples:
     arguments:
       - "'https://apps.apple.com/fr/app/nickel-compte-pour-tous/id1119225763'"
     output: |
-      [
-          {"title": ..., "content": ...}',
-          {"title": ..., "content": ...}',
-      ]
+      | ---------------------------------------------------|
+      | rating | content                                   |
+      | ---------------------------------------------------|
+      |    5   | Very simple to use                        |
+      |        |                                           |
+      |    5   | I advise you perfectly,                   |
+      |        | I have been with them for 5 years now,    |
+      |        | I have never had a problem.               |
+      |        |                                           |
+      |    5   | Really great. I opted for the black card. |
+      |        |                                           |
+      |        | ...                                       |
+      | ---------------------------------------------------|
 code: |
   (
     with
