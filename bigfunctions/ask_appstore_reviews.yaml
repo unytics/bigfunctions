@@ -40,7 +40,7 @@ code: |
 
     reviews as (
 
-      select replace(json_value(review, '$.content.label'), '\n', ' ') as  review
+      select replace(content, '\n', ' ') as  review
       from {BIGFUNCTIONS_DATASET}.get_appstore_reviews(app_url_in_appstore)
 
     ),

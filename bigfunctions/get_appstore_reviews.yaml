@@ -5,7 +5,7 @@ author:
   url: https://www.linkedin.com/in/paul-marcombes
   avatar_url: "https://lh3.googleusercontent.com/a-/ACB-R5RDf2yxcw1p_IYLCKmiUIScreatDdhG8B83om6Ohw=s260"
 description: |
-  GET Apple App Store Reviews of an app 
+  GET Apple App Store Reviews of an app
   given its `url`
 arguments:
   - name: url
@@ -24,10 +24,10 @@ examples:
       ]
 code: |
   (
-    with 
+    with
 
     params as (
-      select 
+      select
         regexp_extract(url, r'https://apps.apple.com/([^/]*)/') as country,
         regexp_extract(url, r'https://apps.apple.com/[^/]*/app/[^/]*/id(\d+).*') as app_id,
 
@@ -37,10 +37,10 @@ code: |
       select {BIGFUNCTIONS_DATASET}.get(
         format(
           'https://itunes.apple.com/%s/rss/customerreviews/id=%s/page=%d/sortby=mostrecent/json',
-          params.country, 
-          params.app_id, 
+          params.country,
+          params.app_id,
           page
-        ), 
+        ),
         null
       ) as content
       from unnest(generate_array(1, 10)) as page,
@@ -58,6 +58,17 @@ code: |
       unnest(reviews) as review
     )
 
-    select * 
+    select
+      json_value(review, '$.id.label') as id,
+      timestamp(json_value(review, '$.updated.label')) as updated_at,
+      cast(json_value(review, '$.im:rating.label') as int64) as rating,
+      cast(json_value(review, '$.im:voteCount.label') as int64) as vote_count,
+      cast(json_value(review, '$.im:voteSum.label') as int64) as vote_sum,
+      json_value(review, '$.title.label') as title,
+      json_value(review, '$.content.label') as content,
+      json_value(review, '$.im:version.label') as version,
+      json_value(review, '$.author.name.label') as author_name,
+      json_value(review, '$.author.uri.label') as author_url,
+      json_value(review, '$.link.attributes.href') as link,
     from reviews
   )
