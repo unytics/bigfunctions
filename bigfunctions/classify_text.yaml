@@ -40,7 +40,7 @@ code: |
   if not text or not candidate_labels or not candidate_labels.strip():
     return
   candidate_labels = [l.strip() for l in candidate_labels.split(',')]
-  result = classifier(text, candidate_labels, multi_label=True)
+  result = classifier(text, candidate_labels)
   return [
     {'label': label, 'score': score}
     for label, score in zip(result['labels'], result['scores'])
