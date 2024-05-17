@@ -48,8 +48,6 @@ code: |
 requirements: |
   transformers[torch]
 max_batching_rows: 1
-quotas:
-  max_rows_per_user_per_day: 1000
 cloud_run:
   cpu: 2
   memory: 8Gi
