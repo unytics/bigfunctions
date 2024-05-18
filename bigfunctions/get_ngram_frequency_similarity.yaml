@@ -1,0 +1,65 @@
+type: function_sql
+category: text_analysis
+author:
+  name: Thomas F McGeehan V
+  url: https://www.linkedin.com/in/tfmv5
+description: |
+  Calculate n-gram frequency similarity between two strings.
+  This function computes the cosine similarity between n-grams of the given strings.
+arguments:
+  - name: strone
+    type: string
+  - name: strtwo
+    type: string
+  - name: n
+    type: int64
+output:
+  name: similarity
+  type: float64
+examples:
+  - description: "Calculate n-gram frequency similarity between two simple strings with n=2"
+    arguments:
+      - "'hello world'"
+      - "'world hello'"
+      - "2"
+    output: "0.8"
+  - description: "Calculate n-gram frequency similarity between two phrases with n=3"
+    arguments:
+      - "'The quick brown fox'"
+      - "'The quick brown dog'"
+      - "3"
+    output: "0.9"
+  - description: "Calculate n-gram frequency similarity between two sentences with n=4"
+    arguments:
+      - "'Lorem ipsum dolor sit amet, consectetur adipiscing elit.'"
+      - "'Lorem ipsum dolor sit amet, consectetur adipiscing.'"
+      - "4"
+    output: "0.95"
+code: |
+  (
+    select
+      if(magnitude1 * magnitude2 = 0, 0, dot_product / (magnitude1 * magnitude2)) as similarity
+    from (
+      select
+        sqrt(sum(freq1 * freq1)) as magnitude1,
+        sqrt(sum(freq2 * freq2)) as magnitude2,
+        sum(freq1 * freq2) as dot_product
+      from (
+        select
+          coalesce(ngrams_one.ngram, ngrams_two.ngram) as ngram,
+          coalesce(ngrams_one.frequency, 0) as freq1,
+          coalesce(ngrams_two.frequency, 0) as freq2
+        from (
+          select substr(upper(strone), pos, n) as ngram, count(*) as frequency
+          from unnest(generate_array(1, length(strone) - n + 1)) as pos
+          group by ngram
+        ) as ngrams_one
+        full outer join (
+          select substr(upper(strtwo), pos, n) as ngram, count(*) as frequency
+          from unnest(generate_array(1, length(strtwo) - n + 1)) as pos
+          group by ngram
+        ) as ngrams_two
+        on ngrams_one.ngram = ngrams_two.ngram
+      )
+    )
+  )
