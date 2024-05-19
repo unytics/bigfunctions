@@ -1,0 +1,62 @@
+type: function_sql
+category: transform_numeric
+author:
+  name: Thomas F McGeehan V
+  url: https://www.linkedin.com/in/tfmv5
+description: |
+  Calculate the distance from Benford's Law for a given column of numeric data.
+  This function computes the Chi-square distance between the observed distribution of leading digits and the expected distribution according to Benford's Law.
+arguments:
+  - name: numeric_column
+    type: array<float64>
+output:
+  name: benfords_distance
+  type: float64
+examples:
+  - description: "Calculate Benford's distance for order total prices"
+    arguments:
+      - "array(select o_totalprice from `tpch.orders`)"
+    output: "0.0012"
+  - description: "Calculate Benford's distance for sales amounts"
+    arguments:
+      - "array(select sale_amount from `tpch.sales`)"
+    output: "0.0034"
+  - description: "Calculate Benford's distance for transaction values"
+    arguments:
+      - "array(select transaction_value from `tpch.transactions`)"
+    output: "0.0021"
+code: |
+  (
+    select sum(pow(observed - expected, 2) / expected) as benfords_distance
+    from (
+      select
+        benfords_distribution.digit,
+        coalesce(observed_distribution.observed, 0) as observed,
+        benfords_distribution.expected
+      from (
+        select * from unnest([
+          struct(1 as digit, 0.301 as expected),
+          struct(2 as digit, 0.176 as expected),
+          struct(3 as digit, 0.125 as expected),
+          struct(4 as digit, 0.097 as expected),
+          struct(5 as digit, 0.079 as expected),
+          struct(6 as digit, 0.067 as expected),
+          struct(7 as digit, 0.058 as expected),
+          struct(8 as digit, 0.051 as expected),
+          struct(9 as digit, 0.046 as expected)
+        ])
+      ) as benfords_distribution
+      left join (
+        select
+          leading_digit,
+          count(*) / (select count(*) from unnest(numeric_column)) as observed
+        from (
+          select cast(substr(cast(value as string), 1, 1) as int64) as leading_digit
+          from unnest(numeric_column) as value
+          where value is not null
+        ) as leading_digits
+        group by leading_digit
+      ) as observed_distribution
+      on benfords_distribution.digit = observed_distribution.leading_digit
+    )
+  )
