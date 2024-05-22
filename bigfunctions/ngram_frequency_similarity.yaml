@@ -6,13 +6,15 @@ author:
 description: |
   Calculates n-gram similarity between two strings
 
-  *The n-gram comparison algorithm is a method used to measure the similarity between two strings by analyzing their subsequence of n consecutive characters, called n-grams. N-grams are essentially substrings of length n extracted from a given string. This algorithm is commonly used in text analysis, natural language processing, and similarity comparison tasks. The process of the n-gram comparison algorithm involves the following steps:*
+  !!! note ""
 
-  *1. N-gram Extraction: Divide each input string into overlapping sequences of n characters.*
-  *2. Counting N-grams: Count the occurrences of each unique n-gram in both strings.*
-  *3. Calculating Similarity: Compare the n-gram counts between the two strings and compute a similarity score. The similarity score is here calculated with cosine similarity.*
+      The n-gram comparison algorithm is a method used to measure the similarity between two strings by analyzing their subsequence of n consecutive characters, called n-grams. N-grams are essentially substrings of length n extracted from a given string. This algorithm is commonly used in text analysis, natural language processing, and similarity comparison tasks. The process of the n-gram comparison algorithm involves the following steps:
 
-  *The above description is taken from [Yassine EL KHAL article](https://yassineelkhal.medium.com/the-complete-guide-to-string-similarity-algorithms-1290ad07c6b7#0b4c)*
+      1. N-gram Extraction: Divide each input string into overlapping sequences of n characters.
+      2. Counting N-grams: Count the occurrences of each unique n-gram in both strings.
+      3. Calculating Similarity: Compare the n-gram counts between the two strings and compute a similarity score. The similarity score is here calculated with cosine similarity.
+
+      *The above description is taken from [Yassine EL KHAL article](https://yassineelkhal.medium.com/the-complete-guide-to-string-similarity-algorithms-1290ad07c6b7#0b4c)*
 
   Example of n-gram: the sentence `Lorem ipsum dolor sit amet`
   gives the following 4-grams `['LORE', 'OREM', 'REM ', 'EM I', 'M IP', ' IPS', 'IPSU', ...]`
