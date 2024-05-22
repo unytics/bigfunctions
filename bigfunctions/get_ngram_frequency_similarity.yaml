@@ -4,12 +4,24 @@ author:
   name: Thomas F McGeehan V
   url: https://www.linkedin.com/in/tfmv5
 description: |
-  Calculate n-gram frequency similarity between two strings.
-  This function computes the cosine similarity between n-grams of the given strings.
+  Calculates n-gram similarity between two strings
+
+  > The n-gram comparison algorithm is a method used to measure the similarity between two strings by analyzing their subsequence of n consecutive characters, called n-grams. N-grams are essentially substrings of length n extracted from a given string. This algorithm is commonly used in text analysis, natural language processing, and similarity comparison tasks. The process of the n-gram comparison algorithm involves the following steps:*
+  >
+  > 1. N-gram Extraction: Divide each input string into overlapping sequences of n characters.
+  > 2. Counting N-grams: Count the occurrences of each unique n-gram in both strings.
+  > 3. Calculating Similarity: Compare the n-gram counts between the two strings and compute a similarity score. The similarity score is here calculated with cosine similarity.
+  >
+  > *The above description is taken from [Yassine EL KHAL article](https://yassineelkhal.medium.com/the-complete-guide-to-string-similarity-algorithms-1290ad07c6b7#0b4c)*
+
+  Example of n-gram: the sentence `Lorem ipsum dolor sit amet`
+  gives the following 4-grams `['LORE', 'OREM', 'REM ', 'EM I', 'M IP', ' IPS', 'IPSU', ...]`
+
+  Returned similarity score is between 0 and 1, 0 meaning that the strings are the most similar.
 arguments:
-  - name: strone
+  - name: string1
     type: string
-  - name: strtwo
+  - name: string2
     type: string
   - name: n
     type: int64
@@ -37,29 +49,46 @@ examples:
     output: "0.95"
 code: |
   (
-    select
-      if(magnitude1 * magnitude2 = 0, 0, dot_product / (magnitude1 * magnitude2)) as similarity
-    from (
+    with
+
+    ngrams1 as (
+      select
+        substr(upper(string1), pos, n) as ngram,
+        count(*) as frequency,
+      from unnest(generate_array(1, length(string1) - n + 1)) as pos
+      group by ngram
+    ),
+
+    ngrams2 as (
+      select
+        substr(upper(string2), pos, n) as ngram,
+        count(*) as frequency,
+      from unnest(generate_array(1, length(string2) - n + 1)) as pos
+      group by ngram
+    ),
+
+    ngrams_merged as (
+      select
+        coalesce(ngrams1.ngram, ngrams2.ngram) as ngram,
+        coalesce(ngrams1.frequency, 0) as freq1,
+        coalesce(ngrams2.frequency, 0) as freq2
+      from ngrams1
+      full outer join ngrams2
+      using(ngram)
+    ),
+
+    coefficients as (
       select
         sqrt(sum(freq1 * freq1)) as magnitude1,
         sqrt(sum(freq2 * freq2)) as magnitude2,
         sum(freq1 * freq2) as dot_product
-      from (
-        select
-          coalesce(ngrams_one.ngram, ngrams_two.ngram) as ngram,
-          coalesce(ngrams_one.frequency, 0) as freq1,
-          coalesce(ngrams_two.frequency, 0) as freq2
-        from (
-          select substr(upper(strone), pos, n) as ngram, count(*) as frequency
-          from unnest(generate_array(1, length(strone) - n + 1)) as pos
-          group by ngram
-        ) as ngrams_one
-        full outer join (
-          select substr(upper(strtwo), pos, n) as ngram, count(*) as frequency
-          from unnest(generate_array(1, length(strtwo) - n + 1)) as pos
-          group by ngram
-        ) as ngrams_two
-        on ngrams_one.ngram = ngrams_two.ngram
-      )
+      from ngrams_merged
     )
+
+    select
+      if(
+        magnitude1 * magnitude2 = 0, 0,
+        dot_product / (magnitude1 * magnitude2)
+      ) as similarity
+    from coefficients
   )
