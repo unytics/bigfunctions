@@ -17,7 +17,7 @@ description: |
   Example of n-gram: the sentence `Lorem ipsum dolor sit amet`
   gives the following 4-grams `['LORE', 'OREM', 'REM ', 'EM I', 'M IP', ' IPS', 'IPSU', ...]`
 
-  Returned similarity score is between 0 and 1, 0 meaning that the strings are the most similar.
+  Returned similarity score is between 0 and 1, 1 meaning that the strings are the most similar.
 arguments:
   - name: string1
     type: string
