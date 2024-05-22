@@ -3,6 +3,7 @@ category: transform_string
 author:
   name: Thomas F McGeehan V
   url: https://www.linkedin.com/in/tfmv5
+  avatar_url: "https://avatars.githubusercontent.com/u/3191913?s=60&v=4"
 description: |
   Calculates n-gram similarity between two strings
 
