@@ -1,18 +1,18 @@
 type: function_sql
-category: text_analysis
+category: transform_string
 author:
   name: Thomas F McGeehan V
   url: https://www.linkedin.com/in/tfmv5
 description: |
   Calculates n-gram similarity between two strings
 
-  > The n-gram comparison algorithm is a method used to measure the similarity between two strings by analyzing their subsequence of n consecutive characters, called n-grams. N-grams are essentially substrings of length n extracted from a given string. This algorithm is commonly used in text analysis, natural language processing, and similarity comparison tasks. The process of the n-gram comparison algorithm involves the following steps:*
-  >
-  > 1. N-gram Extraction: Divide each input string into overlapping sequences of n characters.
-  > 2. Counting N-grams: Count the occurrences of each unique n-gram in both strings.
-  > 3. Calculating Similarity: Compare the n-gram counts between the two strings and compute a similarity score. The similarity score is here calculated with cosine similarity.
-  >
-  > *The above description is taken from [Yassine EL KHAL article](https://yassineelkhal.medium.com/the-complete-guide-to-string-similarity-algorithms-1290ad07c6b7#0b4c)*
+  *The n-gram comparison algorithm is a method used to measure the similarity between two strings by analyzing their subsequence of n consecutive characters, called n-grams. N-grams are essentially substrings of length n extracted from a given string. This algorithm is commonly used in text analysis, natural language processing, and similarity comparison tasks. The process of the n-gram comparison algorithm involves the following steps:*
+
+  *1. N-gram Extraction: Divide each input string into overlapping sequences of n characters.*
+  *2. Counting N-grams: Count the occurrences of each unique n-gram in both strings.*
+  *3. Calculating Similarity: Compare the n-gram counts between the two strings and compute a similarity score. The similarity score is here calculated with cosine similarity.*
+
+  *The above description is taken from [Yassine EL KHAL article](https://yassineelkhal.medium.com/the-complete-guide-to-string-similarity-algorithms-1290ad07c6b7#0b4c)*
 
   Example of n-gram: the sentence `Lorem ipsum dolor sit amet`
   gives the following 4-grams `['LORE', 'OREM', 'REM ', 'EM I', 'M IP', ' IPS', 'IPSU', ...]`
@@ -40,13 +40,13 @@ examples:
       - "'The quick brown fox'"
       - "'The quick brown dog'"
       - "3"
-    output: "0.9"
+    output: "0.82"
   - description: "Calculate n-gram frequency similarity between two sentences with n=4"
     arguments:
       - "'Lorem ipsum dolor sit amet, consectetur adipiscing elit.'"
       - "'Lorem ipsum dolor sit amet, consectetur adipiscing.'"
       - "4"
-    output: "0.95"
+    output: "0.93"
 code: |
   (
     with
