@@ -36,36 +36,44 @@ examples:
     output: "20.7"
 code: |
   (
-    select sum(pow(observed - expected, 2) / expected) as benford_distance
-    from (
+    with
+
+    leading_digits as (
+      select cast(substr(cast(value as string), 1, 1) as int64) as leading_digit
+      from unnest(values) as value
+      where value is not null
+    ),
+
+    benfords_distribution as (
+      select *
+      from unnest(
+        [
+          struct(1 as leading_digit, 0.301 as expected),
+          struct(2 as leading_digit, 0.176 as expected),
+          struct(3 as leading_digit, 0.125 as expected),
+          struct(4 as leading_digit, 0.097 as expected),
+          struct(5 as leading_digit, 0.079 as expected),
+          struct(6 as leading_digit, 0.067 as expected),
+          struct(7 as leading_digit, 0.058 as expected),
+          struct(8 as leading_digit, 0.051 as expected),
+          struct(9 as leading_digit, 0.046 as expected)
+        ]
+      )
+    ),
+
+    observed_distribution as (
       select
-        benfords_distribution.digit,
-        coalesce(observed_distribution.observed, 0) as observed,
-        benfords_distribution.expected
-      from (
-        select * from unnest([
-          struct(1 as digit, 0.301 as expected),
-          struct(2 as digit, 0.176 as expected),
-          struct(3 as digit, 0.125 as expected),
-          struct(4 as digit, 0.097 as expected),
-          struct(5 as digit, 0.079 as expected),
-          struct(6 as digit, 0.067 as expected),
-          struct(7 as digit, 0.058 as expected),
-          struct(8 as digit, 0.051 as expected),
-          struct(9 as digit, 0.046 as expected)
-        ])
-      ) as benfords_distribution
-      left join (
-        select
-          leading_digit,
-          count(*) / (select count(*) from unnest(values)) as observed
-        from (
-          select cast(substr(cast(value as string), 1, 1) as int64) as leading_digit
-          from unnest(values) as value
-          where value is not null
-        ) as leading_digits
-        group by leading_digit
-      ) as observed_distribution
-      on benfords_distribution.digit = observed_distribution.leading_digit
+        leading_digit,
+        count(*) / (select count(*) from unnest(values)) as observed
+      from leading_digits
+      group by leading_digit
     )
+
+
+    select sum(
+      pow(coalesce(observed, 0) - expected, 2) / expected
+    )
+    from benfords_distribution
+    left join observed_distribution
+    using(leading_digit)
   )
