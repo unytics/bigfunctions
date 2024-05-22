@@ -13,23 +13,27 @@ description: |
   The smaller the `benford_distance`, the more the `values` follow Benford's Law.
 arguments:
   - name: values
-    type: array<float64>
+    type: any type
 output:
   name: benford_distance
   type: float64
 examples:
-  - description: "Calculate Benford's distance for order total prices"
+  - description: "Uniformly distributed values do not follow Benford's Law"
     arguments:
-      - "array(select o_totalprice from `tpch.orders`)"
-    output: "0.0012"
-  - description: "Calculate Benford's distance for sales amounts"
+      - "[1, 2, 3, 4, 5, 6, 7, 8, 9]"
+    output: "0.4"
+  - description: "Having more small values follow more Benford's Law. Distance is lower"
     arguments:
-      - "array(select sale_amount from `tpch.sales`)"
-    output: "0.0034"
-  - description: "Calculate Benford's distance for transaction values"
+      - "[1, 1, 1, 2, 2, 3, 4, 5, 6]"
+    output: "0.2"
+  - description: "Having constant values follow less Benford's Law than uniform. Distance is higher"
     arguments:
-      - "array(select transaction_value from `tpch.transactions`)"
-    output: "0.0021"
+      - "[1, 1, 1, 1, 1, 1, 1, 1, 1]"
+    output: "2.3"
+  - description: "Higher leading digits is worse. Distance is much higher"
+    arguments:
+      - "[9, 9, 9, 9, 9, 9, 9, 9, 9]"
+    output: "20.7"
 code: |
   (
     select sum(pow(observed - expected, 2) / expected) as benford_distance
