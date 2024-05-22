@@ -1,13 +1,16 @@
 type: function_sql
-category: transform_numeric
+category: transform_array
 author:
   name: Thomas F McGeehan V
   url: https://www.linkedin.com/in/tfmv5
 description: |
-  Calculate the distance from Benford's Law for a given column of numeric data.
-  This function computes the Chi-square distance between the observed distribution of leading digits and the expected distribution according to Benford's Law.
+  Calculate the distance from Benford's Law for given `values`.
+
+  As mentioned in [wikipedia](https://en.wikipedia.org/wiki/Benford%27s_law), *Benford's law, is an observation that in many real-life sets of numerical data, the leading digit is likely to be small. In sets that obey the law, the number 1 appears as the leading significant digit about 30% of the time, while 9 appears as the leading significant digit less than 5% of the time*
+
+  This function computes the Chi-square distance between the observed distribution of leading digits of `values` and the expected distribution according to Benford's Law.
 arguments:
-  - name: numeric_column
+  - name: values
     type: array<float64>
 output:
   name: benfords_distance
@@ -49,10 +52,10 @@ code: |
       left join (
         select
           leading_digit,
-          count(*) / (select count(*) from unnest(numeric_column)) as observed
+          count(*) / (select count(*) from unnest(values)) as observed
         from (
           select cast(substr(cast(value as string), 1, 1) as int64) as leading_digit
-          from unnest(numeric_column) as value
+          from unnest(values) as value
           where value is not null
         ) as leading_digits
         group by leading_digit
