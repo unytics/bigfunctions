@@ -12,6 +12,8 @@ description: |
   This function computes the Chi-square distance between the observed distribution of leading digits of `values` and the expected distribution according to Benford's Law.
 
   The smaller the `benford_distance`, the more the `values` follow Benford's Law.
+
+  Read ["The Mysterious Benford’s Law and it’s Connection with Fraud Detection"](https://medium.com/@vihasharma1099/the-mysterious-benfords-law-and-it-s-connection-with-fraud-detection-4a1192f48f47) by Vihasharma to see some applications of this function.
 arguments:
   - name: values
     type: any type
