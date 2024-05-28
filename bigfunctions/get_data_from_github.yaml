@@ -1,0 +1,103 @@
+type: function_py
+category: get_data
+author:
+  name: Paul Marcombes
+  url: https://www.linkedin.com/in/paul-marcombes
+  avatar_url: "https://lh3.googleusercontent.com/a-/ACB-R5RDf2yxcw1p_IYLCKmiUIScreatDdhG8B83om6Ohw=s260"
+description: |
+  Get data from `public_github_repo` into `destination_dataset`.
+  (using [GitHub Airbyte Connector](https://docs.airbyte.com/integrations/sources/github) with [Airbyte-Serverless](https://github.com/unytics/airbyte_serverless))
+
+  Data is appended in raw format in tables (one table per stream) into `destination_dataset`.
+  When supported by the stream, data is extracted incrementally (next execution will only retrieve new rows).
+
+  You must create the `destination_dataset` and give `dataEditor` access to `bigfunction@bigfunctions.iam.gserviceaccount.com` before calling this function.
+  You can do this by executing:
+
+  ```
+  create schema `your_project.your_dataset`;
+
+  grant `roles/bigquery.dataEditor`
+  on schema `your_project.your_dataset`
+  to 'serviceAccount:bigfunction@bigfunctions.iam.gserviceaccount.com';
+
+  select
+  ```
+
+  While it's running (or after) you can explore logs in table `your_project.your_dataset._airbyte_logs`
+
+arguments:
+  - name: public_github_repo
+    type: string
+  - name: destination_dataset
+    type: string
+  - name: streams
+    type: string
+output:
+  name: result
+  type: string
+examples:
+  - description: "Get issues from [airbytehq/airbyte](https://github.com/airbytehq/airbyte) repository"
+    arguments:
+      - "'airbytehq/airbyte'"
+      - "'your_project.your_dataset'"
+      - "'issues'"
+    output: "ok"
+  - description: "To get a list of available streams, let `streams` param to null"
+    arguments:
+      - "'airbytehq/airbyte'"
+      - "'your_project.your_dataset'"
+      - "null"
+    output: "ok"
+code: |
+  import os
+  from airbyte_serverless.connections import Connection
+  import google.api_core.exceptions
+
+  streams = streams or ''
+  executable = os.environ.get('AIRBYTE_ENTRYPOINT')
+
+  yaml_config = f'''
+  source:
+    executable: "{executable}"
+    config:
+      credentials:
+        personal_access_token: "{github_personal_access_token}"
+      repositories:
+        - "{public_github_repo}"
+    streams: {streams}
+  destination:
+    connector: "bigquery"
+    config:
+      dataset: "{destination_dataset}"
+      buffer_size_max: 1000
+  '''
+
+  connection = Connection(yaml_config)
+
+  if not streams:
+    return ','.join(connection.available_streams)
+
+  try:
+    connection.run()
+  except (google.api_core.exceptions.Forbidden, google.api_core.exceptions.NotFound, google.api_core.exceptions.PermissionDenied) as e:
+    assert False, f'Service Account `{get_current_service_account()}` does not have data-editor permission for given destination dataset (or the dataset does not exsit). Please add it'
+  return 'ok'
+dockerfile:
+  image: airbyte/source-github
+  additional_commands: |
+    ENTRYPOINT []
+requirements: |
+  airbyte-serverless
+secrets:
+  - name: github_personal_access_token
+    description: GitHub Personal Access Token for public repositories
+    documentation_link: https://docs.github.com/en/enterprise-server@3.9/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens#creating-a-personal-access-token
+max_batching_rows: 1
+quotas:
+  max_rows_per_user_per_day: 100
+cloud_run:
+  memory: 512Mi
+  max_instances: 10
+  concurrency: 1
+  timeout: 30m
