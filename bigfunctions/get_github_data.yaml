@@ -27,7 +27,7 @@ description: |
   While it's running (or after) you can explore logs in table `your_project.your_dataset._airbyte_logs`
 
 arguments:
-  - name: public_github_repo
+  - name: public_repo
     type: string
   - name: destination_dataset
     type: string
