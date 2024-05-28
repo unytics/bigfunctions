@@ -129,7 +129,7 @@ class BigQuery:
         try:
             dataset = self.client.get_dataset(dataset.replace("`", ""))
         except google.api_core.exceptions.NotFound as e:
-            handle_error("Not Found", e.message)
+            handle_error("Dataset Not Found", e.message)
         dataset.users = [
             dataset_access_entry2user(access_entry)
             for access_entry in dataset.access_entries
