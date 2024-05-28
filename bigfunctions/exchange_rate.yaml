@@ -53,3 +53,5 @@ code: |
   return CACHE[cache_key]
 requirements: |
   yfinance
+cloud_run:
+  max_instances: 10
