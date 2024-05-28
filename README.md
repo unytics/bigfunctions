@@ -229,3 +229,4 @@ BigFunctions is fully open-source. Any contribution is more than welcome 🤗!
 <a href="https://github.com/unytics/bigfunctions/graphs/contributors">
   <img src="https://contrib.rocks/image?repo=unytics/bigfunctions" />
 </a>
+

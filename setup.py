@@ -27,7 +27,7 @@ setuptools.setup(
     include_package_data=True,
     install_requires=[
         'google-cloud-bigquery',
-        'google-cloud-bigquery_connection',
+        'google-cloud-bigquery-connection',
         'google-cloud-storage',
         'pyyaml',
         'jinja2',
