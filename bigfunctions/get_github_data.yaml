@@ -5,7 +5,7 @@ author:
   url: https://www.linkedin.com/in/paul-marcombes
   avatar_url: "https://lh3.googleusercontent.com/a-/ACB-R5RDf2yxcw1p_IYLCKmiUIScreatDdhG8B83om6Ohw=s260"
 description: |
-  Get data from `public_github_repo` into `destination_dataset`.
+  Get data from `public_repo` into `destination_dataset`.
   (using [GitHub Airbyte Connector](https://docs.airbyte.com/integrations/sources/github) with [Airbyte-Serverless](https://github.com/unytics/airbyte_serverless))
 
   Data is appended in raw format in tables (one table per stream) into `destination_dataset`.
@@ -64,7 +64,7 @@ code: |
       credentials:
         personal_access_token: "{github_personal_access_token}"
       repositories:
-        - "{public_github_repo}"
+        - "{public_repo}"
     streams: {streams}
   destination:
     connector: "bigquery"
