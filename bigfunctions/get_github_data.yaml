@@ -48,7 +48,7 @@ examples:
       - "'airbytehq/airbyte'"
       - "'your_project.your_dataset'"
       - "null"
-    output: "ok"
+    output: "issue_timeline_events,assignees,branches,collaborators,comments,commit_comment_reactions,commit_comments,commits,contributor_activity,deployments,events,issue_comment_reactions,issue_events,issue_labels,issue_milestones,issue_reactions,issues,organizations,project_cards,project_columns,projects,pull_request_comment_reactions,pull_request_commits,pull_request_stats,projects_v2,pull_requests,releases,repositories,review_comments,reviews,stargazers,tags,teams,team_members,users,workflows,workflow_runs,workflow_jobs,team_memberships"
 code: |
   import os
   from airbyte_serverless.connections import Connection
