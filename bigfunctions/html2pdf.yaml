@@ -47,9 +47,10 @@ code: |
   return base64.b64encode(pdf).decode()
 requirements: |
   playwright
-additional_install_commands_in_dockerfile: |
-  ENV PLAYWRIGHT_BROWSERS_PATH=/opt/
-  RUN playwright install --with-deps chromium
+dockerfile:
+  additional_commands: |
+    ENV PLAYWRIGHT_BROWSERS_PATH=/opt/
+    RUN playwright install --with-deps chromium
 cloud_run:
   memory: 1024Mi
   concurrency: 1

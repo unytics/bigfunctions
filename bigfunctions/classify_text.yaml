@@ -30,9 +30,9 @@ examples:
         {'label': 'dancing',     'score': 0.005},
         {'label': 'cooking',     'score': 0.002}
       ]
-
-additional_install_commands_in_dockerfile: |
-  RUN python -c "from transformers import pipeline; pipeline('zero-shot-classification', model='facebook/bart-large-mnli').save_pretrained('./mymodel')"
+dockerfile:
+  additional_commands: |
+    RUN python -c "from transformers import pipeline; pipeline('zero-shot-classification', model='facebook/bart-large-mnli').save_pretrained('./mymodel')"
 init_code: |
   from transformers import pipeline
   classifier = pipeline("zero-shot-classification", model="./mymodel")

@@ -1,4 +1,4 @@
-FROM python:3.11-slim
+FROM {{ dockerfile.image if dockerfile is defined and dockerfile.image is defined else 'python:3.11-slim' }}
 
 EXPOSE 8080
 
