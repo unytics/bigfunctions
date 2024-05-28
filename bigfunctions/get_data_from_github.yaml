@@ -15,13 +15,13 @@ description: |
   You can do this by executing:
 
   ```
+  # Create Destination Dataset
   create schema `your_project.your_dataset`;
 
+  # Grant Access to Destination Dataset
   grant `roles/bigquery.dataEditor`
   on schema `your_project.your_dataset`
   to 'serviceAccount:bigfunction@bigfunctions.iam.gserviceaccount.com';
-
-  select
   ```
 
   While it's running (or after) you can explore logs in table `your_project.your_dataset._airbyte_logs`
@@ -41,7 +41,7 @@ examples:
     arguments:
       - "'airbytehq/airbyte'"
       - "'your_project.your_dataset'"
-      - "'issues'"
+      - "'stargazers'"
     output: "ok"
   - description: "To get a list of available streams, let `streams` param to null"
     arguments:
