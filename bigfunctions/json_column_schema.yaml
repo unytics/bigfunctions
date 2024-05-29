@@ -19,7 +19,7 @@ output:
   name: schema
   type: json
 examples:
-  - description: "Calculate average unit price"
+  - description: ""
     with_clause: |
         select json '{"created_at": "2022-01-01", "user": {"name": "James"}}' as data
         union all
