@@ -9,9 +9,9 @@ description: |
   .
 
   - The schema of the json column is the union of schemas of the json object in each cell.
-  - Schema is like {path: type}` with
+  - Schema is a json object like {path: type}` with
     - `path` the path of the nested field
-    - `type` among (`string`, `numeric`, `bool`, `date`, `timestamp`)
+    - `type` among (`string`, `numeric`, `bool`, `date`, `timestamp`, `array`)
 arguments:
   - name: data
     type: json
@@ -21,9 +21,9 @@ output:
 examples:
   - description: "Calculate average unit price"
     with_clause: |
-        select "'{\"created_at\": \"2022-01-01\", \"user\": {\"name\": \"James\"}}'" as data
+        select json '{"created_at": "2022-01-01", "user": {"name": "James"}}' as data
         union all
-        select "'{\"user\": {\"friends\": [\"Jack\", \"Peter\"]}}'" as data
+        select json '{"user": {"friends": ["Jack", "Peter"]}}' as data
     arguments:
       - data
     output: '{"created_at": "date", "user.name": "string", "user.friends": "array"}'
