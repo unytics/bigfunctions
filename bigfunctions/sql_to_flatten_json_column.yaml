@@ -28,8 +28,8 @@ code: |
     '''
     {% for path, type in json_schema -%}
       {% if type == 'array' -%}
-        json_extract_array(`{{ column_name }}`, '$.{{ path }}') as {{ path | replace('.', '_') }},
-      {% else -%}
+        json_extract(`{{ column_name }}`, '$.{{ path }}') as {{ path | replace('.', '_') }},
+      {%- else -%}
         cast(json_value(`{{ column_name }}`, '$.{{ path }}') as {{ type }}) as {{ path | replace('.', '_') }},
       {%- endif %}
     {% endfor %}
