@@ -1,0 +1,97 @@
+type: procedure
+category: transform_json
+author:
+  name: Paul Marcombes
+  url: https://www.linkedin.com/in/paul-marcombes
+  avatar_url: "https://lh3.googleusercontent.com/a-/ACB-R5RDf2yxcw1p_IYLCKmiUIScreatDdhG8B83om6Ohw=s260"
+description: |
+  Create a Materialized view of a table with `json_column` flattened
+  into a struct of flat fields.
+
+arguments:
+  - name: fully_qualified_table
+    type: string
+  - name: fully_qualified_materialized_view
+    type: string
+  - name: json_column
+    type: string
+examples:
+  - description:
+    arguments:
+      - '"{BIGFUNCTIONS_DATASET}.natality"'
+code: |
+  declare json_schema json;
+  declare flattening_sql, partition_column string;
+  set fully_qualified_table = replace(fully_qualified_table, '`', '');
+  set fully_qualified_materialized_view = replace(fully_qualified_materialized_view, '`', '');
+
+
+  # ---------------------------------------------------
+  # Get Schema
+  # ---------------------------------------------------
+  execute immediate format(
+    '''
+    select {BIGFUNCTIONS_DATASET}.json_column_schema(`%s`)
+    from `%s`
+    ''',
+    json_column, fully_qualified_table
+  ) into json_schema;
+
+
+  # ---------------------------------------------------
+  # Get SQL to flatten json column
+  # ---------------------------------------------------
+  set flattening_sql = (
+    select {BIGFUNCTIONS_DATASET}.sql_to_flatten_json_column(
+      json_column,
+      json_schema
+    )
+  );
+
+
+  # ---------------------------------------------------
+  # Get Partition Column
+  # ---------------------------------------------------
+  execute immediate {BIGFUNCTIONS_DATASET}.render_template(
+    '''
+    {%- set table_parts = fully_qualified_table.split('.') %}
+    {%- if table_parts | length == 3 %}
+      {%- set project = table_parts[0] %}
+      {%- set dataset = table_parts[1] %}
+      {%- set table = table_parts[2] %}
+
+      select column_name
+      from `{{ project }}.{{ dataset }}.INFORMATION_SCHEMA.COLUMNS`
+      where table_name = '{{ table }}' and is_partitioning_column = 'YES'
+
+    {%- else %}
+      select error('`fully_qualified_table` argument should be fully qualified such as PROJECT.DATASET.TABLE')
+    {%- endif -%}
+    ''',
+    json_object(
+      'fully_qualified_table', fully_qualified_table
+    )
+  ) into partition_column;
+
+
+  # ---------------------------------------------------
+  # Create Materialized View
+  # ---------------------------------------------------
+  execute immediate {BIGFUNCTIONS_DATASET}.render_template(
+    '''
+    create materialized view `{{ fully_qualified_materialized_view }}`
+    {% if partition_column %}partition by date({{ partition_column }}){% endif %}
+    as
+    select
+      *,
+      {{ flattening_sql | safe }}
+    from `{{ fully_qualified_table }}`
+
+    ''',
+    json_object(
+      'fully_qualified_table', fully_qualified_table,
+      'fully_qualified_materialized_view', fully_qualified_materialized_view,
+      'flattening_sql', flattening_sql,
+      'partition_column', partition_column
+    )
+  );
