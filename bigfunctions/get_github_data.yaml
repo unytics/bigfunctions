@@ -37,7 +37,7 @@ output:
   name: result
   type: string
 examples:
-  - description: "Get issues from [airbytehq/airbyte](https://github.com/airbytehq/airbyte) repository"
+  - description: "Get stargazers from [airbytehq/airbyte](https://github.com/airbytehq/airbyte) repository"
     arguments:
       - "'airbytehq/airbyte'"
       - "'your_project.your_dataset'"
