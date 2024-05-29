@@ -1,0 +1,41 @@
+type: function_sql
+category: transform_json
+author:
+  name: Paul Marcombes
+  url: https://www.linkedin.com/in/paul-marcombes
+  avatar_url: "https://lh3.googleusercontent.com/a-/ACB-R5RDf2yxcw1p_IYLCKmiUIScreatDdhG8B83om6Ohw=s260"
+description: |
+  Generate part of SQL query to flatten a json column
+  having `json_schema` into multiple flat columns.
+
+  This function is great to use in combination with `json_column_schema` function
+  which returns the `json_schema` of a json column.
+arguments:
+  - name: json_schema
+    type: json
+  - name: column_name
+    type: string
+output:
+  name: sql
+  type: string
+examples:
+  - description: ""
+    arguments:
+      - "json '{\"created_at\": \"date\", \"user.name\": \"string\", \"user.friends\": \"array\"}'"
+    output: "true"
+code: |
+  {BIGFUNCTIONS_DATASET}.render_template(
+    '''
+    {% for path, type in json_schema -%}
+      {% if type == 'array' -%}
+        json_extract_array(`{{ column_name }}`, '$.{{ path }}') as {{ path | replace('.', '_') }},
+      {% else -%}
+        cast(json_value(`{{ column_name }}`, '$.{{ path }}') as {{ type }}) as {{ path | replace('.', '_') }},
+      {%- endif %}
+    {% endfor %}
+    ''',
+    json_object(
+      'json_schema', json_schema,
+      'column_name', column_name
+    )
+  )
