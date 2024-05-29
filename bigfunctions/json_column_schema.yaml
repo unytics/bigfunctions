@@ -1,0 +1,84 @@
+type: aggregate_function_js
+category: transform_json
+author:
+  name: Paul Marcombes
+  url: https://www.linkedin.com/in/paul-marcombes
+  avatar_url: "https://lh3.googleusercontent.com/a-/ACB-R5RDf2yxcw1p_IYLCKmiUIScreatDdhG8B83om6Ohw=s260"
+description: |
+  Returns the schema of a json column
+  .
+
+  - The schema of the json column is the union of schemas of the json object in each cell.
+  - Schema is like {path: type}` with
+    - `path` the path of the nested field
+    - `type` among (`string`, `numeric`, `bool`, `date`, `timestamp`)
+arguments:
+  - name: data
+    type: json
+output:
+  name: schema
+  type: json
+examples:
+  - description: "Calculate average unit price"
+    with_clause: |
+        select "'{\"created_at\": \"2022-01-01\", \"user\": {\"name\": \"James\"}}'" as data
+        union all
+        select "'{\"user\": {\"friends\": [\"Jack\", \"Peter\"]}}'" as data
+    arguments:
+      - data
+    output: '{"created_at": "date", "user.name": "string", "user.friends": "array"}'
+code: |
+  const getValueType = (value) => {
+      let type = {
+          string: "string",
+          number: "numeric",
+          boolean: "bool"
+      }[typeof value];
+
+      if (type === "string") {
+          if (value.match(/^\d{4}-\d{2}-\d{2}$/g)) {
+              type = 'date';
+          } else if (value.match(/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.?\d*Z?$/g)) {
+              type = 'timestamp';
+          }
+      }
+      return type;
+  };
+
+  const getSchema = (obj) => {
+    let schema = {};
+
+    for (const i in obj) {
+
+      if (Array.isArray(obj[i])) {
+          schema[i] = 'array';
+      }
+
+      else if ((typeof obj[i]) === 'object') {
+        const nested_schema = getSchema(obj[i]);
+        for (const [path, type] of Object.entries(nested_schema)) {
+          schema[i + '.' + path] = type;
+        }
+      }
+
+      else {
+        schema[i] = getValueType(obj[i]);
+      }
+    }
+    return schema;
+  };
+
+  export function initialState() {
+    return {schema: {}};
+  }
+
+  export function aggregate(state, data) {
+    const schema = getSchema(data);
+    state.schema = {...state.schema, ...schema};
+  }
+  export function merge(state, partialState) {
+    state.schema = {...state.schema, ...partialState.schema};
+  }
+  export function finalize(state) {
+    return state.schema;
+  }
