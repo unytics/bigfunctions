@@ -24,7 +24,6 @@ examples:
       - grade
       - ponderation
     output: "12"
-    region: ALL
 code: |
   (
     sum(element * weight) / sum(weight)
