@@ -14,11 +14,11 @@ description: |
   > You must create the `destination_dataset` and give `dataEditor` access to `bigfunction@bigfunctions.iam.gserviceaccount.com` before calling this function.
   > You can do this by executing:
   >
-  > ```
-  > # Create Destination Dataset
+  > ```sql
+  > -- Create Destination Dataset
   > create schema `your_project.your_dataset`;
   >
-  > # Grant Access to Destination Dataset
+  > -- Grant Access to Destination Dataset
   > grant `roles/bigquery.dataEditor`
   > on schema `your_project.your_dataset`
   > to 'serviceAccount:bigfunction@bigfunctions.iam.gserviceaccount.com';
