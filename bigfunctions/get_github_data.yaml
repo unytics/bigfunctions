@@ -5,26 +5,26 @@ author:
   url: https://www.linkedin.com/in/paul-marcombes
   avatar_url: "https://lh3.googleusercontent.com/a-/ACB-R5RDf2yxcw1p_IYLCKmiUIScreatDdhG8B83om6Ohw=s260"
 description: |
-  Get data from `public_repo` into `destination_dataset`.
-  (using [GitHub Airbyte Connector](https://docs.airbyte.com/integrations/sources/github) with [Airbyte-Serverless](https://github.com/unytics/airbyte_serverless))
+  Get data from `public_repo` into `destination_dataset`
+  *(using [GitHub Airbyte Connector](https://docs.airbyte.com/integrations/sources/github) with [Airbyte-Serverless](https://github.com/unytics/airbyte_serverless))*
 
-  Data is appended in raw format in tables (one table per stream) into `destination_dataset`.
-  When supported by the stream, data is extracted incrementally (next execution will only retrieve new rows).
-
-  You must create the `destination_dataset` and give `dataEditor` access to `bigfunction@bigfunctions.iam.gserviceaccount.com` before calling this function.
-  You can do this by executing:
-
-  ```
-  # Create Destination Dataset
-  create schema `your_project.your_dataset`;
-
-  # Grant Access to Destination Dataset
-  grant `roles/bigquery.dataEditor`
-  on schema `your_project.your_dataset`
-  to 'serviceAccount:bigfunction@bigfunctions.iam.gserviceaccount.com';
-  ```
-
-  While it's running (or after) you can explore logs in table `your_project.your_dataset._airbyte_logs`
+  > Data is appended in raw format in tables (one table per stream) into `destination_dataset`.
+  > When supported by the stream, data is extracted incrementally (next execution will only retrieve new rows).
+  >
+  > You must create the `destination_dataset` and give `dataEditor` access to `bigfunction@bigfunctions.iam.gserviceaccount.com` before calling this function.
+  > You can do this by executing:
+  >
+  > ```
+  > # Create Destination Dataset
+  > create schema `your_project.your_dataset`;
+  >
+  > # Grant Access to Destination Dataset
+  > grant `roles/bigquery.dataEditor`
+  > on schema `your_project.your_dataset`
+  > to 'serviceAccount:bigfunction@bigfunctions.iam.gserviceaccount.com';
+  > ```
+  >
+  > While it's running (or after) you can explore logs in table `your_project.your_dataset._airbyte_logs`
 
 arguments:
   - name: public_repo
@@ -42,6 +42,12 @@ examples:
       - "'airbytehq/airbyte'"
       - "'your_project.your_dataset'"
       - "'stargazers'"
+    output: "ok"
+  - description: "Get stargazers AND releases from [airbytehq/airbyte](https://github.com/airbytehq/airbyte) repository"
+    arguments:
+      - "'airbytehq/airbyte'"
+      - "'your_project.your_dataset'"
+      - "'stargazers, releases'"
     output: "ok"
   - description: "To get a list of available streams, let `streams` param to null"
     arguments:
