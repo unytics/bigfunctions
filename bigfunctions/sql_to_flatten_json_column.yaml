@@ -11,26 +11,30 @@ description: |
   This function is great to use in combination with `json_column_schema` function
   which returns the `json_schema` of a json column.
 arguments:
-  - name: json_schema
-    type: json
   - name: column_name
     type: string
+  - name: json_schema
+    type: json
 output:
   name: sql
   type: string
 examples:
   - description: ""
     arguments:
+      - "'data'"
       - "json '{\"created_at\": \"date\", \"user.name\": \"string\", \"user.friends\": \"array\"}'"
-    output: "true"
+    output: |
+      cast(json_value(`data`, '$.created_at') as date) as created_at,
+      cast(json_value(`data`, '$.user.name') as string) as user_name,
+      json_extract(`data`, '$.user.friends') as user_friends,
 code: |
   {BIGFUNCTIONS_DATASET}.render_template(
     '''
     {% for path, type in json_schema -%}
       {% if type == 'array' -%}
-        json_extract(`{{ column_name }}`, '$.{{ path }}') as {{ path | replace('.', '_') }},
+        json_extract(`{{ column_name }}`, '$.{{ path }}') as {{ path | replace('.', '__') }},
       {%- else -%}
-        cast(json_value(`{{ column_name }}`, '$.{{ path }}') as {{ type }}) as {{ path | replace('.', '_') }},
+        cast(json_value(`{{ column_name }}`, '$.{{ path }}') as {{ type }}) as {{ path | replace('.', '__') }},
       {%- endif %}
     {% endfor %}
     ''',
