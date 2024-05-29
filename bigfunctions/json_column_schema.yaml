@@ -8,8 +8,8 @@ description: |
   Returns the schema of a json column
   .
 
-  - The schema of the json column is the union of schemas of the json object in each cell.
-  - Schema is a json object like {path: type}` with
+  - The schema of the json column is the union of schemas of the json objects of each cell.
+  - `schema` is a json object like `{path: type}` with
     - `path` the path of the nested field
     - `type` among (`string`, `numeric`, `bool`, `date`, `timestamp`, `array`)
 arguments:
