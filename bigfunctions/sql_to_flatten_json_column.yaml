@@ -31,6 +31,15 @@ examples:
           json_extract(`data`, '$.user.friends') as user__friends,
           cast(json_value(`data`, '$.user.name') as string) as user__name,
         from `sample_data`
+  - description: "Get SQL to flatten column `data` of your table `project.dataset.table`"
+    arguments:
+      - data
+      - "'project.dataset.table.data'"
+    output: |
+      select
+          *,
+          ...
+        from `project.dataset.table`
 code: |
   const getValueType = (value) => {
       let type = {
