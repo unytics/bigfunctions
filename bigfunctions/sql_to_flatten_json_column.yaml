@@ -1,45 +1,108 @@
-type: function_sql
+type: aggregate_function_js
 category: transform_json
 author:
   name: Paul Marcombes
   url: https://www.linkedin.com/in/paul-marcombes
   avatar_url: "https://lh3.googleusercontent.com/a-/ACB-R5RDf2yxcw1p_IYLCKmiUIScreatDdhG8B83om6Ohw=s260"
 description: |
-  Generate part of SQL query to flatten a json column
-  having `json_schema` into multiple flat columns.
-
-  This function is great to use in combination with `json_column_schema` function
-  which returns the `json_schema` of a json column.
+  Generate the SQL to flatten a json `column`
+  into multiple flat columns.
 arguments:
-  - name: column_name
-    type: string
-  - name: json_schema
+  - name: data
     type: json
+  - name: fully_qualified_column
+    type: string not aggregate
 output:
   name: sql
   type: string
 examples:
   - description: ""
+    temp_table: |
+      select json '{"created_at": "2022-01-01", "user": {"name": "James"}}' as data
+      union all
+      select json '{"user": {"friends": ["Jack", "Peter"]}}' as data
     arguments:
-      - "'data'"
-      - "json '{\"created_at\": \"date\", \"user.name\": \"string\", \"user.friends\": \"array\"}'"
+      - data
+      - "'sample_data.data'"
     output: |
-      cast(json_value(`data`, '$.created_at') as date) as created_at,
-      cast(json_value(`data`, '$.user.name') as string) as user_name,
-      json_extract(`data`, '$.user.friends') as user_friends,
+      select
+          *,
+          cast(json_value(`data`, '$.created_at') as date) as created_at,
+          json_extract(`data`, '$.user.friends') as user__friends,
+          cast(json_value(`data`, '$.user.name') as string) as user__name,
+        from `sample_data`
 code: |
-  {BIGFUNCTIONS_DATASET}.render_template(
-    '''
-    {% for path, type in json_schema -%}
-      {% if type == 'array' -%}
-        json_extract(`{{ column_name }}`, '$.{{ path }}') as {{ path | replace('.', '__') }},
-      {%- else -%}
-        cast(json_value(`{{ column_name }}`, '$.{{ path }}') as {{ type }}) as {{ path | replace('.', '__') }},
-      {%- endif %}
-    {% endfor %}
-    ''',
-    json_object(
-      'json_schema', json_schema,
-      'column_name', column_name
-    )
-  )
+  const getValueType = (value) => {
+      let type = {
+          string: "string",
+          number: "numeric",
+          boolean: "bool"
+      }[typeof value];
+
+      if (type === "string") {
+          if (value.match(/^\d{4}-\d{2}-\d{2}$/g)) {
+              type = 'date';
+          } else if (value.match(/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.?\d*Z?$/g)) {
+              type = 'timestamp';
+          }
+      }
+      return type;
+  };
+
+  const getSchema = (obj) => {
+    let schema = {};
+
+    for (const i in obj) {
+
+      if (Array.isArray(obj[i])) {
+          schema[i] = 'array';
+      }
+
+      else if ((typeof obj[i]) === 'object') {
+        const nested_schema = getSchema(obj[i]);
+        for (const [path, type] of Object.entries(nested_schema)) {
+          schema[i + '.' + path] = type;
+        }
+      }
+
+      else {
+        schema[i] = getValueType(obj[i]);
+      }
+    }
+    return schema;
+  };
+
+  export function initialState() {
+    return {schema: {}};
+  }
+
+  export function aggregate(state, data) {
+    const schema = getSchema(data);
+    state.schema = {...state.schema, ...schema};
+  }
+
+  export function merge(state, partialState) {
+    state.schema = {...state.schema, ...partialState.schema};
+  }
+
+  export function finalize(state, fully_qualified_column) {
+    const queries = [];
+    const table = fully_qualified_column.split('.').slice(0, -1).join('.');
+    const column = fully_qualified_column.split('.').slice(-1);
+    for (const path of Object.keys(state.schema).sort()) {
+      const type = state.schema[path];
+      const new_col = path.replaceAll('.', '__');
+      if(type === 'array') {
+        queries.push(`json_extract(\`${column}\`, '$.${path}') as ${new_col},`);
+      }
+      else {
+        queries.push(`cast(json_value(\`${column}\`, '$.${path}') as ${type}) as ${new_col},`);
+      }
+    }
+    return `
+      select
+        *,
+        ${queries.join('\n      ')}
+      from \`${table}\`
+    `;
+  }
