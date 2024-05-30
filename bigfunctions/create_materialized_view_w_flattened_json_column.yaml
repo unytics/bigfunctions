@@ -6,7 +6,12 @@ author:
   avatar_url: "https://lh3.googleusercontent.com/a-/ACB-R5RDf2yxcw1p_IYLCKmiUIScreatDdhG8B83om6Ohw=s260"
 description: |
   Create a Materialized view of a table with `json_column` flattened
-  into a struct of flat fields.
+  .
+
+  It creates a materialized view with:
+
+  - query given by [sql_to_flatten_json_column function](../sql_to_flatten_json_column.md)
+  - same partition as `fully_qualified_table`
 
 arguments:
   - name: fully_qualified_table
@@ -20,33 +25,21 @@ examples:
     arguments:
       - '"{BIGFUNCTIONS_DATASET}.natality"'
 code: |
-  declare json_schema json;
   declare flattening_sql, partition_column string;
   set fully_qualified_table = replace(fully_qualified_table, '`', '');
   set fully_qualified_materialized_view = replace(fully_qualified_materialized_view, '`', '');
 
 
   # ---------------------------------------------------
-  # Get Schema
+  # Get SQL to flatten json column
   # ---------------------------------------------------
   execute immediate format(
     '''
-    select {BIGFUNCTIONS_DATASET}.json_column_schema(`%s`)
+    select {BIGFUNCTIONS_DATASET}.sql_to_flatten_json_column(`%s`, '%s.%s')
     from `%s`
     ''',
-    json_column, fully_qualified_table
-  ) into json_schema;
-
-
-  # ---------------------------------------------------
-  # Get SQL to flatten json column
-  # ---------------------------------------------------
-  set flattening_sql = (
-    select {BIGFUNCTIONS_DATASET}.sql_to_flatten_json_column(
-      json_column,
-      json_schema
-    )
-  );
+    json_column, fully_qualified_table, json_column, fully_qualified_table
+  ) into flattening_sql;
 
 
   # ---------------------------------------------------
@@ -82,14 +75,10 @@ code: |
     create materialized view `{{ fully_qualified_materialized_view }}`
     {% if partition_column %}partition by date({{ partition_column }}){% endif %}
     as
-    select
-      *,
-      {{ flattening_sql | safe }}
-    from `{{ fully_qualified_table }}`
+    {{ flattening_sql | safe }}
 
     ''',
     json_object(
-      'fully_qualified_table', fully_qualified_table,
       'fully_qualified_materialized_view', fully_qualified_materialized_view,
       'flattening_sql', flattening_sql,
       'partition_column', partition_column
