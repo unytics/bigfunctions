@@ -1,0 +1,143 @@
+type: function_sql
+category: transform_array
+author:
+  name: Thomas F McGeehan V
+  url: https://www.linkedin.com/in/tfmv5
+  avatar_url: "https://avatars.githubusercontent.com/u/3191913?s=60&v=4"
+description: |
+  Detect anomalies based on frequency of values in a dataset.
+
+  This function computes the frequency of each value in the `values` array and flags values as anomalies if their frequency is below a defined threshold. The threshold is specified as a proportion of the total count of values.
+
+  The lower the `frequency_threshold`, the more likely values with low frequencies are to be flagged as anomalies.
+
+  Frequency-Based Anomaly Detection (FBAD) is useful for identifying rare or unusual occurrences in a dataset.
+
+  ## How the function works
+
+  1. **Value Counting:** The function counts the frequency of each unique value in the `values` array.
+  2. **Total Count:** It computes the total number of values in the array.
+  3. **Threshold Calculation:** The function calculates the frequency threshold by multiplying the total count of values by the `frequency_threshold`.
+  4. **Anomaly Detection:** It flags values as anomalies if their frequency is below the calculated threshold.
+  5. **Result Aggregation:** The function returns an array of values that are considered anomalies.
+
+  ## Real-World Use Cases
+
+  1. **Fraud Detection in Financial Transactions:** Identify unusual transaction patterns that may indicate fraudulent activity.
+     ```sql
+     WITH transactions AS (
+       SELECT transaction_amount
+       FROM bank_transactions
+     )
+     SELECT my_dataset.fdab_anomalies(ARRAY_AGG(transaction_amount), 0.01) AS anomalies
+     FROM transactions;
+     ```
+
+  2. **Network Security and Intrusion Detection:** Detect rare IP addresses or unusual network activity patterns indicating potential security breaches.
+     ```sql
+     WITH network_logs AS (
+       SELECT ip_address
+       FROM network_activity
+     )
+     SELECT my_dataset.fdab_anomalies(ARRAY_AGG(ip_address), 0.001) AS anomalies
+     FROM network_logs;
+     ```
+
+  3. **Quality Control in Manufacturing:** Identify rare defects or irregularities in production data.
+     ```sql
+     WITH defects AS (
+       SELECT defect_code
+       FROM production_logs
+     )
+     SELECT my_dataset.fdab_anomalies(ARRAY_AGG(defect_code), 0.02) AS anomalies
+     FROM defects;
+     ```
+
+  4. **Customer Behavior Analysis in Retail:** Detect unusual purchasing behaviors or rare product combinations.
+     ```sql
+     WITH purchases AS (
+       SELECT product_id
+       FROM sales_transactions
+     )
+     SELECT my_dataset.fdab_anomalies(ARRAY_AGG(product_id), 0.05) AS anomalies
+     FROM purchases;
+     ```
+
+  5. **Healthcare Data Monitoring:** Identify rare symptoms or unusual test results in patient data.
+     ```sql
+     WITH patient_symptoms AS (
+       SELECT symptom_code
+       FROM medical_records
+     )
+     SELECT my_dataset.fdab_anomalies(ARRAY_AGG(symptom_code), 0.03) AS anomalies
+     FROM patient_symptoms;
+     ```
+
+  6. **Telecommunications:** Detect anomalies in call patterns such as rare call durations or frequencies.
+     ```sql
+     WITH call_logs AS (
+       SELECT call_duration
+       FROM phone_calls
+     )
+     SELECT my_dataset.fdab_anomalies(ARRAY_AGG(call_duration), 0.01) AS anomalies
+     FROM call_logs;
+     ```
+
+  7. **Supply Chain Management:** Identify rare delays or unusual shipment patterns indicating inefficiencies or disruptions.
+     ```sql
+     WITH shipments AS (
+       SELECT delay_time
+       FROM shipping_records
+     )
+     SELECT my_dataset.fdab_anomalies(ARRAY_AGG(delay_time), 0.05) AS anomalies
+     FROM shipments;
+     ```
+
+  8. **Social Media and Online Platforms:** Detect unusual user activities such as rare posting patterns or spikes in activity.
+     ```sql
+     WITH user_activities AS (
+       SELECT activity_type
+       FROM social_media_activities
+     )
+     SELECT my_dataset.fdab_anomalies(ARRAY_AGG(activity_type), 0.02) AS anomalies
+     FROM user_activities;
+     ```
+
+arguments:
+  - name: values
+    type: array<string>
+  - name: frequency_threshold
+    type: float64
+output:
+  name: anomalies
+  type: array<string>
+examples:
+  - description: "Detect anomalies in a list of strings with a threshold of 0.2"
+    arguments:
+      - "[\"apple\", \"apple\", \"banana\", \"banana\", \"banana\", \"cherry\"]"
+      - "0.2"
+    output: "[\"cherry\"]"
+code: |
+  (
+    with
+    value_counts as (
+      select
+        value,
+        count(*) as frequency
+      from unnest(values) as value
+      group by value
+    ),
+    total_count as (
+      select count(*) as total from unnest(values)
+    ),
+    threshold as (
+      select (total * frequency_threshold) as threshold
+      from total_count
+    ),
+    anomalies as (
+      select vc.value
+      from value_counts vc, threshold t
+      where vc.frequency < t.threshold
+    )
+    select array_agg(value) from anomalies
+  )
