@@ -20,9 +20,9 @@ output:
   type: any type
 examples:
   - description: |
-      Detect rare strings in a list of strings with a `frequency_threshold` of 0.2
-      `cherry` appears once for a list of 6 elements so its frequency in the array
-      is of 1 / 6 ~= 0.167 < 0.2.
+      Detect rare strings in an array of strings with a `frequency_threshold` of 0.2
+      `cherry` appears once for an array of 6 elements so its frequency
+      is 1 / 6 ~= 0.167 < 0.2.
       It is a rare string compared to the `frequency_threshold`.
     arguments:
       - '["apple", "apple", "banana", "banana", "banana", "cherry"]'
