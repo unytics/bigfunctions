@@ -1,0 +1,50 @@
+type: function_sql
+category: transform_array
+author:
+  name: Thomas F McGeehan V
+  url: https://www.linkedin.com/in/tfmv5
+  avatar_url: "https://avatars.githubusercontent.com/u/3191913?s=60&v=4"
+description: |
+  Returns `rare_values` among array of `values`
+
+  This function computes the frequency of each value in `values` array and returns the values which frequency is stricly below the given `frequency_threshold`.
+
+  By returning rare values, this function can be used for anomaly detection in a variety of use cases.
+arguments:
+  - name: values
+    type: any type
+  - name: frequency_threshold
+    type: float64
+output:
+  name: anomalies
+  type: array<string>
+examples:
+  - description: |
+      Detect rare strings in a list of strings with a `frequency_threshold` of 0.2
+      `cherry` appears once for a list of 6 elements so its frequency in the array
+      is of 1 / 6 ~= 0.167 < 0.2.
+      It is a rare string compared to the `frequency_threshold`.
+    arguments:
+      - '["apple", "apple", "banana", "banana", "banana", "cherry"]'
+      - "0.2"
+    output: "[\"cherry\"]"
+code: |
+  (
+    with
+
+    value_counts as (
+      select
+        value,
+        count(*) as nb,
+      from unnest(values) as value
+      group by value
+    ),
+
+    rare_values as (
+      select value
+      from value_counts
+      where nb < frequency_threshold * array_length(values)
+    )
+
+    select array_agg(value) from rare_values
+  )
