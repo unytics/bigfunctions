@@ -16,8 +16,8 @@ arguments:
   - name: frequency_threshold
     type: float64
 output:
-  name: anomalies
-  type: array<string>
+  name: rare_values
+  type: any type
 examples:
   - description: |
       Detect rare strings in a list of strings with a `frequency_threshold` of 0.2
