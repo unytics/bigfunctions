@@ -34,6 +34,7 @@ examples:
 
 code: |
   import datetime
+  import json
   from faker import Faker
   try:
       fake = Faker(locale)
@@ -44,6 +45,8 @@ code: |
   except:
       return 'INVALID_WHAT'
   result = func()
+  if isinstance(result, (dict, list, tuple)):
+      return json.dumps(result)
   if isinstance(result, datetime.date):
       return result.strftime('%Y-%m-%d')
   return result
