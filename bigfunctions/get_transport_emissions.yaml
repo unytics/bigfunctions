@@ -1,0 +1,36 @@
+type: function_py
+category: get_data
+author:
+  name: Pierre Comalada
+  url: https://www.linkedin.com/in/pierre-comalada
+  avatar_url: ""
+description: |
+  Get the transport emissions given the distance.
+arguments:
+  - name: distance_km
+    type: int64
+output:
+  name: result
+  type: string
+examples:
+    - description: "Get transport emissions"
+      arguments:
+      - "10"
+      output: '[{ "id": 4, "name": "Voiture (Moteur thermique)", "value": 1.92 }, ...]'
+code: |
+  import json
+  import requests
+  params = {"km": distance_km, "key": transport_emission_api_key}
+  url = "https://impactco2.fr/api/v1/transport"
+  response = requests.get(url, params=params)
+  result = response.json()
+  return json.dumps(result['data'], ensure_ascii=False)
+requirements: |
+  requests
+secrets:
+  - name: transport_emission_api_key
+    description: Transport Emission Api Key
+    documentation_link: https://impactco2.fr/api-doc
+quotas:
+  max_rows_per_user_per_day: 100
+  max_rows_per_query: 10
