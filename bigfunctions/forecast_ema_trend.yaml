@@ -1,0 +1,72 @@
+type: function_py
+category: machine_learning
+author:
+  name: Thomas F McGeehan V
+  url: https://www.linkedin.com/in/tfmv5
+  avatar_url: "https://avatars.githubusercontent.com/u/3191913?s=60&v=4"
+description: |
+  Calculate the exponential moving average (EMA) of a time series and forecast the next value.
+arguments:
+  - name: records
+    type: json
+  - name: value_col
+    type: string
+  - name: span
+    type: int
+output:
+  name: forecasted_next_value
+  type: string
+examples:
+  - description: ""
+    arguments:
+      - '[{"date": "2023-01-01", "value": 100}, {"date": "2023-01-02", "value": 102}, {"date": "2023-01-03", "value": 105}, {"date": "2023-01-04", "value": 107}, {"date": "2023-01-05", "value": 110}]'
+      - "value"
+      - 3
+    output: |
+      Last known date: 2023-01-05, Last known EMA: 107.33, Forecasted date: 2023-01-06, Forecasted next value: 108.66
+code: |
+  import pandas as pd
+  import json
+  from sklearn.linear_model import LinearRegression
+  import numpy as np
+
+  # Convert input records to DataFrame
+  df = pd.DataFrame(records)
+  df['date'] = pd.to_datetime(df['date'])
+  df.set_index('date', inplace=True)
+
+  # Calculate the exponential moving average (EMA)
+  df['ema'] = df[value_col].ewm(span=span, adjust=False).mean()
+
+  # Drop rows with NaN values (due to EMA calculation)
+  df = df.dropna()
+
+  # Get the last known EMA value and date
+  last_known_ema = df['ema'].iloc[-1]
+  last_known_date = df.index[-1]
+
+  # Prepare data for linear regression
+  df['date_ordinal'] = df.index.map(pd.Timestamp.toordinal)
+  X = df['date_ordinal'].values.reshape(-1, 1)
+  y = df['ema'].values
+
+  # Fit a linear regression model
+  model = LinearRegression()
+  model.fit(X, y)
+
+  # Forecast the next value using the linear regression model
+  next_date_ordinal = last_known_date.toordinal() + 1
+  forecasted_next_value = model.predict(np.array([[next_date_ordinal]]))[0]
+  forecasted_next_date = pd.Timestamp.fromordinal(next_date_ordinal)
+
+  # Format the output
+  output = f"Last known date: {last_known_date.strftime('%Y-%m-%d')}, Last known EMA: {last_known_ema:.2f}, Forecasted date: {forecasted_next_date.strftime('%Y-%m-%d')}, Forecasted next value: {forecasted_next_value:.2f}"
+
+  return output
+requirements: |
+  pandas
+  scikit-learn
+cloud_run:
+  max_instances: 2
+  concurrency: 1
+
