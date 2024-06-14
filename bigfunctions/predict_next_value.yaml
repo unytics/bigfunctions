@@ -1,0 +1,148 @@
+type: function_py
+category: machine_learning
+author:
+  name: Thomas F McGeehan V
+  url: https://www.linkedin.com/in/tfmv5
+  avatar_url: "https://avatars.githubusercontent.com/u/3191913?s=60&v=4"
+description: |
+  The `train_model` function uses a CNN-LSTM model combined with FFT features to predict future values in a time series.
+  It processes the input time series, calculates EMA and FFT features, and scales the data.
+  The function creates a dataset with the specified time step and trains a CNN-LSTM model.
+  It then predicts the next values based on the trained model and returns the predicted values.
+arguments:
+  - name: records
+    type: json
+  - name: value_col
+    type: string
+  - name: time_step
+    type: int
+  - name: epochs
+    type: int
+  - name: batch_size
+    type: int
+  - name: periods
+    type: int
+output:
+  name: forecasted_records
+  type: json
+examples:
+  - description: ""
+    arguments:
+      - "json'[[\"2020-01-01\", 1], [\"2020-01-02\", 2]]'"
+      - "value"
+      - 10
+      - 10
+      - 32
+      - 3
+    output: '[["2020-01-03", 3], ["2020-01-04", 4], ["2020-01-05", 5]]'
+code: |
+  import numpy as np
+  import pandas as pd
+  from sklearn.preprocessing import MinMaxScaler
+  from keras.models import Sequential
+  from keras.layers import Dense, Dropout, LSTM, Conv1D, MaxPooling1D, Input
+  from keras.optimizers import Adam
+  from scipy.fft import fft
+  import logging
+
+  # Configure logging
+  logging.basicConfig(level=logging.INFO)
+
+  def calculate_ema(prices, span):
+      return prices.ewm(span=span, adjust=False).mean()
+
+  def apply_fft(prices):
+      fft_vals = fft(prices)
+      return np.vstack((np.real(fft_vals), np.imag(fft_vals))).T
+
+  def create_dataset(data, time_step=1):
+      X, Y = [], []
+      for i in range(len(data) - time_step - 1):
+          X.append(data[i:(i + time_step), :])
+          Y.append(data[i + time_step, 0])
+      return np.array(X), np.array(Y)
+
+  def train_model(records, value_col, time_step, epochs=10, batch_size=32, periods=3):
+      logging.info("Starting data processing")
+
+      # Convert JSON records to pandas DataFrame
+      records_df = pd.DataFrame(records)
+
+      records_df['date'] = pd.to_datetime(records_df['date'])
+      records_df.set_index('date', inplace=True)
+
+      logging.info("Calculating EMA")
+      records_df['EMA'] = calculate_ema(records_df[value_col], span=10)
+      records_df.dropna(inplace=True)
+
+      logging.info("Preprocessing data")
+      prices = records_df[value_col].values.reshape(-1, 1)
+      ema_prices = records_df['EMA'].values.reshape(-1, 1)
+
+      fft_features = apply_fft(prices.flatten())
+
+      scaler_prices = MinMaxScaler(feature_range=(0, 1))
+      scaler_ema_prices = MinMaxScaler(feature_range=(0, 1))
+      scaler_fft_features = MinMaxScaler(feature_range=(0, 1))
+
+      scaled_prices = scaler_prices.fit_transform(prices)
+      scaled_ema_prices = scaler_ema_prices.fit_transform(ema_prices)
+      scaled_fft_features = scaler_fft_features.fit_transform(fft_features)
+
+      scaled_features = np.hstack((scaled_prices, scaled_ema_prices, scaled_fft_features))
+
+      X, y = create_dataset(scaled_features, time_step)
+
+      train_size = int(len(X) * 0.8)
+      X_train, X_test = X[:train_size], X[train_size:]
+      y_train, y_test = y[:train_size], y[train_size:]
+
+      X_train = X_train.reshape(X_train.shape[0], X_train.shape[1], X_train.shape[2])
+      X_test = X_test.reshape(X_test.shape[0], X_test.shape[1], X_test.shape[2])
+
+      model = Sequential()
+      model.add(Input(shape=(time_step, X_train.shape[2])))
+      model.add(Conv1D(filters=64, kernel_size=3, activation='relu'))
+      model.add(MaxPooling1D(pool_size=2))
+      model.add(LSTM(units=50, return_sequences=True))
+      model.add(Dropout(0.2))
+      model.add(LSTM(units=50))
+      model.add(Dropout(0.2))
+      model.add(Dense(units=1))
+
+      model.compile(loss='mean_squared_error', optimizer=Adam(learning_rate=0.001))
+
+      logging.info("Training model")
+      model.fit(X_train, y_train, epochs=epochs, batch_size=batch_size, validation_data=(X_test, y_test), verbose=0)
+
+      logging.info("Making predictions")
+      input_series = scaled_features[-time_step:]
+      input_series = input_series.reshape(1, time_step, input_series.shape[1])
+
+      predictions = []
+      for _ in range(periods):
+          next_value = model.predict(input_series)
+          predictions.append(next_value[0, 0])
+          new_row = np.zeros((1, 1, input_series.shape[2]))
+          new_row[0, 0, 0] = next_value
+          input_series = np.append(input_series[:, 1:, :], new_row, axis=1)
+
+      predicted_values = scaler_prices.inverse_transform(np.array(predictions).reshape(-1, 1)).flatten().tolist()
+
+      forecasted_dates = pd.date_range(start=records_df.index[-1], periods=periods + 1).strftime('%Y-%m-%d').tolist()
+      forecasted_records = list(zip(forecasted_dates[1:], predicted_values))
+
+      return forecasted_records
+
+requirements: |
+  numpy
+  pandas
+  scikit-learn
+  keras
+  scipy
+cloud_run:
+  max_instances: 2
+  concurrency: 1
+  memory: 2Gi
+  cpu: 1
+  timeout: 3600
