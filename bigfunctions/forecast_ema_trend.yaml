@@ -5,7 +5,7 @@ author:
   url: https://www.linkedin.com/in/tfmv5
   avatar_url: "https://avatars.githubusercontent.com/u/3191913?s=60&v=4"
 description: |
-  Calculate the exponential moving average (EMA) of a time series and forecast the next value.
+  This function calculates the exponential moving average (EMA) of a time series and forecasts the next value. The EMA is a type of weighted moving average that gives more importance to recent data points. The `span` parameter represents the period over which the EMA is calculated. A higher span results in a smoother EMA that responds more slowly to changes in the data, while a lower span results in an EMA that responds more quickly to recent changes.
 arguments:
   - name: records
     type: json
