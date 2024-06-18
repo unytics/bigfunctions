@@ -1,13 +1,13 @@
+import multiprocessing
 import os
 import shutil
-import multiprocessing
 
+import click
 import jinja2
 import yaml
-import click
 from click_help_colors import HelpColorsGroup
-from watchdog.observers import Observer
 from watchdog.events import RegexMatchingEventHandler
+from watchdog.observers import Observer
 
 from . import bigfunctions as bf
 from . import utils
@@ -19,7 +19,8 @@ CATEGORIES_DOC_TEMPLATE_FILENAME = f'{THIS_FOLDER}/templates/categories.md'
 
 def load_config(config_filename):
     if os.path.exists(config_filename):
-        return yaml.safe_load(open(config_filename, encoding='utf-8').read()) or {}
+        with open(config_filename, encoding='utf-8') as file:
+            return yaml.safe_load(file) or {}
     return {}
 
 def get_config_value(name, config, config_filename):
@@ -106,14 +107,11 @@ def cli(ctx):
 
 @cli.command()
 @click.argument('bigfunction')
-@click.option('--config', default='config.yaml', help='Path to the config file')
 @click.pass_context
-def get(ctx, bigfunction, config):
+def get(ctx, bigfunction):
     """
     Download BIGFUNCTION yaml file from unytics/bigfunctions github repo
     """
-    ctx.obj['CONFIG_FILENAME'] = config
-    ctx.obj['CONFIG'] = load_config(config)
     if not os.path.isdir('bigfunctions'):
         os.makedirs('bigfunctions')
     url = f'https://raw.githubusercontent.com/unytics/bigfunctions/main/bigfunctions/{bigfunction}.yaml'
@@ -128,10 +126,7 @@ def test(ctx, bigfunction, config):
     """
     Test BIGFUNCTION
     """
-    ctx.obj['CONFIG_FILENAME'] = config
-    ctx.obj['CONFIG'] = load_config(config)
-    config = ctx.obj['CONFIG']
-    config_filename = ctx.obj['CONFIG_FILENAME']
+    config_filename = config
     project = get_config_value('project_for_tests', config, config_filename)
     dataset = get_config_value('dataset_for_tests', config, config_filename)
     bigfunction = bf.BigFunction(bigfunction, project=project, dataset=dataset)
@@ -150,12 +145,9 @@ def deploy(ctx, bigfunction, project, dataset, config):
 
     Deploy the function defined in `bigfunctions/{BIGFUNCTION}.yaml` file. If BIGFUNCTION = 'ALL' then all bigfunctions contained in bigfunctions folder are deployed.
     """
-    ctx.obj['CONFIG_FILENAME'] = config
-    ctx.obj['CONFIG'] = load_config(config)
-    config = ctx.obj['CONFIG']
-    config_filename = ctx.obj['CONFIG_FILENAME']
-    project = project or get_config_value('project', config, config_filename)
-    dataset = dataset or get_config_value('dataset', config, config_filename)
+    config_data = load_config(config)
+    project = project or get_config_value('project', config_data, config)
+    dataset = dataset or get_config_value('dataset', config_data, config)
     datasets = [dataset.strip() for dataset in dataset.split(',')]
     bigfunctions = [bigfunction.strip() for bigfunction in bigfunction.split(',')]
     if bigfunction == 'ALL':
@@ -186,13 +178,10 @@ def load_table(ctx, table, project, dataset, config):
     Create or replace bigquery table TABLE with data contained in `data/{TABLE}.csv`.
     If TABLE=ALL, then all tables defined in `data` folder are created.
     """
-    ctx.obj['CONFIG_FILENAME'] = config
-    ctx.obj['CONFIG'] = load_config(config)
+    config_data = load_config(config)
     from .load_table import load_table as upload_table
-    config = ctx.obj['CONFIG']
-    config_filename = ctx.obj['CONFIG_FILENAME']
-    project = project or get_config_value('project', config, config_filename)
-    dataset = dataset or get_config_value('dataset', config, config_filename)
+    project = project or get_config_value('project', config_data, config)
+    dataset = dataset or get_config_value('dataset', config_data, config)
     datasets = [dataset.strip() for dataset in dataset.split(',')]
     if table == 'ALL':
         tables = [f.replace('.yaml', '') for f in os.listdir(TABLES_FOLDER) if f.endswith('.yaml')]
@@ -223,12 +212,9 @@ def generate(ctx, project, dataset, config):
     """
     Generate markdown files for documentation from yaml bigfunctions files
     """
-    ctx.obj['CONFIG_FILENAME'] = config
-    ctx.obj['CONFIG'] = load_config(config)
-    config = ctx.obj['CONFIG']
-    config_filename = ctx.obj['CONFIG_FILENAME']
-    project = project or get_config_value('project', config, config_filename)
-    dataset = dataset or get_config_value('dataset', config, config_filename)
+    config_data = load_config(config)
+    project = project or get_config_value('project', config_data, config)
+    dataset = dataset or get_config_value('dataset', config_data, config)
     generate_doc(project, dataset)
     os.system('mkdocs build')
 
@@ -242,12 +228,9 @@ def serve(ctx, project, dataset, config):
     """
     Serve docs locally on http://localhost:8000
     """
-    ctx.obj['CONFIG_FILENAME'] = config
-    ctx.obj['CONFIG'] = load_config(config)
-    config = ctx.obj['CONFIG']
-    config_filename = ctx.obj['CONFIG_FILENAME']
-    project = project or get_config_value('project', config, config_filename)
-    dataset = dataset or get_config_value('dataset', config, config_filename)
+    config_data = load_config(config)
+    project = project or get_config_value('project', config_data, config)
+    dataset = dataset or get_config_value('dataset', config_data, config)
     generate_doc(project, dataset)
 
     class EventHandler(RegexMatchingEventHandler):
@@ -257,6 +240,9 @@ def serve(ctx, project, dataset, config):
     # event_handler = EventHandler(regexes=[r'.*\.yaml'])
     # observer = Observer()
     # observer.schedule(event_handler, BIGFUNCTIONS_FOLDER, recursive=True)
+    # observer.start()
+    # bf.generate_doc(project, dataset)
+    os.system('mkdocs serve')
     # observer.start()
     # bf.generate_doc(project, dataset)
     os.system('mkdocs serve')

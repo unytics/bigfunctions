@@ -45,4 +45,3 @@ BigFunctions are open-source BigQuery routines that give you **SQL-superpowers**
 {% endfor %}
 
 {% endfor %}
-

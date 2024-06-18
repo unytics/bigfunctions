@@ -121,7 +121,7 @@ Commands:
 
 ### 5.3 Create you first function 👷
 
-Functions are defined as yaml files under `bigfunctions` folder. To create your first function locally, the easiest is to download an existing yaml file of unytics/bigfunctions Github repo. 
+Functions are defined as yaml files under `bigfunctions` folder. To create your first function locally, the easiest is to download an existing yaml file of unytics/bigfunctions Github repo.
 
 For instance to download `is_email_valid.yaml` into bigfunctions folder, do:
 
@@ -229,4 +229,3 @@ BigFunctions is fully open-source. Any contribution is more than welcome 🤗!
 <a href="https://github.com/unytics/bigfunctions/graphs/contributors">
   <img src="https://contrib.rocks/image?repo=unytics/bigfunctions" />
 </a>
-

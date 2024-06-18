@@ -4,4 +4,3 @@ indexes:
   properties:
   - name: user_bigfunction_date
   - name: row_count
-
