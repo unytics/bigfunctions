@@ -35,6 +35,11 @@ setuptools.setup(
         'click',
         'click-help-colors',
     ],
+    extras_require={
+        'dev': [
+            'pre-commit>=3,<4',
+        ],
+    },
     entry_points={
         'console_scripts': [
             'bigfun = bigfun.cli:cli',

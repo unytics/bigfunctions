@@ -12,20 +12,19 @@ from watchdog.events import RegexMatchingEventHandler
 from . import bigfunctions as bf
 from . import utils
 
-
 TABLES_FOLDER = 'data'
 THIS_FOLDER = os.path.dirname(os.path.realpath(__file__)).replace('\\', '/')
 WEBSITE_CONFIG_FOLDER = THIS_FOLDER + '/website'
 CATEGORIES_DOC_TEMPLATE_FILENAME = f'{THIS_FOLDER}/templates/categories.md'
-CONFIG_FILENAME = 'config.yaml'
-CONFIG = {}
-if os.path.exists(CONFIG_FILENAME):
-    CONFIG = yaml.safe_load(open(CONFIG_FILENAME, encoding='utf-8').read()) or {}
 
+def load_config(config_filename):
+    if os.path.exists(config_filename):
+        return yaml.safe_load(open(config_filename, encoding='utf-8').read()) or {}
+    return {}
 
-def get_config_value(name):
-    if name in CONFIG:
-        return CONFIG[name]
+def get_config_value(name, config, config_filename):
+    if name in config:
+        return config[name]
 
     text, default = {
         'project':                   ("Default GCP project where to deploy bigfunctions", None),
@@ -33,11 +32,10 @@ def get_config_value(name):
         'project_for_tests':         ("Default GCP project where to deploy bigfunctions for TESTING purposes", None),
         'dataset_for_tests':         ("Default dataset where to deploy bigfunctions for TESTING purposes", None),  # eu,us,asia_east1,asia_east2,asia_northeast1,asia_northeast2,asia_northeast3,asia_south1,asia_southeast1,australia_southeast1,europe_north1,europe_west1,europe_west2,europe_west3,europe_west4,europe_west6,northamerica_northeast1,southamerica_east1,us_central1,us_east1,us_east4,us_west1,us_west2
     }[name]
-    CONFIG[name] = click.prompt(text, default=default)
-    with open(CONFIG_FILENAME, 'w', encoding='utf-8') as outfile:
-        yaml.dump(CONFIG, outfile, default_flow_style=False)
-    return CONFIG[name]
-
+    config[name] = click.prompt(text, default=default)
+    with open(config_filename, 'w', encoding='utf-8') as outfile:
+        yaml.dump(config, outfile, default_flow_style=False)
+    return config[name]
 
 def generate_doc(project, dataset):
 
@@ -101,32 +99,41 @@ def generate_doc(project, dataset):
     help_headers_color='yellow',
     help_options_color='cyan'
 )
-def cli():
-    pass
+@click.pass_context
+def cli(ctx):
+    ctx.ensure_object(dict)
 
 
 @cli.command()
 @click.argument('bigfunction')
-def get(bigfunction):
-    '''
+@click.option('--config', default='config.yaml', help='Path to the config file')
+@click.pass_context
+def get(ctx, bigfunction, config):
+    """
     Download BIGFUNCTION yaml file from unytics/bigfunctions github repo
-    '''
+    """
+    ctx.obj['CONFIG_FILENAME'] = config
+    ctx.obj['CONFIG'] = load_config(config)
     if not os.path.isdir('bigfunctions'):
         os.makedirs('bigfunctions')
     url = f'https://raw.githubusercontent.com/unytics/bigfunctions/main/bigfunctions/{bigfunction}.yaml'
     utils.download(url, f'bigfunctions/{bigfunction}.yaml')
 
 
-
-
 @cli.command()
 @click.argument('bigfunction')
-def test(bigfunction):
-    '''
+@click.option('--config', default='config.yaml', help='Path to the config file')
+@click.pass_context
+def test(ctx, bigfunction, config):
+    """
     Test BIGFUNCTION
-    '''
-    project = get_config_value('project_for_tests')
-    dataset = get_config_value('dataset_for_tests')
+    """
+    ctx.obj['CONFIG_FILENAME'] = config
+    ctx.obj['CONFIG'] = load_config(config)
+    config = ctx.obj['CONFIG']
+    config_filename = ctx.obj['CONFIG_FILENAME']
+    project = get_config_value('project_for_tests', config, config_filename)
+    dataset = get_config_value('dataset_for_tests', config, config_filename)
     bigfunction = bf.BigFunction(bigfunction, project=project, dataset=dataset)
     bigfunction.test()
 
@@ -135,14 +142,20 @@ def test(bigfunction):
 @click.argument('bigfunction')
 @click.option('--project', help='Google Cloud project where the function will be deployed')
 @click.option('--dataset', help='BigQuery dataset name where the function will be deployed')
-def deploy(bigfunction, project, dataset):
-    '''
+@click.option('--config', default='config.yaml', help='Path to the config file')
+@click.pass_context
+def deploy(ctx, bigfunction, project, dataset, config):
+    """
     Deploy BIGFUNCTION
 
     Deploy the function defined in `bigfunctions/{BIGFUNCTION}.yaml` file. If BIGFUNCTION = 'ALL' then all bigfunctions contained in bigfunctions folder are deployed.
-    '''
-    project = project or get_config_value('project')
-    dataset = dataset or get_config_value('dataset')
+    """
+    ctx.obj['CONFIG_FILENAME'] = config
+    ctx.obj['CONFIG'] = load_config(config)
+    config = ctx.obj['CONFIG']
+    config_filename = ctx.obj['CONFIG_FILENAME']
+    project = project or get_config_value('project', config, config_filename)
+    dataset = dataset or get_config_value('dataset', config, config_filename)
     datasets = [dataset.strip() for dataset in dataset.split(',')]
     bigfunctions = [bigfunction.strip() for bigfunction in bigfunction.split(',')]
     if bigfunction == 'ALL':
@@ -162,19 +175,24 @@ def deploy(bigfunction, project, dataset):
                 )
 
 
-
 @cli.command()
 @click.argument('table')
 @click.option('--project', help='Google Cloud project where the table is created')
 @click.option('--dataset', help='BigQuery dataset name where the table is created')
-def load_table(table, project, dataset):
-    '''
+@click.option('--config', default='config.yaml', help='Path to the config file')
+@click.pass_context
+def load_table(ctx, table, project, dataset, config):
+    """
     Create or replace bigquery table TABLE with data contained in `data/{TABLE}.csv`.
     If TABLE=ALL, then all tables defined in `data` folder are created.
-    '''
+    """
+    ctx.obj['CONFIG_FILENAME'] = config
+    ctx.obj['CONFIG'] = load_config(config)
     from .load_table import load_table as upload_table
-    project = project or get_config_value('project')
-    dataset = dataset or get_config_value('dataset')
+    config = ctx.obj['CONFIG']
+    config_filename = ctx.obj['CONFIG_FILENAME']
+    project = project or get_config_value('project', config, config_filename)
+    dataset = dataset or get_config_value('dataset', config, config_filename)
     datasets = [dataset.strip() for dataset in dataset.split(',')]
     if table == 'ALL':
         tables = [f.replace('.yaml', '') for f in os.listdir(TABLES_FOLDER) if f.endswith('.yaml')]
@@ -190,35 +208,46 @@ def load_table(table, project, dataset):
 
 @cli.group()
 def docs():
-    '''
+    """
     Generate, serve and publish documentation
-    '''
+    """
     pass
 
 
 @docs.command()
 @click.option('--project', help='Google Cloud project where the table is created')
 @click.option('--dataset', help='BigQuery dataset name where the table is created')
-def generate(project, dataset):
-    '''
+@click.option('--config', default='config.yaml', help='Path to the config file')
+@click.pass_context
+def generate(ctx, project, dataset, config):
+    """
     Generate markdown files for documentation from yaml bigfunctions files
-    '''
-    project = project or get_config_value('project')
-    dataset = dataset or get_config_value('dataset')
+    """
+    ctx.obj['CONFIG_FILENAME'] = config
+    ctx.obj['CONFIG'] = load_config(config)
+    config = ctx.obj['CONFIG']
+    config_filename = ctx.obj['CONFIG_FILENAME']
+    project = project or get_config_value('project', config, config_filename)
+    dataset = dataset or get_config_value('dataset', config, config_filename)
     generate_doc(project, dataset)
     os.system('mkdocs build')
-
 
 
 @docs.command()
 @click.option('--project', help='Google Cloud project where the table is created')
 @click.option('--dataset', help='BigQuery dataset name where the table is created')
-def serve(project, dataset):
-    '''
+@click.option('--config', default='config.yaml', help='Path to the config file')
+@click.pass_context
+def serve(ctx, project, dataset, config):
+    """
     Serve docs locally on http://localhost:8000
-    '''
-    project = project or get_config_value('project')
-    dataset = dataset or get_config_value('dataset')
+    """
+    ctx.obj['CONFIG_FILENAME'] = config
+    ctx.obj['CONFIG'] = load_config(config)
+    config = ctx.obj['CONFIG']
+    config_filename = ctx.obj['CONFIG_FILENAME']
+    project = project or get_config_value('project', config, config_filename)
+    dataset = dataset or get_config_value('dataset', config, config_filename)
     generate_doc(project, dataset)
 
     class EventHandler(RegexMatchingEventHandler):
