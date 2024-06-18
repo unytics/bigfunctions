@@ -15,7 +15,7 @@ examples:
   - description: "Returns table with duplicate rows removed."
     arguments:
       - '"my_project.my_dataset.my_table"'
-    output: |
+    output:  |
       +-----+-----+
       | id1 | id2 |
       +-----+-----+
