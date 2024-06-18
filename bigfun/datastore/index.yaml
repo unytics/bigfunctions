@@ -1,6 +1,5 @@
 indexes:
-
-- kind: bigfunction_call
-  properties:
-  - name: user_bigfunction_date
-  - name: row_count
+  - kind: bigfunction_call
+    properties:
+      - name: user_bigfunction_date
+      - name: row_count
