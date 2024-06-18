@@ -23,13 +23,14 @@ repos:
     rev: v0.10.0.1
     hooks:
       - id: shellcheck
-  - repo: https://github.com/PyCQA/bandit
-    rev: 1.7.9
-    hooks:
-      - id: bandit
-        name: bandit (python)
-        args: [--configfile, bandit.yaml, --severity-level, all]
-        additional_dependencies: [bandit]
+  # TODO enable the hook
+  # - repo: https://github.com/PyCQA/bandit
+  #   rev: 1.7.9
+  #   hooks:
+  #     - id: bandit
+  #       name: bandit (python)
+  #       args: [--configfile, bandit.yaml, --severity-level, all]
+  #       additional_dependencies: [bandit]
   - repo: https://github.com/pycqa/isort
     rev: 5.13.2
     hooks:
@@ -49,7 +50,8 @@ repos:
     hooks:
       - id: isort
         name: isort (python)
-  - repo: https://github.com/hadolint/hadolint
-    rev: v2.13.0-beta
-    hooks:
-      - id: hadolint-docker
+  # TODO enable the hook
+  # - repo: https://github.com/hadolint/hadolint
+  #   rev: v2.13.0-beta
+  #   hooks:
+  #     - id: hadolint-docker

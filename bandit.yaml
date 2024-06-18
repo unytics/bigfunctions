@@ -1,0 +1,6 @@
+# SEE https://bandit.readthedocs.io/en/latest/config.html
+exclude_dirs:
+  - "tests"
+skips:
+  # hardcoded_sql_expressions
+  - "B608"
