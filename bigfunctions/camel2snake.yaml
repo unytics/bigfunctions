@@ -1,0 +1,20 @@
+type: function_sql
+category: transform_string
+author:
+  name: Paul Marcombes
+  url: https://www.linkedin.com/in/paul-marcombes
+  avatar_url: "https://lh3.googleusercontent.com/a-/ACB-R5RDf2yxcw1p_IYLCKmiUIScreatDdhG8B83om6Ohw=s260"
+description: Convert `string` from camelCase to snake_case
+arguments:
+  - name: camelCaseString
+    type: string
+output:
+  name: snake_case_string
+  type: string
+examples:
+  - description: ""
+    arguments:
+      - "'FooBar !'"
+    output: foo_bar
+code: ltrim(lower(regexp_replace('fooBarFF', '([A-Z])', r'_\1')), '_')
+
