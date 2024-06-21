@@ -16,5 +16,5 @@ examples:
     arguments:
       - "'FooBar !'"
     output: foo_bar
-code: ltrim(lower(regexp_replace('fooBarFF', '([A-Z])', r'_\1')), '_')
+code: ltrim(lower(regexp_replace(camelCaseString, '([A-Z])', r'_\1')), '_')
 
