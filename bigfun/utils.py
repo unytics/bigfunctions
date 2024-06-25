@@ -1,20 +1,18 @@
-import tempfile
-import shutil
-import os
-import sys
-import subprocess
 import math
+import os
+import shutil
+import subprocess
+import sys
+import tempfile
 import urllib.request
 
-
+import click
 import google.api_core.exceptions
 import google.auth.exceptions
 import google.cloud.bigquery
 import google.cloud.bigquery_connection_v1
 import google.cloud.storage
 import google.iam.v1.policy_pb2
-import click
-
 
 
 def print_color(msg):

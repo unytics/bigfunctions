@@ -121,7 +121,3 @@ loadFunnelGraphJs();
 loadChartJs();
 loadGoogleChart();
 setInterval(run, 100);
-
-
-
-

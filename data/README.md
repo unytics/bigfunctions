@@ -321,4 +321,3 @@ with open('translated_months.csv', 'w', encoding='utf-8') as out:
 
 
 ---
-

@@ -4,7 +4,7 @@ author:
   name: Fahed Sabellioglu
   url: https://stackoverflow.com/users/23326889/fahed-sabellioglu
   avatar_url: "https://lh3.googleusercontent.com/a/ACg8ocLdYt_9sKc80I-jaH_0VVz6zaSpYZ3-wV3XiNh8Z8QBiA=k-s256"
-description: | 
+description: |
   Convert Gregorian Date to Hijri Date (taken from [here](https://stackoverflow.com/questions/78072960/convert-dates-gregorian-to-hijri-bigquery#answer-78079872))
 arguments:
   - name: gregorian_date

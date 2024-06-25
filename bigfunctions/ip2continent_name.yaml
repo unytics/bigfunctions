@@ -50,4 +50,3 @@ secrets:
 cloud_run:
   memory: 512Mi
   max_instances: 10
-
