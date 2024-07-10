@@ -15,16 +15,17 @@ output:
 examples:
   - description: ""
     arguments:
-      - "[1, 2, 3, 4, 5]"
-    output: "[−1.414,−0.707,0,0.707,1.414]"
+      - "[1, 2, 3, 4, 5, 0]"
+    output: "[−1.414,−0.707,0,0.707,1.414,−1.46]"
 code: |
   (
     WITH stats AS (
-    SELECT 
+    select 
       avg(value) AS mean, 
       stddev_pop(value) AS stddev
     FROM unnest(arr) AS value
     )
-    SELECT array_agg((value - stats.mean) / stats.stddev)
-    FROM unnest(arr) AS value, stats
+    select array_agg(coalesce(safe_divide(value - stats.mean,  stats.stddev), 0))
+    from unnest(arr) as value
+    cross join stats
   )
