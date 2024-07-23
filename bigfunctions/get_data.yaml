@@ -5,8 +5,16 @@ author:
   url: https://www.linkedin.com/in/paul-marcombes
   avatar_url: "https://lh3.googleusercontent.com/a-/ACB-R5RDf2yxcw1p_IYLCKmiUIScreatDdhG8B83om6Ohw=s260"
 description: |
-  Get data from any source
-  using a Python Airbyte Connector.
+  Get data from one of 250+ Airbyte Python sources.
+
+  <script>
+  const response = await fetch("https://connectors.airbyte.com/files/registries/v0/oss_registry.json");
+  const res = await response.json();
+  const sources = [];
+  for (const source of res.sources) {
+    console.log(source.name);
+  }
+  </script>
 
 
   > Data is appended in raw format in tables (one table per stream) into `destination_dataset`.
@@ -60,86 +68,93 @@ examples:
     output: "issue_timeline_events,assignees,branches,collaborators,comments,commit_comment_reactions,commit_comments,commits,contributor_activity,deployments,events,issue_comment_reactions,issue_events,issue_labels,issue_milestones,issue_reactions,issues,organizations,project_cards,project_columns,projects,pull_request_comment_reactions,pull_request_commits,pull_request_stats,projects_v2,pull_requests,releases,repositories,review_comments,reviews,stargazers,tags,teams,team_members,users,workflows,workflow_runs,workflow_jobs,team_memberships"
 init_code: |
   import requests
+  import yaml
+  from airbyte_serverless.connections import Connection
+  from airbyte_serverless.sources import ExecutableAirbyteSource
+  from airbyte_serverless import airbyte_utils
+  import google.api_core.exceptions
+
 
   SOURCES_URL = 'https://connectors.airbyte.com/files/registries/v0/oss_registry.json'
+
 
   def get_sources():
     resp = requests.get(SOURCES_URL)
     res = resp.json()
     sources = res['sources']
-    python_sources = {
-      source.get('remoteRegistries', {}).get('pypi', {}).get('packageName'): {
-        'spec': source['spec'],
-        'version': source['dockerImageTag'],
-        'documentation_url': source['documentationUrl'],
-        'icon_url': source['iconUrl'],
-      }
+    python_sources = [
+      f"{source.get('remoteRegistries', {}).get('pypi', {}).get('packageName')}=={source['dockerImageTag']}"
       for source in sources
       if source.get('remoteRegistries', {}).get('pypi', {}).get('enabled') is True
-    }
+    ]
     return python_sources
+
+
+  def get_yaml_definition_example(executable):
+    airbyte_source =  ExecutableAirbyteSource(executable)
+    spec = airbyte_source.spec
+    yaml_config = airbyte_utils.generate_connection_yaml_config_sample(spec)
+    if yaml_config.startswith('#'):
+      yaml_config = '\n'.join(yaml_config.split('\n')[1:])
+    return yaml_config
+
+
+  def yaml2dict(source_yaml_config):
+    try:
+      return yaml.safe_load(source_yaml_config) or {}
+    except:
+      assert False, 'Given `source_config` is NOT a valid yaml content'
+
+
+  def list_streams(executable, source_config):
+    airbyte_source = ExecutableAirbyteSource(executable=executable, config=source_config)
+    return airbyte_source.available_streams
+
+
+  def run(executable, source_config, streams, destination_dataset):
+    config = {
+      'source': {
+        'executable': executable,
+        'config': source_config,
+        'streams': streams,
+      },
+      'destination': {
+        'connector': 'bigquery',
+        'config': {
+          'dataset': destination_dataset,
+          'buffer_size_max': 1000,
+        },
+      },
+    }
+    yaml_config = yaml.dump(config)
+    connection = Connection(yaml_config)
+    try:
+      connection.run()
+    except (google.api_core.exceptions.Forbidden, google.api_core.exceptions.NotFound, google.api_core.exceptions.PermissionDenied) as e:
+      assert False, f'Service Account `{get_current_service_account()}` does not have data-editor permission for given destination dataset (or the dataset does not exsit). Please add it'
+
 
   AVAILABLE_SOURCES = get_sources()
 
-
 code: |
-  import yaml
-  from airbyte_serverless.connections import Connection
-  from airbyte_serverless.sources import ExecutableAirbyteSource
-  from airbyte_serverless import airbyte_utils
-
-  import google.api_core.exceptions
-
-
-  if not source:
-    return (
-      f'Choose one of the {len(AVAILABLE_SOURCES)} following Python Airbyte sources:\n\n' +
-      '\n'.join([f'{k}=={v["version"]}' for k, v in AVAILABLE_SOURCES.items()])
-    )
-
-  assert source.split('==')[0] in AVAILABLE_SOURCES, f"Given source `{source}` is NOT a source published by Airbyte on PyPI. To get the list of available sources, re-run this command with `null` as source"
+  source = source or ''
+  source_is_unavailable = not source or not [s for s in AVAILABLE_SOURCES if s.split('==')[0] == source.split('==')[0]]
+  if source_is_unavailable:
+    return '# AVAILABLE SOURCES\n\n' + '\n'.join(AVAILABLE_SOURCES)
 
   executable = f'pipx run {source}'
   source_config = source_config or ''
   if not source_config.strip():
-    airbyte_source =  ExecutableAirbyteSource(executable)
-    spec = airbyte_source.spec
-    return airbyte_utils.generate_connection_yaml_config_sample(spec)
+    source_config = get_yaml_definition_example(executable)
+    return '# SOURCE CONFIG\n\n' + source_config
 
-  try:
-    source_config = yaml.safe_load(source_config)
-  except:
-    assert False, 'Given `source_config` is NOT a valid yaml content'
+  source_config = yaml2dict(source_config)
 
-  source_config = source_config or {}
   if not streams:
-    airbyte_source = ExecutableAirbyteSource(executable=executable, config=source_config)
-    available_streams = airbyte_source.available_streams
-    return (
-      'Copy one or several of the following streams (separated by commas) into `streams` argument:\n\n' +
-      ', '.join(available_streams)
-    )
+    streams = list_streams(executable, source_config)
+    return '# AVAILABLE STREAMS\n\n' + ', '.join(streams)
 
-  config = {
-    'source': {
-      'executable': executable,
-      'config': source_config,
-      'streams': streams,
-    },
-    'destination': {
-      'connector': 'bigquery',
-      'config': {
-        'dataset': destination_dataset,
-        'buffer_size_max': 1000,
-      },
-    },
-  }
-  yaml_config = yaml.dump(config)
-  connection = Connection(yaml_config)
-  try:
-    connection.run()
-  except (google.api_core.exceptions.Forbidden, google.api_core.exceptions.NotFound, google.api_core.exceptions.PermissionDenied) as e:
-    assert False, f'Service Account `{get_current_service_account()}` does not have data-editor permission for given destination dataset (or the dataset does not exsit). Please add it'
+  run(executable, source_config, streams, destination_dataset)
   return 'ok'
 dockerfile:
   image: ubuntu:22.04
