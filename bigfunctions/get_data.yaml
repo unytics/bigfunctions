@@ -74,6 +74,7 @@ examples:
       - |
         '''
         id: "1234"
+        options: ""
         '''
       - "null"
       - "null"
