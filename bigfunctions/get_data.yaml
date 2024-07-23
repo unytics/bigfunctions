@@ -5,11 +5,8 @@ author:
   url: https://www.linkedin.com/in/paul-marcombes
   avatar_url: "https://lh3.googleusercontent.com/a-/ACB-R5RDf2yxcw1p_IYLCKmiUIScreatDdhG8B83om6Ohw=s260"
 description: |
-  Get data from one of 250+ Airbyte Python sources.
-
-  Available Sources:
-
-  <div id="airbyte-sources"></div>
+  Get data from one of [250+ Airbyte Python Sources](https://docs.airbyte.com/using-airbyte/pyairbyte/getting-started#available-connectors)
+  (with [Airbyte-Serverless](https://github.com/unytics/airbyte_serverless)).
 
   > Data is appended in raw format in tables (one table per stream) into `destination_dataset`.
   > When supported by the stream, data is extracted incrementally (next execution will only retrieve new rows).
@@ -29,20 +26,6 @@ description: |
   >
   > While it's running (or after) you can explore logs in table `your_project.your_dataset._airbyte_logs`
 
-
-  <script type="module">
-    const response = await fetch("https://connectors.airbyte.com/files/registries/v0/oss_registry.json");
-    const res = await response.json();
-    let sources = [];
-    for (const source of res.sources) {
-      if (('remoteRegistries' in source) && ('pypi' in source.remoteRegistries) && source.remoteRegistries.pypi.enabled) {
-        sources.push(`<li>${source.name}</li>`);
-      }
-    }
-    sources = sources.join('\n');
-    document.getElementById('airbyte-sources').innerHTML = `<ul>${sources}</ul>`;
-    console.log(sources);
-  </script>
 arguments:
   - name: source
     type: string
