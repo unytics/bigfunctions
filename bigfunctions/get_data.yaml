@@ -88,6 +88,7 @@ examples:
       - |
         '''
         id: "1234"
+        options: ""
         '''
       - "'crew, rockets'"
       - "'your_project.your_dataset'"
