@@ -5,8 +5,8 @@ author:
   url: https://www.linkedin.com/in/paul-marcombes
   avatar_url: "https://lh3.googleusercontent.com/a-/ACB-R5RDf2yxcw1p_IYLCKmiUIScreatDdhG8B83om6Ohw=s260"
 description: |
-  Get data from one of [250+ Airbyte Python Sources](https://docs.airbyte.com/using-airbyte/pyairbyte/getting-started#available-connectors)
-  (with [Airbyte-Serverless](https://github.com/unytics/airbyte_serverless)).
+  Get data from one of [250+ Airbyte Python Connectors](https://docs.airbyte.com/using-airbyte/pyairbyte/getting-started#available-connectors) into `destination_dataset`
+  .
 
   > Data is appended in raw format in tables (one table per stream) into `destination_dataset`.
   > When supported by the stream, data is extracted incrementally (next execution will only retrieve new rows).
@@ -25,6 +25,8 @@ description: |
   > ```
   >
   > While it's running (or after) you can explore logs in table `your_project.your_dataset._airbyte_logs`
+
+  *This functions uses [Airbyte-Serverless](https://github.com/unytics/airbyte_serverless)*.
 
 arguments:
   - name: source
