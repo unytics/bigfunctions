@@ -8,8 +8,8 @@ description: |
   Get data from one of [250+ Airbyte Python Connectors](https://docs.airbyte.com/using-airbyte/pyairbyte/getting-started#available-connectors) into `destination_dataset`
   .
 
-  > Data is appended in raw format in tables (one table per stream) into `destination_dataset`.
-  > When supported by the stream, data is extracted incrementally (next execution will only retrieve new rows).
+  > Data is extracted from `source` using `source_config` and appended in raw format in stream tables (one table per stream) into `destination_dataset`.
+  > When supported by the stream, data is extracted incrementally (next execution will only retrieve new rows). For this, a state is stored in `_airbyte_states` table in `destination_dataset`.
   >
   > You must create the `destination_dataset` and give `dataEditor` access to `bigfunction@bigfunctions.iam.gserviceaccount.com` before calling this function.
   > You can do this by executing:
@@ -24,7 +24,7 @@ description: |
   > to 'serviceAccount:bigfunction@bigfunctions.iam.gserviceaccount.com';
   > ```
   >
-  > While it's running (or after) you can explore logs in table `your_project.your_dataset._airbyte_logs`
+  > While it's running (or after) you can explore logs in table `_airbyte_logs` in `destination_dataset`.
 
   *This functions uses [Airbyte-Serverless](https://github.com/unytics/airbyte_serverless)*.
 
