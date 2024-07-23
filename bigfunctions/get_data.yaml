@@ -1,0 +1,156 @@
+type: function_py
+category: get_data
+author:
+  name: Paul Marcombes
+  url: https://www.linkedin.com/in/paul-marcombes
+  avatar_url: "https://lh3.googleusercontent.com/a-/ACB-R5RDf2yxcw1p_IYLCKmiUIScreatDdhG8B83om6Ohw=s260"
+description: |
+  Get data from any source
+  using a Python Airbyte Connector.
+
+
+  > Data is appended in raw format in tables (one table per stream) into `destination_dataset`.
+  > When supported by the stream, data is extracted incrementally (next execution will only retrieve new rows).
+  >
+  > You must create the `destination_dataset` and give `dataEditor` access to `bigfunction@bigfunctions.iam.gserviceaccount.com` before calling this function.
+  > You can do this by executing:
+  >
+  > ```sql
+  > -- Create Destination Dataset
+  > create schema `your_project.your_dataset`;
+  >
+  > -- Grant Access to Destination Dataset
+  > grant `roles/bigquery.dataEditor`
+  > on schema `your_project.your_dataset`
+  > to 'serviceAccount:bigfunction@bigfunctions.iam.gserviceaccount.com';
+  > ```
+  >
+  > While it's running (or after) you can explore logs in table `your_project.your_dataset._airbyte_logs`
+
+arguments:
+  - name: source
+    type: string
+  - name: source_config
+    type: string
+  - name: streams
+    type: string
+  - name: destination_dataset
+    type: string
+output:
+  name: result
+  type: string
+examples:
+  - description: "Get stargazers from [airbytehq/airbyte](https://github.com/airbytehq/airbyte) repository"
+    arguments:
+      - "'airbytehq/airbyte'"
+      - "'your_project.your_dataset'"
+      - "'stargazers'"
+    output: "ok"
+  - description: "Get stargazers AND releases from [airbytehq/airbyte](https://github.com/airbytehq/airbyte) repository"
+    arguments:
+      - "'airbytehq/airbyte'"
+      - "'your_project.your_dataset'"
+      - "'stargazers, releases'"
+    output: "ok"
+  - description: "To get a list of available streams, let `streams` param to null"
+    arguments:
+      - "'airbytehq/airbyte'"
+      - "'your_project.your_dataset'"
+      - "null"
+    output: "issue_timeline_events,assignees,branches,collaborators,comments,commit_comment_reactions,commit_comments,commits,contributor_activity,deployments,events,issue_comment_reactions,issue_events,issue_labels,issue_milestones,issue_reactions,issues,organizations,project_cards,project_columns,projects,pull_request_comment_reactions,pull_request_commits,pull_request_stats,projects_v2,pull_requests,releases,repositories,review_comments,reviews,stargazers,tags,teams,team_members,users,workflows,workflow_runs,workflow_jobs,team_memberships"
+init_code: |
+  import requests
+
+  SOURCES_URL = 'https://connectors.airbyte.com/files/registries/v0/oss_registry.json'
+
+  def get_sources():
+    resp = requests.get(SOURCES_URL)
+    res = resp.json()
+    sources = res['sources']
+    python_sources = {
+      source.get('remoteRegistries', {}).get('pypi', {}).get('packageName'): {
+        'spec': source['spec'],
+        'version': source['dockerImageTag'],
+        'documentation_url': source['documentationUrl'],
+        'icon_url': source['iconUrl'],
+      }
+      for source in sources
+      if source.get('remoteRegistries', {}).get('pypi', {}).get('enabled') is True
+    }
+    return python_sources
+
+  AVAILABLE_SOURCES = get_sources()
+
+
+code: |
+  import yaml
+  from airbyte_serverless.connections import Connection
+  from airbyte_serverless.sources import ExecutableAirbyteSource
+  from airbyte_serverless import airbyte_utils
+
+  import google.api_core.exceptions
+
+
+  if not source:
+    return (
+      f'Choose one of the {len(AVAILABLE_SOURCES)} following Python Airbyte sources:\n\n' +
+      '\n'.join([f'{k}=={v["version"]}' for k, v in AVAILABLE_SOURCES.items()])
+    )
+
+  assert source.split('==')[0] in AVAILABLE_SOURCES, f"Given source `{source}` is NOT a source published by Airbyte on PyPI. To get the list of available sources, re-run this command with `null` as source"
+
+  executable = f'pipx run {source}'
+  source_config = source_config or ''
+  if not source_config.strip():
+    airbyte_source =  ExecutableAirbyteSource(executable)
+    spec = airbyte_source.spec
+    return airbyte_utils.generate_connection_yaml_config_sample(spec)
+
+  try:
+    source_config = yaml.safe_load(source_config)
+  except:
+    assert False, 'Given `source_config` is NOT a valid yaml content'
+
+  source_config = source_config or {}
+  if not streams:
+    airbyte_source = ExecutableAirbyteSource(executable=executable, config=source_config)
+    available_streams = airbyte_source.available_streams
+    return (
+      'Copy one or several of the following streams (separated by commas) into `streams` argument:\n\n' +
+      ', '.join(available_streams)
+    )
+
+  config = {
+    'source': {
+      'executable': executable,
+      'config': source_config,
+      'streams': streams,
+    },
+    'destination': {
+      'connector': 'bigquery',
+      'config': {
+        'dataset': destination_dataset,
+        'buffer_size_max': 1000,
+      },
+    },
+  }
+  yaml_config = yaml.dump(config)
+  connection = Connection(yaml_config)
+  try:
+    connection.run()
+  except (google.api_core.exceptions.Forbidden, google.api_core.exceptions.NotFound, google.api_core.exceptions.PermissionDenied) as e:
+    assert False, f'Service Account `{get_current_service_account()}` does not have data-editor permission for given destination dataset (or the dataset does not exsit). Please add it'
+  return 'ok'
+dockerfile:
+  image: ubuntu:22.04
+  apt_packages: python3.10-venv python3-pip
+requirements: |
+  airbyte-serverless
+max_batching_rows: 1
+quotas:
+  max_rows_per_user_per_day: 100
+cloud_run:
+  memory: 512Mi
+  max_instances: 10
+  concurrency: 1
+  timeout: 30m
