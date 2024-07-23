@@ -25,8 +25,8 @@ description: |
   > ```
   >
   > While it's running (or after) you can explore logs in table `_airbyte_logs` in `destination_dataset`.
-
-  *This functions uses [Airbyte-Serverless](https://github.com/unytics/airbyte_serverless)*.
+  >
+  > *This functions uses [Airbyte-Serverless](https://github.com/unytics/airbyte_serverless)*.
 
 arguments:
   - name: source
@@ -41,24 +41,56 @@ output:
   name: result
   type: string
 examples:
-  - description: "Get stargazers from [airbytehq/airbyte](https://github.com/airbytehq/airbyte) repository"
+  - description: "List sources available for `source` argument by setting `source` to `null`"
     arguments:
-      - "'airbytehq/airbyte'"
-      - "'your_project.your_dataset'"
-      - "'stargazers'"
-    output: "ok"
-  - description: "Get stargazers AND releases from [airbytehq/airbyte](https://github.com/airbytehq/airbyte) repository"
+      - null
+      - null
+      - null
+      - null
+    output: |
+      # AVAILABLE SOURCES
+
+      airbyte-source-activecampaign==0.1.10
+      airbyte-source-adjust==0.1.11
+      airbyte-source-aha==0.3.10
+      ...
+  - description: |
+      Get `source_config` sample at expected format by setting `source_config` to `null`.
+
+      You can then copy the result, modify it and provide it as `source_config` argument.
     arguments:
-      - "'airbytehq/airbyte'"
-      - "'your_project.your_dataset'"
-      - "'stargazers, releases'"
-    output: "ok"
-  - description: "To get a list of available streams, let `streams` param to null"
+      - "'airbyte-source-spacex-api==0.1.11'"
+      - null
+      - null
+      - null
+    output: |
+      # SOURCE CONFIG
+
+      id: # OPTIONAL | string
+      options: # OPTIONAL | string
+  - description: "List available streams by setting `streams` param to null"
     arguments:
-      - "'airbytehq/airbyte'"
+      - "'airbyte-source-spacex-api==0.1.11'"
+      - |
+        '''
+        id: "1234"
+        '''
+      - null
+      - null
+    output: |
+      # AVAILABLE STREAMS
+
+      launches, capsules, company, crew, cores, dragons, landpads, payloads, history, rockets, roadster, ships, starlink
+  - description: "Extract and load `crew` and `rockets` data incrementally into `destination_dataset`"
+    arguments:
+      - "'airbyte-source-spacex-api==0.1.11'"
+      - |
+        '''
+        id: "1234"
+        '''
+      - "'crew, rockets'"
       - "'your_project.your_dataset'"
-      - "null"
-    output: "issue_timeline_events,assignees,branches,collaborators,comments,commit_comment_reactions,commit_comments,commits,contributor_activity,deployments,events,issue_comment_reactions,issue_events,issue_labels,issue_milestones,issue_reactions,issues,organizations,project_cards,project_columns,projects,pull_request_comment_reactions,pull_request_commits,pull_request_stats,projects_v2,pull_requests,releases,repositories,review_comments,reviews,stargazers,tags,teams,team_members,users,workflows,workflow_runs,workflow_jobs,team_memberships"
+    output: ok
 init_code: |
   import requests
   import yaml
