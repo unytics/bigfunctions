@@ -13,7 +13,7 @@ description: |
   const sources = [];
   for (const source of res.sources) {
     console.log(source.name);
-    if ((source.remoteRegistries.pypi || {})['enabled']) {
+    if (('remoteRegistries' in source) && ('pypi' in source.remoteRegistries) && source.remoteRegistries.pypi.enabled) {
       sources.push(source.remoteRegistries.pypi.packageName);
     }
   }
