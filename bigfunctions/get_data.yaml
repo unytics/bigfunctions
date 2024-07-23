@@ -8,7 +8,7 @@ description: |
   Get data from 250+ sources using [Airbyte Python Connectors](https://docs.airbyte.com/using-airbyte/pyairbyte/getting-started#available-connectors)
   .
 
-  > Data is extracted from `source` using `source_config` and appended in raw format in stream tables (one table per stream) into `destination_dataset`.
+  > Data is extracted from `source` using `source_config` and appended in raw format into stream tables (one table per stream) in `destination_dataset`.
   > When supported by the stream, data is extracted incrementally (next execution will only retrieve new rows). For this, a state is stored in `_airbyte_states` table in `destination_dataset`.
   >
   > You must create the `destination_dataset` and give `dataEditor` access to `bigfunction@bigfunctions.iam.gserviceaccount.com` before calling this function.
@@ -81,7 +81,7 @@ examples:
       # AVAILABLE STREAMS
 
       launches, capsules, company, crew, cores, dragons, landpads, payloads, history, rockets, roadster, ships, starlink
-  - description: "Extract and load `crew` and `rockets` data incrementally into `destination_dataset`"
+  - description: "Extract and load `crew` and `rockets` streams into `destination_dataset`"
     arguments:
       - "'airbyte-source-spacex-api==0.1.11'"
       - |
