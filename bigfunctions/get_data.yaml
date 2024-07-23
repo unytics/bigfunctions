@@ -7,19 +7,9 @@ author:
 description: |
   Get data from one of 250+ Airbyte Python sources.
 
-  <script type="module">
-  const response = await fetch("https://connectors.airbyte.com/files/registries/v0/oss_registry.json");
-  const res = await response.json();
-  const sources = [];
-  for (const source of res.sources) {
-    console.log(source.name);
-    if (('remoteRegistries' in source) && ('pypi' in source.remoteRegistries) && source.remoteRegistries.pypi.enabled) {
-      sources.push(source.remoteRegistries.pypi.packageName);
-    }
-  }
-  console.log(sources);
-  </script>
+  Available Sources:
 
+  <div id="airbyte-sources"></div>
 
   > Data is appended in raw format in tables (one table per stream) into `destination_dataset`.
   > When supported by the stream, data is extracted incrementally (next execution will only retrieve new rows).
@@ -39,6 +29,20 @@ description: |
   >
   > While it's running (or after) you can explore logs in table `your_project.your_dataset._airbyte_logs`
 
+
+  <script type="module">
+    const response = await fetch("https://connectors.airbyte.com/files/registries/v0/oss_registry.json");
+    const res = await response.json();
+    const sources = [];
+    for (const source of res.sources) {
+      if (('remoteRegistries' in source) && ('pypi' in source.remoteRegistries) && source.remoteRegistries.pypi.enabled) {
+        sources.push(`<li>${source.name}</li>`);
+      }
+    }
+    sources = sources.join('\n');
+    document.getElementById('airbyte-sources').innerHTML = `<ul>${sources}</ul>`;
+    console.log(sources);
+  </script>
 arguments:
   - name: source
     type: string
