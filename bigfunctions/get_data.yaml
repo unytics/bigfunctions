@@ -188,7 +188,7 @@ requirements: |
   airbyte-serverless
 max_batching_rows: 1
 quotas:
-  max_rows_per_user_per_day: 100
+  max_rows_per_user_per_day: 200
 cloud_run:
   memory: 512Mi
   max_instances: 10
