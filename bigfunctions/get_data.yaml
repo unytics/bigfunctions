@@ -43,10 +43,10 @@ output:
 examples:
   - description: "List sources available for `source` argument by setting `source` to `null`"
     arguments:
-      - null
-      - null
-      - null
-      - null
+      - "null"
+      - "null"
+      - "null"
+      - "null"
     output: |
       # AVAILABLE SOURCES
 
@@ -60,9 +60,9 @@ examples:
       You can then copy the result, modify it and provide it as `source_config` argument.
     arguments:
       - "'airbyte-source-spacex-api==0.1.11'"
-      - null
-      - null
-      - null
+      - "null"
+      - "null"
+      - "null"
     output: |
       # SOURCE CONFIG
 
@@ -75,8 +75,8 @@ examples:
         '''
         id: "1234"
         '''
-      - null
-      - null
+      - "null"
+      - "null"
     output: |
       # AVAILABLE STREAMS
 
