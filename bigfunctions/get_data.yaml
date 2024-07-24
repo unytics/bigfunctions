@@ -61,6 +61,68 @@ examples:
       id: # OPTIONAL | string
       options: # OPTIONAL | string
   - description: |
+      **Encrypt Secrets!**
+
+      You will usually have to write secrets in `source_config` such as api keys.
+
+      **We strongly advise NOT TO write your secrets in `source_config` in plain text**.
+      Otherwise, once you will run your query, they will be stored in plain text
+      in BigQuery logs for several months.
+
+      Instead, you can use the following snippet to generate an encrypted version of your secrets.
+      No one, except this bigfunction deployed in bigfunctions GCP project, will be able to decrypt it.
+
+      1. Copy your secret value in the input.
+      2. Click on the button to copy an encrypted version in your clipboard.
+      3. Paste the encrypted version in your `source_config` as shown in the example below.
+
+      <div>
+        <input id="secret-to-encrypt" type="text" class="md-input" placeholder="a secret value">
+        <button class="mb-button" onclick="encrypt();">Encrypt Secret & Copy encrypted value</button>
+      </div>
+
+
+      <script src="https://cdn.jsdelivr.net/npm/node-forge@1.0.0/dist/forge.min.js"></script>
+      <script>
+      const pem = `
+      -----BEGIN PUBLIC KEY-----
+      MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAsgotixwX/WsbKxeT3sef
+      z6acpTomZEYOBJzIRLtcHyxzyMEuMN9iYF32l4t6K70b+38mLIO7K6LkZj/nnhrF
+      UuPfAKme5R2Y4FqtJVSzplCmZc2/274eanIGi6BZ+kHOoc+eJTOEi3Wzp/EQ77iG
+      bC9tD/0ZkXYdXzPHcJT0dOFHIV6wpLr2i251NAIDTI4CV1afqhxU313f5Wrw+pYa
+      eUh2/v6KtvmLRQb3P4EUytQF7pBYx8kRGMLvmFja5Gg8Xj3XhXXsdjUkmAYumRDl
+      HkUeB62F+TO1oOfTrwBAKRh8WfHJOyfDJyNw1EndZ4bz28ODxth4r+phaaSE+53y
+      WQIDAQAB
+      -----END PUBLIC KEY-----
+      `;
+
+      const publicKey = forge.pki.publicKeyFromPem(pem);
+
+
+      function encrypt() {
+        const plainText = document.getElementById('secret-to-encrypt').value;
+        const encrypted = publicKey.encrypt(plainText, 'RSA-OAEP', {
+          md: forge.md.sha256.create(),
+          mgf1: {
+            md: forge.md.sha256.create()
+          }
+        });
+        const encryptedB64= forge.util.encode64(encrypted);
+        console.log(`ENCRYPTED_SECRET(${encryptedB64})`);
+      }
+      </script>
+
+    arguments:
+      - "'airbyte-source-zendesk-support==2.6.10'"
+      - |
+        '''
+        credentials:
+          access_token: ENCRYPTED_SECRET(kdoekdswlxzapdldpzlfpfd)
+        '''
+      - "null"
+      - "null"
+    output: "..."
+  - description: |
       Show available streams by setting `streams` argument to `null`.
 
       You can then copy one or several of these streams (separate them with commas) for `streams` argument.
@@ -236,6 +298,7 @@ dockerfile:
   apt_packages: python3.10-venv python3-pip
 requirements: |
   airbyte-serverless
+  cryptography
 max_batching_rows: 1
 quotas:
   max_rows_per_user_per_day: 200
