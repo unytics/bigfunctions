@@ -12,22 +12,6 @@ description: |
   When supported by the stream, data is extracted incrementally (next execution will only retrieve new rows). For this purpose, a state is stored in `_airbyte_states` table in `destination_dataset`. While running, connector logs are appended in table `_airbyte_logs`. You can check them to get details on the run.
 
   Examples below explain how to set the arguments.
-
-  > **Requirements**
-  >
-  > You must create the `destination_dataset` and give `dataEditor` access to `bigfunction@bigfunctions.iam.gserviceaccount.com` before calling this function.
-  > You can do this by executing:
-  >
-  > ```sql
-  > -- Create Destination Dataset
-  > create schema `your_project.your_dataset`;
-  >
-  > -- Grant Access to Destination Dataset
-  > grant `roles/bigquery.dataEditor`
-  > on schema `your_project.your_dataset`
-  > to 'serviceAccount:bigfunction@bigfunctions.iam.gserviceaccount.com';
-  > ```
-
 arguments:
   - name: source
     type: string
@@ -55,7 +39,7 @@ examples:
       airbyte-source-aha==0.3.10
       ...
   - description: |
-      Get `source_config` sample at expected format by setting `source_config` to `null`.
+      Show `source_config` sample at expected format by setting `source_config` to `null`.
 
       You can then copy the result, modify it and provide it as `source_config` argument.
     arguments:
@@ -68,12 +52,12 @@ examples:
 
       id: # OPTIONAL | string
       options: # OPTIONAL | string
-  - description: "List available streams by setting `streams` param to null"
+  - description: "Show available streams by setting `streams` param to `null`"
     arguments:
       - "'airbyte-source-spacex-api==0.1.11'"
       - |
         '''
-        id: "1234"
+        id: ""
         options: ""
         '''
       - "null"
@@ -82,18 +66,49 @@ examples:
       # AVAILABLE STREAMS
 
       launches, capsules, company, crew, cores, dragons, landpads, payloads, history, rockets, roadster, ships, starlink
-  - description: "Extract and load `crew` and `rockets` streams into `destination_dataset`"
+  - description: "Show one record of a stream by setting `destination_dataset` param to `null`"
     arguments:
       - "'airbyte-source-spacex-api==0.1.11'"
       - |
         '''
-        id: "1234"
+        id: ""
+        options: ""
+        '''
+      - "'launches'"
+      - "null"
+    output: |
+      # AVAILABLE STREAMS
+
+      launches, capsules, company, crew, cores, dragons, landpads, payloads, history, rockets, roadster, ships, starlink
+  - description: |
+      Extract and load `crew` and `rockets` streams into `your_project.your_dataset`.
+
+      > **Requirements**
+      >
+      > You must create the `destination_dataset` and give `dataEditor` access to `bigfunction@bigfunctions.iam.gserviceaccount.com` before calling this function.
+      > You can do this by executing:
+      >
+      > ```sql
+      > -- Create Destination Dataset
+      > create schema `your_project.your_dataset`;
+      >
+      > -- Grant Access to Destination Dataset
+      > grant `roles/bigquery.dataEditor`
+      > on schema `your_project.your_dataset`
+      > to 'serviceAccount:bigfunction@bigfunctions.iam.gserviceaccount.com';
+      > ```
+    arguments:
+      - "'airbyte-source-spacex-api==0.1.11'"
+      - |
+        '''
+        id: ""
         options: ""
         '''
       - "'crew, rockets'"
       - "'your_project.your_dataset'"
     output: ok
 init_code: |
+  import json
   import requests
   import yaml
   from airbyte_serverless.connections import Connection
@@ -136,6 +151,11 @@ init_code: |
   def list_streams(executable, source_config):
     airbyte_source = ExecutableAirbyteSource(executable=executable, config=source_config)
     return airbyte_source.available_streams
+
+
+  def get_first_record(executable, source_config, streams):
+    airbyte_source = ExecutableAirbyteSource(executable=executable, config=source_config, streams=streams)
+    return json.dumps(airbyte_source.first_record, indent=4)
 
 
   def run(executable, source_config, streams, destination_dataset):
@@ -181,8 +201,11 @@ code: |
     streams = list_streams(executable, source_config)
     return '# AVAILABLE STREAMS\n\n' + ', '.join(streams)
 
+  if not destination_dataset:
+    return f'# FIRST RECORD\n\n' + get_first_record(executable, source_config, streams)
+
   run(executable, source_config, streams, destination_dataset)
-  return 'ok'
+  return f'Data load job ended successfully. Check logs at `{destination_dataset}._airbyte_logs`'
 dockerfile:
   image: ubuntu:22.04
   apt_packages: python3.10-venv python3-pip
