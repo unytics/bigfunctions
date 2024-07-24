@@ -24,7 +24,7 @@ To make a change to this repository:
 
 Before spending a lot of time to develop a new bigfunction, don't hesitate to reach out through [bigfunctions slack](https://join.slack.com/t/unytics/shared_invite/zt-1gbv491mu-cs03EJbQ1fsHdQMcFN7E1Q) (or by email --> paul.marcombes@unytics.io).
 
-To start, the best is to duplicate an existing yaml file in 'bigfunctions' folder. Make sure to duplicate a file with the same type (function_sql, function_js, function_py, procedure) as the one you target.
+To start, the best is to duplicate an existing yaml file in 'bigfunctions' folder. Make sure to duplicate a file with the same type (function_sql, aggregate_function_sql, function_js, function_py, procedure) as the one you target.
 
 Before submitting a Pull-Request, make sure:
 
@@ -45,4 +45,3 @@ You can contribute by selecting one of [these issues](https://github.com/unytics
 
 ## License
 By contributing to this repository, you agree that your contributions will be licensed under its MIT License.
-

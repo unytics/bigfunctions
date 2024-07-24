@@ -7,7 +7,7 @@ author:
 description: |
   Ask your data any `question` in natural language.
 
-  > This function calls  [`generate_sql`](#generate_sql) to convert the `question` into a SQL query adapted to your data and execute it.<br>
+  > This function calls  [`generate_sql`](generate_sql.md) to convert the `question` into a SQL query adapted to your data and execute it.<br>
   > *(If the execution fails, the temporary table `bigfunction_result` gives details).*
 
   | Param                   | Description  |

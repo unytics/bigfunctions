@@ -7,7 +7,7 @@ author:
 description: |
   Transform `question` to a SQL query.
 
-  >  This function sends the following enriched question to [`ask_bison`](#ask_bison) (*the schema of `fully_qualified_table` is sent so that the generated SQL query is adapted to your data*):
+  >  This function sends the following enriched question to [`ask_ai`](ask_ai.md) (*the schema of `fully_qualified_table` is sent so that the generated SQL query is adapted to your data*):
   >
   >  ```
   >  Question: {{question}}
@@ -39,7 +39,7 @@ examples:
 code: |
   assert array_length(split(fully_qualified_table, '.')) = 3 as 'BAD ARGUMENT FORMAT: `fully_qualified_table` argument must follow the pattern `PROJECT.DATASET.TABLE`';
 
-  execute immediate {BIGFUNCTIONS_DATASET}.render_string(
+  execute immediate {BIGFUNCTIONS_DATASET}.render_template(
     r'''
     {%- set fully_qualified_table = fully_qualified_table.replace('`', '') -%}
     {%- set table_parts = fully_qualified_table.split('.') -%}
@@ -68,7 +68,7 @@ code: |
     ),
 
     answer as (
-      select {BIGFUNCTIONS_DATASET}.ask_bison(question.question) as raw_answer_before_clean
+      select {BIGFUNCTIONS_DATASET}.ask_ai(question.question, 'code-bison@002') as raw_answer_before_clean
       from question
     ),
 
@@ -90,7 +90,7 @@ code: |
     from cleaned_answer, question, answer
     ''',
 
-    to_json_string(struct(
+    to_json(struct(
         regexp_replace(question, r'\n\s*', ' ') as question,
         fully_qualified_table as fully_qualified_table
     ))

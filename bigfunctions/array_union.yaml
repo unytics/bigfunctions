@@ -1,0 +1,31 @@
+type: function_sql
+category: transform_array
+author:
+  name: Axel Thevenot
+  url: https://www.linkedin.com/in/axel-thevenot/
+  avatar_url: "https://avatars.githubusercontent.com/u/39374103?v=4"
+description: |
+  Returns the union of two arrays.
+arguments:
+  - name: array1
+    type: any type
+  - name: array2
+    type: any type
+output:
+  name: result
+  type: any type
+examples:
+  - description: ""
+    arguments:
+      - "[1, 2, 3]"
+      - "[2, 6, 7]"
+    output: "[1, 2, 3, 6, 7]"
+    region: ALL
+code: |
+  (
+    array(
+      select * from unnest(array1)
+      union distinct
+      select * from unnest(array2)
+    )
+  )

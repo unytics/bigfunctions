@@ -14,7 +14,7 @@ examples:
     arguments:
       - "your_project.your_dataset.view_name"
 code: |
-  execute immediate {BIGFUNCTIONS_DATASET}.render_string(
+  execute immediate {BIGFUNCTIONS_DATASET}.render_template(
     '''
     {%- set view_parts = fully_qualified_view.split('.') %}
     {%- if view_parts | length == 3 %}
@@ -42,7 +42,7 @@ code: |
       select error('`fully_qualified_view` argument should be fully qualified such as PROJECT.DATASET.TABLE')
     {%- endif -%}
     ''',
-    to_json_string(struct(
+    to_json(struct(
       fully_qualified_view as fully_qualified_view
     ))
   );

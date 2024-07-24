@@ -13,8 +13,9 @@ app = Flask(__name__)
 
 
 CACHE = {}
+CURRENT_LOCATION = '{{ cloud_run_location }}'
 
-QUOTAS = {{ quotas }}
+QUOTAS = {{ quotas if quotas is defined else {} }}
 
 
 _, PROJECT = google.auth.default()
@@ -36,115 +37,100 @@ class QuotaException(Exception):
 
 
 
-class SimpleQuotaManager:
+class Logger:
 
     def __init__(self, data):
-        self.created_at = datetime.datetime.utcnow()
         self.created_time = time.time()
         self.user = data['sessionUser']
         self.row_count = len(data['calls'])
-        self.message = {
-            "bigfunction": '{{ name }}',
-            "status": 'started',
-            "user": self.user,
-            "row_count": self.row_count,
-            "request_id": data['requestId'],
-            "caller": data['caller'],
-        }
+        self.request_id = data['requestId']
+        self.caller = data['caller']
 
-    def save_log(self, **kwargs):
+    def log(self, **kwargs):
         duration = 1000 * (time.time() - self.created_time)
-        self.message = {**self.message, **kwargs}
-        self.message['elapsed_ms'] = duration
-        print(json.dumps({
-            **self.message,
+        status = kwargs['status']
+        message = {
             **{
-                'message': f"{self.message['status'].upper()}: {{ name }} from {self.user} with {self.row_count} rows (elasped {duration} ms)",
-                'severity': 'INFO',
-            }
-        }))
+                "severity": 'INFO',
+                'message': f"{status.upper()}: {{ name }} from {self.user} with {self.row_count} rows (elasped {duration} ms)",
+                "bigfunction": '{{ name }}',
+                "user": self.user,
+                "row_count": self.row_count,
+                "request_id": self.request_id,
+                "caller": self.caller,
+                'elapsed_ms': duration,
+            },
+            **kwargs,
+        }
+        print(json.dumps(message))
+
+
+class BaseQuotaManager:
+
+    def __init__(self, data):
+        self.row_count = len(data['calls'])
 
     def check_quotas(self):
-        if QUOTAS.get('max_rows_per_query') and self.row_count > QUOTAS['max_rows_per_query']:
+        if 'max_rows_per_query' in QUOTAS and (self.row_count > QUOTAS['max_rows_per_query']):
             raise QuotaException(f"It only accepts {QUOTAS['max_rows_per_query']} rows per query and you called it now on {self.row_count} rows or more.")
 
 
-class DatastoreQuotaManager:
+class DatastoreQuotaManager(BaseQuotaManager):
 
     kind = 'bigfunction_call'
 
+    _datastore = None
+
     def __init__(self, data):
-        import google.cloud.datastore
-        self.datastore = google.cloud.datastore.Client()
+        super().__init__(data)
         self.created_at = datetime.datetime.utcnow()
-        self.created_time = time.time()
-        self.date = self.created_at.strftime("%Y-%m-%d")
         self.user = data['sessionUser']
-        self.user_date = f'{self.user}/{self.date}'
-        self.user_bigfunction_date = f'{self.user}/{{ name }}/{self.date}'
-        self.row_count = len(data['calls'])
-        self.key = self.datastore.key(self.kind)
-        self.entity = google.cloud.datastore.Entity(self.key)
-        self.message = {
-            "timestamp": self.created_at,
-            "bigfunction": '{{ name }}',
-            "status": 'started',
-            "user": self.user,
-            "row_count": self.row_count,
-            "request_id": data['requestId'],
-            "caller": data['caller'],
-            'date': self.date,
-            'user_date': self.user_date,
+        today = self.created_at.strftime("%Y-%m-%d")
+        self.user_bigfunction_date = f'{self.user}/{{ name }}/{today}'
+
+    @property
+    def datastore(self):
+        if self._datastore is None:
+            import google.cloud.datastore
+            self._datastore = google.cloud.datastore.Client()
+        return self._datastore
+
+    def compute_stat(self, aggregate_function, aggregate_attribute=None, filter=None):
+        from google.cloud.datastore import query as filters
+        aggregate_attributes = aggregate_attribute or []
+        filter = filter or []
+        query = self.datastore.query(kind=self.kind)
+        if filter:
+            query.add_filter(filter=filters.PropertyFilter(*filter))
+        result = getattr(self.datastore.aggregation_query(query), aggregate_function)(aggregate_attribute).fetch()
+        result = list(list(result)[0])[0].value
+        print(f'{aggregate_function}({aggregate_attributes}) where {"".join(filter)}:', result)
+        return result
+
+    def get_today_row_count_for_this_bigfunction(self):
+        return self.compute_stat('sum', aggregate_attribute='row_count', filter=["user_bigfunction_date", "=", self.user_bigfunction_date])
+
+    def save_usage(self):
+        import google.cloud.datastore
+        key = self.datastore.key(self.kind)
+        entity = google.cloud.datastore.Entity(key)
+        entity.update({
+            'timestamp': self.created_at,
             'user_bigfunction_date': self.user_bigfunction_date,
-        }
-
-    def save_log(self, **kwargs):
-        duration = 1000 * (time.time() - self.created_time)
-        self.message = {**self.message, **kwargs}
-        self.message['elapsed_ms'] = duration
-        print(json.dumps({
-            **{k: v for k, v in self.message.items() if k != 'timestamp'},
-            **{
-                'message': f"{self.message['status'].upper()}: {{ name }} from {self.user} with {self.row_count} rows (elasped {duration} ms)",
-                'severity': 'INFO',
-            }
-        }))
-        self.entity.update(self.message)
-        self.datastore.put(self.entity)
-
-    def get_user_stats(self):
-        query = self.datastore.query(kind=self.kind)
-        query.add_filter("user_bigfunction_date", "=", self.user_bigfunction_date)
-        today_logs_for_this_bigfunction = query.fetch()
-        today_row_count_for_this_bigfunction = sum(r.get('row_count', 0) for r in today_logs_for_this_bigfunction)
-
-        query = self.datastore.query(kind=self.kind)
-        query.add_filter("user_date", "=", self.user_date)
-        today_request_count = self.datastore.aggregation_query(query).count().fetch()
-        today_request_count = list(list(today_request_count)[0])[0].value
-
-        return {
-            'today_row_count_for_this_bigfunction': today_row_count_for_this_bigfunction,
-            'today_request_count': today_request_count,
-        }
+            "row_count": self.row_count,
+        })
+        self.datastore.put(entity)
 
     def check_quotas(self):
-        if QUOTAS.get('max_rows_per_query') and (self.row_count > QUOTAS['max_rows_per_query']):
-            raise QuotaException(f"It only accepts {QUOTAS['max_rows_per_query']} rows per query and you called it now on {self.row_count} rows or more.")
+        super().check_quotas()
+        if 'max_rows_per_user_per_day' in QUOTAS:
+            today_row_count_for_this_bigfunction = self.get_today_row_count_for_this_bigfunction()
+            if today_row_count_for_this_bigfunction + self.row_count > QUOTAS['max_rows_per_user_per_day']:
+                raise QuotaException(f"It only accepts {QUOTAS['max_rows_per_user_per_day']} rows per day per user and you called it today for {today_row_count_for_this_bigfunction + self.row_count} rows.")
+            self.save_usage()
 
-        if self.user in QUOTAS['whitelisted_users']:
-            return
 
-        user_stats = self.get_user_stats()
-        print(user_stats)
-
-        if user_stats['today_request_count'] + 1 > QUOTAS['max_cloud_run_requests_per_user_per_day']:
-            raise QuotaException(f"This project only accepts {QUOTAS['max_cloud_run_requests_per_user_per_day']} requests per user per day over all bigfunctions and you made {user_stats['today_request_count'] + 1} requests.")
-
-        if QUOTAS.get('max_rows_per_user_per_day') and (
-            user_stats['today_row_count_for_this_bigfunction'] + self.row_count > QUOTAS['max_rows_per_user_per_day']
-        ):
-            raise QuotaException(f"It only accepts {QUOTAS['max_rows_per_user_per_day']} rows per day per user and you called it today for {user_stats['today_row_count_for_this_bigfunction'] + self.row_count} rows.")
+QuotaManager = DatastoreQuotaManager if QUOTAS.get('backend') == 'datastore' else BaseQuotaManager
 
 
 class SecretManager:
@@ -172,16 +158,18 @@ secrets = SecretManager()
 {% endif %}
 
 
+{{ init_code }}
+
 {% if code_process_rows_as_batch %}
 
 def compute_all_rows(rows):
-    {{ code|replace('\n', '\n    ') }}
+    {{ code | replace('\n', '\n    ') | replace('{BIGFUNCTIONS_DATASET}',  '`' +  project + '`.`' + dataset + '`' ) }}
 
 {% else %}
 
 def compute_one_row(args):
     {% for argument in arguments %}{{ argument.name }}, {% endfor %} = args
-    {{ code|replace('\n', '\n    ') }}
+    {{ code | replace('\n', '\n    ') | replace('{BIGFUNCTIONS_DATASET}',  '`' +  project + '`.`' + dataset + '`' ) }}
 
 {% endif %}
 
@@ -190,24 +178,22 @@ def compute_one_row(args):
 def handle():
     try:
         data = request.get_json()
-        rows = data['calls']
-        if QUOTAS['backend'] == 'datastore':
-            quota_manager = DatastoreQuotaManager(data)
-        else:
-            quota_manager = SimpleQuotaManager(data)
+        logger = Logger(data)
+        logger.log(status='started')
+        quota_manager = QuotaManager(data)
         quota_manager.check_quotas()
-        quota_manager.save_log()
+        rows = data['calls']
         {% if code_process_rows_as_batch %}
         replies = compute_all_rows(rows)
         {% else %}
         replies = [compute_one_row(row) for row in rows]
         {% endif %}
         response = jsonify( { "replies" :  replies} )
-        quota_manager.save_log(status='success')
+        logger.log(status='success')
         return response
     except QuotaException as e:
         error_message = e.args[0]
-        quota_manager.save_log(status='quota_error', status_info=error_message)
+        logger.log(status='quota_error', status_info=error_message)
         return jsonify({
             'errorMessage': f'''
                 Thanks for using BigFunctions!
@@ -220,10 +206,10 @@ def handle():
         }), 400
     except AssertionError as e:
         error_message = e.args[0]
-        quota_manager.save_log(status='assertion_error', status_info=error_message)
+        logger.log(status='assertion_error', status_info=error_message)
         return jsonify({'errorMessage': error_message}), 400
     except Exception as e:
-        error_reporter.report_exception(google.cloud.error_reporting.build_flask_context(request))
         error_message = (str(e) + ' --- ' + traceback.format_exc())[:1000]
-        quota_manager.save_log(status='error', status_info=error_message)
+        logger.log(status='error', status_info=error_message)
+        error_reporter.report_exception(google.cloud.error_reporting.build_flask_context(request))
         return jsonify({'errorMessage': f"{type(e).__name__}: {str(e)}"}), 400

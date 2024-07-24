@@ -1,0 +1,41 @@
+type: function_sql
+category: transform_array
+author:
+  name: Julien Awonga
+  url: https://linkedin.com/in/julienawonga
+  avatar_url: "https://media.licdn.com/dms/image/D4E03AQFf9Qpnl0adhg/profile-displayphoto-shrink_400_400/0/1690023383639?e=1721260800&v=beta&t=StL_M-62Xv8rvUaHFxdFu4kCnKr-tSm7PDMkjKn72L8"
+description: |
+  Compute `z_scores`
+  for each value of `arr` array.
+
+  The [Z-Score](https://en.wikipedia.org/wiki/Standard_score) is the number of standard deviations by which the value is above or below the mean value.
+arguments:
+  - name: arr
+    type: any type
+output:
+  name: z_scores
+  type: any type
+examples:
+  - description: ""
+    arguments:
+      - "[1, 2, 3, 4, 5]"
+    output: "[-1.414, -0.707, 0, 0.707, 1.414]"
+code: |
+  (
+    with stats as (
+      select
+        avg(value) as mean,
+        stddev_pop(value) as stddev
+      from unnest(arr) as value
+    )
+
+    select array_agg(
+      if(
+        stats.stddev = 0,
+        0,
+        (value - stats.mean) / stats.stddev
+      )
+    )
+    from unnest(arr) as value,
+    stats
+  )

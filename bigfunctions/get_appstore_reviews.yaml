@@ -1,0 +1,83 @@
+type: table_function
+category: get_data
+author:
+  name: Paul Marcombes
+  url: https://www.linkedin.com/in/paul-marcombes
+  avatar_url: "https://lh3.googleusercontent.com/a-/ACB-R5RDf2yxcw1p_IYLCKmiUIScreatDdhG8B83om6Ohw=s260"
+description: |
+  GET Apple App Store Reviews of an app
+  given its `url`
+arguments:
+  - name: url
+    type: string
+output:
+  name: reviews
+  type: json
+examples:
+  - description: "Get customer reviews of Nickel App in App Store"
+    arguments:
+      - "'https://apps.apple.com/fr/app/nickel-compte-pour-tous/id1119225763'"
+    output: |
+      | ---------------------------------------------------|
+      | rating | content                                   |
+      | ---------------------------------------------------|
+      |    5   | Very simple to use                        |
+      |        |                                           |
+      |    5   | I advise you perfectly,                   |
+      |        | I have been with them for 5 years now,    |
+      |        | I have never had a problem.               |
+      |        |                                           |
+      |    5   | Really great. I opted for the black card. |
+      |        |                                           |
+      |        | ...                                       |
+      | ---------------------------------------------------|
+code: |
+  (
+    with
+
+    params as (
+      select
+        regexp_extract(url, r'https://apps.apple.com/([^/]*)/') as country,
+        regexp_extract(url, r'https://apps.apple.com/[^/]*/app/[^/]*/id(\d+).*') as app_id,
+
+    ),
+
+    rss as (
+      select {BIGFUNCTIONS_DATASET}.get(
+        format(
+          'https://itunes.apple.com/%s/rss/customerreviews/id=%s/page=%d/sortby=mostrecent/json',
+          params.country,
+          params.app_id,
+          page
+        ),
+        null
+      ) as content
+      from unnest(generate_array(1, 10)) as page,
+      params
+    ),
+
+    reviews_arrays as (
+      select json_extract_array(content, '$.feed.entry') as reviews
+      from rss
+    ),
+
+    reviews as (
+      select review
+      from reviews_arrays,
+      unnest(reviews) as review
+    )
+
+    select
+      json_value(review, '$.id.label') as id,
+      timestamp(json_value(review, '$.updated.label')) as updated_at,
+      cast(json_value(review, '$.im:rating.label') as int64) as rating,
+      cast(json_value(review, '$.im:voteCount.label') as int64) as vote_count,
+      cast(json_value(review, '$.im:voteSum.label') as int64) as vote_sum,
+      json_value(review, '$.title.label') as title,
+      json_value(review, '$.content.label') as content,
+      json_value(review, '$.im:version.label') as version,
+      json_value(review, '$.author.name.label') as author_name,
+      json_value(review, '$.author.uri.label') as author_url,
+      json_value(review, '$.link.attributes.href') as link,
+    from reviews
+  )

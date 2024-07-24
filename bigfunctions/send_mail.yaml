@@ -64,6 +64,11 @@ code: |
   import markdown
   import css_inline
 
+  if not to:
+    return True
+  subject = subject or ''
+  content = content or ''
+
   sender = {
       'name': 'BigFunctions',
       'email': 'bigfunctions@unytics.io'
@@ -432,6 +437,7 @@ code: |
 
 
   def check_emails(to):
+      to = to.replace(';', ',')
       emails = [email.strip() for email in to.split(',')]
       email_regex = r'\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,7}\b'
       for email in emails:

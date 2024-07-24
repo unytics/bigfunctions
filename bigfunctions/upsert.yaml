@@ -87,7 +87,7 @@ code: |
     destination_table as destination_table
   ));
 
-  execute immediate {BIGFUNCTIONS_DATASET}.render_string(query, to_json_string(context)) into table_columns;
+  execute immediate {BIGFUNCTIONS_DATASET}.render_template(query, to_json(context)) into table_columns;
 
   /*
     Perform the merge query.
@@ -166,4 +166,4 @@ code: |
     table_columns     as table_columns
   ));
 
-  execute immediate {BIGFUNCTIONS_DATASET}.render_string(query, to_json_string(context));
+  execute immediate {BIGFUNCTIONS_DATASET}.render_template(query, to_json(context));

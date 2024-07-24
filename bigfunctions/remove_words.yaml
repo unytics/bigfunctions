@@ -3,7 +3,7 @@ category: transform_string
 author:
   name: "Benjamin Tabet"
   url: https://www.linkedin.com/in/benjamin-tabet
-  avatar_url: "https://media.licdn.com/dms/image/C4D03AQGWnyJdEmZeZw/profile-displayphoto-shrink_200_200/0/1667928305931?e=1686787200&v=beta&t=sW-albet4-jvB_cv7krxCz16BFHdi6-ohc0bXbi-EIY"
+  avatar_url: "https://taskfilescsm.s3.amazonaws.com/uploads/speaker_thumb/2022-11-0912%253A07%253A34879766-BenjaminTabet.jpg"
 description: "Remove any word of `words_to_remove` from `string`"
 arguments:
   - name: string

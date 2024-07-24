@@ -26,4 +26,4 @@ examples:
       - "[3, 4]"
       - "7"
     output: "null"
-code: (select offset from unnest(arr) as x with offset where x = value limit 1)
+code: (select offset from unnest(arr) as x with offset where x = value order by offset limit 1)

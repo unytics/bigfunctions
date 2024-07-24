@@ -1,0 +1,42 @@
+type: function_sql
+category: explore
+author:
+  name: Paul Marcombes
+  url: https://www.linkedin.com/in/paul-marcombes
+  avatar_url: "https://lh3.googleusercontent.com/a-/ACB-R5RDf2yxcw1p_IYLCKmiUIScreatDdhG8B83om6Ohw=s260"
+description: |-
+  Return html with a Sankey Google chart
+arguments:
+  - name: data
+    type: array<struct<source string, target string, value float64>>
+output:
+  name: html
+  type: string
+examples:
+  - description: ""
+    arguments:
+      - "[('event1', 'event2', 12), ('event1', 'event3', 12)]"
+code: |
+  replace(
+    '''<html>
+    <div id="bf-sankey" style="width: 100%; min-height: 400px; margin: 0 auto"></div>
+    <script>
+      (function() {
+        const data = {DATA};
+
+        var table = new google.visualization.DataTable();
+        table.addColumn('string', 'From');
+        table.addColumn('string', 'To');
+        table.addColumn('number', 'value');
+        table.addRows(data.map(({source, target, value}) => ([source, target, value])));
+
+        var options = { width: '100%' };
+
+        var chart = new google.visualization.Sankey(document.getElementById('bf-sankey'));
+        chart.draw(table, options);
+      })();
+    </script>
+
+    </html>''',
+    '{DATA}', to_json_string(data)
+  )

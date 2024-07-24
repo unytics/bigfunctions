@@ -19,11 +19,20 @@ examples:
       - "'https://apps.apple.com/fr/app/nickel-compte-pour-tous/id1119225763'"
     output: "{...}"
 code: |
+  import requests
   import metadata_parser
-  page = metadata_parser.MetadataParser(url=url)
-  return page.metadata
+  if url not in CACHE:
+    try:
+      resp = requests.get(url, timeout=5)
+      assert resp.ok, 'bad response'
+      page = metadata_parser.MetadataParser(html=resp.text)
+      CACHE[url] = page.metadata
+    except:
+      CACHE[url] = {}
+  return CACHE[url]
 requirements: |
   requests
+  lxml
   metadata_parser
 quotas:
-  max_rows_per_query: 10
+  max_rows_per_query: 100

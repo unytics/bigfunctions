@@ -1,19 +1,37 @@
-from setuptools import setup
+import setuptools
 
-setup(
-    name='bigfun',
-    version='0.1.0',
+
+VERSION = '0.7'
+
+
+with open('README.md', 'r', encoding='utf-8') as fh:
+    long_description = fh.read()
+
+
+setuptools.setup(
+    name='bigfunctions',
     packages=['bigfun'],
-    package_data={'': ['*', 'templates/*']},
+    version=VERSION,
+    author='Unytics',
+    author_email='paul.marcombes@unytics.io',
+    description='Supercharge BigQuery with BigFunctions',
+    long_description=long_description,
+    long_description_content_type='text/markdown',
+    download_url=f'https://github.com/unytics/bigfunctions/archive/refs/tags/v{VERSION}.tar.gz',
+    classifiers=[
+        'Programming Language :: Python :: 3',
+        'License :: OSI Approved :: MIT License',
+        'Operating System :: OS Independent',
+    ],
+    python_requires='>=3.6',
     include_package_data=True,
     install_requires=[
         'google-cloud-bigquery',
-        'google-cloud-bigquery_connection',
+        'google-cloud-bigquery-connection',
         'google-cloud-storage',
         'pyyaml',
         'jinja2',
         'mkdocs-material',
-        'mkdocs-awesome-pages-plugin',
         'click',
         'click-help-colors',
     ],

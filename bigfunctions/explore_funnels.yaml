@@ -1,0 +1,252 @@
+type: procedure
+category: wip
+author:
+  name: Paul Marcombes
+  url: https://www.linkedin.com/in/paul-marcombes
+  avatar_url: "https://lh3.googleusercontent.com/a-/ACB-R5RDf2yxcw1p_IYLCKmiUIScreatDdhG8B83om6Ohw=s260"
+description: Show funnels (WORK IN PROGRESS)
+arguments:
+  - name: events_table
+    type: string
+  - name: event_types
+    type: array<string>
+examples:
+  - description: ""
+    arguments:
+      - "'compte-nickel-dataprod.TEMP.EVENT_TYPE_SNOWPLOW2'"
+      - '["UserProfile", "PhoneNumberEditionWorkflowIntroduction", "PhoneNumberEditionForm", "PasswordChallenge", "CodeEmailChallenge", "CodeSMSChallenge"]'
+code: |
+  assert array_length(split(events_table, '.')) = 3 as 'BAD ARGUMENT FORMAT: `events_table` argument must follow the pattern `PROJECT.DATASET.TABLE`';
+
+  execute immediate {BIGFUNCTIONS_DATASET}.render_template(
+    r'''
+    {%- set events_table = events_table.replace('`', '') -%}
+
+    create or replace temp table bigfunction_result as
+
+    with
+
+    events as (
+
+      select
+        user_id,
+        timestamp,
+        event_type,
+      from `{{ events_table }}`
+      where event_type in unnest({{ event_types | dump | safe }})
+
+    ),
+
+
+    journeys as (
+
+      select
+        event_type,
+        array_agg(
+          struct(
+            event_type,
+            timestamp
+          )
+        ) over (
+          partition by user_id
+          order by timestamp
+          rows between current row and {{ (event_types | length) - 1 }} following
+        ) as journey,
+      from events
+      qualify event_type = '{{ event_types[0] }}'
+
+    ),
+
+
+    journeys_enriched as (
+
+      select
+        array((
+          select struct(
+            event.event_type,
+            event.timestamp,
+            event.event_type = {{ event_types | dump | safe }}[offset(index)] as is_correct_event_type
+          )
+          from unnest(journey) as event
+          with offset index
+          order by index
+        )) as journey,
+      from journeys
+
+    ),
+
+
+    journeys_cleaned as (
+
+      select
+        array((
+          select struct(
+            event.event_type,
+            event.timestamp
+          ) as event
+          from unnest(journey) as event
+          with offset index
+          where index < ifnull((
+            select ix
+            from unnest(journey) as evt
+            with offset ix
+            where evt.is_correct_event_type is false
+            order by ix
+            limit 1
+          ), {{ event_types | length }})
+          order by index
+        )) as journey
+      from journeys_enriched
+
+    ),
+
+
+    event_types_counts as (
+
+      select
+        event.event_type,
+        date(event.timestamp) as date,
+        count(*) as nb,
+      from journeys_cleaned,
+      unnest(journey) as event
+      group by 1, 2 order by 2, 3 desc
+
+    )
+
+
+    select to_json(struct(
+      array_agg(struct(t).t order by nb desc) as event_types_counts
+    )) as json
+    from event_types_counts as t
+
+
+    ''',
+    to_json(struct(
+      events_table,
+      event_types
+    ))
+  );
+template: |
+  <div class="columns">
+    <div class="column is-6">
+      <p class="is-size-4">Volumes of events</p>
+      <div><canvas id="bf-line-chart" style="cursor: pointer"></canvas></div>
+    </div>
+    <div id="bf-funnel-column" class="column">
+      <p class="is-size-4">Funnel</p>
+      <div class="p-4" style="background: #393862">
+        <div id="bf-dates" class="mb-4"></div>
+        <div id="bf-funnel"></div>
+      </div>
+    </div>
+  </div>
+
+
+
+  <script>
+    (function() {
+
+      const event_types_counts = {{ event_types_counts | dump | safe }};
+      const dates = [...new Set(event_types_counts.map( ({event_type, nb, date}) => date))];
+      const event_types = [...new Set(event_types_counts.map( ({event_type, nb, date}) => event_type))];
+      const colors = ['#36A2EB', '#FF6384', '#4BC0C0', '#FF9F40', '#9966FF', '#FFCD56', '#C9CBCF'];
+
+
+      let current_date = dates[dates.length - 1];
+
+      document.getElementById('bf-dates').innerHTML = window.escapeHTML(`
+        <div class="select">
+          <select id="bf-change-date">
+            ${
+              dates
+              .sort().reverse()
+              .map( date => '<option>' + date + '</option>')
+              .join('')
+            }
+          </select>
+        </div>
+      `);
+
+
+      document.getElementById('bf-change-date').addEventListener("change", (event) => {
+        current_date = event.target.value;
+        drawFunnel();
+      });
+
+
+      const drawFunnel = function() {
+
+        const event_types_counts_at_date = event_types_counts.filter( ({event_type, nb, date}) => date == current_date)
+
+        var dataExample2 = {
+            labels: event_types_counts_at_date.map( ({event_type, nb, date}) => event_type),
+            colors: ['#FFB178', '#FF3C8E'],
+            values: event_types_counts_at_date.map( ({event_type, nb, date}) => nb)
+        };
+
+        var dataExample3 = {
+            labels: ['Impressions', 'Add To Cart', 'Buy'],
+            subLabels: ['Direct', 'Social Media', 'Ads'],
+            colors: [
+                ['#FFB178', '#FF78B1', '#FF3C8E'],
+                ['#A0BBFF', '#EC77FF'],
+                ['#A0F9FF', '#7795FF']
+            ],
+            values: [
+                [3500, 2500, 6500],
+                [3300, 1400, 1000],
+                [600, 200, 130]
+            ],
+        };
+
+        try {
+        document.getElementById('bf-funnel').innerText = '';
+        var graph = new FunnelGraph({
+            container: '#bf-funnel',
+            gradientDirection: 'horizontal',
+            data: dataExample2,
+            displayPercent: true,
+            direction: 'vertical',
+            width: document.getElementById('bf-funnel-column').getBoundingClientRect().width - 150,
+            height: 600,
+            subLabelValue: 'raw'
+        });
+
+        graph.draw();
+
+        } catch (error) {
+          console.error(error);
+          // Expected output: ReferenceError: nonExistentFunction is not defined
+          // (Note: the exact output may be browser-dependent)
+        }
+      };
+
+
+      const drawLineChart = function() {
+        new Chart(
+          document.getElementById('bf-line-chart'),
+          {
+            data: {
+              labels: dates.sort(),
+              datasets: event_types.map( (current_event_type, index) => ({
+                type: 'line',
+                label: current_event_type,
+                data: event_types_counts.filter( ({event_type, nb, date}) => event_type == current_event_type).map( ({event_type, nb, date}) => nb ),
+                borderColor: colors[Math.min(index, 6)],
+                fill: false,
+              })),
+            },
+            options: {}
+          }
+        );
+      };
+
+      drawFunnel();
+      drawLineChart();
+
+    })();
+
+  </script>
+
+
+

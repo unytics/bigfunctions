@@ -5,12 +5,13 @@ author:
   url: https://www.linkedin.com/in/paul-marcombes
   avatar_url: "https://lh3.googleusercontent.com/a-/ACB-R5RDf2yxcw1p_IYLCKmiUIScreatDdhG8B83om6Ohw=s260"
 description: |
-  Return the schema of a json string as `[{path, type}]`
+  Returns the schema of `data`
+  (with `data` a json object) as `[{path, type}]`
   with `path` the path of the nested field
   and `type` among (`string`, `numeric`, `bool`, `date`, `timestamp`)
 arguments:
-  - name: json_string
-    type: string
+  - name: data
+    type: json
 output:
   name: schema
   type: array<struct<path string, type string>>
@@ -66,13 +67,5 @@ code: |
     return result;
   }
 
-  let obj = {}
-  try {
-      obj = JSON.parse(json_string);
-  }
-  catch {
-      throw('could not parse ' + json_string)
-  }
-
-  const schema = getSchema(obj)
+  const schema = getSchema(data);
   return schema

@@ -24,6 +24,8 @@ examples:
     output: 'ok'
 code: |
   import requests
+  if not message:
+    return 'EMPTY MESSAGE. NOT SENDING'
   assert webhook_url.startswith('https://hooks.slack.com/'), 'webhook_url should start with `https://hooks.slack.com/`'
   response = requests.post(
       webhook_url,
@@ -34,5 +36,7 @@ code: |
   return response.text
 requirements: |
   requests
+cloud_run:
+  max_instances: 10
 quotas:
   max_rows_per_query: 10
