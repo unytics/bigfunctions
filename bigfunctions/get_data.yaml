@@ -120,7 +120,7 @@ examples:
         '''
       - "'crew, rockets'"
       - "'your_project.your_dataset'"
-    output: ok
+    output: "Data load job ended successfully. Check logs at `your_project.your_dataset._airbyte_logs`"
 init_code: |
   import json
   import requests
