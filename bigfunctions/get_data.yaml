@@ -96,13 +96,11 @@ examples:
         const plainText = document.getElementById('secret-to-encrypt').value;
         const encrypted = publicKey.encrypt(plainText, 'RSA-OAEP', {
           md: forge.md.sha256.create(),
-          mgf1: {
-            md: forge.md.sha256.create()
-          }
+          mgf1: { md: forge.md.sha256.create() }
         });
-        const encryptedB64= forge.util.encode64(encrypted);
+        const encryptedB64 = forge.util.encode64(encrypted);
         navigator.clipboard.writeText(`ENCRYPTED_SECRET(${encryptedB64})`);
-        alert("Successfully copied the encrypted secret in clipboard. Paste it as is in your source_config as shown in example.");
+        alert("Successfully copied the encrypted secret in clipboard. Paste it in your source_config as shown in example.");
       }
       </script>
 
