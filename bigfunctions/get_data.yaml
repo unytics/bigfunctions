@@ -258,7 +258,7 @@ init_code: |
                 )
             )
             data[key] = plaintext.decode()
-            assert False, 'DECRYPTED ' + plaintext.decode()
+
 
   def list_streams(executable, source_config):
     airbyte_source = ExecutableAirbyteSource(executable=executable, config=source_config)
