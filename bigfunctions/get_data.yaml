@@ -27,7 +27,7 @@ output:
   type: string
 examples:
   - description: |
-      Show sources available for `source` argument by setting `source` to `null`
+      Show valid sources for `source` argument by setting `source` to `null`
 
       You can then copy one of these sources for `source` argument.
     arguments:
@@ -190,16 +190,25 @@ examples:
       - "'your_project.your_dataset'"
     output: "Data load job ended successfully. Check logs at `your_project.your_dataset._airbyte_logs`"
 init_code: |
+  import base64
   import json
+
   import requests
   import yaml
   from airbyte_serverless.connections import Connection
   from airbyte_serverless.sources import ExecutableAirbyteSource
   from airbyte_serverless import airbyte_utils
   import google.api_core.exceptions
+  from cryptography.hazmat.primitives import serialization
+  from cryptography.hazmat.primitives import hashes
+  from cryptography.hazmat.primitives.asymmetric import padding
 
 
   SOURCES_URL = 'https://connectors.airbyte.com/files/registries/v0/oss_registry.json'
+  PRIVATE_KEY = serialization.load_pem_private_key(
+      get_data_rsa_private_key.encode(),
+      password=None,
+  )
 
 
   def get_sources():
@@ -229,6 +238,27 @@ init_code: |
     except:
       assert False, 'Given `source_config` is NOT a valid yaml content'
 
+
+  def decrypt_secrets(data):
+    for key, value in data.items():
+        if isinstance(value, dict):
+            decrypt_secrets(value)
+        elif isinstance(value, str) and value.strip().startswith("ENCRYPTED_SECRET("):
+            value = value.strip()
+            value = value[len("ENCRYPTED_SECRET("):]
+            assert ')' in value, 'missing `)` closing parenthese in encrypted secret'
+            value = value[:value.find(')')]
+            ciphertext = base64.b64decode(value)
+            plaintext = PRIVATE_KEY.decrypt(
+                ciphertext,
+                padding.OAEP(
+                    mgf=padding.MGF1(algorithm=hashes.SHA256()),
+                    algorithm=hashes.SHA256(),
+                    label=None
+                )
+            )
+            data[key] = plaintext.decode()
+            assert False, 'DECRYPTED ' + plaintext.decode()
 
   def list_streams(executable, source_config):
     airbyte_source = ExecutableAirbyteSource(executable=executable, config=source_config)
@@ -278,6 +308,7 @@ code: |
     return '# SOURCE CONFIG\n\n' + source_config
 
   source_config = yaml2dict(source_config)
+  decrypt_secrets(source_config)
 
   if not streams:
     streams = list_streams(executable, source_config)
@@ -294,8 +325,35 @@ dockerfile:
 requirements: |
   airbyte-serverless
   cryptography
-max_batching_rows: 1
+secrets:
+  - name: get_data_rsa_private_key
+    description: "RSA Private Key used to decrypt secrets"
+    documentation: |
+      from cryptography.hazmat.primitives.asymmetric import rsa
+      from cryptography.hazmat.primitives import serialization
+
+      private_key = rsa.generate_private_key(
+          public_exponent=65537,
+          key_size=2048,
+      )
+
+      # PRINT PRIVATE KEY
+      pem = private_key.private_bytes(
+        encoding=serialization.Encoding.PEM,
+        format=serialization.PrivateFormat.TraditionalOpenSSL,
+        encryption_algorithm=serialization.NoEncryption()
+      )
+      print(pem.decode())
+
+      # PRINT PUBLIC KEY
+      public_key = private_key.public_key()
+      pem = public_key.public_bytes(
+        encoding=serialization.Encoding.PEM,
+        format=serialization.PublicFormat.SubjectPublicKeyInfo
+      )
+      print(pem.decode())
 quotas:
+  max_rows_per_query: 1
   max_rows_per_user_per_day: 200
 cloud_run:
   memory: 512Mi
