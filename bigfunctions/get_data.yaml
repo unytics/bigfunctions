@@ -63,24 +63,20 @@ examples:
   - description: |
       **Encrypt Secrets!**
 
-      You will usually have to write secrets in `source_config` such as api keys.
+      You usually have to write secrets in `source_config` such as api keys.
 
       **We strongly advise NOT TO write your secrets in `source_config` in plain text**.
-      Otherwise, once you will run your query, they will be stored in plain text
+
+      Otherwise, when you run your query, they will be stored in plain text
       in BigQuery logs for several months.
 
       Instead, you can use the following snippet to generate an encrypted version of your secrets.
-      No one, except this bigfunction deployed in bigfunctions GCP project, will be able to decrypt it.
-
-      1. Copy your secret value in the input.
-      2. Click on the button to copy an encrypted version in your clipboard.
-      3. Paste the encrypted version in your `source_config` as shown in the example below.
+      *No one, except this bigfunction deployed in bigfunctions GCP project, can decrypt it.*
 
       <div>
         <input id="secret-to-encrypt" type="text" class="md-input" placeholder="a secret value">
-        <button class="mb-button" onclick="encrypt();">Encrypt Secret & Copy encrypted value</button>
+        <a class="md-button md-button--primary" href="javascript:encrypt();">Encrypt Secret</a>
       </div>
-
 
       <script src="https://cdn.jsdelivr.net/npm/node-forge@1.0.0/dist/forge.min.js"></script>
       <script>
@@ -108,7 +104,8 @@ examples:
           }
         });
         const encryptedB64= forge.util.encode64(encrypted);
-        console.log(`ENCRYPTED_SECRET(${encryptedB64})`);
+        navigator.clipboard.writeText(`ENCRYPTED_SECRET(${encryptedB64})`);
+        alert("Successfully copied the encrypted secret in clipboard. Paste it as is in your source_config as shown in example.);
       }
       </script>
 
