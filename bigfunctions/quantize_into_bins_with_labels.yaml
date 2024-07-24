@@ -18,13 +18,13 @@ output:
   name: label
   type: string
 examples:
-  - description: ""
+  - description: "Value 25 is between 0 and 50, so it will return Fail"
     arguments:
       - "25"
       - "[0, 50, 60, 90, 100]"
       - "['Fail', 'Wait for result exam', 'Pass', 'Pass with mention']"
     output: "Fail"
-  - description: ""
+  - description: "Value -10 is out of defined range, so it will return UNDEFINED"
     arguments:
       - "-10"
       - "[0, 50, 60, 90, 100]"
