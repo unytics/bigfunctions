@@ -8,8 +8,13 @@ description: |
   Get data from 250+ sources using [Airbyte Python Connectors](https://docs.airbyte.com/using-airbyte/pyairbyte/getting-started#available-connectors)
   .
 
-  [Airbye Serverless](https://github.com/unytics/airbyte_serverless) will extract data from `source` (using one of 250+ Airbyte Python Connectors available on [PyPI]((https://pypi.org/search/?q=airbyte-source-))) using `source_config` (source configuration in yaml format expected by Airbyte Serverless). It will append data in raw format into one table per stream (a stream is like a resource type) in `destination_dataset`.
-  When supported by the stream, data is extracted incrementally (next execution will only retrieve new rows). For this purpose, a state is stored in `_airbyte_states` table in `destination_dataset`. While running, connector logs are appended in table `_airbyte_logs`. You can check them to get details on the run.
+  [Airbye Serverless](https://github.com/unytics/airbyte_serverless) will extract data from `source` (using one of 250+ Airbyte Python Connectors available on [PyPI]((https://pypi.org/search/?q=airbyte-source-))) using `source_config` (source configuration in yaml format expected by Airbyte Serverless).
+
+  It will append data in raw format into one table per stream (a stream is like a resource type) in `destination_dataset`.
+
+  When supported by the stream, data is extracted incrementally (next execution will only retrieve new rows). For this purpose, a state is stored in `_airbyte_states` table in `destination_dataset`.
+
+  While running, connector logs are appended in table `_airbyte_logs`. You can check them to get details on the run.
 
   Examples below explain how to set the arguments.
 arguments:
