@@ -63,8 +63,7 @@ examples:
 
       **We strongly advise NOT TO write your secrets in `source_config` in plain text**.
 
-      Otherwise, when you run your query, they will be stored in plain text
-      in BigQuery logs for several months.
+      Otherwise, they will be stored in plain text in your BigQuery logs for months.
 
       Instead, you can use the following snippet to generate an encrypted version of your secrets
       that you can safely copy in `source_config` as shown in example below.
@@ -103,7 +102,7 @@ examples:
         });
         const encryptedB64= forge.util.encode64(encrypted);
         navigator.clipboard.writeText(`ENCRYPTED_SECRET(${encryptedB64})`);
-        alert("Successfully copied the encrypted secret in clipboard. Paste it as is in your source_config as shown in example.);
+        alert("Successfully copied the encrypted secret in clipboard. Paste it as is in your source_config as shown in example.";
       }
       </script>
 
