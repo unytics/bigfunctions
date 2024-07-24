@@ -91,9 +91,20 @@ examples:
       - "'launches'"
       - "null"
     output: |
-      # AVAILABLE STREAMS
+      # FIRST RECORD
 
-      launches, capsules, company, crew, cores, dragons, landpads, payloads, history, rockets, roadster, ships, starlink
+      {
+          "stream": "launches",
+          "data": {
+              "rocket": "5e9d0d95eda69973a809d1ec",
+              "success": true,
+              "flight_number": 187,
+              "name": "Crew-5",
+              "date_utc": "2022-10-05T16:00:00.000Z",
+              ...
+          },
+          "emitted_at": 1721804564098
+      }
   - description: |
       Extract and load `crew` and `rockets` streams into `your_project.your_dataset`.
 
