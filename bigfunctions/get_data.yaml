@@ -102,7 +102,7 @@ examples:
         });
         const encryptedB64= forge.util.encode64(encrypted);
         navigator.clipboard.writeText(`ENCRYPTED_SECRET(${encryptedB64})`);
-        alert("Successfully copied the encrypted secret in clipboard. Paste it as is in your source_config as shown in example.";
+        alert("Successfully copied the encrypted secret in clipboard. Paste it as is in your source_config as shown in example.");
       }
       </script>
 
