@@ -58,7 +58,7 @@ description: "BigFunction {{ name }}: {{ description.split('\n')[0] }}"
 
 {% for example in examples %}
 
-{% if example.description %}<span style="color: var(--md-typeset-a-color);">{% if examples|length > 1 %}{{ loop.index }}. {% endif %}{{ example.description }}</span>{% endif %}
+{% if example.description %}<span style="color: var(--md-code-hl-string-color); text-decoration: underline;">{% if examples|length > 1 %}{{ loop.index }}. {% endif %}{{ example.description }}</span>{% endif %}
 
 {% set datasets = dataset.split(',') %}
 {% set nb_datasets = [(datasets|length), 3] | min %}

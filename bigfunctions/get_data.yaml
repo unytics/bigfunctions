@@ -68,8 +68,8 @@ examples:
 
       Instead, you can use the following snippet to generate an encrypted version of your secrets
       that you can safely copy in `source_config` as shown in example below.
-      This bigfunction deployed in bigfunctions GCP project will be able to decrypt them.
-      No one else can decrypt them thanks to encryption with asymmetric key pair.
+      This public bigfunction (deployed on bigfunctions GCP project) will be able to decrypt them.
+      But no one else can.
 
       <div>
         <input id="secret-to-encrypt" type="text" class="md-input" placeholder="a secret value">
