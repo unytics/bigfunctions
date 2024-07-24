@@ -1,5 +1,10 @@
 FROM {{ dockerfile.image if dockerfile is defined and dockerfile.image is defined else 'python:3.11-slim' }}
 
+# Install apt packages
+{% if dockerfile is defined and dockerfile.apt_packages is defined %}
+RUN apt update && apt install -y {{ dockerfile.apt_packages }}
+{% endif %}
+
 EXPOSE 8080
 
 # Allow statements and log messages to immediately appear in the Knative logs

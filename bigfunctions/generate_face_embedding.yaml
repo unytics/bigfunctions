@@ -35,8 +35,8 @@ examples:
         face_confidence: 1.0,
       }
 dockerfile:
+  apt_packages: libgl1-mesa-glx libglib2.0-0
   additional_commands: |
-    RUN apt-get update -y && apt-get install -y libgl1-mesa-glx libglib2.0-0
     RUN python -c "import deepface.DeepFace; import deepface.detectors.DetectorWrapper; deepface.DeepFace.build_model('Facenet512'); deepface.detectors.DetectorWrapper.build_model('retinaface')"
 code: |
   import tempfile
