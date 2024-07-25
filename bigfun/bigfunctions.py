@@ -115,7 +115,7 @@ class BigFunction:
 
     def _test_python_function_locally(self):
         argument_names = [arg['name'] for arg in self.config['arguments']]
-        argument_values = [value.strip() for value in self.config['examples'][0]['arguments']]
+        argument_values = [str(value).strip() for value in self.config['examples'][0]['arguments']]
         arguments = zip(argument_names, argument_values)
         template_file = f'{TEMPLATE_FOLDER}/function_py_test.py'
         template = jinja2.Template(open(template_file, encoding='utf-8').read())
