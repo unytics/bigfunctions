@@ -234,9 +234,12 @@ init_code: |
 
   def yaml2dict(source_yaml_config):
     try:
-      return yaml.safe_load(source_yaml_config) or {}
+      source_config = yaml.safe_load(source_yaml_config) or {}
     except:
       assert False, 'Given `source_config` is NOT a valid yaml content'
+    if isinstance(source_config, str):
+      return {}
+    return source_config
 
 
   def decrypt_secrets(data):
