@@ -114,9 +114,10 @@ def get(bigfunction):
     if not os.path.isdir('bigfunctions'):
         os.makedirs('bigfunctions')
     url = f'https://raw.githubusercontent.com/unytics/bigfunctions/main/bigfunctions/{bigfunction}.yaml'
+    if bigfunction.startswith('https://'):
+        url = bigfunction
+        bigfunction = bigfunction.split('/')[-1].split('.')[0]
     utils.download(url, f'bigfunctions/{bigfunction}.yaml')
-
-
 
 
 @cli.command()
