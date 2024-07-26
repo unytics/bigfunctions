@@ -1,0 +1,228 @@
+{% extends "base.html" %}
+
+
+
+{% block extrahead %}
+
+{% if page and page.meta and page.meta.title %}
+<meta property="og:title" content="{{ page.meta.title }} - {{ config.site_name }}" />
+<meta property="twitter:card" content="summary" />
+<meta property="twitter:title" content="{{ page.meta.title }} - {{ config.site_name }}" />
+{% else %}
+<meta property="og:title" content="Bigfunctions supercharge BigQuery" />
+<meta property="twitter:card" content="summary" />
+<meta property="twitter:title" content="Bigfunctions supercharge BigQuery" />
+{% endif %}
+
+{% if page and page.meta and page.meta.description %}
+<meta property="og:description" content="{{ page.meta.description }}" />
+{% elif config.site_description %}
+<meta property="og:description" content="{{ config.site_description }}" />
+{% endif %}
+
+{% if page and page.meta and page.meta.image_url %}
+<meta property="og:image" content="{{ page.meta.image_url }}" />
+<meta property="og:image:type" content="{{ page.meta.image_type }}" />
+<meta property="og:image:width" content="{{ page.meta.image_width }}" />
+<meta property="og:image:height" content="{{ page.meta.image_height }}" />
+<meta property="twitter:image" content="{{ page.meta.image_url }}" />
+<meta property="twitter:image:alt" content="{{ page.meta.image_alt }}" />
+{% else %}
+<meta property="og:image" content="https://unytics.io/bigfunctions/assets/logo_and_name.png" />
+<meta property="og:image:type" content="image/png" />
+<meta property="og:image:width" content="2500" />
+<meta property="og:image:height" content="541" />
+<meta property="twitter:image" content="https://unytics.io/bigfunctions/assets/logo_and_name.png" />
+<meta property="twitter:image:alt" content="Supercharge BigQuery with BigFunctions" />
+{% endif %}
+
+<style>
+  @media screen and (min-width: 76.25em) {
+    .md-sidebar--primary {
+      display: none;
+    }
+  }
+span.title {
+  font-weight: bold;
+}
+
+span.em {
+  font-weight: bold;
+}
+
+.separator {
+  border-bottom: 1px solid #e3e8ee;
+}
+
+a.field {
+  font-weight: 600;
+  /* color: #3c4257; */
+  font-size: .8rem;
+}
+
+span.parent-field {
+  font-weight: 600;
+  color:#a3acb9;
+  font-size: .85em;
+}
+
+span.type {
+  color: #8792a2;
+  font-size: .7rem;
+  margin-right: 4px;
+}
+
+span.version {
+  color: #8792a2;
+  font-size: .7rem;
+  float: right;
+}
+
+.md-typeset .admonition.abstract,
+.md-typeset details.abstract {
+  border-color: rgb(43, 155, 70);
+}
+.md-typeset .abstract > .admonition-title,
+.md-typeset .abstract > summary {
+  background-color: var(--md-primary-fg-color);
+}
+.md-typeset .abstract > .admonition-title::before,
+.md-typeset .abstract > summary::before {
+  background-color: var(--md-primary-fg-color);
+  -webkit-mask-image: var(--md-admonition-icon--abstract);
+          mask-image: var(--md-admonition-icon--abstract);
+}
+
+.md-typeset__table {
+   min-width: 100%;
+}
+
+.admonition.note {
+  font-size: .8rem;
+}
+</style>
+
+{% endblock %}
+
+
+{% block announce %}
+  <style>
+    .md-banner a {
+      color: white;
+    }
+    .md-banner a:hover {
+      color: gold;
+    }
+  </style>
+  <p style="text-align: center;">
+    <em>
+      BigFunctions is fully open-source</em>
+        <svg width="11" height="10" viewBox="0 0 11 10" fill="none" style="margin-left:2px"><path d="M1 5.16772H9.5M9.5 5.16772L6.5 1.66772M9.5 5.16772L6.5 8.66772" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+        <span style="margin: 0 0.25rem 0 0.5rem">⭐</span><a href="https://github.com/unytics/bigfunctions"><u>Star us on GitHub!</u></a>
+  </p>
+{% endblock %}
+
+
+<!-- Render hero under tabs -->
+{% block tabs %}
+  {{ super() }}
+
+  <!-- Hero for landing page -->
+  {% if page and page.file and page.file.url == './' %}
+
+
+  <!-- Additional styles for landing page -->
+  <style>
+
+
+  /* Get started button */
+  .md-typeset .md-button--primary:hover {
+    color: var(--md-primary-fg-color);
+    background-color: var(--md-primary-bg-color);
+    border-color: var(--md-primary-fg-color);
+  }
+  .md-typeset .md-button--primary {
+    color: var(--md-primary-bg-color);
+    background-color: var(--md-primary-fg-color);
+    border-color: var(--md-primary-bg-color);
+  }
+
+  .tx-hero {
+    max-width: 700px;
+    display: flex;
+    padding: .4rem;
+    margin: 0 auto;
+    text-align: center;
+  }
+  .tx-hero h1 {
+    font-weight: 700;
+    font-size: 38px;
+    line-height: 46px;
+    color: rgb(38, 38, 38);
+  }
+  .tx-hero p {
+    color: rgb(92, 92, 92);
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 32px;
+  }
+  .tx-hero__image {
+    max-width: 1000px;
+    /*min-width: 600px;*/
+    width: 100%;
+    height: auto;
+    margin: 0 auto;
+    display: flex;
+    align-items: stretch;
+  }
+
+  .tx-hero__image img {
+    width: 100%;
+    height: 100%;
+    min-width: 0;
+  }
+
+  </style>
+
+  <div class="md-container tx-hero">
+    <div class="md-grid md-typeset">
+      <div class="md-main__inner">
+        <div>
+          <h1>Supercharge <u>BigQuery</u><br>with <u>BigFunctions</u></h1>
+          <p>
+            <b>Upgrade your data impact</b><br>
+            <i>with</i> 100+ ready-to-use BigQuery Functions
+          </p>
+          <p style="margin-bottom: 2rem"><i>(+ build a catalog of functions)</i></p>
+          <a href="bigfunctions/" class="md-button md-button--primary">
+            Try it!
+            <svg width="11" height="10" viewBox="0 0 11 10" fill="none" style="margin-left:2px"><path d="M1 5.16772H9.5M9.5 5.16772L6.5 1.66772M9.5 5.16772L6.5 8.66772" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- <div class="md-container">
+    <div class="tx-hero__image">
+      <img
+        src="{{config.site_url}}assets/images/bigfunctions_intro.gif"
+        alt=""
+        draggable="false"
+        style="border: black solid 1rem; width: 100%; margin-top: 5rem;"
+      >
+    </div>
+  </div> -->
+
+  <hr style="margin: 16em 1em 1.5em 1em;  border-bottom: 0.05rem solid var(--md-default-fg-color--lightest); display: flow-root;">
+
+
+  {% endif %}
+  <!-- END OF Hero for landing page -->
+
+
+{% endblock %}
+
+
+
+
