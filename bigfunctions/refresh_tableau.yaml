@@ -6,7 +6,57 @@ author:
   avatar_url: "https://media.licdn.com/dms/image/C4D03AQG2Orctig4ycg/profile-displayphoto-shrink_800_800/0/1532385599460?e=1727308800&v=beta&t=jonuDcwGKpHZWsarmsIJ1AHm55WQsbMB1qQyU6p7alY"
 description: |
   Refresh a tableau datasource or workbook
-  named `workbook_or_datasource_title`
+  named `workbook_or_datasource_title`.
+
+
+  **Encrypt `token_secret`!**
+
+  **We advise NOT TO write your token in plain text in `token_secret` argument**.
+
+  Otherwise, they will be stored in plain text in your BigQuery logs for months.
+
+  Instead, you can use the following snippet to generate an encrypted version of `token_secret`
+  that you can copy safely as `token_secret` argument.
+
+  This public bigfunction (deployed on bigfunctions GCP project) will be able to decrypt it.
+  But no one else can.
+
+  <div>
+    <input id="secret-to-encrypt" type="text" class="md-input" placeholder="a secret value">
+    <button class="md-button md-button--primary" onclick="encrypt();">Encrypt Secret</button>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/node-forge@1.0.0/dist/forge.min.js"></script>
+  <script>
+  const pem = `
+  -----BEGIN PUBLIC KEY-----
+  MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAsi6X6H+HVCeuuGwekTND
+  StT6BfW7TCuzRmRTmbmv3T46yWtl3vtdSgIMSCzE1hdNhJSa3GQWZkO8zQWP+J2U
+  Se/SOMXdmP0axAPd19brdPYUG5osu+6leiYlUcyHcl/dZDYJxrCC+yUeIM/kwsFv
+  fD8JHDTE4EeMqd60+UzhIp0V54DlFrCDPjMCHEfkDC114tMPvmr4FHQ01B+lcpRd
+  +qO8KLV/BacQP5EWDiiuH5Q6RTRynhf+7dmUqqftRLcb6GUE3TmxQORFEBYE5STk
+  hj3P4aygoUaUW+ex708tt9G7xqVLc8H5mRedTabnnmnCn5hS+DEWRo8rhBCP7SSa
+  gQIDAQAB
+  -----END PUBLIC KEY-----
+  `;
+
+  const publicKey = forge.pki.publicKeyFromPem(pem);
+
+
+  function encrypt() {
+    const plainText = document.getElementById('secret-to-encrypt').value;
+    if (!plainText) {
+      return;
+    }
+    const encrypted = publicKey.encrypt(plainText, 'RSA-OAEP', {
+      md: forge.md.sha256.create(),
+      mgf1: { md: forge.md.sha256.create() }
+    });
+    const encryptedB64 = forge.util.encode64(encrypted);
+    navigator.clipboard.writeText(`ENCRYPTED_SECRET(${encryptedB64})`);
+    alert("Successfully copied the encrypted secret in clipboard.\n\nPaste it in your source_config as shown in example.");
+  }
+  </script>
 arguments:
   - name: workbook_or_datasource_title
     type: string
@@ -35,6 +85,10 @@ code: |
 
   base_url = f'https://{server}/api/3.21'
   headers = {'accept': 'application/json', 'content-type': 'application/json'}
+  private_key = serialization.load_pem_private_key(
+      refresh_tableau_rsa_private_key.encode(),
+      password=None,
+  )
 
   if not workbook_or_datasource_title:
     return 'missing_workbook_or_datasource_title'
@@ -50,12 +104,31 @@ code: |
     pass
 
 
+  def decrypt_secret(secret):
+    if not secret.strip().startswith("ENCRYPTED_SECRET("):
+      return secret
+    secret = secret.strip()
+    secret = secret[len("ENCRYPTED_SECRET("):]
+    assert ')' in secret, 'missing `)` closing parenthese in encrypted secret'
+    secret = secret[:secret.find(')')]
+    ciphertext = base64.b64decode(secret)
+    plaintext = PRIVATE_KEY.decrypt(
+        ciphertext,
+        padding.OAEP(
+            mgf=padding.MGF1(algorithm=hashes.SHA256()),
+            algorithm=hashes.SHA256(),
+            label=None
+        )
+    )
+    return plaintext.decode()
+
+
   def check_response(response, action):
     if not response.ok:
       raise TableauException(f'ERROR_{action.upper()} {response.status_code}: {response.text}')
 
 
-  def login():
+  def login(site, token_name, token_secret):
     signin_url = f"{base_url}/auth/signin"
     data = {
       "credentials": {
@@ -119,7 +192,8 @@ code: |
     check_response(response, 'signout')
 
   try:
-    site_id = login()
+    token_secret = decrypt_secret(token_secret)
+    site_id = login(site, token_name, token_secret)
     obj_id, obj_type = search(workbook_or_datasource_title)
     if obj_id is None:
       return 'not_found'
@@ -131,5 +205,32 @@ code: |
   return 'ok'
 requirements: |
   requests
+secrets:
+  - name: refresh_tableau_rsa_private_key
+    description: "RSA Private Key used to decrypt secrets"
+    documentation: |
+      from cryptography.hazmat.primitives.asymmetric import rsa
+      from cryptography.hazmat.primitives import serialization
+
+      private_key = rsa.generate_private_key(
+          public_exponent=65537,
+          key_size=2048,
+      )
+
+      # PRINT PRIVATE KEY
+      pem = private_key.private_bytes(
+        encoding=serialization.Encoding.PEM,
+        format=serialization.PrivateFormat.TraditionalOpenSSL,
+        encryption_algorithm=serialization.NoEncryption()
+      )
+      print(pem.decode())
+
+      # PRINT PUBLIC KEY
+      public_key = private_key.public_key()
+      pem = public_key.public_bytes(
+        encoding=serialization.Encoding.PEM,
+        format=serialization.PublicFormat.SubjectPublicKeyInfo
+      )
+      print(pem.decode())
 quotas:
   max_rows_per_query: 10
