@@ -3,9 +3,9 @@ category: transform_numeric
 author:
   name: Bartosz Figas
   url: https://www.linkedin.com/in/bartosz-figas
-  avatar_url: "--"
+  avatar_url: "https://media.licdn.com/dms/image/C4D03AQHZHNvfrl8O5Q/profile-displayphoto-shrink_800_800/0/1661107655654?e=1727308800&v=beta&t=ntO0tHKHREQWRe7_oxPlsCtCYxIB3_YyStq9B4Tv_uw"
 description: |
-  Get the label of the `bin_range` in which belongs `value`.
+  Get the `label` of the bin in which belongs `value`
 arguments:
   - name: value
     type: any type
@@ -13,48 +13,70 @@ arguments:
     type: any type
   - name: labels
     type: array<string>
-  
+
 output:
   name: label
   type: string
 examples:
-  - description: "Value 25 is between 0 and 50, so it will return Fail"
+  - description: |
+      `55` is between `50` and `60` so it is in second bin.
+      Function returns `Wait for result exam` label.
     arguments:
-      - "25"
+      - "55"
       - "[0, 50, 60, 90, 100]"
       - "['Fail', 'Wait for result exam', 'Pass', 'Pass with mention']"
-    output: "Fail"
-  - description: "Value -10 is out of defined range, so it will return UNDEFINED"
+    output: "Wait for result exam"
+  - description: |
+      Lower bounds are inclusive. `50` is then also in second bin.
+      Function returns `Wait for result exam` label.
+    arguments:
+      - "50"
+      - "[0, 50, 60, 90, 100]"
+      - "['Fail', 'Wait for result exam', 'Pass', 'Pass with mention']"
+    output: "Wait for result exam"
+  - description: |
+      `-10` is below the lowest bound
+      Function returns `UNDEFINED_INF`.
+      (It returns `UNDEFINED_SUP` is above the upper bound).
     arguments:
       - "-10"
       - "[0, 50, 60, 90, 100]"
       - "['Fail', 'Wait for result exam', 'Pass', 'Pass with mention']"
-    output: "UNDEFINED"
+    output: "UNDEFINED_INF"
+  - description: |
+      You can also pass `n + 1` labels instead of `n - 1` labels (when `n` is the number of bounds).
+      In that case, values below the first bound will have this first label (instead of `UNDEFINED_INF`).
+      `-10` will then give `Lower than very bad!`.
+    arguments:
+      - "-10"
+      - "[0, 50, 60, 90, 100]"
+      - "['Lower than very bad!', 'Fail', 'Wait for result exam', 'Pass', 'Pass with mention', 'Genius!']"
+    output: "Lower than very bad"
 code: |
   (
-    select
-      case
-        when value < bin_bounds[offset(0)] then "]-∞, " || cast(bin_bounds[offset(0)] as string) || "["
-        when value > bin_bounds[ordinal(array_length(bin_bounds))] then "]"     || cast(bin_bounds[ordinal(array_length(bin_bounds))] as string) || ", +∞["
-        when value = bin_bounds[ordinal(array_length(bin_bounds))] and array_length(bin_bounds) = 1 then cast(bin_bounds[offset(0)] as string)
-        when value = bin_bounds[ordinal(array_length(bin_bounds))] then "["     || cast(bin_bounds[ordinal(array_length(bin_bounds) - 1)] as string) || ", " || cast(bin_bounds[ordinal(array_length(bin_bounds))] as string) || "]"
-        else (
-          with offsets as (
-            select
-              offset - 1 as lower_offset,
-              offset as upper_offset,
-            from unnest(bin_bounds) as x
-            with offset
-            where x > value limit 1
-          )
+    with
 
-          select (
-            "[" ||
-              cast(bin_bounds[offset(greatest(0, lower_offset))] as string) || ", " ||
-              cast(bin_bounds[offset(upper_offset)] as string) ||
-            if(upper_offset < array_length(bin_bounds) - 1, "[", "]")
-          )
-          from offsets
+    index as (
+      select cast(
+        replace(
+          ML.BUCKETIZE(value, bounds),
+          'bin_',
+          ''
         )
-      end
+      as int64) as ix
+    ),
+
+    padded_labels as (
+      select
+        case
+          when array_length(labels) = array_length(bounds) + 1 then labels
+          when array_length(labels) = array_length(bounds) - 1 then array_concat(['UNDEFINED_INF'], labels, ['UNDEFINED_SUP'])
+          else error('len(labels) should be equal to len(bounds) + 1 OR equal to len(bounds) - 1')
+        end as labls
+
+    )
+
+
+    select labls[ordinal(ix)]
+    from padded_labels, index
   )
