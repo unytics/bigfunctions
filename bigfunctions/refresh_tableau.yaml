@@ -9,9 +9,9 @@ description: |
   named `workbook_or_datasource_title`.
 
 
-  **Encrypt `token_secret`!**
+  **Encrypt your secrets**
 
-  **We advise NOT TO write your token in plain text in `token_secret` argument**.
+  *We advise NOT TO write your token in plain text in `token_secret` argument*.
 
   Otherwise, they will be stored in plain text in your BigQuery logs for months.
 
@@ -81,7 +81,10 @@ examples:
       - "'ENCRYPTED_SECRET(GvVm...)'"
     output: "ok"
 code: |
-  import requests, json
+  import requests, json, base64
+  from cryptography.hazmat.primitives import serialization
+  from cryptography.hazmat.primitives import hashes
+  from cryptography.hazmat.primitives.asymmetric import padding
 
   base_url = f'https://{server}/api/3.21'
   headers = {'accept': 'application/json', 'content-type': 'application/json'}
@@ -112,7 +115,7 @@ code: |
     assert ')' in secret, 'missing `)` closing parenthese in encrypted secret'
     secret = secret[:secret.find(')')]
     ciphertext = base64.b64decode(secret)
-    plaintext = PRIVATE_KEY.decrypt(
+    plaintext = private_key.decrypt(
         ciphertext,
         padding.OAEP(
             mgf=padding.MGF1(algorithm=hashes.SHA256()),
@@ -205,6 +208,7 @@ code: |
   return 'ok'
 requirements: |
   requests
+  cryptography
 secrets:
   - name: refresh_tableau_rsa_private_key
     description: "RSA Private Key used to decrypt secrets"
