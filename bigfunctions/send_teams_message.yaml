@@ -24,6 +24,8 @@ examples:
     output: 'ok'
 code: |
   import requests
+  if not message:
+    return 'EMPTY MESSAGE. NOT SENDING'
   assert webhook_url.startswith('https://') and '.webhook.office.com/' in webhook_url, 'webhook_url should start with `https://<xxxxx>.webhook.office.com/`'
   response = requests.post(
       webhook_url,

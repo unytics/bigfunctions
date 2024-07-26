@@ -1,4 +1,9 @@
-FROM {% if dockerfile is defined and dockerfile.base_image is defined %}{{ dockerfile.base_image }}{% else %}python:3.10-slim{% endif %}
+FROM {{ dockerfile.image if dockerfile is defined and dockerfile.image is defined else 'python:3.11-slim' }}
+
+# Install apt packages
+{% if dockerfile is defined and dockerfile.apt_packages is defined %}
+RUN apt update && apt install -y {{ dockerfile.apt_packages }}
+{% endif %}
 
 EXPOSE 8080
 

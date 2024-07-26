@@ -28,7 +28,7 @@ examples:
     output: "false"
 code: |
   case
-    when net.reg_domain(lower(email)) is null then false
+    when net.reg_domain('domain.' || array_reverse(split(lower(email), '.'))[safe_offset(0)]) is null then false
     when regexp_contains(lower(email), "^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])$") then true
     else false
   end

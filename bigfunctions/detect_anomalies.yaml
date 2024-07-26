@@ -1,0 +1,53 @@
+type: function_py
+category: detect_anomalies
+author:
+  name: Thomas F McGeehan V
+  url: https://www.linkedin.com/in/tfmv5
+description: |
+  Detect anomalies in time-series data to identify outliers and unusual patterns.
+  This function uses Z-score to find anomalies in the specified column of a BigQuery table.
+arguments:
+  - name: dataset_name
+    type: string
+  - name: table_name
+    type: string
+  - name: time_column
+    type: string
+  - name: value_column
+    type: string
+  - name: threshold
+    type: float64
+    description: "Threshold for Z-score to consider a value as an anomaly."
+output:
+  name: anomalies
+  type: string
+examples:
+  - description: "Detect anomalies in 'orders' table"
+    arguments:
+      - "'tpch'"
+      - "'orders'"
+      - "'o_orderdate'"
+      - "'o_totalprice'"
+      - "3.0"
+    output: |
+      '[{"time": "2023-01-15", "value": 10000.0, "z_score": 3.5}, {"time": "2023-02-10", "value": 15000.0, "z_score": 4.2}]'
+code: |
+  import pandas as pd
+  import json
+
+  def detect_anomalies(dataset_name, table_name, time_column, value_column, threshold):
+      query = f"SELECT {time_column}, {value_column} FROM `{dataset_name}.{table_name}`"
+      df = pd.read_gbq(query, project_id='your-gcp-project-id')
+      df['z_score'] = (df[value_column] - df[value_column].mean()) / df[value_column].std()
+      anomalies = df[df['z_score'].abs() > threshold]
+      results = [
+          {"time": row[time_column], "value": row[value_column], "z_score": row['z_score']}
+          for _, row in anomalies.iterrows()
+      ]
+      return json.dumps(results, ensure_ascii=False)
+
+  anomalies = detect_anomalies(dataset_name, table_name, time_column, value_column, threshold)
+  anomalies
+requirements: |
+  pandas
+  google-cloud-bigquery

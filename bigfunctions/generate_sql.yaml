@@ -7,7 +7,7 @@ author:
 description: |
   Transform `question` to a SQL query.
 
-  >  This function sends the following enriched question to [`ask_ai`](#ask_ai) (*the schema of `fully_qualified_table` is sent so that the generated SQL query is adapted to your data*):
+  >  This function sends the following enriched question to [`ask_ai`](ask_ai.md) (*the schema of `fully_qualified_table` is sent so that the generated SQL query is adapted to your data*):
   >
   >  ```
   >  Question: {{question}}

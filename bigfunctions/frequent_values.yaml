@@ -1,0 +1,48 @@
+type: function_sql
+category: transform_array
+author:
+  name: Thomas F McGeehan V
+  url: https://www.linkedin.com/in/tfmv5
+  avatar_url: "https://avatars.githubusercontent.com/u/3191913?s=60&v=4"
+description: |
+  Returns `frequent_values` among array of `values`
+
+  This function computes the frequency of each value in `values` array and returns the values which frequency is stricly above the given `frequency_threshold`.
+arguments:
+  - name: values
+    type: any type
+  - name: frequency_threshold
+    type: float64
+output:
+  name: frequent_values
+  type: any type
+examples:
+  - description: |
+      Detect frequent strings in an array of strings with a `frequency_threshold` of 0.2.
+      `banana` appears 3 times for an array of 6 elements so its frequency
+      is 3 / 6 = 0.5 > 0.4.
+      It is a frequent string compared to the `frequency_threshold`.
+    arguments:
+      - '["apple", "apple", "banana", "banana", "banana", "cherry"]'
+      - "0.4"
+    output: "[\"banana\"]"
+code: |
+  (
+    with
+
+    value_counts as (
+      select
+        value,
+        count(*) as nb,
+      from unnest(values) as value
+      group by value
+    ),
+
+    frequent_values as (
+      select value
+      from value_counts
+      where nb > frequency_threshold * array_length(values)
+    )
+
+    select array_agg(value) from frequent_values
+  )

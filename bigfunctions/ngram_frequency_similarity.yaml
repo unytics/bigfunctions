@@ -1,0 +1,97 @@
+type: function_sql
+category: transform_string
+author:
+  name: Thomas F McGeehan V
+  url: https://www.linkedin.com/in/tfmv5
+  avatar_url: "https://avatars.githubusercontent.com/u/3191913?s=60&v=4"
+description: |
+  Calculates n-gram similarity between two strings
+
+  !!! note ""
+
+      The n-gram comparison algorithm is a method used to measure the similarity between two strings by analyzing their subsequence of n consecutive characters, called n-grams. The process of the n-gram comparison algorithm involves the following steps:
+
+      1. N-gram Extraction: Divide each input string into overlapping sequences of n characters.
+      2. Counting N-grams: Count the occurrences of each unique n-gram in both strings.
+      3. Calculating Similarity: Compare the n-gram counts between the two strings and compute a similarity score. The similarity score is here calculated with cosine similarity.
+
+      *The above description is taken from [Yassine EL KHAL article](https://yassineelkhal.medium.com/the-complete-guide-to-string-similarity-algorithms-1290ad07c6b7#0b4c)*
+
+  Example of n-gram: the sentence `Lorem ipsum dolor sit amet`
+  gives the following 4-grams `['LORE', 'OREM', 'REM ', 'EM I', 'M IP', ' IPS', 'IPSU', ...]`
+
+  Returned similarity score is between 0 and 1, 1 meaning that the strings are the most similar.
+arguments:
+  - name: string1
+    type: string
+  - name: string2
+    type: string
+  - name: n
+    type: int64
+output:
+  name: similarity
+  type: float64
+examples:
+  - description: "Calculate n-gram frequency similarity between two simple strings with n=2"
+    arguments:
+      - "'hello world'"
+      - "'world hello'"
+      - "2"
+    output: "0.8"
+  - description: "Calculate n-gram frequency similarity between two phrases with n=3"
+    arguments:
+      - "'The quick brown fox'"
+      - "'The quick brown dog'"
+      - "3"
+    output: "0.82"
+  - description: "Calculate n-gram frequency similarity between two sentences with n=4"
+    arguments:
+      - "'Lorem ipsum dolor sit amet, consectetur adipiscing elit.'"
+      - "'Lorem ipsum dolor sit amet, consectetur adipiscing.'"
+      - "4"
+    output: "0.93"
+code: |
+  (
+    with
+
+    ngrams1 as (
+      select
+        substr(upper(string1), pos, n) as ngram,
+        count(*) as frequency,
+      from unnest(generate_array(1, length(string1) - n + 1)) as pos
+      group by ngram
+    ),
+
+    ngrams2 as (
+      select
+        substr(upper(string2), pos, n) as ngram,
+        count(*) as frequency,
+      from unnest(generate_array(1, length(string2) - n + 1)) as pos
+      group by ngram
+    ),
+
+    ngrams_merged as (
+      select
+        coalesce(ngrams1.ngram, ngrams2.ngram) as ngram,
+        coalesce(ngrams1.frequency, 0) as freq1,
+        coalesce(ngrams2.frequency, 0) as freq2
+      from ngrams1
+      full outer join ngrams2
+      using(ngram)
+    ),
+
+    coefficients as (
+      select
+        sqrt(sum(freq1 * freq1)) as magnitude1,
+        sqrt(sum(freq2 * freq2)) as magnitude2,
+        sum(freq1 * freq2) as dot_product
+      from ngrams_merged
+    )
+
+    select
+      if(
+        magnitude1 * magnitude2 = 0, 0,
+        dot_product / (magnitude1 * magnitude2)
+      ) as similarity
+    from coefficients
+  )

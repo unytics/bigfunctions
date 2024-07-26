@@ -44,6 +44,20 @@ def handle_error(msg, details=""):
     sys.exit()
 
 
+def merge_dict(a: dict, b: dict, path=[]):
+    for key in b:
+        if key in a:
+            if isinstance(a[key], dict) and isinstance(b[key], dict):
+                merge_dict(a[key], b[key], path + [str(key)])
+            elif type(a[key]) != type(b[key]):
+                raise Exception('Conflict at ' + '.'.join(path + [str(key)]) + ': key is in both dicts but type is different')
+            else:
+                a[key] = b[key]
+        else:
+            a[key] = b[key]
+    return a
+
+
 def exec(command):
     print_command(command)
     try:
@@ -67,6 +81,17 @@ def prefix_lines_with_line_number(string: str, starting_index: int = 1) -> str:
         for index, line in enumerate(lines)
     ]
     return "\n".join(numbered_lines)
+
+
+def dataset_access_entry2user(access_entry):
+    if access_entry.entity_id == 'allAuthenticatedUsers':
+        return 'allAuthenticatedUsers'
+    entity_type = 'user'
+    if access_entry.entity_id.endswith('gserviceaccount.com'):
+        entity_type = 'serviceAccount'
+    elif access_entry.entity_type == 'groupByEmail':
+        entity_type = 'group'
+    return f'{entity_type}:{access_entry.entity_id}'
 
 
 class BigQuery:
@@ -102,13 +127,19 @@ class BigQuery:
     def get_dataset(self, dataset):
         print_info("Getting dataset")
         try:
-            return self.client.get_dataset(dataset.replace("`", ""))
+            dataset = self.client.get_dataset(dataset.replace("`", ""))
         except google.api_core.exceptions.NotFound as e:
-            handle_error("Not Found", e.message)
+            handle_error("Dataset Not Found", e.message)
+        dataset.users = [
+            dataset_access_entry2user(access_entry)
+            for access_entry in dataset.access_entries
+            if access_entry.entity_id not in ['projectOwners', 'projectWriters', 'projectReaders']
+        ]
+        return dataset
 
-    def query(self, query):
+    def query(self, query, **kwargs):
         try:
-            return self.client.query(query).result()
+            return self.client.query(query, **kwargs).result()
         except google.api_core.exceptions.Forbidden as e:
             handle_error("Access Denied", e.message)
         except (
@@ -225,6 +256,8 @@ class CloudRun:
         self.region = region
 
     def exec(self, command, options=None):
+        if shutil.which('gcloud') is None:
+            handle_error('`gcloud` is not installed while needed to deploy a Remote Function.')
         command += " " + self.service
         options = options or {}
         options["region"] = self.region
@@ -296,7 +329,7 @@ def build_npm_package(npm_package, output_filename, destination_folder="."):
     name, version = npm_package.split("@")
     package_path = f"./node_modules/{name}"
     if "/" in name:
-        name, _ = name.split("/")
+        name, _ = name.split("/", 1)
     js_entrypoint_variable = name.replace("-", "_")
 
     print_info(
@@ -330,5 +363,5 @@ def build_and_upload_npm_package(npm_package, bucket, project):
 def download(url, destination_filename):
     try:
         urllib.request.urlretrieve(url, destination_filename)
-    except:
-        handle_error(f'Could not download file at url `{url}`')
+    except Exception as e:
+        handle_error(f'Could not download file at url `{url}`. Reason: {e}')

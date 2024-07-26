@@ -1,7 +1,7 @@
 import setuptools
 
 
-VERSION = '0.1'
+VERSION = '0.7'
 
 
 with open('README.md', 'r', encoding='utf-8') as fh:
@@ -23,17 +23,15 @@ setuptools.setup(
         'License :: OSI Approved :: MIT License',
         'Operating System :: OS Independent',
     ],
-    python_requires='>=3.9',
-    package_data={'': ['*', 'templates/*']},
+    python_requires='>=3.6',
     include_package_data=True,
     install_requires=[
         'google-cloud-bigquery',
-        'google-cloud-bigquery_connection',
+        'google-cloud-bigquery-connection',
         'google-cloud-storage',
         'pyyaml',
         'jinja2',
         'mkdocs-material',
-        'mkdocs-awesome-pages-plugin',
         'click',
         'click-help-colors',
     ],

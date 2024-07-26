@@ -1,5 +1,5 @@
 type: function_py
-category: transform_string
+category: get_data
 author:
   name: Shivam Singh
   url: https://www.linkedin.com/in/shivamsingh012/
@@ -34,6 +34,7 @@ examples:
 
 code: |
   import datetime
+  import json
   from faker import Faker
   try:
       fake = Faker(locale)
@@ -44,9 +45,11 @@ code: |
   except:
       return 'INVALID_WHAT'
   result = func()
+  if isinstance(result, (dict, list, tuple)):
+      return json.dumps(result)
   if isinstance(result, datetime.date):
       return result.strftime('%Y-%m-%d')
-  return result
+  return str(result)
 requirements: |
   faker
 quotas:

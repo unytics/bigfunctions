@@ -1,0 +1,82 @@
+type: function_sql
+category: transform_array
+author:
+  name: Thomas F McGeehan V
+  url: https://www.linkedin.com/in/tfmv5
+  avatar_url: "https://avatars.githubusercontent.com/u/3191913?s=60&v=4"
+description: |
+  Calculate the distance from Benford's Law for given `values`.
+
+  As mentioned in [wikipedia](https://en.wikipedia.org/wiki/Benford%27s_law), *Benford's law, is an observation that in many real-life sets of numerical data, the leading digit is likely to be small. In sets that obey the law, the number 1 appears as the leading significant digit about 30% of the time, while 9 appears as the leading significant digit less than 5% of the time.*
+
+  This function computes the Chi-square distance between the observed distribution of leading digits of `values` and the expected distribution according to Benford's Law.
+
+  The smaller the `benford_distance`, the more the `values` follow Benford's Law.
+
+  Read ["The Mysterious Benford’s Law and it’s Connection with Fraud Detection"](https://medium.com/@vihasharma1099/the-mysterious-benfords-law-and-it-s-connection-with-fraud-detection-4a1192f48f47) by Vihasharma to see some applications of this function.
+arguments:
+  - name: values
+    type: any type
+output:
+  name: benford_distance
+  type: float64
+examples:
+  - description: "Uniformly distributed values do not follow Benford's Law"
+    arguments:
+      - "[1, 2, 3, 4, 5, 6, 7, 8, 9]"
+    output: "0.4"
+  - description: "Having more small values follow more Benford's Law. Distance is lower"
+    arguments:
+      - "[1, 1, 1, 2, 2, 3, 4, 5, 6]"
+    output: "0.2"
+  - description: "Having constant values follow less Benford's Law than uniform. Distance is higher"
+    arguments:
+      - "[1, 1, 1, 1, 1, 1, 1, 1, 1]"
+    output: "2.3"
+  - description: "Higher leading digits is worse. Distance is much higher"
+    arguments:
+      - "[9, 9, 9, 9, 9, 9, 9, 9, 9]"
+    output: "20.7"
+code: |
+  (
+    with
+
+    leading_digits as (
+      select cast(substr(cast(value as string), 1, 1) as int64) as leading_digit
+      from unnest(values) as value
+      where value is not null
+    ),
+
+    benfords_distribution as (
+      select *
+      from unnest(
+        [
+          struct(1 as leading_digit, 0.301 as expected),
+          struct(2 as leading_digit, 0.176 as expected),
+          struct(3 as leading_digit, 0.125 as expected),
+          struct(4 as leading_digit, 0.097 as expected),
+          struct(5 as leading_digit, 0.079 as expected),
+          struct(6 as leading_digit, 0.067 as expected),
+          struct(7 as leading_digit, 0.058 as expected),
+          struct(8 as leading_digit, 0.051 as expected),
+          struct(9 as leading_digit, 0.046 as expected)
+        ]
+      )
+    ),
+
+    observed_distribution as (
+      select
+        leading_digit,
+        count(*) / (select count(*) from unnest(values)) as observed
+      from leading_digits
+      group by leading_digit
+    )
+
+
+    select sum(
+      pow(coalesce(observed, 0) - expected, 2) / expected
+    )
+    from benfords_distribution
+    left join observed_distribution
+    using(leading_digit)
+  )

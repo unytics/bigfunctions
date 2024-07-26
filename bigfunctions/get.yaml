@@ -25,6 +25,10 @@ examples:
       - "json '{\"Content-Type\": \"application/json\"}'"
     output: "{...}"
 code: |
+  if not url:
+    return 'invalid url: it is null or empty'
+  if not url.startswith(('http://', 'https://')):
+    return 'invalid url: it does not start with http:// nor https://'
   import requests
   return requests.get(url, headers=headers).text
 requirements: |

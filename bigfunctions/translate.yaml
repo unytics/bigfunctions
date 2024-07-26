@@ -23,6 +23,8 @@ init_code: |
   from google.cloud import translate_v2 as translate
   translator = translate.Client()
 code: |
+  if not text or not target_language:
+    return text
   result = translator.translate(text, target_language=target_language, format_="text")
   return result["translatedText"]
 requirements: |
