@@ -192,6 +192,7 @@ examples:
 init_code: |
   import base64
   import json
+  import os
 
   import requests
   import yaml
@@ -203,6 +204,7 @@ init_code: |
   from cryptography.hazmat.primitives import hashes
   from cryptography.hazmat.primitives.asymmetric import padding
 
+  os.environ['TZ'] = 'UTC'
 
   SOURCES_URL = 'https://connectors.airbyte.com/files/registries/v0/oss_registry.json'
   PRIVATE_KEY = serialization.load_pem_private_key(
