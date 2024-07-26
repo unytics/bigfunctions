@@ -20,8 +20,7 @@ output:
 examples:
   - description: |
       `55` is between `50` and `60` so it is in second bin.
-
-      Function returns `Wait for result exam` label.
+      --> Function returns `Wait for result exam` label.
     arguments:
       - "55"
       - "[0, 50, 60, 90, 100]"
@@ -29,8 +28,7 @@ examples:
     output: "Wait for result exam"
   - description: |
       Lower bounds are inclusive. `50` is then also in second bin.
-
-      Function returns `Wait for result exam` label.
+      --> Function returns `Wait for result exam` label.
     arguments:
       - "50"
       - "[0, 50, 60, 90, 100]"
@@ -38,8 +36,7 @@ examples:
     output: "Wait for result exam"
   - description: |
       `-10` is below the lowest bound
-
-      Function returns `UNDEFINED_INF`.
+      --> Function returns `UNDEFINED_INF`.
       (It returns `UNDEFINED_SUP` is above the upper bound).
     arguments:
       - "-10"
@@ -48,7 +45,6 @@ examples:
     output: "UNDEFINED_INF"
   - description: |
       You can also pass `n + 1` labels instead of `n - 1` labels (when `n` is the number of bounds).
-
       In that case, values below the first bound will have this first label (instead of `UNDEFINED_INF`).
       `-10` will then give `Lower than very bad!`.
     arguments:
@@ -63,7 +59,7 @@ code: |
     index as (
       select cast(
         replace(
-          ML.BUCKETIZE(value, bounds),
+          ML.BUCKETIZE(value, bin_bounds),
           'bin_',
           ''
         )
@@ -73,9 +69,9 @@ code: |
     padded_labels as (
       select
         case
-          when array_length(labels) = array_length(bounds) + 1 then labels
-          when array_length(labels) = array_length(bounds) - 1 then array_concat(['UNDEFINED_INF'], labels, ['UNDEFINED_SUP'])
-          else error('len(labels) should be equal to len(bounds) + 1 OR equal to len(bounds) - 1')
+          when array_length(labels) = array_length(bin_bounds) + 1 then labels
+          when array_length(labels) = array_length(bin_bounds) - 1 then array_concat(['UNDEFINED_INF'], labels, ['UNDEFINED_SUP'])
+          else error('len(labels) should be equal to len(bin_bounds) + 1 OR equal to len(bin_bounds) - 1')
         end as labls
 
     )
