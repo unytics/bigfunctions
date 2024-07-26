@@ -5,125 +5,126 @@ author:
   url: https://www.linkedin.com/in/antgiraud/
   avatar_url: "https://media.licdn.com/dms/image/C4D03AQG2Orctig4ycg/profile-displayphoto-shrink_200_200/0/1532385599321?e=1712188800&v=beta&t=VPFKpN1WIzDyPIbB4zofLUVS3HsIADd2ENh-MdmGGC0"
 description: |
-  refresh a tableau datasource/workbook via it's REST API by giving the object full title
+  Refresh a tableau datasource/workbook via it's REST API by giving the object full title
   the python script will :
   - [login](https://help.tableau.com/current/api/rest_api/en-us/REST/rest_api_concepts_auth.htm) to tableau via the secret `tableau_credentials_json` stored/configured in GCP
   - [search](https://help.tableau.com/current/api/rest_api/en-us/REST/rest_api_concepts_filtering_and_sorting.htm) for a datasource/workbook with the given title to fetch it's UID
   - launch a [refresh](https://help.tableau.com/current/api/rest_api/en-us/REST/rest_api_ref_data_sources.htm#update_data_source_now), if accepted will return the api call json content
   - logout
 arguments:
-  - name: obj_title_to_refresh
+  - name: workbook_or_datasource_title
+    type: string
+  - name: site
+    type: string
+  - name: server
+    type: string
+  - name: token_name
+    type: string
+  - name: token_secret
     type: string
 output:
   name: response
   type: string
 examples:
-  - description: "refresh object titre inconnu"
+  - description: "Try to refresh a non exising resource"
     arguments:
-      - "titre rapport inconnu"
-    output: "not found: titre rapport inconnu"
+      - "'some non existing name'"
+      - "'some non existing name'"
+      - "'some non existing name'"
+      - "'some non existing name'"
+      - "'some non existing name'"
+    output: "not_found"
   - description: "refresh object titre connu"
     arguments:
-      - "Pilotage vol. de leads"
-    output: {'job': {'extractRefreshJob': {'workbook': {'id': '25c6ab67-fb6b-4357-be96-1d4fee23d479', 'name': 'Pilotage vol. de leads'}}, 'id':  '2e6fa29e-476e-46b1-8653-deeeccddb0ea', 'mode': 'Asynchronous', 'type': 'RefreshExtract', 'createdAt': '2024-02-06T15:16:11Z'}}
+      - "'Pilotage vol. de leads'"
+      - "'Pilotage vol. de leads'"
+      - "'Pilotage vol. de leads'"
+      - "'Pilotage vol. de leads'"
+      - "'Pilotage vol. de leads'"
+    output: 'ok'
 code: |
   import requests, json
 
-  # ------------------------------------------------- #
-  # login
-  tableau_credentials_json = json.load(tableau_credentials_json)
-  server_name = tableau_credentials_json.pop('server_name')
-  api_version = tableau_credentials_json.pop('api_version')
-  # api version num: https://help.tableau.com/current/api/rest_api/en-us/REST/rest_api_concepts_versions.htm
+  if not workbook_or_datasource_title:
+    return 'missing_workbook_or_datasource_title'
+  if not server:
+    return 'missing_server'
+  if not token_name:
+    return 'missing_token_name'
+  if not token_secret:
+    return 'missing_token_secret'
 
-  signin_url = f"https://{server_name}/api/{api_version}/auth/signin"
-  headers = { 'accept': 'application/json', 'content-type': 'application/json' }
-  # print('signin_url:',signin_url)
-  response = requests.post(signin_url, json=tableau_credentials_json, headers=headers, verify=False)
-  try:
-    content = response.json()
+  base_url = f'https://{server}/api/3.21'
 
-    token = content["credentials"]["token"]
-    site_id = content["credentials"]["site"]["id"]
-
-    # Set the authentication header using the token returned by the Sign In method.
-    headers['X-tableau-auth']=token
-  except:
-    return f'erreur login: {response.status_code}'
 
   # ------------------------------------------------- #
-  # find object id
-  # [doc](https://help.tableau.com/current/api/rest_api/en-us/REST/rest_api_concepts_filtering_and_sorting.htm)
+  # LOGIN
+  # ------------------------------------------------- #
+  signin_url = f"{base_url}/auth/signin"
+  print(signin_url)
+  headers = {'accept': 'application/json', 'content-type': 'application/json'}
+  data = {
+    "credentials": {
+      "personalAccessTokenName": token_name,
+      "personalAccessTokenSecret": token_secret,
+      "site": {"contentUrl": site or ''}
+    }
+  }
+  response = requests.post(signin_url, json=data, headers=headers)
+  if not response.ok:
+    return f'error_login: {response.status_code} -- {response.text}'
+  content = response.json()
+  headers['X-tableau-auth'] = content["credentials"]["token"]
+  site_id = content["credentials"]["site"]["id"]
 
-  # search_url = f"https://{server_name}/api/-/search?filter=type:in:[workbook,datasource]&name={obj_title_to_refresh}"
-  search_url = f"https://{server_name}/api/-/search?terms={obj_title_to_refresh}&limit=2&filter=type:in:[workbook,datasource]"
-  print('search_url:',search_url)
-  response = requests.get(search_url, headers=headers, verify=False)
-  try:
-    content = response.json()
-    # print(content)
-    obj_id = obj_type = None
-    for obj in content['hits']['items']:
-      if obj['content']['title'] == obj_title_to_refresh:
-        obj_type = 'workbook' if obj['content']['type']=='workbook' else 'datasource'
-        obj_id = obj['content']['datasourceLuid'] if 'datasourceLuid' in obj['content'] else obj['content']['luid']
-    if obj_id == None:
-      return f'not found: {obj_title_to_refresh}'
-    else:
-      print('trouvé: ',obj_type,':',obj_id,':',obj['content']['title'])
-  except:
-    if '"total":0,' in response.text:
-      return f'not found: {obj_title_to_refresh}'
-    else:
-      return f'erreur {response.status_code} search:  {response.text}'
 
   # ------------------------------------------------- #
-  # tableau refresh
-  # [doc](https://help.tableau.com/current/api/rest_api/en-us/REST/rest_api_ref_data_sources.htm#update_data_source_now)
+  # SEARCH OBJECT
+  # Doc: https://help.tableau.com/current/api/rest_api/en-us/REST/rest_api_concepts_filtering_and_sorting.htm
+  # ------------------------------------------------- #
+  params = {
+    'terms': workbook_or_datasource_title,
+    'filter': f'type:in:[workbook,datasource]',
+    'limit': 1,
+  }
+  response = requests.get(f"https://{server}/api/-/search", headers=headers, params=params)
+  if not response.ok:
+    return f'error_search: {response.status_code} -- {response.text}'
+  content = response.json()
+  items = content['hits']['items']
+  obj = next(
+    (item for item in items if item['content']['title'] == workbook_or_datasource_title),
+    None
+  )
+  if obj is None:
+    return 'not_found'
+  obj_type = obj['content']['type']
+  if obj_type == 'unifieddatasource':
+    obj_type = 'datasource'
+  obj_id = obj['content']['datasourceLuid'] if 'datasourceLuid' in obj['content'] else obj['content']['luid']
 
-
-  # https://help.tableau.com/current/api/rest_api/en-us/REST/rest_api_ref_workbooks_and_views.htm#update_workbook_now
-  # POST /api/api-version/sites/site-id/workbooks/workbook-id/refresh
-  # https://help.tableau.com/current/api/rest_api/en-us/REST/rest_api_ref_data_sources.htm#update_data_source_now
-  # POST /api/api-version/sites/site-id/datasources/datasource-id/refresh
-
-  refresh_url = f"https://{server_name}/api/{api_version}/sites/{site_id}/{obj_type}s/{obj_id}/refresh"
-  print('refresh url:', refresh_url)
-  response = requests.post(refresh_url, headers=headers, json={}, verify=False)
-  try:
-    content = response.json()
-    print('MAJ lancée :')
-    print(response)
-  except:
-    return f'erreur {response.status_code} refresh:  {response.text}'
 
   # ------------------------------------------------- #
-  # Sign out
-  signout_url = f"https://{server_name}/api/{api_version}/auth/signout"
-  req = requests.post(signout_url, data=b'', headers=headers, verify=False)
-  req.raise_for_status()
+  # REFRESH OBJECT
+  # Doc Data Source: https://help.tableau.com/current/api/rest_api/en-us/REST/rest_api_ref_data_sources.htm#update_data_source_now
+  # Doc Workbook: https://help.tableau.com/current/api/rest_api/en-us/REST/rest_api_ref_workbooks_and_views.htm#update_workbook_now
+  # ------------------------------------------------- #
+  refresh_url = f"{base_url}/sites/{site_id}/{obj_type}s/{obj_id}/refresh"
+  response = requests.post(refresh_url, json={}, headers=headers)
+  if not response.ok:
+    return f'error_refresh_object: {response.status_code} refresh:  {response.text}'
 
-  # retour à BigQuery
-  return content or response.status_code
-secrets:
-  - name: tableau_credentials_json
-    description: |
-      The GCP **secret** `tableau_credentials_json` :
-      JSON comportant les credentials tableau (Personnal Access Token or user/pswd)
-      ainsi que le nom du serveur & la [version d'API](https://help.tableau.com/current/api/rest_api/en-us/REST/rest_api_concepts_versions.htm)
-      ```json
-      {
-        "server_name":"eu-west-1a.online.tableau.com",
-        "api_version":"3.21",
-        "credentials": {
-          "personalAccessTokenName": "mon_token_xxx",
-          "personalAccessTokenSecret": "xxx",
-          "site": {"contentUrl": "monsitetableau" }
-        }
-      }
-      ```
-    documentation_link: https://help.tableau.com/current/api/rest_api/en-us/REST/rest_api_concepts_auth.htm
+
+  # ------------------------------------------------- #
+  # SIGN OUT
+  # ------------------------------------------------- #
+  signout_url = f"{base_url}/auth/signout"
+  response = requests.post(signout_url, headers=headers)
+  if not response.ok:
+    return f'error_sign_out: {response.status_code} refresh:  {response.text}'
+
+  return 'ok'
 requirements: |
-  requests, json
+  requests
 quotas:
   max_rows_per_query: 10
