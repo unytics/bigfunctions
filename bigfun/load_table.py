@@ -22,4 +22,3 @@ def load_table(table):
         job_config = google.cloud.bigquery.job.LoadJobConfig(**load_config)
         bigquery.load_table_from_file(file, table, job_config=job_config).result()
     print_success('successfully loaded ' + table)
-

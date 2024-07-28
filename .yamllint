@@ -1,0 +1,10 @@
+---
+rules:
+  trailing-spaces: disable
+  key-duplicates: {}
+  colons:
+    max-spaces-before: 0
+    max-spaces-after: 1
+  indentation:
+    spaces: 2
+    check-multi-line-strings: false

@@ -102,5 +102,3 @@ template: |-
       <hr>
     {% endfor %}
   </div>
-
-
