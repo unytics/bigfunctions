@@ -8,19 +8,26 @@ description: |
   Refresh a Power BI dataset (semantic model)
   by it's id `dataset_id`.
 
-  **Use case:** Once a model/table is refreshed in BigQuery, launch **via SQL** the refresh of a tableau datasource or workbook.
+  **Use case:**
 
-  Example:
+  > After model refresh,
+  > launch *Power BI* dataset (semantic model) refresh *from BigQuery* in *SQL*
+
+  ![graph refresh power bi](./refresh_powerbi.png)
+
   - in a [dbt post-hook](https://docs.getdbt.com/reference/resource-configs/pre-hook-post-hook)
   - in a [dataform post_operations](https://cloud.google.com/dataform/docs/dataform-core?hl=fr#define-SQL)
   - in a [SQL Mesh post-statements](https://sqlmesh.readthedocs.io/en/stable/concepts/models/sql_models/#optional-prepost-statements)
   - in your favorite orchestration tool
 
-  *Optionnal:* on premium capacity, you can pass json argument (xmla like) to launch a custom refresh (ex: Full refresh only a given table )
+  *Optionnal:*
 
-  Docs:
-  - [doc](https://learn.microsoft.com/en-us/power-bi/developer/embedded/embed-service-principal) for service principal creation, token, security group affectation & Fabric API to activate
-  - [doc](https://learn.microsoft.com/fr-fr/rest/api/power-bi/datasets/refresh-dataset-in-group) of refresh api
+  > on premium capacity, you can pass json argument (xmla like) to launch a custom refresh (ex: Full refresh only a given table )
+
+  **Docs:**
+
+  - [Microsoft's doc](https://learn.microsoft.com/en-us/power-bi/developer/embedded/embed-service-principal) for service principal creation, token, security group affectation & Fabric API to activate
+  - [Microsoft's doc](https://learn.microsoft.com/fr-fr/rest/api/power-bi/datasets/refresh-dataset-in-group) of refresh api
 
   **Encrypt your secrets**
 
