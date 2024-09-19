@@ -5,8 +5,8 @@ author:
   url: https://www.linkedin.com/in/antgiraud/
   avatar_url: "https://media.licdn.com/dms/image/C4D03AQG2Orctig4ycg/profile-displayphoto-shrink_800_800/0/1532385599460?e=1727308800&v=beta&t=jonuDcwGKpHZWsarmsIJ1AHm55WQsbMB1qQyU6p7alY"
 description: |
-  Refresh a tableau datasource or workbook
-  named `workbook_or_datasource_title`.
+  Refresh a Power BI dataset (semantic model)
+  by it's id `dataset_id`.
 
   **Use case:** Once a model/table is refreshed in BigQuery, launch **via SQL** the refresh of a tableau datasource or workbook.
 
@@ -16,8 +16,11 @@ description: |
   - in a [SQL Mesh post-statements](https://sqlmesh.readthedocs.io/en/stable/concepts/models/sql_models/#optional-prepost-statements)
   - in your favorite orchestration tool
 
+  *Optionnal:* on premium capacity, you can pass json argument (xmla like) to launch a custom refresh (ex: Full refresh only a given table )
+
   Docs:
-  - [doc](https://help.tableau.com/current/server/en-us/security_personal_access_tokens.htm) for creating a personnal access token on tableau server (cloud or onprem) for api usage
+  - [doc](https://learn.microsoft.com/en-us/power-bi/developer/embedded/embed-service-principal) for service principal creation, token, security group affectation & Fabric API to activate
+  - [doc](https://learn.microsoft.com/fr-fr/rest/api/power-bi/datasets/refresh-dataset-in-group) of refresh api
 
   **Encrypt your secrets**
 
@@ -68,52 +71,66 @@ description: |
   }
   </script>
 arguments:
-  - name: workbook_or_datasource_title
+  - name: dataset_id
     type: string
-  - name: site
+  - name: workspace_id
     type: string
-  - name: server
+  - name: tenant_id
     type: string
-  - name: token_name
+  - name: app_id
     type: string
   - name: token_secret
+    type: string
+  - name: custom_refresh_param
     type: string
 output:
   name: response
   type: string
 examples:
-  - description: ""
+  - description: "Refresh of a dataset"
     arguments:
-      - "'My Great Workbook'"
-      - "'site_name'"
-      - "'eu-west-1a.online.tableau.com'"
-      - "'token_name'"
+      - "'xxx-xxx-xxx'"
+      - "'xxx-xxx-xxx'"
+      - "'xxx-xxx-xxx'"
+      - "'xxx-xxx-xxx'"
       - "'ENCRYPTED_SECRET(GvVm...)'"
     output: "ok"
+  - description: "custom refresh (xmla like) - premium capacity only"
+    arguments:
+      - "'xxx-xxx-xxx'"
+      - "'xxx-xxx-xxx'"
+      - "'xxx-xxx-xxx'"
+      - "'xxx-xxx-xxx'"
+      - "'ENCRYPTED_SECRET(GvVm...)'"
+      - '''{ "type": "Full", "objects": [ { "table": "table_name" } ] }'''
+    output: "ok"
 code: |
-  import requests, json, base64
+  import requests, base64
+  from azure.identity import ClientSecretCredential
   from cryptography.hazmat.primitives import serialization
   from cryptography.hazmat.primitives import hashes
   from cryptography.hazmat.primitives.asymmetric import padding
 
-  base_url = f'https://{server}/api/3.21'
-  headers = {'accept': 'application/json', 'content-type': 'application/json'}
   private_key = serialization.load_pem_private_key(
-      refresh_tableau_rsa_private_key.encode(),
+      refresh_powerbi_rsa_private_key.encode(),
       password=None,
   )
 
-  if not workbook_or_datasource_title:
-    return 'missing_workbook_or_datasource_title'
-  if not server:
-    return 'missing_server'
-  if not token_name:
-    return 'missing_token_name'
+  if not dataset_id:
+    return 'missing_dataset_id'
+  if not workspace_id:
+    return 'missing_workspace_id'
+  if not tenant_id:
+    return 'missing_tenant_id'
+  if not app_id:
+    return 'missing_app_id'
   if not token_secret:
     return 'missing_token_secret'
+  if not custom_refresh_param:
+    custom_refresh_param = {}
 
 
-  class TableauException(Exception):
+  class PowerBiException(Exception):
     pass
 
 
@@ -136,91 +153,61 @@ code: |
     return plaintext.decode()
 
 
-  def check_response(response, action):
-    if not response.ok:
-      raise TableauException(f'ERROR_{action.upper()} {response.status_code}: {response.text}')
-
-
-  def login(site, token_name, token_secret):
-    signin_url = f"{base_url}/auth/signin"
-    data = {
-      "credentials": {
-        "personalAccessTokenName": token_name,
-        "personalAccessTokenSecret": token_secret,
-        "site": {"contentUrl": site or ''}
-      }
-    }
-    response = requests.post(signin_url, json=data, headers=headers)
-    check_response(response, 'login')
-    content = response.json()
-    headers['X-tableau-auth'] = content["credentials"]["token"]
-    site_id = content["credentials"]["site"]["id"]
-    return site_id
-
-
-  def search(workbook_or_datasource_title):
+  def login(tenant_id, app_id, token_secret):
     '''
-    Doc: https://help.tableau.com/current/api/rest_api/en-us/REST/rest_api_concepts_filtering_and_sorting.htm
+      Get client (azure app) auth token
+      For azure app creation, token, security group affectation & Fabric API to activate
+      refer to doc: https://learn.microsoft.com/en-us/power-bi/developer/embedded/embed-service-principal
     '''
 
-    params = {
-      'terms': workbook_or_datasource_title,
-      'filter': f'type:in:[workbook,datasource]',
-      'limit': 1,
-    }
-    response = requests.get(f"https://{server}/api/-/search", headers=headers, params=params)
-    check_response(response, 'search')
-    content = response.json()
-    items = content['hits']['items']
-    obj = next(
-      (
-        item
-        for item in items
-        if item['content']['title'].lower().strip() == workbook_or_datasource_title.lower().strip()
-      ),
-      None
-    )
-    if obj is None:
-      return None, None
-    obj_type = obj['content']['type']
-    if obj_type == 'unifieddatasource':
-      obj_type = 'datasource'
-    obj_id = obj['content']['datasourceLuid'] if 'datasourceLuid' in obj['content'] else obj['content']['luid']
-    return obj_id, obj_type
+    authority = 'https://login.microsoftonline.com/'
+    scope = "https://analysis.windows.net/powerbi/api/.default"
+    # scope = f"{app_id}/.default" # doesn't work !
+
+    credential = ClientSecretCredential(tenant_id, app_id, token_secret, authority=authority)
+    token = credential.get_token(scope)
+    header = {'Authorization': f'Bearer {token.token}'}
+
+    return credential, header
 
 
-  def refresh(site_id, obj_id, obj_type):
+  def refresh(header, workspace_id, dataset_id, custom_refresh_param=None):
     '''
-    Doc Data Source: https://help.tableau.com/current/api/rest_api/en-us/REST/rest_api_ref_data_sources.htm#update_data_source_now
-    Doc Workbook: https://help.tableau.com/current/api/rest_api/en-us/REST/rest_api_ref_workbooks_and_views.htm#update_workbook_now
+      Refresh of powerbi dataset via API\n
+      POST /groups/{workspace_id}/datasets/{dataset_id}/refreshes\n
+      doc : https://learn.microsoft.com/fr-fr/rest/api/power-bi/datasets/refresh-dataset-in-group
     '''
-    refresh_url = f"{base_url}/sites/{site_id}/{obj_type}s/{obj_id}/refresh"
-    response = requests.post(refresh_url, json={}, headers=headers)
-    check_response(response, 'refresh')
 
+    base_url = f'https://api.powerbi.com/v1.0/myorg'
+    refresh_url = f'{base_url}/groups/{workspace_id}/datasets/{dataset_id}/refreshes'
+    # refresh_url = f'{base_url}/datasets/{dataset_id}/refreshes' # doesn't work !
 
-  def signout():
-    signout_url = f"{base_url}/auth/signout"
-    response = requests.post(signout_url, headers=headers)
-    check_response(response, 'signout')
+    if not custom_refresh_param:
+      res = requests.post(url=refresh_url, headers=header)
+    else:
+      res = requests.post(url=refresh_url, headers=header, json=custom_refresh_param)
+
+    if res.status_code != 202:
+      raise PowerBiException(f'ERROR_REFRESH {res.status_code}: {res.text}')
+
 
   try:
     token_secret = decrypt_secret(token_secret)
-    site_id = login(site, token_name, token_secret)
-    obj_id, obj_type = search(workbook_or_datasource_title)
-    if obj_id is None:
-      return 'not_found'
-    refresh(site_id, obj_id, obj_type)
-    signout()
-  except TableauException as e:
+    credential, header = login(tenant_id, app_id, token_secret)
+
+    refresh(header, workspace_id, dataset_id, custom_refresh_param)
+
+    credential.close()
+    return 'ok'
+  except Exception as e:
     return str(e)
 
-  return 'ok'
 requirements: |
   requests
   cryptography
+  azure-identity
 secrets:
-  - name: refresh_tableau_rsa_private_key
+  - name: refresh_powerbi_rsa_private_key
     description: "RSA Private Key used to decrypt secrets"
     documentation: |
       from cryptography.hazmat.primitives.asymmetric import rsa
