@@ -82,7 +82,7 @@ arguments:
   - name: token_secret
     type: string
   - name: custom_refresh_param
-    type: string
+    type: json
 output:
   name: response
   type: string
@@ -94,6 +94,7 @@ examples:
       - "'xxx-xxx-xxx'"
       - "'xxx-xxx-xxx'"
       - "'ENCRYPTED_SECRET(GvVm...)'"
+      - null
     output: "ok"
   - description: "custom refresh (xmla like) - premium capacity only"
     arguments:
@@ -102,7 +103,7 @@ examples:
       - "'xxx-xxx-xxx'"
       - "'xxx-xxx-xxx'"
       - "'ENCRYPTED_SECRET(GvVm...)'"
-      - '''{ "type": "Full", "objects": [ { "table": "table_name" } ] }'''
+      - "json '{ \"type\": \"Full\", \"objects\": [ { \"table\": \"table_name\" } ] }'"
     output: "ok"
 code: |
   import requests, base64
