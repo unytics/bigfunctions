@@ -16,6 +16,9 @@ description: |
   - in a [SQL Mesh post-statements](https://sqlmesh.readthedocs.io/en/stable/concepts/models/sql_models/#optional-prepost-statements)
   - in your favorite orchestration tool
 
+  Docs:
+  - [doc](https://help.tableau.com/current/server/en-us/security_personal_access_tokens.htm) for creating a personnal access token on tableau server (cloud or onprem) for api usage
+
   **Encrypt your secrets**
 
   *We advise NOT TO write your token in plain text in `token_secret` argument*.
