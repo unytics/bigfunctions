@@ -18,6 +18,9 @@ description: |
 
   *Optionnal:* on premium capacity, you can pass json argument (xmla like) to launch a custom refresh (ex: Full refresh only a given table )
 
+  Docs:
+  - [doc](https://learn.microsoft.com/en-us/power-bi/developer/embedded/embed-service-principal) for service principal creation, token, security group affectation & Fabric API to activate
+  - [doc](https://learn.microsoft.com/fr-fr/rest/api/power-bi/datasets/refresh-dataset-in-group) of refresh api
 
   **Encrypt your secrets**
 
@@ -74,7 +77,7 @@ arguments:
     type: string
   - name: tenant_id
     type: string
-  - name: token_name
+  - name: app_id
     type: string
   - name: token_secret
     type: string
@@ -89,7 +92,7 @@ examples:
       - "'xxx-xxx-xxx'"
       - "'xxx-xxx-xxx'"
       - "'xxx-xxx-xxx'"
-      - "'token_name'"
+      - "'xxx-xxx-xxx'"
       - "'ENCRYPTED_SECRET(GvVm...)'"
     output: "ok"
   - description: "custom refresh (xmla like) - premium capacity only"
@@ -97,12 +100,12 @@ examples:
       - "'xxx-xxx-xxx'"
       - "'xxx-xxx-xxx'"
       - "'xxx-xxx-xxx'"
-      - "'token_name'"
+      - "'xxx-xxx-xxx'"
       - "'ENCRYPTED_SECRET(GvVm...)'"
       - '''{ "type": "Full", "objects": [ { "table": "table_name" } ] }'''
     output: "ok"
 code: |
-  import requests, json, base64
+  import requests, base64
   from azure.identity import ClientSecretCredential
   from cryptography.hazmat.primitives import serialization
   from cryptography.hazmat.primitives import hashes
@@ -119,10 +122,12 @@ code: |
     return 'missing_workspace_id'
   if not tenant_id:
     return 'missing_tenant_id'
-  if not token_name:
-    return 'missing_token_name'
+  if not app_id:
+    return 'missing_app_id'
   if not token_secret:
     return 'missing_token_secret'
+  if not custom_refresh_param:
+    custom_refresh_param = {}
 
 
   class PowerBiException(Exception):
@@ -148,29 +153,34 @@ code: |
     return plaintext.decode()
 
 
-  def login(tenant_id, token_name, token_secret):
-    '''API - Get client auth token'''
+  def login(tenant_id, app_id, token_secret):
+    '''
+      Get client (azure app) auth token
+      For azure app creation, token, security group affectation & Fabric API to activate
+      refer to doc: https://learn.microsoft.com/en-us/power-bi/developer/embedded/embed-service-principal
+    '''
 
     authority = 'https://login.microsoftonline.com/'
-    scope = [ "https://analysis.windows.net/powerbi/api/.default" ]
+    scope = "https://analysis.windows.net/powerbi/api/.default"
+    # scope = f"{app_id}/.default" # doesn't work !
 
-    credential = ClientSecretCredential(tenant_id, token_name, token_secret, authority=authority)
+    credential = ClientSecretCredential(tenant_id, app_id, token_secret, authority=authority)
     token = credential.get_token(scope)
     header = {'Authorization': f'Bearer {token.token}'}
 
     return credential, header
 
 
-  def refresh(workspace_id, dataset_id, custom_refresh_param=None):
+  def refresh(header, workspace_id, dataset_id, custom_refresh_param=None):
     '''
       Refresh of powerbi dataset via API\n
       POST /groups/{workspace_id}/datasets/{dataset_id}/refreshes\n
-      doc simple : https://docs.microsoft.com/fr-fr/rest/api/power-bi/datasets/refresh-dataset
-      doc custom : https://docs.microsoft.com/fr-fr/power-bi/connect-data/asynchronous-refresh
+      doc : https://learn.microsoft.com/fr-fr/rest/api/power-bi/datasets/refresh-dataset-in-group
     '''
 
-    base_url = f'https://api.powerbi.com/v1.0/myorg/groups'
-    refresh_url = f'{base_url}/{workspace_id}/datasets/{dataset_id}/refreshes'
+    base_url = f'https://api.powerbi.com/v1.0/myorg'
+    refresh_url = f'{base_url}/groups/{workspace_id}/datasets/{dataset_id}/refreshes'
+    # refresh_url = f'{base_url}/datasets/{dataset_id}/refreshes' # doesn't work !
 
     if not custom_refresh_param:
       res = requests.post(url=refresh_url, headers=header)
@@ -183,15 +193,15 @@ code: |
 
   try:
     token_secret = decrypt_secret(token_secret)
-    credential, header = login(tenant_id, token_name, token_secret)
+    credential, header = login(tenant_id, app_id, token_secret)
 
-    refresh(workspace_id, dataset_id, custom_refresh_param)
+    refresh(header, workspace_id, dataset_id, custom_refresh_param)
 
     credential.close()
+    return 'ok'
   except Exception as e:
     return str(e)
 
-  return 'ok'
 requirements: |
   requests
   cryptography
