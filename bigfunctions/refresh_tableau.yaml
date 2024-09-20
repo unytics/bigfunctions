@@ -8,16 +8,21 @@ description: |
   Refresh a tableau datasource or workbook
   named `workbook_or_datasource_title`.
 
-  **Use case:** Once a model/table is refreshed in BigQuery, launch **via SQL** the refresh of a tableau datasource or workbook.
+  **Use case:**
 
-  Example:
+  > After model refresh,
+  > launch **tableau** datasource / workbook refresh **from BigQuery** in **SQL**
+
+  ![graph refresh tableau](./refresh_tableau.png)
+
   - in a [dbt post-hook](https://docs.getdbt.com/reference/resource-configs/pre-hook-post-hook)
   - in a [dataform post_operations](https://cloud.google.com/dataform/docs/dataform-core?hl=fr#define-SQL)
   - in a [SQL Mesh post-statements](https://sqlmesh.readthedocs.io/en/stable/concepts/models/sql_models/#optional-prepost-statements)
   - in your favorite orchestration tool
 
-  Docs:
-  - [doc](https://help.tableau.com/current/server/en-us/security_personal_access_tokens.htm) for creating a personnal access token on tableau server (cloud or onprem) for api usage
+  **Docs**
+
+  - [Tableau's doc](https://help.tableau.com/current/server/en-us/security_personal_access_tokens.htm) for creating a personnal access token on tableau server (cloud or onprem) for api usage
 
   **Encrypt your secrets**
 
