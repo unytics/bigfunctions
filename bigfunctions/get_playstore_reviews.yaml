@@ -1,0 +1,64 @@
+type: function_py
+category: get_data
+author:
+  name: Paul Marcombes
+  url: https://www.linkedin.com/in/paul-marcombes
+  avatar_url: "https://lh3.googleusercontent.com/a-/ACB-R5RDf2yxcw1p_IYLCKmiUIScreatDdhG8B83om6Ohw=s260"
+description: |
+  GET Google Play Store Reviews of an app
+  (using [google-play-scraper](https://github.com/JoMingyu/google-play-scraper))
+
+  - `app_id` can be found in the url of the app on the play store. For example for url `https://play.google.com/store/apps/details?id=com.fpe.comptenickel&hl=en&pli=1`, the `app_id` is `com.fpe.comptenickel`
+  - `country` is the two-letter [country iso code](https://en.wikipedia.org/wiki/ISO_3166-2) of the device where the app was downloaded
+  - `language` is the two-letter [language iso code](https://en.wikipedia.org/wiki/ISO_639-1) of the review
+
+  The function will return the 600 newest `reviews` as json.
+arguments:
+  - name: app_id
+    type: string
+  - name: country
+    type: string
+  - name: language
+    type: string
+output:
+  name: reviews
+  type: json
+examples:
+  - description: "GET reviews written in English for Nickel App installed on French devices"
+    arguments:
+      - "'com.fpe.comptenickel'"
+      - "'fr'"
+      - "'en'"
+    output: |
+      [
+        {
+          appVersion: "2.90.0"
+          at: "Thu, 19 Sep 2024 10:44:05 GMT",
+          content: "...",
+          repliedAt: ...,
+          replyContent: ...,
+          ...
+        },
+        ...
+      ]
+code: |
+  import google_play_scraper
+
+  reviews = []
+  continuation_token = None
+  for k in range(3):
+    _reviews, continuation_token = google_play_scraper.reviews(
+      app_id,
+      lang=language,
+      country=country,
+      count=200,
+      continuation_token=continuation_token,
+    )
+    reviews += _reviews
+  return reviews
+requirements: |
+  google-play-scraper
+quotas:
+  max_rows_per_query: 1
+cloud_run:
+  max_instances: 10
