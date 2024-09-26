@@ -1,0 +1,67 @@
+type: function_py
+category: get_data
+author:
+  name: Paul Marcombes
+  url: https://www.linkedin.com/in/paul-marcombes
+  avatar_url: "https://lh3.googleusercontent.com/a-/ACB-R5RDf2yxcw1p_IYLCKmiUIScreatDdhG8B83om6Ohw=s260"
+description: |
+  Extract `data` from `url` using `prompt`
+arguments:
+  - name: prompt
+    type: string
+  - name: url
+    type: string
+output:
+  name: data
+  type: json
+examples:
+  - description: ""
+    arguments:
+      - |
+        '''
+        Return the list of bigfunctions in the category "get data".
+
+        Result must be a dict with the name of the bigfunction as key and its description as value.
+        Do not include arguments in the name.
+        '''
+      - "'https://unytics.io/bigfunctions/bigfunctions/'"
+    output: |
+      {
+        "exchange_rate": "Get `exchange_rate`",
+        "faker": "Generates fake data",
+        "get": "Request `url`",
+        "get_appstore_reviews": "GET Apple App Store Reviews of an app",
+        ...
+      }
+code: |
+  from scrapegraphai.graphs import SmartScraperGraph
+
+  config = {
+      "llm": {
+          "api_key": gemini_api_key,
+          "model": "google_genai/gemini-1.5-pro",
+      },
+  }
+  scraper = SmartScraperGraph(
+    prompt=prompt,
+    source=url,
+    config=config
+  )
+  return scraper.run()
+requirements: |
+  scrapegraphai
+dockerfile:
+  additional_commands: |
+    ENV PLAYWRIGHT_BROWSERS_PATH=/opt/
+    RUN playwright install --with-deps chromium
+secrets:
+  - name: gemini_api_key
+    description: Gemini Api Key
+    documentation_link: https://ai.google.dev/gemini-api/docs/api-key
+quotas:
+  max_rows_per_user_per_day: 1000
+  max_rows_per_query: 10
+cloud_run:
+  memory: 1024Mi
+  concurrency: 1
+  max_instances: 10
