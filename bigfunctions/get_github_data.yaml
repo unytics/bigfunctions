@@ -3,7 +3,7 @@ category: get_data
 author:
   name: Paul Marcombes
   url: https://www.linkedin.com/in/paul-marcombes
-  avatar_url: "https://lh3.googleusercontent.com/a-/ACB-R5RDf2yxcw1p_IYLCKmiUIScreatDdhG8B83om6Ohw=s260"
+  avatar_url: "https://lh3.googleusercontent.com/a/ACg8ocIAw-jJTmt7AkDhU6_OvDQwsy9uyuRiWX8MxUBOdpro8lRJEgk5=s288-c-no"
 description: |
   Get data from `public_repo` into `destination_dataset`
   *(using [GitHub Airbyte Connector](https://docs.airbyte.com/integrations/sources/github) with [Airbyte-Serverless](https://github.com/unytics/airbyte_serverless))*
@@ -103,7 +103,7 @@ max_batching_rows: 1
 quotas:
   max_rows_per_user_per_day: 100
 cloud_run:
-  memory: 512Mi
+  memory: 1024Mi
   max_instances: 10
   concurrency: 1
   timeout: 30m
