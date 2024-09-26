@@ -6,6 +6,7 @@ author:
   avatar_url: "https://lh3.googleusercontent.com/a-/ACB-R5RDf2yxcw1p_IYLCKmiUIScreatDdhG8B83om6Ohw=s260"
 description: |
   Extract `data` from `url` using `prompt`
+  (using [scrapegraph-ai python library](https://scrapegraph-ai.readthedocs.io/en/latest/introduction/overview.html))
 arguments:
   - name: prompt
     type: string
