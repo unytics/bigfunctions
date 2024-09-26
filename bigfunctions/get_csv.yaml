@@ -4,7 +4,23 @@ author:
   name: Javier de la Torre
   url: https://www.linkedin.com/in/jatorre/
   avatar_url: "https://media.licdn.com/dms/image/v2/D5603AQGIcLL8AHJQmA/profile-displayphoto-shrink_800_800/profile-displayphoto-shrink_800_800/0/1683558695365?e=1732752000&v=beta&t=2u7VbR1MQyWmO5aDln36dt-8lwa1mo4E1sbM0AAv3kA"
-description: Download csv file from `url` into `destination_table`
+description: |
+  Download csv file from `url` into `destination_table`
+
+  > **Requirements**
+  >
+  > You must create the `destination_dataset` and give `dataEditor` access to `bigfunction@bigfunctions.iam.gserviceaccount.com` before calling this function.
+  > You can do this by executing:
+  >
+  > ```sql
+  > -- Create Destination Dataset
+  > create schema `your_project.your_dataset`;
+  >
+  > -- Grant Access to Destination Dataset
+  > grant `roles/bigquery.dataEditor`
+  > on schema `your_project.your_dataset`
+  > to 'serviceAccount:bigfunction@bigfunctions.iam.gserviceaccount.com';
+  > ```
 arguments:
   - name: url
     type: string
