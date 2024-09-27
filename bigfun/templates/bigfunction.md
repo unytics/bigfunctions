@@ -1,6 +1,6 @@
 ---
-title: "{{ name }}"
-description: "BigFunction {{ name }}: {{ description.split('\n')[0] }}"
+title: "{{ name }} - BigQuery"
+description: "BigFunction {{ name }} is a BigQuery function which {{ description.split('\n')[0] }}"
 ---
 
 <span style="color: silver; position: relative; top: -1rem">
