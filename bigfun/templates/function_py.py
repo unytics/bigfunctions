@@ -168,7 +168,7 @@ def compute_all_rows(rows):
 {% else %}
 
 def compute_one_row(args):
-    {% for argument in arguments %}{{ argument.name }}, {% endfor %} = args
+    {% if arguments %}{% for argument in arguments %}{{ argument.name }}, {% endfor %} = args{% endif %}
     {{ code | replace('\n', '\n    ') | replace('{BIGFUNCTIONS_DATASET}',  '`' +  project + '`.`' + dataset + '`' ) }}
 
 {% endif %}
