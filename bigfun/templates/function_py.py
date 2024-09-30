@@ -1,4 +1,5 @@
 import time
+import re
 import json
 import datetime
 import traceback
@@ -162,12 +163,12 @@ secrets = SecretManager()
 
 {% if code_process_rows_as_batch %}
 
-def compute_all_rows(rows):
+def compute_all_rows(rows, user_project):
     {{ code | replace('\n', '\n    ') | replace('{BIGFUNCTIONS_DATASET}',  '`' +  project + '`.`' + dataset + '`' ) }}
 
 {% else %}
 
-def compute_one_row(args):
+def compute_one_row(args, user_project):
     {% if arguments %}{% for argument in arguments %}{{ argument.name }}, {% endfor %} = args{% endif %}
     {{ code | replace('\n', '\n    ') | replace('{BIGFUNCTIONS_DATASET}',  '`' +  project + '`.`' + dataset + '`' ) }}
 
@@ -178,15 +179,17 @@ def compute_one_row(args):
 def handle():
     try:
         data = request.get_json()
+        user_project_matches = re.findall(r'bigquery.googleapis.com/projects/([^/]*)/', data['caller'])
+        user_project = user_project_matches[0] if user_project_matches else None
         logger = Logger(data)
         logger.log(status='started')
         quota_manager = QuotaManager(data)
         quota_manager.check_quotas()
         rows = data['calls']
         {% if code_process_rows_as_batch %}
-        replies = compute_all_rows(rows)
+        replies = compute_all_rows(rows, user_project)
         {% else %}
-        replies = [compute_one_row(row) for row in rows]
+        replies = [compute_one_row(row, user_project) for row in rows]
         {% endif %}
         response = jsonify( { "replies" :  replies} )
         logger.log(status='success')
