@@ -1,0 +1,42 @@
+type: function_py
+category: utils
+author:
+  name: Paul Marcombes
+  url: https://www.linkedin.com/in/paul-marcombes
+  avatar_url: "https://lh3.googleusercontent.com/a/ACg8ocIAw-jJTmt7AkDhU6_OvDQwsy9uyuRiWX8MxUBOdpro8lRJEgk5=s288-c-no"
+description: |
+  Returns`scheduled_queries` of project `project`.
+
+  Result is a list of [TransferConfig](https://cloud.google.com/python/docs/reference/bigquerydatatransfer/latest/google.cloud.bigquery_datatransfer_v1.types.TransferConfig).
+arguments:
+  - name: project
+    type: string
+output:
+  name: scheduled_queries
+  type: json
+examples:
+  - description: "If `project` is null, then the current project is used"
+    arguments: 
+      - 'None'
+    output: |
+      [
+        "bigquery-public-data.america_health_rankings",
+        "bigquery-public-data.austin_311",
+        ...
+      ]
+code: |
+  import google.cloud.bigquery_datatransfer
+  import google.protobuf.json_format
+  bigquery_datatransfer = google.cloud.bigquery_datatransfer.DataTransferServiceClient()
+  project = project or user_project
+  parent = f'projects/{project}/locations/EU'
+  datatransfers = bigquery_datatransfer.list_transfer_configs(parent=parent)
+  datatransfers = [
+    google.protobuf.json_format.MessageToDict(obj._pb)
+    for obj in datatransfers
+  ]
+  return datatransfers
+requirements: |
+  google-cloud-bigquery-datatransfer
+quotas:
+  max_rows_per_query: 1
