@@ -10,122 +10,169 @@ arguments:
   - name: fully_qualified_dataset
     type: string
 examples:
-  - description: ""
+  - description: "List tables of `your-project.your_dataset`"
     arguments:
-      - '"{BIGFUNCTIONS_DATASET}"'
+      - '"your-project.your_dataset"'
+  - description: "You can list tables of several datasets by providing several datasets separated by commas"
+    arguments:
+      - '"your-project.your_dataset1, your-project.your_dataset2"'
 code: |
-  declare project, dataset string;
+  declare fully_qualified_datasets array<string>;
+  declare clean_fully_qualified_dataset, project, dataset string;
+  declare i int64 default 0;
 
-  assert array_length(split(fully_qualified_dataset, '.')) = 2 as 'BAD ARGUMENT FORMAT: `fully_qualified_table` argument must follow the pattern `PROJECT.DATASET`';
-
-  set project = split(replace(fully_qualified_dataset, '`', ''), '.')[offset(0)];
-  set dataset = split(replace(fully_qualified_dataset, '`', ''), '.')[offset(1)];
-
-
-  execute immediate replace(replace(
-    '''
-    create temp table bigfunction_result as
-    with
-
-
-    ----------------------------------------
-    --             SOURCES                --
-    ----------------------------------------
-    tables as (
-      select 
-        table_id as table,
-        *,
-      from `{{project}}.{{dataset}}`.__TABLES__
-      where not starts_with(table_id, '_') 
-    ),
-
-    table_descriptions as (
-      select
-        table_name as table,
-        regexp_extract(option_value, '^"(.*)"$') as description,
-      from `{{project}}.{{dataset}}`.INFORMATION_SCHEMA.TABLE_OPTIONS
-      where option_name = 'description'
-    ),
-
-    columns as (
-      select
-        field_path as name,
-        table_name as table,
-        data_type,
-        ifnull(description, '') as description,
-      from `{{project}}.{{dataset}}`.INFORMATION_SCHEMA.COLUMN_FIELD_PATHS
-    ),
-
-    columns_details as (
-      select
-        column_name as name,
-        table_name as table,
-        ordinal_position,
-        is_partitioning_column = 'YES' as is_partitioning_column,
-      from `{{project}}.{{dataset}}`.INFORMATION_SCHEMA.COLUMNS
-    ),
-
-
-    ----------------------------------------
-    --              JOINS                 --
-    ----------------------------------------
-
-    columns_joined as (
-      select *
-      from columns
-      left join columns_details using(table, name)
-    ),
-
-    partitioning_columns as (
-      select 
-        table, 
-        name as partitioning_column,
-      from columns_joined
-      where is_partitioning_column
-    ),
-
-    table_columns as (
-      select 
-        table, 
-        array_agg((select as struct columns_joined.* except(table, ordinal_position, is_partitioning_column)) order by ordinal_position) as columns
-      from columns_joined
-      group by table
-    ),
-
-    tables_joined as (
-      select
-        *,
-      from tables
-      left join table_descriptions using(table)
-      left join table_columns using(table)
-      left join partitioning_columns using(table)
+  set clean_fully_qualified_dataset = (
+    select replace(replace(replace(replace(replace(replace(
+      fully_qualified_dataset, 
+      ' ', ''), 
+      '`', ''), 
+      '"', ''), 
+      "'", ''),
+      "[", ''),
+      "]", ''
     )
-
-
-    ----------------------------------------
-    --              FINAL                 --
-    ----------------------------------------
-    select 
-      '{{project}}' as project,
-      '{{dataset}}' as dataset,
-      table_id as table,
-      string(date(timestamp_millis(creation_time))) as created_at,
-      string(date(timestamp_millis(last_modified_time))) as last_modified_at,
-      format("%'d", row_count) as row_count,
-      case 
-        when size_bytes / pow(2, 40) > 1 then format('%.2f TB', size_bytes / pow(2, 40))
-        when size_bytes / pow(2, 30) > 1 then format('%.2f GB', size_bytes / pow(2, 30))
-        else format('%.2f MB', size_bytes / pow(2, 20))
-      end as size,
-      type,
-      ifnull(description, '') as description,
-      ifnull(partitioning_column, '') as partitioning_column,
-      columns,
-    from tables_joined
-    ''',
-    '{{project}}', project),
-    '{{dataset}}', dataset
   );
+
+  set fully_qualified_datasets = (
+    select array_agg(dataset)
+    from unnest(split(clean_fully_qualified_dataset, ',')) dataset
+  );
+
+  create or replace temp table bigfunction_result (
+    project              string,  
+    dataset              string,  
+    table                string,  
+    created_at           string,  
+    last_modified_at     string,  
+    row_count            string,  
+    size                 string,  
+    type                 int64,
+    description          string,  
+    partitioning_column  string,  
+    columns              array<struct<name string, data_type string, description string>>
+  );
+
+  while i < array_length(fully_qualified_datasets) do
+
+    assert array_length(split(fully_qualified_datasets[offset(i)], '.')) = 2 as 'BAD ARGUMENT FORMAT: `fully_qualified_dataset` argument must follow the pattern `PROJECT.DATASET`';
+    set project = split(replace(fully_qualified_datasets[offset(i)], '`', ''), '.')[offset(0)];
+    set dataset = split(replace(fully_qualified_datasets[offset(i)], '`', ''), '.')[offset(1)];
+
+    begin
+
+      execute immediate replace(replace(
+        '''
+        insert bigfunction_result
+        with
+
+
+        ----------------------------------------
+        --             SOURCES                --
+        ----------------------------------------
+        tables as (
+          select 
+            table_id as table,
+            *,
+          from `{{project}}.{{dataset}}`.__TABLES__
+          where not starts_with(table_id, '_') 
+        ),
+
+        table_descriptions as (
+          select
+            table_name as table,
+            regexp_extract(option_value, '^"(.*)"$') as description,
+          from `{{project}}.{{dataset}}`.INFORMATION_SCHEMA.TABLE_OPTIONS
+          where option_name = 'description'
+        ),
+
+        columns as (
+          select
+            field_path as name,
+            table_name as table,
+            data_type,
+            ifnull(description, '') as description,
+          from `{{project}}.{{dataset}}`.INFORMATION_SCHEMA.COLUMN_FIELD_PATHS
+        ),
+
+        columns_details as (
+          select
+            column_name as name,
+            table_name as table,
+            ordinal_position,
+            is_partitioning_column = 'YES' as is_partitioning_column,
+          from `{{project}}.{{dataset}}`.INFORMATION_SCHEMA.COLUMNS
+        ),
+
+
+        ----------------------------------------
+        --              JOINS                 --
+        ----------------------------------------
+
+        columns_joined as (
+          select *
+          from columns
+          left join columns_details using(table, name)
+        ),
+
+        partitioning_columns as (
+          select 
+            table, 
+            name as partitioning_column,
+          from columns_joined
+          where is_partitioning_column
+        ),
+
+        table_columns as (
+          select 
+            table, 
+            array_agg((select as struct columns_joined.* except(table, ordinal_position, is_partitioning_column)) order by ordinal_position) as columns
+          from columns_joined
+          group by table
+        ),
+
+        tables_joined as (
+          select
+            *,
+          from tables
+          left join table_descriptions using(table)
+          left join table_columns using(table)
+          left join partitioning_columns using(table)
+        )
+
+
+        ----------------------------------------
+        --              FINAL                 --
+        ----------------------------------------
+        select 
+          '{{project}}' as project,
+          '{{dataset}}' as dataset,
+          table_id as table,
+          string(date(timestamp_millis(creation_time))) as created_at,
+          string(date(timestamp_millis(last_modified_time))) as last_modified_at,
+          format("%'d", row_count) as row_count,
+          case 
+            when size_bytes / pow(2, 40) > 1 then format('%.2f TB', size_bytes / pow(2, 40))
+            when size_bytes / pow(2, 30) > 1 then format('%.2f GB', size_bytes / pow(2, 30))
+            else format('%.2f MB', size_bytes / pow(2, 20))
+          end as size,
+          type,
+          ifnull(description, '') as description,
+          ifnull(partitioning_column, '') as partitioning_column,
+          columns,
+        from tables_joined
+        ''',
+        '{{project}}', project),
+        '{{dataset}}', dataset
+      );
+
+    exception when error then
+      select 'error';
+    end;
+
+    set i = i + 1;
+
+  end while;
+
 
 
 
