@@ -1,0 +1,93 @@
+type: function_py
+category: get_data
+author:
+  name: Antoine Giraud
+  url: https://www.linkedin.com/in/antgiraud/
+  avatar_url: "https://media.licdn.com/dms/image/C4D03AQG2Orctig4ycg/profile-displayphoto-shrink_800_800/0/1532385599460?e=1727308800&v=beta&t=jonuDcwGKpHZWsarmsIJ1AHm55WQsbMB1qQyU6p7alY"
+description: |
+  Download web file into `destination_table` using DuckDB SQL
+
+  > **Requirements**
+  >
+  > You must create the `destination_dataset` and give `dataEditor` access to `bigfunction@bigfunctions.iam.gserviceaccount.com` before calling this function.
+  > You can do this by executing:
+  >
+  > ```sql
+  > -- Create Destination Dataset
+  > create schema `your_project.your_dataset`;
+  >
+  > -- Grant Access to Destination Dataset
+  > grant `roles/bigquery.dataEditor`
+  > on schema `your_project.your_dataset`
+  > to 'serviceAccount:bigfunction@bigfunctions.iam.gserviceaccount.com';
+  > ```
+arguments:
+  - name: destination_table
+    type: string
+  - name: duckdb_sql
+    type: string
+output:
+  name: status
+  type: string
+examples:
+  - description: "load french postal codes"
+    arguments:
+      - "'your_project.your_dataset.dim_french_postalcodes'"
+      - |
+        '''
+          FROM read_csv('https://www.data.gouv.fr/fr/datasets/r/2f75293b-3ee5-4cb5-971b-93e754dc96ea',
+            delim=';',
+            skip=1,
+            columns = {
+                'code_commune_insee': 'VARCHAR',
+                'nom_commune_insee': 'VARCHAR',
+                'code_postal': 'VARCHAR',
+                'lb_acheminement': 'VARCHAR',
+                'ligne_5': 'VARCHAR'
+            });
+        '''
+    output: "ok"
+  - description: "load french departements"
+    arguments:
+      - "'your_project.your_dataset.dim_french_departements'"
+      - |
+        '''
+          select
+            code departement_code,
+            nom departement_nom,
+            region.code region_code,
+            region.nom region_nom
+          from read_json_auto('https://geo.api.gouv.fr/departements?fields=nom,code,codeRegion,region')
+        '''
+    output: "ok"
+code: |
+  if not duckdb_sql:
+    return 'invalid url: it is null or empty'
+  if not destination_table:
+    return 'invalid destination_table'
+
+  import google.cloud.bigquery
+  import google.api_core.exceptions
+
+  bigquery = google.cloud.bigquery.Client()
+
+  try:
+    con = duckdb.connect(database = ":memory:")
+    df = duckdb.sql(duckdb_sql).df()
+  except:
+    return 'duckdb sql failure'
+
+  try:
+    bigquery.load_table_from_dataframe(df, destination_table).result()
+  except (google.api_core.exceptions.Forbidden, google.api_core.exceptions.NotFound, google.api_core.exceptions.PermissionDenied) as e:
+    assert False, f'Service Account `{get_current_service_account()}` does not have data-editor permission for given destination dataset (or the dataset does not exsit). Please add it'
+  return 'ok'
+requirements: |
+  duckdb
+  google-cloud-bigquery
+quotas:
+  max_rows_per_query: 1
+cloud_run:
+  memory: 1024Mi
+  concurrency: 1
+  max_instances: 10
