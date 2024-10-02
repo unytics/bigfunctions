@@ -44,7 +44,7 @@ examples:
                 'code_postal': 'VARCHAR',
                 'lb_acheminement': 'VARCHAR',
                 'ligne_5': 'VARCHAR'
-            });
+            })
         '''
     output: "ok"
   - description: "load french departements"
