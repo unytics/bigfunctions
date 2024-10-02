@@ -1,7 +1,7 @@
 import setuptools
 
 
-VERSION = '0.8'
+VERSION = '0.9'
 
 
 with open('README.md', 'r', encoding='utf-8') as fh:
@@ -24,6 +24,7 @@ setuptools.setup(
         'Operating System :: OS Independent',
     ],
     python_requires='>=3.6',
+    package_data={'bigfun': ['templates/**/*', 'website/**/*', 'datastore/**/*']},
     include_package_data=True,
     install_requires=[
         'google-cloud-bigquery',
