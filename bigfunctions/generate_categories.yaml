@@ -8,7 +8,7 @@ description: |
   Return `categories` of `items`. 
 
   Using GenAi, this function generates a hierarchy of categories and subcategories that best represents the given `items`.
-  (items`: must be a json array of strings or or objects).
+  (`items`: must be a json array of strings or or objects).
 
   Result is a json with the following schema:
   
