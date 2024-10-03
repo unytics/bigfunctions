@@ -119,7 +119,12 @@ class BigFunction:
         arguments = zip(argument_names, argument_values)
         template_file = f'{TEMPLATE_FOLDER}/function_py_test.py'
         template = jinja2.Template(open(template_file, encoding='utf-8').read())
-        code = template.render(project=self.project, arguments=arguments, code=self.config['code'].strip())
+        code = template.render(
+            project=self.project, 
+            arguments=arguments, 
+            init_code=self.config.get('init_code', '').strip(), 
+            code=self.config['code'].strip()
+        )
 
         print(code)
         os.makedirs(TESTS_FOLDER, exist_ok=True)
