@@ -83,7 +83,7 @@ description: "BigFunction {{ name }} is a BigQuery function which {{ description
       {{ example.temp_table | indent(6) }}
     );
     {% endif %}
-    {% if type == 'procedure' %}call{% elif type == 'table_function' %}select * from{% else %}select{% endif %} {{ project }}.{{ dataset }}.{{ name }}({% for argument in example.arguments %}{{ argument | replace('{BIGFUNCTIONS_DATASET}', dataset) | replace('\n', '\n      ') }}{% if not loop.last %}, {% endif %}{% endfor %}){% if type == 'procedure' %};{% elif 'output' in bigfunction and type != 'table_function' %} as {{ output.name }}{% endif %}
+    {% if type == 'procedure' %}call{% elif type == 'table_function' %}select * from{% else %}select{% endif %} {{ project }}.{{ dataset }}.{{ name }}({% for argument in example.arguments %}{{ argument | replace('{BIGFUNCTIONS_DATASET}',  '`' +  project + '`.`' + dataset + '`' ) | replace('\n', '\n      ') }}{% if not loop.last %}, {% endif %}{% endfor %}){% if type == 'procedure' %};{% elif 'output' in bigfunction and type != 'table_function' %} as {{ output.name }}{% endif %}
     {%- if example.with_clause is defined or example.temp_table is defined %}
     from sample_data
     {% endif %}
@@ -109,7 +109,7 @@ create temp table sample_data as (
   {{ example.with_clause | indent(2) }}
 );
 {% endif %}
-{% if type == 'procedure' %}call{% elif type == 'table_function' %}select * from{% else %}select{% endif %} {{ project }}.{{ dataset }}.{{ name }}({% for argument in example.arguments %}{{ argument | replace('{BIGFUNCTIONS_DATASET}', dataset) | replace('\n', '\n  ') }}{% if not loop.last %}, {% endif %}{% endfor %}){% if type == 'procedure' %};{% elif 'output' in bigfunction and type != 'table_function' %} as {{ output.name }}{% endif %}
+{% if type == 'procedure' %}call{% elif type == 'table_function' %}select * from{% else %}select{% endif %} {{ project }}.{{ dataset }}.{{ name }}({% for argument in example.arguments %}{{ argument | replace('{BIGFUNCTIONS_DATASET}',  '`' +  project + '`.`' + dataset + '`' ) | replace('\n', '\n  ') }}{% if not loop.last %}, {% endif %}{% endfor %}){% if type == 'procedure' %};{% elif 'output' in bigfunction and type != 'table_function' %} as {{ output.name }}{% endif %}
 {%- if example.with_clause is defined or example.temp_table is defined %}
 from sample_data
 {% endif %}
