@@ -8,11 +8,22 @@ description: |
   Return `categories` of `items`. 
 
   Using GenAi, this function generates a hierarchy of categories and subcategories that best represents the given `items`.
-  Each item will then be associated to a category and subcategory.
-  The function returns, the path of each item `{category}/{subcategory}` in the hierarchy.
+  (items`: must be a json array of strings or or objects).
 
-  - `items`: must be a json array of strings or a json array of objects. In case of objects, they must have a key `name`.
-  - Returned `categories` is a json array with the same length as `items` formatted like `[{item_name, category_path}]`. If input `items` are string then, `item_name` is the string. Else if input `items` are object then `item_name` is the value at their `name` key.
+  Result is a json with the following schema:
+  
+  ```
+  {
+    categories: [
+      {
+        name: string,
+        subcategories: [
+          string
+        ]
+      }
+    ]
+  }
+  ```
 arguments:
   - name: items
     type: json
@@ -20,13 +31,28 @@ output:
   name: categories
   type: json
 examples:
-  - description: ""
+  - description: "Categorize User Reviews of Nickel App in App Store"
     arguments:
       - |
-        [
-          'foo'
+        (
+          select to_json(array_agg(content))
+          from {BIGFUNCTIONS_DATASET}.get_appstore_reviews(
+            'https://apps.apple.com/fr/app/nickel-compte-pour-tous/id1119225763'
+          )
+        )
+    output: |
+      {
+        "categories": [
+          {
+            "name": "Account Management",
+            "subcategories": [
+                  "Login Issues",
+                  ...
+            ]
+          },
+          ...
         ]
-    output: "&lt;html>...&lt;/html>"
+      }
 init_code: |
   import json
   
@@ -38,7 +64,7 @@ init_code: |
   PROMPT = '''
   As a data manager you want to organize ITEMS into CATEGORIES and SUBCATEGORIES to improve data discovery in a data catalog.
 
-  Return a hierarchy of CATEGORIES and their SUBCATEGORIES which contain the ITEMS listed in file.
+  Return a hierarchy of CATEGORIES and their SUBCATEGORIES which contain the ITEMS of the file.
   
   The returned hierarchy will respect the following constraints:
   - Each CATEGORY must have between 2 and 10 SUBCATEGORIES
@@ -49,8 +75,8 @@ init_code: |
   '''
 
   response_schema = {
-    "title": "Categorized Datasets",
-    "description": "Schema for items organized into categories and subcategories.",
+    "title": "Categories and Subcategories",
+    "description": "Schema of the Categorization Hierarchy of items",
     "type": "object",
     "properties": {
       "categories": {
@@ -64,21 +90,9 @@ init_code: |
             },
             "subcategories": {
               "type": "array",
+              "description": "List of subcategories names",
               "items": {
-                "type": "object",
-                "properties": {
-                  "name": {
-                    "type": "string",
-                    "description": "Name of the subcategory",
-                  },
-                  "items": {
-                    "type": "array",
-                    "items": {
-                      "type": "string",
-                    }
-                  }
-                },
-                "required": ["name", "items"]
+                "type": "string",
               }
             }
           },
@@ -105,24 +119,22 @@ init_code: |
       ),
   ]
 
+  def xmlize(item):
+    if isinstance(item, str):
+      return f'<item>{item}</item>'
+    elif isinstance(item, dict):
+      return dicttoxml.dicttoxml(item, custom_root='item', attr_type=False, xml_declaration=False).decode('utf-8')
+    assert False, 'each item of `items` must be a string or an object'
+
   vertexai.init(location=CURRENT_LOCATION)
   model = GenerativeModel(MODEL)
 code: |
   if not items:
-    return []
+    return {}
 
-  assert isinstance(items, list), 'Given `items` must be a json array of strings or a json array of objects'
-  first_item = items[0]
-  assert all(isinstance(item, type(first_item)) for item in items), 'Given `items` have mixed types. They must all be string or all be objects'
-  if isinstance(first_item, str):
-    items_xml = '\n\n'.join(f'<item>{item}</item>' for item in items)
-  elif isinstance(first_item, dict):
-    assert all('name' in item for item in items), 'Given `items` objects must all have a `name` key.'
-    items_xml = dicttoxml.dicttoxml(items, custom_root='items', attr_type=False, xml_declaration=False).decode('utf-8')
-    print(items_xml)
-  else:
-    assert False, 'Given `items` have bad type. They must all be strings or all be objects'
-    
+  assert isinstance(items, list), 'Given `items` must be a json array of strings or objects'
+  items_xml = [xmlize(item) for item in items]
+  items_xml = '\n\n'.join(items_xml)
 
   contents = [
       PROMPT,
@@ -137,15 +149,7 @@ code: |
 
   categories = response.text
   categories = json.loads(categories)
-  item_categories = []
-  for category in categories['categories']:
-    for subcategory in category['subcategories']:
-      for item in subcategory['items']:
-        item_categories.append({
-          "item": item,
-          "path": f"{category['name']}/{subcategory['name']}/{item}"
-        })
-  return item_categories
+  return categories
 requirements: |
   dicttoxml
   google-cloud-aiplatform
