@@ -34,6 +34,7 @@ examples:
   - description: "Categorize User Reviews of Nickel App in App Store"
     arguments:
       - |
+      
         (
           select to_json(array_agg(content))
           from {BIGFUNCTIONS_DATASET}.get_appstore_reviews(
