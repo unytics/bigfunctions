@@ -7,15 +7,15 @@ author:
 description: |
   Download web file into `destination_table`
 
-  Under the hood : DuckDB fetches your files thanks to ibis that transles your arguments into SQL
+  Under the hood : DuckDB fetches your files thanks to ibis.
 
-  available types:
+  Available types:
 
   * csv : cf. ibis's [read_csv](https://ibis-project.org/backends/duckdb#ibis.backends.duckdb.Backend.read_csv)
   * json : cf. ibis's [read_json](https://ibis-project.org/backends/duckdb#ibis.backends.duckdb.Backend.read_json)
   * parquet : cf. ibis's [read_parquet](https://ibis-project.org/backends/duckdb#ibis.backends.duckdb.Backend.read_parquet)
   * delta : cf. ibis's [read_delta](https://ibis-project.org/backends/duckdb#ibis.backends.duckdb.Backend.read_delta)
-  * geo : cf. ibis's [read_geo](https://ibis-project.org/backends/duckdb#ibis.backends.duckdb.Backend.read_geo) & cf. DuckDB's [ST_READ](https://duckdb.org/docs/extensions/spatial/functions#st_read) in spatial extention
+  * geo : cf. ibis's [read_geo](https://ibis-project.org/backends/duckdb#ibis.backends.duckdb.Backend.read_geo) & cf. DuckDB's [ST_READ](https://duckdb.org/docs/extensions/spatial/functions#st_read) in spatial extention 
     * you can read .xls, .xlsx, .shp ...
 
   > **Requirements**
@@ -33,83 +33,75 @@ description: |
   > to 'serviceAccount:bigfunction@bigfunctions.iam.gserviceaccount.com';
   > ```
 arguments:
+  - name: url
+    type: string
+  - name: file_type
+    type: string
   - name: destination_table
     type: string
-  - name: src_type
-    type: string
-  - name: src_url
-    type: string
   - name: options
-    type: string
+    type: json
 output:
   name: status
   type: string
 examples:
   - description: "load random csv"
     arguments:
-      - "'your_project.your_dataset.random_sales'"
-      - "'csv'"
       - "'https://raw.githubusercontent.com/AntoineGiraud/dbt_hypermarche/refs/heads/main/input/achats.csv'"
-      - "'{}'"
+      - "'csv'"
+      - "'your_project.your_dataset.random_sales'"
+      - "null"
     output: "ok"
   - description: "load json - french departements"
     arguments:
-      - "'your_project.your_dataset.dim_french_departements'"
-      - "'json'"
       - "'https://geo.api.gouv.fr/departements?fields=nom,code,codeRegion,region'"
-      - "'{}'"
+      - "'json'"
+      - "'your_project.your_dataset.dim_french_departements'"
+      - "null"
     output: "ok"
   - description: "load french tricky csv"
     arguments:
-      - "'your_project.your_dataset.dim_french_postalcodes'"
-      - "'csv'"
       - "'https://www.data.gouv.fr/fr/datasets/r/2f75293b-3ee5-4cb5-971b-93e754dc96ea'"
+      - "'csv'"
+      - "'your_project.your_dataset.dim_french_postalcodes'"
       - |
-        '''{
+        json '''{
           "columns": {
               "code_commune_insee": "VARCHAR",
               "nom_commune_insee": "VARCHAR",
               "code_postal": "VARCHAR",
               "lb_acheminement": "VARCHAR",
-              "ligne_5": "VARCHAR",
+              "ligne_5": "VARCHAR"
           },
           "delim": ";",
-          "skip": 1,
+          "skip": 1
         }'''
 code: |
   if not destination_table:
     return "invalid destination_table"
-  if src_type not in ("csv", "json", "parquet", "geo", "delta"):
+  if file_type not in ("csv", "json", "parquet", "geo", "delta"):
     return "invalid type: accepted values: 'csv", "json", "parquet", "geo", "delta'"
-  if not src_url:
+  if not url:
     return "invalid url: it is null or empty"
-  if not src_url.startswith( ("http://", "https://", "hf://", "s3://", "az://", "abfss://", "gs://") ):
+  if not url.startswith( ("http://", "https://", "hf://", "s3://", "az://", "abfss://", "gs://") ):
     return "invalid url: wrong start. accepted values: 'http://', 'https://', 'hf://', 's3://', 'az://', 'abfss://', 'gs://'"
-  if not options:
-    options = {}
+  options = options or {}
 
-  try:
-    options = json.loads(options)
-  except Exception as e:
-    return "invalid json options " + repr(e)
-
-  # import ibis
+  import ibis
   import google.cloud.bigquery
   import google.api_core.exceptions
 
   # let's fetch the file with ibis & DuckDB
   try:
     con = ibis.duckdb.connect()
-    if src_type == "csv":
-      df = con.read_csv(src_url, **options).to_pandas()
-    elif src_type == "json":
-      df = con.read_json(src_url, **options).to_pandas()
-    elif src_type == "parquet":
-      df = con.read_parquet(src_url, **options).to_pandas()
-    elif src_type == "geo":
-      df = con.read_geo(src_url, **options).to_pandas()
-    elif src_type == "delta":
-      df = con.read_delta(src_url, **options).to_pandas()
+    read = {
+      "csv": con.read_csv,
+      "json": con.read_json,
+      "parquet": con.read_parquet,
+      "geo": con.read_geo,
+      "delta": con.read_delta
+    }[file_type]
+    df = read(url, **options).to_pandas()
   except Exception as e:
     return "duckdb fetch failure" + repr(e)
 
@@ -124,8 +116,8 @@ requirements: |
   ibis-framework[duckdb]
   google-cloud-bigquery
 quotas:
-  max_rows_per_query: 1
+  max_rows_per_query: 10
 cloud_run:
-  memory: 1024Mi
+  memory: 2048Mi
   concurrency: 1
   max_instances: 10
