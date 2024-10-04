@@ -1,0 +1,131 @@
+type: function_py
+category: get_data
+author:
+  name: Antoine Giraud
+  url: https://www.linkedin.com/in/antgiraud/
+  avatar_url: "https://media.licdn.com/dms/image/C4D03AQG2Orctig4ycg/profile-displayphoto-shrink_800_800/0/1532385599460?e=1727308800&v=beta&t=jonuDcwGKpHZWsarmsIJ1AHm55WQsbMB1qQyU6p7alY"
+description: |
+  Download web file into `destination_table`
+
+  Under the hood : DuckDB fetches your files thanks to ibis that transles your arguments into SQL
+
+  available types:
+
+  * csv : cf. ibis's [read_csv](https://ibis-project.org/backends/duckdb#ibis.backends.duckdb.Backend.read_csv)
+  * json : cf. ibis's [read_json](https://ibis-project.org/backends/duckdb#ibis.backends.duckdb.Backend.read_json)
+  * parquet : cf. ibis's [read_parquet](https://ibis-project.org/backends/duckdb#ibis.backends.duckdb.Backend.read_parquet)
+  * delta : cf. ibis's [read_delta](https://ibis-project.org/backends/duckdb#ibis.backends.duckdb.Backend.read_delta)
+  * geo : cf. ibis's [read_geo](https://ibis-project.org/backends/duckdb#ibis.backends.duckdb.Backend.read_geo) & cf. DuckDB's [ST_READ](https://duckdb.org/docs/extensions/spatial/functions#st_read) in spatial extention
+    * you can read .xls, .xlsx, .shp ...
+
+  > **Requirements**
+  >
+  > You must create the `destination_dataset` and give `dataEditor` access to `bigfunction@bigfunctions.iam.gserviceaccount.com` before calling this function.
+  > You can do this by executing:
+  >
+  > ```sql
+  > -- Create Destination Dataset
+  > create schema `your_project.your_dataset`;
+  >
+  > -- Grant Access to Destination Dataset
+  > grant `roles/bigquery.dataEditor`
+  > on schema `your_project.your_dataset`
+  > to 'serviceAccount:bigfunction@bigfunctions.iam.gserviceaccount.com';
+  > ```
+arguments:
+  - name: destination_table
+    type: string
+  - name: src_type
+    type: string
+  - name: src_url
+    type: string
+  - name: options
+    type: string
+output:
+  name: status
+  type: string
+examples:
+  - description: "load random csv"
+    arguments:
+      - "'your_project.your_dataset.random_sales'"
+      - "'csv'"
+      - "'https://raw.githubusercontent.com/AntoineGiraud/dbt_hypermarche/refs/heads/main/input/achats.csv'"
+      - "'{}'"
+    output: "ok"
+  - description: "load json - french departements"
+    arguments:
+      - "'your_project.your_dataset.dim_french_departements'"
+      - "'json'"
+      - "'https://geo.api.gouv.fr/departements?fields=nom,code,codeRegion,region'"
+      - "'{}'"
+    output: "ok"
+  - description: "load french tricky csv"
+    arguments:
+      - "'your_project.your_dataset.dim_french_postalcodes'"
+      - "'csv'"
+      - "'https://www.data.gouv.fr/fr/datasets/r/2f75293b-3ee5-4cb5-971b-93e754dc96ea'"
+      - |
+        '''{
+          "columns": {
+              "code_commune_insee": "VARCHAR",
+              "nom_commune_insee": "VARCHAR",
+              "code_postal": "VARCHAR",
+              "lb_acheminement": "VARCHAR",
+              "ligne_5": "VARCHAR",
+          },
+          "delim": ";",
+          "skip": 1,
+        }'''
+code: |
+  if not destination_table:
+    return "invalid destination_table"
+  if src_type not in ("csv", "json", "parquet", "geo", "delta"):
+    return "invalid type: accepted values: 'csv", "json", "parquet", "geo", "delta'"
+  if not src_url:
+    return "invalid url: it is null or empty"
+  if not src_url.startswith( ("http://", "https://", "hf://", "s3://", "az://", "abfss://", "gs://") ):
+    return "invalid url: wrong start. accepted values: 'http://', 'https://', 'hf://', 's3://', 'az://', 'abfss://', 'gs://'"
+  if not options:
+    options = {}
+
+  try:
+    options = json.loads(options)
+  except Exception as e:
+    return "invalid json options " + repr(e)
+
+  # import ibis
+  import google.cloud.bigquery
+  import google.api_core.exceptions
+
+  # let's fetch the file with ibis & DuckDB
+  try:
+    con = ibis.duckdb.connect()
+    if src_type == "csv":
+      df = con.read_csv(src_url, **options).to_pandas()
+    elif src_type == "json":
+      df = con.read_json(src_url, **options).to_pandas()
+    elif src_type == "parquet":
+      df = con.read_parquet(src_url, **options).to_pandas()
+    elif src_type == "geo":
+      df = con.read_geo(src_url, **options).to_pandas()
+    elif src_type == "delta":
+      df = con.read_delta(src_url, **options).to_pandas()
+  except Exception as e:
+    return "duckdb fetch failure" + repr(e)
+
+  # let's load the dataframe to BigQuery
+  bigquery = google.cloud.bigquery.Client()
+  try:
+    bigquery.load_table_from_dataframe(df, destination_table).result()
+  except (google.api_core.exceptions.Forbidden, google.api_core.exceptions.NotFound, google.api_core.exceptions.PermissionDenied) as e:
+    assert False, f'Service Account `{get_current_service_account()}` does not have data-editor permission for given destination dataset (or the dataset does not exsit). Please add it'
+  return 'ok'
+requirements: |
+  ibis-framework[duckdb]
+  google-cloud-bigquery
+quotas:
+  max_rows_per_query: 1
+cloud_run:
+  memory: 1024Mi
+  concurrency: 1
+  max_instances: 10
