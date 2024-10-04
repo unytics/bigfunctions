@@ -23,32 +23,37 @@ examples:
       +----------------------------+
 code: |
   declare project, dataset, table, partition_col string;
-
+  declare column_name_sql string;
+  declare timestamp_sql string;
   declare parts array<string> default split(replace(fully_qualified_table, '`', ''), '.');
-  set project = parts[offset(0)];
-  set dataset = parts[offset(1)];
-  set table = parts[offset(2)];
+  
+  set project = parts[safe_offset(0)];
+  set dataset = parts[safe_offset(1)];
+  set table = parts[safe_offset(2)];
+  
+  if (project is null or dataset is null or table is null)
+    then
+      execute immediate format("""
+        create or replace temp table bigfunction_result as
+          select
+            "ERROR: A fully_qualified_table is needed (format: project.dataset.table_name)" as latest_partition_timestamp
+        """);
+  else
 
-  execute immediate replace(replace(replace('''
-    select column_name
-    from `{{project}}.{{dataset}}.INFORMATION_SCHEMA.COLUMNS`
-    where table_name = '{{table}}' and is_partitioning_column = 'YES'
-  ''',
-  '{{project}}', project),
-  '{{dataset}}', dataset),
-  '{{table}}', table
-  ) into partition_col;
-
-  execute immediate replace(replace(replace(
-    format(
-      '''
-      select
-        cast(max(%s) as timestamp) as latest_partition_timestamp,
-      from `{{project}}.{{dataset}}.{{table}}`
-      ''',
-      partition_col
-    ),
-    '{{project}}', project),
-    '{{dataset}}', dataset),
-    '{{table}}', table
-  ) into bigfunction_result;
+    set column_name_sql = format("""
+      select column_name
+      from `%s.%s.INFORMATION_SCHEMA.COLUMNS`
+      where table_name = @table and is_partitioning_column = 'YES'
+    """, project, dataset);
+  
+    execute immediate column_name_sql into partition_col using table as table;
+    
+    set timestamp_sql = format("""
+      create or replace temp table bigfunction_result as
+        select
+          cast(max(%s) as timestamp) as latest_partition_timestamp,
+        from `%s.%s.%s`
+    """, partition_col, project, dataset, table);
+  
+    execute immediate timestamp_sql;
+  end if;
