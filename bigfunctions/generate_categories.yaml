@@ -34,7 +34,7 @@ examples:
   - description: "Categorize User Reviews of Nickel App in App Store"
     arguments:
       - |
-      
+
         (
           select to_json(array_agg(content))
           from {BIGFUNCTIONS_DATASET}.get_appstore_reviews(
@@ -76,7 +76,7 @@ init_code: |
   '''
 
   response_schema = {
-    "title": "Categories and Subcategories",
+    "title": "Categorization of items",
     "description": "Schema of the Categorization Hierarchy of items",
     "type": "object",
     "properties": {
@@ -91,7 +91,6 @@ init_code: |
             },
             "subcategories": {
               "type": "array",
-              "description": "List of subcategories names",
               "items": {
                 "type": "string",
               }
