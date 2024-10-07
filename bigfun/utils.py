@@ -286,10 +286,10 @@ class CloudRun:
         if self.service in os.environ:
             # This service image has already been built, let's use it
             options["image"] = os.environ[self.service]
-            return self.exec("gcloud alpha run deploy", options=options)
+            return self.exec("gcloud run deploy", options=options)
 
         options["source"] = source_folder
-        result = self.exec("gcloud alpha run deploy", options=options)
+        result = self.exec("gcloud run deploy", options=options)
         os.environ[self.service] = self.exec(
             "gcloud run services describe", options={"format": '"value(image)"'}
         )
