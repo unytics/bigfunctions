@@ -17,9 +17,8 @@ description: |
   * json : cf. ibis's [read_json](https://ibis-project.org/backends/duckdb#ibis.backends.duckdb.Backend.read_json)
   * parquet : cf. ibis's [read_parquet](https://ibis-project.org/backends/duckdb#ibis.backends.duckdb.Backend.read_parquet)
   * delta : cf. ibis's [read_delta](https://ibis-project.org/backends/duckdb#ibis.backends.duckdb.Backend.read_delta)
-  * geo : cf. ibis's [read_geo](https://ibis-project.org/backends/duckdb#ibis.backends.duckdb.Backend.read_geo)
-    * cf. DuckDB's [ST_READ](https://duckdb.org/docs/extensions/spatial/functions#st_read) in spatial extention
-    * you can read .xls, .xlsx, .shp ...
+  * geo : cf. ibis's [read_geo](https://ibis-project.org/backends/duckdb#ibis.backends.duckdb.Backend.read_geo) cf. DuckDB's [ST_READ](https://duckdb.org/docs/extensions/spatial/functions#st_read) in spatial extention : based on [GDAL](https://gdal.org/en/latest/index.html) translator
+      * with this you can read .xls, .xlsx, .shp ...
 
   > **Requirements**
   >
@@ -69,6 +68,13 @@ examples:
       - "'your_project.your_dataset.station_status'"
       - "null"
     output: "ok"
+  - description: "load xls or xlsx"
+    arguments:
+      - "'https://github.com/AntoineGiraud/dbt_hypermarche/raw/refs/heads/main/input/Hypermarche.xlsx'"
+      - "'xlsx"
+      - "'your_project.your_dataset.hypermarche_retours'"
+      - '{"layer":"Retours", "open_options" = ["HEADERS=FORCE"]}'
+    output: "ok"
   - description: "load french tricky csv"
     arguments:
       - "'https://www.data.gouv.fr/fr/datasets/r/eae12477-d02e-441b-91f7-a2eeae98c5c7'"
@@ -89,23 +95,35 @@ examples:
 code: |
   if not destination_table:
     return "invalid destination_table"
-  if file_type not in ("csv", "json", "parquet", "geo", "delta"):
-    return "invalid type: accepted values: 'csv", "json", "parquet", "geo", "delta'"
+  if file_type not in ("csv", "json", "parquet", "geo", "delta", "xls", "xlsx"):
+    return "invalid type: accepted values: csv, json, parquet, geo, delta, xls, xlsx"
   if not url:
     return "invalid url: it is null or empty"
   if not url.startswith( ("http://", "https://", "hf://", "s3://", "az://", "abfss://", "gs://") ):
     return "invalid url: wrong start. accepted values: 'http://', 'https://', 'hf://', 's3://', 'az://', 'abfss://', 'gs://'"
-  options = options or {}
 
   import json
-  try:
-    options = json.loads(options)
-  except Exception as e:
-    return "invalid json options " + repr(e)
-
   import ibis
   import google.cloud.bigquery
   import google.api_core.exceptions
+  from slugify import slugify
+
+  if file_type in ('xls', 'xlsx'):
+    file_type = 'geo' # use same DuckDB's `st_read` function
+
+  if file_type in ('geo'):
+    import urllib.request
+
+  # try to parse options as json
+  try:
+    options = json.loads(options) if options else {}
+  except Exception as e:
+    return "invalid json options " + repr(e)
+
+  # DuckDB st_read needs local file
+  if file_type in ('geo'):
+    urllib.request.urlretrieve(url, './geo_file')
+    url = './geo_file'
 
   # let's fetch the file with ibis & DuckDB
   try:
@@ -124,6 +142,7 @@ code: |
   # let's load the dataframe to BigQuery
   bigquery = google.cloud.bigquery.Client()
   try:
+    df.columns = [slugify(col, separator="_") for col in df.columns]
     bigquery.load_table_from_dataframe(df, destination_table).result()
   except (google.api_core.exceptions.Forbidden, google.api_core.exceptions.NotFound, google.api_core.exceptions.PermissionDenied) as e:
     assert False, f'Service Account `{get_current_service_account()}` does not have data-editor permission for given destination dataset (or the dataset does not exsit). Please add it'
@@ -132,6 +151,7 @@ requirements: |
   ibis-framework[duckdb]
   google-cloud-bigquery
   geopandas
+  python-slugify
 quotas:
   max_rows_per_query: 10
 cloud_run:
