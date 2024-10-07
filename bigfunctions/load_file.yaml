@@ -5,20 +5,20 @@ author:
   url: https://www.linkedin.com/in/antgiraud/
   avatar_url: "https://media.licdn.com/dms/image/C4D03AQG2Orctig4ycg/profile-displayphoto-shrink_800_800/0/1532385599460?e=1727308800&v=beta&t=jonuDcwGKpHZWsarmsIJ1AHm55WQsbMB1qQyU6p7alY"
 description: |
-  Download web file into `destination_table` (append)
-
-  Under the hood : [DuckDB](https://duckdb.org/) fetches your files thanks to [ibis](https://ibis-project.org/).
+  Download web file into `destination_table` (append mode).
+  
+  Under the hood, [ibis](https://ibis-project.org/) downloads the file (using [DuckDB](https://duckdb.org/)).
 
   ![graph load file](./load_file.png)
 
   Available types:
 
-  * csv : cf. ibis's [read_csv](https://ibis-project.org/backends/duckdb#ibis.backends.duckdb.Backend.read_csv)
-  * json : cf. ibis's [read_json](https://ibis-project.org/backends/duckdb#ibis.backends.duckdb.Backend.read_json)
-  * parquet : cf. ibis's [read_parquet](https://ibis-project.org/backends/duckdb#ibis.backends.duckdb.Backend.read_parquet)
-  * delta : cf. ibis's [read_delta](https://ibis-project.org/backends/duckdb#ibis.backends.duckdb.Backend.read_delta)
-  * geo : cf. ibis's [read_geo](https://ibis-project.org/backends/duckdb#ibis.backends.duckdb.Backend.read_geo) cf. DuckDB's [ST_READ](https://duckdb.org/docs/extensions/spatial/functions#st_read) in spatial extention : based on [GDAL](https://gdal.org/en/latest/index.html) translator
-      * with this you can read .xls, .xlsx, .shp ...
+  * **csv** : *cf. ibis's [read_csv](https://ibis-project.org/backends/duckdb#ibis.backends.duckdb.Backend.read_csv)*
+  * **json** : *cf. ibis's [read_json](https://ibis-project.org/backends/duckdb#ibis.backends.duckdb.Backend.read_json)*
+  * **parquet** : *cf. ibis's [read_parquet](https://ibis-project.org/backends/duckdb#ibis.backends.duckdb.Backend.read_parquet)*
+  * **delta** : *cf. ibis's [read_delta](https://ibis-project.org/backends/duckdb#ibis.backends.duckdb.Backend.read_delta)*
+  * **geo** : *cf. ibis's [read_geo](https://ibis-project.org/backends/duckdb#ibis.backends.duckdb.Backend.read_geo) cf. DuckDB's [ST_READ](https://duckdb.org/docs/extensions/spatial/functions#st_read) in spatial extention : based on [GDAL](https://gdal.org/en/latest/index.html) translator*
+      * with this you can read **.xls**, **.xlsx**, **.shp** ...
 
   > **Requirements**
   >
