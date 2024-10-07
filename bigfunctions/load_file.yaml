@@ -6,10 +6,10 @@ author:
   avatar_url: "https://media.licdn.com/dms/image/C4D03AQG2Orctig4ycg/profile-displayphoto-shrink_800_800/0/1532385599460?e=1727308800&v=beta&t=jonuDcwGKpHZWsarmsIJ1AHm55WQsbMB1qQyU6p7alY"
 description: |
   Download web file into `destination_table` (append mode).
-  
-  Under the hood, [ibis](https://ibis-project.org/) downloads the file (using [DuckDB](https://duckdb.org/)).
 
   ![graph load file](./load_file.png)
+
+  Under the hood, [ibis](https://ibis-project.org/) downloads the file (using [DuckDB](https://duckdb.org/)).
 
   Available types:
 
