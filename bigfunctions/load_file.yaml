@@ -3,7 +3,7 @@ category: get_data
 author:
   name: Antoine Giraud
   url: https://www.linkedin.com/in/antgiraud/
-  avatar_url: "https://media.licdn.com/dms/image/C4D03AQG2Orctig4ycg/profile-displayphoto-shrink_800_800/0/1532385599460?e=1727308800&v=beta&t=jonuDcwGKpHZWsarmsIJ1AHm55WQsbMB1qQyU6p7alY"
+  avatar_url: "https://media.licdn.com/dms/image/v2/C4D03AQG2Orctig4ycg/profile-displayphoto-shrink_200_200/profile-displayphoto-shrink_200_200/0/1532385599321?e=1733961600&v=beta&t=HTHvVZUKUhoH-U07O1tXPPuqN37EgCtGhxM_PuYFQjQ"
 description: |
   Download web file into `destination_table` (append mode).
 
@@ -113,7 +113,7 @@ code: |
   if file_type in ('xls', 'xlsx'):
     file_type = 'geo' # use same DuckDB's `st_read` function
 
-  options = options or {}
+  options = options or ''
   try:
     options = json.loads(options)
   except Exception as e:
