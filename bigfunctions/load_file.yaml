@@ -97,12 +97,12 @@ code: |
     return "invalid url: wrong start. accepted values: 'http://', 'https://', 'hf://', 's3://', 'az://', 'abfss://', 'gs://'"
   options = options or {}
 
+  import json
   try:
     options = json.loads(options)
   except Exception as e:
     return "invalid json options " + repr(e)
 
-  import json
   import ibis
   import google.cloud.bigquery
   import google.api_core.exceptions
