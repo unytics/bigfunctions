@@ -68,6 +68,13 @@ examples:
       - "'your_project.your_dataset.station_status'"
       - "null"
     output: "ok"
+  - description: "load xls or xlsx"
+    arguments:
+      - "'https://github.com/AntoineGiraud/dbt_hypermarche/raw/refs/heads/main/input/Hypermarche.xlsx'"
+      - "'xlsx"
+      - "'your_project.your_dataset.hypermarche_retours'"
+      - '{"layer":"Retours", "open_options" = ["HEADERS=FORCE"]}'
+    output: "ok"
   - description: "load french tricky csv"
     arguments:
       - "'https://www.data.gouv.fr/fr/datasets/r/eae12477-d02e-441b-91f7-a2eeae98c5c7'"
@@ -88,8 +95,8 @@ examples:
 code: |
   if not destination_table:
     return "invalid destination_table"
-  if file_type not in ("csv", "json", "parquet", "geo", "delta"):
-    return "invalid type: accepted values: 'csv", "json", "parquet", "geo", "delta'"
+  if file_type not in ("csv", "json", "parquet", "geo", "delta", "xls", "xlsx"):
+    return "invalid type: accepted values: csv, json, parquet, geo, delta, xls, xlsx"
   if not url:
     return "invalid url: it is null or empty"
   if not url.startswith( ("http://", "https://", "hf://", "s3://", "az://", "abfss://", "gs://") ):
@@ -99,6 +106,12 @@ code: |
   import ibis
   import google.cloud.bigquery
   import google.api_core.exceptions
+
+  if file_type in ('xls', 'xlsx'):
+    file_type = 'geo' # use same DuckDB's `st_read` function
+
+  if file_type in ('geo'):
+    import urllib.request
 
   # try to parse options as json
   try:
