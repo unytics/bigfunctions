@@ -66,7 +66,7 @@ examples:
     arguments:
       - "'gs://bike-sharing-history/toulouse/jcdecaux/2024/Feb.parquet'"
       - "'parquet'"
-      - "'bigfunctions.test_eu.station_status'"
+      - "'your_project.your_dataset.station_status'"
       - "null"
     output: "ok"
   - description: "load french tricky csv"
@@ -102,11 +102,10 @@ code: |
   except Exception as e:
     return "invalid json options " + repr(e)
 
+  import json
   import ibis
   import google.cloud.bigquery
   import google.api_core.exceptions
-  if file_type in ('parquet', 'geo', 'delta'):
-    import geopandas
 
   # let's fetch the file with ibis & DuckDB
   try:
