@@ -61,11 +61,11 @@ examples:
     output: "ok"
   - description: "load french tricky csv"
     arguments:
-      - "'https://www.data.gouv.fr/fr/datasets/r/2f75293b-3ee5-4cb5-971b-93e754dc96ea'"
+      - "'https://www.data.gouv.fr/fr/datasets/r/eae12477-d02e-441b-91f7-a2eeae98c5c7'"
       - "'csv'"
       - "'your_project.your_dataset.dim_french_postalcodes'"
       - |
-        json '''{
+        '''{
           "columns": {
               "code_commune_insee": "VARCHAR",
               "nom_commune_insee": "VARCHAR",
@@ -87,9 +87,16 @@ code: |
     return "invalid url: wrong start. accepted values: 'http://', 'https://', 'hf://', 's3://', 'az://', 'abfss://', 'gs://'"
   options = options or {}
 
+  try:
+    options = json.loads(options)
+  except Exception as e:
+    return "invalid json options " + repr(e)
+
   import ibis
   import google.cloud.bigquery
   import google.api_core.exceptions
+  if file_type in ('parquet', 'geo', 'delta'):
+    import geopandas
 
   # let's fetch the file with ibis & DuckDB
   try:
@@ -115,6 +122,7 @@ code: |
 requirements: |
   ibis-framework[duckdb]
   google-cloud-bigquery
+  geopandas
 quotas:
   max_rows_per_query: 10
 cloud_run:
