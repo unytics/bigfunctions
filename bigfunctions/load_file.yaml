@@ -17,9 +17,8 @@ description: |
   * json : cf. ibis's [read_json](https://ibis-project.org/backends/duckdb#ibis.backends.duckdb.Backend.read_json)
   * parquet : cf. ibis's [read_parquet](https://ibis-project.org/backends/duckdb#ibis.backends.duckdb.Backend.read_parquet)
   * delta : cf. ibis's [read_delta](https://ibis-project.org/backends/duckdb#ibis.backends.duckdb.Backend.read_delta)
-  * geo : cf. ibis's [read_geo](https://ibis-project.org/backends/duckdb#ibis.backends.duckdb.Backend.read_geo)
-    * cf. DuckDB's [ST_READ](https://duckdb.org/docs/extensions/spatial/functions#st_read) in spatial extention
-    * you can read .xls, .xlsx, .shp ...
+  * geo : cf. ibis's [read_geo](https://ibis-project.org/backends/duckdb#ibis.backends.duckdb.Backend.read_geo) cf. DuckDB's [ST_READ](https://duckdb.org/docs/extensions/spatial/functions#st_read) in spatial extention : based on [GDAL](https://gdal.org/en/latest/index.html) translator
+      * with this you can read .xls, .xlsx, .shp ...
 
   > **Requirements**
   >
@@ -95,17 +94,22 @@ code: |
     return "invalid url: it is null or empty"
   if not url.startswith( ("http://", "https://", "hf://", "s3://", "az://", "abfss://", "gs://") ):
     return "invalid url: wrong start. accepted values: 'http://', 'https://', 'hf://', 's3://', 'az://', 'abfss://', 'gs://'"
-  options = options or {}
 
   import json
-  try:
-    options = json.loads(options)
-  except Exception as e:
-    return "invalid json options " + repr(e)
-
   import ibis
   import google.cloud.bigquery
   import google.api_core.exceptions
+
+  # try to parse options as json
+  try:
+    options = json.loads(options) if options else {}
+  except Exception as e:
+    return "invalid json options " + repr(e)
+
+  # DuckDB st_read needs local file
+  if file_type in ('geo'):
+    urllib.request.urlretrieve(url, './geo_file')
+    url = './geo_file'
 
   # let's fetch the file with ibis & DuckDB
   try:
