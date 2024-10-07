@@ -43,7 +43,7 @@ arguments:
   - name: destination_table
     type: string
   - name: options
-    type: json
+    type: string
 output:
   name: status
   type: string
