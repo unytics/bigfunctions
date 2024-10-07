@@ -16,7 +16,7 @@ output:
 examples:
   - description: "Without headers"
     arguments:
-      - "'https://unytics.io/bigfunctions'"
+      - "'https://unytics.io/bigfunctions/'"
       - "null"
     output: "&lt;html>...&lt;/html>"
   - description: "With Content-Type = application/json headers"
@@ -29,8 +29,10 @@ code: |
     return 'invalid url: it is null or empty'
   if not url.startswith(('http://', 'https://')):
     return 'invalid url: it does not start with http:// nor https://'
+  if 'google.internal' in url:
+    return 'invalid url: it is a google internal url'
   import requests
-  return requests.get(url, headers=headers).text
+  return requests.get(url, headers=headers, allow_redirects=False).text
 requirements: |
   requests
 quotas:
