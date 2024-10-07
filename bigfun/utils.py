@@ -86,6 +86,8 @@ def prefix_lines_with_line_number(string: str, starting_index: int = 1) -> str:
 def dataset_access_entry2user(access_entry):
     if access_entry.entity_id == 'allAuthenticatedUsers':
         return 'allAuthenticatedUsers'
+    if access_entry.entity_id == 'allUsers':
+        return 'allAuthenticatedUsers'        
     entity_type = 'user'
     if access_entry.entity_id.endswith('gserviceaccount.com'):
         entity_type = 'serviceAccount'
@@ -284,10 +286,10 @@ class CloudRun:
         if self.service in os.environ:
             # This service image has already been built, let's use it
             options["image"] = os.environ[self.service]
-            return self.exec("gcloud run deploy", options=options)
+            return self.exec("gcloud alpha run deploy", options=options)
 
         options["source"] = source_folder
-        result = self.exec("gcloud run deploy", options=options)
+        result = self.exec("gcloud alpha run deploy", options=options)
         os.environ[self.service] = self.exec(
             "gcloud run services describe", options={"format": '"value(image)"'}
         )
