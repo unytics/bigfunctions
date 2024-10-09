@@ -12,11 +12,11 @@ description: |
 
   This function will:
   
-  1. Create a dataset named after your email and suffixed with `_load_file` and the dataset location (example `europe_west1`) in `my-unytics-data` project. *(For instance, if your email is `firstname.lastname@domain.com`, the created dataset will be `my-unytics-data.firstname_DOT_lastname_AT_domain_DOT_com__load_file__eu`)*
+  1. Create a dataset for you in my-unytics-data` project. *The dataset will be named after your email and suffixed with `_load_file` + the dataset location (example `eu`). For instance, if your email is `firstname.lastname@domain.com`, the created dataset will be `my-unytics-data.firstname_DOT_lastname_AT_domain_DOT_com__load_file__eu`*
   2. Set the default expiration duration of 1h in the dataset so that any table will be deleted after 1h.
-  3. Grant you read and table delete permission in this dataset. Only you and this function have access to it.
-  4. Download the file using [ibis](https://ibis-project.org/) and [DuckDB](https://duckdb.org/). `options` argument will be passed to the duckdb read function.
-  5. Load the data to a new table named after the url in the created dataset. The table will be automatically deleted after one hour. You can also delete it manually.
+  3. Grant you table read permission and table delete permission in this dataset. *(Only you and this function have access to it.)*
+  4. Download the file using [ibis](https://ibis-project.org/) and [DuckDB](https://duckdb.org/). *(`options` argument is passed to the duckdb read function.)*
+  5. Load the data to a new table named after the url in the created dataset. *(The table will be automatically deleted after one hour. You can also delete it manually.)*
   6. Return the id of the table.
 
   Available types:
