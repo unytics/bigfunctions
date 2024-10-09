@@ -30,8 +30,7 @@ description: |
   - **json** : *[doc](https://ibis-project.org/backends/duckdb#ibis.backends.duckdb.Backend.read_json)*
   - **parquet** : *[doc](https://ibis-project.org/backends/duckdb#ibis.backends.duckdb.Backend.read_parquet)*
   - **delta** : *[doc](https://ibis-project.org/backends/duckdb#ibis.backends.duckdb.Backend.read_delta)*
-  - **geo** : *[doc](https://ibis-project.org/backends/duckdb#ibis.backends.duckdb.Backend.read_geo)*
-      - this uses GDAL under the hood and enable you to also read **.xls**, **.xlsx**, **.shp** ...
+  - **geo** : *[doc](https://ibis-project.org/backends/duckdb#ibis.backends.duckdb.Backend.read_geo)*. (this uses GDAL under the hood and enable you to also read **.xls**, **.xlsx**, **.shp** ...)
 arguments:
   - name: url
     type: string
