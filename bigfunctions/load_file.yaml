@@ -109,6 +109,12 @@ examples:
           "delim": ";",
           "skip": 1
         }'''
+    output: |
+      +--------+
+      + status +
+      +--------+
+      +   ok   +
+      +--------+
 code: |
   declare table_id string;
 
