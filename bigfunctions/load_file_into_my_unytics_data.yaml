@@ -47,25 +47,25 @@ examples:
       - "'https://raw.githubusercontent.com/AntoineGiraud/dbt_hypermarche/refs/heads/main/input/achats.csv'"
       - "'csv'"
       - "null"
-    output: "ok"
+    output: "my-unytics-data.firstname_DOT_lastname_AT_domain_DOT_com__load_file__eu.https_raw_githubusercontent_com_antoinegiraud_dbt_hypermarche_refs_heads_main_input_achats_csv"
   - description: "load json - french departements"
     arguments:
       - "'https://geo.api.gouv.fr/departements?fields=nom,code,codeRegion,region'"
       - "'json'"
       - "null"
-    output: "ok"
+    output: "my-unytics-data.firstname_DOT_lastname_AT_domain_DOT_com__load_file__eu.https_geo_api_gouv_fr_departements_fields_nom_code_coderegion_region"
   - description: "load parquet on Google Cloud Storage"
     arguments:
       - "'gs://bike-sharing-history/toulouse/jcdecaux/2024/Feb.parquet'"
       - "'parquet'"
       - "null"
-    output: "ok"
+    output: "my-unytics-data.firstname_DOT_lastname_AT_domain_DOT_com__load_file__eu.gs_bike_sharing_history_toulouse_jcdecaux_2024_feb_parquet"
   - description: "load xls or xlsx"
     arguments:
       - "'https://github.com/AntoineGiraud/dbt_hypermarche/raw/refs/heads/main/input/Hypermarche.xlsx'"
       - "'geo'"
       - "'{\"layer\":\"Retours\", \"open_options\": [\"HEADERS=FORCE\"]}'"
-    output: "ok"
+    output: "my-unytics-data.firstname_DOT_lastname_AT_domain_DOT_com__load_file__eu.https_github_com_antoinegiraud_dbt_hypermarche_raw_refs_heads_main_input_hypermarche_xlsx"
   - description: "load french tricky csv"
     arguments:
       - "'https://www.data.gouv.fr/fr/datasets/r/323af5b8-7831-445b-9a46-d4da140b61b6'"
@@ -82,7 +82,7 @@ examples:
           "delim": ";",
           "skip": 1
         }'''
-    output: "my-unytics-data.paul_DOT_marcombes_AT_nickel_DOT_eu__load_file__eu.https_www_data_gouv_fr_fr_datasets_r_323af5b8_7831_445b_9a46_d4da140b61b6"
+    output: "my-unytics-data.firstname_DOT_lastname_AT_domain_DOT_com__load_file__eu.https_www_data_gouv_fr_fr_datasets_r_323af5b8_7831_445b_9a46_d4da140b61b6"
 init_code: |
   import tempfile
   import urllib.request
