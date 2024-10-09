@@ -165,7 +165,7 @@ code: |
   destination_table = f'{destination_dataset}.{clean_url}'
   create_destination_dataset_if_not_exists(bigquery, destination_dataset, bigfunction_user)
   
-  df = download_file()
+  df = download_file(url, file_type, options)
   df.columns = [slugify.slugify(col, separator="_") for col in df.columns]
   upload_dataframe(df, bigquery, destination_table)  
   return destination_table
