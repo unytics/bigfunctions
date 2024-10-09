@@ -141,8 +141,11 @@ init_code: |
       return read(url, **options).to_pandas()
 
 
-  def upload_dataframe(df, bigquery, destination_table):
-    job_config = google.cloud.bigquery.LoadJobConfig(write_disposition="WRITE_TRUNCATE")
+  def upload_dataframe(df, bigquery, destination_table, url):
+    job_config = google.cloud.bigquery.LoadJobConfig(
+      write_disposition="WRITE_TRUNCATE",
+      destination_table_description=f'File downloaded by BigFunctions from the web url: {url}'
+    )
     try:
       bigquery.load_table_from_dataframe(df, destination_table, job_config=job_config).result()
     except (google.api_core.exceptions.Forbidden, google.api_core.exceptions.NotFound, google.api_core.exceptions.PermissionDenied) as e:
@@ -166,7 +169,7 @@ code: |
   
   df = download_file(url, file_type, options)
   df.columns = [slugify.slugify(col, separator="_") for col in df.columns]
-  upload_dataframe(df, bigquery, destination_table)  
+  upload_dataframe(df, bigquery, destination_table, url)  
   return destination_table
 requirements: |
   ibis-framework[duckdb]
