@@ -59,8 +59,8 @@ examples:
   - description: "load xls or xlsx"
     arguments:
       - "'https://github.com/AntoineGiraud/dbt_hypermarche/raw/refs/heads/main/input/Hypermarche.xlsx'"
-      - "'xlsx"
-      - '{"layer":"Retours", "open_options" = ["HEADERS=FORCE"]}'
+      - "'xlsx'"
+      - "'{\"layer\":\"Retours\", \"open_options\": [\"HEADERS=FORCE\"]}'"
     output: "ok"
   - description: "load french tricky csv"
     arguments:
@@ -142,18 +142,15 @@ code: |
       url = f'{folder}/geo_file'
 
     # let's fetch the file with ibis & DuckDB
-    try:
-      con = ibis.duckdb.connect()
-      read = {
-        "csv": con.read_csv,
-        "json": con.read_json,
-        "parquet": con.read_parquet,
-        "geo": con.read_geo,
-        "delta": con.read_delta
-      }[file_type]
-      df = read(url, **options).to_pandas()
-    except Exception as e:
-      return "duckdb fetch failure" + repr(e)
+    con = ibis.duckdb.connect()
+    read = {
+      "csv": con.read_csv,
+      "json": con.read_json,
+      "parquet": con.read_parquet,
+      "geo": con.read_geo,
+      "delta": con.read_delta
+    }[file_type]
+    df = read(url, **options).to_pandas()
 
   df.columns = [slugify.slugify(col, separator="_") for col in df.columns]
   
