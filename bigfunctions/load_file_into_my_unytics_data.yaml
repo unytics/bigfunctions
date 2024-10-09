@@ -78,7 +78,7 @@ examples:
           "delim": ";",
           "skip": 1
         }'''
-      output: "my-unytics-data.paul_DOT_marcombes_AT_nickel_DOT_eu__load_file__eu.https_www_data_gouv_fr_fr_datasets_r_323af5b8_7831_445b_9a46_d4da140b61b6"
+    output: "my-unytics-data.paul_DOT_marcombes_AT_nickel_DOT_eu__load_file__eu.https_www_data_gouv_fr_fr_datasets_r_323af5b8_7831_445b_9a46_d4da140b61b6"
 init_code: |
   import tempfile
   import urllib.request
