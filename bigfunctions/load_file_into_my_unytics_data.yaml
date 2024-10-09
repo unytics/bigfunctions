@@ -64,7 +64,7 @@ examples:
   - description: "load xls or xlsx"
     arguments:
       - "'https://github.com/AntoineGiraud/dbt_hypermarche/raw/refs/heads/main/input/Hypermarche.xlsx'"
-      - "'xlsx'"
+      - "'geo'"
       - "'{\"layer\":\"Retours\", \"open_options\": [\"HEADERS=FORCE\"]}'"
     output: "ok"
   - description: "load french tricky csv"
@@ -123,13 +123,10 @@ init_code: |
     '''
     bigquery.query(query).result()
 code: |
-  assert file_type in ("csv", "json", "parquet", "geo", "delta", "xls", "xlsx"), "invalid type: accepted values: csv, json, parquet, geo, delta, xls, xlsx"
+  assert file_type in ("csv", "json", "parquet", "geo", "delta"), "invalid type: accepted values: csv, json, parquet, geo, delta"
   assert url, "invalid url: it is null or empty"
   assert url.startswith( ("http://", "https://", "hf://", "s3://", "az://", "abfss://", "gs://") ), "invalid url: must start with: 'http://', 'https://', 'hf://', 's3://', 'az://', 'abfss://', 'gs://'"
-
-  if file_type in ('xls', 'xlsx'):
-    file_type = 'geo' # use same DuckDB's `st_read` function
-
+  
   try:
     options = json.loads(options) if options else {}
   except Exception as e:
