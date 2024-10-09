@@ -1,39 +1,36 @@
-type: function_py
+type: procedure
 category: get_data
 author:
   name: Antoine Giraud
   url: https://www.linkedin.com/in/antgiraud/
   avatar_url: "https://media.licdn.com/dms/image/v2/C4D03AQG2Orctig4ycg/profile-displayphoto-shrink_200_200/profile-displayphoto-shrink_200_200/0/1532385599321?e=1733961600&v=beta&t=HTHvVZUKUhoH-U07O1tXPPuqN37EgCtGhxM_PuYFQjQ"
 description: |
-  Download web file into `destination_table` (append mode).
+  Download web file into `destination_table`
 
   ![graph load file](./load_file.png)
 
-  Under the hood, [ibis](https://ibis-project.org/) downloads the file (using [DuckDB](https://duckdb.org/)).
+  This function will:
+  
+  1. Create a dataset for you in `my-unytics-data` project that will hold a temporary copy of the table. 
+      - *The dataset will be named after your email and suffixed with `_load_file` + the dataset location (example `eu`).*
+      - *For instance, if your email is `firstname.lastname@domain.com`, the created dataset will be `my-unytics-data.firstname_DOT_lastname_AT_domain_DOT_com__load_file__eu`*
+  2. Set the default expiration duration of 1h in the dataset so that any table will be deleted after 1h.
+  3. Grant you table read permission and table delete permission in this dataset. 
+      - *Only you and this function have access to it.*
+  4. Download the file using [ibis](https://ibis-project.org/) with [DuckDB](https://duckdb.org/). 
+      - *`options` argument is passed to the duckdb read function.*
+  5. Load the data to a new table named after the url in the created dataset.
+      - *The table will be automatically deleted after one hour. You can also delete it manually.*
+  6. Copy the table to `destination_table`
+  7. Delete the temporary table from the dataset.
 
   Available types:
 
-  * **csv** : *cf. ibis's [read_csv](https://ibis-project.org/backends/duckdb#ibis.backends.duckdb.Backend.read_csv)*
-  * **json** : *cf. ibis's [read_json](https://ibis-project.org/backends/duckdb#ibis.backends.duckdb.Backend.read_json)*
-  * **parquet** : *cf. ibis's [read_parquet](https://ibis-project.org/backends/duckdb#ibis.backends.duckdb.Backend.read_parquet)*
-  * **delta** : *cf. ibis's [read_delta](https://ibis-project.org/backends/duckdb#ibis.backends.duckdb.Backend.read_delta)*
-  * **geo** : *cf. ibis's [read_geo](https://ibis-project.org/backends/duckdb#ibis.backends.duckdb.Backend.read_geo) cf. DuckDB's [ST_READ](https://duckdb.org/docs/extensions/spatial/functions#st_read) in spatial extention : based on [GDAL](https://gdal.org/en/latest/index.html) translator*
-      * with this you can read **.xls**, **.xlsx**, **.shp** ...
-
-  > **Requirements**
-  >
-  > You must create the `destination_dataset` and give `dataEditor` access to `load-file@bigfunctions.iam.gserviceaccount.com` before calling this function.
-  > You can do this by executing:
-  >
-  > ```sql
-  > -- Create Destination Dataset
-  > create schema `your_project.your_dataset`;
-  >
-  > -- Grant Access to Destination Dataset
-  > grant `roles/bigquery.dataEditor`
-  > on schema `your_project.your_dataset`
-  > to 'serviceAccount:load-file@bigfunctions.iam.gserviceaccount.com';
-  > ```
+  - **csv** : *[doc](https://ibis-project.org/backends/duckdb#ibis.backends.duckdb.Backend.read_csv)*
+  - **json** : *[doc](https://ibis-project.org/backends/duckdb#ibis.backends.duckdb.Backend.read_json)*
+  - **parquet** : *[doc](https://ibis-project.org/backends/duckdb#ibis.backends.duckdb.Backend.read_parquet)*
+  - **delta** : *[doc](https://ibis-project.org/backends/duckdb#ibis.backends.duckdb.Backend.read_delta)*
+  - **geo** : *[doc](https://ibis-project.org/backends/duckdb#ibis.backends.duckdb.Backend.read_geo)*. (this uses GDAL under the hood and enable you to also read **.xls**, **.xlsx**, **.shp** ...)
 arguments:
   - name: url
     type: string
@@ -71,9 +68,9 @@ examples:
   - description: "load xls or xlsx"
     arguments:
       - "'https://github.com/AntoineGiraud/dbt_hypermarche/raw/refs/heads/main/input/Hypermarche.xlsx'"
-      - "'xlsx"
+      - "'xlsx'"
       - "'your_project.your_dataset.hypermarche_retours'"
-      - '{"layer":"Retours", "open_options" = ["HEADERS=FORCE"]}'
+      - "'{\"layer\":\"Retours\", \"open_options\": [\"HEADERS=FORCE\"]}'"
     output: "ok"
   - description: "load french tricky csv"
     arguments:
@@ -93,70 +90,21 @@ examples:
           "skip": 1
         }'''
 code: |
-  if not destination_table:
-    return "invalid destination_table"
-  if file_type not in ("csv", "json", "parquet", "geo", "delta", "xls", "xlsx"):
-    return "invalid type: accepted values: csv, json, parquet, geo, delta, xls, xlsx"
-  if not url:
-    return "invalid url: it is null or empty"
-  if not url.startswith( ("http://", "https://", "hf://", "s3://", "az://", "abfss://", "gs://") ):
-    return "invalid url: wrong start. accepted values: 'http://', 'https://', 'hf://', 's3://', 'az://', 'abfss://', 'gs://'"
+  declare table_id string;
 
-  import tempfile
-  import urllib.request
-  import json
-  import ibis
-  import google.cloud.bigquery
-  import google.api_core.exceptions
-  from slugify import slugify
-
-  if file_type in ('xls', 'xlsx'):
-    file_type = 'geo' # use same DuckDB's `st_read` function
-
-  options = options or ''
-  try:
-    options = json.loads(options)
-  except Exception as e:
-    return "invalid json options " + repr(e)
-
-  with tempfile.TemporaryDirectory() as folder:
-
-    # DuckDB st_read needs local file
-    if file_type in ('geo'):
-      urllib.request.urlretrieve(url, f'{folder}/geo_file')
-      url = f'{folder}/geo_file'
-
-    # let's fetch the file with ibis & DuckDB
-    try:
-      con = ibis.duckdb.connect()
-      read = {
-        "csv": con.read_csv,
-        "json": con.read_json,
-        "parquet": con.read_parquet,
-        "geo": con.read_geo,
-        "delta": con.read_delta
-      }[file_type]
-      df = read(url, **options).to_pandas()
-    except Exception as e:
-      return "duckdb fetch failure" + repr(e)
-
-  df.columns = [slugify(col, separator="_") for col in df.columns]
+  assert array_length(split(destination_table, '.')) = 3 as '`destination_table` must be like PROJECT.DATASET.TABLE';
   
-  bigquery = google.cloud.bigquery.Client()
-  try:
-    bigquery.load_table_from_dataframe(df, destination_table).result()
-  except (google.api_core.exceptions.Forbidden, google.api_core.exceptions.NotFound, google.api_core.exceptions.PermissionDenied) as e:
-    assert False, f'Service Account `{get_current_service_account()}` does not have data-editor permission for given destination dataset (or the dataset does not exsit). Please add it'
-  return 'ok'
-requirements: |
-  ibis-framework[duckdb]
-  google-cloud-bigquery
-  geopandas
-  python-slugify
-quotas:
-  max_rows_per_query: 10
-cloud_run:
-  memory: 2048Mi
-  concurrency: 1
-  max_instances: 10
-  service_account: load-file@bigfunctions.iam.gserviceaccount.com
+  set table_id = (
+    select {BIGFUNCTIONS_DATASET}.load_file_into_my_unytics_data(url, file_type, options) 
+  );
+
+  execute immediate format(
+    'create or replace table %s copy %s',
+    destination_table, table_id
+  );
+
+  execute immediate format(
+    'drop table %s',
+    table_id
+  );  
+
