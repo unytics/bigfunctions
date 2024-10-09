@@ -13,12 +13,12 @@ description: |
   This function will:
   
   1. Create a dataset for you in `my-unytics-data` project. 
-      - *The dataset will be named after your email and suffixed with `_load_file` + the dataset location (example `eu`). *
+      - *The dataset will be named after your email and suffixed with `_load_file` + the dataset location (example `eu`).*
       - *For instance, if your email is `firstname.lastname@domain.com`, the created dataset will be `my-unytics-data.firstname_DOT_lastname_AT_domain_DOT_com__load_file__eu`*
   2. Set the default expiration duration of 1h in the dataset so that any table will be deleted after 1h.
   3. Grant you table read permission and table delete permission in this dataset. 
       - *Only you and this function have access to it.*
-  4. Download the file using [ibis](https://ibis-project.org/) and [DuckDB](https://duckdb.org/). 
+  4. Download the file using [ibis](https://ibis-project.org/) with [DuckDB](https://duckdb.org/). 
       - *`options` argument is passed to the duckdb read function.*
   5. Load the data to a new table named after the url in the created dataset.
       - *The table will be automatically deleted after one hour. You can also delete it manually.*
@@ -26,12 +26,12 @@ description: |
 
   Available types:
 
-  * **csv** : *cf. ibis's [read_csv](https://ibis-project.org/backends/duckdb#ibis.backends.duckdb.Backend.read_csv)*
-  * **json** : *cf. ibis's [read_json](https://ibis-project.org/backends/duckdb#ibis.backends.duckdb.Backend.read_json)*
-  * **parquet** : *cf. ibis's [read_parquet](https://ibis-project.org/backends/duckdb#ibis.backends.duckdb.Backend.read_parquet)*
-  * **delta** : *cf. ibis's [read_delta](https://ibis-project.org/backends/duckdb#ibis.backends.duckdb.Backend.read_delta)*
-  * **geo** : *cf. ibis's [read_geo](https://ibis-project.org/backends/duckdb#ibis.backends.duckdb.Backend.read_geo) cf. DuckDB's [ST_READ](https://duckdb.org/docs/extensions/spatial/functions#st_read) in spatial extention : based on [GDAL](https://gdal.org/en/latest/index.html) translator*
-      * with this you can read **.xls**, **.xlsx**, **.shp** ...
+  - **csv** : [doc](https://ibis-project.org/backends/duckdb#ibis.backends.duckdb.Backend.read_csv)*
+  - **json** : [doc](https://ibis-project.org/backends/duckdb#ibis.backends.duckdb.Backend.read_json)*
+  - **parquet** : [doc](https://ibis-project.org/backends/duckdb#ibis.backends.duckdb.Backend.read_parquet)*
+  - **delta** : [doc](https://ibis-project.org/backends/duckdb#ibis.backends.duckdb.Backend.read_delta)*
+  - **geo** : [doc](https://ibis-project.org/backends/duckdb#ibis.backends.duckdb.Backend.read_geo) 
+      - this uses GDAL under the hood and enable you to also read **.xls**, **.xlsx**, **.shp** ...
 arguments:
   - name: url
     type: string
