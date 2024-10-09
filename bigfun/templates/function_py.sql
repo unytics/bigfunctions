@@ -2,6 +2,7 @@ create or replace function `{{ project }}`.`{{ dataset }}`.{{ name }}({% for arg
 returns {{ output.type }}
 remote with connection `{{ remote_connection }}`
 options (
-    endpoint = '{{ remote_endpoint }}'
+    endpoint = '{{ remote_endpoint }}',
+    user_defined_context = [("dataset_location", "{{ dataset_location }}")]
     {% if max_batching_rows %}, max_batching_rows = {{ max_batching_rows }}{% endif %}
 );
