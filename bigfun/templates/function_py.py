@@ -15,6 +15,7 @@ app = Flask(__name__)
 
 CACHE = {}
 CURRENT_LOCATION = '{{ cloud_run_location }}'
+CURRENT_DATASET_LOCATION = '{{ dataset_location }}'
 
 QUOTAS = {{ quotas if quotas is defined else {} }}
 

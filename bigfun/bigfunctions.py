@@ -173,6 +173,7 @@ class BigFunction:
 
             self.config['remote_endpoint'] = cloud_run.url
             self.config['cloud_run_location'] = cloud_run_location
+            self.config['dataset_location'] = self.dataset.location
             self.config['remote_connection'] = re.sub(
                 r"projects/(\d+)/locations/([\w-]+)/connections/([\w-]+)",
                 r"\g<1>.\g<2>.\g<3>",
