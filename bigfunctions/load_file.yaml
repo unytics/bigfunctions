@@ -9,7 +9,7 @@ description: |
 
   ![graph load file](./load_file.png)
 
-  This function will:
+  This function extends `load_file_into_my_unytics_data` function and will:
   
   1. Create a dataset for you in `my-unytics-data` project that will hold a temporary copy of the table. 
       - *The dataset will be named after your email and suffixed with `_load_file` + the dataset location (example `eu`).*
