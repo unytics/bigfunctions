@@ -5,18 +5,18 @@ author:
   url: https://www.linkedin.com/in/antgiraud/
   avatar_url: "https://media.licdn.com/dms/image/v2/C4D03AQG2Orctig4ycg/profile-displayphoto-shrink_200_200/profile-displayphoto-shrink_200_200/0/1532385599321?e=1733961600&v=beta&t=HTHvVZUKUhoH-U07O1tXPPuqN37EgCtGhxM_PuYFQjQ"
 description: |
-  Download web file into your `destination_table`
+  Download web file into `destination_table`
   within your dataset in `my-unytics-data` project.
 
   ![graph load file](./load_file.png)
 
   This function will:
   
-  1. Create a dataset named by your email and suffixed with `_load_file` and the dataset location in `my-unytics-data` project. *(For instance, if your email is `firstname.lastname@domain.com`, the created dataset will be `my-unytics-data.firstname_DOT_lastname_AT_domain_DOT_com__load_file__eu`)*
-  2. Add a default expiration duration of one hour so that any table created in the dataset will be deleted after 1h.
-  3. Grant you dataViewer access in this dataset. Only you and this function can have access to it.
+  1. Create a dataset named after your email and suffixed with `_load_file` and the dataset location (example `europe_west1`) in `my-unytics-data` project. *(For instance, if your email is `firstname.lastname@domain.com`, the created dataset will be `my-unytics-data.firstname_DOT_lastname_AT_domain_DOT_com__load_file__eu`)*
+  2. Set the default expiration duration of 1h in the dataset so that any table will be deleted after 1h.
+  3. Grant you read and table delete permission in this dataset. Only you and this function have access to it.
   4. Download the file using [ibis](https://ibis-project.org/) and [DuckDB](https://duckdb.org/). `options` argument will be passed to the duckdb read function.
-  5. Load the data to a new table named after the url in the created dataset. The table will be automatically deleted after one hour.
+  5. Load the data to a new table named after the url in the created dataset. The table will be automatically deleted after one hour. You can also delete it manually.
   6. Return the id of the table.
 
   Available types:
@@ -95,7 +95,8 @@ init_code: |
 
   def get_destination_dataset(bigfunction_user):
     clean_bigfunction_user = bigfunction_user.lower().replace('.', '_DOT_').replace('@', '_AT_').replace('-', '_HYPHEN_')
-    dataset_name = f'{clean_bigfunction_user}__load_file__{CURRENT_DATASET_LOCATION.lower()}'
+    clean_location = CURRENT_DATASET_LOCATION.lower().replace('-', '_')
+    dataset_name = f'{clean_bigfunction_user}__load_file__{clean_location}'
     return f'{USER_DATA_PROJECT}.{dataset_name}'
 
 
@@ -109,7 +110,7 @@ init_code: |
       description="Dataset used by load_file bigfunction to store file data for user {bigfunction_user} during one hour."
     );
 
-    grant `roles/bigquery.dataViewer`
+    grant `projects/my-unytics-data/roles/bigquery_table_reader_and_deleter`
     on schema `{destination_dataset}`
     to '{user}';    
     
