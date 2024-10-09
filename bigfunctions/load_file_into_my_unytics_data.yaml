@@ -1,0 +1,176 @@
+type: function_py
+category: get_data
+author:
+  name: Antoine Giraud
+  url: https://www.linkedin.com/in/antgiraud/
+  avatar_url: "https://media.licdn.com/dms/image/v2/C4D03AQG2Orctig4ycg/profile-displayphoto-shrink_200_200/profile-displayphoto-shrink_200_200/0/1532385599321?e=1733961600&v=beta&t=HTHvVZUKUhoH-U07O1tXPPuqN37EgCtGhxM_PuYFQjQ"
+description: |
+  Download web file into your `destination_table`
+  within your dataset in `my-unytics-data` project.
+
+  ![graph load file](./load_file.png)
+
+  This function will:
+  
+  1. Create a dataset named by your email and suffixed with `_load_file` and the dataset location in `my-unytics-data` project. *(For instance, if your email is `firstname.lastname@domain.com`, the created dataset will be `my-unytics-data.firstname_DOT_lastname_AT_domain_DOT_com__load_file__eu`)*
+  2. Add a default expiration duration of one hour so that any table created in the dataset will be deleted after 1h.
+  3. Grant you dataViewer access in this dataset. Only you and this function can have access to it.
+  4. Download the file using [ibis](https://ibis-project.org/) and [DuckDB](https://duckdb.org/). `options` argument will be passed to the duckdb read function.
+  5. Load the data to a new table named after the url in the created dataset. The table will be automatically deleted after one hour.
+  6. Return the id of the table.
+
+  Available types:
+
+  * **csv** : *cf. ibis's [read_csv](https://ibis-project.org/backends/duckdb#ibis.backends.duckdb.Backend.read_csv)*
+  * **json** : *cf. ibis's [read_json](https://ibis-project.org/backends/duckdb#ibis.backends.duckdb.Backend.read_json)*
+  * **parquet** : *cf. ibis's [read_parquet](https://ibis-project.org/backends/duckdb#ibis.backends.duckdb.Backend.read_parquet)*
+  * **delta** : *cf. ibis's [read_delta](https://ibis-project.org/backends/duckdb#ibis.backends.duckdb.Backend.read_delta)*
+  * **geo** : *cf. ibis's [read_geo](https://ibis-project.org/backends/duckdb#ibis.backends.duckdb.Backend.read_geo) cf. DuckDB's [ST_READ](https://duckdb.org/docs/extensions/spatial/functions#st_read) in spatial extention : based on [GDAL](https://gdal.org/en/latest/index.html) translator*
+      * with this you can read **.xls**, **.xlsx**, **.shp** ...
+arguments:
+  - name: url
+    type: string
+  - name: file_type
+    type: string
+  - name: options
+    type: string
+output:
+  name: destination_table
+  type: string
+examples:
+  - description: "load random csv"
+    arguments:
+      - "'https://raw.githubusercontent.com/AntoineGiraud/dbt_hypermarche/refs/heads/main/input/achats.csv'"
+      - "'csv'"
+      - "null"
+    output: "ok"
+  - description: "load json - french departements"
+    arguments:
+      - "'https://geo.api.gouv.fr/departements?fields=nom,code,codeRegion,region'"
+      - "'json'"
+      - "null"
+    output: "ok"
+  - description: "load parquet on Google Cloud Storage"
+    arguments:
+      - "'gs://bike-sharing-history/toulouse/jcdecaux/2024/Feb.parquet'"
+      - "'parquet'"
+      - "null"
+    output: "ok"
+  - description: "load xls or xlsx"
+    arguments:
+      - "'https://github.com/AntoineGiraud/dbt_hypermarche/raw/refs/heads/main/input/Hypermarche.xlsx'"
+      - "'xlsx"
+      - '{"layer":"Retours", "open_options" = ["HEADERS=FORCE"]}'
+    output: "ok"
+  - description: "load french tricky csv"
+    arguments:
+      - "'https://www.data.gouv.fr/fr/datasets/r/eae12477-d02e-441b-91f7-a2eeae98c5c7'"
+      - "'csv'"
+      - |
+        '''{
+          "columns": {
+              "code_commune_insee": "VARCHAR",
+              "nom_commune_insee": "VARCHAR",
+              "code_postal": "VARCHAR",
+              "lb_acheminement": "VARCHAR",
+              "ligne_5": "VARCHAR"
+          },
+          "delim": ";",
+          "skip": 1
+        }'''
+init_code: |
+  import tempfile
+  import urllib.request
+  import json
+  
+  import ibis
+  import google.cloud.bigquery
+  import google.api_core.exceptions
+  import slugify.slugify
+
+
+  USER_DATA_PROJECT = 'my-unytics-data'
+  
+  bigquery = google.cloud.bigquery.Client(location=CURRENT_DATASET_LOCATION)
+
+  def get_destination_dataset(bigfunction_user):
+    clean_bigfunction_user = bigfunction_user.lower().replace('.', '_DOT_').replace('@', '_AT_').replace('-', '_HYPHEN_')
+    dataset_name = f'{clean_bigfunction_user}__load_file__{CURRENT_DATASET_LOCATION.lower()}'
+    return f'{USER_DATA_PROJECT}.{dataset_name}'
+
+
+  def create_destination_dataset_if_not_exists(destination_dataset, bigfunction_user):
+    user = 'serviceAccount:' + bigfunction_user if 'iam.gserviceaccount.com' in bigfunction_user else 'user:' + bigfunction_user
+    query = f'''
+    
+    create schema if not exists `{destination_dataset}`
+    options(
+      default_table_expiration_days=0.042,
+      description="Dataset used by load_file bigfunction to store file data for user {bigfunction_user} during one hour."
+    );
+
+    grant `roles/bigquery.dataViewer`
+    on schema `{destination_dataset}`
+    to '{user}';    
+    
+    '''
+    bigquery.query(query).result()
+code: |
+  assert file_type in ("csv", "json", "parquet", "geo", "delta", "xls", "xlsx"), "invalid type: accepted values: csv, json, parquet, geo, delta, xls, xlsx"
+  assert url, "invalid url: it is null or empty"
+  assert url.startswith( ("http://", "https://", "hf://", "s3://", "az://", "abfss://", "gs://") ), "invalid url: must start with: 'http://', 'https://', 'hf://', 's3://', 'az://', 'abfss://', 'gs://'"
+
+  if file_type in ('xls', 'xlsx'):
+    file_type = 'geo' # use same DuckDB's `st_read` function
+
+  try:
+    options = json.loads(options) if options else {}
+  except Exception as e:
+    assert False, "options argument is an invalid json" + repr(e)
+
+  destination_dataset = get_destination_dataset(bigfunction_user)
+  clean_url = slugify.slugify(url, separator="_")
+  destination_table = f'{destination_dataset}.{clean_url}'
+  create_destination_dataset_if_not_exists(destination_dataset, bigfunction_user)
+
+  with tempfile.TemporaryDirectory() as folder:
+
+    # DuckDB st_read needs local file
+    if file_type in ('geo'):
+      urllib.request.urlretrieve(url, f'{folder}/geo_file')
+      url = f'{folder}/geo_file'
+
+    # let's fetch the file with ibis & DuckDB
+    try:
+      con = ibis.duckdb.connect()
+      read = {
+        "csv": con.read_csv,
+        "json": con.read_json,
+        "parquet": con.read_parquet,
+        "geo": con.read_geo,
+        "delta": con.read_delta
+      }[file_type]
+      df = read(url, **options).to_pandas()
+    except Exception as e:
+      return "duckdb fetch failure" + repr(e)
+
+  df.columns = [slugify.slugify(col, separator="_") for col in df.columns]
+  
+  job_config = google.cloud.bigquery.LoadJobConfig(write_disposition="WRITE_TRUNCATE")
+  try:
+    bigquery.load_table_from_dataframe(df, destination_table, job_config=job_config).result()
+  except (google.api_core.exceptions.Forbidden, google.api_core.exceptions.NotFound, google.api_core.exceptions.PermissionDenied) as e:
+    assert False, f'Service Account `{get_current_service_account()}` does not have data-editor permission for given destination dataset (or the dataset does not exsit). Please add it'
+  return destination_table
+requirements: |
+  ibis-framework[duckdb]
+  google-cloud-bigquery
+  geopandas
+  python-slugify
+quotas:
+  max_rows_per_query: 10
+cloud_run:
+  memory: 2048Mi
+  concurrency: 1
+  max_instances: 10
+  service_account: load-file@bigfunctions.iam.gserviceaccount.com
