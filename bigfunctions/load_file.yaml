@@ -50,28 +50,48 @@ examples:
       - "'csv'"
       - "'your_project.your_dataset.random_sales'"
       - "null"
-    output: "ok"
+    output: |
+      +--------+
+      + status +
+      +--------+
+      +   ok   +
+      +--------+
   - description: "load json - french departements"
     arguments:
       - "'https://geo.api.gouv.fr/departements?fields=nom,code,codeRegion,region'"
       - "'json'"
       - "'your_project.your_dataset.dim_french_departements'"
       - "null"
-    output: "ok"
+    output: |
+      +--------+
+      + status +
+      +--------+
+      +   ok   +
+      +--------+
   - description: "load parquet on Google Cloud Storage"
     arguments:
       - "'gs://bike-sharing-history/toulouse/jcdecaux/2024/Feb.parquet'"
       - "'parquet'"
       - "'your_project.your_dataset.station_status'"
       - "null"
-    output: "ok"
+    output: |
+      +--------+
+      + status +
+      +--------+
+      +   ok   +
+      +--------+
   - description: "load xls or xlsx"
     arguments:
       - "'https://github.com/AntoineGiraud/dbt_hypermarche/raw/refs/heads/main/input/Hypermarche.xlsx'"
       - "'xlsx'"
       - "'your_project.your_dataset.hypermarche_retours'"
       - "'{\"layer\":\"Retours\", \"open_options\": [\"HEADERS=FORCE\"]}'"
-    output: "ok"
+    output: |
+      +--------+
+      + status +
+      +--------+
+      +   ok   +
+      +--------+
   - description: "load french tricky csv"
     arguments:
       - "'https://www.data.gouv.fr/fr/datasets/r/eae12477-d02e-441b-91f7-a2eeae98c5c7'"
@@ -107,4 +127,7 @@ code: |
     'drop table %s',
     table_id
   );  
+
+  create or replace temp table bigfunction_result as 
+  select 'ok' as status;
 
