@@ -97,8 +97,6 @@ init_code: |
 
   USER_DATA_PROJECT = 'my-unytics-data'
   
-  bigquery = google.cloud.bigquery.Client()
-
   def get_destination_dataset(bigfunction_user, bigfunction_dataset_location):
     clean_bigfunction_user = bigfunction_user.lower().replace('.', '_DOT_').replace('@', '_AT_').replace('-', '_HYPHEN_')
     clean_location = bigfunction_dataset_location.lower().replace('-', '_')
@@ -106,15 +104,14 @@ init_code: |
     return f'{USER_DATA_PROJECT}.{dataset_name}'
 
 
-  def create_destination_dataset_if_not_exists(destination_dataset, bigfunction_user, bigfunction_dataset_location):
+  def create_destination_dataset_if_not_exists(bigquery, destination_dataset, bigfunction_user):
     user = 'serviceAccount:' + bigfunction_user if 'iam.gserviceaccount.com' in bigfunction_user else 'user:' + bigfunction_user
     query = f'''
     
     create schema if not exists `{destination_dataset}`
     options(
       default_table_expiration_days=0.042,
-      description="Dataset used by load_file bigfunction to store file data for user {bigfunction_user} during one hour.",
-      location="{bigfunction_dataset_location}"
+      description="Dataset used by load_file bigfunction to store file data for user {bigfunction_user} during one hour."
     );
 
     grant `projects/my-unytics-data/roles/bigquery_table_reader_and_deleter`
@@ -123,6 +120,34 @@ init_code: |
     
     '''
     bigquery.query(query).result()
+
+
+  def download_file(url, file_type, options):
+    with tempfile.TemporaryDirectory() as folder:
+
+      # DuckDB st_read needs local file
+      if file_type in ('geo'):
+        urllib.request.urlretrieve(url, f'{folder}/geo_file')
+        url = f'{folder}/geo_file'
+
+      # let's fetch the file with ibis & DuckDB
+      con = ibis.duckdb.connect()
+      read = {
+        "csv": con.read_csv,
+        "json": con.read_json,
+        "parquet": con.read_parquet,
+        "geo": con.read_geo,
+        "delta": con.read_delta
+      }[file_type]
+      return read(url, **options).to_pandas()
+
+
+  def upload_dataframe(df, bigquery, destination_table):
+    job_config = google.cloud.bigquery.LoadJobConfig(write_disposition="WRITE_TRUNCATE")
+    try:
+      bigquery.load_table_from_dataframe(df, destination_table, job_config=job_config).result()
+    except (google.api_core.exceptions.Forbidden, google.api_core.exceptions.NotFound, google.api_core.exceptions.PermissionDenied) as e:
+      assert False, f'Service Account `{get_current_service_account()}` does not have data-editor permission for given destination dataset (or the dataset does not exsit). Please add it'
 code: |
   assert file_type in ("csv", "json", "parquet", "geo", "delta"), "invalid type: accepted values: csv, json, parquet, geo, delta"
   assert url, "invalid url: it is null or empty"
@@ -133,36 +158,16 @@ code: |
   except Exception as e:
     assert False, "options argument is an invalid json" + repr(e)
 
+  bigquery = google.cloud.bigquery.Client(location=bigfunction_dataset_location)
+
   destination_dataset = get_destination_dataset(bigfunction_user, bigfunction_dataset_location)
   clean_url = slugify.slugify(url, separator="_")
   destination_table = f'{destination_dataset}.{clean_url}'
-  create_destination_dataset_if_not_exists(destination_dataset, bigfunction_user, bigfunction_dataset_location)
-
-  with tempfile.TemporaryDirectory() as folder:
-
-    # DuckDB st_read needs local file
-    if file_type in ('geo'):
-      urllib.request.urlretrieve(url, f'{folder}/geo_file')
-      url = f'{folder}/geo_file'
-
-    # let's fetch the file with ibis & DuckDB
-    con = ibis.duckdb.connect()
-    read = {
-      "csv": con.read_csv,
-      "json": con.read_json,
-      "parquet": con.read_parquet,
-      "geo": con.read_geo,
-      "delta": con.read_delta
-    }[file_type]
-    df = read(url, **options).to_pandas()
-
-  df.columns = [slugify.slugify(col, separator="_") for col in df.columns]
+  create_destination_dataset_if_not_exists(bigquery, destination_dataset, bigfunction_user)
   
-  job_config = google.cloud.bigquery.LoadJobConfig(write_disposition="WRITE_TRUNCATE")
-  try:
-    bigquery.load_table_from_dataframe(df, destination_table, job_config=job_config).result()
-  except (google.api_core.exceptions.Forbidden, google.api_core.exceptions.NotFound, google.api_core.exceptions.PermissionDenied) as e:
-    assert False, f'Service Account `{get_current_service_account()}` does not have data-editor permission for given destination dataset (or the dataset does not exsit). Please add it'
+  df = download_file()
+  df.columns = [slugify.slugify(col, separator="_") for col in df.columns]
+  upload_dataframe(df, bigquery, destination_table)  
   return destination_table
 requirements: |
   ibis-framework[duckdb]
