@@ -12,7 +12,7 @@ description: |
 
   This function will:
   
-  1. Create a dataset for you in my-unytics-data` project. *The dataset will be named after your email and suffixed with `_load_file` + the dataset location (example `eu`). For instance, if your email is `firstname.lastname@domain.com`, the created dataset will be `my-unytics-data.firstname_DOT_lastname_AT_domain_DOT_com__load_file__eu`*
+  1. Create a dataset for you in `my-unytics-data` project. *The dataset will be named after your email and suffixed with `_load_file` + the dataset location (example `eu`). For instance, if your email is `firstname.lastname@domain.com`, the created dataset will be `my-unytics-data.firstname_DOT_lastname_AT_domain_DOT_com__load_file__eu`*
   2. Set the default expiration duration of 1h in the dataset so that any table will be deleted after 1h.
   3. Grant you table read permission and table delete permission in this dataset. *(Only you and this function have access to it.)*
   4. Download the file using [ibis](https://ibis-project.org/) and [DuckDB](https://duckdb.org/). *(`options` argument is passed to the duckdb read function.)*
@@ -64,7 +64,7 @@ examples:
     output: "ok"
   - description: "load french tricky csv"
     arguments:
-      - "'https://www.data.gouv.fr/fr/datasets/r/eae12477-d02e-441b-91f7-a2eeae98c5c7'"
+      - "'https://www.data.gouv.fr/fr/datasets/r/323af5b8-7831-445b-9a46-d4da140b61b6'"
       - "'csv'"
       - |
         '''{
@@ -78,6 +78,7 @@ examples:
           "delim": ";",
           "skip": 1
         }'''
+      output: "my-unytics-data.paul_DOT_marcombes_AT_nickel_DOT_eu__load_file__eu.https_www_data_gouv_fr_fr_datasets_r_323af5b8_7831_445b_9a46_d4da140b61b6"
 init_code: |
   import tempfile
   import urllib.request
