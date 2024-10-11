@@ -5,26 +5,23 @@ author:
   url: https://www.linkedin.com/in/antgiraud/
   avatar_url: "https://media.licdn.com/dms/image/v2/C4D03AQG2Orctig4ycg/profile-displayphoto-shrink_200_200/profile-displayphoto-shrink_200_200/0/1532385599321?e=1733961600&v=beta&t=HTHvVZUKUhoH-U07O1tXPPuqN37EgCtGhxM_PuYFQjQ"
 description: |
-  Download web file into `destination_table`
-  within your dataset in `my-unytics-data` project.
+  Download web file into a temp dataset 
+  in bigfunctions project. 
 
   ![graph load file](./load_file.png)
-
-  This function will:
   
-  1. Create a dataset for you in `my-unytics-data` project. 
-      - *The dataset will be named after your email and suffixed with `_load_file` + the dataset location (example `eu`).*
-      - *For instance, if your email is `firstname.lastname@domain.com`, the created dataset will be `my-unytics-data.firstname_DOT_lastname_AT_domain_DOT_com__load_file__eu`*
-  2. Set the default expiration duration of 1h in the dataset so that any table will be deleted after 1h.
-  3. Grant you table read permission and table delete permission in this dataset. 
-      - *Only you and this function have access to it.*
-  4. Download the file using [ibis](https://ibis-project.org/) with [DuckDB](https://duckdb.org/). 
-      - *`options` argument is passed to the duckdb read function.*
-  5. Load the data to a new table named after the url in the created dataset.
-      - *The table will be automatically deleted after one hour. You can also delete it manually.*
-  6. Return the id of the table.
+  Each call to this function creates a new temporary dataset which:
+  
+  - has a random name
+  - is accessible only to you (who calls the function) and the function. You have permission to read data and delete the tables and the dataset.
+  - has a default expiration time of 1h that means that every table created will be automatically deleted after 1h.
+  - will contain the `destination_table` with the file data.
 
-  Available types:
+  The function returns `destination_table`: the fully qualidied table name where the file data is loaded.
+
+  File Data is downloaded using [ibis](https://ibis-project.org/) with [DuckDB](https://duckdb.org/) before being uploaded to `destination_table`.
+
+  Available `file_type` values are:
 
   - **csv** : *[doc](https://ibis-project.org/backends/duckdb#ibis.backends.duckdb.Backend.read_csv)*
   - **json** : *[doc](https://ibis-project.org/backends/duckdb#ibis.backends.duckdb.Backend.read_json)*
@@ -47,25 +44,25 @@ examples:
       - "'https://raw.githubusercontent.com/AntoineGiraud/dbt_hypermarche/refs/heads/main/input/achats.csv'"
       - "'csv'"
       - "null"
-    output: "my-unytics-data.firstname_DOT_lastname_AT_domain_DOT_com__load_file__eu.https_raw_githubusercontent_com_antoinegiraud_dbt_hypermarche_refs_heads_main_input_achats_csv"
+    output: "bigfunctions.temp_6bdb75ca_7f72_4f1f_b46a_6ca59f7f66ac.file_data"
   - description: "load json - french departements"
     arguments:
       - "'https://geo.api.gouv.fr/departements?fields=nom,code,codeRegion,region'"
       - "'json'"
       - "null"
-    output: "my-unytics-data.firstname_DOT_lastname_AT_domain_DOT_com__load_file__eu.https_geo_api_gouv_fr_departements_fields_nom_code_coderegion_region"
+    output: "bigfunctions.temp_6bdb75ca_7f72_4f1f_b46a_6ca59f7f66ac.file_data"
   - description: "load parquet on Google Cloud Storage"
     arguments:
       - "'gs://bike-sharing-history/toulouse/jcdecaux/2024/Feb.parquet'"
       - "'parquet'"
       - "null"
-    output: "my-unytics-data.firstname_DOT_lastname_AT_domain_DOT_com__load_file__eu.gs_bike_sharing_history_toulouse_jcdecaux_2024_feb_parquet"
+    output: "bigfunctions.temp_6bdb75ca_7f72_4f1f_b46a_6ca59f7f66ac.file_data"
   - description: "load xls or xlsx"
     arguments:
       - "'https://github.com/AntoineGiraud/dbt_hypermarche/raw/refs/heads/main/input/Hypermarche.xlsx'"
       - "'geo'"
       - "'{\"layer\":\"Retours\", \"open_options\": [\"HEADERS=FORCE\"]}'"
-    output: "my-unytics-data.firstname_DOT_lastname_AT_domain_DOT_com__load_file__eu.https_github_com_antoinegiraud_dbt_hypermarche_raw_refs_heads_main_input_hypermarche_xlsx"
+    output: "bigfunctions.temp_6bdb75ca_7f72_4f1f_b46a_6ca59f7f66ac.file_data"
   - description: "load french tricky csv"
     arguments:
       - "'https://www.data.gouv.fr/fr/datasets/r/323af5b8-7831-445b-9a46-d4da140b61b6'"
@@ -82,7 +79,7 @@ examples:
           "delim": ";",
           "skip": 1
         }'''
-    output: "my-unytics-data.firstname_DOT_lastname_AT_domain_DOT_com__load_file__eu.https_www_data_gouv_fr_fr_datasets_r_323af5b8_7831_445b_9a46_d4da140b61b6"
+    output: "bigfunctions.temp_6bdb75ca_7f72_4f1f_b46a_6ca59f7f66ac.file_data"
 init_code: |
   import tempfile
   import urllib.request
@@ -92,33 +89,6 @@ init_code: |
   import google.cloud.bigquery
   import google.api_core.exceptions
   import slugify.slugify
-
-
-  USER_DATA_PROJECT = 'my-unytics-data'
-  
-  def get_destination_dataset(bigfunction_user, bigfunction_dataset_location):
-    clean_bigfunction_user = bigfunction_user.lower().replace('.', '_DOT_').replace('@', '_AT_').replace('-', '_HYPHEN_')
-    clean_location = bigfunction_dataset_location.lower().replace('-', '_')
-    dataset_name = f'{clean_bigfunction_user}__load_file__{clean_location}'
-    return f'{USER_DATA_PROJECT}.{dataset_name}'
-
-
-  def create_destination_dataset_if_not_exists(bigquery, destination_dataset, bigfunction_user):
-    user = 'serviceAccount:' + bigfunction_user if 'iam.gserviceaccount.com' in bigfunction_user else 'user:' + bigfunction_user
-    query = f'''
-    
-    create schema if not exists `{destination_dataset}`
-    options(
-      default_table_expiration_days=0.042,
-      description="Dataset used by load_file bigfunction to store file data for user {bigfunction_user} during one hour."
-    );
-
-    grant `projects/my-unytics-data/roles/bigquery_table_reader_and_deleter`
-    on schema `{destination_dataset}`
-    to '{user}';    
-    
-    '''
-    bigquery.query(query).result()
 
 
   def download_file(url, file_type, options):
@@ -158,14 +128,12 @@ code: |
   try:
     options = json.loads(options) if options else {}
   except Exception as e:
-    assert False, "options argument is an invalid json" + repr(e)
+    assert False, "options argument is an invalid json " + repr(e)
 
   bigquery = google.cloud.bigquery.Client(location=bigfunction_dataset_location)
 
-  destination_dataset = get_destination_dataset(bigfunction_user, bigfunction_dataset_location)
-  clean_url = slugify.slugify(url, separator="_")
-  destination_table = f'{destination_dataset}.{clean_url}'
-  create_destination_dataset_if_not_exists(bigquery, destination_dataset, bigfunction_user)
+  destination_dataset = create_temp_dataset(bigquery, bigfunction_user)
+  destination_table = f'{destination_dataset}.file_data'
   
   df = download_file(url, file_type, options)
   df.columns = [slugify.slugify(col, separator="_") for col in df.columns]
@@ -181,5 +149,5 @@ quotas:
 cloud_run:
   memory: 2048Mi
   concurrency: 1
-  max_instances: 10
+  max_instances: 20
   service_account: load-file@bigfunctions.iam.gserviceaccount.com
