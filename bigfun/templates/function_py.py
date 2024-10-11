@@ -3,6 +3,7 @@ import re
 import json
 import datetime
 import traceback
+import uuid
 
 from flask import Flask, request, jsonify
 import google.auth
@@ -31,6 +32,28 @@ def get_current_service_account():
         with urllib.request.urlopen(req) as f:
             CACHE['current_service_account'] = f.read().decode('utf-8')
     return CACHE['current_service_account']
+
+
+def create_temp_dataset(bigquery, bigfunction_user, default_table_expiration_days=0.042):
+    random_id = str(uuid.uuid4()).replace('-', '_')
+    dataset_id = f'{PROJECT}.temp_{random_id}'
+    is_user_service_account = 'iam.gserviceaccount.com' in bigfunction_user
+    member = 'serviceAccount:' + bigfunction_user if is_user_service_account else 'user:' + bigfunction_user
+    query = f'''
+
+    create schema `{dataset_id}`
+    options(
+        default_table_expiration_days={default_table_expiration_days},
+        description="Temporary Dataset created by `{{ name }}` bigfunction to store temporary data"
+    );
+
+    grant `projects/bigfunctions/roles/bigquery_table_reader_and_deleter`
+    on schema `{dataset_id}`
+    to '{member}';    
+
+    '''
+    bigquery.query(query).result()
+    return dataset_id
 
 
 class QuotaException(Exception):
