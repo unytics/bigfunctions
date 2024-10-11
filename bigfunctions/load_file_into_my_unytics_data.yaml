@@ -11,14 +11,14 @@ description: |
   ![graph load file](./load_file.png)
 
   This function will:
-  
-  1. Create a dataset for you in `my-unytics-data` project. 
+
+  1. Create a dataset for you in `my-unytics-data` project.
       - *The dataset will be named after your email and suffixed with `_load_file` + the dataset location (example `eu`).*
       - *For instance, if your email is `firstname.lastname@domain.com`, the created dataset will be `my-unytics-data.firstname_DOT_lastname_AT_domain_DOT_com__load_file__eu`*
   2. Set the default expiration duration of 1h in the dataset so that any table will be deleted after 1h.
-  3. Grant you table read permission and table delete permission in this dataset. 
+  3. Grant you table read permission and table delete permission in this dataset.
       - *Only you and this function have access to it.*
-  4. Download the file using [ibis](https://ibis-project.org/) with [DuckDB](https://duckdb.org/). 
+  4. Download the file using [ibis](https://ibis-project.org/) with [DuckDB](https://duckdb.org/).
       - *`options` argument is passed to the duckdb read function.*
   5. Load the data to a new table named after the url in the created dataset.
       - *The table will be automatically deleted after one hour. You can also delete it manually.*
@@ -87,7 +87,7 @@ init_code: |
   import tempfile
   import urllib.request
   import json
-  
+
   import ibis
   import google.cloud.bigquery
   import google.api_core.exceptions
@@ -95,7 +95,7 @@ init_code: |
 
 
   USER_DATA_PROJECT = 'my-unytics-data'
-  
+
   def get_destination_dataset(bigfunction_user, bigfunction_dataset_location):
     clean_bigfunction_user = bigfunction_user.lower().replace('.', '_DOT_').replace('@', '_AT_').replace('-', '_HYPHEN_')
     clean_location = bigfunction_dataset_location.lower().replace('-', '_')
@@ -106,7 +106,7 @@ init_code: |
   def create_destination_dataset_if_not_exists(bigquery, destination_dataset, bigfunction_user):
     user = 'serviceAccount:' + bigfunction_user if 'iam.gserviceaccount.com' in bigfunction_user else 'user:' + bigfunction_user
     query = f'''
-    
+
     create schema if not exists `{destination_dataset}`
     options(
       default_table_expiration_days=0.042,
@@ -115,8 +115,8 @@ init_code: |
 
     grant `projects/my-unytics-data/roles/bigquery_table_reader_and_deleter`
     on schema `{destination_dataset}`
-    to '{user}';    
-    
+    to '{user}';
+
     '''
     bigquery.query(query).result()
 
@@ -154,7 +154,7 @@ code: |
   assert file_type in ("csv", "json", "parquet", "geo", "delta"), "invalid type: accepted values: csv, json, parquet, geo, delta"
   assert url, "invalid url: it is null or empty"
   assert url.startswith( ("http://", "https://", "hf://", "s3://", "az://", "abfss://", "gs://") ), "invalid url: must start with: 'http://', 'https://', 'hf://', 's3://', 'az://', 'abfss://', 'gs://'"
-  
+
   try:
     options = json.loads(options) if options else {}
   except Exception as e:
@@ -166,10 +166,10 @@ code: |
   clean_url = slugify.slugify(url, separator="_")
   destination_table = f'{destination_dataset}.{clean_url}'
   create_destination_dataset_if_not_exists(bigquery, destination_dataset, bigfunction_user)
-  
+
   df = download_file(url, file_type, options)
   df.columns = [slugify.slugify(col, separator="_") for col in df.columns]
-  upload_dataframe(df, bigquery, destination_table, url)  
+  upload_dataframe(df, bigquery, destination_table, url)
   return destination_table
 requirements: |
   ibis-framework[duckdb]
