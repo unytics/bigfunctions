@@ -35,12 +35,13 @@ def get_current_service_account():
 
 
 def create_temp_dataset(bigquery, bigfunction_user, default_table_expiration_days=0.042):
-    dataset_id = f'{PROJECT}.temp_{uuid.uuid4()}'
+    random_id = str(uuid.uuid4()).replace('-', '_')
+    dataset_id = f'{PROJECT}.temp_{random_id}'
     is_user_service_account = 'iam.gserviceaccount.com' in bigfunction_user
     member = 'serviceAccount:' + bigfunction_user if is_user_service_account else 'user:' + bigfunction_user
     query = f'''
 
-    create schema if not exists `{dataset_id}`
+    create schema `{dataset_id}`
     options(
         default_table_expiration_days={default_table_expiration_days},
         description="Temporary Dataset created by `{{ name }}` bigfunction to store temporary data"
