@@ -9,19 +9,15 @@ description: |
   in bigfunctions project.
 
   ![graph load file](./load_file.png)
+  
+  Each call to this function **creates a new temporary dataset** which:
 
-  Each call to this function creates a new temporary dataset which:
-
-  - has a random name
-  - is accessible only to you (who calls the function) and the function. You have permission to read data and delete the tables and the dataset.
-  - has a default expiration time of 1h that means that every table created will be automatically deleted after 1h.
   - will contain the `destination_table` with the file data.
+  - is accessible only to you (who calls the function) and the function. You have permission to read data and delete the tables and the dataset.
+  - has a limited period of life. Default expiration time is set to 1h so that every table created will be automatically deleted after 1h. Empty datasets are periodically removed.
+  - has a random name
 
-  The function returns `destination_table`: the fully qualidied table name where the file data is loaded.
-
-  File Data is downloaded using [ibis](https://ibis-project.org/) with [DuckDB](https://duckdb.org/) before being uploaded to `destination_table`.
-
-  Available `file_type` values are:
+  **File Data is downloaded using [ibis](https://ibis-project.org/) with [DuckDB](https://duckdb.org/)**. Available `file_type` values are:
 
   - **csv** : *[doc](https://ibis-project.org/backends/duckdb#ibis.backends.duckdb.Backend.read_csv)*
   - **json** : *[doc](https://ibis-project.org/backends/duckdb#ibis.backends.duckdb.Backend.read_json)*
