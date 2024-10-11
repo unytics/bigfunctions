@@ -5,13 +5,13 @@ author:
   url: https://www.linkedin.com/in/antgiraud/
   avatar_url: "https://media.licdn.com/dms/image/v2/C4D03AQG2Orctig4ycg/profile-displayphoto-shrink_200_200/profile-displayphoto-shrink_200_200/0/1532385599321?e=1733961600&v=beta&t=HTHvVZUKUhoH-U07O1tXPPuqN37EgCtGhxM_PuYFQjQ"
 description: |
-  Download web file into a temp dataset 
-  in bigfunctions project. 
+  Download web file into a temp dataset
+  in bigfunctions project.
 
   ![graph load file](./load_file.png)
   
   Each call to this function **creates a new temporary dataset** which:
-  
+
   - will contain the `destination_table` with the file data.
   - is accessible only to you (who calls the function) and the function. You have permission to read data and delete the tables and the dataset.
   - has a limited period of life. Default expiration time is set to 1h so that every table created will be automatically deleted after 1h. Empty datasets are periodically removed.
@@ -80,7 +80,7 @@ init_code: |
   import tempfile
   import urllib.request
   import json
-  
+
   import ibis
   import google.cloud.bigquery
   import google.api_core.exceptions
@@ -120,7 +120,7 @@ code: |
   assert file_type in ("csv", "json", "parquet", "geo", "delta"), "invalid type: accepted values: csv, json, parquet, geo, delta"
   assert url, "invalid url: it is null or empty"
   assert url.startswith( ("http://", "https://", "hf://", "s3://", "az://", "abfss://", "gs://") ), "invalid url: must start with: 'http://', 'https://', 'hf://', 's3://', 'az://', 'abfss://', 'gs://'"
-  
+
   try:
     options = json.loads(options) if options else {}
   except Exception as e:
@@ -130,10 +130,10 @@ code: |
 
   destination_dataset = create_temp_dataset(bigquery, bigfunction_user)
   destination_table = f'{destination_dataset}.file_data'
-  
+
   df = download_file(url, file_type, options)
   df.columns = [slugify.slugify(col, separator="_") for col in df.columns]
-  upload_dataframe(df, bigquery, destination_table, url)  
+  upload_dataframe(df, bigquery, destination_table, url)
   return destination_table
 requirements: |
   ibis-framework[duckdb]

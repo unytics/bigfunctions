@@ -10,14 +10,14 @@ description: |
   ![graph load file](./load_file.png)
 
   This function extends `load_file_into_my_unytics_data` function and will:
-  
-  1. Create a dataset for you in `my-unytics-data` project that will hold a temporary copy of the table. 
+
+  1. Create a dataset for you in `my-unytics-data` project that will hold a temporary copy of the table.
       - *The dataset will be named after your email and suffixed with `_load_file` + the dataset location (example `eu`).*
       - *For instance, if your email is `firstname.lastname@domain.com`, the created dataset will be `my-unytics-data.firstname_DOT_lastname_AT_domain_DOT_com__load_file__eu`*
   2. Set the default expiration duration of 1h in the dataset so that any table will be deleted after 1h.
-  3. Grant you table read permission and table delete permission in this dataset. 
+  3. Grant you table read permission and table delete permission in this dataset.
       - *Only you and this function have access to it.*
-  4. Download the file using [ibis](https://ibis-project.org/) with [DuckDB](https://duckdb.org/). 
+  4. Download the file using [ibis](https://ibis-project.org/) with [DuckDB](https://duckdb.org/).
       - *`options` argument is passed to the duckdb read function.*
   5. Load the data to a new table named after the url in the created dataset.
       - *The table will be automatically deleted after one hour. You can also delete it manually.*
@@ -46,10 +46,10 @@ output:
 examples:
   - description: "load random csv"
     arguments:
-      - "'https://raw.githubusercontent.com/AntoineGiraud/dbt_hypermarche/refs/heads/main/input/achats.csv'"
-      - "'csv'"
+      - "\n  'https://raw.githubusercontent.com/AntoineGiraud/dbt_hypermarche/refs/heads/main/input/achats.csv'"
+      - "\n  'csv'"
       - "'your_project.your_dataset.random_sales'"
-      - "null"
+      - "null\n"
     output: |
       +--------+
       + status +
@@ -58,10 +58,10 @@ examples:
       +--------+
   - description: "load json - french departements"
     arguments:
-      - "'https://geo.api.gouv.fr/departements?fields=nom,code,codeRegion,region'"
-      - "'json'"
+      - "\n  'https://geo.api.gouv.fr/departements?fields=nom,code,codeRegion,region'"
+      - "\n  'json'"
       - "'your_project.your_dataset.dim_french_departements'"
-      - "null"
+      - "null\n"
     output: |
       +--------+
       + status +
@@ -70,10 +70,10 @@ examples:
       +--------+
   - description: "load parquet on Google Cloud Storage"
     arguments:
-      - "'gs://bike-sharing-history/toulouse/jcdecaux/2024/Feb.parquet'"
-      - "'parquet'"
+      - "\n  'gs://bike-sharing-history/toulouse/jcdecaux/2024/Feb.parquet'"
+      - "\n  'parquet'"
       - "'your_project.your_dataset.station_status'"
-      - "null"
+      - "null\n"
     output: |
       +--------+
       + status +
@@ -82,10 +82,10 @@ examples:
       +--------+
   - description: "load xls or xlsx"
     arguments:
-      - "'https://github.com/AntoineGiraud/dbt_hypermarche/raw/refs/heads/main/input/Hypermarche.xlsx'"
-      - "'xlsx'"
+      - "\n  'https://github.com/AntoineGiraud/dbt_hypermarche/raw/refs/heads/main/input/Hypermarche.xlsx'"
+      - "\n  'xlsx'"
       - "'your_project.your_dataset.hypermarche_retours'"
-      - "'{\"layer\":\"Retours\", \"open_options\": [\"HEADERS=FORCE\"]}'"
+      - "'{\"layer\":\"Retours\", \"open_options\": [\"HEADERS=FORCE\"]}'\n"
     output: |
       +--------+
       + status +
@@ -94,11 +94,11 @@ examples:
       +--------+
   - description: "load french tricky csv"
     arguments:
-      - "'https://www.data.gouv.fr/fr/datasets/r/eae12477-d02e-441b-91f7-a2eeae98c5c7'"
-      - "'csv'"
-      - "'your_project.your_dataset.dim_french_postalcodes'"
+      - "\n  'https://www.data.gouv.fr/fr/datasets/r/323af5b8-7831-445b-9a46-d4da140b61b6'"
+      - "\n  'csv'"
+      - "\n  'your_project.your_dataset.dim_french_postalcodes'\n"
       - |
-        '''{
+        \n'''{
           "columns": {
               "code_commune_insee": "VARCHAR",
               "nom_commune_insee": "VARCHAR",
@@ -108,7 +108,7 @@ examples:
           },
           "delim": ";",
           "skip": 1
-        }'''
+        }'''\n
     output: |
       +--------+
       + status +
@@ -118,10 +118,11 @@ examples:
 code: |
   declare table_id string;
 
+  assert file_type in ('csv', 'json', 'parquet', 'geo', 'delta') as '`file_type` must be in (csv, json, parquet, geo, delta)';
   assert array_length(split(destination_table, '.')) = 3 as '`destination_table` must be like PROJECT.DATASET.TABLE';
-  
+
   set table_id = (
-    select {BIGFUNCTIONS_DATASET}.load_file_into_my_unytics_data(url, file_type, options) 
+    select {BIGFUNCTIONS_DATASET}.load_file_into_my_unytics_data(url, file_type, options)
   );
 
   execute immediate format(
@@ -132,8 +133,7 @@ code: |
   execute immediate format(
     'drop table %s',
     table_id
-  );  
+  );
 
-  create or replace temp table bigfunction_result as 
+  create or replace temp table bigfunction_result as
   select 'ok' as status;
-
