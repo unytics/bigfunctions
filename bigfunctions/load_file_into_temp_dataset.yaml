@@ -9,7 +9,7 @@ description: |
   in bigfunctions project.
 
   ![graph load file](./load_file.png)
-  
+
   Each call to this function **creates a new temporary dataset** which:
 
   - will contain the `destination_table` with the file data.

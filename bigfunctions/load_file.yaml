@@ -9,22 +9,15 @@ description: |
 
   ![graph load file](./load_file.png)
 
-  This function extends `load_file_into_my_unytics_data` function and will:
+  This function extends `load_file_into_temp_dataset` function.
 
-  1. Create a dataset for you in `my-unytics-data` project that will hold a temporary copy of the table.
-      - *The dataset will be named after your email and suffixed with `_load_file` + the dataset location (example `eu`).*
-      - *For instance, if your email is `firstname.lastname@domain.com`, the created dataset will be `my-unytics-data.firstname_DOT_lastname_AT_domain_DOT_com__load_file__eu`*
-  2. Set the default expiration duration of 1h in the dataset so that any table will be deleted after 1h.
-  3. Grant you table read permission and table delete permission in this dataset.
-      - *Only you and this function have access to it.*
-  4. Download the file using [ibis](https://ibis-project.org/) with [DuckDB](https://duckdb.org/).
-      - *`options` argument is passed to the duckdb read function.*
-  5. Load the data to a new table named after the url in the created dataset.
-      - *The table will be automatically deleted after one hour. You can also delete it manually.*
-  6. Copy the table to `destination_table`
-  7. Delete the temporary table from the dataset.
+  Each call:
 
-  Available types:
+  1. Creates a new temporary dataset only accessible to you in bigfunctions project.
+  2. Downloads the file data in a table within this temporary dataset.
+  3. Copies the table into `destination_table` before being deleting it from the temporary dataset.
+
+  **File Data is downloaded using [ibis](https://ibis-project.org/) with [DuckDB](https://duckdb.org/)**. Available `file_type` values are:
 
   - **csv** : *[doc](https://ibis-project.org/backends/duckdb#ibis.backends.duckdb.Backend.read_csv)*
   - **json** : *[doc](https://ibis-project.org/backends/duckdb#ibis.backends.duckdb.Backend.read_json)*
