@@ -14,10 +14,15 @@ repos:
       - id: mypy
         additional_dependencies:
           - types-PyYAML
+        exclude: function_py.py|function_py_test.py
   - repo: https://github.com/rhysd/actionlint
     rev: v1.7.1
     hooks:
       - id: actionlint-docker
+  - repo: https://github.com/shellcheck-py/shellcheck-py
+    rev: v0.10.0.1
+    hooks:
+      - id: shellcheck
   # TODO enable the hook
   # - repo: https://github.com/PyCQA/bandit
   #   rev: 1.7.9
