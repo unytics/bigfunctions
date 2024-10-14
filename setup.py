@@ -1,6 +1,5 @@
 import setuptools
 
-
 VERSION = '0.12'
 
 

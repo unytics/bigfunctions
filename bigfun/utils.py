@@ -85,7 +85,7 @@ def dataset_access_entry2user(access_entry):
     if access_entry.entity_id == 'allAuthenticatedUsers':
         return 'allAuthenticatedUsers'
     if access_entry.entity_id == 'allUsers':
-        return 'allAuthenticatedUsers'        
+        return 'allAuthenticatedUsers'
     entity_type = 'user'
     if access_entry.entity_id.endswith('gserviceaccount.com'):
         entity_type = 'serviceAccount'

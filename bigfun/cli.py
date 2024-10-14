@@ -238,4 +238,3 @@ def serve(project, dataset, config):
     # observer.start()
     # bf.generate_doc(project, dataset)
     os.system('mkdocs serve')
-

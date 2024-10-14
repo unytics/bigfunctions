@@ -1,6 +1,6 @@
-import re
 import datetime
 import json
+import re
 import time
 import traceback
 import uuid
@@ -48,7 +48,7 @@ def create_temp_dataset(bigquery, bigfunction_user, default_table_expiration_day
 
     grant `projects/bigfunctions/roles/bigquery_table_reader_and_deleter`
     on schema `{dataset_id}`
-    to '{member}';    
+    to '{member}';
 
     '''
     bigquery.query(query).result()

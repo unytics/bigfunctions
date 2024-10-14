@@ -16,7 +16,7 @@ output:
   type: json
 examples:
   - description: "If `project` is null, then the current project is used"
-    arguments: 
+    arguments:
       - 'None'
     output: |
       [

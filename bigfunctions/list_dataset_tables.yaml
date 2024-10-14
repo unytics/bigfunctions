@@ -23,10 +23,10 @@ code: |
 
   set clean_fully_qualified_dataset = (
     select replace(replace(replace(replace(replace(replace(
-      fully_qualified_dataset, 
-      ' ', ''), 
-      '`', ''), 
-      '"', ''), 
+      fully_qualified_dataset,
+      ' ', ''),
+      '`', ''),
+      '"', ''),
       "'", ''),
       "[", ''),
       "]", ''
@@ -39,16 +39,16 @@ code: |
   );
 
   create or replace temp table bigfunction_result (
-    project              string,  
-    dataset              string,  
-    table                string,  
-    created_at           string,  
-    last_modified_at     string,  
-    row_count            string,  
-    size                 string,  
+    project              string,
+    dataset              string,
+    table                string,
+    created_at           string,
+    last_modified_at     string,
+    row_count            string,
+    size                 string,
     type                 int64,
-    description          string,  
-    partitioning_column  string,  
+    description          string,
+    partitioning_column  string,
     columns              array<struct<name string, data_type string, description string>>
   );
 
@@ -70,11 +70,11 @@ code: |
         --             SOURCES                --
         ----------------------------------------
         tables as (
-          select 
+          select
             table_id as table,
             *,
           from `{{project}}.{{dataset}}`.__TABLES__
-          where not starts_with(table_id, '_') 
+          where not starts_with(table_id, '_')
         ),
 
         table_descriptions as (
@@ -115,16 +115,16 @@ code: |
         ),
 
         partitioning_columns as (
-          select 
-            table, 
+          select
+            table,
             name as partitioning_column,
           from columns_joined
           where is_partitioning_column
         ),
 
         table_columns as (
-          select 
-            table, 
+          select
+            table,
             array_agg((select as struct columns_joined.* except(table, ordinal_position, is_partitioning_column)) order by ordinal_position) as columns
           from columns_joined
           group by table
@@ -143,14 +143,14 @@ code: |
         ----------------------------------------
         --              FINAL                 --
         ----------------------------------------
-        select 
+        select
           '{{project}}' as project,
           '{{dataset}}' as dataset,
           table_id as table,
           string(date(timestamp_millis(creation_time))) as created_at,
           string(date(timestamp_millis(last_modified_time))) as last_modified_at,
           format("%'d", row_count) as row_count,
-          case 
+          case
             when size_bytes / pow(2, 40) > 1 then format('%.2f TB', size_bytes / pow(2, 40))
             when size_bytes / pow(2, 30) > 1 then format('%.2f GB', size_bytes / pow(2, 30))
             else format('%.2f MB', size_bytes / pow(2, 20))
@@ -172,7 +172,3 @@ code: |
     set i = i + 1;
 
   end while;
-
-
-
-

@@ -5,13 +5,13 @@ author:
   url: https://www.linkedin.com/in/paul-marcombes
   avatar_url: "https://lh3.googleusercontent.com/a/ACg8ocIAw-jJTmt7AkDhU6_OvDQwsy9uyuRiWX8MxUBOdpro8lRJEgk5=s288-c-no"
 description: |
-  Return `categories` of `items`. 
+  Return `categories` of `items`.
 
   Using GenAi, this function generates a hierarchy of categories and subcategories that best represents the given `items`.
   (`items`: must be a json array of strings or or objects).
 
   Result is a json with the following schema:
-  
+
   ```
   {
     categories: [
@@ -56,17 +56,17 @@ examples:
       }
 init_code: |
   import json
-  
+
   import dicttoxml
   import vertexai
-  from vertexai.generative_models import GenerationConfig, GenerativeModel, Part, HarmCategory, HarmBlockThreshold, SafetySetting  
+  from vertexai.generative_models import GenerationConfig, GenerativeModel, Part, HarmCategory, HarmBlockThreshold, SafetySetting
 
   MODEL = "gemini-1.5-flash-002"
   PROMPT = '''
   As a data manager you want to organize ITEMS into CATEGORIES and SUBCATEGORIES to improve data discovery in a data catalog.
 
   Return a hierarchy of CATEGORIES and their SUBCATEGORIES which contain the ITEMS of the file.
-  
+
   The returned hierarchy will respect the following constraints:
   - Each CATEGORY must have between 2 and 10 SUBCATEGORIES
   - Each SUBCATEGORY must have between 2 and 10 ITEMS
@@ -104,7 +104,7 @@ init_code: |
   }
 
   generation_config=GenerationConfig(
-    response_mime_type="application/json", 
+    response_mime_type="application/json",
     response_schema=response_schema
   )
 
@@ -142,8 +142,8 @@ code: |
   ]
 
   response = model.generate_content(
-    contents, 
-    safety_settings=safety_config, 
+    contents,
+    safety_settings=safety_config,
     generation_config=generation_config,
   )
 

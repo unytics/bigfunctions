@@ -25,7 +25,7 @@ code: |
     import google.cloud.bigquery
     bigquery = google.cloud.bigquery.Client()
     datasets = bigquery.list_datasets(project)
-    datasets = [f'{project}.{d.dataset_id}' for d in datasets]  
+    datasets = [f'{project}.{d.dataset_id}' for d in datasets]
     CACHE[cache_key] = datasets
   return CACHE[cache_key]
 requirements: |

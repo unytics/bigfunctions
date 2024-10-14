@@ -122,9 +122,9 @@ class BigFunction:
         template_file = f'{TEMPLATE_FOLDER}/function_py_test.py'
         template = jinja2.Template(open(template_file, encoding='utf-8').read())
         code = template.render(
-            project=self.project, 
-            arguments=arguments, 
-            init_code=self.config.get('init_code', '').strip(), 
+            project=self.project,
+            arguments=arguments,
+            init_code=self.config.get('init_code', '').strip(),
             code=self.config['code'].strip()
         )
 
@@ -169,7 +169,7 @@ class BigFunction:
         with tempfile.TemporaryDirectory() as folder:
             remote_connection = self.bigquery.get_or_create_remote_connection(self.project, self.dataset.location, REMOTE_CONNECTION_NAME)
             self.bigquery.set_remote_connection_users(remote_connection.name, self.dataset.users)
-           
+
             self._create_folder_with_cloudrun_code(folder)
             cloud_run = CloudRun(cloud_run_service, self.project, cloud_run_location)
             cloud_run.deploy(folder, self.config.get('cloud_run', {}))
