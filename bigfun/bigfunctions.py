@@ -117,11 +117,16 @@ class BigFunction:
 
     def _test_python_function_locally(self):
         argument_names = [arg['name'] for arg in self.config['arguments']]
-        argument_values = [value.strip() for value in self.config['examples'][0]['arguments']]
+        argument_values = [str(value).strip() for value in self.config['examples'][0]['arguments']]
         arguments = zip(argument_names, argument_values)
         template_file = f'{TEMPLATE_FOLDER}/function_py_test.py'
         template = jinja2.Template(open(template_file, encoding='utf-8').read())
-        code = template.render(arguments=arguments, code=self.config['code'].strip())
+        code = template.render(
+            project=self.project, 
+            arguments=arguments, 
+            init_code=self.config.get('init_code', '').strip(), 
+            code=self.config['code'].strip()
+        )
 
         print(code)
         os.makedirs(TESTS_FOLDER, exist_ok=True)
@@ -133,6 +138,7 @@ class BigFunction:
         os.system(f'python {code_filename}')
 
     def deploy(self):
+        self.config['dataset_location'] = self.dataset.location
         if 'npm_packages' in self.config:
             self._deploy_npm_packages()
         if self.config['type'] == 'function_py':
@@ -157,19 +163,19 @@ class BigFunction:
         ]
 
     def _deploy_cloud_run(self):
+        cloud_run_service = 'bf-' + self.name.replace("_", "-")
+        cloud_run_location = {'EU': 'europe-west1', 'US': 'us-west1'}.get(self.dataset.location, self.dataset.location)
+        self.config['cloud_run_location'] = cloud_run_location
         with tempfile.TemporaryDirectory() as folder:
             remote_connection = self.bigquery.get_or_create_remote_connection(self.project, self.dataset.location, REMOTE_CONNECTION_NAME)
             self.bigquery.set_remote_connection_users(remote_connection.name, self.dataset.users)
-
+           
             self._create_folder_with_cloudrun_code(folder)
-            cloud_run_service = 'bf-' + self.name.replace("_", "-")
-            cloud_run_location = {'EU': 'europe-west1', 'US': 'us-west1'}.get(self.dataset.location, self.dataset.location)
             cloud_run = CloudRun(cloud_run_service, self.project, cloud_run_location)
             cloud_run.deploy(folder, self.config.get('cloud_run', {}))
             cloud_run.add_invoker_permission(f'serviceAccount:{remote_connection.cloud_resource.service_account_id}')
 
             self.config['remote_endpoint'] = cloud_run.url
-            self.config['cloud_run_location'] = cloud_run_location
             self.config['remote_connection'] = re.sub(
                 r"projects/(\d+)/locations/([\w-]+)/connections/([\w-]+)",
                 r"\g<1>.\g<2>.\g<3>",

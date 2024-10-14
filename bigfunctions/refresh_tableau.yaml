@@ -1,0 +1,255 @@
+type: function_py
+category: export
+author:
+  name: Antoine Giraud
+  url: https://www.linkedin.com/in/antgiraud/
+  avatar_url: "https://media.licdn.com/dms/image/v2/C4D03AQG2Orctig4ycg/profile-displayphoto-shrink_200_200/profile-displayphoto-shrink_200_200/0/1532385599321?e=1733961600&v=beta&t=HTHvVZUKUhoH-U07O1tXPPuqN37EgCtGhxM_PuYFQjQ"
+description: |
+  Refresh a tableau datasource or workbook
+  named `workbook_or_datasource_title`.
+
+  **Use case:**
+
+  > After model refresh,
+  > launch **tableau** datasource / workbook refresh **from BigQuery** in **SQL**
+
+  ![graph refresh tableau](./refresh_tableau.png)
+
+  - in a [dbt post-hook](https://docs.getdbt.com/reference/resource-configs/pre-hook-post-hook)
+  - in a [dataform post_operations](https://cloud.google.com/dataform/docs/dataform-core?hl=fr#define-SQL)
+  - in a [SQL Mesh post-statements](https://sqlmesh.readthedocs.io/en/stable/concepts/models/sql_models/#optional-prepost-statements)
+  - in your favorite orchestration tool
+
+  **Docs**
+
+  - [Tableau's doc](https://help.tableau.com/current/server/en-us/security_personal_access_tokens.htm) for creating a personnal access token on tableau server (cloud or onprem) for api usage
+
+  **Encrypt your secrets**
+
+  *We advise NOT TO write your token in plain text in `token_secret` argument*.
+
+  Otherwise, they will be stored in plain text in your BigQuery logs for months.
+
+  Instead, you can use the following snippet to generate an encrypted version of `token_secret`
+  that you can copy safely as `token_secret` argument.
+
+  This public bigfunction (deployed on bigfunctions GCP project) will be able to decrypt it.
+  But no one else can.
+
+  <div>
+    <input id="secret-to-encrypt" type="text" class="md-input" placeholder="a secret value">
+    <button class="md-button md-button--primary" onclick="encrypt();">Encrypt Secret</button>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/node-forge@1.0.0/dist/forge.min.js"></script>
+  <script>
+  const pem = `
+  -----BEGIN PUBLIC KEY-----
+  MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAsi6X6H+HVCeuuGwekTND
+  StT6BfW7TCuzRmRTmbmv3T46yWtl3vtdSgIMSCzE1hdNhJSa3GQWZkO8zQWP+J2U
+  Se/SOMXdmP0axAPd19brdPYUG5osu+6leiYlUcyHcl/dZDYJxrCC+yUeIM/kwsFv
+  fD8JHDTE4EeMqd60+UzhIp0V54DlFrCDPjMCHEfkDC114tMPvmr4FHQ01B+lcpRd
+  +qO8KLV/BacQP5EWDiiuH5Q6RTRynhf+7dmUqqftRLcb6GUE3TmxQORFEBYE5STk
+  hj3P4aygoUaUW+ex708tt9G7xqVLc8H5mRedTabnnmnCn5hS+DEWRo8rhBCP7SSa
+  gQIDAQAB
+  -----END PUBLIC KEY-----
+  `;
+
+  const publicKey = forge.pki.publicKeyFromPem(pem);
+
+
+  function encrypt() {
+    const plainText = document.getElementById('secret-to-encrypt').value;
+    if (!plainText) {
+      return;
+    }
+    const encrypted = publicKey.encrypt(plainText, 'RSA-OAEP', {
+      md: forge.md.sha256.create(),
+      mgf1: { md: forge.md.sha256.create() }
+    });
+    const encryptedB64 = forge.util.encode64(encrypted);
+    navigator.clipboard.writeText(`ENCRYPTED_SECRET(${encryptedB64})`);
+    alert("Successfully copied the encrypted secret in clipboard.\n\nPaste it in your source_config as shown in example.");
+  }
+  </script>
+arguments:
+  - name: workbook_or_datasource_title
+    type: string
+  - name: site
+    type: string
+  - name: server
+    type: string
+  - name: token_name
+    type: string
+  - name: token_secret
+    type: string
+output:
+  name: response
+  type: string
+examples:
+  - description: ""
+    arguments:
+      - "'My Great Workbook'"
+      - "'site_name'"
+      - "'eu-west-1a.online.tableau.com'"
+      - "'token_name'"
+      - "'ENCRYPTED_SECRET(GvVm...)'"
+    output: "ok"
+code: |
+  import requests, json, base64
+  from cryptography.hazmat.primitives import serialization
+  from cryptography.hazmat.primitives import hashes
+  from cryptography.hazmat.primitives.asymmetric import padding
+
+  base_url = f'https://{server}/api/3.21'
+  headers = {'accept': 'application/json', 'content-type': 'application/json'}
+  private_key = serialization.load_pem_private_key(
+      refresh_tableau_rsa_private_key.encode(),
+      password=None,
+  )
+
+  if not workbook_or_datasource_title:
+    return 'missing_workbook_or_datasource_title'
+  if not server:
+    return 'missing_server'
+  if not token_name:
+    return 'missing_token_name'
+  if not token_secret:
+    return 'missing_token_secret'
+
+
+  class TableauException(Exception):
+    pass
+
+
+  def decrypt_secret(secret):
+    if not secret.strip().startswith("ENCRYPTED_SECRET("):
+      return secret
+    secret = secret.strip()
+    secret = secret[len("ENCRYPTED_SECRET("):]
+    assert ')' in secret, 'missing `)` closing parenthese in encrypted secret'
+    secret = secret[:secret.find(')')]
+    ciphertext = base64.b64decode(secret)
+    plaintext = private_key.decrypt(
+        ciphertext,
+        padding.OAEP(
+            mgf=padding.MGF1(algorithm=hashes.SHA256()),
+            algorithm=hashes.SHA256(),
+            label=None
+        )
+    )
+    return plaintext.decode()
+
+
+  def check_response(response, action):
+    if not response.ok:
+      raise TableauException(f'ERROR_{action.upper()} {response.status_code}: {response.text}')
+
+
+  def login(site, token_name, token_secret):
+    signin_url = f"{base_url}/auth/signin"
+    data = {
+      "credentials": {
+        "personalAccessTokenName": token_name,
+        "personalAccessTokenSecret": token_secret,
+        "site": {"contentUrl": site or ''}
+      }
+    }
+    response = requests.post(signin_url, json=data, headers=headers)
+    check_response(response, 'login')
+    content = response.json()
+    headers['X-tableau-auth'] = content["credentials"]["token"]
+    site_id = content["credentials"]["site"]["id"]
+    return site_id
+
+
+  def search(workbook_or_datasource_title):
+    '''
+    Doc: https://help.tableau.com/current/api/rest_api/en-us/REST/rest_api_concepts_filtering_and_sorting.htm
+    '''
+
+    params = {
+      'terms': workbook_or_datasource_title,
+      'filter': f'type:in:[workbook,datasource]',
+      'limit': 1,
+    }
+    response = requests.get(f"https://{server}/api/-/search", headers=headers, params=params)
+    check_response(response, 'search')
+    content = response.json()
+    items = content['hits']['items']
+    obj = next(
+      (
+        item
+        for item in items
+        if item['content']['title'].lower().strip() == workbook_or_datasource_title.lower().strip()
+      ),
+      None
+    )
+    if obj is None:
+      return None, None
+    obj_type = obj['content']['type']
+    if obj_type == 'unifieddatasource':
+      obj_type = 'datasource'
+    obj_id = obj['content']['datasourceLuid'] if 'datasourceLuid' in obj['content'] else obj['content']['luid']
+    return obj_id, obj_type
+
+
+  def refresh(site_id, obj_id, obj_type):
+    '''
+    Doc Data Source: https://help.tableau.com/current/api/rest_api/en-us/REST/rest_api_ref_data_sources.htm#update_data_source_now
+    Doc Workbook: https://help.tableau.com/current/api/rest_api/en-us/REST/rest_api_ref_workbooks_and_views.htm#update_workbook_now
+    '''
+    refresh_url = f"{base_url}/sites/{site_id}/{obj_type}s/{obj_id}/refresh"
+    response = requests.post(refresh_url, json={}, headers=headers)
+    check_response(response, 'refresh')
+
+
+  def signout():
+    signout_url = f"{base_url}/auth/signout"
+    response = requests.post(signout_url, headers=headers)
+    check_response(response, 'signout')
+
+  try:
+    token_secret = decrypt_secret(token_secret)
+    site_id = login(site, token_name, token_secret)
+    obj_id, obj_type = search(workbook_or_datasource_title)
+    if obj_id is None:
+      return 'not_found'
+    refresh(site_id, obj_id, obj_type)
+    signout()
+  except TableauException as e:
+    return str(e)
+
+  return 'ok'
+requirements: |
+  requests
+  cryptography
+secrets:
+  - name: refresh_tableau_rsa_private_key
+    description: "RSA Private Key used to decrypt secrets"
+    documentation: |
+      from cryptography.hazmat.primitives.asymmetric import rsa
+      from cryptography.hazmat.primitives import serialization
+
+      private_key = rsa.generate_private_key(
+          public_exponent=65537,
+          key_size=2048,
+      )
+
+      # PRINT PRIVATE KEY
+      pem = private_key.private_bytes(
+        encoding=serialization.Encoding.PEM,
+        format=serialization.PrivateFormat.TraditionalOpenSSL,
+        encryption_algorithm=serialization.NoEncryption()
+      )
+      print(pem.decode())
+
+      # PRINT PUBLIC KEY
+      public_key = private_key.public_key()
+      pem = public_key.public_bytes(
+        encoding=serialization.Encoding.PEM,
+        format=serialization.PublicFormat.SubjectPublicKeyInfo
+      )
+      print(pem.decode())
+quotas:
+  max_rows_per_query: 10

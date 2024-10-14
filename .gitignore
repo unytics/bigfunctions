@@ -144,3 +144,4 @@ site/
 
 TEST
 venv
+.venv/

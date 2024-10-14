@@ -49,7 +49,7 @@ code: |
       return json.dumps(result)
   if isinstance(result, datetime.date):
       return result.strftime('%Y-%m-%d')
-  return result
+  return str(result)
 requirements: |
   faker
 quotas:

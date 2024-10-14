@@ -3,7 +3,7 @@ category: get_data
 author:
   name: Paul Marcombes
   url: https://www.linkedin.com/in/paul-marcombes
-  avatar_url: "https://lh3.googleusercontent.com/a-/ACB-R5RDf2yxcw1p_IYLCKmiUIScreatDdhG8B83om6Ohw=s260"
+  avatar_url: "https://lh3.googleusercontent.com/a/ACg8ocIAw-jJTmt7AkDhU6_OvDQwsy9uyuRiWX8MxUBOdpro8lRJEgk5=s288-c-no"
 description: |
   Get data from 250+ sources using [Airbyte Python Connectors](https://docs.airbyte.com/using-airbyte/pyairbyte/getting-started#available-connectors)
   .
@@ -192,6 +192,7 @@ examples:
 init_code: |
   import base64
   import json
+  import os
 
   import requests
   import yaml
@@ -203,6 +204,7 @@ init_code: |
   from cryptography.hazmat.primitives import hashes
   from cryptography.hazmat.primitives.asymmetric import padding
 
+  os.environ['TZ'] = 'UTC'
 
   SOURCES_URL = 'https://connectors.airbyte.com/files/registries/v0/oss_registry.json'
   PRIVATE_KEY = serialization.load_pem_private_key(
@@ -234,9 +236,12 @@ init_code: |
 
   def yaml2dict(source_yaml_config):
     try:
-      return yaml.safe_load(source_yaml_config) or {}
+      source_config = yaml.safe_load(source_yaml_config) or {}
     except:
       assert False, 'Given `source_config` is NOT a valid yaml content'
+    if isinstance(source_config, str):
+      return {}
+    return source_config
 
 
   def decrypt_secrets(data):
@@ -356,7 +361,7 @@ quotas:
   max_rows_per_query: 1
   max_rows_per_user_per_day: 200
 cloud_run:
-  memory: 512Mi
+  memory: 1024Mi
   max_instances: 10
   concurrency: 1
   timeout: 30m

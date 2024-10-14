@@ -1,0 +1,133 @@
+type: procedure
+category: get_data
+author:
+  name: Antoine Giraud
+  url: https://www.linkedin.com/in/antgiraud/
+  avatar_url: "https://media.licdn.com/dms/image/v2/C4D03AQG2Orctig4ycg/profile-displayphoto-shrink_200_200/profile-displayphoto-shrink_200_200/0/1532385599321?e=1733961600&v=beta&t=HTHvVZUKUhoH-U07O1tXPPuqN37EgCtGhxM_PuYFQjQ"
+description: |
+  Download web file into `destination_table`
+
+  ![graph load file](./load_file.png)
+
+  This function extends [`load_file_into_temp_dataset`](../load_file_into_temp_dataset) function.
+
+  Each call:
+
+  1. Creates a new temporary dataset only accessible to you in bigfunctions project.
+  2. Downloads the file data in a table within this temporary dataset.
+  3. Copies the table into `destination_table` before deleting it from the temporary dataset.
+
+  **File Data is downloaded using [ibis](https://ibis-project.org/) with [DuckDB](https://duckdb.org/)**. Available `file_type` values are:
+
+  - **csv** : *[doc](https://ibis-project.org/backends/duckdb#ibis.backends.duckdb.Backend.read_csv)*
+  - **json** : *[doc](https://ibis-project.org/backends/duckdb#ibis.backends.duckdb.Backend.read_json)*
+  - **parquet** : *[doc](https://ibis-project.org/backends/duckdb#ibis.backends.duckdb.Backend.read_parquet)*
+  - **delta** : *[doc](https://ibis-project.org/backends/duckdb#ibis.backends.duckdb.Backend.read_delta)*
+  - **geo** : *[doc](https://ibis-project.org/backends/duckdb#ibis.backends.duckdb.Backend.read_geo)*. (this uses GDAL under the hood and enable you to also read **.xls**, **.xlsx**, **.shp** ...)
+arguments:
+  - name: url
+    type: string
+  - name: file_type
+    type: string
+  - name: destination_table
+    type: string
+  - name: options
+    type: string
+output:
+  name: status
+  type: string
+examples:
+  - description: "load random csv"
+    arguments:
+      - "\n  'https://raw.githubusercontent.com/AntoineGiraud/dbt_hypermarche/refs/heads/main/input/achats.csv'"
+      - "\n  'csv'"
+      - "'your_project.your_dataset.random_sales'"
+      - "null\n"
+    output: |
+      +--------+
+      + status +
+      +--------+
+      +   ok   +
+      +--------+
+  - description: "load json - french departements"
+    arguments:
+      - "\n  'https://geo.api.gouv.fr/departements?fields=nom,code,codeRegion,region'"
+      - "\n  'json'"
+      - "'your_project.your_dataset.dim_french_departements'"
+      - "null\n"
+    output: |
+      +--------+
+      + status +
+      +--------+
+      +   ok   +
+      +--------+
+  - description: "load parquet on Google Cloud Storage"
+    arguments:
+      - "\n  'gs://bike-sharing-history/toulouse/jcdecaux/2024/Feb.parquet'"
+      - "\n  'parquet'"
+      - "'your_project.your_dataset.station_status'"
+      - "null\n"
+    output: |
+      +--------+
+      + status +
+      +--------+
+      +   ok   +
+      +--------+
+  - description: "load xls or xlsx"
+    arguments:
+      - "\n  'https://github.com/AntoineGiraud/dbt_hypermarche/raw/refs/heads/main/input/Hypermarche.xlsx'"
+      - "\n  'geo'"
+      - "'your_project.your_dataset.hypermarche_retours'"
+      - "'{\"layer\":\"Retours\", \"open_options\": [\"HEADERS=FORCE\"]}'\n"
+    output: |
+      +--------+
+      + status +
+      +--------+
+      +   ok   +
+      +--------+
+  - description: "load french tricky csv"
+    arguments:
+      - "\n  'https://www.data.gouv.fr/fr/datasets/r/323af5b8-7831-445b-9a46-d4da140b61b6'"
+      - "\n  'csv'"
+      - "\n  'your_project.your_dataset.dim_french_postalcodes'"
+      - |
+
+          '''{
+            "columns": {
+                "code_commune_insee": "VARCHAR",
+                "nom_commune_insee": "VARCHAR",
+                "code_postal": "VARCHAR",
+                "lb_acheminement": "VARCHAR",
+                "ligne_5": "VARCHAR"
+            },
+            "delim": ";",
+            "skip": 1
+          }'''
+    output: |
+      +--------+
+      + status +
+      +--------+
+      +   ok   +
+      +--------+
+code: |
+  declare table_id string;
+
+  assert file_type in ('csv', 'json', 'parquet', 'geo', 'delta') as '`file_type` must be in (csv, json, parquet, geo, delta)';
+  assert array_length(split(destination_table, '.')) = 3 as '`destination_table` must be like PROJECT.DATASET.TABLE';
+
+  set table_id = (
+    select {BIGFUNCTIONS_DATASET}.load_file_into_temp_dataset(url, file_type, options)
+  );
+
+  execute immediate format(
+    'create or replace table %s copy %s',
+    destination_table, table_id
+  );
+
+  execute immediate format(
+    'drop table %s',
+    table_id
+  );
+
+  create or replace temp table bigfunction_result as
+  select 'ok' as status;

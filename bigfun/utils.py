@@ -84,6 +84,8 @@ def prefix_lines_with_line_number(string: str, starting_index: int = 1) -> str:
 def dataset_access_entry2user(access_entry):
     if access_entry.entity_id == 'allAuthenticatedUsers':
         return 'allAuthenticatedUsers'
+    if access_entry.entity_id == 'allUsers':
+        return 'allAuthenticatedUsers'        
     entity_type = 'user'
     if access_entry.entity_id.endswith('gserviceaccount.com'):
         entity_type = 'serviceAccount'
@@ -269,13 +271,13 @@ class CloudRun:
         options = {
             **{
                 "max-instances": 1,
-                "memory": "256Mi",
+                "memory": "512Mi",
                 "cpu": 1,
                 "concurrency": 8,
                 "platform": "managed",
                 "quiet": "",
                 "no-allow-unauthenticated": "",
-                "ingress": "internal",
+                "ingress": "all",
             },
             **{k.replace("_", "-"): v for k, v in options.items()},
         }

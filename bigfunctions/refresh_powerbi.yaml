@@ -1,0 +1,245 @@
+type: function_py
+category: export
+author:
+  name: Antoine Giraud
+  url: https://www.linkedin.com/in/antgiraud/
+  avatar_url: "https://media.licdn.com/dms/image/v2/C4D03AQG2Orctig4ycg/profile-displayphoto-shrink_200_200/profile-displayphoto-shrink_200_200/0/1532385599321?e=1733961600&v=beta&t=HTHvVZUKUhoH-U07O1tXPPuqN37EgCtGhxM_PuYFQjQ"
+description: |
+  Refresh a Power BI dataset (semantic model)
+  by it's id `dataset_id`.
+
+  **Use case:**
+
+  > After model refresh,
+  > launch *Power BI* dataset (semantic model) refresh *from BigQuery* in *SQL*
+
+  ![graph refresh power bi](./refresh_powerbi.png)
+
+  - in a [dbt post-hook](https://docs.getdbt.com/reference/resource-configs/pre-hook-post-hook)
+  - in a [dataform post_operations](https://cloud.google.com/dataform/docs/dataform-core?hl=fr#define-SQL)
+  - in a [SQL Mesh post-statements](https://sqlmesh.readthedocs.io/en/stable/concepts/models/sql_models/#optional-prepost-statements)
+  - in your favorite orchestration tool
+
+  *Optionnal:*
+
+  > on premium capacity, you can pass json argument (xmla like) to launch a custom refresh (ex: Full refresh only a given table )
+
+  **Docs:**
+
+  - [Microsoft's doc](https://learn.microsoft.com/en-us/power-bi/developer/embedded/embed-service-principal) for service principal creation, token, security group affectation & Fabric API to activate
+  - [Microsoft's doc](https://learn.microsoft.com/fr-fr/rest/api/power-bi/datasets/refresh-dataset-in-group) of refresh api
+
+  **Encrypt your secrets**
+
+  *We advise NOT TO write your token in plain text in `token_secret` argument*.
+
+  Otherwise, they will be stored in plain text in your BigQuery logs for months.
+
+  Instead, you can use the following snippet to generate an encrypted version of `token_secret`
+  that you can copy safely as `token_secret` argument.
+
+  This public bigfunction (deployed on bigfunctions GCP project) will be able to decrypt it.
+  But no one else can.
+
+  <div>
+    <input id="secret-to-encrypt" type="text" class="md-input" placeholder="a secret value">
+    <button class="md-button md-button--primary" onclick="encrypt();">Encrypt Secret</button>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/node-forge@1.0.0/dist/forge.min.js"></script>
+  <script>
+  const pem = `
+  -----BEGIN PUBLIC KEY-----
+  MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAsi6X6H+HVCeuuGwekTND
+  StT6BfW7TCuzRmRTmbmv3T46yWtl3vtdSgIMSCzE1hdNhJSa3GQWZkO8zQWP+J2U
+  Se/SOMXdmP0axAPd19brdPYUG5osu+6leiYlUcyHcl/dZDYJxrCC+yUeIM/kwsFv
+  fD8JHDTE4EeMqd60+UzhIp0V54DlFrCDPjMCHEfkDC114tMPvmr4FHQ01B+lcpRd
+  +qO8KLV/BacQP5EWDiiuH5Q6RTRynhf+7dmUqqftRLcb6GUE3TmxQORFEBYE5STk
+  hj3P4aygoUaUW+ex708tt9G7xqVLc8H5mRedTabnnmnCn5hS+DEWRo8rhBCP7SSa
+  gQIDAQAB
+  -----END PUBLIC KEY-----
+  `;
+
+  const publicKey = forge.pki.publicKeyFromPem(pem);
+
+
+  function encrypt() {
+    const plainText = document.getElementById('secret-to-encrypt').value;
+    if (!plainText) {
+      return;
+    }
+    const encrypted = publicKey.encrypt(plainText, 'RSA-OAEP', {
+      md: forge.md.sha256.create(),
+      mgf1: { md: forge.md.sha256.create() }
+    });
+    const encryptedB64 = forge.util.encode64(encrypted);
+    navigator.clipboard.writeText(`ENCRYPTED_SECRET(${encryptedB64})`);
+    alert("Successfully copied the encrypted secret in clipboard.\n\nPaste it in your source_config as shown in example.");
+  }
+  </script>
+arguments:
+  - name: dataset_id
+    type: string
+  - name: workspace_id
+    type: string
+  - name: tenant_id
+    type: string
+  - name: app_id
+    type: string
+  - name: token_secret
+    type: string
+  - name: custom_refresh_param
+    type: json
+output:
+  name: response
+  type: string
+examples:
+  - description: "Refresh of a dataset"
+    arguments:
+      - "'xxx-xxx-xxx'"
+      - "'xxx-xxx-xxx'"
+      - "'xxx-xxx-xxx'"
+      - "'xxx-xxx-xxx'"
+      - "'ENCRYPTED_SECRET(GvVm...)'"
+      - "null"
+    output: "ok"
+  - description: "custom refresh (xmla like) - premium capacity only"
+    arguments:
+      - "'xxx-xxx-xxx'"
+      - "'xxx-xxx-xxx'"
+      - "'xxx-xxx-xxx'"
+      - "'xxx-xxx-xxx'"
+      - "'ENCRYPTED_SECRET(GvVm...)'"
+      - "json '{ \"type\": \"Full\", \"objects\": [ { \"table\": \"table_name\" } ] }'"
+    output: "ok"
+code: |
+  import requests, base64
+  from azure.identity import ClientSecretCredential
+  from cryptography.hazmat.primitives import serialization
+  from cryptography.hazmat.primitives import hashes
+  from cryptography.hazmat.primitives.asymmetric import padding
+
+  private_key = serialization.load_pem_private_key(
+      refresh_powerbi_rsa_private_key.encode(),
+      password=None,
+  )
+
+  if not dataset_id:
+    return 'missing_dataset_id'
+  if not workspace_id:
+    return 'missing_workspace_id'
+  if not tenant_id:
+    return 'missing_tenant_id'
+  if not app_id:
+    return 'missing_app_id'
+  if not token_secret:
+    return 'missing_token_secret'
+  if not custom_refresh_param:
+    custom_refresh_param = {}
+
+
+  class PowerBiException(Exception):
+    pass
+
+
+  def decrypt_secret(secret):
+    if not secret.strip().startswith("ENCRYPTED_SECRET("):
+      return secret
+    secret = secret.strip()
+    secret = secret[len("ENCRYPTED_SECRET("):]
+    assert ')' in secret, 'missing `)` closing parenthese in encrypted secret'
+    secret = secret[:secret.find(')')]
+    ciphertext = base64.b64decode(secret)
+    plaintext = private_key.decrypt(
+        ciphertext,
+        padding.OAEP(
+            mgf=padding.MGF1(algorithm=hashes.SHA256()),
+            algorithm=hashes.SHA256(),
+            label=None
+        )
+    )
+    return plaintext.decode()
+
+
+  def login(tenant_id, app_id, token_secret):
+    '''
+      Get client (azure app) auth token
+      For azure app creation, token, security group affectation & Fabric API to activate
+      refer to doc: https://learn.microsoft.com/en-us/power-bi/developer/embedded/embed-service-principal
+    '''
+
+    authority = 'https://login.microsoftonline.com/'
+    scope = "https://analysis.windows.net/powerbi/api/.default"
+    # scope = f"{app_id}/.default" # doesn't work !
+
+    credential = ClientSecretCredential(tenant_id, app_id, token_secret, authority=authority)
+    token = credential.get_token(scope)
+    header = {'Authorization': f'Bearer {token.token}'}
+
+    return credential, header
+
+
+  def refresh(header, workspace_id, dataset_id, custom_refresh_param=None):
+    '''
+      Refresh of powerbi dataset via API\n
+      POST /groups/{workspace_id}/datasets/{dataset_id}/refreshes\n
+      doc : https://learn.microsoft.com/fr-fr/rest/api/power-bi/datasets/refresh-dataset-in-group
+    '''
+
+    base_url = f'https://api.powerbi.com/v1.0/myorg'
+    refresh_url = f'{base_url}/groups/{workspace_id}/datasets/{dataset_id}/refreshes'
+    # refresh_url = f'{base_url}/datasets/{dataset_id}/refreshes' # doesn't work !
+
+    if not custom_refresh_param:
+      res = requests.post(url=refresh_url, headers=header)
+    else:
+      res = requests.post(url=refresh_url, headers=header, json=custom_refresh_param)
+
+    if res.status_code != 202:
+      raise PowerBiException(f'ERROR_REFRESH {res.status_code}: {res.text}')
+
+
+  try:
+    token_secret = decrypt_secret(token_secret)
+    credential, header = login(tenant_id, app_id, token_secret)
+
+    refresh(header, workspace_id, dataset_id, custom_refresh_param)
+
+    credential.close()
+    return 'ok'
+  except Exception as e:
+    return str(e)
+
+requirements: |
+  requests
+  cryptography
+  azure-identity
+secrets:
+  - name: refresh_powerbi_rsa_private_key
+    description: "RSA Private Key used to decrypt secrets"
+    documentation: |
+      from cryptography.hazmat.primitives.asymmetric import rsa
+      from cryptography.hazmat.primitives import serialization
+
+      private_key = rsa.generate_private_key(
+          public_exponent=65537,
+          key_size=2048,
+      )
+
+      # PRINT PRIVATE KEY
+      pem = private_key.private_bytes(
+        encoding=serialization.Encoding.PEM,
+        format=serialization.PrivateFormat.TraditionalOpenSSL,
+        encryption_algorithm=serialization.NoEncryption()
+      )
+      print(pem.decode())
+
+      # PRINT PUBLIC KEY
+      public_key = private_key.public_key()
+      pem = public_key.public_bytes(
+        encoding=serialization.Encoding.PEM,
+        format=serialization.PublicFormat.SubjectPublicKeyInfo
+      )
+      print(pem.decode())
+quotas:
+  max_rows_per_query: 10

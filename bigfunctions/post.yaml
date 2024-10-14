@@ -29,8 +29,12 @@ examples:
         "status_code": 200
       }
 code: |
+  assert url, 'invalid url: it is null or empty'
+  assert url.startswith(('http://', 'https://')), 'invalid url: it does not start with http:// nor https://'
+  assert 'google.internal' not in url, 'invalid url: it is a google internal url'  
+
   import requests
-  response = requests.post(url, json=data, headers=headers)
+  response = requests.post(url, json=data, headers=headers, allow_redirects=False)
   try:
     content = response.json()
   except:

@@ -1,0 +1,82 @@
+type: function_sql
+category: transform_numeric
+author:
+  name: Bartosz Figas
+  url: https://www.linkedin.com/in/bartosz-figas
+  avatar_url: "https://media.licdn.com/dms/image/C4D03AQHZHNvfrl8O5Q/profile-displayphoto-shrink_800_800/0/1661107655654?e=1727308800&v=beta&t=ntO0tHKHREQWRe7_oxPlsCtCYxIB3_YyStq9B4Tv_uw"
+description: |
+  Get the `label` of the bin in which belongs `value`
+arguments:
+  - name: value
+    type: any type
+  - name: bin_bounds
+    type: any type
+  - name: labels
+    type: array<string>
+
+output:
+  name: label
+  type: string
+examples:
+  - description: |
+      `55` is between `50` and `60` so it is in second bin.
+      --> Function returns `Wait for result exam` label.
+    arguments:
+      - "55"
+      - "[0, 50, 60, 90, 100]"
+      - "['Fail', 'Wait for result exam', 'Pass', 'Pass with mention']"
+    output: "Wait for result exam"
+  - description: |
+      Lower bounds are inclusive. `50` is then also in second bin.
+      --> Function returns `Wait for result exam` label.
+    arguments:
+      - "50"
+      - "[0, 50, 60, 90, 100]"
+      - "['Fail', 'Wait for result exam', 'Pass', 'Pass with mention']"
+    output: "Wait for result exam"
+  - description: |
+      `-10` is below the lowest bound
+      --> Function returns `UNDEFINED_INF`.
+      (It returns `UNDEFINED_SUP` is above the upper bound).
+    arguments:
+      - "-10"
+      - "[0, 50, 60, 90, 100]"
+      - "['Fail', 'Wait for result exam', 'Pass', 'Pass with mention']"
+    output: "UNDEFINED_INF"
+  - description: |
+      You can also pass `n + 1` labels instead of `n - 1` labels (when `n` is the number of bounds).
+      In that case, values below the first bound will have this first label (instead of `UNDEFINED_INF`).
+      `-10` will then give `Lower than very bad!`.
+    arguments:
+      - "-10"
+      - "[0, 50, 60, 90, 100]"
+      - "['Lower than very bad!', 'Fail', 'Wait for result exam', 'Pass', 'Pass with mention', 'Genius!']"
+    output: "Lower than very bad"
+code: |
+  (
+    with
+
+    index as (
+      select cast(
+        replace(
+          ML.BUCKETIZE(value, bin_bounds),
+          'bin_',
+          ''
+        )
+      as int64) as ix
+    ),
+
+    padded_labels as (
+      select
+        case
+          when array_length(labels) = array_length(bin_bounds) + 1 then labels
+          when array_length(labels) = array_length(bin_bounds) - 1 then array_concat(['UNDEFINED_INF'], labels, ['UNDEFINED_SUP'])
+          else error('len(labels) should be equal to len(bin_bounds) + 1 OR equal to len(bin_bounds) - 1')
+        end as labls
+
+    )
+
+
+    select labls[ordinal(ix)]
+    from padded_labels, index
+  )

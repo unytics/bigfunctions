@@ -1,0 +1,34 @@
+type: function_py
+category: get_data
+author:
+  name: Paul Marcombes
+  url: https://www.linkedin.com/in/paul-marcombes
+  avatar_url: "https://lh3.googleusercontent.com/a/ACg8ocIAw-jJTmt7AkDhU6_OvDQwsy9uyuRiWX8MxUBOdpro8lRJEgk5=s288-c-no"
+description: Returns list of BigQuery `public_datasets`
+arguments: []
+output:
+  name: public_datasets
+  type: json
+examples:
+  - description: ""
+    arguments: []
+    output: |
+      [
+        "bigquery-public-data.america_health_rankings",
+        "bigquery-public-data.austin_311",
+        ...
+      ]
+code: |
+  project = 'bigquery-public-data'
+  cache_key = 'datasets'
+  if cache_key not in CACHE:
+    import google.cloud.bigquery
+    bigquery = google.cloud.bigquery.Client()
+    datasets = bigquery.list_datasets(project)
+    datasets = [f'{project}.{d.dataset_id}' for d in datasets]  
+    CACHE[cache_key] = datasets
+  return CACHE[cache_key]
+requirements: |
+  google-cloud-bigquery
+quotas:
+  max_rows_per_query: 1

@@ -23,32 +23,35 @@ examples:
       +----------------------------+
 code: |
   declare project, dataset, table, partition_col string;
-
+  declare column_name_sql string;
+  declare timestamp_sql string;
   declare parts array<string> default split(replace(fully_qualified_table, '`', ''), '.');
+
+  assert array_length(split(fully_qualified_table, '.')) = 3 as '`fully_qualified_table` must be like PROJECT.DATASET.TABLE';
+
   set project = parts[offset(0)];
   set dataset = parts[offset(1)];
   set table = parts[offset(2)];
 
-  execute immediate replace(replace(replace('''
+  set column_name_sql = format(
+    """
     select column_name
-    from `{{project}}.{{dataset}}.INFORMATION_SCHEMA.COLUMNS`
-    where table_name = '{{table}}' and is_partitioning_column = 'YES'
-  ''',
-  '{{project}}', project),
-  '{{dataset}}', dataset),
-  '{{table}}', table
-  ) into partition_col;
+    from `%s.%s.INFORMATION_SCHEMA.COLUMNS`
+    where table_name = @table and is_partitioning_column = 'YES'
+    """,
+    project, dataset
+  );
 
-  execute immediate replace(replace(replace(
-    format(
-      '''
+  execute immediate column_name_sql into partition_col using table as table;
+
+  set timestamp_sql = format(
+    """
+    create or replace temp table bigfunction_result as
       select
-        cast(max(%s) as timestamp) as latest_partition_timestamp,
-      from `{{project}}.{{dataset}}.{{table}}`
-      ''',
-      partition_col
-    ),
-    '{{project}}', project),
-    '{{dataset}}', dataset),
-    '{{table}}', table
-  ) into bigfunction_result;
+        cast(max(`%s`) as timestamp) as latest_partition_timestamp,
+      from `%s.%s.%s`
+    """,
+    partition_col, project, dataset, table
+  );
+
+  execute immediate timestamp_sql;

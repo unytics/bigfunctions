@@ -1,0 +1,22 @@
+type: function_js
+category: transform_string
+author:
+  name: Paul Marcombes
+  url: https://www.linkedin.com/in/paul-marcombes
+  avatar_url: "https://lh3.googleusercontent.com/a/ACg8ocIAw-jJTmt7AkDhU6_OvDQwsy9uyuRiWX8MxUBOdpro8lRJEgk5=s288-c-no"
+description: Convert `markdown` to `html`
+arguments:
+  - name: markdown
+    type: string
+output:
+  name: html
+  type: string
+examples:
+  - description: ""
+    arguments:
+      - "'# Title'"
+    output: "<h1>Title</h1>"
+code: |
+  return markdown_it.default().render(markdown);
+npm_packages:
+  - markdown-it@14.1.0

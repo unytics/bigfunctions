@@ -78,6 +78,7 @@ BigFunctions are open-source BigQuery routines that give you **SQL-superpowers**
 - [<code>ask_appstore_reviews(prompt, app_url_in_appstore)</code>](ask_appstore_reviews.md): Ask AI what your app users think.
 - [<code>ask_my_data(question, fully_qualified_table)</code>](ask_my_data.md): Ask your data any `question` in natural language.
 - [<code>classify_text(text, candidate_labels)</code>](classify_text.md): Classify `text` among `candidate_labels`
+- [<code>generate_categories(items)</code>](generate_categories.md): Return `categories` of `items`. 
 - [<code>generate_face_embedding(image_url)</code>](generate_face_embedding.md): Detect Face on image and Generate its Embedding
 - [<code>generate_sql(question, fully_qualified_table)</code>](generate_sql.md): Transform `question` to a SQL query.
 
@@ -98,11 +99,18 @@ BigFunctions are open-source BigQuery routines that give you **SQL-superpowers**
 - [<code>faker(what, locale)</code>](faker.md): Generates fake data
 - [<code>get(url, headers)</code>](get.md): Request `url`
 - [<code>get_appstore_reviews(url)</code>](get_appstore_reviews.md): GET Apple App Store Reviews of an app
+- [<code>get_data(source, source_config, streams, destination_dataset)</code>](get_data.md): Get data from 250+ sources using [Airbyte Python Connectors](https://docs.airbyte.com/using-airbyte/pyairbyte/getting-started#available-connectors)
 - [<code>get_github_data(public_repo, destination_dataset, streams)</code>](get_github_data.md): Get data from `public_repo` into `destination_dataset`
 - [<code>get_json(url, headers)</code>](get_json.md): GET json `data` from `url`
 - [<code>get_meteo(latitude, longitude, date)</code>](get_meteo.md): Get `meteo`
+- [<code>get_playstore_reviews(app_id, country, language)</code>](get_playstore_reviews.md): GET Google Play Store Reviews of an app
+- [<code>get_transport_emissions(distance_km)</code>](get_transport_emissions.md): Get the transport CO2 emissions given the `distance_km`
+- [<code>get_webpage_data(prompt, url)</code>](get_webpage_data.md): Extract `data` from `url` using `prompt`
 - [<code>get_webpage_metadata(url)</code>](get_webpage_metadata.md): Get webpage metadata
 - [<code>get_webpage_structured_data(url)</code>](get_webpage_structured_data.md): Get webpage Structured Data
+- [<code>list_public_datasets()</code>](list_public_datasets.md): Returns list of BigQuery `public_datasets`
+- [<code>load_file(url, file_type, destination_table, options)</code>](load_file.md): Download web file into `destination_table`
+- [<code>load_file_into_temp_dataset(url, file_type, options)</code>](load_file_into_temp_dataset.md): Download web file into a temp dataset 
 
 
 ## 🚀 Export
@@ -110,6 +118,8 @@ BigFunctions are open-source BigQuery routines that give you **SQL-superpowers**
 - [<code>export_to_datastore(project, namespace, kind, key, data)</code>](export_to_datastore.md): Exports `data` to Datastore
 - [<code>export_to_pubsub(project, topic, data, attributes)</code>](export_to_pubsub.md): Exports `data` and `attributes` to Pub/Sub `topic`.
 - [<code>post(url, data, headers)</code>](post.md): POST `data` to `url`.
+- [<code>refresh_powerbi(dataset_id, workspace_id, tenant_id, app_id, token_secret, custom_refresh_param)</code>](refresh_powerbi.md): Refresh a Power BI dataset (semantic model)
+- [<code>refresh_tableau(workbook_or_datasource_title, site, server, token_name, token_secret)</code>](refresh_tableau.md): Refresh a tableau datasource or workbook
 - [<code>upload_table_to_gsheet(table_or_view_or_query, max_rows, spreadsheet_url, worksheet_name, write_mode)</code>](upload_table_to_gsheet.md): Upload data from `table_or_view_or_query` to Google Sheet
 - [<code>upload_to_gsheet(data, spreadsheet_url, worksheet_name, write_mode)</code>](upload_to_gsheet.md): Upload `data` (a json array of objects) to a Google Sheet
 
@@ -118,12 +128,14 @@ BigFunctions are open-source BigQuery routines that give you **SQL-superpowers**
 
 - [<code>format_percentage(first_number, second_number, nb_decimals)</code>](format_percentage.md): Return `first_number / second_number` as a formatted percentage
 - [<code>quantize_into_bins(value, bin_bounds)</code>](quantize_into_bins.md): Get the `bin_range` in which belongs `value`
+- [<code>quantize_into_bins_with_labels(value, bin_bounds, labels)</code>](quantize_into_bins_with_labels.md): Get the `label` of the bin in which belongs `value`
 - [<code>quantize_into_fixed_width_bins(value, min_bound, max_bound, nb_bins)</code>](quantize_into_fixed_width_bins.md): Get the `bin_range` in which belongs `value`
 - [<code>weighted_average(element, weight)</code>](weighted_average.md): Returns the weigthed average elements.
 
 
 ## ✨ Transform string
 
+- [<code>camel2snake(camelCaseString)</code>](camel2snake.md): Convert `string` from camelCase to snake_case
 - [<code>convert_non_ascii_characters_to_unicode_escape_sequences(text)</code>](convert_non_ascii_characters_to_unicode_escape_sequences.md): Replace all non ASCII characters with escape unicode
 - [<code>deidentify(text, info_types)</code>](deidentify.md): Masks sensitive information of type `info_types` in `text`
 - [<code>detect_sensitive_info(text)</code>](detect_sensitive_info.md): Detect sensitive information in `text`
@@ -136,6 +148,7 @@ BigFunctions are open-source BigQuery routines that give you **SQL-superpowers**
 - [<code>is_email_valid(email)</code>](is_email_valid.md): Return true if `email` is valid
 - [<code>is_phone_number_valid(phone_number, options)</code>](is_phone_number_valid.md): Return if `phone_number` is valid
 - [<code>levenshtein(string1, string2)</code>](levenshtein.md): Compute levenshtein distance between `string1` and `string2`
+- [<code>markdown2html(markdown)</code>](markdown2html.md): Convert `markdown` to `html`
 - [<code>ngram_frequency_similarity(string1, string2, n)</code>](ngram_frequency_similarity.md): Calculates n-gram similarity between two strings
 - [<code>parse_url(url)</code>](parse_url.md): Return `url` parts
 - [<code>parse_user_agent(user_agent_string)</code>](parse_user_agent.md): Parses User Agent strings into several components
@@ -144,7 +157,7 @@ BigFunctions are open-source BigQuery routines that give you **SQL-superpowers**
 - [<code>remove_extra_whitespaces(str)</code>](remove_extra_whitespaces.md): Remove unwanted whitespaces
 - [<code>remove_strings(string, strings_to_remove)</code>](remove_strings.md): Remove any string of `strings_to_remove` from `string`
 - [<code>remove_words(string, words_to_remove)</code>](remove_words.md): Remove any word of `words_to_remove` from `string`
-- [<code>render_string(template, context)</code>](render_string.md): Render template with context using nunjucks.js templating library
+- [<code>render_handlebars_template(template, context)</code>](render_handlebars_template.md): Render template with context using handlebars.js templating library
 - [<code>render_template(template, context)</code>](render_template.md): Render template with context using nunjucks.js templating library
 - [<code>replace_special_characters(string, replacement)</code>](replace_special_characters.md): Replace most common special characters in a `string` with `replacement`
 - [<code>translate(text, target_language)</code>](translate.md): Translate `text` into `target_language`
@@ -195,6 +208,7 @@ BigFunctions are open-source BigQuery routines that give you **SQL-superpowers**
 - [<code>find_greater_value(arr, x)</code>](find_greater_value.md): Return the `offset` (zero-based index) of the first `value` in `arr` where `value >= x`
 - [<code>find_lower_value(arr, x)</code>](find_lower_value.md): Return the `offset` (zero-based index) of the first `value` in `arr` where `value <= x`
 - [<code>find_value(arr, value)</code>](find_value.md): Return the first `offset` (zero-based index) of `value` in array `arr`
+- [<code>frequent_values(values, frequency_threshold)</code>](frequent_values.md): Returns `frequent_values` among array of `values`
 - [<code>get_value(key_value_items, search_key)</code>](get_value.md): Return the first `value` with a key `search_key` from `key_value_items`
 - [<code>last_value(arr)</code>](last_value.md): Return last value of array
 - [<code>max_value(arr)</code>](max_value.md): Return max value of array
@@ -202,10 +216,12 @@ BigFunctions are open-source BigQuery routines that give you **SQL-superpowers**
 - [<code>min_max_scaler(arr)</code>](min_max_scaler.md): Performs min-max scaling on an array.
 - [<code>min_value(arr)</code>](min_value.md): Return min value of array
 - [<code>percentile_value(arr, percentile)</code>](percentile_value.md): Returns percentile of an array with percentile a float in range [0, 1].
+- [<code>rare_values(values, frequency_threshold)</code>](rare_values.md): Returns `rare_values` among array of `values`
 - [<code>remove_value(arr, value)</code>](remove_value.md): Return an array with all values except `value`.
 - [<code>sort_values(arr)</code>](sort_values.md): Return sorted array (ascending)
 - [<code>sort_values_desc(arr)</code>](sort_values_desc.md): Return sorted array (descending)
 - [<code>sum_values(arr)</code>](sum_values.md): Return the sum of array values
+- [<code>z_scores(arr)</code>](z_scores.md): Compute `z_scores`
 
 
 ## 🧠 Machine learning
@@ -233,10 +249,11 @@ BigFunctions are open-source BigQuery routines that give you **SQL-superpowers**
 
 ## 👀 Explore
 
-- [<code>chart(data, chart_type, options)</code>](chart.md): Return html with a chartjs chart
+- [<code>chart(data, chart_type, ylabel)</code>](chart.md): Return html with a chartjs chart
 - [<code>explore_column(fully_qualified_column)</code>](explore_column.md): Show column statistics
 - [<code>explore_dataset(fully_qualified_dataset)</code>](explore_dataset.md): Show infos about dataset tables
 - [<code>explore_table(fully_qualified_table)</code>](explore_table.md): Show table infos and column statistics
+- [<code>list_dataset_tables(fully_qualified_dataset)</code>](list_dataset_tables.md): List tables of `fully_qualified_dataset`
 - [<code>sankey_chart(data)</code>](sankey_chart.md): Return html with a Sankey Google chart
 
 
@@ -246,6 +263,7 @@ BigFunctions are open-source BigQuery routines that give you **SQL-superpowers**
 - [<code>get_latest_partition_timestamp(fully_qualified_table)</code>](get_latest_partition_timestamp.md): Return the maximum of the partition column of `fully_qualified_table`
 - [<code>get_table_columns(fully_qualified_table)</code>](get_table_columns.md): Get the column information of the given table from `INFORMATION_SCHEMA.COLUMNS`
 - [<code>get_view_history(fully_qualified_view)</code>](get_view_history.md): Get BigQuery View history
+- [<code>list_scheduled_queries(project)</code>](list_scheduled_queries.md): Returns`scheduled_queries` of project `project`.
 - [<code>run_python(python_code, requirements, kwargs)</code>](run_python.md): Run any `python_code`.
 - [<code>sleep(seconds)</code>](sleep.md): Sleep during `seconds` seconds
 - [<code>timestamp_from_unix_date_time(unix_date_time, date_time_part)</code>](timestamp_from_unix_date_time.md): Interprets `unix_date_time` as the number of `date_time_part` since `1970-01-01 00:00:00 UTC`.

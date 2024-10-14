@@ -1,7 +1,9 @@
+import re
 import datetime
 import json
 import time
 import traceback
+import uuid
 
 import google.auth
 import google.cloud.error_reporting
@@ -29,6 +31,28 @@ def get_current_service_account():
         with urllib.request.urlopen(req) as f:
             CACHE['current_service_account'] = f.read().decode('utf-8')
     return CACHE['current_service_account']
+
+
+def create_temp_dataset(bigquery, bigfunction_user, default_table_expiration_days=0.042):
+    random_id = str(uuid.uuid4()).replace('-', '_')
+    dataset_id = f'{PROJECT}.temp_{random_id}'
+    is_user_service_account = 'iam.gserviceaccount.com' in bigfunction_user
+    member = 'serviceAccount:' + bigfunction_user if is_user_service_account else 'user:' + bigfunction_user
+    query = f'''
+
+    create schema `{dataset_id}`
+    options(
+        default_table_expiration_days={default_table_expiration_days},
+        description="Temporary Dataset created by `{{ name }}` bigfunction to store temporary data"
+    );
+
+    grant `projects/bigfunctions/roles/bigquery_table_reader_and_deleter`
+    on schema `{dataset_id}`
+    to '{member}';    
+
+    '''
+    bigquery.query(query).result()
+    return dataset_id
 
 
 class QuotaException(Exception):
@@ -161,13 +185,13 @@ secrets = SecretManager()
 
 {% if code_process_rows_as_batch %}
 
-def compute_all_rows(rows):
+def compute_all_rows(rows, bigfunction_user, bigfunction_dataset_location, user_project):
     {{ code | replace('\n', '\n    ') | replace('{BIGFUNCTIONS_DATASET}',  '`' +  project + '`.`' + dataset + '`' ) }}
 
 {% else %}
 
-def compute_one_row(args):
-    {% for argument in arguments %}{{ argument.name }}, {% endfor %} = args
+def compute_one_row(args, bigfunction_user, bigfunction_dataset_location, user_project):
+    {% if arguments %}{% for argument in arguments %}{{ argument.name }}, {% endfor %} = args{% endif %}
     {{ code | replace('\n', '\n    ') | replace('{BIGFUNCTIONS_DATASET}',  '`' +  project + '`.`' + dataset + '`' ) }}
 
 {% endif %}
@@ -179,13 +203,17 @@ def handle():
         data = request.get_json()
         logger = Logger(data)
         logger.log(status='started')
+        user_project_matches = re.findall(r'bigquery.googleapis.com/projects/([^/]*)/', data['caller'])
+        user_project = user_project_matches[0] if user_project_matches else None
+        bigfunction_user = data['sessionUser']
+        bigfunction_dataset_location = data.get('userDefinedContext', {}).get('dataset_location')
         quota_manager = QuotaManager(data)
         quota_manager.check_quotas()
         rows = data['calls']
         {% if code_process_rows_as_batch %}
-        replies = compute_all_rows(rows)
+        replies = compute_all_rows(rows, bigfunction_user, bigfunction_dataset_location, user_project)
         {% else %}
-        replies = [compute_one_row(row) for row in rows]
+        replies = [compute_one_row(row, bigfunction_user, bigfunction_dataset_location, user_project) for row in rows]
         {% endif %}
         response = jsonify( { "replies" :  replies} )
         logger.log(status='success')
