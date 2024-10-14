@@ -92,17 +92,17 @@ examples:
       - "\n  'your_project.your_dataset.dim_french_postalcodes'"
       - |
 
-        '''{
-          "columns": {
-              "code_commune_insee": "VARCHAR",
-              "nom_commune_insee": "VARCHAR",
-              "code_postal": "VARCHAR",
-              "lb_acheminement": "VARCHAR",
-              "ligne_5": "VARCHAR"
-          },
-          "delim": ";",
-          "skip": 1
-        }'''
+          '''{
+            "columns": {
+                "code_commune_insee": "VARCHAR",
+                "nom_commune_insee": "VARCHAR",
+                "code_postal": "VARCHAR",
+                "lb_acheminement": "VARCHAR",
+                "ligne_5": "VARCHAR"
+            },
+            "delim": ";",
+            "skip": 1
+          }'''
     output: |
       +--------+
       + status +
