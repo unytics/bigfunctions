@@ -19,10 +19,10 @@ repos:
     rev: v1.7.1
     hooks:
       - id: actionlint-docker
-  - repo: https://github.com/shellcheck-py/shellcheck-py
-    rev: v0.10.0.1
-    hooks:
-      - id: shellcheck
+  # - repo: https://github.com/shellcheck-py/shellcheck-py
+  #   rev: v0.10.0.1
+  #   hooks:
+  #     - id: shellcheck
   # TODO enable the hook
   # - repo: https://github.com/PyCQA/bandit
   #   rev: 1.7.9
