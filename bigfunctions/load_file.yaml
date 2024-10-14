@@ -91,7 +91,7 @@ examples:
       - "\n  'csv'"
       - "\n  'your_project.your_dataset.dim_french_postalcodes'\n"
       - |
-        \n'''{
+        '''{
           "columns": {
               "code_commune_insee": "VARCHAR",
               "nom_commune_insee": "VARCHAR",
