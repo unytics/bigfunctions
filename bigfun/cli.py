@@ -17,13 +17,14 @@ THIS_FOLDER = os.path.dirname(os.path.realpath(__file__)).replace('\\', '/')
 WEBSITE_CONFIG_FOLDER = THIS_FOLDER + '/website'
 CATEGORIES_DOC_TEMPLATE_FILENAME = f'{THIS_FOLDER}/templates/categories.md'
 
-def load_config(config_filename):
+
+def get_config_value(name, config_filename):
     if os.path.exists(config_filename):
         with open(config_filename, encoding='utf-8') as file:
-            return yaml.safe_load(file) or {}
-    return {}
-
-def get_config_value(name, config, config_filename):
+            config = yaml.safe_load(file) or {}
+    else:
+        config = {}
+        
     if name in config:
         return config[name]
 
@@ -37,6 +38,7 @@ def get_config_value(name, config, config_filename):
     with open(config_filename, 'w', encoding='utf-8') as outfile:
         yaml.dump(config, outfile, default_flow_style=False)
     return config[name]
+
 
 def generate_doc(project, dataset):
 
@@ -129,9 +131,8 @@ def test(ctx, bigfunction, config):
     """
     Test BIGFUNCTION
     """
-    config_filename = config
-    project = get_config_value('project_for_tests', config, config_filename)
-    dataset = get_config_value('dataset_for_tests', config, config_filename)
+    project = get_config_value('project_for_tests', config)
+    dataset = get_config_value('dataset_for_tests', config)
     bigfunction = bf.BigFunction(bigfunction, project=project, dataset=dataset)
     bigfunction.test()
 
@@ -148,9 +149,8 @@ def deploy(ctx, bigfunction, project, dataset, config):
 
     Deploy the function defined in `bigfunctions/{BIGFUNCTION}.yaml` file. If BIGFUNCTION = 'ALL' then all bigfunctions contained in bigfunctions folder are deployed.
     """
-    config_data = load_config(config)
-    project = project or get_config_value('project', config_data, config)
-    dataset = dataset or get_config_value('dataset', config_data, config)
+    project = project or get_config_value('project', config)
+    dataset = dataset or get_config_value('dataset', config)
     datasets = [dataset.strip() for dataset in dataset.split(',')]
     bigfunctions = [bigfunction.strip() for bigfunction in bigfunction.split(',')]
     if bigfunction == 'ALL':
@@ -181,10 +181,9 @@ def load_table(ctx, table, project, dataset, config):
     Create or replace bigquery table TABLE with data contained in `data/{TABLE}.csv`.
     If TABLE=ALL, then all tables defined in `data` folder are created.
     """
-    config_data = load_config(config)
     from .load_table import load_table as upload_table
-    project = project or get_config_value('project', config_data, config)
-    dataset = dataset or get_config_value('dataset', config_data, config)
+    project = project or get_config_value('project', config)
+    dataset = dataset or get_config_value('dataset', config)
     datasets = [dataset.strip() for dataset in dataset.split(',')]
     if table == 'ALL':
         tables = [f.replace('.yaml', '') for f in os.listdir(TABLES_FOLDER) if f.endswith('.yaml')]
@@ -215,9 +214,8 @@ def generate(ctx, project, dataset, config):
     """
     Generate markdown files for documentation from yaml bigfunctions files
     """
-    config_data = load_config(config)
-    project = project or get_config_value('project', config_data, config)
-    dataset = dataset or get_config_value('dataset', config_data, config)
+    project = project or get_config_value('project', config)
+    dataset = dataset or get_config_value('dataset', config)
     generate_doc(project, dataset)
     os.system('mkdocs build')
 
@@ -231,9 +229,8 @@ def serve(ctx, project, dataset, config):
     """
     Serve docs locally on http://localhost:8000
     """
-    config_data = load_config(config)
-    project = project or get_config_value('project', config_data, config)
-    dataset = dataset or get_config_value('dataset', config_data, config)
+    project = project or get_config_value('project', config)
+    dataset = dataset or get_config_value('dataset', config)
     generate_doc(project, dataset)
 
     class EventHandler(RegexMatchingEventHandler):
