@@ -9,7 +9,7 @@ description: |
 
   ![graph load file](./load_file.png)
 
-  This function extends `load_file_into_temp_dataset` function.
+  This function extends [`load_file_into_temp_dataset`](../load_file_into_temp_dataset) function.
 
   Each call:
 
