@@ -102,15 +102,13 @@ def generate_doc(project, dataset):
     help_headers_color='yellow',
     help_options_color='cyan'
 )
-@click.pass_context
-def cli(ctx):
-    ctx.ensure_object(dict)
+def cli():
+    pass
 
 
 @cli.command()
 @click.argument('bigfunction')
-@click.pass_context
-def get(ctx, bigfunction):
+def get(bigfunction):
     """
     Download BIGFUNCTION yaml file from unytics/bigfunctions github repo
     """
@@ -126,8 +124,7 @@ def get(ctx, bigfunction):
 @cli.command()
 @click.argument('bigfunction')
 @click.option('--config', default='config.yaml', help='Path to the config file')
-@click.pass_context
-def test(ctx, bigfunction, config):
+def test(bigfunction, config):
     """
     Test BIGFUNCTION
     """
@@ -142,8 +139,7 @@ def test(ctx, bigfunction, config):
 @click.option('--project', help='Google Cloud project where the function will be deployed')
 @click.option('--dataset', help='BigQuery dataset name where the function will be deployed')
 @click.option('--config', default='config.yaml', help='Path to the config file')
-@click.pass_context
-def deploy(ctx, bigfunction, project, dataset, config):
+def deploy(bigfunction, project, dataset, config):
     """
     Deploy BIGFUNCTION
 
@@ -175,8 +171,7 @@ def deploy(ctx, bigfunction, project, dataset, config):
 @click.option('--project', help='Google Cloud project where the table is created')
 @click.option('--dataset', help='BigQuery dataset name where the table is created')
 @click.option('--config', default='config.yaml', help='Path to the config file')
-@click.pass_context
-def load_table(ctx, table, project, dataset, config):
+def load_table(table, project, dataset, config):
     """
     Create or replace bigquery table TABLE with data contained in `data/{TABLE}.csv`.
     If TABLE=ALL, then all tables defined in `data` folder are created.
@@ -209,8 +204,7 @@ def docs():
 @click.option('--project', help='Google Cloud project where the table is created')
 @click.option('--dataset', help='BigQuery dataset name where the table is created')
 @click.option('--config', default='config.yaml', help='Path to the config file')
-@click.pass_context
-def generate(ctx, project, dataset, config):
+def generate(project, dataset, config):
     """
     Generate markdown files for documentation from yaml bigfunctions files
     """
@@ -224,8 +218,7 @@ def generate(ctx, project, dataset, config):
 @click.option('--project', help='Google Cloud project where the table is created')
 @click.option('--dataset', help='BigQuery dataset name where the table is created')
 @click.option('--config', default='config.yaml', help='Path to the config file')
-@click.pass_context
-def serve(ctx, project, dataset, config):
+def serve(project, dataset, config):
     """
     Serve docs locally on http://localhost:8000
     """
