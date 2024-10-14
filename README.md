@@ -211,7 +211,6 @@ select PROJECT.DATASET.faker("name", "it_IT")
 
 
 
-
 ## 👋 6. Contribute
 
 BigFunctions is fully open-source. Any contribution is more than welcome 🤗!
