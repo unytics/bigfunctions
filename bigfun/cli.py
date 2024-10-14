@@ -16,15 +16,17 @@ TABLES_FOLDER = 'data'
 THIS_FOLDER = os.path.dirname(os.path.realpath(__file__)).replace('\\', '/')
 WEBSITE_CONFIG_FOLDER = THIS_FOLDER + '/website'
 CATEGORIES_DOC_TEMPLATE_FILENAME = f'{THIS_FOLDER}/templates/categories.md'
-
+CONFIGS = {}
 
 def get_config_value(name, config_filename):
-    if os.path.exists(config_filename):
-        with open(config_filename, encoding='utf-8') as file:
-            config = yaml.safe_load(file) or {}
-    else:
-        config = {}
-        
+    if config_filename not in CONFIGS:
+        if os.path.exists(config_filename):
+            with open(config_filename, encoding='utf-8') as file:
+                CONFIGS[config_filename] = yaml.safe_load(file) or {}
+        else:
+            CONFIGS[config_filename] = {}
+
+    config = CONFIGS[config_filename]
     if name in config:
         return config[name]
 
