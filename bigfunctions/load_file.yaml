@@ -89,7 +89,7 @@ examples:
     arguments:
       - "\n  'https://www.data.gouv.fr/fr/datasets/r/323af5b8-7831-445b-9a46-d4da140b61b6'"
       - "\n  'csv'"
-      - "\n  'your_project.your_dataset.dim_french_postalcodes'\n"
+      - "\n  'your_project.your_dataset.dim_french_postalcodes'"
       - |
         '''{
           "columns": {
