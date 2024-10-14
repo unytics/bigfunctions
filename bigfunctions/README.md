@@ -78,7 +78,7 @@ BigFunctions are open-source BigQuery routines that give you **SQL-superpowers**
 - [<code>ask_appstore_reviews(prompt, app_url_in_appstore)</code>](ask_appstore_reviews.md): Ask AI what your app users think.
 - [<code>ask_my_data(question, fully_qualified_table)</code>](ask_my_data.md): Ask your data any `question` in natural language.
 - [<code>classify_text(text, candidate_labels)</code>](classify_text.md): Classify `text` among `candidate_labels`
-- [<code>generate_categories(items)</code>](generate_categories.md): Return `categories` of `items`. 
+- [<code>generate_categories(items)</code>](generate_categories.md): Return `categories` of `items`.
 - [<code>generate_face_embedding(image_url)</code>](generate_face_embedding.md): Detect Face on image and Generate its Embedding
 - [<code>generate_sql(question, fully_qualified_table)</code>](generate_sql.md): Transform `question` to a SQL query.
 
@@ -110,7 +110,7 @@ BigFunctions are open-source BigQuery routines that give you **SQL-superpowers**
 - [<code>get_webpage_structured_data(url)</code>](get_webpage_structured_data.md): Get webpage Structured Data
 - [<code>list_public_datasets()</code>](list_public_datasets.md): Returns list of BigQuery `public_datasets`
 - [<code>load_file(url, file_type, destination_table, options)</code>](load_file.md): Download web file into `destination_table`
-- [<code>load_file_into_temp_dataset(url, file_type, options)</code>](load_file_into_temp_dataset.md): Download web file into a temp dataset 
+- [<code>load_file_into_temp_dataset(url, file_type, options)</code>](load_file_into_temp_dataset.md): Download web file into a temp dataset
 
 
 ## 🚀 Export
