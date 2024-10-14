@@ -76,7 +76,7 @@ examples:
   - description: "load xls or xlsx"
     arguments:
       - "\n  'https://github.com/AntoineGiraud/dbt_hypermarche/raw/refs/heads/main/input/Hypermarche.xlsx'"
-      - "\n  'xlsx'"
+      - "\n  'geo'"
       - "'your_project.your_dataset.hypermarche_retours'"
       - "'{\"layer\":\"Retours\", \"open_options\": [\"HEADERS=FORCE\"]}'\n"
     output: |
