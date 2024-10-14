@@ -14,7 +14,10 @@ BigFunctions is fully open-source. Any contribution is more than welcome 🤗!
 To make a change to this repository:
 
 1. [Fork the repository](https://docs.github.com/en/get-started/quickstart/fork-a-repo?tool=webui#forking-a-repository) and create your branch from `main`.
-2. Make your changes.
+2. Clone your fork
+3. Create a virtual env then install the packages (including dev packages) with `pip install -e .[dev]`
+4. Make and commit your changes.
+5. Push your changes to your fork.
 6. [Create a pull request](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/creating-a-pull-request-from-a-fork).
 
 (If the change is particularly small, these steps are easily accomplished directly in the GitHub UI.)
