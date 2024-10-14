@@ -37,44 +37,45 @@ output:
 examples:
   - description: "load random csv"
     arguments:
-      - "'https://raw.githubusercontent.com/AntoineGiraud/dbt_hypermarche/refs/heads/main/input/achats.csv'"
-      - "'csv'"
-      - "null"
+      - "\n  'https://raw.githubusercontent.com/AntoineGiraud/dbt_hypermarche/refs/heads/main/input/achats.csv'"
+      - "\n  'csv'"
+      - "null\n"
     output: "bigfunctions.temp_6bdb75ca_7f72_4f1f_b46a_6ca59f7f66ac.file_data"
   - description: "load json - french departements"
     arguments:
-      - "'https://geo.api.gouv.fr/departements?fields=nom,code,codeRegion,region'"
-      - "'json'"
-      - "null"
+      - "\n  'https://geo.api.gouv.fr/departements?fields=nom,code,codeRegion,region'"
+      - "\n  'json'"
+      - "null\n"
     output: "bigfunctions.temp_6bdb75ca_7f72_4f1f_b46a_6ca59f7f66ac.file_data"
   - description: "load parquet on Google Cloud Storage"
     arguments:
-      - "'gs://bike-sharing-history/toulouse/jcdecaux/2024/Feb.parquet'"
-      - "'parquet'"
-      - "null"
+      - "\n  'gs://bike-sharing-history/toulouse/jcdecaux/2024/Feb.parquet'"
+      - "\n  'parquet'"
+      - "null\n"
     output: "bigfunctions.temp_6bdb75ca_7f72_4f1f_b46a_6ca59f7f66ac.file_data"
   - description: "load xls or xlsx"
     arguments:
-      - "'https://github.com/AntoineGiraud/dbt_hypermarche/raw/refs/heads/main/input/Hypermarche.xlsx'"
-      - "'geo'"
-      - "'{\"layer\":\"Retours\", \"open_options\": [\"HEADERS=FORCE\"]}'"
+      - "\n  'https://github.com/AntoineGiraud/dbt_hypermarche/raw/refs/heads/main/input/Hypermarche.xlsx'"
+      - "\n  'geo'"
+      - "'{\"layer\":\"Retours\", \"open_options\": [\"HEADERS=FORCE\"]}'\n"
     output: "bigfunctions.temp_6bdb75ca_7f72_4f1f_b46a_6ca59f7f66ac.file_data"
   - description: "load french tricky csv"
     arguments:
-      - "'https://www.data.gouv.fr/fr/datasets/r/323af5b8-7831-445b-9a46-d4da140b61b6'"
-      - "'csv'"
+      - "\n  'https://www.data.gouv.fr/fr/datasets/r/323af5b8-7831-445b-9a46-d4da140b61b6'"
+      - "\n  'csv'"
       - |
-        '''{
-          "columns": {
-              "code_commune_insee": "VARCHAR",
-              "nom_commune_insee": "VARCHAR",
-              "code_postal": "VARCHAR",
-              "lb_acheminement": "VARCHAR",
-              "ligne_5": "VARCHAR"
-          },
-          "delim": ";",
-          "skip": 1
-        }'''
+
+          '''{
+            "columns": {
+                "code_commune_insee": "VARCHAR",
+                "nom_commune_insee": "VARCHAR",
+                "code_postal": "VARCHAR",
+                "lb_acheminement": "VARCHAR",
+                "ligne_5": "VARCHAR"
+            },
+            "delim": ";",
+            "skip": 1
+          }'''
     output: "bigfunctions.temp_6bdb75ca_7f72_4f1f_b46a_6ca59f7f66ac.file_data"
 init_code: |
   import tempfile
