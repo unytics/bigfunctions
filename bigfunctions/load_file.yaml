@@ -15,7 +15,7 @@ description: |
 
   1. Creates a new temporary dataset only accessible to you in bigfunctions project.
   2. Downloads the file data in a table within this temporary dataset.
-  3. Copies the table into `destination_table` before being deleting it from the temporary dataset.
+  3. Copies the table into `destination_table` before deleting it from the temporary dataset.
 
   **File Data is downloaded using [ibis](https://ibis-project.org/) with [DuckDB](https://duckdb.org/)**. Available `file_type` values are:
 
