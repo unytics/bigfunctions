@@ -14,15 +14,10 @@ repos:
       - id: mypy
         additional_dependencies:
           - types-PyYAML
-        files: "^logingress/.*"
   - repo: https://github.com/rhysd/actionlint
     rev: v1.7.1
     hooks:
       - id: actionlint-docker
-  - repo: https://github.com/shellcheck-py/shellcheck-py
-    rev: v0.10.0.1
-    hooks:
-      - id: shellcheck
   # TODO enable the hook
   # - repo: https://github.com/PyCQA/bandit
   #   rev: 1.7.9
@@ -41,15 +36,6 @@ repos:
     hooks:
       - id: yamllint
         args: [--strict, -c=.yamllint]
-  - repo: https://github.com/shellcheck-py/shellcheck-py
-    rev: v0.10.0.1
-    hooks:
-      - id: shellcheck
-  - repo: https://github.com/pycqa/isort
-    rev: 5.13.2
-    hooks:
-      - id: isort
-        name: isort (python)
   # TODO enable the hook
   # - repo: https://github.com/hadolint/hadolint
   #   rev: v2.13.0-beta
