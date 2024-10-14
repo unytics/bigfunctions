@@ -115,7 +115,7 @@ code: |
   assert array_length(split(destination_table, '.')) = 3 as '`destination_table` must be like PROJECT.DATASET.TABLE';
 
   set table_id = (
-    select {BIGFUNCTIONS_DATASET}.load_file_into_my_unytics_data(url, file_type, options)
+    select {BIGFUNCTIONS_DATASET}.load_file_into_temp_dataset(url, file_type, options)
   );
 
   execute immediate format(
