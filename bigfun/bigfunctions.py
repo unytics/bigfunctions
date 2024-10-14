@@ -1,14 +1,16 @@
-import tempfile
-import re
-import os
-import shutil
-import json
 import functools
+import json
+import os
+import re
+import shutil
+import tempfile
 
-import yaml
 import jinja2
+import yaml
 
-from .utils import BigQuery, CloudRun, handle_error, print_success, print_info, print_command, build_and_upload_npm_package, merge_dict
+from .utils import (BigQuery, CloudRun, build_and_upload_npm_package,
+                    handle_error, merge_dict, print_command, print_info,
+                    print_success)
 
 BIGFUNCTIONS_FOLDER = 'bigfunctions'
 DEFAULT_CONFIG_FILENAME = './config.yaml'
