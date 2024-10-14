@@ -13,7 +13,7 @@ description: |
   Each call to this function **creates a new temporary dataset** which:
 
   - will contain the `destination_table` with the file data.
-  - is accessible only to you (who calls the function) and the function. You have permission to read data and delete the tables and the dataset.
+  - is accessible only to you (who calls the function) and the function. You have permission to read data, delete the tables and delete the dataset.
   - has a limited period of life. Default expiration time is set to 1h so that every table created will be automatically deleted after 1h. Empty datasets are periodically removed.
   - has a random name
 
