@@ -30,7 +30,7 @@ description: "BigFunction {{ name }} is a BigQuery function which {{ description
 {% if project == 'bigfunctions' %}
 
 
-??? note "Call or deploy `{{ name }}` ?"
+??? note "Call or Deploy `{{ name }}` ?"
 
     **✅ You can call this `{{ name }}` bigfunction directly from your Google Cloud Project** (*no install required*).
 
