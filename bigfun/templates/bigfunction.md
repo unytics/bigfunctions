@@ -49,12 +49,14 @@ hide:
 {% endif %}
 
 
+
+## Description
+
 **Signature**
+
 ```
 {{ name }}({% for argument in arguments %}{{ argument.name }}{% if not loop.last %}, {% endif %}{% endfor %})
 ```
-
-
 
 **Description**
 
@@ -87,14 +89,13 @@ hide:
 
 
 
----
 
 
-**Examples**
+## Examples
 
 {% for example in examples %}
 
-{% if example.description %}<span style="color: var(--md-code-hl-string-color); text-decoration: underline;">{% if examples|length > 1 %}{{ loop.index }}. {% endif %}{{ example.description }}</span>{% endif %}
+{% if example.description %}**{% if examples|length > 1 %}{{ loop.index }}. {% endif %}{{ example.description }}**{% endif %}
 
 {% set datasets = dataset.split(',') %}
 {% set nb_datasets = [(datasets|length), 3] | min %}
@@ -198,9 +199,8 @@ from sample_data
 
 
 {% if use_case is defined and use_case %}
----
 
-**Use cases**
+## Use cases
 
 {{ use_case }}
 {% endif %}
