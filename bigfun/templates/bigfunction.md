@@ -34,7 +34,7 @@ description: "BigFunction {{ name }} is a BigQuery function which {{ description
 
     **✅ You can call this `{{ name }}` bigfunction directly from your Google Cloud Project** (*no install required*).
 
-    - This `{{ name }}` function is deployed in `bigfunctions` GCP project in 39 datasets for all of the 39 BigQuery regions. *You need to call the function of the dataset which is in the same region as your datasets (otherwise you may have a function not found error).*
+    - This `{{ name }}` function is deployed in `bigfunctions` GCP project in 39 datasets for all of the 39 BigQuery regions. *You need to use the dataset in the same region as your datasets (otherwise you may have a function not found error).*
     - Function is public, so it can be called by anyone. Just copy / paste examples below in your BigQuery console. It just works!
     - You may prefer to deploy the BigFunction in your own project if you want to build and manage your own catalog of functions --> Read [Getting Started](../README.md). This is particularly useful if you want to create private functions (for example calling your internal APIs).
     - For any question or difficulties, please read [Getting Started](../README.md).
