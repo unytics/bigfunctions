@@ -61,6 +61,19 @@ examples:
       +--------+
       +   ok   +
       +--------+
+  - description: |
+      load json as string without records/struct inference (from DuckDB & BigQuery) - (cf. [issue #171](https://github.com/unytics/bigfunctions/issues/171#issuecomment-2419346439))
+    arguments:
+      - "\n  'https://geo.api.gouv.fr/departements?fields=nom,code,codeRegion,region'"
+      - "\n  'json'"
+      - "'your_project.your_dataset.dim_french_departements'"
+      - '{"records":false, "columns":{"json":"string"}}\n'
+    output: |
+      +--------+
+      + status +
+      +--------+
+      +   ok   +
+      +--------+
   - description: "load parquet on Google Cloud Storage"
     arguments:
       - "\n  'gs://bike-sharing-history/toulouse/jcdecaux/2024/Feb.parquet'"
