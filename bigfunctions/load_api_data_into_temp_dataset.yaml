@@ -12,7 +12,7 @@ description: |
   - [Airbye Serverless](https://github.com/unytics/airbyte_serverless) will extract data from `source` (one of 250+ Airbyte Python Connectors available on [PyPI](https://pypi.org/search/?q=airbyte-source-)) using `source_config` (source configuration in yaml format expected by Airbyte Serverless).
   - It will create one table per stream (a stream is like a resource type) in the dataset + one table `_airbyte_logs` for logs and one table `_airbyte_states` for states.
   - If you provide a `state`, only new data from that state is loaded.
-  - While running, connector logs are appended in table `_airbyte_logs`. You can check them to get details on the run.
+  - While running, connector logs are appended in table `_airbyte_logs`.
   - Examples below explain how to set the arguments.
 arguments:
   - name: source
