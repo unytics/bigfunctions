@@ -170,7 +170,7 @@ examples:
           storage: "HTTPS"
         '''
       - "'my_stream'"
-      - "'your_project.your_dataset"
+      - "'your_project.your_dataset'"
     output: |
       +----------------------------------------+
       |                 result                 |
