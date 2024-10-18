@@ -35,7 +35,7 @@ examples:
       - "null"
       - "null"
       - "null"
-      - "'your_project.your_dataset'"
+      - "null"
     output: |
       +----------------------------------------+
       |                 result                 |
@@ -55,7 +55,7 @@ examples:
       - "'airbyte-source-file==0.5.13'"
       - "null"
       - "null"
-      - "'your_project.your_dataset'"
+      - "null"
     output: |
       +----------------------------------------------------+
       |                 result                             |
@@ -131,7 +131,7 @@ examples:
           access_token: ENCRYPTED_SECRET(kdoekdswlxzapdldpzlfpfd)
         '''
       - "null"
-      - "'your_project.your_dataset'"
+      - "null"
     output: "..."
   - description: |
       Show available streams by setting `streams` argument to `null`.
@@ -148,7 +148,7 @@ examples:
           storage: "HTTPS"
         '''
       - "null"
-      - "'your_project.your_dataset'"
+      - "null"
     output: |
       +----------------------------------------+
       |                 result                 |
@@ -158,9 +158,7 @@ examples:
       | my_stream                              |
       +----------------------------------------+
   - description: |
-      Extract and load `my_stream` into the `your_project.your_dataset`.
-
-      WARNING: the dataset must exist!
+      Extract and load `my_stream` into `your_project.your_dataset`.
     arguments:
       - "'airbyte-source-file==0.5.13'"
       - |
@@ -185,13 +183,14 @@ code: |
   declare state json;
   declare tables array<string>;
 
-  assert array_length(split(destination_dataset, '.')) = 2 as '`destination_dataset` must be like PROJECT.DATASET';
 
   if source is null or source = '' or source_config is null or source_config = '' or streams is null or streams = '' then
     create or replace temp table bigfunction_result as
     select {BIGFUNCTIONS_DATASET}.load_api_data_into_temp_dataset(source, source_config, streams, state) as result;
     return;
   end if;
+
+  assert array_length(split(destination_dataset, '.')) = 2 as '`destination_dataset` must be like PROJECT.DATASET';
 
   begin
     execute immediate format(
