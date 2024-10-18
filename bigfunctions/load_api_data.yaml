@@ -11,8 +11,7 @@ description: |
   - The function creates a temporary dataset only accessible to you in `bigfunctions` project.
   - [Airbye Serverless](https://github.com/unytics/airbyte_serverless) will extract data from `source` (one of 250+ Airbyte Python Connectors available on [PyPI](https://pypi.org/search/?q=airbyte-source-)) using `source_config` (source configuration in yaml format expected by Airbyte Serverless).
   - It will create one table per stream (a stream is like a resource type) in the dataset + one table `_airbyte_logs` for logs and one table `_airbyte_states` for states.
-  - The tables data is appended in your `destination_dataset`.
-  - Tables from the temporary dataset are deleted.
+  - The data in then moved from the temporary dataset to be appended in `destination_dataset`. Tables of from the temporary dataset are deleted.
   - If you call this function several times, the function will start by getting the latest state from `destination_dataset._airbyte_states` table to only extract and load new data.
   - Examples below explain how to set the arguments.
 arguments:
