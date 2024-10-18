@@ -157,6 +157,8 @@ class BigFunction:
 
     @property
     def doc(self):
+        if os.path.isfile(self.use_case_filename):
+            self.config['use_case'] = open(self.use_case_filename, encoding='utf-8').read()
         return BIGFUNCTION_DOC_TEMPLATE.render(**self.config)
 
 

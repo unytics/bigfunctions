@@ -66,7 +66,7 @@ BigFunctions are open-source BigQuery routines that give you **SQL-superpowers**
     | `us-west2` | `bigfunctions.us_west2` |
     | `us-west3` | `bigfunctions.us_west3` |
     | `us-west4` | `bigfunctions.us_west4` |
-
+    
 
 
 
@@ -99,7 +99,6 @@ BigFunctions are open-source BigQuery routines that give you **SQL-superpowers**
 - [<code>faker(what, locale)</code>](faker.md): Generates fake data
 - [<code>get(url, headers)</code>](get.md): Request `url`
 - [<code>get_appstore_reviews(url)</code>](get_appstore_reviews.md): GET Apple App Store Reviews of an app
-- [<code>get_data(source, source_config, streams, destination_dataset)</code>](get_data.md): Get data from 250+ sources using [Airbyte Python Connectors](https://docs.airbyte.com/using-airbyte/pyairbyte/getting-started#available-connectors)
 - [<code>get_github_data(public_repo, destination_dataset, streams)</code>](get_github_data.md): Get data from `public_repo` into `destination_dataset`
 - [<code>get_json(url, headers)</code>](get_json.md): GET json `data` from `url`
 - [<code>get_meteo(latitude, longitude, date)</code>](get_meteo.md): Get `meteo`
@@ -109,6 +108,8 @@ BigFunctions are open-source BigQuery routines that give you **SQL-superpowers**
 - [<code>get_webpage_metadata(url)</code>](get_webpage_metadata.md): Get webpage metadata
 - [<code>get_webpage_structured_data(url)</code>](get_webpage_structured_data.md): Get webpage Structured Data
 - [<code>list_public_datasets()</code>](list_public_datasets.md): Returns list of BigQuery `public_datasets`
+- [<code>load_api_data(source, source_config, streams, destination_dataset)</code>](load_api_data.md): Load data from 250+ sources using [Airbyte Python Connectors](https://docs.airbyte.com/using-airbyte/pyairbyte/getting-started#available-connectors)
+- [<code>load_api_data_into_temp_dataset(source, source_config, streams, state)</code>](load_api_data_into_temp_dataset.md): Load data from 250+ sources using [Airbyte Python Connectors](https://docs.airbyte.com/using-airbyte/pyairbyte/getting-started#available-connectors)
 - [<code>load_file(url, file_type, destination_table, options)</code>](load_file.md): Download web file into `destination_table`
 - [<code>load_file_into_temp_dataset(url, file_type, options)</code>](load_file_into_temp_dataset.md): Download web file into a temp dataset
 
@@ -269,3 +270,5 @@ BigFunctions are open-source BigQuery routines that give you **SQL-superpowers**
 - [<code>timestamp_from_unix_date_time(unix_date_time, date_time_part)</code>](timestamp_from_unix_date_time.md): Interprets `unix_date_time` as the number of `date_time_part` since `1970-01-01 00:00:00 UTC`.
 - [<code>timestamp_to_unix_date_time(timestamp_expression, date_time_part)</code>](timestamp_to_unix_date_time.md): Returns the number of `date_time_part` since `1970-01-01 00:00:00 UTC`.
 - [<code>upsert(query_or_table_or_view, destination_table, insertion_mode, primary_keys, recency_field)</code>](upsert.md): Merges `query_or_table_or_view` into the `destination_table`.
+
+

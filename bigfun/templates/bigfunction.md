@@ -1,6 +1,9 @@
 ---
 title: "{{ name }} - BigQuery"
 description: "BigFunction {{ name }} is a BigQuery function which {{ description.split('\n')[0] }}"
+hide:
+  - navigation
+  - toc
 ---
 
 <span style="color: silver; position: relative; top: -1rem">
@@ -20,15 +23,7 @@ description: "BigFunction {{ name }} is a BigQuery function which {{ description
 </div>
 
 
-
-**Signature**
-```
-{{ name }}({% for argument in arguments %}{{ argument.name }}{% if not loop.last %}, {% endif %}{% endfor %})
-```
-
-
 {% if project == 'bigfunctions' %}
-
 
 ??? note "Call or Deploy `{{ name }}` ?"
 
@@ -54,10 +49,17 @@ description: "BigFunction {{ name }} is a BigQuery function which {{ description
 {% endif %}
 
 
+**Signature**
+```
+{{ name }}({% for argument in arguments %}{{ argument.name }}{% if not loop.last %}, {% endif %}{% endfor %})
+```
+
+
 
 **Description**
 
 {{ description }}
+
 
 
 {% if template or (output and output.name == 'html') %}
@@ -81,6 +83,11 @@ description: "BigFunction {{ name }} is a BigQuery function which {{ description
     ![bookmarklet usage](../assets/bookmarklet_usage.gif)
 
 {% endif %}
+
+
+
+
+---
 
 
 **Examples**
@@ -187,3 +194,13 @@ from sample_data
 
 {% if example.screenshot %}<a href="../{{ example.screenshot }}"><img alt="screenshot" src="../{{ example.screenshot }}" style="border: var(--md-code-bg-color) solid 1rem; margin-top: -1rem; width: 100%"></a>{% endif %}
 {% endfor %}
+
+
+
+{% if use_case is defined and use_case %}
+---
+
+**Use cases**
+
+{{ use_case }}
+{% endif %}
