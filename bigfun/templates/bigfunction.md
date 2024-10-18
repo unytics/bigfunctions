@@ -49,7 +49,6 @@ description: "BigFunction {{ name }} is a BigQuery function which {{ description
     | `{{ dataset.replace('_', '-') }}` | `{{ project }}.{{ dataset }}` |
     {% endfor -%}
     |  ...   |   ...   |
-    |--------|---------|
 
 
 {% endif %}
