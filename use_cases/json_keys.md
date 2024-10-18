@@ -30,4 +30,4 @@ This allows you to dynamically determine the keys present in each JSON string wi
 * **Schema validation:** Verify that all expected keys are present in the JSON data.
 * **Data transformation:**  Create new columns based on the extracted keys.
 * **Dynamic querying:** Construct queries that access fields within the JSON based on the available keys.
-* **Data analysis:** Analyze the frequency of different keys to understand the structure of your JSON data. 
+* **Data analysis:** Analyze the frequency of different keys to understand the structure of your JSON data.

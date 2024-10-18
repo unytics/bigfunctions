@@ -27,7 +27,7 @@ WHERE bigfunctions.your_region.is_phone_number_valid(notes_field, NULL); -- Extr
 **Explanation:**
 
 * **`your_project.your_dataset.customer_data`**:  Your original table with customer information, including a `phone_number` column (and potentially other text fields that might contain phone numbers).
-* **`bigfunctions.your_region.is_phone_number_valid(phone_number, ...)`**: This calls the BigFunction, passing the `phone_number` column and optional parameters.  
+* **`bigfunctions.your_region.is_phone_number_valid(phone_number, ...)`**: This calls the BigFunction, passing the `phone_number` column and optional parameters.
     * Using `json '{"defaultCountry": "US"}'` helps validate national numbers without the "+" prefix assuming they are from the US.
     * Using `NULL` as the second argument allows validation of international numbers (starting with "+") and attempts to extract phone numbers embedded in other text. You can further refine this with the `extract` option in the JSON.
 * **`WHERE` clause**: Filters the customer data, keeping only rows where the `is_phone_number_valid` function returns `true`.

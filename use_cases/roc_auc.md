@@ -5,7 +5,7 @@ You can use the `roc_auc` function to evaluate the performance of your churn pre
 ```sql
 SELECT bigfunctions.us.roc_auc(
     (
-        SELECT 
+        SELECT
             ARRAY_AGG(STRUCT(predicted_score, churned))
         FROM `your_project.your_dataset.your_predictions_table`
     )

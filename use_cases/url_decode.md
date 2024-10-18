@@ -26,6 +26,6 @@ https://www.example.com/products?id=123&source=google
 * **Log Analysis:** Web server logs often store URLs in a URL-encoded format.  Decoding them makes the logs more human-readable and easier to analyze.
 * **Data Cleaning:**  If you have URL data from different sources, some might be encoded and some might not.  Using `url_decode` ensures consistency in your data.
 * **Reporting:**  Presenting decoded URLs in reports makes the information clearer and more understandable for stakeholders.
-* **Data Integration:** If you're integrating data from a system that provides URL-encoded URLs, you'll need to decode them before storing or processing them in BigQuery.  
+* **Data Integration:** If you're integrating data from a system that provides URL-encoded URLs, you'll need to decode them before storing or processing them in BigQuery.
 
 In essence, whenever you encounter URL-encoded strings in your BigQuery data and need to work with the actual URLs, the `url_decode` function becomes indispensable.

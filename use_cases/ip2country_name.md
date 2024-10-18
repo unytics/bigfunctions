@@ -1,4 +1,4 @@
-A use case for the `ip2country_name` function would be analyzing website traffic logs to understand the geographical distribution of visitors.  
+A use case for the `ip2country_name` function would be analyzing website traffic logs to understand the geographical distribution of visitors.
 
 **Scenario:** You have a table in BigQuery containing website access logs, including the IP address of each visitor. You want to determine the number of visitors from each country.
 

@@ -5,10 +5,10 @@ This `get` BigQuery function allows you to make HTTP GET requests directly from 
 Imagine you have a table of customer orders with country codes. You can use `get` to call a third-party geocoding API to get more detailed location information (like city and latitude/longitude) based on the country code, enriching your order data without leaving BigQuery.
 
 ```sql
-SELECT 
+SELECT
     order_id,
     bigfunctions.<your-region>.get(CONCAT('https://geocoding-api.example.com/?country=', country_code), CAST('{"Content-Type": "application/json"}' as JSON)) as geo_data
-FROM 
+FROM
     `your_project.your_dataset.orders`;
 ```
 
@@ -17,7 +17,7 @@ FROM
 You can periodically call a health check endpoint of your services using `get` within a scheduled query.  This lets you monitor the uptime and response times of your services directly from BigQuery and potentially trigger alerts based on the returned status.
 
 ```sql
-SELECT 
+SELECT
     CURRENT_TIMESTAMP() as check_time,
     bigfunctions.<your-region>.get('https://your-service.example.com/healthcheck', null) as health_status;
 ```
@@ -28,10 +28,10 @@ SELECT
 Suppose you need up-to-the-minute exchange rates for currency conversions.  You could use `get` to fetch the latest rates from a financial API within your query, ensuring your conversions are always based on the most current data.
 
 ```sql
-SELECT 
+SELECT
     transaction_amount,
     JSON_VALUE(bigfunctions.<your-region>.get('https://financial-api.example.com/exchange_rates', CAST('{"Content-Type": "application/json"}' as JSON)), '$.USD_to_EUR') AS exchange_rate
-FROM 
+FROM
     `your_project.your_dataset.transactions`;
 ```
 

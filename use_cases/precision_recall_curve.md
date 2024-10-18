@@ -11,7 +11,7 @@ Here's how `precision_recall_curve` helps:
 2. **Calling the Function:** You use the `precision_recall_curve` function in your BigQuery query, passing in the array of structs:
 
    ```sql
-   SELECT * 
+   SELECT *
    FROM bigfunctions.your_region.precision_recall_curve(
        ARRAY[
            (0.1, false), -- Low score, not fraud

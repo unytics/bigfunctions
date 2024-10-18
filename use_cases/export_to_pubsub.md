@@ -16,8 +16,8 @@ Here's how it would work:
 
    ```sql
    SELECT bigfunctions.your_region.export_to_pubsub(
-       'your-project', 
-       'sensor_alerts_topic', 
+       'your-project',
+       'sensor_alerts_topic',
        TO_JSON_STRING(t),  -- Send the entire row as the message data
        '{"sensor_type": "temperature"}' -- Add attributes for context
    )

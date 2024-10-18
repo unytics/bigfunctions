@@ -4,7 +4,7 @@ You have a table of users, and each user has a list of scores they've achieved i
 WITH UserScores AS (
     SELECT 'UserA' AS user_id, [85, 92, 78, 95, 88] AS scores UNION ALL
     SELECT 'UserB' AS user_id, [70, 75, 68, 72, 77] AS scores UNION ALL
-    SELECT 'UserC' AS user_id, [90, 95, 88, 92] AS scores 
+    SELECT 'UserC' AS user_id, [90, 95, 88, 92] AS scores
 )
 
 SELECT user_id, bigfunctions.us.median_value(scores) AS median_score

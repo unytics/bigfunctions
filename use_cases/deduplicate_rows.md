@@ -45,7 +45,7 @@ This will create a temporary table `bigfunction_result` containing the deduplica
 
 * Deduplicating product catalogs with slight variations in descriptions.
 * Removing duplicate entries in user registration data.
-* Cleaning up sensor data where multiple readings might be recorded for the same timestamp.  
+* Cleaning up sensor data where multiple readings might be recorded for the same timestamp.
 * Removing duplicate records from log files.
 
 

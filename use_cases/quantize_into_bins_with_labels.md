@@ -15,7 +15,7 @@ SELECT 'Alice' AS student, 75 AS score UNION ALL
 SELECT 'Bob', 55 AS score UNION ALL
 SELECT 'Charlie', 92 AS score UNION ALL
 SELECT 'David', 45 AS score UNION ALL
-SELECT 'Eve', 105 AS score; 
+SELECT 'Eve', 105 AS score;
 ```
 
 You can use the `quantize_into_bins_with_labels` function to assign letter grades:
@@ -39,7 +39,7 @@ This will return:
 | Bob     |   55 | Wait for result exam |
 | Charlie |   92 | Pass with mention    |
 | David   |   45 | Fail                 |
-| Eve     |  105 | UNDEFINED_SUP        | 
+| Eve     |  105 | UNDEFINED_SUP        |
 +---------+------+----------------------+
 ```
 

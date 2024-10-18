@@ -11,7 +11,7 @@ FROM ...
 
 -- Send a Teams notification when the query is done
 SELECT bigfunctions.us.send_teams_message(
-    CONCAT("Daily sales data aggregation complete!  Total sales: $", SUM(daily_sales)), 
+    CONCAT("Daily sales data aggregation complete!  Total sales: $", SUM(daily_sales)),
     "YOUR_WEBHOOK_URL"
 );
 ```
@@ -42,7 +42,7 @@ You can use this function to notify your team about data quality issues. For exa
 
 ```sql
 -- Check for invalid records
-SELECT 
+SELECT
   CASE
     WHEN invalid_records > 0 THEN bigfunctions.us.send_teams_message(
         CONCAT("Data validation failed! Found ", invalid_records, " invalid records."),

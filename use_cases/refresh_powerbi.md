@@ -60,7 +60,7 @@ with DAG(
     )
 
 
-    [etl_task_1, etl_task_2] >> refresh_powerbi_task 
+    [etl_task_1, etl_task_2] >> refresh_powerbi_task
 
 ```
 

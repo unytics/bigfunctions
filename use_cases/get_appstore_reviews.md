@@ -9,7 +9,7 @@ A market research team wants to analyze user sentiment towards a competitor's mo
 **Example:**  Let's say the competitor's app is "Fitness Tracker X" and its App Store URL is known.  The market research team can use the BigQuery function like this (using the US region as an example):
 
 ```sql
-SELECT * 
+SELECT *
 FROM bigfunctions.us.get_appstore_reviews('https://apps.apple.com/us/app/fitness-tracker-x/some_app_id')
 ```
 

@@ -6,7 +6,7 @@ Imagine you have a table of events with timestamps, and you want to calculate th
 SELECT
     event_id,
     event_timestamp,
-    bigfunctions.YOUR_REGION.timestamp_to_unix_date_time(event_timestamp, 'SECOND') - 
+    bigfunctions.YOUR_REGION.timestamp_to_unix_date_time(event_timestamp, 'SECOND') -
         LAG(bigfunctions.YOUR_REGION.timestamp_to_unix_date_time(event_timestamp, 'SECOND')) OVER (PARTITION BY user_id ORDER BY event_timestamp) AS time_difference_seconds
 FROM
     your_event_table

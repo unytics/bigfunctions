@@ -17,7 +17,7 @@ FROM
 
 **Explanation:**
 
-1. **`bigfunctions.us.phone_number_info(phone, JSON '{"defaultCountry": "US"}')`**: This calls the `phone_number_info` function.  
+1. **`bigfunctions.us.phone_number_info(phone, JSON '{"defaultCountry": "US"}')`**: This calls the `phone_number_info` function.
     - We're using the `us` dataset because our project is in the US multi-region.  Choose the appropriate regional or multi-regional dataset for *your* project's location.
     - `phone` is the column containing the phone number string.
     - `JSON '{"defaultCountry": "US"}'` provides the optional `defaultCountry` parameter. This is important for correctly interpreting phone numbers that don't start with a "+" and country code.  It assumes any number without a "+" is a US number.  You would change this to match the expected default country for your data.

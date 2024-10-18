@@ -24,9 +24,9 @@ ExcelFile AS (
     FROM FormattedSales
 )
 SELECT bigfunctions.your_region.send_mail(
-    'sales_team@example.com', 
-    'Daily Sales Report', 
-    'Please find attached the daily sales report.', 
+    'sales_team@example.com',
+    'Daily Sales Report',
+    'Please find attached the daily sales report.',
     'daily_sales_report.xlsx', # Filename
     excel_base64
 )

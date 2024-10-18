@@ -20,7 +20,7 @@ Let's say you have product information stored in a BigQuery table called `produc
 
 ```sql
 SELECT bigfunctions.us.export_to_datastore(
-    'your-project', 
+    'your-project',
     null,  -- Use default namespace
     'product_catalog', -- Kind for product data
     CAST(product_id as STRING),  -- Product ID as key

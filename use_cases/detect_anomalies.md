@@ -7,7 +7,7 @@ A website analytics company collects daily website visit data. They store this i
 **Example BigQuery Code (using the `us` region):**
 
 ```sql
-SELECT bigfunctions.us.detect_anomalies('my_project', 'website_visits', 'visit_date', 'number_of_visits', 2.5); 
+SELECT bigfunctions.us.detect_anomalies('my_project', 'website_visits', 'visit_date', 'number_of_visits', 2.5);
 ```
 
 **Explanation:**

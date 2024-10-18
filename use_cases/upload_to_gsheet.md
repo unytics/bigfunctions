@@ -19,9 +19,9 @@ Here's a breakdown of the use case:
        (
            SELECT TO_JSON_STRING(t)
            FROM `project.dataset.campaign_performance` AS t
-       ), 
-       'https://docs.google.com/spreadsheets/d/YOUR_SPREADSHEET_ID', 
-       'Campaign Performance', 
+       ),
+       'https://docs.google.com/spreadsheets/d/YOUR_SPREADSHEET_ID',
+       'Campaign Performance',
        'write_truncate'
    );
    ```

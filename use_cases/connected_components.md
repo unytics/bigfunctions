@@ -20,7 +20,7 @@ alice  | bob
 bob    | charlie
 david  | eve
 eve    | frank
-george | 
+george |
 ```
 
 **Goal:**  You want to identify distinct groups of connected users (i.e., friend circles or communities). Users within a group are directly or indirectly connected to each other, while users in different groups have no connection path between them. George is an isolated user with no connections.
@@ -41,13 +41,13 @@ SELECT * FROM bigfunction_result;
 ```
 node_id | connected_component_id
 ---------+------------------------
-alice    | alice                  
-bob      | alice                  
+alice    | alice
+bob      | alice
 charlie  | alice
 david    | david
 eve      | david
 frank    | david
-george   | george                 
+george   | george
 ```
 
 **Interpretation:**
