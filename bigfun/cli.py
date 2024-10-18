@@ -217,6 +217,20 @@ def generate(project, dataset, config):
 
 
 @docs.command()
+@click.argument('bigfunction')
+def generate_use_case(bigfunction):
+    """
+    Generate markdown files for documentation from yaml bigfunctions files
+    """
+    bigfunctions = [bigfunction.strip() for bigfunction in bigfunction.split(',')]
+    if bigfunction == 'ALL':
+        bigfunctions = bf.list_bigfunctions()
+    for name in bigfunctions:
+        bigfunction = bf.BigFunction(name)
+        bigfunction.generate_use_case()
+
+
+@docs.command()
 @click.option('--project', help='Google Cloud project where the table is created')
 @click.option('--dataset', help='BigQuery dataset name where the table is created')
 @click.option('--config', default='config.yaml', help='Path to the config file')

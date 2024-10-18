@@ -34,6 +34,7 @@ setuptools.setup(
         'mkdocs-material',
         'click',
         'click-help-colors',
+        'vertexai',
     ],
     extras_require={
         'dev': [

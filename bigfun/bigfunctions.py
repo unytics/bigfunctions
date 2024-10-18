@@ -19,6 +19,7 @@ TEMPLATE_FOLDER = os.path.dirname(os.path.realpath(__file__)).replace('\\', '/')
 BIGFUNCTION_DOC_TEMPLATE_FILENAME = f'{TEMPLATE_FOLDER}/bigfunction.md'
 DEFAULT_CONFIG = yaml.safe_load(open(DEFAULT_CONFIG_FILENAME, encoding='utf-8').read()) if os.path.isfile(DEFAULT_CONFIG_FILENAME) else {}
 TESTS_FOLDER = 'tests'
+USE_CASES_FOLDER = 'use_cases'
 
 BIGFUNCTION_DOC_TEMPLATE = jinja2.Template(open(BIGFUNCTION_DOC_TEMPLATE_FILENAME, encoding='utf-8').read())
 
@@ -97,6 +98,10 @@ class BigFunction:
     def location(self):
         return self.dataset.location
 
+    @property
+    def use_case_filename(self):
+        return f'{USE_CASES_FOLDER}/{self.name}.md'
+
     def test(self):
         # WARNING: TO CHANGE THIS AND DEPLOY A PYTHON FUNCTION HERE WE NEED TO HAVE A REMOTE CONNECTION PER DATASET AS users between dataset and remote connection are identical
         if self.config['type'] == 'function_py':
@@ -153,6 +158,52 @@ class BigFunction:
     @property
     def doc(self):
         return BIGFUNCTION_DOC_TEMPLATE.render(**self.config)
+
+
+    def generate_use_case(self, overwrite_if_exists=False):
+        if os.path.isfile(self.use_case_filename):
+            if not overwrite_if_exists:
+                return
+            os.remove(self.use_case_filename)
+
+        doc = self.doc
+        import vertexai
+        from vertexai.generative_models import GenerativeModel, Part, SafetySetting
+
+        safety_settings = [
+            SafetySetting(
+                category=SafetySetting.HarmCategory.HARM_CATEGORY_HATE_SPEECH,
+                threshold=SafetySetting.HarmBlockThreshold.OFF
+            ),
+            SafetySetting(
+                category=SafetySetting.HarmCategory.HARM_CATEGORY_DANGEROUS_CONTENT,
+                threshold=SafetySetting.HarmBlockThreshold.OFF
+            ),
+            SafetySetting(
+                category=SafetySetting.HarmCategory.HARM_CATEGORY_SEXUALLY_EXPLICIT,
+                threshold=SafetySetting.HarmBlockThreshold.OFF
+            ),
+            SafetySetting(
+                category=SafetySetting.HarmCategory.HARM_CATEGORY_HARASSMENT,
+                threshold=SafetySetting.HarmBlockThreshold.OFF
+            ),
+        ]
+
+        vertexai.init()
+        model = GenerativeModel("gemini-1.5-pro-002")
+        prompt = '\n\n'.join([
+            'Give a use case of this function',
+            'FUNCTION MARKDOWN DOCUMENTATION:',
+            self.doc,
+        ])
+        response = model.generate_content(
+            prompt,
+            safety_settings=safety_settings,
+        )
+        use_case = response.text
+        os.makedirs(USE_CASES_FOLDER, exist_ok=True)
+        with open(self.use_case_filename, 'w', encoding='utf-8') as file:
+            file.write(use_case)
 
     def _deploy_npm_packages(self):
         if 'bucket_js_dependencies' not in self.config:
