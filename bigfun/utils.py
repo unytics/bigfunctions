@@ -270,7 +270,7 @@ class CloudRun:
         print_info(f"Deploy Cloud Run service `{self.service}`")
         options = {
             **{
-                "max-instances": 1,
+                "max-instances": 10,
                 "memory": "512Mi",
                 "cpu": 1,
                 "concurrency": 8,
@@ -365,3 +365,35 @@ def download(url, destination_filename):
         urllib.request.urlretrieve(url, destination_filename)
     except Exception as e:
         handle_error(f'Could not download file at url `{url}`. Reason: {e}')
+
+
+def generate_content(prompt):
+    import vertexai
+    from vertexai.generative_models import GenerativeModel, SafetySetting
+
+    safety_settings = [
+        SafetySetting(
+            category=SafetySetting.HarmCategory.HARM_CATEGORY_HATE_SPEECH,
+            threshold=SafetySetting.HarmBlockThreshold.OFF
+        ),
+        SafetySetting(
+            category=SafetySetting.HarmCategory.HARM_CATEGORY_DANGEROUS_CONTENT,
+            threshold=SafetySetting.HarmBlockThreshold.OFF
+        ),
+        SafetySetting(
+            category=SafetySetting.HarmCategory.HARM_CATEGORY_SEXUALLY_EXPLICIT,
+            threshold=SafetySetting.HarmBlockThreshold.OFF
+        ),
+        SafetySetting(
+            category=SafetySetting.HarmCategory.HARM_CATEGORY_HARASSMENT,
+            threshold=SafetySetting.HarmBlockThreshold.OFF
+        ),
+    ]
+
+    vertexai.init()
+    model = GenerativeModel("gemini-1.5-pro-002")
+    response = model.generate_content(
+        prompt,
+        safety_settings=safety_settings,
+    )
+    return response.text

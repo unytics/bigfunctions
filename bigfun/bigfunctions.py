@@ -9,8 +9,8 @@ import jinja2
 import yaml
 
 from .utils import (BigQuery, CloudRun, build_and_upload_npm_package,
-                    handle_error, merge_dict, print_command, print_info,
-                    print_success)
+                    generate_content, handle_error, merge_dict, print_command,
+                    print_info, print_success)
 
 BIGFUNCTIONS_FOLDER = 'bigfunctions'
 DEFAULT_CONFIG_FILENAME = './config.yaml'
@@ -167,40 +167,12 @@ class BigFunction:
             os.remove(self.use_case_filename)
 
         doc = self.doc
-        import vertexai
-        from vertexai.generative_models import GenerativeModel, Part, SafetySetting
-
-        safety_settings = [
-            SafetySetting(
-                category=SafetySetting.HarmCategory.HARM_CATEGORY_HATE_SPEECH,
-                threshold=SafetySetting.HarmBlockThreshold.OFF
-            ),
-            SafetySetting(
-                category=SafetySetting.HarmCategory.HARM_CATEGORY_DANGEROUS_CONTENT,
-                threshold=SafetySetting.HarmBlockThreshold.OFF
-            ),
-            SafetySetting(
-                category=SafetySetting.HarmCategory.HARM_CATEGORY_SEXUALLY_EXPLICIT,
-                threshold=SafetySetting.HarmBlockThreshold.OFF
-            ),
-            SafetySetting(
-                category=SafetySetting.HarmCategory.HARM_CATEGORY_HARASSMENT,
-                threshold=SafetySetting.HarmBlockThreshold.OFF
-            ),
-        ]
-
-        vertexai.init()
-        model = GenerativeModel("gemini-1.5-pro-002")
         prompt = '\n\n'.join([
             'Give a use case of this function',
             'FUNCTION MARKDOWN DOCUMENTATION:',
             self.doc,
         ])
-        response = model.generate_content(
-            prompt,
-            safety_settings=safety_settings,
-        )
-        use_case = response.text
+        use_case = generate_content(prompt)
         os.makedirs(USE_CASES_FOLDER, exist_ok=True)
         with open(self.use_case_filename, 'w', encoding='utf-8') as file:
             file.write(use_case)
