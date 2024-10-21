@@ -1,0 +1,200 @@
+type: function_py
+category: AI
+author:
+  name: Paul Marcombes
+  url: https://www.linkedin.com/in/paul-marcombes
+  avatar_url: "https://lh3.googleusercontent.com/a/ACg8ocIAw-jJTmt7AkDhU6_OvDQwsy9uyuRiWX8MxUBOdpro8lRJEgk5=s288-c-no"
+description: |
+  Categorize `items` in categories and subcategories.
+
+  Using GenAi, this function generates a hierarchy of categories and subcategories that best represents the given `items`.
+  (`items`: must be a json array of strings or or objects).
+
+  It returns Result is a json with the following schema:
+
+  ```
+  {
+    categories: [
+      {
+        name: string,
+        subcategories: [
+          string
+        ]
+      }
+    ]
+  }
+  ```
+arguments:
+  - name: items
+    type: json
+output:
+  name: categories
+  type: json
+examples:
+  - description: "Categorize User Reviews of Nickel App in App Store"
+    arguments:
+      - |
+
+        [
+          'this is a great application',
+          'i cannot connect'
+        ]
+    output: |
+      {
+        "categories": [
+          {
+            "name": "Account Management",
+            "subcategories": [
+                  "Login Issues",
+                  ...
+            ]
+          },
+          ...
+        ]
+      }
+  - description: "Categorize User Reviews of Nickel App in App Store"
+    arguments:
+      - |
+
+        (
+          select to_json(array_agg(content))
+          from {BIGFUNCTIONS_DATASET}.get_appstore_reviews(
+            'https://apps.apple.com/fr/app/nickel-compte-pour-tous/id1119225763'
+          )
+        )
+    output: |
+      {
+        "categories": [
+          {
+            "name": "Account Management",
+            "subcategories": [
+                  "Login Issues",
+                  ...
+            ]
+          },
+          ...
+        ]
+      }
+init_code: |
+  import json
+
+  import dicttoxml
+  import vertexai
+  from vertexai.generative_models import GenerationConfig, GenerativeModel, Part, HarmCategory, HarmBlockThreshold, SafetySetting
+
+  MODEL = "gemini-1.5-flash-002"
+  PROMPT = '''
+  As a data manager you want to organize ITEMS into CATEGORIES and SUBCATEGORIES to improve data discovery in a data catalog.
+
+  Return a hierarchy of CATEGORIES and their SUBCATEGORIES which contain the ITEMS of the file.
+
+  The returned hierarchy will respect the following constraints:
+  - Each CATEGORY must have between 2 and 10 SUBCATEGORIES
+  - Each SUBCATEGORY must have between 2 and 10 ITEMS
+  - Each ITEM must be within one SUBCATEGORY.
+  - Do not invent any ITEM
+
+  '''
+
+  response_schema = {
+    "title": "Categorization of items",
+    "description": "Schema of the Categorization Hierarchy of items",
+    "type": "object",
+    "properties": {
+      "categories": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string",
+              "description": "Name of the category",
+            },
+            "subcategories": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "description": "Name of the subcategory",
+                  },
+                  "items_ids": {
+                    "type": "array",
+                    "items": {
+                      "type": "integer",
+                      "description": "Id of the item"
+                    }
+                  }
+                },
+                "required": ["name", "items_ids"]
+              }
+            }
+          },
+          "required": ["name", "subcategories"]
+        }
+      }
+    },
+    "required": ["categories"]
+  }
+
+  generation_config=GenerationConfig(
+    response_mime_type="application/json",
+    response_schema=response_schema
+  )
+
+  safety_config = [
+      SafetySetting(
+          category=HarmCategory.HARM_CATEGORY_DANGEROUS_CONTENT,
+          threshold=HarmBlockThreshold.OFF,
+      ),
+      SafetySetting(
+          category=HarmCategory.HARM_CATEGORY_HARASSMENT,
+          threshold=HarmBlockThreshold.OFF,
+      ),
+  ]
+
+  def xmlize(k, item):
+    assert isinstance(item, (dict, str)), 'each item of `items` must be a string or an object'
+    item = {'content': item} if isinstance(item, str) else item
+    item['id'] = k
+    return dicttoxml.dicttoxml(item, custom_root='item', attr_type=False, xml_declaration=False).decode('utf-8')
+
+  vertexai.init(location=CURRENT_LOCATION)
+  model = GenerativeModel(MODEL)
+code: |
+  if not items:
+    return {}
+
+  assert isinstance(items, list), 'Given `items` must be a json array of strings or objects'
+  items_xml = [xmlize(k, item) for k, item in enumerate(items)]
+  items_xml = '\n\n'.join(items_xml)
+
+  contents = [
+      PROMPT,
+      Part.from_text(items_xml),
+  ]
+
+  response = model.generate_content(
+    contents,
+    safety_settings=safety_config,
+    generation_config=generation_config,
+  )
+
+  categories = response.text
+  categories = json.loads(categories)
+  categories = categories['categories']
+  categorized_items = []
+  for category in categories:
+    for subcategory in category['subcategories']:
+      for item_id in subcategory['items_ids']:
+        categorized_items.append(
+          {'id': item_id, 'item': items[item_id], 'category': f"{category['name']}/{subcategory['name']}"}
+        )
+  return sorted(categorized_items, key=lambda d: d['id'])
+requirements: |
+  dicttoxml
+  google-cloud-aiplatform
+quotas:
+  max_rows_per_query: 1
+  max_rows_per_user_per_day: 20
