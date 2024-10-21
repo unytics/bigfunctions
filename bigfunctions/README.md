@@ -66,7 +66,7 @@ BigFunctions are open-source BigQuery routines that give you **SQL-superpowers**
     | `us-west2` | `bigfunctions.us_west2` |
     | `us-west3` | `bigfunctions.us_west3` |
     | `us-west4` | `bigfunctions.us_west4` |
-    
+
 
 
 
@@ -270,5 +270,3 @@ BigFunctions are open-source BigQuery routines that give you **SQL-superpowers**
 - [<code>timestamp_from_unix_date_time(unix_date_time, date_time_part)</code>](timestamp_from_unix_date_time.md): Interprets `unix_date_time` as the number of `date_time_part` since `1970-01-01 00:00:00 UTC`.
 - [<code>timestamp_to_unix_date_time(timestamp_expression, date_time_part)</code>](timestamp_to_unix_date_time.md): Returns the number of `date_time_part` since `1970-01-01 00:00:00 UTC`.
 - [<code>upsert(query_or_table_or_view, destination_table, insertion_mode, primary_keys, recency_field)</code>](upsert.md): Merges `query_or_table_or_view` into the `destination_table`.
-
-
