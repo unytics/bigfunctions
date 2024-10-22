@@ -25,14 +25,28 @@ output:
   name: categories
   type: json
 examples:
+  - description: "Categorize texts"
+    arguments:
+      - |
+        json '''[
+          "this is a great application"
+          "i cannot connect"
+        ]'''
+    output: |
+      [
+        {'item': 'this is a great application', 'category': 'General Feedback/Positive Review'},
+        {'item': 'i cannot connect', 'category': 'App Issues/Login Issues'},
+      ]
   - description: "Categorize User Reviews of Nickel App in App Store"
     arguments:
       - |
 
-        [
-          'this is a great application',
-          'i cannot connect'
-        ]
+        (
+          select to_json(array_agg(content))
+          from {BIGFUNCTIONS_DATASET}.get_appstore_reviews(
+            'https://apps.apple.com/fr/app/nickel-compte-pour-tous/id1119225763'
+          )
+        )
     output: |
       [
         {'item': 'this is a great application', 'category': 'General Feedback/Positive Review'},
