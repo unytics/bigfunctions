@@ -10,19 +10,13 @@ description: |
   Using GenAi, this function generates a hierarchy of categories and subcategories that best represents the given `items`.
   (`items`: must be a json array of strings or or objects).
 
-  It returns Result is a json with the following schema:
+  It returns a json array of objects as:
 
   ```
-  {
-    categories: [
-      {
-        name: string,
-        subcategories: [
-          string
-        ]
-      }
-    ]
-  }
+  [
+    {item: first_item, category: '{category}/{subcategory}'},
+    ...
+  ]
   ```
 arguments:
   - name: items
@@ -40,41 +34,10 @@ examples:
           'i cannot connect'
         ]
     output: |
-      {
-        "categories": [
-          {
-            "name": "Account Management",
-            "subcategories": [
-                  "Login Issues",
-                  ...
-            ]
-          },
-          ...
-        ]
-      }
-  - description: "Categorize User Reviews of Nickel App in App Store"
-    arguments:
-      - |
-
-        (
-          select to_json(array_agg(content))
-          from {BIGFUNCTIONS_DATASET}.get_appstore_reviews(
-            'https://apps.apple.com/fr/app/nickel-compte-pour-tous/id1119225763'
-          )
-        )
-    output: |
-      {
-        "categories": [
-          {
-            "name": "Account Management",
-            "subcategories": [
-                  "Login Issues",
-                  ...
-            ]
-          },
-          ...
-        ]
-      }
+      [
+        {'item': 'this is a great application', 'category': 'General Feedback/Positive Review'},
+        {'item': 'i cannot connect', 'category': 'App Issues/Login Issues'},
+      ]
 init_code: |
   import json
 
@@ -189,7 +152,7 @@ code: |
     for subcategory in category['subcategories']:
       for item_id in subcategory['items_ids']:
         categorized_items.append(
-          {'id': item_id, 'item': items[item_id], 'category': f"{category['name']}/{subcategory['name']}"}
+          {'item': items[item_id], 'category': f"{category['name']}/{subcategory['name']}"}
         )
   return sorted(categorized_items, key=lambda d: d['id'])
 requirements: |
