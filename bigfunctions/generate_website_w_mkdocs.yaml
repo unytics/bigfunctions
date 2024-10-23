@@ -1,0 +1,156 @@
+type: function_py
+category: wip
+author:
+  name: Paul Marcombes
+  url: https://www.linkedin.com/in/paul-marcombes
+  avatar_url: "https://lh3.googleusercontent.com/a/ACg8ocIAw-jJTmt7AkDhU6_OvDQwsy9uyuRiWX8MxUBOdpro8lRJEgk5=s288-c-no"
+description: Request `url`
+arguments:
+  - name: site_name
+    type: string
+  - name: assets
+    type: json
+  - name: mkdocs_config
+    type: string
+output:
+  name: site_url
+  type: string
+examples:
+  - description: "Without headers"
+    arguments:
+      - "'My Website'"
+      - |
+        [
+          {"path": "/", "content": "# Hello\n\nThis is my first website"}
+        ]
+      - null
+    output: "https://catalogs.unytics.io/public/my-website/"
+init_code: |
+  import os
+  import tempfile
+  import re
+  import shutil
+  import uuid
+
+  import mkdocs.utils
+  import mkdocs.config
+  import mkdocs.config.defaults
+  import mkdocs.commands.build
+
+  MKDOCS_CONFIG_YAML = '''
+  nav:
+    - ...
+  theme:
+    name: material
+    favicon: https://unytics.io/bigfunctions/assets/logo.png
+    logo: https://unytics.io/bigfunctions/assets/logo.png
+    palette:
+      primary: black
+    features:
+      - navigation.instant
+      - navigation.tabs
+      - navigation.prune
+      - navigation.indexes
+      - content.tabs.link
+  markdown_extensions:
+    - attr_list
+    - md_in_html
+    - admonition
+    - pymdownx.details
+    - pymdownx.superfences
+    - pymdownx.tabbed:
+        alternate_style: true
+    - pymdownx.emoji:
+        emoji_index: !!python/name:material.extensions.emoji.twemoji
+        emoji_generator: !!python/name:material.extensions.emoji.to_svg
+  plugins:
+    - search
+    - awesome-pages
+  '''
+
+  DEFAULT_INDEX_PAGE = '''
+  # Welcome!
+
+  This Website has been built with ❤️ using [generate_website](https://unytics.io/bigfunctions/bigfunctions/generate_website/) BigFunction.
+  '''
+
+  def init_config(site_name, mkdocs_config, docs_dir):
+    site_id = str(uuid.uuid4()).replace('-', '_')
+    site_dir = f'/storage/public/{site_id}'
+    site_url = f'http://catalogs.unytics.io/public/{site_id}/'
+
+    assert not os.path.exists(site_dir), 'destination already exists'
+
+    config = mkdocs.config.defaults.MkDocsConfig()
+    config.load_dict(mkdocs.utils.yaml_load(MKDOCS_CONFIG_YAML))
+    config.load_dict(mkdocs.utils.yaml_load(mkdocs_config))
+    config.load_dict({
+      'site_name': site_name,
+      'site_url': site_url,
+      'site_dir': site_dir,
+      'docs_dir': docs_dir,
+    })
+    errors, warnings = config.validate()
+    assert not errors, 'Config Errors: ' + ' -- '.join([f"'{name}': {error}" for name, error in errors])
+    return config
+
+
+  def write_file(asset, docs_dir):
+    path = asset['path']
+    content = asset['content'] or ''
+    if not path:
+      return
+
+    path = path.strip()
+    if path.endswith('/'):
+      name = path.split('/')[-2]
+      path += 'index'
+    else:
+      name = path.split('/')[-1]
+    path = path.strip('/').strip()
+    path = re.sub(r'[^A-zÀ-ú0-9_\- /]', '', path)
+    path = path.strip().strip('/')
+    path += '.md'
+    filename = f'{docs_dir}/{path}'
+    file_folder = '/'.join(filename.split('/')[:-1])
+    os.makedirs(file_folder, exist_ok=True)
+    with open(filename, 'w', encoding='utf-8') as f:
+      f.write(content)
+
+
+  def write_files(assets, docs_dir):
+    os.makedirs(docs_dir, exist_ok=True)
+    with open(f'{docs_dir}/index.md', 'w', encoding='utf-8') as f:
+      f.write(DEFAULT_INDEX_PAGE)
+
+    for asset in assets:
+      write_file(asset, docs_dir)
+code: |
+  if not assets:
+    return 'no asset given'
+  assert site_name, 'site_name must not be null nor empty'
+  mkdocs_config = mkdocs_config or ''
+
+  assert isinstance(assets, list), 'Given `assets` must be a json array of strings or objects'
+  assert all('path' in asset for asset in assets), 'All `assets` must have a `path` field'
+  assert all('content' in asset for asset in assets), 'All `assets` must have a `content` field'
+
+  with tempfile.TemporaryDirectory() as folder:
+    docs_dir = f'{folder}/docs'
+    write_files(assets, docs_dir)
+    config = init_config(site_name, mkdocs_config, docs_dir)
+    mkdocs.commands.build.build(config)
+
+  return config['site_url']
+requirements: |
+  mkdocs-material
+  mkdocs-awesome-pages-plugin
+quotas:
+  max_rows_per_query: 10
+cloud_run:
+  memory: 1024Mi
+  concurrency: 1
+  max_instances: 10
+  add_volume: '"name=storage,type=cloud-storage,bucket=catalogs.unytics.io"'
+  add_volume_mount: '"volume=storage,mount-path=/storage"'
+  execution-environment: gen2
