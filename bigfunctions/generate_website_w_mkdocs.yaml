@@ -20,9 +20,9 @@ examples:
     arguments:
       - "'My Website'"
       - |
-        [
+        json '''[
           {"path": "/", "content": "# Hello\n\nThis is my first website"}
-        ]
+        ]'''
       - null
     output: "https://catalogs.unytics.io/public/my-website/"
 init_code: |
