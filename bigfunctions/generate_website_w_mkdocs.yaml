@@ -29,13 +29,17 @@ init_code: |
   import os
   import tempfile
   import re
-  import shutil
   import uuid
+  import glob
 
   import mkdocs.utils
-  import mkdocs.config
   import mkdocs.config.defaults
   import mkdocs.commands.build
+  import google.cloud.storage
+  import google.cloud.storage.transfer_manager
+
+  storage = google.cloud.storage.Client()
+  bucket = storage.bucket('catalogs.unytics.io')
 
   MKDOCS_CONFIG_YAML = '''
   nav:
@@ -74,13 +78,7 @@ init_code: |
   This Website has been built with ❤️ using [generate_website](https://unytics.io/bigfunctions/bigfunctions/generate_website/) BigFunction.
   '''
 
-  def init_config(site_name, mkdocs_config, docs_dir):
-    site_id = str(uuid.uuid4()).replace('-', '_')
-    site_dir = f'/storage/public/{site_id}'
-    site_url = f'http://catalogs.unytics.io/public/{site_id}/'
-
-    assert not os.path.exists(site_dir), 'destination already exists'
-
+  def init_config(site_name, site_url, docs_dir, site_dir, mkdocs_config):
     config = mkdocs.config.defaults.MkDocsConfig()
     config.load_dict(mkdocs.utils.yaml_load(MKDOCS_CONFIG_YAML))
     config.load_dict(mkdocs.utils.yaml_load(mkdocs_config))
@@ -125,6 +123,15 @@ init_code: |
 
     for asset in assets:
       write_file(asset, docs_dir)
+
+  def copy_folder(source_dir, dest_dir):
+    filenames = glob.glob('**/*.*', root_dir=source_dir, recursive=True)
+    results = google.cloud.storage.transfer_manager.upload_many_from_filenames(
+      bucket, filenames, source_directory=source_dir, blob_name_prefix=dest_dir
+    )
+    assert all(not isinstance(result, Exception) for result in results), 'Could NOT upload file'
+
+
 code: |
   if not assets:
     return 'no asset given'
@@ -135,22 +142,27 @@ code: |
   assert all('path' in asset for asset in assets), 'All `assets` must have a `path` field'
   assert all('content' in asset for asset in assets), 'All `assets` must have a `content` field'
 
+  site_id = str(uuid.uuid4())
+  site_dir_in_storage = f'public/{site_id}/'
+  site_url = f'http://catalogs.unytics.io/public/{site_id}/'
+
+  assert not os.path.exists(site_dir_in_storage), 'destination already exists'
+
   with tempfile.TemporaryDirectory() as folder:
     docs_dir = f'{folder}/docs'
+    site_dir = f'{folder}/site'
     write_files(assets, docs_dir)
-    config = init_config(site_name, mkdocs_config, docs_dir)
+    config = init_config(site_name, site_url, docs_dir, site_dir, mkdocs_config)
     mkdocs.commands.build.build(config)
-
-  return config['site_url']
+    copy_folder(site_dir, site_dir_in_storage)
+  return site_url
 requirements: |
   mkdocs-material
   mkdocs-awesome-pages-plugin
+  google-cloud-storage
 quotas:
   max_rows_per_query: 10
 cloud_run:
   memory: 1024Mi
   concurrency: 1
   max_instances: 10
-  add_volume: '"name=storage,type=cloud-storage,bucket=catalogs.unytics.io"'
-  add_volume_mount: '"volume=storage,mount-path=/storage"'
-  execution-environment: gen2
