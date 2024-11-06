@@ -1,9 +1,6 @@
 type: function_sql
 category: transform_string
-author:
-  name: re_data
-  url: https://www.linkedin.com/company/redata/
-  avatar_url: "https://media.licdn.com/dms/image/C4E0BAQFYSyHBVMp96w/company-logo_200_200/0/1625304367962?e=1689206400&v=beta&t=Cf5CM1rLK19z_X7Z5ORKTg_G39XpU482TSJQvtpu5nc"
+author: re_data
 description: |-
   Remove unwanted whitespaces
   *(inspired from [re_data dbt repo](https://github.com/re-data/dbt-re-data/blob/main/macros/public/cleaning/clean_additional_whitespace.sql))*

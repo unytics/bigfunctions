@@ -1,9 +1,6 @@
 type: function_py
 category: get_data
-author:
-  name: Johan PROTIN
-  url: https://www.linkedin.com/in/johan-protin
-  avatar_url: "https://avatars.githubusercontent.com/u/16030047?v=4"
+author: Johan PROTIN
 description: |
   Get `exchange_rate`
   from `base` (e.g. `USD`) to `to` (e.g. `EUR`)

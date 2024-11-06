@@ -1,9 +1,6 @@
 type: table_function
 category: machine_learning
-author:
-  name: "Anatole Callies"
-  url: https://www.linkedin.com/in/anatolec/
-  avatar_url: "https://ca.slack-edge.com/T01LGTNUWTE-U044NKG25GX-7469e33feefb-512"
+author: "Anatole Callies"
 description: |-
   Returns the Precision-Recall Curve
   (as a table) given `predictions`, an array  of `(predicted_score, ground_truth_label)`

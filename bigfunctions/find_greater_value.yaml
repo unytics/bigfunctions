@@ -1,9 +1,6 @@
 type: function_sql
 category: transform_array
-author:
-  name: Paul Marcombes
-  url: https://www.linkedin.com/in/paul-marcombes
-  avatar_url: "https://lh3.googleusercontent.com/a/ACg8ocIAw-jJTmt7AkDhU6_OvDQwsy9uyuRiWX8MxUBOdpro8lRJEgk5=s288-c-no"
+author: Paul Marcombes
 description: |
   Return the `offset` (zero-based index) of the first `value` in `arr` where `value >= x`
   (or `null` if no `value` is greater than `x`).

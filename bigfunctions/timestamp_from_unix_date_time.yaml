@@ -1,9 +1,6 @@
 type: function_sql
 category: utils
-author:
-  name: Axel Thevenot
-  url: https://www.linkedin.com/in/axel-thevenot/
-  avatar_url: "https://avatars.githubusercontent.com/u/39374103?v=4"
+author: Axel Thevenot
 description: |-
   Interprets `unix_date_time` as the number of `date_time_part` since `1970-01-01 00:00:00 UTC`.
   Truncates higher levels of precision by rounding down to the beginning of the `date_time_part`.

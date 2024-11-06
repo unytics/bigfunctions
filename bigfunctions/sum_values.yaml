@@ -1,9 +1,6 @@
 type: function_sql
 category: transform_array
-author:
-  name: "Benjamin Tabet"
-  url: https://www.linkedin.com/in/benjamin-tabet
-  avatar_url: "https://taskfilescsm.s3.amazonaws.com/uploads/speaker_thumb/2022-11-0912%253A07%253A34879766-BenjaminTabet.jpg"
+author: "Benjamin Tabet"
 description: |-
   Return the sum of array values
 arguments:

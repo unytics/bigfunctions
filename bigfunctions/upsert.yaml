@@ -1,9 +1,6 @@
 type: procedure
 category: utils
-author:
-  name: Axel Thevenot
-  url: https://www.linkedin.com/in/axel-thevenot/
-  avatar_url: "https://avatars.githubusercontent.com/u/39374103?v=4"
+author: Axel Thevenot
 description: |-
   Merges `query_or_table_or_view` into the `destination_table`.
 

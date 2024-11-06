@@ -1,9 +1,6 @@
 type: function_sql
 category: transform_array
-author:
-  name: Sid Ali
-  url: https://www.linkedin.com/company/esmoz/
-  avatar_url: "https://esmoz.fr/wp-content/uploads/2022/03/logo_esmoz_40x20-1.png"
+author: Sid Ali
 description: |-
   Return an array with all values except `value`.
 arguments:

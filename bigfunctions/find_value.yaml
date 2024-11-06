@@ -1,9 +1,6 @@
 type: function_sql
 category: transform_array
-author:
-  name: Thomas Lépine
-  url: https://www.linkedin.com/company/esmoz/
-  avatar_url: "https://esmoz.fr/wp-content/uploads/2022/03/logo_esmoz_40x20-1.png"
+author: Thomas Lépine
 description: |-
   Return the first `offset` (zero-based index) of `value` in array `arr`
   (or `null` if `value` is not in `arr`).

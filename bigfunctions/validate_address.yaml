@@ -1,9 +1,6 @@
 type: function_py
 category: transform_geo_data
-author:
-  name: Guillaume Pivette
-  url: https://www.linkedin.com/in/guillaume-pivette
-  avatar_url: ""
+author: Guillaume Pivette
 description: Validate `address` using Google Maps
 arguments:
   - name: address

@@ -1,9 +1,6 @@
 type: function_js
 category: transform_json
-author:
-  name: Sid Ali
-  url: https://www.linkedin.com/company/esmoz/
-  avatar_url: "https://esmoz.fr/wp-content/uploads/2022/03/logo_esmoz_40x20-1.png"
+author: Sid Ali
 description: |
   Extract `key_value_items` from `json_string`
   which has only flat (no nested) key-values.

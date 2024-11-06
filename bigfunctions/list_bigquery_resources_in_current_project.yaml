@@ -1,9 +1,6 @@
 type: procedure
 category: wip
-author:
-  name: Paul Marcombes
-  url: https://www.linkedin.com/in/paul-marcombes
-  avatar_url: "https://lh3.googleusercontent.com/a/ACg8ocIAw-jJTmt7AkDhU6_OvDQwsy9uyuRiWX8MxUBOdpro8lRJEgk5=s288-c-no"
+author: Paul Marcombes
 description: |
   List BigQuery resources
   in current Google Cloud `project` enriched with their BigQuery usage in current `project`.

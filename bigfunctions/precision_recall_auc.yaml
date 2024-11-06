@@ -1,9 +1,6 @@
 type: function_sql
 category: machine_learning
-author:
-  name: "Anatole Callies"
-  url: https://www.linkedin.com/in/anatolec/
-  avatar_url: "https://ca.slack-edge.com/T01LGTNUWTE-U044NKG25GX-7469e33feefb-512"
+author: "Anatole Callies"
 description: |-
   Returns the Area Under the Precision Recall Curve (a.k.a. AUC PR)
   given a set of predicted scores and ground truth labels using the trapezoidal rule

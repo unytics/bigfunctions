@@ -66,7 +66,7 @@ BigFunctions are open-source BigQuery routines that give you **SQL-superpowers**
     | `us-west2` | `bigfunctions.us_west2` |
     | `us-west3` | `bigfunctions.us_west3` |
     | `us-west4` | `bigfunctions.us_west4` |
-
+    
 
 
 
@@ -77,6 +77,7 @@ BigFunctions are open-source BigQuery routines that give you **SQL-superpowers**
 - [<code>ask_ai(prompt, model)</code>](ask_ai.md): Ask Anything!
 - [<code>ask_appstore_reviews(prompt, app_url_in_appstore)</code>](ask_appstore_reviews.md): Ask AI what your app users think.
 - [<code>ask_my_data(question, fully_qualified_table)</code>](ask_my_data.md): Ask your data any `question` in natural language.
+- [<code>categorize(items)</code>](categorize.md): Categorize `items` in categories and subcategories.
 - [<code>classify_text(text, candidate_labels)</code>](classify_text.md): Classify `text` among `candidate_labels`
 - [<code>generate_categories(items)</code>](generate_categories.md): Return `categories` of `items`.
 - [<code>generate_face_embedding(image_url)</code>](generate_face_embedding.md): Detect Face on image and Generate its Embedding
@@ -270,3 +271,5 @@ BigFunctions are open-source BigQuery routines that give you **SQL-superpowers**
 - [<code>timestamp_from_unix_date_time(unix_date_time, date_time_part)</code>](timestamp_from_unix_date_time.md): Interprets `unix_date_time` as the number of `date_time_part` since `1970-01-01 00:00:00 UTC`.
 - [<code>timestamp_to_unix_date_time(timestamp_expression, date_time_part)</code>](timestamp_to_unix_date_time.md): Returns the number of `date_time_part` since `1970-01-01 00:00:00 UTC`.
 - [<code>upsert(query_or_table_or_view, destination_table, insertion_mode, primary_keys, recency_field)</code>](upsert.md): Merges `query_or_table_or_view` into the `destination_table`.
+
+

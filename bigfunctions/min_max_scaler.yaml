@@ -1,9 +1,6 @@
 type: function_sql
 category: transform_array
-author:
-  name: Julien Awonga
-  url: https://linkedin.com/in/julienawonga
-  avatar_url: "https://media.licdn.com/dms/image/D4E03AQFf9Qpnl0adhg/profile-displayphoto-shrink_400_400/0/1690023383639?e=1721260800&v=beta&t=StL_M-62Xv8rvUaHFxdFu4kCnKr-tSm7PDMkjKn72L8"
+author: Julien Awonga
 description: |
   Performs min-max scaling on an array.
   It takes an array of numbers as input and returns an array of values scaled between 0 and 1.

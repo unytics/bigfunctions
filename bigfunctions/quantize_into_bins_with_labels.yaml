@@ -1,9 +1,6 @@
 type: function_sql
 category: transform_numeric
-author:
-  name: Bartosz Figas
-  url: https://www.linkedin.com/in/bartosz-figas
-  avatar_url: "https://media.licdn.com/dms/image/C4D03AQHZHNvfrl8O5Q/profile-displayphoto-shrink_800_800/0/1661107655654?e=1727308800&v=beta&t=ntO0tHKHREQWRe7_oxPlsCtCYxIB3_YyStq9B4Tv_uw"
+author: Bartosz Figas
 description: |
   Get the `label` of the bin in which belongs `value`
 arguments:

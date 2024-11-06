@@ -1,9 +1,6 @@
 type: function_py
 category: machine_learning
-author:
-  name: "Credits: Felipe Hoffa"
-  url: https://www.linkedin.com/in/hoffa/
-  avatar_url: "https://miro.medium.com/v2/resize:fill:88:88/0*ahXIMiIgudZTyqJS.jpeg"
+author: "Credits: Felipe Hoffa"
 description: |
   Forecast time-series using prophet
   (inspired from [this Felipe Hoffa medium's post](https://medium.com/snowflake/facebook-prophet-forecasts-running-in-snowflake-with-snowpark-14fc870b56ae))

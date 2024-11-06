@@ -1,9 +1,6 @@
 type: function_js
 category: transform_string
-author:
-  name: Anatole Callies
-  url: https://www.linkedin.com/in/anatolec/
-  avatar_url: "https://ca.slack-edge.com/T01LGTNUWTE-U044NKG25GX-7469e33feefb-512"
+author: Anatole Callies
 description: Parses User Agent strings into several components
 arguments:
   - name: user_agent_string

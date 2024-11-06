@@ -1,9 +1,6 @@
 type: function_py
 category: transform_string
-author:
-  name: Florian Caringi
-  url: https://www.linkedin.com/in/floriancaringi/
-  avatar_url: "https://pbs.twimg.com/profile_images/1264658685755887621/Dlp36ch__400x400.jpg"
+author: Florian Caringi
 description: Translate `text` into `target_language`
 arguments:
   - name: text

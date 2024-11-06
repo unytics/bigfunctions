@@ -1,9 +1,6 @@
 type: procedure
 category: utils
-author:
-  name: jihene cherif
-  url: https://www.linkedin.com/company/esmoz/
-  avatar_url: "https://esmoz.fr/wp-content/uploads/2022/03/logo_esmoz_40x20-1.png"
+author: jihene cherif
 description: Return the maximum of the partition column of `fully_qualified_table`
 arguments:
   - name: fully_qualified_table

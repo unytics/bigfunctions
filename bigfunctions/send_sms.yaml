@@ -1,9 +1,6 @@
 type: function_py
 category: notify
-author:
-  name: Pascal Castéran
-  url: https://www.linkedin.com/in/pascal-casteran/
-  avatar_url: "https://media.licdn.com/dms/image/C5603AQHZyyBya7CZSw/profile-displayphoto-shrink_200_200/0/1517520997975?e=1691020800&v=beta&t=sd9H4G4eMsnQ63UUMj8IuaMddxZ7tiuUiijWT4kmg0E"
+author: Pascal Castéran
 description: Sends `message` via SMS to `phone_number`
 arguments:
   - name: message

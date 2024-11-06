@@ -13,6 +13,7 @@ from . import bigfunctions as bf
 from . import utils
 
 TABLES_FOLDER = 'data'
+PEOPLE_FILENAME = 'people.yaml'
 THIS_FOLDER = os.path.dirname(os.path.realpath(__file__)).replace('\\', '/')
 WEBSITE_CONFIG_FOLDER = THIS_FOLDER + '/website'
 CATEGORIES_DOC_TEMPLATE_FILENAME = f'{THIS_FOLDER}/templates/categories.md'
@@ -43,6 +44,30 @@ def get_config_value(name, config_filename):
 
 
 def generate_doc(project, dataset):
+
+    def get_people():
+        if not os.path.isfile(PEOPLE_FILENAME):
+            return {}
+        with open(PEOPLE_FILENAME, encoding='utf-8') as f:
+            people = yaml.safe_load(f.read())
+        return {
+            person['name']: person
+            for person in people
+        }
+
+    def enrich_bigfunctions_author(bigfunctions):
+        people = get_people()
+        for bigfunction in bigfunctions:
+            if 'author' not in bigfunction.config:
+                continue
+            author = bigfunction.config['author']
+            if isinstance(author, dict):
+                # backward compatibility
+                continue
+            if author in people:
+                bigfunction._config['author'] = people[author]
+            else:
+                bigfunction._config['author'] = {'name': author}
 
     def init_docs_folder():
         os.makedirs('docs', exist_ok=True)
@@ -91,6 +116,7 @@ def generate_doc(project, dataset):
         bf.BigFunction(bigfunction_name, project=project, dataset=dataset)
         for bigfunction_name in bf.list_bigfunctions()
     ]
+    enrich_bigfunctions_author(bigfunctions)
     init_docs_folder()
     copy_readme_and_contributing()
     copy_default_site_config()

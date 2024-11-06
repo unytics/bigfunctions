@@ -1,8 +1,6 @@
 type: function_py
 category: detect_anomalies
-author:
-  name: Thomas F McGeehan V
-  url: https://www.linkedin.com/in/tfmv5
+author: Thomas F McGeehan V
 description: |
   Detect anomalies in time-series data to identify outliers and unusual patterns.
   This function uses Z-score to find anomalies in the specified column of a BigQuery table.

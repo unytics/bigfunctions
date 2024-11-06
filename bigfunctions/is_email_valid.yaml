@@ -1,9 +1,6 @@
 type: function_sql
 category: transform_string
-author:
-  name: "Credits: Chris Goddard"
-  url: https://www.linkedin.com/in/chris-j-goddard/
-  avatar_url: "https://media-exp1.licdn.com/dms/image/C4D03AQGC7iFJlo7zUA/profile-displayphoto-shrink_200_200/0/1603420752762?e=1675900800&v=beta&t=9UU_ofvohzGANcMoZ7O5YR_y8DUg4ayAylSA9sWOESM"
+author: "Credits: Chris Goddard"
 description: |-
   Return true if `email` is valid
   *(inspired from [this reddit answer](https://www.reddit.com/r/bigquery/comments/dshge0/comment/f6r7rpt/))*

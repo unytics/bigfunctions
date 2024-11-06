@@ -1,9 +1,6 @@
 type: function_sql
 category: transform_date
-author:
-  name: Stephane KNOCKAERT
-  url: "https://www.linkedin.com/in/knockaertstephane/"
-  avatar_url: "https://media.licdn.com/dms/image/C4E03AQGAa5CX20cU5g/profile-displayphoto-shrink_200_200/0/1651827360843?e=1691020800&v=beta&t=0M3BkmD7Nc6EiGv7ZHtRQb6HFn-USSvkK_WSnSIAB6k"
+author: Stephane KNOCKAERT
 description: |
   Returns same day `years` before
   (same week number and same day of week)

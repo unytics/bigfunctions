@@ -1,9 +1,6 @@
 type: function_py
 category: notify
-author:
-  name: Guillaume Pivette from Neoxia
-  url: https://www.linkedin.com/in/guillaume-pivette/
-  avatar_url: "https://cdn-images-1.medium.com/v2/resize:fit:92/1*jHdQzX82eU5lyjBYp63NqQ@2x.png"
+author: Guillaume Pivette from Neoxia
 description: |
     Sends `message` to a slack channel.
 

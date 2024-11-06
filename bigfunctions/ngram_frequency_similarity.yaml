@@ -1,9 +1,6 @@
 type: function_sql
 category: transform_string
-author:
-  name: Thomas F McGeehan V
-  url: https://www.linkedin.com/in/tfmv5
-  avatar_url: "https://avatars.githubusercontent.com/u/3191913?s=60&v=4"
+author: Thomas F McGeehan V
 description: |
   Calculates n-gram similarity between two strings
 

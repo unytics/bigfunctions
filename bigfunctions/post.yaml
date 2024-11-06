@@ -1,9 +1,6 @@
 type: function_py
 category: export
-author:
-  name: Yves Marcel Ngabirano
-  url: https://www.linkedin.com/in/yves-marcel-ngabirano/
-  avatar_url: "https://storage.googleapis.com/public-bucket-marcyves/Yves_photo.jpg"
+author: Yves Marcel Ngabirano
 description: |
   POST `data` to `url`.
   `response` is a json formatted as `{status_code, content}`

@@ -1,9 +1,6 @@
 type: function_sql
 category: transform_string
-author:
-  name: "Credits: Taylor Brownlow"
-  url: https://www.linkedin.com/in/taylorabrownlow/
-  avatar_url: "https://miro.medium.com/v2/resize:fit:120/2*4lF1qiVAwcDkw1AfDY6KBQ.jpeg"
+author: "Credits: Taylor Brownlow"
 description: |-
   Return `url` parts
   *(inspired from [sql-snippets repo](https://github.com/count/sql-snippets/blob/main/bigquery/regex-parse-url.md))*

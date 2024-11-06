@@ -1,9 +1,6 @@
 type: function_sql
 category: transform_string
-author:
-  name: "Credits: Mikhail Berlyant"
-  url: https://stackoverflow.com/users/5221944/mikhail-berlyant
-  avatar_url: https://i.stack.imgur.com/iqXab.png?s=256&g=1
+author: "Credits: Mikhail Berlyant"
 description: |-
   Decode `url_encoded_string`
   *(inspired from [this stackoverflow solution](https://stackoverflow.com/questions/13831391/bigquery-url-decode))*

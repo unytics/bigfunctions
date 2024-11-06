@@ -1,9 +1,6 @@
 type: function_py
 category: export
-author:
-  name: Valentin Cordonnier
-  url: https://www.linkedin.com/in/valentin-cordonnier-99482b1b5
-  avatar_url: "https://storage.googleapis.com/public-bucket-val/photo-output__01.jpg"
+author: Valentin Cordonnier
 description: |
   Exports `data` and `attributes` to Pub/Sub `topic`.
 

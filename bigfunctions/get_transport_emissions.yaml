@@ -1,9 +1,6 @@
 type: function_sql
 category: get_data
-author:
-  name: Pierre Comalada
-  url: https://www.linkedin.com/in/pierre-comalada
-  avatar_url: "https://miro.medium.com/v2/resize:fill:176:176/1*XbHJSmQOXRuuQP-8tTRJCg.png"
+author: Pierre Comalada
 description: |
   Get the transport CO2 emissions given the `distance_km`
   by transport mode

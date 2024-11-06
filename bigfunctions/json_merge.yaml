@@ -1,9 +1,6 @@
 type: function_js
 category: transform_json
-author:
-  name: Thomas Lépine
-  url: https://www.linkedin.com/company/esmoz/
-  avatar_url: "https://esmoz.fr/wp-content/uploads/2022/03/logo_esmoz_40x20-1.png"
+author: Thomas Lépine
 description: Merge `json_string1` and `json_string2`
 arguments:
   - name: json_string1

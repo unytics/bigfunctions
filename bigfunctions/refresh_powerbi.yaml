@@ -1,9 +1,6 @@
 type: function_py
 category: export
-author:
-  name: Antoine Giraud
-  url: https://www.linkedin.com/in/antgiraud/
-  avatar_url: "https://media.licdn.com/dms/image/v2/C4D03AQG2Orctig4ycg/profile-displayphoto-shrink_200_200/profile-displayphoto-shrink_200_200/0/1532385599321?e=1733961600&v=beta&t=HTHvVZUKUhoH-U07O1tXPPuqN37EgCtGhxM_PuYFQjQ"
+author: Antoine Giraud
 description: |
   Refresh a Power BI dataset (semantic model)
   by it's id `dataset_id`.

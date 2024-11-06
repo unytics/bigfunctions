@@ -1,9 +1,6 @@
 type: table_function
 category: get_data
-author:
-  name: Paul Marcombes
-  url: https://www.linkedin.com/in/paul-marcombes
-  avatar_url: "https://lh3.googleusercontent.com/a/ACg8ocIAw-jJTmt7AkDhU6_OvDQwsy9uyuRiWX8MxUBOdpro8lRJEgk5=s288-c-no"
+author: Paul Marcombes
 description: |
   GET Apple App Store Reviews of an app
   given its `url`

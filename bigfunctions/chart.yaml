@@ -1,9 +1,6 @@
 type: function_sql
 category: explore
-author:
-  name: Paul Marcombes
-  url: https://www.linkedin.com/in/paul-marcombes
-  avatar_url: "https://lh3.googleusercontent.com/a-/ACB-R5RDf2yxcw1p_IYLCKmiUIScreatDdhG8B83om6Ohw=s260"
+author: Paul Marcombes
 description: |-
   Return html with a chartjs chart
 arguments:

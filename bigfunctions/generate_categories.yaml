@@ -1,9 +1,6 @@
 type: function_py
 category: AI
-author:
-  name: Paul Marcombes
-  url: https://www.linkedin.com/in/paul-marcombes
-  avatar_url: "https://lh3.googleusercontent.com/a/ACg8ocIAw-jJTmt7AkDhU6_OvDQwsy9uyuRiWX8MxUBOdpro8lRJEgk5=s288-c-no"
+author: Paul Marcombes
 description: |
   Return `categories` of `items`.
 
@@ -61,7 +58,7 @@ init_code: |
   import vertexai
   from vertexai.generative_models import GenerationConfig, GenerativeModel, Part, HarmCategory, HarmBlockThreshold, SafetySetting
 
-  MODEL = "gemini-1.5-flash-002"
+  MODEL = "gemini-1.5-pro-002"
   PROMPT = '''
   As a data manager you want to organize ITEMS into CATEGORIES and SUBCATEGORIES to improve data discovery in a data catalog.
 
@@ -70,7 +67,7 @@ init_code: |
   The returned hierarchy will respect the following constraints:
   - Each CATEGORY must have between 2 and 10 SUBCATEGORIES
   - Each SUBCATEGORY must have between 2 and 10 ITEMS
-  - Each ITEM must be within one SUBCATEGORY.
+  - Each ITEM must be belong to one SUBCATEGORY.
   - Do not invent any ITEM
 
   '''
@@ -91,6 +88,7 @@ init_code: |
             },
             "subcategories": {
               "type": "array",
+              "description": "Names of the subcategories which contain items",
               "items": {
                 "type": "string",
               }

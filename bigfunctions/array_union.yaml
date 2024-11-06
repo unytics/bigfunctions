@@ -1,9 +1,6 @@
 type: function_sql
 category: transform_array
-author:
-  name: Axel Thevenot
-  url: https://www.linkedin.com/in/axel-thevenot/
-  avatar_url: "https://avatars.githubusercontent.com/u/39374103?v=4"
+author: Axel Thevenot
 description: |
   Returns the union of two arrays.
 arguments:

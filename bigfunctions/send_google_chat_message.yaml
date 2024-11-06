@@ -1,9 +1,6 @@
 type: function_py
 category: notify
-author:
-  name: Shivam Singh
-  url: https://www.linkedin.com/in/shivamsingh012/
-  avatar_url: "https://media.licdn.com/dms/image/D4D03AQERv0qwECH0DA/profile-displayphoto-shrink_200_200/0/1675233460732?e=1686182400&v=beta&t=HqngiSx5zd4llZStwf3L0k2T_pE8qvnEj7NguWNJTOo"
+author: Shivam Singh
 description: |
     Sends `message` to google chat space
     using incoming webhook.

@@ -1,9 +1,6 @@
 type: function_sql
 category: transform_array
-author:
-  name: Julien Awonga
-  url: https://linkedin.com/in/julienawonga
-  avatar_url: "https://media.licdn.com/dms/image/D4E03AQFf9Qpnl0adhg/profile-displayphoto-shrink_400_400/0/1690023383639?e=1721260800&v=beta&t=StL_M-62Xv8rvUaHFxdFu4kCnKr-tSm7PDMkjKn72L8"
+author: Julien Awonga
 description: |
   Compute `z_scores`
   for each value of `arr` array.

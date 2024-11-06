@@ -1,9 +1,6 @@
 type: function_py
 category: get_data
-author:
-  name: Matthieu Rousseau
-  url: https://www.linkedin.com/in/matthieu-rousseau
-  avatar_url: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSqTvjIcUoIG2dOnFeVUKQDmj2-iret_1eX43g5149obw&s"
+author: Matthieu Rousseau
 description: |
   Get `meteo`
   for `latitude` , `longitude` and `date`
