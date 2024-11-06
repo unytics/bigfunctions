@@ -55,6 +55,8 @@ class BigFunction:
 
     @property
     def config_filename(self):
+        if self.name not in BIGFUNCTIONS:
+            handle_error(f'Could not find a yaml file in `{BIGFUNCTIONS_FOLDER}` folder for bigfunction `{self.name}`')
         return BIGFUNCTIONS[self.name]
 
     @property
