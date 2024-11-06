@@ -114,7 +114,7 @@ def generate_doc(project, dataset):
 
     bigfunctions = [
         bf.BigFunction(bigfunction_name, project=project, dataset=dataset)
-        for bigfunction_name in bf.list_bigfunctions()
+        for bigfunction_name in bf.BIGFUNCTIONS
     ]
     enrich_bigfunctions_author(bigfunctions)
     init_docs_folder()
@@ -178,7 +178,7 @@ def deploy(bigfunction, project, dataset, config):
     datasets = [dataset.strip() for dataset in dataset.split(',')]
     bigfunctions = [bigfunction.strip() for bigfunction in bigfunction.split(',')]
     if bigfunction == 'ALL':
-        bigfunctions = bf.list_bigfunctions()
+        bigfunctions = bf.BIGFUNCTIONS
 
     for name in bigfunctions:
         bigfunction = bf.BigFunction(name, project=project, dataset=datasets[0])
@@ -250,7 +250,7 @@ def generate_use_case(bigfunction):
     """
     bigfunctions = [bigfunction.strip() for bigfunction in bigfunction.split(',')]
     if bigfunction == 'ALL':
-        bigfunctions = bf.list_bigfunctions()
+        bigfunctions = bf.BIGFUNCTIONS
     for name in bigfunctions:
         bigfunction = bf.BigFunction(name)
         bigfunction.generate_use_case()

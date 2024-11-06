@@ -4,6 +4,7 @@ import os
 import re
 import shutil
 import tempfile
+import glob
 
 import jinja2
 import yaml
@@ -28,8 +29,14 @@ BIGFUNCTION_DOC_TEMPLATE = jinja2.Template(open(BIGFUNCTION_DOC_TEMPLATE_FILENAM
 
 
 def list_bigfunctions():
-    return sorted([f.replace('.yaml', '') for f in os.listdir(BIGFUNCTIONS_FOLDER) if f.endswith('.yaml')])
+    filenames = sorted([f for f in glob.glob(f'{BIGFUNCTIONS_FOLDER}/**/*.yaml', recursive=True)])
+    return {
+        f.split('/')[-1].replace('.yaml', ''): f
+        for f in filenames
+    }
 
+
+BIGFUNCTIONS = list_bigfunctions()
 
 
 class BigFunction:
@@ -48,7 +55,7 @@ class BigFunction:
 
     @property
     def config_filename(self):
-        return f'bigfunctions/{self.name}.yaml'
+        return BIGFUNCTIONS[self.name]
 
     @property
     def config_from_file(self):
