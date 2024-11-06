@@ -14,6 +14,7 @@ repos:
       - id: mypy
         additional_dependencies:
           - types-PyYAML
+          - types-requests
         exclude: function_py.py|function_py_test.py
   - repo: https://github.com/rhysd/actionlint
     rev: v1.7.1

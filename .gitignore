@@ -145,3 +145,4 @@ site/
 TEST
 venv
 .venv/
+query.py

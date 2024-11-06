@@ -4,6 +4,7 @@ import shutil
 
 import click
 import jinja2
+import requests
 import yaml
 from click_help_colors import HelpColorsGroup
 from watchdog.events import RegexMatchingEventHandler
@@ -140,13 +141,22 @@ def get(bigfunction):
     """
     Download BIGFUNCTION yaml file from unytics/bigfunctions github repo
     """
-    if not os.path.isdir('bigfunctions'):
-        os.makedirs('bigfunctions')
-    url = f'https://raw.githubusercontent.com/unytics/bigfunctions/main/bigfunctions/{bigfunction}.yaml'
     if bigfunction.startswith('https://'):
         url = bigfunction
         bigfunction = bigfunction.split('/')[-1].split('.')[0]
-    utils.download(url, f'bigfunctions/{bigfunction}.yaml')
+        filepath = f'bigfunctions/{bigfunction}.yaml'
+    else:
+        url = 'https://api.github.com/repos/unytics/bigfunctions/git/trees/main?recursive=true'
+        resp = requests.get(url)
+        res = resp.json()
+        filepaths = [f['path'] for f in res['tree'] if f['path'].startswith('bigfunctions/') and f['path'].endswith(f'{bigfunction}.yaml')]
+        if not filepaths:
+            utils.handle_error(f'Function `{bigfunction}` does NOT exist in repo https://github.com/unytics/bigfunctions')
+        filepath = filepaths[0]
+        url = f'https://raw.githubusercontent.com/unytics/bigfunctions/main/{filepath}'
+    folder = '/'.join(filepath.split('/')[:-1])
+    os.makedirs(folder, exist_ok=True)
+    utils.download(url, filepath)
 
 
 @cli.command()

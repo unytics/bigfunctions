@@ -1,10 +1,10 @@
 import functools
+import glob
 import json
 import os
 import re
 import shutil
 import tempfile
-import glob
 
 import jinja2
 import yaml
