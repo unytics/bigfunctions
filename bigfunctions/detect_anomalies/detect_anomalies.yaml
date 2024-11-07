@@ -1,5 +1,4 @@
 type: function_py
-category: detect_anomalies
 author: Thomas F McGeehan V
 description: |
   Detect anomalies in time-series data to identify outliers and unusual patterns.

@@ -1,5 +1,4 @@
 type: function_py
-category: get_data
 author: Paul Marcombes
 description: |
   Extract `data` from `url` using `prompt`

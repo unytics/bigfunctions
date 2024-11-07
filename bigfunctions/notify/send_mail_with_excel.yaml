@@ -1,5 +1,4 @@
 type: procedure
-category: notify
 author: "Paul Marcombes"
 description: |
   Sends an email with `table_or_view_or_query` data attached as excel file

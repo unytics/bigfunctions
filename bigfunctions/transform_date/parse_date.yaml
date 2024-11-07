@@ -1,5 +1,4 @@
 type: function_sql
-category: transform_date
 author: "Credits: Sebabrata Banerjee"
 description: |-
   Parse date with automatic format detection

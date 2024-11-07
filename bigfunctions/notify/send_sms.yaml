@@ -1,5 +1,4 @@
 type: function_py
-category: notify
 author: Pascal Castéran
 description: Sends `message` via SMS to `phone_number`
 arguments:

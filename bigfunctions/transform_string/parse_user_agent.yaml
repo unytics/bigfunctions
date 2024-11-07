@@ -1,5 +1,4 @@
 type: function_js
-category: transform_string
 author: Anatole Callies
 description: Parses User Agent strings into several components
 arguments:

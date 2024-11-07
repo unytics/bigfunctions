@@ -1,5 +1,4 @@
 type: function_py
-category: export
 author: El-Walid
 description: |
   Exports `data` to Datastore

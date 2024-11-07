@@ -1,5 +1,4 @@
 type: function_py
-category: notify
 author: Shivam Singh
 description: |
     Sends `message` to google chat space

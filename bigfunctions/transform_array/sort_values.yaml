@@ -1,5 +1,4 @@
 type: function_sql
-category: transform_array
 author: Paul Marcombes
 description: Return sorted array (ascending)
 arguments:

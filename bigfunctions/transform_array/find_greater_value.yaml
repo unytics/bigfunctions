@@ -1,5 +1,4 @@
 type: function_sql
-category: transform_array
 author: Paul Marcombes
 description: |
   Return the `offset` (zero-based index) of the first `value` in `arr` where `value >= x`

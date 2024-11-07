@@ -1,5 +1,4 @@
 type: function_py
-category: convert_data_format
 author: Guillaume Pivette from Neoxia
 description: |
     Convert `html` to `pdf`

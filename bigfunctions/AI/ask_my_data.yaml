@@ -1,5 +1,4 @@
 type: procedure
-category: AI
 author: Paul Marcombes
 description: |
   Ask your data any `question` in natural language.

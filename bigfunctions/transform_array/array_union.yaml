@@ -1,5 +1,4 @@
 type: function_sql
-category: transform_array
 author: Axel Thevenot
 description: |
   Returns the union of two arrays.

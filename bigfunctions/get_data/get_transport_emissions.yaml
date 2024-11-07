@@ -1,5 +1,4 @@
 type: function_sql
-category: get_data
 author: Pierre Comalada
 description: |
   Get the transport CO2 emissions given the `distance_km`

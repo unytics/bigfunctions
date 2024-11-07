@@ -1,5 +1,4 @@
 type: function_sql
-category: AI
 author: Paul Marcombes
 description: |
   Ask AI what your app users think.

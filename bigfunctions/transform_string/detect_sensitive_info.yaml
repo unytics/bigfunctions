@@ -1,5 +1,4 @@
 type: function_py
-category: transform_string
 author: Shivam Singh
 description: |
   Detect sensitive information in `text`

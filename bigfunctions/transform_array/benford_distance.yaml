@@ -1,5 +1,4 @@
 type: function_sql
-category: transform_array
 author: Thomas F McGeehan V
 description: |
   Calculate the distance from Benford's Law for given `values`.

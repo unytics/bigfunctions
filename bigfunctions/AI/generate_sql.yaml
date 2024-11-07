@@ -1,5 +1,4 @@
 type: procedure
-category: AI
 author: Paul Marcombes
 description: |
   Transform `question` to a SQL query.

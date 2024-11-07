@@ -1,5 +1,4 @@
 type: function_py
-category: get_data
 author: Shivam Singh
 description: |
   Generates fake data

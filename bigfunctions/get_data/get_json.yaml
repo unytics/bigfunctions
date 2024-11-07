@@ -1,5 +1,4 @@
 type: function_sql
-category: get_data
 author: Paul Marcombes
 description: GET json `data` from `url`
 arguments:

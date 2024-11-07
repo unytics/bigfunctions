@@ -1,5 +1,4 @@
 type: function_js
-category: transform_string
 author: Shivam Singh
 description: Returns content extracted from XML from given XPATH
 arguments:

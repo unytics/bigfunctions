@@ -1,5 +1,4 @@
 type: aggregate_function_js
-category: transform_json
 author: Paul Marcombes
 description: |
   Returns the schema of a json column

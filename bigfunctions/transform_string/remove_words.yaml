@@ -1,5 +1,4 @@
 type: function_sql
-category: transform_string
 author: "Benjamin Tabet"
 description: "Remove any word of `words_to_remove` from `string`"
 arguments:

@@ -1,5 +1,4 @@
 type: procedure
-category: transform_json
 author: Paul Marcombes
 description: |
   Create a Materialized view of a table with `json_column` flattened

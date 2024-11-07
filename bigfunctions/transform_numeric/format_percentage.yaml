@@ -1,5 +1,4 @@
 type: function_sql
-category: transform_numeric
 author: "Thomas Ellyatt"
 description: |-
     Return `first_number / second_number` as a formatted percentage

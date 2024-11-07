@@ -1,5 +1,4 @@
 type: function_py
-category: export
 author: Antoine Giraud
 description: |
   Refresh a Power BI dataset (semantic model)

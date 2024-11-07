@@ -1,5 +1,4 @@
 type: function_sql
-category: transform_numeric
 author: Bartosz Figas
 description: |
   Get the `label` of the bin in which belongs `value`

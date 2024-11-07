@@ -1,5 +1,4 @@
 type: function_js
-category: transform_json
 author: Sid Ali
 description: |
   Extract `keys` from `json_string`

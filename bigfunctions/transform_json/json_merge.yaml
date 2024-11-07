@@ -1,5 +1,4 @@
 type: function_js
-category: transform_json
 author: Thomas Lépine
 description: Merge `json_string1` and `json_string2`
 arguments:

@@ -1,5 +1,4 @@
 type: procedure
-category: get_data
 author: Paul Marcombes
 description: |
   Load data from 250+ sources using [Airbyte Python Connectors](https://docs.airbyte.com/using-airbyte/pyairbyte/getting-started#available-connectors)

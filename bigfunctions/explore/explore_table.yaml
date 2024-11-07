@@ -1,5 +1,4 @@
 type: procedure
-category: explore
 author: Paul Marcombes
 description: Show table infos and column statistics
 arguments:

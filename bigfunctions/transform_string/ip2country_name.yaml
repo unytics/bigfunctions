@@ -1,5 +1,4 @@
 type: function_py
-category: transform_string
 author: Paul Marcombes
 description: |
   Get `country_name` of `ip`

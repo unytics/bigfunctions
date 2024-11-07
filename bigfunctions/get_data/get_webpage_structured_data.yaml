@@ -1,5 +1,4 @@
 type: function_sql
-category: get_data
 author: Paul Marcombes
 description: |
   Get webpage Structured Data

@@ -1,5 +1,4 @@
 type: function_py
-category: transform_geo_data
 author: Guillaume Pivette
 description: Validate `address` using Google Maps
 arguments:

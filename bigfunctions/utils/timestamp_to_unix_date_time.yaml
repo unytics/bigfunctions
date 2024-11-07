@@ -1,5 +1,4 @@
 type: function_sql
-category: utils
 author: Axel Thevenot
 description: |-
   Returns the number of `date_time_part` since `1970-01-01 00:00:00 UTC`.

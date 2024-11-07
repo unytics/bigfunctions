@@ -1,5 +1,4 @@
 type: function_js
-category: transform_json
 author: Paul Marcombes
 description: |
   Returns `json` object from array of `key_value_items`

@@ -1,5 +1,4 @@
 type: procedure
-category: utils
 author: Furcy Pin
 description: |
   Get the column information of the given table from `INFORMATION_SCHEMA.COLUMNS`

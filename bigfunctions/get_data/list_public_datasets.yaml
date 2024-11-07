@@ -1,5 +1,4 @@
 type: function_py
-category: get_data
 author: Paul Marcombes
 description: Returns list of BigQuery `public_datasets`
 arguments: []

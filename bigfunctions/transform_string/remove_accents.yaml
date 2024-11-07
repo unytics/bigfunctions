@@ -1,5 +1,4 @@
 type: function_sql
-category: transform_string
 author: Sid Ali
 description: Remove accents
 arguments:

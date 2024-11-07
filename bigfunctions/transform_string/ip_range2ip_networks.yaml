@@ -1,5 +1,4 @@
 type: function_py
-category: transform_string
 author: Paul Marcombes
 description: |
   Convert an IP range into a json list of IP networks in CIDR notation

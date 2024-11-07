@@ -1,5 +1,4 @@
 type: function_py
-category: utils
 author: Paul Marcombes with Axel Thevenot
 description: |
   Run any `python_code`.

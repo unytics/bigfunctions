@@ -1,5 +1,4 @@
 type: function_py
-category: get_data
 author: Paul Marcombes
 description: |
   Get data from `public_repo` into `destination_dataset`

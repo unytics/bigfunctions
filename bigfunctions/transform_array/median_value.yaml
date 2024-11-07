@@ -1,5 +1,4 @@
 type: function_sql
-category: transform_array
 author: "Credits: Taylor Brownlow"
 description: |-
   Return median value of array

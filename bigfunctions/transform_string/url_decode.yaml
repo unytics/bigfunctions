@@ -1,5 +1,4 @@
 type: function_sql
-category: transform_string
 author: "Credits: Mikhail Berlyant"
 description: |-
   Decode `url_encoded_string`

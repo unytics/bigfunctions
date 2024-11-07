@@ -1,5 +1,4 @@
 type: function_js
-category: transform_date
 author: Fahed Sabellioglu
 description: |
   Convert Gregorian Date to Hijri Date (taken from [here](https://stackoverflow.com/questions/78072960/convert-dates-gregorian-to-hijri-bigquery#answer-78079872))

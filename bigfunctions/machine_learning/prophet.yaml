@@ -1,5 +1,4 @@
 type: function_py
-category: machine_learning
 author: "Credits: Felipe Hoffa"
 description: |
   Forecast time-series using prophet

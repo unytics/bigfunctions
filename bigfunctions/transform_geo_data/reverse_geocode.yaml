@@ -1,5 +1,4 @@
 type: function_py
-category: transform_geo_data
 author: Guillaume Pivette
 description: |
   Get address details at `latitude`, `longitude`

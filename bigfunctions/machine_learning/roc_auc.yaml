@@ -1,5 +1,4 @@
 type: function_sql
-category: machine_learning
 author: "Anatole Callies"
 description: |-
   Returns the Area Under the Receiver Operating Characteristic Curve (a.k.a. ROC AUC)

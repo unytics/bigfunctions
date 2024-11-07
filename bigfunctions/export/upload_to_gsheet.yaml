@@ -1,5 +1,4 @@
 type: function_py
-category: export
 author: Shivam Singh
 description: |
   Upload `data` (a json array of objects) to a Google Sheet

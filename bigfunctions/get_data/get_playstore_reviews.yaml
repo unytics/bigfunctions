@@ -1,5 +1,4 @@
 type: function_py
-category: get_data
 author: Paul Marcombes
 description: |
   GET Google Play Store Reviews of an app

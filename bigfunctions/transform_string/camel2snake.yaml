@@ -1,5 +1,4 @@
 type: function_sql
-category: transform_string
 author: Paul Marcombes
 description: Convert `string` from camelCase to snake_case
 arguments:

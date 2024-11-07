@@ -1,5 +1,4 @@
 type: function_py
-category: notify
 author: Guillaume Pivette from Neoxia
 description: |
   Sends an email

@@ -1,5 +1,4 @@
 type: procedure
-category: get_data
 author: Antoine Giraud
 description: |
   Download web file into `destination_table`

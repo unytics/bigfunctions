@@ -1,5 +1,4 @@
 type: procedure
-category: explore
 author: Paul Marcombes
 description: |-
   List tables of `fully_qualified_dataset`

@@ -1,5 +1,4 @@
 type: function_py
-category: export
 author: Yves Marcel Ngabirano
 description: |
   POST `data` to `url`.

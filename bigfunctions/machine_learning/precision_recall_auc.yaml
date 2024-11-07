@@ -1,5 +1,4 @@
 type: function_sql
-category: machine_learning
 author: "Anatole Callies"
 description: |-
   Returns the Area Under the Precision Recall Curve (a.k.a. AUC PR)

@@ -1,5 +1,4 @@
 type: function_js
-category: convert_data_format
 author: Paul Marcombes
 description: |
   Dump data to excel file

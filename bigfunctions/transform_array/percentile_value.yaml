@@ -1,5 +1,4 @@
 type: function_sql
-category: transform_array
 author: Shivam Singh
 description: |
   Returns percentile of an array with percentile a float in range [0, 1].

@@ -1,5 +1,4 @@
 type: procedure
-category: utils
 author: Shivam Singh
 description: Returns the deduplicated rows of `query_or_table_or_view`
 arguments:

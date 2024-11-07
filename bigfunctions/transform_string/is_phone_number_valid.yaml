@@ -1,5 +1,4 @@
 type: function_sql
-category: transform_string
 author: Paul Marcombes
 description: |
   Return if `phone_number` is valid

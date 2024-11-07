@@ -1,5 +1,4 @@
 type: table_function
-category: machine_learning
 author: "Anatole Callies"
 description: |-
   Returns the Receiver Operating Characteristic Curve (a.k.a. ROC Curve)

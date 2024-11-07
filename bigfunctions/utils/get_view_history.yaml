@@ -1,5 +1,4 @@
 type: procedure
-category: utils
 author: "Paul Marcombes"
 description: |
   Get BigQuery View history

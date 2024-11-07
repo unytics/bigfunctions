@@ -1,5 +1,4 @@
 type: function_sql
-category: transform_array
 author: Thomas Lépine
 description: |
   Return the first `value` with a key `search_key` from `key_value_items`

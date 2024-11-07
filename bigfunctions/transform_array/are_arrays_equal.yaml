@@ -1,5 +1,4 @@
 type: function_sql
-category: transform_array
 author: Sid Ali
 description: |
   Return true if `array1` = `array2`

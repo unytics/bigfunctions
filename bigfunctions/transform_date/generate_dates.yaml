@@ -1,5 +1,4 @@
 type: table_function
-category: transform_date
 author: "Thomas Ellyatt"
 description: Generate a table of dates
 arguments:

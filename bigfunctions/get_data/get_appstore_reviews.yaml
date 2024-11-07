@@ -1,5 +1,4 @@
 type: table_function
-category: get_data
 author: Paul Marcombes
 description: |
   GET Apple App Store Reviews of an app

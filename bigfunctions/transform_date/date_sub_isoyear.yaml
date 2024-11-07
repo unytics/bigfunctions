@@ -1,5 +1,4 @@
 type: function_sql
-category: transform_date
 author: Stephane KNOCKAERT
 description: |
   Returns same day `years` before

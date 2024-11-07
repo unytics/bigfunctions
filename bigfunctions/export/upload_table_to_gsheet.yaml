@@ -1,5 +1,4 @@
 type: procedure
-category: export
 author: Shivam Singh
 description: |
   Upload data from `table_or_view_or_query` to Google Sheet

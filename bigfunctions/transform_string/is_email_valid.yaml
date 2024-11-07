@@ -1,5 +1,4 @@
 type: function_sql
-category: transform_string
 author: "Credits: Chris Goddard"
 description: |-
   Return true if `email` is valid

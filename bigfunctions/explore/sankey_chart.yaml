@@ -1,5 +1,4 @@
 type: function_sql
-category: explore
 author: Paul Marcombes
 description: |-
   Return html with a Sankey Google chart

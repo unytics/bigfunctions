@@ -1,5 +1,4 @@
 type: function_js
-category: convert_data_format
 author: Shivam Singh
 description: Returns XML for given JSON string
 arguments:

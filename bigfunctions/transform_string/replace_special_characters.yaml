@@ -1,5 +1,4 @@
 type: function_sql
-category: transform_string
 author: Jason Tragakis
 description: "Replace most common special characters in a `string` with `replacement`"
 arguments:

@@ -1,5 +1,4 @@
 type: function_py
-category: utils
 author: Paul Marcombes
 description: |
   Returns`scheduled_queries` of project `project`.

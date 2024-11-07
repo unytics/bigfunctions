@@ -1,5 +1,4 @@
 type: function_js
-category: transform_string
 author: Paul Marcombes
 description: Compute levenshtein distance between `string1` and `string2`
 arguments:

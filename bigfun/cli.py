@@ -106,7 +106,7 @@ def generate_doc(project, dataset):
         mkdocs_config = yaml.safe_load(open('mkdocs.yml', encoding='utf-8').read())
         categories = mkdocs_config['bigfunctions_categories']
         for category in categories:
-            category['bigfunctions'] = [b.config for b in bigfunctions if b.config['category'] == category['name']]
+            category['bigfunctions'] = [b.config for b in bigfunctions if category['name'] in [b.config.get('category'), b.config_folder]]
         categories = [category for category in categories if category['bigfunctions']]
         categories_template = jinja2.Template(open(CATEGORIES_DOC_TEMPLATE_FILENAME, encoding='utf-8').read())
         categories_doc = categories_template.render(categories=categories, project=project, dataset=dataset)

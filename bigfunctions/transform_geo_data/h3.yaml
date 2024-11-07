@@ -1,5 +1,4 @@
 type: function_js
-category: transform_geo_data
 author: Paul Marcombes
 description: |
   Wrapper around [Uber H3](https://github.com/uber/h3-js)

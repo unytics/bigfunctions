@@ -1,5 +1,4 @@
 type: function_sql
-category: transform_string
 author: "Credits: Taylor Brownlow"
 description: |-
   Return `url` parts

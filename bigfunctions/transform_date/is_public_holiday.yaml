@@ -1,5 +1,4 @@
 type: function_sql
-category: transform_date
 author: Paul Marcombes
 description: |
   Return true if `date` corresponds to a public holiday in `country_code`

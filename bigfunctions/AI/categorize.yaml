@@ -1,5 +1,4 @@
 type: function_py
-category: AI
 author: Paul Marcombes
 description: |
   Categorize `items` in categories and subcategories.
@@ -11,8 +10,7 @@ description: |
 
   ```
   [
-    {item: first_item, category: '{category}/{subcategory}'},
-    ...
+    {item: first_item,     ...
   ]
   ```
 arguments:

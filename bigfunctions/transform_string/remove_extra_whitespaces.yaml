@@ -1,5 +1,4 @@
 type: function_sql
-category: transform_string
 author: re_data
 description: |-
   Remove unwanted whitespaces

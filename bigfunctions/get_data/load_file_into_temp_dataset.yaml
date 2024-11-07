@@ -1,5 +1,4 @@
 type: function_py
-category: get_data
 author: Antoine Giraud
 description: |
   Download web file into a temp dataset

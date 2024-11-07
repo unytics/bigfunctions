@@ -1,5 +1,4 @@
 type: function_py
-category: export
 author: Valentin Cordonnier
 description: |
   Exports `data` and `attributes` to Pub/Sub `topic`.

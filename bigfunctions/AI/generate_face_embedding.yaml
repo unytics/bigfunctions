@@ -1,5 +1,4 @@
 type: function_py
-category: AI
 author: Paul Marcombes
 description: |
   Detect Face on image and Generate its Embedding

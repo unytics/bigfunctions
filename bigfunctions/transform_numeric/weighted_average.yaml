@@ -1,5 +1,4 @@
 type: aggregate_function_sql
-category: transform_numeric
 author: Axel Thevenot
 description: |
   Returns the weigthed average elements.

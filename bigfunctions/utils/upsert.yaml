@@ -1,5 +1,4 @@
 type: procedure
-category: utils
 author: Axel Thevenot
 description: |-
   Merges `query_or_table_or_view` into the `destination_table`.

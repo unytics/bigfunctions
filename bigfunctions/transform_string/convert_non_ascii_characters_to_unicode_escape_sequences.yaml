@@ -1,5 +1,4 @@
 type: function_sql
-category: transform_string
 author: "Benjamin Tabet"
 description: "Replace all non ASCII characters with escape unicode"
 arguments:

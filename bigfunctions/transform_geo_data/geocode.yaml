@@ -1,5 +1,4 @@
 type: function_py
-category: transform_geo_data
 author: Paul Marcombes
 description: Get `address` details from Google Maps
 arguments:

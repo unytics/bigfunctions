@@ -60,6 +60,10 @@ class BigFunction:
         return BIGFUNCTIONS[self.name]
 
     @property
+    def config_folder(self):
+        return '/'.join(self.config_filename.replace('bigfunctions/', '').split('/')[:-1])
+
+    @property
     def config_from_file(self):
         if self._config_from_file is None:
             if not os.path.isfile(self.config_filename):

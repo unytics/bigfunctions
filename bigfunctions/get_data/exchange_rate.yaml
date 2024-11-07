@@ -1,5 +1,4 @@
 type: function_py
-category: get_data
 author: Johan PROTIN
 description: |
   Get `exchange_rate`

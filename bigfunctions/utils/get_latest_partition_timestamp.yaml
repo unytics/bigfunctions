@@ -1,5 +1,4 @@
 type: procedure
-category: utils
 author: jihene cherif
 description: Return the maximum of the partition column of `fully_qualified_table`
 arguments:
