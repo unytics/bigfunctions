@@ -1,3 +1,4 @@
+import glob
 import multiprocessing
 import os
 import shutil
@@ -99,8 +100,11 @@ def generate_doc(project, dataset):
             open(f'docs/bigfunctions/{bigfunction.name}.md', 'w', encoding='utf-8').write(bigfunction.doc)
 
     def copy_screenshots_to_docs_folder():
-        for image in [f for f in os.listdir('bigfunctions') if f.endswith('.png')]:
-            shutil.copy(f'bigfunctions/{image}', f'docs/bigfunctions/{image}')
+        images = glob.glob('bigfunctions/**/*.png', recursive=True)
+        for image in images:
+            destination_filename = 'docs/bigfunctions/' + image.split('/')[-1]
+            print(image, destination_filename)
+            shutil.copy(image, destination_filename)
 
     def generate_bigfunctions_list_markdown(bigfunctions):
         content = '# BigFunctions\n\n'
