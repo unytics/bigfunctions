@@ -3,10 +3,11 @@ description: "Catalog of open-source BigFunctions"
 search:
   exclude: true
 folders:
-  - AI
+  - ai
   - notify
   - get_data
   - export
+  - trigger_event
   - transform_numeric
   - transform_string
   - transform_geo_data
