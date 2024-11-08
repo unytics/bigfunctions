@@ -29,7 +29,7 @@ BIGFUNCTION_DOC_TEMPLATE = jinja2.Template(open(BIGFUNCTION_DOC_TEMPLATE_FILENAM
 
 
 def list_bigfunctions():
-    filenames = sorted([f for f in glob.glob(f'{BIGFUNCTIONS_FOLDER}/**/*.yaml', recursive=True)])
+    filenames = sorted([f.replace("\\", "/") for f in glob.glob(f'{BIGFUNCTIONS_FOLDER}/**/*.yaml', recursive=True)])
     return {
         f.split('/')[-1].replace('.yaml', ''): f
         for f in filenames
