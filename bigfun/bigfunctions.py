@@ -81,6 +81,13 @@ class BigFunction:
             )
             self._config['name'] = self.name
             self._config['filename'] = self.config_filename
+            self._config['short_description'] = self._config['description'].split('\n')[0]
+            self._config['signature'] = (
+                self.name +
+                '(' +
+                ', '.join(argument['name'] for argument in self._config.get('arguments', [])) +
+                ')'
+            )
         return self._config
 
     @property
@@ -173,7 +180,6 @@ class BigFunction:
         if os.path.isfile(self.use_case_filename):
             self.config['use_case'] = open(self.use_case_filename, encoding='utf-8').read()
         return BIGFUNCTION_DOC_TEMPLATE.render(**self.config)
-
 
     def generate_use_case(self, overwrite_if_exists=False):
         if os.path.isfile(self.use_case_filename):

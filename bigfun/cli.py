@@ -17,7 +17,7 @@ TABLES_FOLDER = 'data'
 PEOPLE_FILENAME = 'people.yaml'
 THIS_FOLDER = os.path.dirname(os.path.realpath(__file__)).replace('\\', '/')
 WEBSITE_CONFIG_FOLDER = THIS_FOLDER + '/website'
-CATEGORIES_DOC_TEMPLATE_FILENAME = f'{THIS_FOLDER}/templates/categories.md'
+DOC_FOLDER_TEMPLATE_FILENAME = f'{THIS_FOLDER}/templates/folder.md'
 CONFIGS = {}
 
 def get_config_value(name, config_filename):
@@ -103,15 +103,35 @@ def generate_doc(project, dataset):
             shutil.copy(f'bigfunctions/{image}', f'docs/bigfunctions/{image}')
 
     def generate_bigfunctions_list_markdown(bigfunctions):
-        mkdocs_config = yaml.safe_load(open('mkdocs.yml', encoding='utf-8').read())
-        categories = mkdocs_config['bigfunctions_categories']
-        for category in categories:
-            category['bigfunctions'] = [b.config for b in bigfunctions if category['name'] in [b.config.get('category'), b.config_folder]]
-        categories = [category for category in categories if category['bigfunctions']]
-        categories_template = jinja2.Template(open(CATEGORIES_DOC_TEMPLATE_FILENAME, encoding='utf-8').read())
-        categories_doc = categories_template.render(categories=categories, project=project, dataset=dataset)
-        open('bigfunctions/README.md', 'w', encoding='utf-8').write(categories_doc)
-        open('docs/bigfunctions/README.md', 'w', encoding='utf-8').write(categories_doc)
+        content = '# BigFunctions\n\n'
+        folders_to_add = None
+        if os.path.isfile('bigfunctions/README.md'):
+            content = open('bigfunctions/README.md', encoding='utf-8').read()
+            if content.startswith('---'):
+                content_without_first_line = content[content.find('\n'):]
+                front_matter = content[:content.find('\n---')]
+                front_matter = yaml.safe_load(front_matter)
+                if 'folders' in front_matter:
+                    folders_to_add = front_matter['folders']
+        folder_template = jinja2.Template(open(DOC_FOLDER_TEMPLATE_FILENAME, encoding='utf-8').read())
+        folders = {}
+        for bigfunction in bigfunctions:
+            folder = bigfunction.config_folder
+            if folders_to_add and folder not in folders_to_add:
+                continue
+            if folder not in folders:
+                folder_readme = f"## {folder.replace('_', ' ').title()}"
+                if os.path.isfile(f'bigfunctions/{folder}/README.md'):
+                    folder_readme = open(f'bigfunctions/{folder}/README.md', encoding='utf-8').read()
+                folders[folder] = {'path': folder, 'readme': folder_readme, 'bigfunctions': []}
+            folders[folder]['bigfunctions'].append(bigfunction.config)
+        if folders_to_add:
+            folders = [folders[folder] for folder in folders_to_add]
+        else:
+            folders = folders.values()
+        folders_content = '\n\n\n'.join([folder_template.render(**folder) for folder in folders])
+
+        open('docs/bigfunctions/README.md', 'w', encoding='utf-8').write(content + '\n' * 3 + folders_content)
 
     bigfunctions = [
         bf.BigFunction(bigfunction_name, project=project, dataset=dataset)
