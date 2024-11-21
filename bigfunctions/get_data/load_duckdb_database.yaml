@@ -1,0 +1,64 @@
+type: procedure
+author: Paul Marcombes
+description: |
+  Download duckdb database into `destination_dataset`
+
+  This function extends [`load_duckdb_database_into_temp_dataset`](../load_duckdb_database_into_temp_dataset) function.
+
+  Each call:
+
+  1. Creates a new temporary dataset only accessible to you in bigfunctions project.
+  2. Downloads the tables of the duckdb database to this temporary dataset.
+  3. Copies the table into `destination_dataset` before deleting them from the temporary dataset.
+arguments:
+  - name: duckdb_file_url
+    type: string
+  - name: destination_dataset
+    type: string
+output:
+  name: status
+  type: string
+examples:
+  - description: "load duckdb database used in evidence examples"
+    arguments:
+      - "'https://github.com/evidence-dev/sql-prophet/raw/refs/heads/main/sources/needful_things/needful_things.duckdb'"
+      - "'your_project.your_dataset'"
+    output: |
+      +--------+
+      + status +
+      +--------+
+      +   ok   +
+      +--------+
+code: |
+  declare temp_dataset string;
+  declare tables array<string>;
+
+  assert array_length(split(destination_dataset, '.')) = 2 as '`destination_dataset` must be like PROJECT.DATASET';
+
+  set temp_dataset = (
+    select {BIGFUNCTIONS_DATASET}.load_duckdb_database_into_temp_dataset(duckdb_file_url)
+  );
+
+  execute immediate format(
+    '''
+    select array_agg(table_id)
+    from `%s`.__TABLES__
+    ''',
+    temp_dataset
+  ) into tables;
+
+  for table in (select name from unnest(tables) name)
+  do
+    execute immediate format(
+      'create or replace table `%s`.`%s` copy `%s`.`%s`',
+      destination_dataset, table.name, temp_dataset, table.name
+    );
+
+    execute immediate format(
+      'drop table `%s`.%s',
+      temp_dataset, table.name
+    );
+  end for;
+
+  create or replace temp table bigfunction_result as
+  select 'ok' as result;
