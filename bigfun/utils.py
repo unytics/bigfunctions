@@ -270,7 +270,7 @@ class CloudRun:
         print_info(f"Deploy Cloud Run service `{self.service}`")
         options = {
             **{
-                "max-instances": 10,
+                "max-instances": 20,
                 "memory": "512Mi",
                 "cpu": 1,
                 "concurrency": 8,
