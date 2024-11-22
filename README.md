@@ -219,6 +219,9 @@ select PROJECT.DATASET.faker("name", "it_IT")
 </details>
 
 
+<br>
+
+
 ## 👋 7. Contribute
 
 BigFunctions is fully open-source. Any contribution is more than welcome 🤗!
@@ -228,6 +231,7 @@ BigFunctions is fully open-source. Any contribution is more than welcome 🤗!
 - Suggest a new function [here](https://github.com/unytics/bigfunctions/issues/new?assignees=&labels=new-bigfunction&projects=&template=0_new_bigfunction.yaml&title=%5Bnew%5D%3A+%60function_name%28argument1%2C+argument2%29%60)
 - Raise an issue [there](https://github.com/unytics/bigfunctions/issues/new/choose)
 - Open a Pull-Request! (See [contributing instructions](https://github.com/unytics/bigfunctions/blob/main/CONTRIBUTING.md)).
+
 
 <br>
 
