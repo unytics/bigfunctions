@@ -32,19 +32,13 @@ examples:
       - 3
       - 'null'
     output: |
-      | ---------------------------------------------------|
-      | rating | content                                   |
-      | ---------------------------------------------------|
-      |    5   | Very simple to use                        |
-      |        |                                           |
-      |    5   | I advise you perfectly,                   |
-      |        | I have been with them for 5 years now,    |
-      |        | I have never had a problem.               |
-      |        |                                           |
-      |    5   | Really great. I opted for the black card. |
-      |        |                                           |
-      |        | ...                                       |
-      | ---------------------------------------------------|
+      | -------------------------------------|
+      |    date    | yhat | yhat_lower | ... |
+      | -------------------------------------|
+      | 2022-01-03 |  3   |     3      | ... |
+      | 2022-01-04 |  4   |     4      | ... |
+      | 2022-01-05 |  5   |     5      | ... |
+      | -------------------------------------|
   - description: "Using a table with columns needed to be renamed into `ds` and `y`"
     with_clause: | #sql
       select date('2022-01-01') as date, 1 as value,
@@ -59,19 +53,13 @@ examples:
       - 3
       - 'null'
     output: |
-      | ---------------------------------------------------|
-      | rating | content                                   |
-      | ---------------------------------------------------|
-      |    5   | Very simple to use                        |
-      |        |                                           |
-      |    5   | I advise you perfectly,                   |
-      |        | I have been with them for 5 years now,    |
-      |        | I have never had a problem.               |
-      |        |                                           |
-      |    5   | Really great. I opted for the black card. |
-      |        |                                           |
-      |        | ...                                       |
-      | ---------------------------------------------------|
+      | -------------------------------------|
+      |    date    | yhat | yhat_lower | ... |
+      | -------------------------------------|
+      | 2022-01-03 |  3   |     3      | ... |
+      | 2022-01-04 |  4   |     4      | ... |
+      | 2022-01-05 |  5   |     5      | ... |
+      | -------------------------------------|
 code: | # sql
   (
     select
