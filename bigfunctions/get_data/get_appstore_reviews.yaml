@@ -8,7 +8,7 @@ arguments:
     type: string
 output:
   name: reviews
-  type: json
+  type: table
 examples:
   - description: "Get customer reviews of Nickel App in App Store"
     arguments:
