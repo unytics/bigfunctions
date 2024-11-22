@@ -40,7 +40,7 @@ examples:
       | 2022-01-04 |  4   |     4      | ... |
       | 2022-01-05 |  5   |     5      | ... |
       | -------------------------------------|
-  - description: "Using a table with columns needed to be renamed into `ds` and `y`"
+  - description: "Using a table with columns to rename to `ds` and `y`"
     with_clause: | #sql
       select date('2022-01-01') as date, 1 as value,
       union all

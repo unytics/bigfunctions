@@ -33,7 +33,7 @@ examples:
         {"ds": "2022-01-04", "yhat": 4, "yhat_upper": 4, ...},
         {"ds": "2022-01-05", "yhat": 5, "yhat_upper": 5, ...}
       ]
-  - description: "Using a table with columns needed to be renamed into `ds` and `y`"
+  - description: "Using a table with columns to rename to `ds` and `y`"
     with_clause: | #sql
       select date('2022-01-01') as date, 1 as value,
       union all
