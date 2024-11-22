@@ -1,0 +1,63 @@
+type: table_function
+author: Paul Marcombes
+description: |
+  Return Time Series Forecast as table using [prophet](https://facebook.github.io/prophet/docs/quick_start.html#python-api)
+  python library.
+
+  Parameters of this function are passed as is to prophet python function and python function result is returned as is.
+
+  (Inspired from [this Felipe Hoffa medium's post](https://medium.com/snowflake/facebook-prophet-forecasts-running-in-snowflake-with-snowpark-14fc870b56ae))
+arguments:
+  - name: records
+    type: json
+  - name: periods
+    type: float64
+  - name: kwargs
+    type: json
+output:
+  name: forecast_table
+  type: table
+examples:
+  - description: ""
+    with_clause: | #sql
+      select date('2022-01-01') as date, 1 as value,
+      union all
+      select date('2022-01-02') as date, 2 as value,
+    arguments:
+      - to_json(array_agg(struct(date as ds, value as y)))
+      - 3
+      - 'null'
+    output: |
+      | ---------------------------------------------------|
+      | rating | content                                   |
+      | ---------------------------------------------------|
+      |    5   | Very simple to use                        |
+      |        |                                           |
+      |    5   | I advise you perfectly,                   |
+      |        | I have been with them for 5 years now,    |
+      |        | I have never had a problem.               |
+      |        |                                           |
+      |    5   | Really great. I opted for the black card. |
+      |        |                                           |
+      |        | ...                                       |
+      | ---------------------------------------------------|
+code: | # sql
+  (
+    select
+      cast(string(res.ds) as date) as date,
+      float64(res.yhat) as yhat,
+      float64(res.yhat_lower) as yhat_lower,
+      float64(res.yhat_upper) as yhat_upper,
+      float64(res.trend) as trend,
+      float64(res.trend_lower) as trend_lower,
+      float64(res.trend_upper) as trend_upper,
+      float64(res.additive_terms) as additive_terms,
+      float64(res.additive_terms_lower) as additive_terms_lower,
+      float64(res.additive_terms_upper) as additive_terms_upper,
+      float64(res.multiplicative_terms) as multiplicative_terms,
+      float64(res.multiplicative_terms_lower) as multiplicative_terms_lower,
+      float64(res.multiplicative_terms_upper) as multiplicative_terms_upper,
+    from unnest(json_extract_array((
+      select {BIGFUNCTIONS_DATASET}.prophet(records, periods, kwargs)
+    ))) as res
+  )
