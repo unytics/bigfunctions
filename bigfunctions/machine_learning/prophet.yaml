@@ -27,6 +27,12 @@ examples:
       - to_json(array_agg(sample_data))
       - 3
       - 'null'
+    output: |
+      [
+        {"ds": "2022-01-03", "yhat": 3, "yhat_upper": 3, ...},
+        {"ds": "2022-01-04", "yhat": 4, "yhat_upper": 4, ...},
+        {"ds": "2022-01-05", "yhat": 5, "yhat_upper": 5, ...}
+      ]
   - description: "Using a table with columns needed to be renamed into `ds` and `y`"
     with_clause: | #sql
       select date('2022-01-01') as date, 1 as value,
