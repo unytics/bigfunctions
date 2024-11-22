@@ -210,8 +210,16 @@ select PROJECT.DATASET.faker("name", "it_IT")
 <br>
 
 
+## ❓ 6. FAQ
 
-## 👋 6. Contribute
+<details>
+  <summary>How to correctly highlight (sql / python / javascript) code within the yaml files?</summary>
+
+  In yaml files multiline string are by default highlighted as strings. That makes reading `code` field hard. To correctlt highlight the code regarding its python / javascript / sql syntax, you can install [YAML Embedded Languages](https://marketplace.visualstudio.com/items?itemName=harrydowning.yaml-embedded-languages) VSCode extension.
+</details>
+
+
+## 👋 7. Contribute
 
 BigFunctions is fully open-source. Any contribution is more than welcome 🤗!
 
