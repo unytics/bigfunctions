@@ -4,8 +4,9 @@ description: |
   Forecast time-series using [prophet](https://facebook.github.io/prophet/docs/quick_start.html#python-api)
   python library.
 
+  Parameters of this function are passed as is to prophet python function.
 
-  (inspired from [this Felipe Hoffa medium's post](https://medium.com/snowflake/facebook-prophet-forecasts-running-in-snowflake-with-snowpark-14fc870b56ae))
+  (Inspired from [this Felipe Hoffa medium's post](https://medium.com/snowflake/facebook-prophet-forecasts-running-in-snowflake-with-snowpark-14fc870b56ae))
 arguments:
   - name: records
     type: json
@@ -23,26 +24,32 @@ examples:
         union all
         select date('2022-01-02') as date, 2 as value,
     arguments:
-      - to_json(array_agg(struct(date as ds, sale as y)))
+      - to_json(array_agg(struct(date as ds, value as y)))
       - 3
-      - null
-    output: '{"created_at": "date", "user.name": "string", "user.friends": "array"}'
-code: |
+      - 'null'
+    output: |
+      [
+        {"ds": "2022-01-03", "yhat": 3, "yhat_upper": 3, ...},
+        {"ds": "2022-01-04", "yhat": 4, "yhat_upper": 4, ...},
+        {"ds": "2022-01-05", "yhat": 5, "yhat_upper": 5, ...}
+      ]
+code: | #python
+  import prophet
   import pandas as pd
-  from prophet import Prophet
   df = pd.DataFrame(records)
   assert 'ds' in df.columns, '`records` must have a field named `ds` with represents the record date'
   assert 'y' in df.columns, '`records` must have a field named `y` which represents the record value'
   kwargs = kwargs or {}
-  model = Prophet(**kwargs)
+  model = prophet.Prophet(**kwargs)
   model.fit(df)
   future_df = model.make_future_dataframe(periods=periods, include_history=False)
   forecast = model.predict(future_df)
   forecast['ds'] = forecast['ds'].astype(str)
   return forecast.to_dict(orient='records')
 requirements: |
+  numpy==1.26.4
+  prophet==1.1.4
   pandas
-  prophet
 cloud_run:
   max_instances: 20
   concurrency: 1
