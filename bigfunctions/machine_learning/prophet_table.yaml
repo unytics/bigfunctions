@@ -25,10 +25,11 @@ examples:
       select date('2022-01-02') as ds, 2 as y,
     arguments:
       - |
+
         to_json((
           select array_agg(sample_data)
           from sample_data
-        )),
+        ))
       - 3
       - 'null'
     output: |
@@ -46,10 +47,11 @@ examples:
       select date('2022-01-02') as date, 2 as value,
     arguments:
       - |
+
         to_json((
           select array_agg(struct(date as ds, value as y))
           from sample_data
-        )),
+        ))
       - 3
       - 'null'
     output: |
