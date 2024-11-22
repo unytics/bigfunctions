@@ -19,10 +19,10 @@ output:
   type: json
 examples:
   - description: ""
-    with_clause: |
-        select date('2022-01-01') as date, 1 as value,
-        union all
-        select date('2022-01-02') as date, 2 as value,
+    with_clause: | #sql
+      select date('2022-01-01') as date, 1 as value,
+      union all
+      select date('2022-01-02') as date, 2 as value,
     arguments:
       - to_json(array_agg(struct(date as ds, value as y)))
       - 3
