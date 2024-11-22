@@ -213,9 +213,9 @@ select PROJECT.DATASET.faker("name", "it_IT")
 ## ❓ 6. FAQ
 
 <details>
-  <summary>How to correctly highlight (sql / python / javascript) code within the yaml files?</summary>
+  <summary><strong>How to correctly highlight <code>sql</code>, <code>python</code> and <code>javascript</code> code in yaml files?</strong></summary>
 
-  In yaml files multiline string are by default highlighted as strings. That makes reading `code` field hard. To correctlt highlight the code regarding its python / javascript / sql syntax, you can install [YAML Embedded Languages](https://marketplace.visualstudio.com/items?itemName=harrydowning.yaml-embedded-languages) VSCode extension.
+  In yaml files multiline string are by default highlighted as strings. That makes reading `code` field hard. To correctly highlight the code regarding its python / javascript / sql syntax, you can install <a href="https://marketplace.visualstudio.com/items?itemName=harrydowning.yaml-embedded-languages">YAML Embedded Languages</a> VSCode extension.
 </details>
 
 
