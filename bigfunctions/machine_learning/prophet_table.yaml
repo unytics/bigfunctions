@@ -24,7 +24,11 @@ examples:
       union all
       select date('2022-01-02') as date, 2 as value,
     arguments:
-      - to_json(array_agg(struct(date as ds, value as y)))
+      - |
+        to_json((
+          select array_agg(struct(date as ds, value as y))
+          from sample_data
+        )),
       - 3
       - 'null'
     output: |
