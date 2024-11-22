@@ -18,7 +18,16 @@ output:
   name: forecasted_records
   type: json
 examples:
-  - description: ""
+  - description: "Using a table with columns named `ds` and `y` for date and value respectively"
+    with_clause: | #sql
+      select date('2022-01-01') as ds, 1 as y,
+      union all
+      select date('2022-01-02') as ds, 2 as y,
+    arguments:
+      - to_json(array_agg(sample_data))
+      - 3
+      - 'null'
+  - description: "Using a table with columns needed to be renamed into `ds` and `y`"
     with_clause: | #sql
       select date('2022-01-01') as date, 1 as value,
       union all
