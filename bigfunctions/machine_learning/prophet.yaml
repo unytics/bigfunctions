@@ -1,7 +1,10 @@
 type: function_py
 author: "Credits: Felipe Hoffa"
 description: |
-  Forecast time-series using prophet
+  Forecast time-series using [prophet](https://facebook.github.io/prophet/docs/quick_start.html#python-api)
+  python library.
+
+
   (inspired from [this Felipe Hoffa medium's post](https://medium.com/snowflake/facebook-prophet-forecasts-running-in-snowflake-with-snowpark-14fc870b56ae))
 arguments:
   - name: records
@@ -15,14 +18,21 @@ output:
   type: json
 examples:
   - description: ""
+    with_clause: |
+        select date('2022-01-01') as date, 1 as value,
+        union all
+        select date('2022-01-02') as date, 2 as value,
     arguments:
-      - "json'[[\"2020-01-01\", 1], [\"2020-01-02\", 2]]'"
+      - to_json(array_agg(struct(date as ds, sale as y)))
       - 3
-    output: '[["2020-01-03", 3], ["2020-01-04", 4], ["2020-01-05", 5]]'
+      - null
+    output: '{"created_at": "date", "user.name": "string", "user.friends": "array"}'
 code: |
   import pandas as pd
   from prophet import Prophet
   df = pd.DataFrame(records)
+  assert 'ds' in df.columns, '`records` must have a field named `ds` with represents the record date'
+  assert 'y' in df.columns, '`records` must have a field named `y` which represents the record value'
   kwargs = kwargs or {}
   model = Prophet(**kwargs)
   model.fit(df)
