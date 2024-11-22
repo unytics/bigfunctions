@@ -1,7 +1,7 @@
 type: function_py
 author: "Credits: Felipe Hoffa"
 description: |
-  Forecast time-series using [prophet](https://facebook.github.io/prophet/docs/quick_start.html#python-api)
+  Return Time Series Forecast as json using [prophet](https://facebook.github.io/prophet/docs/quick_start.html#python-api)
   python library.
 
   Parameters of this function are passed as is to prophet python function and python function result is returned as is.
