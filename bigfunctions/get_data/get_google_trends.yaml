@@ -20,7 +20,7 @@ output:
   name: trends
   type: json
 examples:
-  - description: "GET reviews written in English for Nickel App installed on French devices"
+  - description: "GET trends for chaise and fauteuil"
     arguments:
       - "'chaise, fauteuil'"
       - "None"
