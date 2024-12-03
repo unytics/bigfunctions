@@ -38,24 +38,29 @@ code: | #python
   entities = []
   for row in rows:
     datastore_path, key, data = row
-    assert len(datastore_path.split('.')) == 4, '`datastore_path` must be like `project/database/namespace/kind`'
-    project, database, namespace, kind = datastore_path.split('.')
+
+    assert len(datastore_path.split('/')) == 4, '`datastore_path` must be like `project/database/namespace/kind`'
+
+    project, database, namespace, kind = datastore_path.split('/')
+    database = database if database != 'default' else None
+    namespace = namespace if namespace != 'default' else None
     assert project != 'bigfunctions' or kind != 'bigfunction_call', 'Forbidden to write here'
 
     if store is None:
-      store = google.cloud.datastore.Client(project=project)
+      store = google.cloud.datastore.Client(project=project, database=database)
       _project = project
-    elif project != _project:
-      assert False, "`project` for all rows must be equal"
+      _database = database
+    elif (project != _project) or (database != _database):
+      assert False, "`project` and `database` must be equal for all rows"
 
     if key:
       try:
         key = int(key)
       except:
         pass
-      entity_key = store.key(kind, key, database=database, namespace=namespace)
+      entity_key = store.key(kind, key, namespace=namespace)
     else:
-      entity_key = store.key(kind, database=database, namespace=namespace)
+      entity_key = store.key(kind, namespace=namespace)
 
     entity = google.cloud.datastore.Entity(entity_key)
     entity.update(data)
@@ -65,9 +70,5 @@ code: | #python
   return [str(entity.key.id_or_name) for entity in entities]
 requirements: |
   google-cloud-datastore
-cloud_run:
-  memory: 512Mi
-  concurrency: 16
-  max_instances: 10
 quotas:
   max_rows_per_user_per_day: 1000000
