@@ -1,0 +1,79 @@
+type: procedure
+author: Paul Marcombes
+description: |
+  Export `fully_qualified_table` to datastore
+arguments:
+  - name: fully_qualified_table
+    type: string
+  - name: key_column
+    type: string
+  - name: datastore_path
+    type: string
+examples:
+  - description: "load random csv"
+    arguments:
+      - "\n  'https://raw.githubusercontent.com/AntoineGiraud/dbt_hypermarche/refs/heads/main/input/achats.csv'"
+      - "\n  'csv'"
+      - "'your_project.your_dataset.random_sales'"
+      - "null\n"
+    output: |
+      +---------+
+      +   key   +
+      +---------+
+      +  12345  +
+      +  23455  +
+      +   ...   +
+      +---------+
+code: | #sql
+  declare table_project string;
+  declare table_dataset string;
+  declare table_name string;
+  declare datastore_schema_path string;
+  declare schema json;
+
+  assert array_length(split(datastore_path, '/')) = 4 as '`datastore_path` must be like `project/database/namespace/kind`';
+  assert array_length(split(fully_qualified_table, '.')) = 3 as '`fully_qualified_table` must be like PROJECT.DATASET.TABLE';
+
+  set table_project = split(fully_qualified_table, '.')[offset(0)];
+  set table_dataset = split(fully_qualified_table, '.')[offset(1)];
+  set table_name = split(fully_qualified_table, '.')[offset(2)];
+
+  set datastore_schema_path = (
+    split(datastore_path, '/')[offset(0)] || '/' ||
+    split(datastore_path, '/')[offset(1)] || '/' ||
+    split(datastore_path, '/')[offset(2)] || '/' ||
+    '_schema'
+  );
+
+
+  -- Get table Schema
+  execute immediate format(
+    '''
+    select json_object(
+      'datastore_path', '%s',
+      'table', '%s',
+      'columns', array_agg(struct(
+        field_path as name,
+        data_type as type,
+        ifnull(description, '') as description
+      ))
+    )
+    from %s.%s.INFORMATION_SCHEMA.COLUMN_FIELD_PATHS
+    where table_name = '%s'
+    ''',
+    datastore_path, fully_qualified_table, table_project, table_dataset, table_name
+  ) into schema;
+
+
+  -- Export Schema to Datastore
+  select {BIGFUNCTIONS_DATASET}.export_to_datastore(datastore_schema_path, datastore_path, schema);
+
+  -- Export Data to Datastore
+  execute immediate format(
+    '''
+    create or replace temp table bigfunction_result as
+    select {BIGFUNCTIONS_DATASET}.export_to_datastore('%s', %s, to_json(t)) as key
+    from `%s` as t
+    ''',
+    datastore_path, ifnull(key_column, 'null'), fully_qualified_table
+  );
