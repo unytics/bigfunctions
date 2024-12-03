@@ -12,10 +12,9 @@ arguments:
 examples:
   - description: "load random csv"
     arguments:
-      - "\n  'https://raw.githubusercontent.com/AntoineGiraud/dbt_hypermarche/refs/heads/main/input/achats.csv'"
-      - "\n  'csv'"
-      - "'your_project.your_dataset.random_sales'"
-      - "null\n"
+      - "'your-project.dataset.table'"
+      - "'user_id'"
+      - "'your-project/default/default/users'"
     output: |
       +---------+
       +   key   +
