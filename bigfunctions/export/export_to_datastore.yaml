@@ -2,23 +2,12 @@ type: function_py
 author: El-Walid
 description: |
   Exports `data` to Datastore
-  (Firestore in Datastore mode).
+  (Firestore in Datastore mode) to `key` at `datastore_path` (like `project/database/namespace/kind`)
 
-  (💡 *For this to work, `749389685934-compute@developer.gserviceaccount.com` must have datastore user role in your project.*)
+  > 💡 *For this to work, `749389685934-compute@developer.gserviceaccount.com` must have datastore user role in your project.*
 
-  | Param       | Possible values  |
-  |-------------|---|
-  | `project`   | Google Cloud project hosting the Datastore data. Should be unique for one query  |
-  | `namespace` | A namespace is like a dataset / a folder. It has many `kinds` which are like tables. If `namespace`is `null`, `default` namespace will be used. |
-  | `kind`      | `kind` is like a table: a set of similar objects. Cannot be `null`. |
-  | `key`       | Unique identifier where `data` is stored inside `kind`. Can be an integer represented as a string (`key` is then named `id` in Datastore) or any string (`key` is named `name` in Datastore). If `null` a integer key (represented as string) will be generated. |
-  | `data`      | A json dict of data  |
 arguments:
-  - name: project
-    type: string
-  - name: namespace
-    type: string
-  - name: kind
+  - name: datastore_path
     type: string
   - name: key
     type: string
@@ -28,31 +17,30 @@ output:
   name: key
   type: string
 examples:
-  - description: Export `data` to default namespace with auto-generated `key`.
+  - description: Export `data` to default database, to default namespace with auto-generated `key`.
     arguments:
-      - "'your-project'"
-      - "null"
-      - "'user'"
+      - "'your-project/default/default/users'"
       - "null"
       - "json '{\"name\": \"Marc Harris\", \"email\": \"marc@harris.com\"}'"
     output: "4503604769587200"
-  - description: Export `data` to default namespace, with email as `key`.
+  - description: Export `data` with email as `key`.
     arguments:
-      - "'your-project'"
-      - "null"
-      - "'user'"
+      - "'your-project/default/default/users'"
       - "'marc@harris.com'"
       - "json '{\"name\": \"Marc Harris\"}'"
     output: "marc@harris.com"
 code_process_rows_as_batch: true
-code: |
+code: | #python
   import google.cloud.datastore
   import google.api_core.exceptions
 
   store = None
   entities = []
   for row in rows:
-    project, namespace, kind, key, data = row
+    datastore_path, key, data = row
+    assert len(datastore_path.split('.') == 4), '`datastore_path` must be like `project/database/namespace/kind`'
+    project, database, namespace, kind = datastore_path.split('.')
+    assert project != 'bigfunctions' or kind != 'bigfunction_call', 'Forbidden to write here'
 
     if store is None:
       store = google.cloud.datastore.Client(project=project)
@@ -65,9 +53,9 @@ code: |
         key = int(key)
       except:
         pass
-      entity_key = store.key(kind, key, namespace=namespace)
+      entity_key = store.key(kind, key, database=database, namespace=namespace)
     else:
-      entity_key = store.key(kind, namespace=namespace)
+      entity_key = store.key(kind, database=database, namespace=namespace)
 
     entity = google.cloud.datastore.Entity(entity_key)
     entity.update(data)
