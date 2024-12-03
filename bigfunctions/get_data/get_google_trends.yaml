@@ -1,0 +1,64 @@
+type: function_py
+author: Paul Marcombes
+description: |
+  GET Google Trends data
+  using [pytrends python library](https://github.com/GeneralMills/pytrends).
+
+  Parameters used in this function are passed as is to pytrends. Refer to [pytrends documentation](https://github.com/GeneralMills/pytrends).
+arguments:
+  - name: keywords
+    type: string
+  - name: category
+    type: int64
+  - name: timeframe
+    type: string
+  - name: geo
+    type: string
+  - name: gprop
+    type: string
+output:
+  name: trends
+  type: json
+examples:
+  - description: "GET reviews written in English for Nickel App installed on French devices"
+    arguments:
+      - "'chaise, fauteuil'"
+      - "None"
+      - "None"
+      - "None"
+      - "None"
+    output: |
+      [
+        {"date":"2019-12-01T00:00:00", "chaise":58, "fauteuils":2, "isPartial":false},
+        {"date":"2019-12-08T00:00:00", "chaise":57, "fauteuils":1, "isPartial":false},
+        ...
+      ]
+code: | #python
+  import time
+  from pytrends.request import TrendReq
+  if not keywords:
+    return []
+  keywords = [kw.strip() for kw in keywords.split(',')]
+  gprop = gprop or ''
+  timeframe = timeframe or 'today 5-y'
+
+  pytrends = TrendReq(hl='en-US', tz=360)
+  pytrends.build_payload(keywords, cat=category, timeframe=timeframe, geo=geo, gprop=gprop)
+
+  sleeping_times = [2, 4, 8, 10]
+  for k, sleep_time in enumerate(sleeping_times):
+    try:
+      df = pytrends.interest_over_time()
+      break
+    except:
+      if k == (len(sleeping_times) - 1):
+        raise
+      time.sleep(sleep_time)
+
+  df = df.reset_index()
+  df['date'] = df['date'].map(lambda date: date.isoformat())
+  return df.to_dict(orient='records')
+requirements: |
+  pytrends
+cloud_run:
+  max_instances: 10
