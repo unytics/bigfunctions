@@ -38,7 +38,7 @@ code: | #python
   entities = []
   for row in rows:
     datastore_path, key, data = row
-    assert len(datastore_path.split('.') == 4), '`datastore_path` must be like `project/database/namespace/kind`'
+    assert len(datastore_path.split('.')) == 4, '`datastore_path` must be like `project/database/namespace/kind`'
     project, database, namespace, kind = datastore_path.split('.')
     assert project != 'bigfunctions' or kind != 'bigfunction_call', 'Forbidden to write here'
 
