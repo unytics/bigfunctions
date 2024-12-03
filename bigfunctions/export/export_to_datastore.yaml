@@ -4,7 +4,7 @@ description: |
   Exports `data` to Datastore
   (Firestore in Datastore mode) to `key` at `datastore_path` (like `project/database/namespace/kind`)
 
-  > 💡 *For this to work, `749389685934-compute@developer.gserviceaccount.com` must have datastore user role in your project.*
+  > 💡 *For this to work, `bigfunction@bigfunctions.iam.gserviceaccount.com` must have datastore user role in your project.*
 
 arguments:
   - name: datastore_path
