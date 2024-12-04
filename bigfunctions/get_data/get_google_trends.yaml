@@ -60,5 +60,6 @@ code: | #python
   return df.to_dict(orient='records')
 requirements: |
   pytrends
+max_batching_rows: 1
 cloud_run:
   concurrency: 1
