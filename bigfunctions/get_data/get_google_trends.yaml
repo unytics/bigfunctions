@@ -45,7 +45,7 @@ code: | #python
   pytrends = TrendReq(hl='en-US', tz=360)
   pytrends.build_payload(keywords, cat=category, timeframe=timeframe, geo=geo, gprop=gprop)
 
-  sleeping_times = [2, 4, 8, 10]
+  sleeping_times = [1, 3, 5, 7, 9, 11, 13, 15, 17, 21, 23, 25]
   for k, sleep_time in enumerate(sleeping_times):
     try:
       df = pytrends.interest_over_time()
@@ -61,4 +61,4 @@ code: | #python
 requirements: |
   pytrends
 cloud_run:
-  max_instances: 10
+  concurrency: 1
