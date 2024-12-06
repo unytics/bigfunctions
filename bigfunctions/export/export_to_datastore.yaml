@@ -34,6 +34,8 @@ code: | #python
   import google.cloud.datastore
   import google.api_core.exceptions
 
+  NB_RETRIES = 10
+
   store = None
   entities = []
   for row in rows:
@@ -66,9 +68,18 @@ code: | #python
     entity.update(data)
     entities.append(entity)
 
-  store.put_multi(entities)
+  for k in range(NB_RETRIES):
+    try:
+      store.put_multi(entities)
+      break
+    except Exception as e:
+      if type(e).__name__.upper() == 'ABORTED':
+        if k == (NB_RETRIES - 1):
+          raise
+        continue
+      else:
+        raise
+
   return [str(entity.key.id_or_name) for entity in entities]
 requirements: |
   google-cloud-datastore
-quotas:
-  max_rows_per_user_per_day: 1000000
