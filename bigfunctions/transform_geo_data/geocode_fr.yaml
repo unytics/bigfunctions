@@ -1,12 +1,12 @@
 type: function_py
-author: Paul Marcombes
-description: Get `address` details from Google Maps
+author: Kevin JEAN
+description: Get `address` details from api-adresse.data.gouv.fr
 arguments:
   - name: address
     type: string
 output:
   name: address_details
-  type: string
+  type: json
 examples:
   - description: ""
     arguments:
@@ -26,20 +26,28 @@ examples:
           "plus_code": {...},
           "types": ["street_address"]
       }
+code_process_rows_as_batch: true
+init_code: | #python
+  import io
+  import numpy as np
+  import pandas as pd
+  import requests
 code: |
-  import json
-  import googlemaps
-  gmaps = googlemaps.Client(key=gmaps_api_key)
-  results = gmaps.geocode(address)
-  if not results:
-      return
-  return json.dumps(results[0], ensure_ascii=False)
+  addresses = [row[0] for row in rows]
+  addresses = pd.Series(addresses, name="address")
+  addresses_csv = addresses.to_csv(index=False)
+  file = (
+    'addresses.csv',
+    addresses_csv.encode('latin-1'),
+    'text/csv; charset=latin-1'
+  )
+  url = 'https://api-adresse.data.gouv.fr/search/csv/'
+  response = requests.post(url, files={'data': file})
+  assert response.ok, f"Error: {response.text}"
+  response.encoding = 'utf-8'
+  response_csv = response.text
+  results = pd.read_csv(io.StringIO(response_csv)).replace(np.nan, None)
+  return results.to_dict(orient='records')
 requirements: |
-  googlemaps
-secrets:
-  - name: gmaps_api_key
-    description: Google Maps Api Key
-    documentation_link: https://developers.google.com/maps/documentation/geocoding/get-api-key
-quotas:
-  max_rows_per_query: 10
-  max_rows_per_user_per_day: 100
+  pandas
+  requests
