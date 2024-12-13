@@ -59,13 +59,13 @@ code: |
     (
       format(
         'create or replace table function `%s`.%s(start_date string, end_date string) as',
-        ga4_dataset, name
+        destination_dataset, name
       ) ||
       replace(regexp_replace(regexp_replace(
         '\n' || content,
       '^DECLARE.*', ''),
       '\nDECLARE.*', ''),
-        'project.dataset', destination_dataset
+        'project.dataset', ga4_dataset
       )
     ) as code
   from files_content
