@@ -1,0 +1,75 @@
+type: procedure
+author: Ali Izadi
+description: |
+  Create views to help querying GA4 Data
+  .
+
+  This function will create a table function in `destination_dataset` for each query contained in [Bigquery-GA4-Queries](https://github.com/aliasoblomov/Bigquery-GA4-Queries).
+arguments:
+  - name: ga4_dataset
+    type: string
+  - name: destination_dataset
+    type: string
+examples: []
+code: |
+  create or replace temp table code as
+
+  with filepaths as (
+    select
+      lax_string(file.path) as path,
+    from unnest(
+      json_query_array(
+        bigfunctions.eu.get_json('https://api.github.com/repos/aliasoblomov/Bigquery-GA4-Queries/git/trees/main?recursive=true', null),
+        '$.tree'
+      )
+    ) as file
+    where ends_with(lax_string(file.path), '.sql')
+  ),
+
+
+  files_content as (
+
+    select
+
+      regexp_replace(replace(replace(replace(
+        lower(path),
+        '/', '__'),
+        ' ', '_'),
+        '.sql', ''),
+        r'[\(\)\&]', ''
+      ) as name,
+      bigfunctions.eu.get(
+        format(
+        'https://raw.githubusercontent.com/aliasoblomov/Bigquery-GA4-Queries/refs/heads/main/%s',
+        replace(path, ' ', '%20')
+        ),
+        null
+      ) as content,
+    from filepaths
+
+  )
+
+  select
+    name,
+    (
+      format(
+        'create or replace table function `%s`.%s(start_date string, end_date string) as',
+        ga4_dataset, name
+      ) ||
+      replace(regexp_replace(regexp_replace(
+        '\n' || content,
+      '^DECLARE.*', ''),
+      '\nDECLARE.*', ''),
+        'project.dataset', destination_dataset
+      )
+    ) as code
+  from files_content
+  ;
+
+
+  for record in (select * from code) do
+    begin
+      execute immediate record.code;
+    exception when error then
+    end;
+  end for;
