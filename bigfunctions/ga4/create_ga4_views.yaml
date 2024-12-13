@@ -20,6 +20,7 @@ code: |
   create or replace temp table code as
 
   with filepaths as (
+
     select
       lax_string(file.path) as path,
     from unnest(
@@ -29,13 +30,13 @@ code: |
       )
     ) as file
     where ends_with(lax_string(file.path), '.sql')
+
   ),
 
 
   files_content as (
 
     select
-
       regexp_replace(replace(replace(replace(
         lower(path),
         '/', '__'),
@@ -61,14 +62,19 @@ code: |
         'create or replace table function `%s`.%s(start_date string, end_date string) as',
         destination_dataset, name
       ) ||
-      replace(regexp_replace(regexp_replace(
+      replace(replace(replace(replace(regexp_replace(regexp_replace(
         '\n' || content,
       '^DECLARE.*', ''),
       '\nDECLARE.*', ''),
-        'project.dataset', ga4_dataset
+        'project.dataset', ga4_dataset),
+        'your-project-id.your-dataset-id', ga4_dataset),
+        'your-project-id.dataset_name', ga4_dataset),
+        'your-project-id.analytics_1234567890', ga4_dataset
       )
     ) as code
   from files_content
+  where not starts_with(name, 'bigquery_administration')
+  order by name
   ;
 
 
