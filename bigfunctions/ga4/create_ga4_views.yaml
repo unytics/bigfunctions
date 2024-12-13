@@ -10,7 +10,12 @@ arguments:
     type: string
   - name: destination_dataset
     type: string
-examples: []
+examples:
+  - description: ""
+    arguments:
+      - "'your-project.your_ga4_dataset'"
+      - "'your-project.your_destination_dataset'"
+    output: "success"
 code: |
   create or replace temp table code as
 
