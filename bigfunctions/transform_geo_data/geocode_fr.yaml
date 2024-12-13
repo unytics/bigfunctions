@@ -15,7 +15,6 @@ examples:
       {
         "latitude": 48.871285,
         "longitude": 2.302859,
-        "result_city": "Paris",
         "result_label": "Avenue des Champs Elysées 75008 Paris",
         "result_score": 0.7805588980716253,
         ...
