@@ -1,0 +1,53 @@
+type: function_py
+author: Kevin JEAN
+description: Get `address` details from api-adresse.data.gouv.fr
+arguments:
+  - name: address
+    type: string
+output:
+  name: address_details
+  type: json
+examples:
+  - description: ""
+    arguments:
+      - "'1 rue des champs elysees, Paris'"
+    output: |
+      {
+          "address_components": [...],
+          "formatted_address": "1 Av. des Champs-Élysées, 75008 Paris, France",
+          "geometry": {
+              "location": {
+                  "lat": 48.86988770000001,
+                  "lng": 2.3079341
+              },
+              ...
+          },
+          "place_id": "ChIJ6499V8Rv5kcR5f9dbz3OeBI",
+          "plus_code": {...},
+          "types": ["street_address"]
+      }
+code_process_rows_as_batch: true
+init_code: | #python
+  import io
+  import numpy as np
+  import pandas as pd
+  import requests
+code: |
+  addresses = [row[0] for row in rows]
+  addresses = pd.Series(addresses, name="address")
+  addresses_csv = addresses.to_csv(index=False)
+  file = (
+    'addresses.csv',
+    addresses_csv.encode('latin-1'),
+    'text/csv; charset=latin-1'
+  )
+  url = 'https://api-adresse.data.gouv.fr/search/csv/'
+  response = requests.post(url, files={'data': file})
+  assert response.ok, f"Error: {response.text}"
+  response.encoding = 'utf-8'
+  response_csv = response.text
+  results = pd.read_csv(io.StringIO(response_csv)).replace(np.nan, None)
+  return results.to_dict(orient='records')
+requirements: |
+  pandas
+  requests
