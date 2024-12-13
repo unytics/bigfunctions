@@ -20,7 +20,7 @@ examples:
       - "'https://api.github.com/repos/unytics/bigfunctions'"
       - "json '{\"Content-Type\": \"application/json\"}'"
     output: "{...}"
-code: |
+code: | #python
   if not url:
     return 'invalid url: it is null or empty'
   if not url.startswith(('http://', 'https://')):
@@ -32,4 +32,4 @@ code: |
 requirements: |
   requests
 quotas:
-  max_rows_per_query: 10
+  max_rows_per_query: 100
