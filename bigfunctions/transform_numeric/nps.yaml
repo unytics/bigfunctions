@@ -30,5 +30,5 @@ examples:
         select 8 as rating
     arguments:
       - rating
-    output: ""
+    output: "25"
 code: ( 100. * ( count(rating >= 9) - count(rating <= 6) ) / count(*) )
