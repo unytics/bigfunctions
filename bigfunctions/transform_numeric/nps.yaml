@@ -10,8 +10,8 @@ description: |
 
   where:
   
-  - `"% promoters" = 100 * count(rating >= 9) / count(*)`
-  - `"% detractors" = 100 * count(rating <= 6) / count(*)`
+  - `"% promoters" = 100 * countif(rating >= 9) / count(*)`
+  - `"% detractors" = 100 * countif(rating <= 6) / count(*)`
 arguments:
   - name: rating
     type: int64
@@ -31,4 +31,4 @@ examples:
     arguments:
       - rating
     output: "25"
-code: ( 100. * ( count(rating >= 9) - count(rating <= 6) ) / count(*) )
+code: ( 100. * ( countif(rating >= 9) - countif(rating <= 6) ) / count(*) )
