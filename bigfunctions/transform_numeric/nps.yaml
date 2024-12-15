@@ -19,7 +19,7 @@ output:
   name: nps
   type: float64
 examples:
-  - description: "NPS = 25 = 50 % (promoters) - 25 % (detractors)"
+  - description: "NPS = 25 <-- 50 % (promoters) - 25 % (detractors)"
     with_clause: |
         select 9 as rating
         union all
