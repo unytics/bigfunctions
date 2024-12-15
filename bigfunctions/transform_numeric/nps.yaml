@@ -1,0 +1,34 @@
+type: aggregate_function_sql
+author: Paul Marcombes
+description: |
+  Returns the NPS 
+  (Net Promoter Score) of `rating` (which represents customer satisfaction between 0 and 10):
+
+  ```sql
+  NPS = "% promoters" - "% detractors"
+  ```
+
+  where:
+  
+  - `"% promoters" = 100 * count(rating >= 9) / count(*)`
+  - `"% detractors" = 100 * count(rating <= 6) / count(*)`
+arguments:
+  - name: rating
+    type: int64
+output:
+  name: nps
+  type: float64
+examples:
+  - description: "NPS = 25 = 50 % (promoters) - 25 % (detractors)"
+    with_clause: |
+        select 9 as rating
+        union all
+        select 10 as rating
+        union all
+        select 6 as rating
+        union all
+        select 8 as rating
+    arguments:
+      - rating
+    output: ""
+code: ( 100. * ( count(rating >= 9) - count(rating <= 6) ) / count(*) )
