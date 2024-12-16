@@ -10,8 +10,8 @@ description: |
   > Here, they take `start_date` and `end_date` parameters
   > to restrict the analysis period and be more efficient.
 
-  Each created table function is the copy of a query from [Bigquery-GA4-Queries GitHub repo](https://github.com/aliasoblomov/Bigquery-GA4-Queries)
-  created by [Ali Izadi](https://www.linkedin.com/in/ali-iz/).
+  Each created table function is the copy of a query from [Bigquery-GA4-Queries](https://github.com/aliasoblomov/Bigquery-GA4-Queries)
+  GitHub repo created by [Ali Izadi](https://www.linkedin.com/in/ali-iz/).
 
   For example, `event_scope__flatten_events` table function will be created in `destination_dataset`.
   You can then get the flatten events between '2024-11-01' and '2024-12-01' with:
