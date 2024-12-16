@@ -7,6 +7,7 @@ folders:
   - notify
   - get_data
   - export
+  - ga4
   - trigger_event
   - transform_numeric
   - transform_string
