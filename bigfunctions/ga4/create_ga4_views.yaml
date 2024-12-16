@@ -5,10 +5,7 @@ description: |
   .
 
   This function creates table functions in `destination_dataset` to help querying GA4 data contained in `ga4_dataset`.
-
-  > Table functions are like views but take parameters as input.
-  > Here, they take `start_date` and `end_date` parameters
-  > to restrict the analysis period and be more efficient.
+  *(Table functions are like views but take parameters as input. Here, they take `start_date` and `end_date` parameters to restrict the analysis period and be more efficient)*
 
   Each created table function is the copy of a query from [Bigquery-GA4-Queries](https://github.com/aliasoblomov/Bigquery-GA4-Queries)
   GitHub repo created by [Ali Izadi](https://www.linkedin.com/in/ali-iz/).
@@ -21,11 +18,10 @@ description: |
   from `destination_dataset`.event_scope__flatten_events('2024-11-01', '2024-12-01')
   ```
 
-  You can get details on each created table function by reading the README of the repo.
+  You can get details on each created table function by reading the README of [Bigquery-GA4-Queries](https://github.com/aliasoblomov/Bigquery-GA4-Queries) repo.
+  If you find these queries useful, please add a star to the repo to show your support.
 
-  If you find these queries useful, please add a star to Bigquery-GA4-Queries to show your support.
-
-  > Queries from `BigQuery Administration`, `Extras` folder are ignored as they go beyond GA4.
+  *(Queries from `BigQuery Administration`, `Extras` folder are ignored as they go beyond GA4)*
 arguments:
   - name: ga4_dataset
     type: string
