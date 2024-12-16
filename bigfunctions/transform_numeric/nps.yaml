@@ -1,7 +1,7 @@
 type: aggregate_function_sql
 author: Paul Marcombes
 description: |
-  Returns the NPS (Net Promoter Score) 
+  Returns the NPS (Net Promoter Score)
   of `rating` (which represents customer satisfaction between 0 and 10):
 
   ```sql
@@ -9,7 +9,7 @@ description: |
   ```
 
   where:
-  
+
   - `"% promoters" = 100 * countif(rating >= 9) / count(*)`
   - `"% detractors" = 100 * countif(rating <= 6) / count(*)`
 arguments:
