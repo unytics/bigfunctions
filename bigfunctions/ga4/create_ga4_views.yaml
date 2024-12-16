@@ -4,7 +4,28 @@ description: |
   Create views to help querying GA4 Data
   .
 
-  This function will create a table function in `destination_dataset` for each query contained in [Bigquery-GA4-Queries](https://github.com/aliasoblomov/Bigquery-GA4-Queries).
+  This function creates table functions in `destination_dataset` to help querying GA4 data contained in `ga4_dataset`.
+
+  > Table functions are like views but take parameters as input.
+  > Here, they take `start_date` and `end_date` parameters
+  > to restrict the analysis period and be more effifient.
+
+  Each table function is the copy of a query from [Bigquery-GA4-Queries GitHub repo](https://github.com/aliasoblomov/Bigquery-GA4-Queries)
+  created by [Ali Izadi](https://www.linkedin.com/in/ali-iz/).
+
+  For example, `event_scope__flatten_events` table function will be created in `destination_dataset`.
+  You can then get the flatten events between '2024-11-01' and '2024-12-01' with:
+
+  ```sql
+  select *
+  from `destination_dataset`.event_scope__flatten_events('2024-11-01', '2024-12-01')
+  ```
+
+  You can get details on each created table function by reading the README of the repo.
+
+  If you find these queries useful, please add a star to Bigquery-GA4-Queries to show your support.
+
+  > Queries from `BigQuery Administration`, `Extras` folder are ignored as they go beyond GA4.
 arguments:
   - name: ga4_dataset
     type: string
@@ -16,10 +37,21 @@ examples:
       - "'your-project.your_ga4_dataset'"
       - "'your-project.your_destination_dataset'"
     output: "success"
-code: |
+code: | #sql
+  declare do_user_tables_exist bool;
+
+  execute immediate format(
+    'select exists(select table_id from `%s`.__TABLES__ where starts_with(table_id,  "users_"))',
+    ga4_dataset
+  )
+  into do_user_tables_exist;
+
+
   create or replace temp table code as
 
-  with filepaths as (
+  with
+
+  filepaths as (
 
     select
       lax_string(file.path) as path,
@@ -29,7 +61,10 @@ code: |
         '$.tree'
       )
     ) as file
-    where ends_with(lax_string(file.path), '.sql')
+    where
+      ends_with(lax_string(file.path), '.sql')
+      and not starts_with(lax_string(file.path), 'BigQuery Administration')
+      and not starts_with(lax_string(file.path), 'Extras')
 
   ),
 
@@ -73,7 +108,9 @@ code: |
       )
     ) as code
   from files_content
-  where not starts_with(name, 'bigquery_administration')
+  where
+    not contains_substr(content, '.users_*')
+    or do_user_tables_exist
   order by name
   ;
 
