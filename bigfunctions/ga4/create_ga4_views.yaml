@@ -4,7 +4,7 @@ description: |
   Create views to help querying GA4 Data
   .
 
-  This function creates table functions in `destination_dataset` to help querying GA4 data contained in `ga4_dataset`.
+  This function creates table functions in `destination_dataset` to help querying GA4 data contained in `ga4_dataset` (like `your-project.analytics_123456789`).
 
   > Table functions are like views but take parameters as input.
   > Here, they take `start_date` and `end_date` parameters
