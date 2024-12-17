@@ -20,6 +20,8 @@ call bigfunctions.us.create_ga4_views(
 );
 ```
 
+![image](https://github.com/user-attachments/assets/012c6c6f-d8a5-446c-bf57-515708453bcd)
+
 
 **3. Wait for the function to process and create all necessary table functions.**
 Once completed, all table functions (queries) are available in your destination dataset.
@@ -36,5 +38,3 @@ from `Ga4-Project.ga4_bigquery_queries`.event_scope__flatten_events('2024-11-01'
 Replace '2024-11-01' and '2024-12-01' with your desired date range.
 
 
-
-![image](https://github.com/user-attachments/assets/012c6c6f-d8a5-446c-bf57-515708453bcd)
