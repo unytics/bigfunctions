@@ -1,8 +1,10 @@
 # Static BI
 
-This page showcases how we can do `static BI` inside a Mkdocs website.
+!!! note ""
 
-> 💡 by `static BI` we mean interactive vizualizations on top of parquet files
+    This page showcases how we can do `static BI` inside a Mkdocs website.
+
+    💡 *by `static BI` we mean interactive vizualizations on top of parquet files*
 
 ---
 
@@ -86,7 +88,9 @@ select#examples {
     <option value="wnba-shots">WNBA Shot Chart</option>
 </select>
 
-> 💡 Mozaic Dashboards are generated on the fly from a yaml configuration file using Mosaic Javascript Library. They are interactive and based on parquet files. Know more [below](#more-on-mozaic) on Mozaic.
+!!! note ""
+
+    💡 Mozaic Dashboards are generated on the fly from a yaml configuration file using Mosaic Javascript Library. They are interactive and based on parquet files. Know more [below](#more-on-mozaic) on Mozaic.
 
 
 <br>
