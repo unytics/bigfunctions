@@ -17,7 +17,7 @@ Use the bigfunction to create table functions for querying GA4 data. For example
 ```sql
 call bigfunctions.us.create_ga4_views(
 
-  'Ga4-Project.analytics_310989290', 
+  'Ga4-Project.analytics_310989290',
 
   'Ga4-Project.ga4_bigquery_queries'
 
@@ -44,5 +44,3 @@ from `Ga4-Project.ga4_bigquery_queries`.event_scope__flatten_events('2024-11-01'
 ```
 
 Replace '2024-11-01' and '2024-12-01' with your desired date range.
-
-
