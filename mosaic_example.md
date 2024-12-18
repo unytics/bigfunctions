@@ -1,14 +1,4 @@
-# Static BI
-
-!!! note ""
-
-    This page showcases how we can do `static BI` inside a Mkdocs website.
-
-    💡 *by `static BI` we mean interactive vizualizations on top of parquet files*
-
----
-
-## Generate Static Dashboards using Mozaic
+# Generate Static Dashboards using Mozaic
 
 **Select an Example**
 
