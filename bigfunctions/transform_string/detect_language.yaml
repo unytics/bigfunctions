@@ -1,6 +1,9 @@
 type: function_js
 author: Adam Sohail
-description: | 
+description: |
+  Detects `text` language
+  (using [franc-min javascript library](https://github.com/wooorm/franc)).
+
   Returns a three-letter language code (`eng` for `english` for example). Returns `und` for `undefined` if it could not detect the language or if the text is too short.
   All language codes are defined [here](https://github.com/wooorm/franc/tree/main/packages/franc-min)
 arguments:
@@ -12,9 +15,8 @@ output:
 examples:
   - description: ""
     arguments:
-      - "'Hello {{ user }}'"
-      - "json '{\"user\": \"James\"}'"
-    output: Hello James
+      - "'I love this project so much'"
+    output: eng
 code: |
   return franc_min.franc(text);
 npm_packages:
