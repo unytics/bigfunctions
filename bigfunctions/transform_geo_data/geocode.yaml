@@ -30,10 +30,14 @@ code: |
   import json
   import googlemaps
   gmaps = googlemaps.Client(key=gmaps_api_key)
-  results = gmaps.geocode(address)
-  if not results:
-      return
-  return json.dumps(results[0], ensure_ascii=False)
+  try:
+    results = gmaps.geocode(address)
+    if not results:
+        return None
+    return json.dumps(results[0], ensure_ascii=False)
+  except Exception as e:
+        error_message = f"Unexpected error : {e}"
+        return error_message  
 requirements: |
   googlemaps
 secrets:
