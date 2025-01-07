@@ -1,0 +1,24 @@
+type: function_sql
+author: Paul Marcombes
+description: |
+  Returns `true` if `value` is in array `arr` else returns `false`
+arguments:
+  - name: arr
+    type: any type
+  - name: value
+    type: any type
+output:
+  name: is_in_array
+  type: bool
+examples:
+  - description: "When `value` is in array"
+    arguments:
+      - "[3, 4]"
+      - "4"
+    output: "true"
+  - description: "When `value` is not in array"
+    arguments:
+      - "[3, 4]"
+      - "7"
+    output: "false"
+code: exists(select 1 from unnest(arr) as x where x = value)
