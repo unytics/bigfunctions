@@ -94,8 +94,9 @@ class BaseQuotaManager:
         self.row_count = len(data['calls'])
 
     def check_quotas(self):
-        if 'max_rows_per_query' in QUOTAS and (self.row_count > QUOTAS['max_rows_per_query']):
-            raise QuotaException(f"It only accepts {QUOTAS['max_rows_per_query']} rows per query and you called it now on {self.row_count} rows or more.")
+        max_rows_per_query = QUOTAS.get('max_rows_per_query') or QUOTAS.get('max_rows_per_user_per_day')
+        if max_rows_per_query and (self.row_count > max_rows_per_query):
+            raise QuotaException(f"It only accepts {max_rows_per_query} rows per query and you called it now on {self.row_count} rows or more.")
 
 
 class DatastoreQuotaManager(BaseQuotaManager):
