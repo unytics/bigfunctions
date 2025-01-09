@@ -4,9 +4,13 @@ import re
 import time
 import traceback
 import uuid
+import base64
 
 import google.auth
 import google.cloud.error_reporting
+from cryptography.hazmat.primitives import serialization
+from cryptography.hazmat.primitives import hashes
+from cryptography.hazmat.primitives.asymmetric import padding
 from flask import Flask, jsonify, request
 
 error_reporter = google.cloud.error_reporting.Client()
@@ -20,6 +24,8 @@ QUOTAS = {{ quotas if quotas is defined else {} }}
 
 
 _, PROJECT = google.auth.default()
+
+PRIVATE_KEY_SECRET_NAME = 'bigfunctions_private_key'
 
 
 def get_current_service_account():
@@ -180,6 +186,54 @@ secrets = SecretManager()
 {{ secret.name }} = secrets.get('{{ secret.name }}')
 {% endfor %}
 {% endif %}
+
+
+
+def decrypt(text):
+    ciphertext = base64.b64decode(text)
+    private_key = secrets.get(PRIVATE_KEY_SECRET_NAME)
+    private_key = serialization.load_pem_private_key(
+        private_key.encode(),
+        password=None,
+    )
+    plaintext = private_key.decrypt(
+        ciphertext,
+        padding.OAEP(
+            mgf=padding.MGF1(algorithm=hashes.SHA256()),
+            algorithm=hashes.SHA256(),
+            label=None
+        )
+    )
+    return plaintext.decode()
+
+
+def decrypt_secrets_in_argument_and_check(value, user):
+    assert isinstance(value, (str, dict)), 'decrypt secrets expect value to be a dict or a string'
+
+    if isinstance(value, dict):
+        return {k: decrypt_secrets[v] for k, v in value.items()}
+
+    if not value.strip().startswith("ENCRYPTED_SECRET("):
+        return value
+
+    value = value.strip()
+    value = value[len("ENCRYPTED_SECRET("):]
+    assert ')' in value, 'missing `)` closing parenthese in encrypted secret'
+    value = value[:value.find(')')]
+
+    value = decrypt(value)
+
+    try:
+        value = json.loads(value)
+    except:
+        # for backwards compatibility only
+        return value
+
+    assert user in value['authorized_users'], f'Permission Error: User `{user}` do not belong to secret `authorized readers`'
+    assert value['function'] == '{{ name }}', f'Permission Error: Secret was not created to be used with this function'
+    return value['secret']
+
+
 
 
 {{ init_code }}

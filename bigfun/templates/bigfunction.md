@@ -60,7 +60,58 @@ hide:
 
 **Description**
 
-{{ description }}
+{{ description | replace('{SECRET_ENCRYPTER}', '''
+
+<br>
+⚠️ **Encrypt your secrets!**
+
+!!! note ""
+
+    *Do NOT write secrets in plain text in your SQL queries!*
+
+Otherwise, anyone with access to your BigQuery logs can read them.
+
+Instead, generate an encrypted version of your secret that you can safely share.
+
+> *Enter a secret value to encrypt below along with the emails of the users who are authorized to use it.*
+> *It will generate an encrypted version that you can paste into the arguments of your function (exactly like if you passed the plain text version).*
+> *If a user, who is not in the auhorized users list, tries to use the encrypted version, the function will raise a permission error.*
+> *Besides, the encrypted version can only be used with this function `{{ name }}`.*
+
+
+!!! example "Encrypt a secret"
+
+    <div>
+      <input id="secret-to-encrypt" type="text" class="md-input" placeholder="secret">
+      <input id="authorized-users" type="text" class="md-input" placeholder="you@example.com">
+      <button class="md-button md-button--primary" onclick="encrypt();">Encrypt Secret</button>
+    </div>
+
+
+??? info "How secret encryption works"
+
+    Technically, this encryption system uses the same encryption mechanism used to transfer data over the internet.
+    It uses a pair of a public and private keys.
+
+    The public key (contained in this web page) is used to encrypt a text.
+    The corresponding private key is the only one who is able to decrypt the text.
+    The private key is stored in a secret manager and is only accessible to this function.
+    Thus, this function (and this function only) can decrypt it.
+
+    Moreover, the function will check that the caller of the function belong to the kist of `authorized users`
+    that you gave at encryption time.
+
+    Thanks to this:
+
+    - Nobody but this function will be able to decrypt it.
+    - Nobody but `authorized users` can use the encrypted version in a function.
+    - No function but the function `{{ name }}` can decrypt it.
+
+
+''') | replace('{{ name }}', name) }}
+
+
+
 
 
 
@@ -208,3 +259,41 @@ from sample_data
 
 {{ use_case }}
 {% endif %}
+
+
+<!-------------------------------------
+SCRIPT TO HANDLE SECRET ENCRYPTION SNIPPET
+-------------------------------------->
+<script src="https://cdn.jsdelivr.net/npm/node-forge@1.0.0/dist/forge.min.js"></script>
+<script>
+const pem = `
+{{ public_key_to_encrypt_secrets }}
+`;
+
+const publicKey = forge.pki.publicKeyFromPem(pem);
+
+
+function encrypt() {
+  const plainText = document.getElementById('secret-to-encrypt').value;
+  const authorizedUsers = document.getElementById('authorized-users').value;
+  if (!plainText) {
+    return;
+  }
+  if (!authorizedUsers) {
+    return;
+  }
+  const plainObj = {
+    secret: plainText,
+    authorized_users: authorizedUsers,
+    function: "{{ name }}",
+  };
+  const plainObjAsString = JSON.stringify(plainObj);
+  const encrypted = publicKey.encrypt(plainObjAsString, 'RSA-OAEP', {
+    md: forge.md.sha256.create(),
+    mgf1: { md: forge.md.sha256.create() }
+  });
+  const encryptedB64 = forge.util.encode64(encrypted);
+  navigator.clipboard.writeText(`ENCRYPTED_SECRET(${encryptedB64})`);
+  alert("Successfully copied the encrypted secret in clipboard.\n\nPaste it in your query as shown in examples.");
+}
+</script>

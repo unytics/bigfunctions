@@ -242,6 +242,7 @@ class BigFunction:
                     'google-cloud-error-reporting',
                     'google-cloud-datastore',
                     'google-cloud-secret-manager',
+                    'cryptography',
                     self.config.get('requirements', '')
                 ])
             )
