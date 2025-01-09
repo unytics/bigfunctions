@@ -1,4 +1,4 @@
-FROM {{ dockerfile.image if dockerfile is defined and dockerfile.image is defined else 'python:3.11-slim' }}
+FROM {{ dockerfile.image if dockerfile is defined and dockerfile.image is defined else 'ghcr.io/astral-sh/uv:python3.11-bookworm-slim' }}
 
 # Install apt packages
 {% if dockerfile is defined and dockerfile.apt_packages is defined %}
@@ -18,7 +18,7 @@ WORKDIR $APP_HOME
 COPY . ./
 
 # Install production dependencies.
-RUN pip install --no-cache-dir -r requirements.txt
+RUN uv pip install --system --no-cache-dir -r requirements.txt
 
 {% if dockerfile is defined %}{{ dockerfile.additional_commands }}{% endif %}
 {{ additional_install_commands_in_dockerfile }}
