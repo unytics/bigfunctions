@@ -6,7 +6,7 @@ arguments:
     type: string
 output:
   name: address_details
-  type: string
+  type: json
 examples:
   - description: ""
     arguments:
@@ -26,18 +26,14 @@ examples:
           "plus_code": {...},
           "types": ["street_address"]
       }
-code: |
-  import json
+init_code: | #python
   import googlemaps
   gmaps = googlemaps.Client(key=gmaps_api_key)
+code: | #python
   try:
-    results = gmaps.geocode(address)
-    if not results:
-        return None
-    return json.dumps(results[0], ensure_ascii=False)
+    return (gmaps.geocode(address) or [None])[0]
   except Exception as e:
-        error_message = f"Unexpected error : {e}"
-        return error_message  
+    return {'error': str(e)}
 requirements: |
   googlemaps
 secrets:
