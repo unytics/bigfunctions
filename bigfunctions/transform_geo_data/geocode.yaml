@@ -41,5 +41,4 @@ secrets:
     description: Google Maps Api Key
     documentation_link: https://developers.google.com/maps/documentation/geocoding/get-api-key
 quotas:
-  max_rows_per_query: 10
   max_rows_per_user_per_day: 100
