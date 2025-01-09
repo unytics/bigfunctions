@@ -95,7 +95,11 @@ hide:
 
 {% for example in examples %}
 
-{% if example.description %}**{% if examples|length > 1 %}{{ loop.index }}. {% endif %}{{ example.description }}**{% endif %}
+{% if example.description %}
+{% set description_parts = example.description.split('\n', 1) %}
+**{% if examples|length > 1 %}{{ loop.index }}. {% endif %}{{ description_parts[0] }}**
+{% if description_parts|length > 1 %}{{ description_parts[1] }}{% endif %}
+{% endif %}
 
 {% set datasets = dataset.split(',') %}
 {% set nb_datasets = [(datasets|length), 3] | min %}
