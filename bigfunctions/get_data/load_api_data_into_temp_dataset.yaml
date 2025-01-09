@@ -61,7 +61,7 @@ examples:
         user_agent: # OPTIONAL | boolean | Add User-Agent to request
         ...
   - description: |
-      **Encrypt Secrets!**
+      Encrypt Secrets!
 
       You usually have to write secrets in `source_config` such as api keys.
 

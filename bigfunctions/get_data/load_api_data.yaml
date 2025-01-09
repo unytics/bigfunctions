@@ -69,7 +69,7 @@ examples:
       | ...                                                |
       +----------------------------------------------------+
   - description: |
-      **Encrypt Secrets!**
+      Encrypt Secrets!
 
       You usually have to write secrets in `source_config` such as api keys.
 
