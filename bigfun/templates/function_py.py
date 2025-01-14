@@ -1,15 +1,14 @@
+import base64
 import datetime
 import json
 import re
 import time
 import traceback
 import uuid
-import base64
 
 import google.auth
 import google.cloud.error_reporting
-from cryptography.hazmat.primitives import serialization
-from cryptography.hazmat.primitives import hashes
+from cryptography.hazmat.primitives import hashes, serialization
 from cryptography.hazmat.primitives.asymmetric import padding
 from flask import Flask, jsonify, request
 
