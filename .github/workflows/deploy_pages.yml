@@ -14,19 +14,19 @@ jobs:
           python-version: 3.x
       - run: pip install -e .
       - run: |
-        cat <<EOF > config.yaml
-        project: bigfunctions
-        dataset: eu,us,europe_west1,asia_east1
-        public_key_to_encrypt_secrets: |
-          -----BEGIN PUBLIC KEY-----
-          MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAsgotixwX/WsbKxeT3sef
-          z6acpTomZEYOBJzIRLtcHyxzyMEuMN9iYF32l4t6K70b+38mLIO7K6LkZj/nnhrF
-          UuPfAKme5R2Y4FqtJVSzplCmZc2/274eanIGi6BZ+kHOoc+eJTOEi3Wzp/EQ77iG
-          bC9tD/0ZkXYdXzPHcJT0dOFHIV6wpLr2i251NAIDTI4CV1afqhxU313f5Wrw+pYa
-          eUh2/v6KtvmLRQb3P4EUytQF7pBYx8kRGMLvmFja5Gg8Xj3XhXXsdjUkmAYumRDl
-          HkUeB62F+TO1oOfTrwBAKRh8WfHJOyfDJyNw1EndZ4bz28ODxth4r+phaaSE+53y
-          WQIDAQAB
-          -----END PUBLIC KEY-----
-        EOF
+          cat <<EOF > config.yaml
+          project: bigfunctions
+          dataset: eu,us,europe_west1,asia_east1
+          public_key_to_encrypt_secrets: |
+            -----BEGIN PUBLIC KEY-----
+            MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAsgotixwX/WsbKxeT3sef
+            z6acpTomZEYOBJzIRLtcHyxzyMEuMN9iYF32l4t6K70b+38mLIO7K6LkZj/nnhrF
+            UuPfAKme5R2Y4FqtJVSzplCmZc2/274eanIGi6BZ+kHOoc+eJTOEi3Wzp/EQ77iG
+            bC9tD/0ZkXYdXzPHcJT0dOFHIV6wpLr2i251NAIDTI4CV1afqhxU313f5Wrw+pYa
+            eUh2/v6KtvmLRQb3P4EUytQF7pBYx8kRGMLvmFja5Gg8Xj3XhXXsdjUkmAYumRDl
+            HkUeB62F+TO1oOfTrwBAKRh8WfHJOyfDJyNw1EndZ4bz28ODxth4r+phaaSE+53y
+            WQIDAQAB
+            -----END PUBLIC KEY-----
+          EOF
       - run: bigfun docs generate
       - run: mkdocs gh-deploy --force
