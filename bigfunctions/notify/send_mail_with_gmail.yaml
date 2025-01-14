@@ -55,7 +55,6 @@ examples:
       - "'you@example.com'"
       - "'I love BigFunctions'"
       - "'Hey Paul, could you deploy more BigFunctions 🙏?'"
-      - "'report.xlsx'"
       - |
         json_object(
           'report.csv',
