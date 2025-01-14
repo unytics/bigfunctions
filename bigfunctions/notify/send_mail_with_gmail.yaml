@@ -6,7 +6,7 @@ description: |
   | Param         | Possible values  |
   |---------------|------------------|
   | `gmail_email` | The email for your gmail account   |
-  | `gmail_app_password` | An App Password of your gmail account. [Get an App Password](https://myaccount.google.com/apppasswords). Encrypt the password wit the button below before copying it to your queries!  |
+  | `gmail_app_password` | An App Password of your gmail account.  1.[Get an App Password](https://myaccount.google.com/apppasswords). ⚠️ 2. Encrypt the password wit the button below before copying it to your queries!  |
   | `to`          | One or multiple comma separated emails.<br>For instance `contact@unytics.io` or `contact@unytics.io, paul.marcombes@unytics.io`   |
   | `subject`     | Email subject |
   | `content`     | Email content   |
