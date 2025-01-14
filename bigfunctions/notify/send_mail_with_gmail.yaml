@@ -1,0 +1,114 @@
+type: function_py
+author: Paul Marcombes
+description: |
+  Sends an email using your gmail account
+
+  | Param         | Possible values  |
+  |---------------|------------------|
+  | `gmail_email` | The email for your gmail account   |
+  | `gmail_app_password` | An App Password of your gmail account. [Get an App Password](https://myaccount.google.com/apppasswords). Encrypt your secret wit the button below before copying it to your queries!  |
+  | `to`          | One or multiple comma separated emails.<br>For instance `contact@unytics.io` or `contact@unytics.io, paul.marcombes@unytics.io`   |
+  | `subject`     | Email subject |
+  | `content`     | Can be plain text, html or **markdown**   |
+  | `attachment_filename`  | `null` or filename with extension such as `report.xlsx`  |
+  | `attachment_content`  | `null` or can be plain text or base64 encoded content (useful to send excel files, pdf or images)  |
+
+  {SECRET_ENCRYPTER}
+arguments:
+  - name: gmail_email
+    type: string
+  - name: gmail_app_password
+    type: string
+  - name: to
+    type: string
+  - name: subject
+    type: string
+  - name: content
+    type: string
+  - name: attachments
+    type: json
+output:
+  name: success
+  type: BOOL
+examples:
+  - description: "Send email without file attached"
+    arguments:
+      - "'paul.marcombes@unytics.io'"
+      - "'ENCRYPTED_SECRET(kdoekdswlxzapdldpzlfpfd...)'"
+      - "'you@example.com"
+      - "'I love BigFunctions'"
+      - "'Hey Paul, could you deploy more BigFunctions 🙏?'"
+      - "null"
+    output: "true"
+  - description: "Send email with plain text file attached"
+    arguments:
+      - "'paul.marcombes@unytics.io'"
+      - "'ENCRYPTED_SECRET(kdoekdswlxzapdldpzlfpfd...)'"
+      - "'you@example.com"
+      - "'I love BigFunctions'"
+      - "'Hey Paul, could you deploy more BigFunctions 🙏?'"
+      - "json_object('report.csv, 'col1,col2\\nval1,val2\\nval3,val4')"
+    output: "true"
+  - description: "Send email with excel file attached"
+    arguments:
+      - "'paul.marcombes@unytics.io'"
+      - "'ENCRYPTED_SECRET(kdoekdswlxzapdldpzlfpfd...)'"
+      - "'you@example.com"
+      - "'I love BigFunctions'"
+      - "'Hey Paul, could you deploy more BigFunctions 🙏?'"
+      - "'report.xlsx'"
+      - |
+        json_object(
+          'report.csv',
+          (select {BIGFUNCTIONS_DATASET}.json2excel('[{"col1": "val1", "col2": "val2"}, {"col1": "val3", "col2": "val4"}]'))
+        )
+    output: "true"
+init_code: | #python
+  import io
+  import smtplib
+  from email.mime.application import MIMEApplication
+  from email.mime.multipart import MIMEMultipart
+  from email.mime.text import MIMEText
+  from email.utils import COMMASPACE
+  from email.mime.base import MIMEBase
+  from email import encoders
+
+  SMTP_SERVER = 'smtp.gmail.com'
+  SMTP_PORT = 587
+code: | #python
+  gmail_app_password = decrypt_secrets_in_argument_and_check(gmail_app_password, bigfunction_user)
+
+  msg = MIMEMultipart()
+  msg['From'] = gmail_email
+  msg['To'] = to
+  msg['Reply-To'] = gmail_email
+  msg['Return - Path'] = gmail_email
+  msg['Subject'] = subject
+  msg.attach(MIMEText(content, 'html'))
+
+  attachments = attachments or {}
+  for filename, content in attachments.items():
+    if isinstance(content, str):
+      part = MIMEApplication(content.encode(), Name=filename)
+      part['Content-Disposition'] = f'attachment; filename="{filename}"'
+      msg.attach(part)
+
+    elif isinstance(content, io.BytesIO):
+      part = MIMEBase('application', "octet-stream")
+      content.seek(0)
+      part.set_payload(content.read())
+      encoders.encode_base64(part)
+      part.add_header('Content-Disposition', f'attachment; filename="{filename}"')
+      msg.attach(part)
+    else:
+      raise TypeError('content should be a string or BytesIO buffer')
+
+  smtpObj = smtplib.SMTP(SMTP_SERVER, SMTP_PORT)
+  smtpObj.ehlo()
+  smtpObj.starttls()
+  smtpObj.login(gmail_email, gmail_app_password)
+  smtpObj.sendmail(gmail_email, msg['To'].split(","), msg.as_string())
+  smtpObj.quit()
+  return True
+quotas:
+  max_rows_per_query: 100
