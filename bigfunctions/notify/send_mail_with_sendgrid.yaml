@@ -1,0 +1,142 @@
+type: function_py
+author: Paul Marcombes
+description: |
+  Sends an email using your gmail account
+
+  | Param         | Possible values  |
+  |---------------|------------------|
+  | `gmail_email` | The email for your gmail account   |
+  | `gmail_app_password` | An App Password of your gmail account.  1.[Get an App Password](https://myaccount.google.com/apppasswords). ⚠️ 2. Encrypt the password wit the button below before copying it to your queries!  |
+  | `to`          | One or multiple comma separated emails.<br>For instance `contact@unytics.io` or `contact@unytics.io, paul.marcombes@unytics.io`   |
+  | `subject`     | Email subject |
+  | `content`     | Email content   |
+  | `attachments`  | json like `{filename: content}` with `content` a plain text or base64 encoded bytes (for excel, pdf, image, etc)  |
+
+  {SECRET_ENCRYPTER}
+arguments:
+  - name: gmail_email
+    type: string
+  - name: gmail_app_password
+    type: string
+  - name: to
+    type: string
+  - name: subject
+    type: string
+  - name: content
+    type: string
+  - name: attachments
+    type: json
+output:
+  name: success
+  type: BOOL
+examples:
+  - description: "Send email without file attached"
+    arguments:
+      - "'paul.marcombes@unytics.io'"
+      - "'ENCRYPTED_SECRET(kdoekdswlxzapdldpzlfpfd...)'"
+      - "'you@example.com'"
+      - "'I love BigFunctions'"
+      - "'Hey Paul, could you deploy more BigFunctions 🙏?'"
+      - "null"
+    output: "true"
+  - description: "Send email with plain text file attached"
+    arguments:
+      - "'paul.marcombes@unytics.io'"
+      - "'ENCRYPTED_SECRET(kdoekdswlxzapdldpzlfpfd...)'"
+      - "'you@example.com'"
+      - "'I love BigFunctions'"
+      - "'Hey Paul, could you deploy more BigFunctions 🙏?'"
+      - "json_object('report.csv', 'col1,col2\\nval1,val2\\nval3,val4')"
+    output: "true"
+  - description: "Send email with excel file attached"
+    arguments:
+      - "'paul.marcombes@unytics.io'"
+      - "'ENCRYPTED_SECRET(kdoekdswlxzapdldpzlfpfd...)'"
+      - "'you@example.com'"
+      - "'I love BigFunctions'"
+      - "'Hey Paul, could you deploy more BigFunctions 🙏?'"
+      - |
+        json_object(
+          'report.xlsx',
+          (select {BIGFUNCTIONS_DATASET}.json2excel(json '[{"col1": "val1", "col2": "val2"}, {"col1": "val3", "col2": "val4"}]'))
+        )
+    output: "true"
+init_code: | #python
+  import base64
+  import mimetypes
+  import re
+  import requests
+
+  def is_string_base64_encoded(string):
+    try:
+      return base64.b64encode(base64.b64decode(string)) == string.encode()
+    except:
+      return False
+
+
+  def check_emails(to):
+    to = to.replace(';', ',')
+    emails = [email.strip() for email in to.split(',')]
+    email_regex = r'\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,7}\b'
+    for email in emails:
+      assert re.fullmatch(email_regex, email), f'email `{email}` is not a valid email'
+    return emails
+
+
+  def attach_files(mail, attachments):
+    if not attachments:
+      return
+    mail['attachments'] = []
+    for filename, content in attachments.items():
+      is_b64_encoded = is_string_base64_encoded(content)
+      if not is_b64_encoded:
+        b = base64.b64encode(bytes(content, 'utf-8'))
+        content = b.decode('utf-8')
+
+      attachment_type = mimetypes.guess_type(filename)[0]
+      attachment_type = attachment_type or (
+        'application/octet-stream'
+        if is_b64_encoded
+        else 'text/plain'
+      )
+      mail['attachments'].append({
+        'content': content,
+        'type': attachment_type,
+        'filename': filename,
+      })
+
+
+  def send_mail(emails, subject, content, attachments):
+    url = 'https://api.sendgrid.com/v3/mail/send'
+    headers = {
+      'Authorization': f'Bearer {sendgrid_api_key}',
+      'Content-Type': 'application/json',
+    }
+    mail = {
+      "personalizations": [{"to": [{"email": email} for email in emails]}],
+      "from": sender,
+      "reply_to": reply_to,
+      "subject": subject,
+      "content": [{"type": "text/html", "value": content}]
+    }
+    attach_files(mail, attachments)
+    response = requests.post(url, headers=headers, json=mail)
+    assert response.ok, 'ERROR: ' + response.text
+code: | #python
+  if not to:
+    return True
+  subject = subject or ''
+  content = content or ''
+  sender = {
+      'name': 'BigFunctions',
+      'email': 'bigfunctions@unytics.io'
+  }
+  reply_to = {'email': 'noreply@unytics.io'}
+  emails = check_emails(to)
+  content = format_content(content)
+  send_mail(emails, subject, content, attachment)
+  return True
+requirements: |
+  requests
+quotas:
+  max_rows_per_query: 100
