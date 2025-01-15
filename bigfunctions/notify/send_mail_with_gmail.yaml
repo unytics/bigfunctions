@@ -112,9 +112,10 @@ init_code: | #python
   def build_message(gmail_email, to, subject, content, attachments):
     subject = subject or ''
     content = content or ''
+    to = check_emails(to)
     msg = MIMEMultipart()
     msg['From'] = gmail_email
-    msg['To'] = to
+    msg['To'] = ','.join(to)
     msg['Reply-To'] = gmail_email
     msg['Return - Path'] = gmail_email
     msg['Subject'] = subject
