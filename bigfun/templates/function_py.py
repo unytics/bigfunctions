@@ -207,7 +207,8 @@ def decrypt(text):
 
 
 def decrypt_secrets_in_argument_and_check(value, user):
-    assert isinstance(value, (str, dict)), 'decrypt secrets expect value to be a dict or a string'
+    if not isinstance(value, (str, dict)):
+        return value
 
     if isinstance(value, dict):
         return {k: decrypt_secrets[v] for k, v in value.items()}
