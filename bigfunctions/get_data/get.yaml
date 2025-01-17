@@ -1,6 +1,9 @@
 type: function_py
 author: Paul Marcombes
-description: Request `url`
+description: |
+  Request `url`
+
+  {SECRET_ENCRYPTER}
 arguments:
   - name: url
     type: string
@@ -28,6 +31,7 @@ code: | #python
   if 'google.internal' in url:
     return 'invalid url: it is a google internal url'
   import requests
+  headers = decrypt_secrets_in_argument_and_check(headers, bigfunction_user)
   return requests.get(url, headers=headers, allow_redirects=False).text
 requirements: |
   requests
