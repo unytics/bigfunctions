@@ -30,6 +30,10 @@ code: | #python
     return 'invalid url: it does not start with http:// nor https://'
   if 'google.internal' in url:
     return 'invalid url: it is a google internal url'
+  if headers and not isinstance(headers, dict):
+    return 'invalid headers: it is not a json dict'
+  if 'metadata-flavor' in [k.lower() for k in (headers or {}).keys()]:
+    return 'invalid metadata-flavor header'
   import requests
   headers = decrypt_secrets_in_argument_and_check(headers, bigfunction_user)
   return requests.get(url, headers=headers, allow_redirects=False).text
