@@ -213,6 +213,20 @@ select PROJECT.DATASET.faker("name", "it_IT")
 ## ❓ 6. FAQ
 
 <details>
+  <summary><strong>How to define specific parameters for cloud run of python functions?</strong></summary>
+
+  In yaml files you can add a `cloud_run` field with cloud run parameters. Any argument of [`cloud run deploy` command](https://cloud.google.com/sdk/gcloud/reference/run/deploy) can be put under `cloud_run` field.
+
+  You can see an example [here](https://github.com/unytics/bigfunctions/blob/main/bigfunctions/get_data/load_api_data_into_temp_dataset.yaml#L339).
+
+  You can also put the same config in your `config.yaml` file to define default values (useful for defining a default service account for functions). The arguments defined in `config.yaml` will be overriden by the arguments (if defined) defined in the function yaml files.
+</details>
+<details>
+  <summary><strong>How to change the cloud run service account for python functions?</strong></summary>
+
+  By default, your default compute service account is used when deploying cloud run. To change that, see the previous FAQ item which show how to define specific parameters for cloud run.
+</details>
+<details>
   <summary><strong>How to correctly highlight <code>sql</code>, <code>python</code> and <code>javascript</code> code in yaml files?</strong></summary>
 
   In yaml files multiline string are by default highlighted as strings. That makes reading <code>code</code> field hard to read (with all code in the same string color). To correctly highlight the code regarding its python / javascript / sql syntax, you can install <a href="https://marketplace.visualstudio.com/items?itemName=harrydowning.yaml-embedded-languages">YAML Embedded Languages</a> VSCode extension.
