@@ -18,10 +18,19 @@ examples:
       - "'https://unytics.io/bigfunctions/'"
       - "null"
     output: "&lt;html>...&lt;/html>"
-  - description: "With Content-Type = application/json headers"
+  - description: "With `Content-Type = application/json` headers"
     arguments:
       - "'https://api.github.com/repos/unytics/bigfunctions'"
-      - "json '{\"Content-Type\": \"application/json\"}'"
+      - "json_object('Content-Type', 'application/json')"
+    output: "{...}"
+  - description: "With encrypted bearer token"
+    arguments:
+      - "'https://api.github.com/repos/unytics/bigfunctions_terraform'"
+      - |
+        json_object(
+          'Content-Type', 'application/json',
+          'Authorization', 'Bearer ENCRYPTED_SECRET(ioLZsCtEu5ZKu...)'
+        )
     output: "{...}"
 code: | #python
   if not url:
