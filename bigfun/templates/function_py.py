@@ -211,7 +211,7 @@ def decrypt_secrets_in_argument_and_check(value, user):
         return value
 
     if isinstance(value, dict):
-        return {k: decrypt(v) for k, v in value.items()}
+        return {k: decrypt_secrets_in_argument_and_check(v) for k, v in value.items()}
 
     if not value.strip().startswith("ENCRYPTED_SECRET("):
         return value
