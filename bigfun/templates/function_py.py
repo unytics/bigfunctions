@@ -207,31 +207,29 @@ def decrypt(text):
 
 
 def decrypt_secrets_in_argument_and_check(value, user):
-    if not isinstance(value, (str, dict)):
-        return value
-
     if isinstance(value, dict):
         return {k: decrypt_secrets_in_argument_and_check(v, user) for k, v in value.items()}
 
-    if not value.strip().startswith("ENCRYPTED_SECRET("):
+    if not isinstance(value, str):
         return value
 
-    value = value.strip()
-    value = value[len("ENCRYPTED_SECRET("):]
-    assert ')' in value, 'missing `)` closing parenthese in encrypted secret'
-    value = value[:value.find(')')]
+    encrypted_secrets = re.findall(r'ENCRYPTED_SECRET\(([^\)]*)\)', value)
+    for encrypted_secret in encrypted_secrets:
+        decrypted_secret = decrypt(encrypted_secret)
+        try:
+            decrypted_secret = json.loads(decrypted_secret)
+        except:
+            # for backwards compatibility only
+            value = value.replace(f'ENCRYPTED_SECRET({encrypted_secret})', decrypted_secret)
+            continue
+        assert user in decrypted_secret['authorized_users'], f'Permission Error: User `{user}` do not belong to secret `authorized readers`'
+        assert decrypted_secret['function'] == '{{ name }}', f'Permission Error: Secret was not created to be used with this function'
+        decrypted_secret = decrypted_secret['secret']
+        value = value.replace(f'ENCRYPTED_SECRET({encrypted_secret})', decrypted_secret)
+    return value
 
-    value = decrypt(value)
 
-    try:
-        value = json.loads(value)
-    except:
-        # for backwards compatibility only
-        return value
 
-    assert user in value['authorized_users'], f'Permission Error: User `{user}` do not belong to secret `authorized readers`'
-    assert value['function'] == '{{ name }}', f'Permission Error: Secret was not created to be used with this function'
-    return value['secret']
 
 
 
