@@ -40,7 +40,7 @@ plugins:
 nav:
   - Get Started!: README.md
   - Explore BigFunctions!: bigfunctions/README.md
-  - "Join :simple-slack: Slack!": https://join.slack.com/t/unytics/shared_invite/zt-1gbv491mu-cs03EJbQ1fsHdQMcFN7E1Q
+  - 'Join <img src="https://logo-marque.com/wp-content/uploads/2020/11/Slack-Logo-2019-present.png"> Slack!': https://join.slack.com/t/unytics/shared_invite/zt-1gbv491mu-cs03EJbQ1fsHdQMcFN7E1Q
   - Contribute!: CONTRIBUTING.md
 validation:
   nav:
