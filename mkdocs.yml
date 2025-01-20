@@ -47,5 +47,9 @@ validation:
     omitted_files: ignore
 extra:
   social:
-    - icon: fontawesome/brands/mastodon 
-      link: https://fosstodon.org/@squidfunk
+    - icon: fontawesome/brands/github 
+      link: https://github.com/unytics/bigfunctions
+    - icon: fontawesome/brands/slack 
+      link: https://join.slack.com/t/unytics/shared_invite/zt-1gbv491mu-cs03EJbQ1fsHdQMcFN7E1Q
+    - icon: fontawesome/brands/linkedin 
+      link: https://www.linkedin.com/company/unytics/
