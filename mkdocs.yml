@@ -45,3 +45,7 @@ nav:
 validation:
   nav:
     omitted_files: ignore
+extra:
+  social:
+    - icon: fontawesome/brands/mastodon 
+      link: https://fosstodon.org/@squidfunk
