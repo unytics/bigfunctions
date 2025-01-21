@@ -118,8 +118,6 @@ venv.bak/
 # Rope project settings
 .ropeproject
 
-# mkdocs documentation
-/docs
 
 # mypy
 .mypy_cache/
@@ -133,7 +131,11 @@ config.yaml
 
 SECRET
 meetups/
-docs/
+docs/bigfunctions/
+docs/assets/
+docs/theme_overrides/
+docs/CONTRIBUTING.md
+docs/README.md
 emails/
 TODO.md
 test.py
