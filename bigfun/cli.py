@@ -83,8 +83,6 @@ def generate_doc(project, dataset):
         shutil.copyfile('README.md', 'docs/README.md')
         if os.path.isfile('CONTRIBUTING.md'):
             shutil.copyfile('CONTRIBUTING.md', 'docs/CONTRIBUTING.md')
-        if os.path.isfile('mosaic_example.md'):
-            shutil.copyfile('mosaic_example.md', 'docs/mosaic_example.md')
 
     def copy_default_site_config():
         if not os.path.isfile('mkdocs.yml'):
