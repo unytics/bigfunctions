@@ -33,23 +33,29 @@ markdown_extensions:
   - admonition
   - pymdownx.details
   - pymdownx.superfences
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
   - pymdownx.tabbed:
       alternate_style: true
 plugins:
   - search
 nav:
-  - Get Started!: README.md
-  - Explore BigFunctions!: bigfunctions/README.md
-  - Join Slack!: https://join.slack.com/t/unytics/shared_invite/zt-1gbv491mu-cs03EJbQ1fsHdQMcFN7E1Q
-  - Contribute!: CONTRIBUTING.md
+  - Home: index.html
+  - BigFunctions: bigfunctions/README.md
+  - Framework: framework.md
+  - Community:
+      - Contribute!: CONTRIBUTING.md
+      - Join Slack!: https://join.slack.com/t/unytics/shared_invite/zt-1gbv491mu-cs03EJbQ1fsHdQMcFN7E1Q
+  # - Blog: blog.md
 validation:
   nav:
     omitted_files: ignore
 extra:
   social:
-    - icon: fontawesome/brands/github 
+    - icon: fontawesome/brands/github
       link: https://github.com/unytics/bigfunctions
-    - icon: fontawesome/brands/slack 
+    - icon: fontawesome/brands/slack
       link: https://join.slack.com/t/unytics/shared_invite/zt-1gbv491mu-cs03EJbQ1fsHdQMcFN7E1Q
-    - icon: fontawesome/brands/linkedin 
+    - icon: fontawesome/brands/linkedin
       link: https://www.linkedin.com/company/unytics/
