@@ -17,7 +17,7 @@ from . import utils
 TABLES_FOLDER = 'data'
 PEOPLE_FILENAME = 'people.yaml'
 THIS_FOLDER = os.path.dirname(os.path.realpath(__file__)).replace('\\', '/')
-WEBSITE_CONFIG_FOLDER = THIS_FOLDER + '/website'
+MKDOCS_DEFAULT_FILE =  f'{THIS_FOLDER}/templates/mkdocs.yml'
 DOC_FOLDER_TEMPLATE_FILENAME = f'{THIS_FOLDER}/templates/folder.md'
 CONFIGS = {}
 
@@ -87,7 +87,7 @@ def generate_doc(project, dataset):
     def copy_default_site_config():
         if not os.path.isfile('mkdocs.yml'):
             print('INFO: CREATING mkdocs.yml FILE in CURRENT DIRECTORY. It is the configuration file of the website...')
-            shutil.copyfile(WEBSITE_CONFIG_FOLDER + '/mkdocs.yml', 'mkdocs.yml')
+            shutil.copyfile(MKDOCS_DEFAULT_FILE, 'mkdocs.yml')
 
     def generate_bigfunctions_markdown(bigfunctions):
         for bigfunction in bigfunctions:
