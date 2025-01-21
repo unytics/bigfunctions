@@ -54,37 +54,56 @@ Explore all available BigFunctions.
 
 ## Get Started with BigFunctions
 
-### Call Public BigFunctions
 
-You can call public functions directly from your BigQuery project without installation. For example:
-```sql
-SELECT bigfunctions.eu.faker("name", "it_IT")
-```
+<div class="grid cards" markdown>
 
-[Explore Ready-to-Use Functions](bigfunctions){ .md-button .md-button--primary }
+-   :material-clock-fast:{ .lg .middle } __Call Public BigFunctions__
 
+    ---
 
-### Deploy BigFunctions
+    You can call public functions directly from your BigQuery project without installation. For example:
+    ```sql
+    SELECT bigfunctions.eu.faker("name", "it_IT")
+    ```
 
-You can also deploy functions in your GCP project.
-
-- Install the bigfun CLI: pip install bigfunctions.
-- Deploy a function: bigfun deploy my_bigfunction.
-- Functions are defined using YAML files.
-
-[Discover the Framework](framework){ .md-button .md-button--primary }
+    [Explore Public BigFunctions :octicons-arrow-right-24:](bigfunctions){ .md-button .md-input--stretch .md-button--center }
 
 
+-   :material-rocket-launch:{ .lg .middle } __Deploy BigFunctions__
 
-### Contribute to BigFunctions
+    ---
 
-BigFunctions is fully open-source, and contributions are encouraged.
-How to contribute:
+    You can also deploy functions in your GCP project.
 
-- Add a star on the repo.
-- Join the Slack channel.
-- Suggest a new function.
-- Raise an issue.
-- Open a pull request.
+    - Install the bigfun CLI: pip install bigfunctions.
+    - Deploy a function: bigfun deploy my_bigfunction.
+    - Functions are defined using YAML files.
 
-[See contribution instructions](CONTRIBUTING){ .md-button .md-button--primary }
+    [Discover the Framework :octicons-arrow-right-24:](framework){ .md-button .md-input--stretch .md-button--center }
+
+
+-   :fontawesome-solid-people-group:{ .lg .middle } __Join the Community__
+
+    ---
+
+    Benefit from BigFunctions community to get support or help others.
+
+    [Join Slack :octicons-arrow-right-24:](https://join.slack.com/t/unytics/shared_invite/zt-1gbv491mu-cs03EJbQ1fsHdQMcFN7E1Q){ .md-button .md-input--stretch .md-button--center }
+
+
+-   :fontawesome-solid-person-walking:{ .lg .middle } __Contribute to BigFunctions__
+
+    ---
+
+    BigFunctions is fully open-source, and any contribution is welcome.
+
+    [See Contribution Instructions :octicons-arrow-right-24:](CONTRIBUTING){ .md-button .md-input--stretch .md-button--center }
+
+</div>
+
+
+<style>
+.md-button--center {
+    text-align: center;
+}
+</style>
