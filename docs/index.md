@@ -1,25 +1,57 @@
-# BigFunctions: SQL is All You Need
-
-## The Problem: The Complexity of the Modern Data Stack
-
-The modern data stack is characterized by a collection of tools built around a data warehouse for data ingestion, transformation, and activation. This often leads to a complex system requiring custom Python scripts to address specific needs, making the data workflow fragmented and difficult to manage.
-
-*   **Tool Sprawl**:  A multitude of tools for various tasks complicates the data workflow.
-*   **Custom Scripting**: Reliance on custom Python scripts introduces complexity and increases maintenance overhead.
-*  **Lack of Self-Service:** Data analysts often depend on data engineers for complex tasks, hindering agility and efficiency.
-
-## The Solution: The SQL Data Stack
-
-The future of the data stack is a **declarative SQL data stack** where the data warehouse is equipped to handle all data needs using SQL and additional functions. This approach simplifies the data ecosystem by reducing the need for multiple tools and custom scripts.
-
-*   **Simplicity**: Achieve everything with SQL, thus minimizing the need for multiple tools.
-*   **Efficiency**: Eliminate the overhead of custom scripting and external processing.
-*   **Self-Service**:  Empower data analysts to perform intricate tasks using SQL functions directly.
-*   **Centralized Governance**: Control all data processes from a central data warehouse.
+---
+title: "BigFunctions Supercharge BigQuery - SQL is All You Need!"
+description: "BigFunction are_arrays_equal is a BigQuery function which Return true if `array1` = `array2`"
+hide:
+  - navigation
+  - toc
+---
 
 
+<div class="grid cards no-border" markdown>
 
-## Why BigFunctions?
+-   ## Modern Data Stack is too Complex!
+
+    <figure markdown="span">
+        ![Image title](assets/modern_data_stack.png){ width="600" }
+        <figcaption>The Modern Data Stack is Complex!</figcaption>
+    </figure>
+
+    :x: **Tool Sprawl**: A multitude of tools for various tasks complicates the data workflow.
+
+    :x: **Custom Scripting**: Reliance on custom Python scripts introduces complexity and increases maintenance overhead.
+
+    :x: **Lack of Self-Service**: Data analysts often depend on data engineers for complex tasks, hindering agility and efficiency.
+
+
+
+-   ## :octicons-arrow-right-24: Future is SQL Data Stack
+
+    <figure markdown="span">
+        ![Image title](assets/sql_data_stack.png){ width="600" }
+        <figcaption>Supercharged Data-Warehouse is All You Need!</figcaption>
+    </figure>
+
+    :white_check_mark:  **Simplicity**: Achieve everything with SQL, thus minimizing the need for multiple tools.
+
+    :white_check_mark:  **Centralized Governance**: Control all data processes from a central data warehouse with declarative assets.
+
+    :white_check_mark:  **Self-Service**:  Empower data analysts to perform intricate tasks using SQL functions directly.
+
+
+</div>
+
+
+
+
+
+
+## BigFunctions brings the SQL Data Stack
+
+
+!!! quote ""
+
+    BigFunctions makes the **SQL data stack** a reality
+
 
 **BigFunctions** is a framework and a collection of open-source functions that make the SQL data stack a reality. It allows you to build a governed catalog of powerful BigQuery functions within your company.
 
@@ -102,8 +134,52 @@ Explore all available BigFunctions.
 </div>
 
 
+
+---
+
+> The modern data stack is characterized by a collection of tools for data ingestion, transformation, and activation + additional python scripts to address custom needs.
+>
+> :octicons-arrow-right-24: The Data Workflow is **fragmented** and **hard to manage**.
+>
+> The future of the data stack is a* **declarative SQL data stack** *where the data warehouse is equipped to handle all data needs using SQL and advanced functions.
+>
+> :octicons-arrow-right-24: The Data Workflow is* **Simple**.
+>
+
+
+
 <style>
 .md-button--center {
     text-align: center;
 }
+
+/* .cards.no-border li, .cards.no-border li:hover {
+    border: none!important;
+} */
+
+h2 {
+    font-weight: 600!important;
+    color: rgb(38, 38, 38)!important;
+}
+
+.cards.no-border li {
+    color: rgb(92, 92, 92);
+}
+
+.centered-big-message {
+    color: rgb(92, 92, 92);
+    font-size: 1.2em;
+    margin-top: -0.5em;
+}
+
+.quote {
+    text-align: center;
+    font-style: italic;
+    /* font-weight: 600!important; */
+    font-size: 1.2em!important;
+    color: rgb(250, 250, 250)!important;
+    /* color: rgb(92, 92, 92)!important; */
+    background-color: var(--md-primary-fg-color)!important;
+}
+
 </style>

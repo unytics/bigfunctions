@@ -4,7 +4,7 @@ site_url: 'https://unytics.io/bigfunctions/'
 repo_name: 'unytics/bigfunctions'
 repo_url: 'https://github.com/unytics/bigfunctions'
 edit_uri: 'edit/main'
-copyright: 'Copyright &copy; 2024 Unytics'
+copyright: 'Copyright &copy; 2025 Unytics'
 theme:
   name: material
   custom_dir: docs/theme_overrides
