@@ -60,16 +60,26 @@ hide:
     text-align: center;
 }
 
-/* .cards.no-border li, .cards.no-border li:hover {
-    border: none!important;
-} */
-
 h2 {
     font-weight: 600!important;
     color: rgb(38, 38, 38)!important;
 }
 
-.cards.no-border li {
+.grid-container {
+    background-color: var(--md-primary-fg-color)!important;
+    padding: 20px;
+}
+
+.grid-container h2 {
+    color: var(--md-primary-fg-color) !important;
+}
+
+.grid-container li {
+    margin: 10px 0!important;
+}
+
+.cards li {
+    background-color: white;
     color: rgb(92, 92, 92);
 }
 
@@ -123,15 +133,19 @@ h2 {
 
 <!-- <hr style="margin: 16em 1em 1.5em 1em;  border-bottom: 0.05rem solid var(--md-default-fg-color--lightest); display: flow-root;"> -->
 
+<br>
+<br>
+<br>
+
+<div class="grid-container" markdown>
+
+<div class="grid cards" markdown>
 
 
-
-<div class="grid cards no-border" markdown>
-
--   ## Modern Data Stack is too Complex!
+-   ## From Modern Data Stack
 
     <figure markdown="span">
-        ![Image title](assets/modern_data_stack.png){ width="600" }
+        ![Image title](assets/modern_data_stack2.png){ width="600" }
         <figcaption>The Modern Data Stack is Complex!</figcaption>
     </figure>
 
@@ -143,10 +157,10 @@ h2 {
 
 
 
--   ## :octicons-arrow-right-24: Future is SQL Data Stack
+-   ## :octicons-arrow-right-24: to SQL Data Stack
 
     <figure markdown="span">
-        ![Image title](assets/sql_data_stack.png){ width="600" }
+        ![Image title](assets/sql_data_stack2.png){ width="600" }
         <figcaption>Supercharged Data-Warehouse is All You Need!</figcaption>
     </figure>
 
@@ -159,7 +173,7 @@ h2 {
 
 </div>
 
-
+</div>
 
 
 
