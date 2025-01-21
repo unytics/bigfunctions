@@ -41,7 +41,7 @@ markdown_extensions:
 plugins:
   - search
 nav:
-  - Home: index.html
+  - Home: index.md
   - BigFunctions: bigfunctions/README.md
   - Framework: framework.md
   - Community:

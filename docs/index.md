@@ -6,6 +6,125 @@ hide:
   - toc
 ---
 
+<style>
+
+
+/* Get started button */
+.md-typeset .md-button--primary:hover {
+  color: var(--md-primary-fg-color);
+  background-color: var(--md-primary-bg-color);
+  border-color: var(--md-primary-fg-color);
+}
+.md-typeset .md-button--primary {
+  color: var(--md-primary-bg-color);
+  background-color: var(--md-primary-fg-color);
+  border-color: var(--md-primary-bg-color);
+}
+
+.tx-hero {
+  max-width: 700px;
+  display: flex;
+  padding: .4rem;
+  margin: 0 auto;
+  text-align: center;
+}
+.tx-hero h1 {
+  font-weight: 700;
+  font-size: 38px;
+  line-height: 46px;
+  color: rgb(38, 38, 38);
+}
+.tx-hero p {
+  color: rgb(92, 92, 92);
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 32px;
+}
+.tx-hero__image {
+  max-width: 1000px;
+  /*min-width: 600px;*/
+  width: 100%;
+  height: auto;
+  margin: 0 auto;
+  display: flex;
+  align-items: stretch;
+}
+
+.tx-hero__image img {
+  width: 100%;
+  height: 100%;
+  min-width: 0;
+}
+
+.md-button--center {
+    text-align: center;
+}
+
+/* .cards.no-border li, .cards.no-border li:hover {
+    border: none!important;
+} */
+
+h2 {
+    font-weight: 600!important;
+    color: rgb(38, 38, 38)!important;
+}
+
+.cards.no-border li {
+    color: rgb(92, 92, 92);
+}
+
+.centered-big-message {
+    color: rgb(92, 92, 92);
+    font-size: 1.2em;
+    margin-top: -0.5em;
+}
+
+.quote {
+    text-align: center;
+    font-style: italic;
+    /* font-weight: 600!important; */
+    font-size: 1.2em!important;
+    color: rgb(250, 250, 250)!important;
+    /* color: rgb(92, 92, 92)!important; */
+    background-color: var(--md-primary-fg-color)!important;
+}
+
+</style>
+
+<div class="md-container tx-hero">
+  <div class="md-grid md-typeset">
+    <div class="md-main__inner">
+      <div>
+        <h1>Supercharge <u>BigQuery</u><br>with <u>BigFunctions</u></h1>
+        <p>
+          <b>Upgrade your data impact</b><br>
+          <i>with</i> 100+ ready-to-use BigQuery Functions
+        </p>
+        <p style="margin-bottom: 2rem"><i>(+ build a catalog of functions)</i></p>
+        <a href="bigfunctions/" class="md-button md-button--primary">
+          Try it!
+          <svg width="11" height="10" viewBox="0 0 11 10" fill="none" style="margin-left:2px"><path d="M1 5.16772H9.5M9.5 5.16772L6.5 1.66772M9.5 5.16772L6.5 8.66772" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- <div class="md-container">
+  <div class="tx-hero__image">
+    <img
+      src="{{config.site_url}}assets/images/bigfunctions_intro.gif"
+      alt=""
+      draggable="false"
+      style="border: black solid 1rem; width: 100%; margin-top: 5rem;"
+    >
+  </div>
+</div> -->
+
+<!-- <hr style="margin: 16em 1em 1.5em 1em;  border-bottom: 0.05rem solid var(--md-default-fg-color--lightest); display: flow-root;"> -->
+
+
+
 
 <div class="grid cards no-border" markdown>
 
@@ -145,41 +264,3 @@ Explore all available BigFunctions.
 >
 > :octicons-arrow-right-24: The Data Workflow is* **Simple**.
 >
-
-
-
-<style>
-.md-button--center {
-    text-align: center;
-}
-
-/* .cards.no-border li, .cards.no-border li:hover {
-    border: none!important;
-} */
-
-h2 {
-    font-weight: 600!important;
-    color: rgb(38, 38, 38)!important;
-}
-
-.cards.no-border li {
-    color: rgb(92, 92, 92);
-}
-
-.centered-big-message {
-    color: rgb(92, 92, 92);
-    font-size: 1.2em;
-    margin-top: -0.5em;
-}
-
-.quote {
-    text-align: center;
-    font-style: italic;
-    /* font-weight: 600!important; */
-    font-size: 1.2em!important;
-    color: rgb(250, 250, 250)!important;
-    /* color: rgb(92, 92, 92)!important; */
-    background-color: var(--md-primary-fg-color)!important;
-}
-
-</style>
