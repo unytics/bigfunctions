@@ -1,12 +1,12 @@
 site_name: BigFunctions
-repo_name: 'unytics/bigfunctions'
-repo_url: 'https://github.com/unytics/bigfunctions'
-edit_uri: 'edit/main'
+# repo_name: 'unytics/bigfunctions'
+# repo_url: 'https://github.com/unytics/bigfunctions'
+# edit_uri: 'edit/main'
 theme:
   name: material
   # custom_dir: docs/theme_overrides
-  logo: assets/logo.png
-  favicon: assets/logo.png
+  logo: https://unytics.io/bigfunctions/assets/logo.png
+  favicon: https://unytics.io/bigfunctions/assets/logo.png
   features:
     - tabs
     - content.tabs.link
@@ -35,8 +35,8 @@ markdown_extensions:
 plugins:
   - search
 nav:
-  - Get Started!: README.md
-  - Explore BigFunctions!: bigfunctions/README.md
+  - README: README.md
+  - BigFunctions!: bigfunctions/README.md
 validation:
   nav:
     omitted_files: ignore

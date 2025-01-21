@@ -88,12 +88,6 @@ def generate_doc(project, dataset):
         if not os.path.isfile('mkdocs.yml'):
             print('INFO: CREATING mkdocs.yml FILE in CURRENT DIRECTORY. It is the configuration file of the website...')
             shutil.copyfile(WEBSITE_CONFIG_FOLDER + '/mkdocs.yml', 'mkdocs.yml')
-        if not os.path.isdir('docs/assets'):
-            print('INFO: COPYING assets FOLDER into docs FOLDER...')
-            shutil.copytree(WEBSITE_CONFIG_FOLDER + '/assets', 'docs/assets')
-        if not os.path.isdir('docs/theme_overrides'):
-            print('INFO: COPYING theme_overrides FOLDER into docs FOLDER...')
-            shutil.copytree(WEBSITE_CONFIG_FOLDER + '/theme_overrides', 'docs/theme_overrides')
 
     def generate_bigfunctions_markdown(bigfunctions):
         for bigfunction in bigfunctions:
