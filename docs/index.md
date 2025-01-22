@@ -54,44 +54,40 @@ hide:
     text-align: center;
 }
 
-h1, h2 {
-  background-image: linear-gradient(60deg, #495ccdff, #2a3576ff);
+.md-content h1, .md-content h2 {
+  background-image: linear-gradient(60deg, #495ccdff, #232c60ff);
   background-clip: text;
   color: #0000!important;
 }
 
-h1 {
+.md-content h1 {
   font-weight: 700!important;
   font-size: 2rem!important;
   line-height: 1.1 !important;
   margin: 0 0 0.6em!important;
 }
 
-.h1-bigger {
+.md-content .h1-bigger {
   color: rgb(38, 38, 38)!important;
   font-size: 3rem!important;
 }
 
 @media (min-width: 640px) {
-  h1 {
+  .md-content h1 {
     font-size: 3rem!important;
   }
 
-  .h1-bigger {
+  .md-content .h1-bigger {
     font-size: 4.5rem!important;
   }
 
   .hero p {
     font-size: 1rem!important;
   }
-
-  .row {
-    margin: 0 4rem!important;
+  .hero p.small {
+    font-size: 0.8rem!important;
   }
 
-  .column {
-    width: 50%!important;
-  }
 
   .grid-2 {
     grid-template-columns: 47.5% 47.5%!important;
@@ -146,32 +142,6 @@ img.gray-scale {
 }
 
 
-.row {
-  margin: 0;
-  background: var(--md-primary-fg-color)!important;
-}
-/* Clear floats after the columns */
-.row:after {
-  content: "";
-  display: table;
-  clear: both;
-}
-
-/* Create two equal columns that floats next to each other */
-.column {
-  float: left;
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.column-content {
-  max-width: 400px;
-  padding: 30px;
-  background: white;
-}
-
 .primary-background {
   background-color: var(--md-primary-fg-color)!important;
   padding: 20px;
@@ -198,9 +168,31 @@ img.gray-scale {
 }
 
 
+.grid-cols-1 {
+  display: grid;
+  grid-template-columns: repeat(1, minmax(0, 1fr));
+  margin-left: auto;
+  margin-right: auto;
+  /* max-width: 42rem; */
+}
+
+@media (min-width: 1024px) {
+
+  .lg\:grid-cols-2 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    margin-left: 0;
+    margin-right: 0;
+    column-gap: 2rem;
+    max-width: none;
+  }
+
+  .lg\:order-first {
+     order: -9999;
+  }
+}
+
+
 </style>
-
-
 
 
 <div class="md-container hero">
@@ -218,10 +210,79 @@ img.gray-scale {
   </div>
 </div>
 
+<br>
+<div class="md-container hero">
+  <p class="small" style="margin-bottom: -20px"><i>Taking the most of</i></p>
+  <figure><img class="gray-scale" src="assets/gcp.svg" width=200></figure>
+</div>
 
 <br>
 <br>
+---
 <br>
+
+<div class="md-container hero">
+  <div>
+    <h1>The power of functions<br>with the ease of SQL</h1>
+    <p>
+      Have a data need? <strong>There's a bigfunction for that!</strong><br>
+      <i>BigFunctions provides <a href="bigfunctions/">150+ ready to use functions</a></i>
+    </p>
+  </div>
+</div>
+
+<br>
+<br>
+
+<div class="md-container">
+  <div class="grid-cols-1 lg:grid-cols-2">
+    <div>
+      <h2>Load Data from any vendor</h2>
+      <p>Load data from Salesforce, Hubspot and hundreds of vendors with one SQL command</p>
+      <a href="bigfunctions/load_api_data/" class="md-button md-button--primary">
+        Get Started
+        <svg width="11" height="10" viewBox="0 0 11 10" fill="none" style="margin-left:2px"><path d="M1 5.16772H9.5M9.5 5.16772L6.5 1.66772M9.5 5.16772L6.5 8.66772" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+      </a>
+    </div>
+    <div class="lg:order-first">
+      <img src="https://dummyimage.com/600x400/eee/aaa" style="width: 90%">
+    </div>
+  </div>
+</div>
+
+
+<div class="md-container">
+  <div class="grid-cols-1 lg:grid-cols-2">
+    <div>
+      <h2>Perform Anomaly Detection</h2>
+      <p>Load data from Salesforce, Hubspot and hundreds of vendors with one SQL command</p>
+      <a href="bigfunctions/load_api_data/" class="md-button md-button--primary">
+        Get Started
+        <svg width="11" height="10" viewBox="0 0 11 10" fill="none" style="margin-left:2px"><path d="M1 5.16772H9.5M9.5 5.16772L6.5 1.66772M9.5 5.16772L6.5 8.66772" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+      </a>
+    </div>
+    <div>
+      <img src="https://dummyimage.com/600x400/eee/aaa" style="width: 90%">
+    </div>
+  </div>
+</div>
+
+<div class="md-container hero">
+  <div>
+    <p>BigFunctions come with 150+ ready to use functions</p>
+    <a href="bigfunctions/" class="md-button md-button--primary">
+      Explore Functions
+      <svg width="11" height="10" viewBox="0 0 11 10" fill="none" style="margin-left:2px"><path d="M1 5.16772H9.5M9.5 5.16772L6.5 1.66772M9.5 5.16772L6.5 8.66772" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+    </a>
+  </div>
+</div>
+
+
+
+
+
+
+
 
 <div class="md-container primary-background">
 
