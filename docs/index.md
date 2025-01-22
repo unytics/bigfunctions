@@ -54,14 +54,16 @@ hide:
     text-align: center;
 }
 
+h1, h2 {
+  background-image: linear-gradient(60deg, #495ccdff, #2a3576ff);
+  background-clip: text;
+  color: #0000!important;
+}
 
 h1 {
   font-weight: 700!important;
   font-size: 2rem!important;
   line-height: 1.1 !important;
-  background-image: linear-gradient(60deg, #495ccdff, #2a3576ff);
-  background-clip: text;
-  color: #0000!important;
   margin: 0 0 0.6em!important;
 }
 
@@ -82,12 +84,25 @@ h1 {
   .hero p {
     font-size: 1rem!important;
   }
+
+  .row {
+    margin: 0 4rem!important;
+  }
+
+  .column {
+    width: 50%!important;
+  }
+
+  .grid-2 {
+    grid-template-columns: 47.5% 47.5%!important;
+    grid-column-gap: 5%!important;
+    grid-row-gap: 40px!important;
+  }
 }
 
 
 h2 {
     font-weight: 600!important;
-    color: rgb(38, 38, 38)!important;
 }
 
 .grid-container {
@@ -130,16 +145,68 @@ img.gray-scale {
   vertical-align: middle;
 }
 
-.margin-20 {
-  margin-top: 3rem;
+
+.row {
+  margin: 0;
+  background: var(--md-primary-fg-color)!important;
+}
+/* Clear floats after the columns */
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
 }
 
+/* Create two equal columns that floats next to each other */
+.column {
+  float: left;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.column-content {
+  max-width: 400px;
+  padding: 30px;
+  background: white;
+}
+
+.primary-background {
+  background-color: var(--md-primary-fg-color)!important;
+  padding: 20px;
+}
+
+.grid-2 {
+  display: grid;
+  grid-template-columns: 100%;
+  grid-column-gap: 0;
+  grid-row-gap: 20px;
+  max-width: 900px;
+  margin: auto;
+}
+.grid-2 > div {
+  background-color: white;
+  padding: 2rem;
+  max-width: 400px;
+  margin: auto;
+  height: 100%;
+}
+
+.grid-2 h2 {
+  margin: 0 0 0.64em!important;
+}
+
+
 </style>
+
+
+
 
 <div class="md-container hero">
   <div>
     <h1><span class="h1-bigger">SQL</span><br>is all you need</h1>
-    <p>Supercharge <b>BigQuery</b> with <b>BigFunctions</b><br><i>to load, transform and activate data.</i></p>
+    <p>Supercharge <b>BigQuery</b> with <b>BigFunctions</b><br><i>to load, transform and activate your data.</i></p>
     <a href="https://calendar.app.google/zu54nNMHLVw7jYWy8" class="md-button">
       Book a Demo
       <svg width="11" height="10" viewBox="0 0 11 10" fill="none" style="margin-left:2px"><path d="M1 5.16772H9.5M9.5 5.16772L6.5 1.66772M9.5 5.16772L6.5 8.66772" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
@@ -151,65 +218,45 @@ img.gray-scale {
   </div>
 </div>
 
-<!-- <div class="md-container hero margin-20" markdown>
-  ![google cloud logo](assets/gcp.svg){ .gray-scale }
-</div> -->
 
+<br>
+<br>
+<br>
 
-<!-- <div class="md-container">
-  <div class="hero__image">
-    <img
-      src="{{config.site_url}}assets/images/bigfunctions_intro.gif"
-      alt=""
-      draggable="false"
-      style="border: black solid 1rem; width: 100%; margin-top: 5rem;"
-    >
+<div class="md-container primary-background">
+
+<h2 style="color: white!important; text-align: center; margin: 1.4em 0 0 0 !important;">The rise of the SQL-Data-Stack</h2>
+<p class="quote">The SQL-Data-Stack<br>centered around a <u>supercharged data-warehouse</u><br>brings simplicity over the modern data stack</quote>
+
+<div class="grid-2">
+  <div>
+    <h2>Modern-Data-Stack</h2>
+    <img src="assets/modern_data_stack2.png" style="width: 90%">
+    <p><img alt="❌" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@15.0.3/assets/svg/274c.svg" title=":x:"> <strong>Tool Sprawl</strong>: A multitude of tools for various tasks complicates the data workflow.</p>
+    <p><img alt="❌" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@15.0.3/assets/svg/274c.svg" title=":x:"> <strong>Custom Scripting</strong>: Reliance on custom Python scripts introduces complexity and increases maintenance overhead.</p>
+    <p><img alt="❌" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@15.0.3/assets/svg/274c.svg" title=":x:"> <strong>Lack of Self-Service</strong>: Data analysts often depend on data engineers for complex tasks, hindering agility and efficiency.</p>
   </div>
-</div> -->
-
-<!-- <hr style="margin: 16em 1em 1.5em 1em;  border-bottom: 0.05rem solid var(--md-default-fg-color--lightest); display: flow-root;"> -->
-
-<br>
-<br>
-<br>
-
-<div class="grid-container" markdown>
-
-<div class="grid cards" markdown>
-
-
--   ## From Modern Data Stack
-
-    <figure markdown="span">
-        ![Image title](assets/modern_data_stack2.png){ width="600" }
-        <figcaption>The Modern Data Stack is Complex!</figcaption>
-    </figure>
-
-    :x: **Tool Sprawl**: A multitude of tools for various tasks complicates the data workflow.
-
-    :x: **Custom Scripting**: Reliance on custom Python scripts introduces complexity and increases maintenance overhead.
-
-    :x: **Lack of Self-Service**: Data analysts often depend on data engineers for complex tasks, hindering agility and efficiency.
-
-
-
--   ## :octicons-arrow-right-24: to SQL Data Stack
-
-    <figure markdown="span">
-        ![Image title](assets/sql_data_stack2.png){ width="600" }
-        <figcaption>Supercharged Data-Warehouse is All You Need!</figcaption>
-    </figure>
-
-    :white_check_mark:  **Simplicity**: Achieve everything with SQL, thus minimizing the need for multiple tools.
-
-    :white_check_mark:  **Centralized Governance**: Control all data processes from a central data warehouse with declarative assets.
-
-    :white_check_mark:  **Self-Service**:  Empower data analysts to perform intricate tasks using SQL functions directly.
-
-
+  <div>
+    <h2>SQL-Data-Stack</h2>
+    <img src="assets/sql_data_stack2.png" style="width: 90%">
+    <p><img alt="✅" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@15.0.3/assets/svg/2705.svg" title=":white_check_mark:">  <strong>Simplicity</strong>: Achieve everything with SQL, thus minimizing the need for multiple tools.</p>
+    <p><img alt="✅" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@15.0.3/assets/svg/2705.svg" title=":white_check_mark:">  <strong>Centralized Governance</strong>: Control all data processes from a central data warehouse with declarative assets.</p>
+    <p><img alt="✅" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@15.0.3/assets/svg/2705.svg" title=":white_check_mark:">  <strong>Self-Service</strong>:  Empower data analysts to perform intricate tasks using SQL functions directly.</p>
+  </div>
+</div>
 </div>
 
-</div>
+---
+
+
+
+
+
+<br>
+<br>
+<br>
+
+
 
 
 
