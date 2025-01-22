@@ -226,7 +226,12 @@ img.gray-scale {
 <div class="md-container primary-background">
 
 <h2 style="color: white!important; text-align: center; margin: 1.4em 0 0 0 !important;">The rise of the SQL-Data-Stack</h2>
-<p class="quote">The SQL-Data-Stack<br>centered around a <u>supercharged data-warehouse</u><br>brings simplicity over the modern data stack</quote>
+<p class="quote">
+  The data-warehouse,<br>
+  supercharged with advanced functions,<br>
+  can perform any advanced data job<br>
+  (all callable with SQL).<br>
+</p>
 
 <div class="grid-2">
   <div>
