@@ -1,6 +1,5 @@
 ---
 title: "BigFunctions Supercharge BigQuery - SQL is All You Need!"
-description: "BigFunction are_arrays_equal is a BigQuery function which Return true if `array1` = `array2`"
 hide:
   - navigation
   - toc
@@ -28,12 +27,7 @@ hide:
   margin: 0 auto;
   text-align: center;
 }
-.tx-hero h1 {
-  font-weight: 700;
-  font-size: 38px;
-  line-height: 46px;
-  color: rgb(38, 38, 38);
-}
+
 .tx-hero p {
   color: rgb(92, 92, 92);
   font-weight: 400;
@@ -58,6 +52,20 @@ hide:
 
 .md-button--center {
     text-align: center;
+}
+
+h1 {
+  font-weight: 700!important;
+  font-size: 3rem!important;
+  line-height: 4rem!important;
+  background-image: linear-gradient(60deg, #495ccdff, #2a3576ff);
+  background-clip: text;
+  color: #0000!important;
+}
+
+.h1-bigger  {
+  color: rgb(38, 38, 38)!important;
+  font-size: 4.5rem!important;
 }
 
 h2 {
@@ -105,7 +113,7 @@ h2 {
   <div class="md-grid md-typeset">
     <div class="md-main__inner">
       <div>
-        <h1>Supercharge <u>BigQuery</u><br>with <u>BigFunctions</u></h1>
+        <h1><span class="h1-bigger">SQL</span><br>is all you need</h1>
         <p>
           <b>Upgrade your data impact</b><br>
           <i>with</i> 100+ ready-to-use BigQuery Functions
