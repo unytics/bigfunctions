@@ -124,6 +124,16 @@ h2 {
     background-color: var(--md-primary-fg-color)!important;
 }
 
+img.gray-scale {
+  filter: grayscale(100%); /* Standard */
+  -webkit-filter: grayscale(100%); /* Webkit */
+  vertical-align: middle;
+}
+
+.margin-20 {
+  margin-top: 3rem;
+}
+
 </style>
 
 <div class="md-container hero">
@@ -140,6 +150,11 @@ h2 {
     </a>
   </div>
 </div>
+
+<!-- <div class="md-container hero margin-20" markdown>
+  ![google cloud logo](assets/gcp.svg){ .gray-scale }
+</div> -->
+
 
 <!-- <div class="md-container">
   <div class="hero__image">
