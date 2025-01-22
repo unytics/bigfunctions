@@ -1,5 +1,5 @@
 ---
-title: "BigFunctions Supercharge BigQuery - SQL is All You Need!"
+title: "BigFunctions Supercharge BigQuery"
 hide:
   - navigation
   - toc
@@ -20,7 +20,7 @@ hide:
   border-color: var(--md-primary-bg-color);
 }
 
-.tx-hero {
+.hero {
   max-width: 700px;
   display: flex;
   padding: .4rem;
@@ -28,13 +28,13 @@ hide:
   text-align: center;
 }
 
-.tx-hero p {
+.hero p {
   color: rgb(92, 92, 92);
   font-weight: 400;
-  font-size: 20px;
-  line-height: 32px;
+  font-size: 0.8rem!important;
+  line-height: 1.6!important;
 }
-.tx-hero__image {
+.hero__image {
   max-width: 1000px;
   /*min-width: 600px;*/
   width: 100%;
@@ -44,7 +44,7 @@ hide:
   align-items: stretch;
 }
 
-.tx-hero__image img {
+.hero__image img {
   width: 100%;
   height: 100%;
   min-width: 0;
@@ -54,19 +54,36 @@ hide:
     text-align: center;
 }
 
+
 h1 {
   font-weight: 700!important;
-  font-size: 3rem!important;
-  line-height: 4rem!important;
+  font-size: 2rem!important;
+  line-height: 1.1 !important;
   background-image: linear-gradient(60deg, #495ccdff, #2a3576ff);
   background-clip: text;
   color: #0000!important;
+  margin: 0 0 0.6em!important;
 }
 
-.h1-bigger  {
+.h1-bigger {
   color: rgb(38, 38, 38)!important;
-  font-size: 4.5rem!important;
+  font-size: 3rem!important;
 }
+
+@media (min-width: 640px) {
+  h1 {
+    font-size: 3rem!important;
+  }
+
+  .h1-bigger {
+    font-size: 4.5rem!important;
+  }
+
+  .hero p {
+    font-size: 1rem!important;
+  }
+}
+
 
 h2 {
     font-weight: 600!important;
@@ -109,27 +126,23 @@ h2 {
 
 </style>
 
-<div class="md-container tx-hero">
-  <div class="md-grid md-typeset">
-    <div class="md-main__inner">
-      <div>
-        <h1><span class="h1-bigger">SQL</span><br>is all you need</h1>
-        <p>
-          <b>Upgrade your data impact</b><br>
-          <i>with</i> 100+ ready-to-use BigQuery Functions
-        </p>
-        <p style="margin-bottom: 2rem"><i>(+ build a catalog of functions)</i></p>
-        <a href="bigfunctions/" class="md-button md-button--primary">
-          Try it!
-          <svg width="11" height="10" viewBox="0 0 11 10" fill="none" style="margin-left:2px"><path d="M1 5.16772H9.5M9.5 5.16772L6.5 1.66772M9.5 5.16772L6.5 8.66772" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
-        </a>
-      </div>
-    </div>
+<div class="md-container hero">
+  <div>
+    <h1><span class="h1-bigger">SQL</span><br>is all you need</h1>
+    <p>Supercharge <b>BigQuery</b> with <b>BigFunctions</b><br>to load, transform and activate data.</p>
+    <a href="https://calendar.app.google/zu54nNMHLVw7jYWy8" class="md-button">
+      Book a Demo
+      <svg width="11" height="10" viewBox="0 0 11 10" fill="none" style="margin-left:2px"><path d="M1 5.16772H9.5M9.5 5.16772L6.5 1.66772M9.5 5.16772L6.5 8.66772" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+    </a>
+    <a href="bigfunctions/" class="md-button md-button--primary">
+      Explore
+      <svg width="11" height="10" viewBox="0 0 11 10" fill="none" style="margin-left:2px"><path d="M1 5.16772H9.5M9.5 5.16772L6.5 1.66772M9.5 5.16772L6.5 8.66772" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+    </a>
   </div>
 </div>
 
 <!-- <div class="md-container">
-  <div class="tx-hero__image">
+  <div class="hero__image">
     <img
       src="{{config.site_url}}assets/images/bigfunctions_intro.gif"
       alt=""
