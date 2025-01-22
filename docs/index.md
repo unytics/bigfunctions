@@ -129,7 +129,7 @@ h2 {
 <div class="md-container hero">
   <div>
     <h1><span class="h1-bigger">SQL</span><br>is all you need</h1>
-    <p>Supercharge <b>BigQuery</b> with <b>BigFunctions</b><br>to load, transform and activate data.</p>
+    <p>Supercharge <b>BigQuery</b> with <b>BigFunctions</b><br><i>to load, transform and activate data.</i></p>
     <a href="https://calendar.app.google/zu54nNMHLVw7jYWy8" class="md-button">
       Book a Demo
       <svg width="11" height="10" viewBox="0 0 11 10" fill="none" style="margin-left:2px"><path d="M1 5.16772H9.5M9.5 5.16772L6.5 1.66772M9.5 5.16772L6.5 8.66772" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
