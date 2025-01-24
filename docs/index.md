@@ -8,7 +8,6 @@ hide:
 <style>
 
 
-/* Get started button */
 .md-typeset .md-button--primary:hover {
   color: var(--md-primary-fg-color);
   background-color: var(--md-primary-bg-color);
@@ -20,20 +19,6 @@ hide:
   border-color: var(--md-primary-bg-color);
 }
 
-.hero {
-  max-width: 700px;
-  display: flex;
-  padding: .4rem;
-  margin: 0 auto;
-  text-align: center;
-}
-
-.hero p {
-  color: rgb(92, 92, 92);
-  font-weight: 400;
-  font-size: 0.8rem!important;
-  line-height: 1.6!important;
-}
 .hero__image {
   max-width: 1000px;
   /*min-width: 600px;*/
@@ -67,63 +52,19 @@ hide:
   margin: 0 0 0.6em!important;
 }
 
-.md-content .h1-bigger {
+.md-content .big-word {
+  font-weight: 700!important;
   color: rgb(38, 38, 38)!important;
   font-size: 3rem!important;
+  color: var(--md-default-fg-color--light);
+  font-size: 2em;
+  line-height: 1;
+  margin-top: 0;
+  margin-bottom: 0;
 }
 
-@media (min-width: 640px) {
-  .md-content h1 {
-    font-size: 3rem!important;
-  }
-
-  .md-content .h1-bigger {
-    font-size: 4.5rem!important;
-  }
-
-  .hero p {
-    font-size: 1rem!important;
-  }
-  .hero p.small {
-    font-size: 0.8rem!important;
-  }
-
-  .section-hero p {
-    font-size: 1rem!important;
-  }
-  .section-hero p.small {
-    font-size: 0.8rem!important;
-  }
-
-
-  .grid-2 {
-    grid-template-columns: 47.5% 47.5%!important;
-    grid-column-gap: 5%!important;
-    grid-row-gap: 40px!important;
-  }
-}
-
-
-h2 {
+.md-content h2 {
     font-weight: 600!important;
-}
-
-.grid-container {
-    background-color: var(--md-primary-fg-color)!important;
-    padding: 20px;
-}
-
-.grid-container h2 {
-    color: var(--md-primary-fg-color) !important;
-}
-
-.grid-container li {
-    margin: 10px 0!important;
-}
-
-.cards li {
-    background-color: white;
-    color: rgb(92, 92, 92);
 }
 
 .centered-big-message {
@@ -148,10 +89,109 @@ img.gray-scale {
   vertical-align: middle;
 }
 
-
 .primary-background {
   background-color: var(--md-primary-fg-color)!important;
   padding: 20px;
+}
+
+.mt-neg {
+  margin-top: -20px!important;
+}
+
+
+/*------- HERO -------*/
+.hero {
+  max-width: 700px;
+  margin: 0 auto;
+  text-align: center;
+  margin-top: 3rem;
+  margin-bottom: 6rem;
+}
+
+.hero h1 {
+  margin: 0 0 0.3em!important;
+}
+
+.hero p {
+  color: rgb(92, 92, 92);
+  font-weight: 400;
+  font-size: 0.8rem;
+  line-height: 1.6;
+}
+
+
+/*------- TEXT AND IMAGE -------*/
+.md-typeset .text-and-image {
+  display: grid;
+  grid-template-columns: repeat(1, minmax(0, 1fr));
+}
+
+.md-typeset .text-and-image>ul {
+    display: contents;
+}
+
+.md-typeset .text-and-image>ul>li {
+    display: block;
+    margin: 0;
+    padding: .8rem;
+}
+
+
+/*------- MEDIUM TO LARGE SCREEN -------*/
+@media (min-width: 640px) {
+  .md-content h1 {
+    font-size: 3rem!important;
+  }
+
+  .md-content .big-word {
+    font-size: 4.5rem!important;
+  }
+
+  .hero p {
+    font-size: 1rem!important;
+  }
+  .hero p.small {
+    font-size: 0.8rem!important;
+  }
+
+  .grid-2 {
+    grid-template-columns: 47.5% 47.5%!important;
+    grid-column-gap: 5%!important;
+    grid-row-gap: 40px!important;
+  }
+}
+
+/*------- LARGE SCREEN -------*/
+@media (min-width: 1024px) {
+
+  .md-typeset .text-and-image {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: 2rem;
+  }
+
+  .md-typeset .text-and-image.image-on-left li:nth-of-type(2) {
+     order: -9999!important;
+  }
+}
+
+
+/*------- OBSOLETE GRID -------*/
+.grid-container {
+    background-color: var(--md-primary-fg-color)!important;
+    padding: 20px;
+}
+
+.grid-container h2 {
+    color: var(--md-primary-fg-color) !important;
+}
+
+.grid-container li {
+    margin: 10px 0!important;
+}
+
+.cards li {
+    background-color: white;
+    color: rgb(92, 92, 92);
 }
 
 .grid-2 {
@@ -175,80 +215,29 @@ img.gray-scale {
 }
 
 
-.mt-neg {
-  margin-top: -20px!important;
-}
-
-.section-hero {
-  max-width: 700px;
-  margin: 0 auto;
-  text-align: center;
-}
-
-.section-hero p {
-  color: rgb(92, 92, 92);
-  font-weight: 400;
-  font-size: 0.8rem;
-  line-height: 1.6;
-}
-
-.md-content .section-hero h1 {
-  margin: 0 0 0.3em!important;
-}
-
-
-.md-typeset .text-and-image {
-  display: grid;
-  grid-template-columns: repeat(1, minmax(0, 1fr));
-}
-
-.md-typeset .text-and-image>ul {
-    display: contents;
-}
-
-.md-typeset .text-and-image>ul>li {
-    display: block;
-    margin: 0;
-    padding: .8rem;
-}
-
-
-@media (min-width: 1024px) {
-
-  .md-typeset .text-and-image {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    column-gap: 2rem;
-  }
-
-  .md-typeset .text-and-image.image-on-left li:nth-of-type(2) {
-     order: -9999!important;
-  }
-}
-
-
 </style>
 
 
-<div class="md-container hero">
-  <div>
-    <h1><span class="h1-bigger">SQL</span><br>is all you need</h1>
-    <p>Supercharge <b>BigQuery</b> with <b>BigFunctions</b><br><i>to load, transform and activate your data.</i></p>
-    <a href="https://calendar.app.google/zu54nNMHLVw7jYWy8" class="md-button">
-      Book a Demo
-      <svg width="11" height="10" viewBox="0 0 11 10" fill="none" style="margin-left:2px"><path d="M1 5.16772H9.5M9.5 5.16772L6.5 1.66772M9.5 5.16772L6.5 8.66772" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
-    </a>
-    <a href="bigfunctions/" class="md-button md-button--primary">
-      Explore
-      <svg width="11" height="10" viewBox="0 0 11 10" fill="none" style="margin-left:2px"><path d="M1 5.16772H9.5M9.5 5.16772L6.5 1.66772M9.5 5.16772L6.5 8.66772" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
-    </a>
-  </div>
+<div class="hero" markdown>
+
+SQL
+{ .big-word }
+
+# is all you need
+
+Supercharge **BigQuery** with **BigFunctions**<br>
+*to load, transform and activate your data.*<br><br>
+
+[Book a Demo :octicons-arrow-right-24:](https://calendar.app.google/zu54nNMHLVw7jYWy8){ .md-button }
+[Explore :octicons-arrow-right-24:](bigfunctions/){ .md-button .md-button--primary }
+
+
 </div>
 
-<br>
 
 
 <!------------- TECHNOLOGIES UPON SECTION  ----------->
-<div class="section-hero" markdown>
+<div class="hero" markdown>
 
 *Taking the most of*
 { .small }
@@ -259,13 +248,10 @@ img.gray-scale {
 
 </div>
 
-<br>
-<br>
 ---
-<br>
 
 <!------------- POWER OF FUNCTIONS SECTION  ----------->
-<div class="section-hero" markdown>
+<div class="hero" markdown>
 
 # The power of functions<br>with the ease of SQL
 
@@ -302,7 +288,7 @@ Have a data need? **There's a bigfunction for that!**<br>
 
 
 
-<div class="section-hero" markdown>
+<div class="hero" markdown>
 
 *BigFunctions come with 150+ ready to use functions*
 
@@ -315,14 +301,23 @@ Have a data need? **There's a bigfunction for that!**<br>
 ---
 
 
+<div class="hero" markdown>
+
+# The rise of <br> the SQL-Data-Stack
+
+The data-warehouse,<br>
+supercharged with advanced functions,<br>
+can perform any advanced data job<br>
+(all callable with SQL).<br>
+
+</div>
+
+
 <div class="md-container primary-background">
 
 <h2 style="color: white!important; text-align: center; margin: 1.4em 0 0 0 !important;">The rise of the SQL-Data-Stack</h2>
 <p class="quote">
-  The data-warehouse,<br>
-  supercharged with advanced functions,<br>
-  can perform any advanced data job<br>
-  (all callable with SQL).<br>
+
 </p>
 
 <div class="grid-2">
