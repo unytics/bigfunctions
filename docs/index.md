@@ -105,7 +105,7 @@ img.gray-scale {
   margin: 0 auto;
   text-align: center;
   margin-top: 3rem;
-  margin-bottom: 6rem;
+  margin-bottom: 3rem;
 }
 
 .hero h1 {
@@ -248,6 +248,8 @@ Supercharge **BigQuery** with **BigFunctions**<br>
 
 </div>
 
+<br>
+
 ---
 
 <!------------- POWER OF FUNCTIONS SECTION  ----------->
@@ -296,7 +298,7 @@ Have a data need? **There's a bigfunction for that!**<br>
 
 </div>
 
-
+<br>
 
 ---
 
@@ -305,20 +307,16 @@ Have a data need? **There's a bigfunction for that!**<br>
 
 # The rise of <br> the SQL-Data-Stack
 
-The data-warehouse,<br>
-supercharged with advanced functions,<br>
-can perform any advanced data job<br>
-(all callable with SQL).<br>
+A data-warehouse (*bigquery*),<br>
+a sql orchestrator (*dbt*)<br>
+and advanced functions (*bigfunctions*)<br>
+*is all you need!*
 
 </div>
 
 
 <div class="md-container primary-background">
 
-<h2 style="color: white!important; text-align: center; margin: 1.4em 0 0 0 !important;">The rise of the SQL-Data-Stack</h2>
-<p class="quote">
-
-</p>
 
 <div class="grid-2">
   <div>
