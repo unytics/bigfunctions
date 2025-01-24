@@ -175,6 +175,9 @@ img.gray-scale {
 }
 
 
+.mt-neg {
+  margin-top: -20px!important;
+}
 
 .section-hero {
   max-width: 700px;
@@ -242,9 +245,18 @@ img.gray-scale {
 </div>
 
 <br>
-<div class="md-container hero">
-  <p class="small" style="margin-bottom: -20px"><i>Taking the most of</i></p>
-  <figure><img class="gray-scale" src="assets/gcp.svg" width=200></figure>
+
+
+<!------------- TECHNOLOGIES UPON SECTION  ----------->
+<div class="section-hero" markdown>
+
+*Taking the most of*
+{ .small }
+
+<figure markdown="span">
+  ![gcp](assets/gcp.svg){ .gray-scale .mt-neg width=200 }
+</figure>
+
 </div>
 
 <br>
@@ -252,7 +264,7 @@ img.gray-scale {
 ---
 <br>
 
-
+<!------------- POWER OF FUNCTIONS SECTION  ----------->
 <div class="section-hero" markdown>
 
 # The power of functions<br>with the ease of SQL
@@ -261,10 +273,6 @@ Have a data need? **There's a bigfunction for that!**<br>
 *BigFunctions provides [150+ ready to use functions](bigfunctions/)</a>*
 
 </div>
-
-
-
-
 
 
 <div class="text-and-image image-on-left" markdown>
