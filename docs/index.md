@@ -168,26 +168,32 @@ img.gray-scale {
 }
 
 
-.grid-cols-1 {
+
+.md-typeset .text-and-image {
   display: grid;
   grid-template-columns: repeat(1, minmax(0, 1fr));
-  margin-left: auto;
-  margin-right: auto;
-  /* max-width: 42rem; */
 }
+
+.md-typeset .text-and-image>ul {
+    display: contents;
+}
+
+.md-typeset .text-and-image>ul>li {
+    display: block;
+    margin: 0;
+    padding: .8rem;
+}
+
 
 @media (min-width: 1024px) {
 
-  .lg\:grid-cols-2 {
+  .md-typeset .text-and-image {
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    margin-left: 0;
-    margin-right: 0;
     column-gap: 2rem;
-    max-width: none;
   }
 
-  .lg\:order-first {
-     order: -9999;
+  .md-typeset .text-and-image.image-on-left li:nth-of-type(2) {
+     order: -9999!important;
   }
 }
 
@@ -231,41 +237,38 @@ img.gray-scale {
   </div>
 </div>
 
-<br>
-<br>
 
-<div class="md-container">
-  <div class="grid-cols-1 lg:grid-cols-2">
-    <div>
-      <h2>Load Data from any vendor</h2>
-      <p>Load data from Salesforce, Hubspot and hundreds of vendors with one SQL command</p>
-      <a href="bigfunctions/load_api_data/" class="md-button md-button--primary">
-        Get Started
-        <svg width="11" height="10" viewBox="0 0 11 10" fill="none" style="margin-left:2px"><path d="M1 5.16772H9.5M9.5 5.16772L6.5 1.66772M9.5 5.16772L6.5 8.66772" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
-      </a>
-    </div>
-    <div class="lg:order-first">
-      <img src="https://dummyimage.com/600x400/eee/aaa" style="width: 90%">
-    </div>
-  </div>
+
+<div class="text-and-image image-on-left" markdown>
+
+-   ## Load Data from any vendor
+
+    Load data from Salesforce, Hubspot and hundreds of vendors with one SQL command.
+
+    [Get Started :octicons-arrow-right-24:](bigfunctions/load_api_data/){ .md-button }
+
+-   ![Image title](https://dummyimage.com/600x400/eee/aaa)
+
 </div>
 
 
-<div class="md-container">
-  <div class="grid-cols-1 lg:grid-cols-2">
-    <div>
-      <h2>Perform Anomaly Detection</h2>
-      <p>Load data from Salesforce, Hubspot and hundreds of vendors with one SQL command</p>
-      <a href="bigfunctions/load_api_data/" class="md-button md-button--primary">
-        Get Started
-        <svg width="11" height="10" viewBox="0 0 11 10" fill="none" style="margin-left:2px"><path d="M1 5.16772H9.5M9.5 5.16772L6.5 1.66772M9.5 5.16772L6.5 8.66772" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
-      </a>
-    </div>
-    <div>
-      <img src="https://dummyimage.com/600x400/eee/aaa" style="width: 90%">
-    </div>
-  </div>
+<div class="text-and-image image-on-right" markdown>
+
+-   ## Perform Anomaly Detection
+
+    Load data from Salesforce, Hubspot and hundreds of vendors with one SQL command.
+
+    [Get Started :octicons-arrow-right-24:](bigfunctions/load_api_data/){ .md-button }
+
+-   ![Image title](https://dummyimage.com/600x400/eee/aaa)
+
 </div>
+
+
+
+
+
+
 
 <div class="md-container hero">
   <div>
@@ -281,7 +284,7 @@ img.gray-scale {
 
 
 
-
+---
 
 
 <div class="md-container primary-background">
