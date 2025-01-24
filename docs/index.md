@@ -302,21 +302,13 @@ Have a data need? **There's a bigfunction for that!**<br>
 
 
 
+<div class="section-hero" markdown>
 
+*BigFunctions come with 150+ ready to use functions*
 
+[Explore Functions :octicons-arrow-right-24:](bigfunctions/){ .md-button }
 
-
-<div class="md-container hero">
-  <div>
-    <p>BigFunctions come with 150+ ready to use functions</p>
-    <a href="bigfunctions/" class="md-button md-button--primary">
-      Explore Functions
-      <svg width="11" height="10" viewBox="0 0 11 10" fill="none" style="margin-left:2px"><path d="M1 5.16772H9.5M9.5 5.16772L6.5 1.66772M9.5 5.16772L6.5 8.66772" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
-    </a>
-  </div>
 </div>
-
-
 
 
 
