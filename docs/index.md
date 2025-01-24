@@ -88,10 +88,10 @@ hide:
     font-size: 0.8rem!important;
   }
 
-  .section-head p {
+  .section-hero p {
     font-size: 1rem!important;
   }
-  .section-head p.small {
+  .section-hero p.small {
     font-size: 0.8rem!important;
   }
 
@@ -176,19 +176,21 @@ img.gray-scale {
 
 
 
-.section-head {
+.section-hero {
   max-width: 700px;
-  display: flex;
-  padding: .4rem;
   margin: 0 auto;
   text-align: center;
 }
 
-.section-head p {
+.section-hero p {
   color: rgb(92, 92, 92);
   font-weight: 400;
   font-size: 0.8rem;
   line-height: 1.6;
+}
+
+.md-content .section-hero h1 {
+  margin: 0 0 0.3em!important;
 }
 
 
@@ -250,20 +252,8 @@ img.gray-scale {
 ---
 <br>
 
-<div class="md-container hero">
-  <div>
-    <h1>The power of functions<br>with the ease of SQL</h1>
-    <p>
-      Have a data need? <strong>There's a bigfunction for that!</strong><br>
-      <i>BigFunctions provides <a href="bigfunctions/">150+ ready to use functions</a></i>
-    </p>
-  </div>
-</div>
 
-
-
-
-<div class="md-container section-head" markdown>
+<div class="section-hero" markdown>
 
 # The power of functions<br>with the ease of SQL
 
