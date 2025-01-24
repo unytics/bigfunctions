@@ -88,6 +88,13 @@ hide:
     font-size: 0.8rem!important;
   }
 
+  .section-head p {
+    font-size: 1rem!important;
+  }
+  .section-head p.small {
+    font-size: 0.8rem!important;
+  }
+
 
   .grid-2 {
     grid-template-columns: 47.5% 47.5%!important;
@@ -169,6 +176,22 @@ img.gray-scale {
 
 
 
+.section-head {
+  max-width: 700px;
+  display: flex;
+  padding: .4rem;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.section-head p {
+  color: rgb(92, 92, 92);
+  font-weight: 400;
+  font-size: 0.8rem;
+  line-height: 1.6;
+}
+
+
 .md-typeset .text-and-image {
   display: grid;
   grid-template-columns: repeat(1, minmax(0, 1fr));
@@ -236,6 +259,21 @@ img.gray-scale {
     </p>
   </div>
 </div>
+
+
+
+
+<div class="md-container section-head" markdown>
+
+# The power of functions<br>with the ease of SQL
+
+Have a data need? **There's a bigfunction for that!**<br>
+*BigFunctions provides [150+ ready to use functions](bigfunctions/)</a>*
+
+</div>
+
+
+
 
 
 
