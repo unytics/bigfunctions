@@ -93,17 +93,17 @@ img.gray-scale {
   vertical-align: middle;
 }
 
-.primary-background {
+.md-typeset .primary-background {
   background-color: var(--md-primary-fg-color)!important;
   padding: 20px;
 }
 
-.md-typeset .primary-background .text-and-image {
+.md-typeset .max-width-800 {
   max-width: 800px;
   margin: auto;
 }
 
-.md-typeset .primary-background .text-and-image>ul>li {
+.md-typeset .max-width-800.md\:two-columns>ul>li {
   background-color: white;
   padding: 0 2rem 2rem;
   max-width: 400px;
@@ -111,7 +111,7 @@ img.gray-scale {
   height: 100%;
 }
 
-.md-typeset .primary-background .text-and-image>ul>li p {
+.md-typeset .max-width-800.md\:two-columns>ul>li p {
   margin-block-start: 1em;
   margin-block-end: 1em;
 }
@@ -144,24 +144,24 @@ img.gray-scale {
 
 
 /*------- TEXT AND IMAGE -------*/
-.md-typeset .text-and-image {
+.md-typeset .lg\:two-columns, .md-typeset .md\:two-columns {
   display: grid;
   grid-template-columns: repeat(1, minmax(0, 1fr));
   grid-row-gap: 20px;
 }
 
-.md-typeset .text-and-image>ul {
+.md-typeset .lg\:two-columns>ul, .md-typeset .md\:two-columns>ul {
     display: contents;
 }
 
-.md-typeset .text-and-image>ul>li {
+.md-typeset .lg\:two-columns>ul>li, .md-typeset .md\:two-columns>ul>li {
     display: block;
     margin: 0;
     padding: .8rem;
 }
 
 
-/*------- MEDIUM TO LARGE SCREEN -------*/
+/*------- FROM MEDIUM SCREEN -------*/
 @media (min-width: 640px) {
   .md-content h1 {
     font-size: 3rem!important;
@@ -179,25 +179,21 @@ img.gray-scale {
     font-size: 0.8rem!important;
   }
 
-  .md-typeset .text-and-image.two-columns-if-medium-screen {
+  .md-typeset .md\:two-columns {
     grid-template-columns: repeat(2, minmax(0, 1fr));
     column-gap: 2rem;
-  }
-
-  .md-typeset .text-and-image.image-on-left li:nth-of-type(2) {
-     order: -9999!important;
   }
 }
 
-/*------- LARGE SCREEN -------*/
+/*------- FROM LARGE SCREEN -------*/
 @media (min-width: 1024px) {
 
-  .md-typeset .text-and-image {
+  .md-typeset .lg\:two-columns {
     grid-template-columns: repeat(2, minmax(0, 1fr));
     column-gap: 2rem;
   }
 
-  .md-typeset .text-and-image.image-on-left li:nth-of-type(2) {
+  .md-typeset .lg\:two-columns.lg\:revert-items li:nth-of-type(2) {
      order: -9999!important;
   }
 }
@@ -251,7 +247,7 @@ Have a data need? **There's a bigfunction for that!**<br>
 </div>
 
 
-<div class="text-and-image image-on-left" markdown>
+<div class="lg:two-columns lg:revert-items" markdown>
 
 -   ## Load Data from any vendor
 
@@ -264,7 +260,7 @@ Have a data need? **There's a bigfunction for that!**<br>
 </div>
 
 
-<div class="text-and-image image-on-right" markdown>
+<div class="lg:two-columns" markdown>
 
 -   ## Perform Anomaly Detection
 
@@ -305,7 +301,7 @@ and advanced functions (*bigfunctions*)<br>
 
 <div class="primary-background" markdown>
 
-<div class="text-and-image two-columns-if-medium-screen" markdown>
+<div class="md:two-columns max-width-800" markdown>
 
 -   ## Modern-Data-Stack
 
