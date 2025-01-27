@@ -52,7 +52,7 @@ hide:
   margin: 0 0 0.6em!important;
 }
 
-.md-content h1 a.headerlink {
+.md-content h1 a.headerlink, .md-content h2 a.headerlink {
   display: none;
 }
 
@@ -98,6 +98,27 @@ img.gray-scale {
   padding: 20px;
 }
 
+.md-typeset .primary-background .text-and-image {
+  max-width: 800px;
+  margin: auto;
+}
+
+.md-typeset .primary-background .text-and-image>ul>li {
+  background-color: white;
+  padding: 0 2rem 2rem;
+  max-width: 400px;
+  margin: auto;
+  height: 100%;
+}
+
+.md-typeset .primary-background .text-and-image>ul>li p {
+  margin-block-start: 1em;
+  margin-block-end: 1em;
+}
+
+
+
+
 .mt-neg {
   margin-top: -20px!important;
 }
@@ -126,6 +147,7 @@ img.gray-scale {
 .md-typeset .text-and-image {
   display: grid;
   grid-template-columns: repeat(1, minmax(0, 1fr));
+  grid-row-gap: 20px;
 }
 
 .md-typeset .text-and-image>ul {
@@ -152,14 +174,18 @@ img.gray-scale {
   .hero p {
     font-size: 1rem!important;
   }
+
   .hero p.small {
     font-size: 0.8rem!important;
   }
 
-  .grid-2 {
-    grid-template-columns: 47.5% 47.5%!important;
-    grid-column-gap: 5%!important;
-    grid-row-gap: 40px!important;
+  .md-typeset .text-and-image.two-columns-if-medium-screen {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: 2rem;
+  }
+
+  .md-typeset .text-and-image.image-on-left li:nth-of-type(2) {
+     order: -9999!important;
   }
 }
 
@@ -174,46 +200,6 @@ img.gray-scale {
   .md-typeset .text-and-image.image-on-left li:nth-of-type(2) {
      order: -9999!important;
   }
-}
-
-
-/*------- OBSOLETE GRID -------*/
-.grid-container {
-    background-color: var(--md-primary-fg-color)!important;
-    padding: 20px;
-}
-
-.grid-container h2 {
-    color: var(--md-primary-fg-color) !important;
-}
-
-.grid-container li {
-    margin: 10px 0!important;
-}
-
-.cards li {
-    background-color: white;
-    color: rgb(92, 92, 92);
-}
-
-.grid-2 {
-  display: grid;
-  grid-template-columns: 100%;
-  grid-column-gap: 0;
-  grid-row-gap: 20px;
-  max-width: 900px;
-  margin: auto;
-}
-.grid-2 > div {
-  background-color: white;
-  padding: 2rem;
-  max-width: 400px;
-  margin: auto;
-  height: 100%;
-}
-
-.grid-2 h2 {
-  margin: 0 0 0.64em!important;
 }
 
 
@@ -317,26 +303,38 @@ and advanced functions (*bigfunctions*)<br>
 </div>
 
 
-<div class="md-container primary-background">
+<div class="primary-background" markdown>
+
+<div class="text-and-image two-columns-if-medium-screen" markdown>
+
+-   ## Modern-Data-Stack
+
+    ![Modern-Data-Stack is Complex](assets/modern_data_stack2.png)
+
+    :x: **Tool Sprawl**: A multitude of tools for various tasks complicates the data workflow.
+
+    :x: **Custom Scripting**: Reliance on custom Python scripts introduces complexity and increases maintenance overhead.
+
+    :x: **Lack of Self-Service**: Data analysts often depend on data engineers for complex tasks, hindering agility and efficiency.
 
 
-<div class="grid-2">
-  <div>
-    <h2>Modern-Data-Stack</h2>
-    <img src="assets/modern_data_stack2.png" style="width: 90%">
-    <p><img alt="❌" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@15.0.3/assets/svg/274c.svg" title=":x:"> <strong>Tool Sprawl</strong>: A multitude of tools for various tasks complicates the data workflow.</p>
-    <p><img alt="❌" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@15.0.3/assets/svg/274c.svg" title=":x:"> <strong>Custom Scripting</strong>: Reliance on custom Python scripts introduces complexity and increases maintenance overhead.</p>
-    <p><img alt="❌" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@15.0.3/assets/svg/274c.svg" title=":x:"> <strong>Lack of Self-Service</strong>: Data analysts often depend on data engineers for complex tasks, hindering agility and efficiency.</p>
-  </div>
-  <div>
-    <h2>SQL-Data-Stack</h2>
-    <img src="assets/sql_data_stack2.png" style="width: 90%">
-    <p><img alt="✅" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@15.0.3/assets/svg/2705.svg" title=":white_check_mark:">  <strong>Simplicity</strong>: Achieve everything with SQL, thus minimizing the need for multiple tools.</p>
-    <p><img alt="✅" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@15.0.3/assets/svg/2705.svg" title=":white_check_mark:">  <strong>Centralized Governance</strong>: Control all data processes from a central data warehouse with declarative assets.</p>
-    <p><img alt="✅" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@15.0.3/assets/svg/2705.svg" title=":white_check_mark:">  <strong>Self-Service</strong>:  Empower data analysts to perform intricate tasks using SQL functions directly.</p>
-  </div>
+-   ## SQL-Data-Stack
+
+    ![SQL-Data-Stack is powerfully simple](assets/sql_data_stack2.png)
+
+    :white_check_mark: **Simplicity**: Achieve everything with SQL, thus minimizing the need for multiple tools.
+
+    :white_check_mark: **Centralized Governance**: Control all data processes from a central data warehouse with declarative assets.
+
+    :white_check_mark: **Self-Service**:  Empower data analysts to perform intricate tasks using SQL functions directly.
+
 </div>
+
 </div>
+
+
+
+
 
 ---
 
