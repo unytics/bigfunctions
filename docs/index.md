@@ -141,20 +141,17 @@ Ready-to-use BigQuery functions<br>to load, transform and activate data
 </div>
 
 
-<!------------- LOAD FUNCTIONS  ----------->
-<div class="hero" markdown>
-
-### 1. LOAD Examples
-
-</div>
-
 <div class="lg:two-columns lg:revert-items" markdown>
 
--   ## Load Data from any SAAS
+-   ## 1. Load
 
-    Load data from Salesforce, Hubspot and hundreds of SAAS with one SQL command.
+    Load data with one SQL command from:
 
-    [Get Started :octicons-arrow-right-24:](bigfunctions/load_api_data/){ .md-button }
+    - any SAAS such as Salesforce, Hubspot, Zendesk, etc.
+    - external data such as `exchange_rate`, weather data.
+    - any source
+
+    [Get Started :octicons-arrow-right-24:](bigfunctions/#get-data){ .md-button }
 
 -   ![Load Data from Zendesk](assets/load_api_data.png){ .primary-border }
 
@@ -163,37 +160,11 @@ Ready-to-use BigQuery functions<br>to load, transform and activate data
 
 <div class="lg:two-columns" markdown>
 
--   ## Load External Data for Enrichment
+-   ## 2. Transform
 
-    Get current and historical `exchange rates`, `weather` or any specific API data to enrich yours.
+    Make Advanced Transforms from SQL.
 
-    [Get Started :octicons-arrow-right-24:](bigfunctions/exchange_rate/){ .md-button }
-
--   ![Get Exchange Rate](assets/exchange_rate.png){ .primary-border }
-
-</div>
-
-
-
-<!------------- TRANSFORM FUNCTIONS  ----------->
-
-<div class="hero" markdown>
-
-### 2. TRANSFORM Examples
-
-</div>
-
-<div class="lg:two-columns lg:revert-items" markdown>
-
--   ## Make Advanced Transforms
-
-    With BigFunctions, you can do anything in SQL that you can do in python.
-    You can for instance convert an `address` to `(latitude, longitude)`
-    or get the `country` of an `ip_address`.
-
-    All your transforms are now done in SQL.
-
-    Put them all in dbt!
+    Benefit from the functions of the community.
 
     [Get Started :octicons-arrow-right-24:](bigfunctions/geocode/){ .md-button }
 
@@ -201,64 +172,21 @@ Ready-to-use BigQuery functions<br>to load, transform and activate data
 
 </div>
 
-<div class="lg:two-columns" markdown>
-
--   ## Automatically Flatten Json
-
-    Json data may be hard to manipulate.
-    BigFunctions provide some functions to help with that.
-
-    For instance, a function automatically detects json objects schema
-    and generate a parsing SQL query to flatten the json column.
-
-    [Get Started :octicons-arrow-right-24:](bigfunctions/sql_to_flatten_json_column/){ .md-button }
-
--   ![Flatten Json](assets/flatten_json.png){ .primary-border }
-
-</div>
-
-
-
-<!------------- ACTIVATE FUNCTIONS  ----------->
-
-
-<div class="hero" markdown>
-
-### 3. ACTIVATE Examples
-
-</div>
 
 <div class="lg:two-columns lg:revert-items" markdown>
 
--   ## Send Chat Message
+-   ## 3. Activate
 
-    Send Slack, Google Chat or Teams message to your teams with the figures of the week.
+    Send Slack, Google Chat, Teams messages or emails to your teams.
 
-    Or alert them when something is wrong.
 
-    *It works in SQL, so it works with your SQL orchestrator (be it dbt, sqlmesh, dataform or scheduled queries)*.
+    Send the figures of the week or alerts when data is wrong.
 
-    [Get Started :octicons-arrow-right-24:](bigfunctions/send_slack_message/){ .md-button }
-
--   ![Send Slack Message](assets/slack.png){ .primary-border }
-
-</div>
-
-<div class="lg:two-columns" markdown>
-
--   ## Send Emails
-
-    Send emails to your teams.
-
-    Better, send emails to your customers!
-
-    Your data-warehouse is the only place where you have a 360° view of your customer.
-
-    So sending email from BigQuery makes a lot of sense.
+    With dbt post hook, you can trigger activations at model creation.
 
     [Get Started :octicons-arrow-right-24:](bigfunctions/send_mail/){ .md-button }
 
--   ![Get Exchange Rate](assets/email.png){ .primary-border }
+-   ![email notification](assets/email.png){ .primary-border }
 
 </div>
 
