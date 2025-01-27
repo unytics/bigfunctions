@@ -52,6 +52,10 @@ hide:
   margin: 0 0 0.6em!important;
 }
 
+.md-content h1 a.headerlink {
+  display: none;
+}
+
 .md-content .big-word {
   font-weight: 700!important;
   color: rgb(38, 38, 38)!important;
@@ -102,10 +106,8 @@ img.gray-scale {
 /*------- HERO -------*/
 .hero {
   max-width: 700px;
-  margin: 0 auto;
+  margin: 3rem auto;
   text-align: center;
-  margin-top: 3rem;
-  margin-bottom: 3rem;
 }
 
 .hero h1 {
