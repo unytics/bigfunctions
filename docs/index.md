@@ -44,8 +44,7 @@ Supercharge **BigQuery** with **BigFunctions**<br>
 
 # The power of functions<br>with the ease of SQL
 
-*BigFunctions comes with [150+ ready to use functions](bigfunctions/)*<br>
-*to load, transform, activate*.
+Ready-to-use BigQuery functions to load, transform, activate.
 
 [Explore Functions :octicons-arrow-right-24:](bigfunctions/){ .md-button }
 
@@ -198,7 +197,7 @@ Supercharge **BigQuery** with **BigFunctions**<br>
 
 # The rise of <br> the SQL-Data-Stack
 
-If your Data-Warehouse can perform any task,
+If BigQuery can perform any task,
 
 *BigQuery + dbt*<br>
 *become all you need.*
@@ -244,7 +243,15 @@ Say Hi to the SQL-Data-Stack!
 ---
 
 
+<!------------- FRAMEWORK  ----------->
 
+<div class="hero" markdown>
+
+# A framework like dbt
+
+Build a Governed Catalog of BigQuery Functions at your Company
+
+</div>
 
 
 <br>
