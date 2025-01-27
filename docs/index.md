@@ -8,15 +8,15 @@ hide:
 <style>
 
 
-.md-typeset .md-button--primary:hover {
-  color: var(--md-primary-fg-color);
-  background-color: var(--md-primary-bg-color);
-  border-color: var(--md-primary-fg-color);
-}
-.md-typeset .md-button--primary {
+.md-typeset .md-button:hover {
   color: var(--md-primary-bg-color);
   background-color: var(--md-primary-fg-color);
   border-color: var(--md-primary-bg-color);
+}
+.md-typeset .md-button.md-button--primary:hover {
+  color: var(--md-primary-fg-color);
+  background-color: var(--md-primary-bg-color);
+  border-color: var(--md-primary-fg-color);
 }
 
 .hero__image {
@@ -42,14 +42,14 @@ hide:
 .md-content h1, .md-content h2 {
   background-image: linear-gradient(60deg, #495ccdff, #232c60ff);
   background-clip: text;
-  color: #0000!important;
+  color: #0000;
 }
 
 .md-content h1 {
-  font-weight: 700!important;
-  font-size: 2rem!important;
-  line-height: 1.1 !important;
-  margin: 0 0 0.6em!important;
+  font-weight: 700;
+  font-size: 2rem;
+  line-height: 1.1 ;
+  margin: 0 0 0.6em;
 }
 
 .md-content h1 a.headerlink, .md-content h2 a.headerlink {
@@ -59,16 +59,14 @@ hide:
 .md-content .big-word {
   font-weight: 700!important;
   color: rgb(38, 38, 38)!important;
-  font-size: 3rem!important;
-  color: var(--md-default-fg-color--light);
-  font-size: 2em;
+  font-size: 3rem;
   line-height: 1;
   margin-top: 0;
   margin-bottom: 0;
 }
 
 .md-content h2 {
-    font-weight: 600!important;
+    font-weight: 600;
 }
 
 .centered-big-message {
@@ -143,10 +141,11 @@ img.gray-scale {
 }
 
 
-/*------- TEXT AND IMAGE -------*/
+/*------- TWO COLUMNS -------*/
 .md-typeset .lg\:two-columns, .md-typeset .md\:two-columns {
   display: grid;
   grid-template-columns: repeat(1, minmax(0, 1fr));
+  column-gap: 2rem;
   grid-row-gap: 20px;
 }
 
@@ -181,7 +180,6 @@ img.gray-scale {
 
   .md-typeset .md\:two-columns {
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    column-gap: 2rem;
   }
 }
 
@@ -190,10 +188,9 @@ img.gray-scale {
 
   .md-typeset .lg\:two-columns {
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    column-gap: 2rem;
   }
 
-  .md-typeset .lg\:two-columns.lg\:revert-items li:nth-of-type(2) {
+  .md-typeset .lg\:revert-items>ul>li:nth-of-type(2) {
      order: -9999!important;
   }
 }
