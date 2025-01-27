@@ -158,20 +158,9 @@
     font-weight: 600;
 }
 
-.centered-big-message {
-    color: rgb(92, 92, 92);
-    font-size: 1.2em;
-    margin-top: -0.5em;
-}
-
-.quote {
-    text-align: center;
-    font-style: italic;
-    /* font-weight: 600!important; */
-    font-size: 1.2em!important;
-    color: rgb(250, 250, 250)!important;
-    /* color: rgb(92, 92, 92)!important; */
-    background-color: var(--md-primary-fg-color)!important;
+.md-content p {
+  color: rgb(92, 92, 92);
+  /* color: #7c819c; */
 }
 
 img.gray-scale {
@@ -181,12 +170,14 @@ img.gray-scale {
 }
 
 .md-typeset .primary-background {
-  background-color: var(--md-primary-fg-color)!important;
+  background-color: var(--md-primary-fg-color);
   padding: 20px;
 }
 
 .md-typeset .primary-border {
-  border: 3px solid var(--md-primary-fg-color)!important;
+  border: .1rem solid;
+  border-radius: .1rem;
+  border-color: var(--md-primary-fg-color);
 }
 
 .md-typeset .max-width-800 {
@@ -227,10 +218,13 @@ img.gray-scale {
 }
 
 .hero p {
-  color: rgb(92, 92, 92);
   font-weight: 400;
   font-size: 0.8rem;
   line-height: 1.6;
+}
+
+.text-center {
+  text-align: center;
 }
 
 
@@ -252,10 +246,6 @@ img.gray-scale {
     padding: .8rem;
 }
 
-.md-typeset .lg\:two-columns>ul>li p, .md-typeset .md\:two-columns>ul>li p {
-  color: rgb(92, 92, 92);
-}
-
 
 
 /*------- FROM MEDIUM SCREEN -------*/
@@ -272,7 +262,7 @@ img.gray-scale {
     font-size: 1rem!important;
   }
 
-  .hero p.small {
+  .hero .small {
     font-size: 0.8rem!important;
   }
 

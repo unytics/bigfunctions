@@ -39,12 +39,99 @@ Supercharge **BigQuery** with **BigFunctions**<br>
 
 ---
 
+<!------------- THE RISE OF SQL DATA STACK  ----------->
+
+<div class="hero" markdown>
+
+# The rise of <br> the SQL-Data-Stack
+
+**BigQuery**, **BigFunctions** and **dbt**<br>
+make a SQL-Data-Stack
+
+</div>
+
+<div class="grid cards text-center" markdown>
+
+-   **BigQuery** runs SQL
+
+    ![bigquery logo](assets/bigquery.png){ style="max-height: 50px" }
+
+-   **BigFunctions** supercharges SQL
+
+    ![bigfunctions logo](assets/logo_and_name.png){ style="max-height: 50px" }
+
+
+-   **dbt** orchestrates SQL
+
+    ![dbt logo](assets/dbt.png){ style="max-height: 50px" }
+
+
+</div>
+
+<div class="hero" markdown>
+
+**dbt can be replaced by any sql orchestrator (dataform, sqlmesh, scheduled queries, etc)*
+{ .small }
+
+</div>
+
+<div class="primary-background" markdown>
+
+<div class="md:two-columns max-width-800" markdown>
+
+-   ## Modern-Data-Stack
+
+    ![Modern-Data-Stack](assets/modern_data_stack2.png)
+
+    :x: **Tool Sprawl**: A multitude of tools for various tasks complicates the data workflow.
+
+    :x: **Custom Scripting**: Reliance on custom Python scripts introduces complexity and increases maintenance overhead.
+
+    :x: **Lack of Self-Service**: Data analysts often depend on data engineers for complex tasks, hindering agility and efficiency.
+
+
+-   ## SQL-Data-Stack
+
+    ![SQL-Data-Stack](assets/sql_data_stack2.png)
+
+    :white_check_mark: **Simplicity**: Achieve everything with SQL, thus minimizing the need for multiple tools.
+
+    :white_check_mark: **Centralized Governance**: Control all data processes from a central data warehouse with declarative assets.
+
+    :white_check_mark: **Self-Service**:  Empower data analysts to perform intricate tasks using SQL functions directly.
+
+</div>
+
+</div>
+
+
+<!------------- RISE OF SQL FOOTER  ----------->
+
+
+<div class="hero" markdown>
+
+### Powerfully simple
+
+*BigFunctions supercharges BigQuery*<br>
+*to run any task with SQL*
+
+</div>
+
+
+
+
+<br>
+
+
+
+---
+
 <!------------- POWER OF FUNCTIONS HEADER  ----------->
 <div class="hero" markdown>
 
 # The power of functions<br>with the ease of SQL
 
-Ready-to-use BigQuery functions to load, transform, activate.
+Ready-to-use BigQuery functions<br>to load, transform and activate data
 
 [Explore Functions :octicons-arrow-right-24:](bigfunctions/){ .md-button }
 
@@ -54,7 +141,7 @@ Ready-to-use BigQuery functions to load, transform, activate.
 <!------------- LOAD FUNCTIONS  ----------->
 <div class="hero" markdown>
 
-### 1. LOAD
+### 1. LOAD Examples
 
 </div>
 
@@ -89,7 +176,7 @@ Ready-to-use BigQuery functions to load, transform, activate.
 
 <div class="hero" markdown>
 
-### 2. TRANSFORM
+### 2. TRANSFORM Examples
 
 </div>
 
@@ -134,7 +221,7 @@ Ready-to-use BigQuery functions to load, transform, activate.
 
 <div class="hero" markdown>
 
-### 3. ACTIVATE
+### 3. ACTIVATE Examples
 
 </div>
 
@@ -191,56 +278,7 @@ Ready-to-use BigQuery functions to load, transform, activate.
 
 ---
 
-<!------------- THE RISE OF SQL DATA STACK  ----------->
 
-<div class="hero" markdown>
-
-# The rise of <br> the SQL-Data-Stack
-
-If BigQuery can perform any task,
-
-*BigQuery + dbt*<br>
-*become all you need.*
-
-Say Hi to the SQL-Data-Stack!
-
-</div>
-
-
-<div class="primary-background" markdown>
-
-<div class="md:two-columns max-width-800" markdown>
-
--   ## Modern-Data-Stack
-
-    ![Modern-Data-Stack is Complex](assets/modern_data_stack2.png)
-
-    :x: **Tool Sprawl**: A multitude of tools for various tasks complicates the data workflow.
-
-    :x: **Custom Scripting**: Reliance on custom Python scripts introduces complexity and increases maintenance overhead.
-
-    :x: **Lack of Self-Service**: Data analysts often depend on data engineers for complex tasks, hindering agility and efficiency.
-
-
--   ## SQL-Data-Stack
-
-    ![SQL-Data-Stack is powerfully simple](assets/sql_data_stack2.png)
-
-    :white_check_mark: **Simplicity**: Achieve everything with SQL, thus minimizing the need for multiple tools.
-
-    :white_check_mark: **Centralized Governance**: Control all data processes from a central data warehouse with declarative assets.
-
-    :white_check_mark: **Self-Service**:  Empower data analysts to perform intricate tasks using SQL functions directly.
-
-</div>
-
-</div>
-
-
-
-
-
----
 
 
 <!------------- FRAMEWORK  ----------->
@@ -274,19 +312,13 @@ Build a Governed Catalog of BigQuery Functions at your Company
     *   **Community-Driven**: Leverages community-developed functions, and allows contributions.
     *   **Familiar Workflow**:  Uses a YAML standard and CLI similar to dbt, making it intuitive for dbt users.
 
-    ### Benefits for Different Users:
+    #### Benefits for Different Users:
 
     *   **Data Analysts**: Gain new capabilities for loading data from diverse sources or activating data via reverse ETL and leverage a catalog of self-service functions.
     *   **Analytics Engineers**: The framework's design is familiar to those who use dbt.
     *   **Data Engineers**: Implement software engineering best practices and leverage community-developed functions, preventing the need to reinvent the wheel.
     *   **Central Data Teams**: Provide a governed catalog of curated functions to large organizations with maintainable effort.
 
-    ### Functionality Examples:
-
-    *   **Loading Data**: Load data from any file on the internet using SQL.
-    *   **Transforming Data**: Perform complex data transformations using functions such as the time series forecasting function `prophet`.
-    *   **Activating Data**: Send emails to target audiences directly from SQL queries and send data to your CRM using activation functions.
-    Explore all available BigFunctions.
 
 
 ## Get Started with BigFunctions
