@@ -35,18 +35,148 @@ Supercharge **BigQuery** with **BigFunctions**<br>
 
 </div>
 
+---
+
+
+
+<!------------- POWER OF FUNCTIONS HEADER  ----------->
+<div class="hero" markdown>
+
+# Supercharge your BigQuery with public functions
+
+150+ functions available from your BigQuery project
+
+*no install needed*
+{ .small }
+
+
+[Explore Public Functions :octicons-arrow-right-24:](bigfunctions/){ .md-button }
+
+</div>
+
+
+<div class="lg:two-columns lg:revert-items" markdown>
+
+-   ## 1. Load
+
+    Load data with one SQL command from:
+
+    - any SAAS such as Salesforce, Hubspot, Zendesk, etc.
+    - external data such as `exchange_rate`, weather data.
+    - any source
+
+-   ![Load Data from Zendesk](assets/load_api_data.png){ .primary-border }
+
+</div>
+
+
+<div class="lg:two-columns" markdown>
+
+-   ## 2. Transform
+
+    Make Advanced Transforms from SQL.
+
+    Benefit from the functions of the community.
+
+-   ![Geocode Address](assets/geocode.png){ .primary-border }
+
+</div>
+
+
+<div class="lg:two-columns lg:revert-items" markdown>
+
+-   ## 3. Activate
+
+    Send Slack, Google Chat, Teams messages or emails to your teams.
+
+
+    Send the figures of the week or alerts when data is wrong.
+
+    With dbt post hook, you can trigger activations at model creation.
+
+-   ![email notification](assets/email.png){ .primary-border }
+
+</div>
+
+
 <br>
 
 ---
+
+
+
+
+<!------------- FRAMEWORK  ----------->
+
+<div class="hero" markdown>
+
+# Deploy Functions in your BigQuery Project
+
+Deploy public functions (or your own)<br>in your BigQuery project<br>with the Command-Line Interface.
+
+
+[Discover the Framework :octicons-arrow-right-24:](framework/){ .md-button }
+
+</div>
+
+
+<div class="lg:two-columns lg:revert-items" markdown>
+
+-   ## A YAML Standard
+
+    Each function is defined in a yaml file which defines the:
+
+    - author
+    - description
+    - arguments
+    - examples
+    - code
+
+    <br>
+
+    Yaml files are:
+
+    - used for deploying and generating the documentation website.
+    - easily shared
+    - open: public functions yaml files are all open-source and downloadable with one command.
+
+-   ![function yaml](assets/yaml.png)
+
+</div>
+
+
+<div class="lg:two-columns" markdown>
+
+-   ## Command Line Interface
+
+    `bigfun` CLI is installable with one `pip install` and enables you to:
+
+    - get the yaml file of a public function
+    - test the function
+    - deploy it
+    - generate a documentation website (such as this website)
+
+
+
+-   ![bigfun command line interface](assets/bigfun.png)
+
+</div>
+
+
+
+<br>
+
+---
+
 
 <!------------- THE RISE OF SQL DATA STACK  ----------->
 
 <div class="hero" markdown>
 
-# The rise of <br> the SQL-Data-Stack
+# Simplify your Stack with<br>the SQL-Data-Stack
 
 **BigQuery**, **BigFunctions** and **dbt**<br>
-make a SQL-Data-Stack
+is all you need
 
 </div>
 
@@ -104,126 +234,6 @@ make a SQL-Data-Stack
 
 </div>
 
-
-<!------------- RISE OF SQL FOOTER  ----------->
-
-
-<div class="hero" markdown>
-
-### Powerfully simple
-
-*BigFunctions supercharges BigQuery*<br>
-*to run any task with SQL*
-
-</div>
-
-
-
-
-<br>
-
-
-
----
-
-<!------------- POWER OF FUNCTIONS HEADER  ----------->
-<div class="hero" markdown>
-
-# The power of functions<br>with the ease of SQL
-
-Ready-to-use BigQuery functions<br>to load, transform and activate data
-
-*no install needed*
-{ .small }
-
-[Explore Functions :octicons-arrow-right-24:](bigfunctions/){ .md-button }
-
-</div>
-
-
-<div class="lg:two-columns lg:revert-items" markdown>
-
--   ## 1. Load
-
-    Load data with one SQL command from:
-
-    - any SAAS such as Salesforce, Hubspot, Zendesk, etc.
-    - external data such as `exchange_rate`, weather data.
-    - any source
-
-    [Get Started :octicons-arrow-right-24:](bigfunctions/#get-data){ .md-button }
-
--   ![Load Data from Zendesk](assets/load_api_data.png){ .primary-border }
-
-</div>
-
-
-<div class="lg:two-columns" markdown>
-
--   ## 2. Transform
-
-    Make Advanced Transforms from SQL.
-
-    Benefit from the functions of the community.
-
-    [Get Started :octicons-arrow-right-24:](bigfunctions/geocode/){ .md-button }
-
--   ![Geocode Address](assets/geocode.png){ .primary-border }
-
-</div>
-
-
-<div class="lg:two-columns lg:revert-items" markdown>
-
--   ## 3. Activate
-
-    Send Slack, Google Chat, Teams messages or emails to your teams.
-
-
-    Send the figures of the week or alerts when data is wrong.
-
-    With dbt post hook, you can trigger activations at model creation.
-
-    [Get Started :octicons-arrow-right-24:](bigfunctions/send_mail/){ .md-button }
-
--   ![email notification](assets/email.png){ .primary-border }
-
-</div>
-
-
-
-<!------------- POWER OF FUNCTIONS FOOTER  ----------->
-
-
-<div class="hero" markdown>
-
-### Load, Transform, Activate
-
-*BigFunctions comes with [150+ ready to use functions](bigfunctions/)*
-
-*no install needed*
-{ .small }
-
-[Explore Functions :octicons-arrow-right-24:](bigfunctions/){ .md-button }
-
-</div>
-
-<br>
-
----
-
-
-
-
-<!------------- FRAMEWORK  ----------->
-
-<div class="hero" markdown>
-
-# A framework like dbt
-
-Build a Governed Catalog of BigQuery Functions at your Company
-
-</div>
 
 
 <br>
@@ -286,20 +296,18 @@ As easy as a copy & paste.
 
 ## BigFunctions: the key enabler of the SQL Data Stack
 
-!!! note ""
 
+**BigFunctions** is a framework and a collection of open-source functions that make the SQL data stack a reality. It allows you to build a governed catalog of powerful BigQuery functions within your company.
 
-    **BigFunctions** is a framework and a collection of open-source functions that make the SQL data stack a reality. It allows you to build a governed catalog of powerful BigQuery functions within your company.
+*   **Governed Catalog**: A framework to build a governed catalog of powerful BigQuery functions.
+*   **100+ Ready-to-Use Functions**: Provides more than 100 open-source functions for direct use in BigQuery.
+*   **Comprehensive Functionality**: Includes functions for loading, transforming, and activating data.
+*   **Community-Driven**: Leverages community-developed functions, and allows contributions.
+*   **Familiar Workflow**:  Uses a YAML standard and CLI similar to dbt, making it intuitive for dbt users.
 
-    *   **Governed Catalog**: A framework to build a governed catalog of powerful BigQuery functions.
-    *   **100+ Ready-to-Use Functions**: Provides more than 100 open-source functions for direct use in BigQuery.
-    *   **Comprehensive Functionality**: Includes functions for loading, transforming, and activating data.
-    *   **Community-Driven**: Leverages community-developed functions, and allows contributions.
-    *   **Familiar Workflow**:  Uses a YAML standard and CLI similar to dbt, making it intuitive for dbt users.
+#### Benefits for Different Users:
 
-    #### Benefits for Different Users:
-
-    *   **Data Analysts**: Gain new capabilities for loading data from diverse sources or activating data via reverse ETL and leverage a catalog of self-service functions.
-    *   **Analytics Engineers**: The framework's design is familiar to those who use dbt.
-    *   **Data Engineers**: Implement software engineering best practices and leverage community-developed functions, preventing the need to reinvent the wheel.
-    *   **Central Data Teams**: Provide a governed catalog of curated functions to large organizations with maintainable effort.
+*   **Data Analysts**: Gain new capabilities for loading data from diverse sources or activating data via reverse ETL and leverage a catalog of self-service functions.
+*   **Analytics Engineers**: The framework's design is familiar to those who use dbt.
+*   **Data Engineers**: Implement software engineering best practices and leverage community-developed functions, preventing the need to reinvent the wheel.
+*   **Central Data Teams**: Provide a governed catalog of curated functions to large organizations with maintainable effort.
