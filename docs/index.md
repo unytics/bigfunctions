@@ -16,8 +16,7 @@ SQL
 Supercharge **BigQuery** with **BigFunctions**<br>
 *to load, transform and activate your data.*<br><br>
 
-[Book a Demo :octicons-arrow-right-24:](https://calendar.app.google/zu54nNMHLVw7jYWy8){ .md-button }
-[Explore :octicons-arrow-right-24:](bigfunctions/){ .md-button .md-button--primary }
+[Book a Demo :octicons-arrow-right-24:](https://calendar.app.google/zu54nNMHLVw7jYWy8){ .md-button .md-button--primary }
 
 
 </div>
@@ -40,23 +39,20 @@ Supercharge **BigQuery** with **BigFunctions**<br>
 
 ---
 
-<!------------- POWER OF FUNCTIONS SECTION  ----------->
+<!------------- POWER OF FUNCTIONS HEADER  ----------->
 <div class="hero" markdown>
 
 # The power of functions<br>with the ease of SQL
 
-
 *BigFunctions comes with [150+ ready to use functions](bigfunctions/)*<br>
 *to load, transform, activate*.
 
-
 [Explore Functions :octicons-arrow-right-24:](bigfunctions/){ .md-button }
-
 
 </div>
 
 
-
+<!------------- LOAD FUNCTIONS  ----------->
 <div class="hero" markdown>
 
 ### 1. LOAD
@@ -90,13 +86,13 @@ Supercharge **BigQuery** with **BigFunctions**<br>
 
 
 
+<!------------- TRANSFORM FUNCTIONS  ----------->
 
 <div class="hero" markdown>
 
 ### 2. TRANSFORM
 
 </div>
-
 
 <div class="lg:two-columns lg:revert-items" markdown>
 
@@ -133,12 +129,15 @@ Supercharge **BigQuery** with **BigFunctions**<br>
 </div>
 
 
+
+<!------------- ACTIVATE FUNCTIONS  ----------->
+
+
 <div class="hero" markdown>
 
 ### 3. ACTIVATE
 
 </div>
-
 
 <div class="lg:two-columns lg:revert-items" markdown>
 
@@ -176,6 +175,8 @@ Supercharge **BigQuery** with **BigFunctions**<br>
 
 
 
+<!------------- POWER OF FUNCTIONS FOOTER  ----------->
+
 
 <div class="hero" markdown>
 
@@ -191,15 +192,18 @@ Supercharge **BigQuery** with **BigFunctions**<br>
 
 ---
 
+<!------------- THE RISE OF SQL DATA STACK  ----------->
 
 <div class="hero" markdown>
 
 # The rise of <br> the SQL-Data-Stack
 
-A data-warehouse (*bigquery*),<br>
-a sql orchestrator (*dbt*)<br>
-and advanced functions (*bigfunctions*)<br>
-*is all you need!*
+If your Data-Warehouse can perform any task,
+
+*BigQuery + dbt*<br>
+*become all you need.*
+
+Say Hi to the SQL-Data-Stack!
 
 </div>
 
