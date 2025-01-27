@@ -135,7 +135,13 @@
   margin: 0 0 0.6em;
 }
 
-.md-content h1 a.headerlink, .md-content h2 a.headerlink {
+.md-typeset h3 {
+  font-weight: 600;
+  color: rgb(50, 50, 50)!important;
+  font-size: 1.5rem;
+}
+
+.md-content h1 a.headerlink, .md-content h2 a.headerlink, .md-content h3 a.headerlink {
   display: none;
 }
 
@@ -177,6 +183,10 @@ img.gray-scale {
 .md-typeset .primary-background {
   background-color: var(--md-primary-fg-color)!important;
   padding: 20px;
+}
+
+.md-typeset .primary-border {
+  border: 3px solid var(--md-primary-fg-color)!important;
 }
 
 .md-typeset .max-width-800 {
@@ -241,6 +251,11 @@ img.gray-scale {
     margin: 0;
     padding: .8rem;
 }
+
+.md-typeset .lg\:two-columns>ul>li p, .md-typeset .md\:two-columns>ul>li p {
+  color: rgb(92, 92, 92);
+}
+
 
 
 /*------- FROM MEDIUM SCREEN -------*/

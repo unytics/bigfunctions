@@ -45,34 +45,13 @@ Supercharge **BigQuery** with **BigFunctions**<br>
 
 # The power of functions<br>with the ease of SQL
 
-Have a data need? **There's a bigfunction for that!**<br>
-*BigFunctions provides [150+ ready to use functions](bigfunctions/)</a>*
 
-</div>
-
-
-<div class="lg:two-columns lg:revert-items" markdown>
-
--   ## Load Data from any vendor
-
-    Load data from Salesforce, Hubspot and hundreds of vendors with one SQL command.
-
-    [Get Started :octicons-arrow-right-24:](bigfunctions/load_api_data/){ .md-button }
-
--   ![Image title](https://dummyimage.com/600x400/eee/aaa)
-
-</div>
+*BigFunctions comes with [150+ ready to use functions](bigfunctions/)*<br>
+*to load, transform, activate*.
 
 
-<div class="lg:two-columns" markdown>
+[Explore Functions :octicons-arrow-right-24:](bigfunctions/){ .md-button }
 
--   ## Perform Anomaly Detection
-
-    Load data from Salesforce, Hubspot and hundreds of vendors with one SQL command.
-
-    [Get Started :octicons-arrow-right-24:](bigfunctions/load_api_data/){ .md-button }
-
--   ![Image title](https://dummyimage.com/600x400/eee/aaa)
 
 </div>
 
@@ -80,7 +59,129 @@ Have a data need? **There's a bigfunction for that!**<br>
 
 <div class="hero" markdown>
 
-*BigFunctions come with 150+ ready to use functions*
+### 1. LOAD
+
+</div>
+
+<div class="lg:two-columns lg:revert-items" markdown>
+
+-   ## Load Data from any SAAS
+
+    Load data from Salesforce, Hubspot and hundreds of SAAS with one SQL command.
+
+    [Get Started :octicons-arrow-right-24:](bigfunctions/load_api_data/){ .md-button }
+
+-   ![Load Data from Zendesk](assets/load_api_data.png){ .primary-border }
+
+</div>
+
+
+<div class="lg:two-columns" markdown>
+
+-   ## Load External Data for Enrichment
+
+    Get current and historical `exchange rates`, `weather` or any specific API data to enrich yours.
+
+    [Get Started :octicons-arrow-right-24:](bigfunctions/exchange_rate/){ .md-button }
+
+-   ![Get Exchange Rate](assets/exchange_rate.png){ .primary-border }
+
+</div>
+
+
+
+
+<div class="hero" markdown>
+
+### 2. TRANSFORM
+
+</div>
+
+
+<div class="lg:two-columns lg:revert-items" markdown>
+
+-   ## Make Advanced Transforms
+
+    With BigFunctions, you can do anything in SQL that you can do in python.
+    You can for instance convert an `address` to `(latitude, longitude)`
+    or get the `country` of an `ip_address`.
+
+    All your transforms are now done in SQL.
+
+    Put them all in dbt!
+
+    [Get Started :octicons-arrow-right-24:](bigfunctions/geocode/){ .md-button }
+
+-   ![Geocode Address](assets/geocode.png){ .primary-border }
+
+</div>
+
+<div class="lg:two-columns" markdown>
+
+-   ## Automatically Flatten Json
+
+    Json data may be hard to manipulate.
+    BigFunctions provide some functions to help with that.
+
+    For instance, a function automatically detects json objects schema
+    and generate a parsing SQL query to flatten the json column.
+
+    [Get Started :octicons-arrow-right-24:](bigfunctions/sql_to_flatten_json_column/){ .md-button }
+
+-   ![Flatten Json](assets/flatten_json.png){ .primary-border }
+
+</div>
+
+
+<div class="hero" markdown>
+
+### 3. ACTIVATE
+
+</div>
+
+
+<div class="lg:two-columns lg:revert-items" markdown>
+
+-   ## Send Chat Message
+
+    Send Slack, Google Chat or Teams message to your teams with the figures of the week.
+
+    Or alert them when something is wrong.
+
+    *It works in SQL, so it works with your SQL orchestrator (be it dbt, sqlmesh, dataform or scheduled queries)*.
+
+    [Get Started :octicons-arrow-right-24:](bigfunctions/send_slack_message/){ .md-button }
+
+-   ![Send Slack Message](assets/slack.png){ .primary-border }
+
+</div>
+
+<div class="lg:two-columns" markdown>
+
+-   ## Send Emails
+
+    Send emails to your teams.
+
+    Better, send emails to your customers!
+
+    Your data-warehouse is the only place where you have a 360° view of your customer.
+
+    So sending email from BigQuery makes a lot of sense.
+
+    [Get Started :octicons-arrow-right-24:](bigfunctions/send_mail/){ .md-button }
+
+-   ![Get Exchange Rate](assets/email.png){ .primary-border }
+
+</div>
+
+
+
+
+<div class="hero" markdown>
+
+### Load, Transform, Activate
+
+*BigFunctions comes with [150+ ready to use functions](bigfunctions/)*
 
 [Explore Functions :octicons-arrow-right-24:](bigfunctions/){ .md-button }
 
