@@ -19,6 +19,7 @@ theme:
     # - navigation.instant
     - navigation.path
     - navigation.tabs
+    - navigation.tabs.sticky
     - navigation.tracking
     - navigation.indexes
     - navigation.hide
