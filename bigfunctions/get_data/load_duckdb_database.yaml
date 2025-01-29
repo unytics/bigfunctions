@@ -3,7 +3,7 @@ author: Paul Marcombes
 description: |
   Download duckdb database into `destination_dataset`
 
-  This function extends [`load_duckdb_database_into_temp_dataset`](../load_duckdb_database_into_temp_dataset) function.
+  This function extends [`load_duckdb_database_into_temp_dataset`](load_duckdb_database_into_temp_dataset.md) function.
 
   Each call:
 

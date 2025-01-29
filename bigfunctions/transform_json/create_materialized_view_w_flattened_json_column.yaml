@@ -6,7 +6,7 @@ description: |
 
   It creates a materialized view with:
 
-  - query given by [sql_to_flatten_json_column function](../sql_to_flatten_json_column.md)
+  - query given by [sql_to_flatten_json_column function](sql_to_flatten_json_column.md)
   - same partition as `fully_qualified_table`
 
 arguments:
