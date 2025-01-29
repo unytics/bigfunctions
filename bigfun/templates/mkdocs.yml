@@ -35,7 +35,7 @@ markdown_extensions:
 plugins:
   - search
 nav:
-  - README: README.md
+  - Home: index.md
   - BigFunctions!: bigfunctions/README.md
 validation:
   nav:

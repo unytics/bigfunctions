@@ -76,13 +76,16 @@ def generate_doc(project, dataset):
         shutil.rmtree('docs/bigfunctions', ignore_errors=True)
         os.makedirs('docs/bigfunctions')
 
-    def copy_readme_and_contributing():
-        if not os.path.isfile('README.md'):
-            print('INFO: CREATING A README.md FILE IN CURRENT DIRECTORY WHICH WILL BE THE ROOT CONTENT OF THE WEBSITE')
-            open('README.md', 'w', encoding='utf-8').write('# Hello from README!')
-        shutil.copyfile('README.md', 'docs/README.md')
-        if os.path.isfile('CONTRIBUTING.md'):
-            shutil.copyfile('CONTRIBUTING.md', 'docs/CONTRIBUTING.md')
+    def create_homepage_if_not_exists():
+        if os.path.isfile('docs/index.md'):
+            return
+        print('INFO: CREATING docs/index.md FILE WHICH WILL BE THE ROOT CONTENT OF THE WEBSITE')
+        content = '\n\n'.join([
+            '# BigFunctions!',
+            'Update this page content by editing `docs/index.md`',
+            '[Explore Functions](bigfunctions/){ .md-button }',
+        ])
+        open('docs/index.md', 'w', encoding='utf-8').write(content)
 
     def copy_default_site_config():
         if not os.path.isfile('mkdocs.yml'):
@@ -137,7 +140,7 @@ def generate_doc(project, dataset):
     ]
     enrich_bigfunctions_author(bigfunctions)
     init_docs_folder()
-    copy_readme_and_contributing()
+    create_homepage_if_not_exists()
     copy_default_site_config()
     generate_bigfunctions_markdown(bigfunctions)
     copy_screenshots_to_docs_folder()
