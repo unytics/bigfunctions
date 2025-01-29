@@ -37,7 +37,7 @@ examples:
         "createTime": ...,
         "text": "Hello 👋 from bigfunctions!"
       }
-code: |
+code: | #python
   import requests
   if not message:
     return 'EMPTY MESSAGE. NOT SENDING'

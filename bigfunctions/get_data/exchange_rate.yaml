@@ -24,10 +24,10 @@ examples:
       - "'USD'"
       - "'EUR'"
     output: "0.910437"
-code: |
+init_code: | #python
   import datetime
   import yfinance as yf
-
+code: | #python
   base = (base or '').upper()
   to = (to or '').upper()
   if (len(base) != 3) or (len(to) != 3):
