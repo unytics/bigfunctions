@@ -1,81 +1,55 @@
+<div class="hero" markdown>
 
-<p align="center">
-  <img class="hero-image" src="https://user-images.githubusercontent.com/111615732/186508787-6af04ed0-4750-4c49-926a-eacfd4a3dfbb.png" alt="logo_and_name" style="width: 100%; max-width: 600px">
-</p>
+# Deploy Functions in your BigQuery Project
 
-<p align="center">
-    Supercharge <em>BigQuery</em><br>with <em>BigFunctions</em><br><br>
-    <b>Upgrade your data impact</b><br>
-    with 100+ ready-to-use BigQuery Functions<br>
-    <i>(+ build a catalog of functions)</i><br>
-</p>
-
-<p align="center">
-    <strong>❯
-      <a href="https://unytics.io/bigfunctions/" target="_blank">Website</a> |
-      <a href="https://github.com/unytics/bigfunctions" target="_blank">GitHub</a>
-     ❮</strong>
-</p>
-
----
-
-<br>
-
-## 🔍️ 1. What is BigFunctions?
-
-BigFunctions is:
-
-✅ **a framework** to build a **governed catalog of powerful BigQuery functions** at YOUR company.
-
-✅ **100+ open-source functions to supercharge BigQuery** that you can call directly (no install) or redeploy in YOUR catalog.
+Deploy public functions (or your own)<br>in your BigQuery project<br>with the Command-Line Interface.
 
 
+</div>
 
 
-<br>
+<div class="lg:two-columns lg:revert-items" markdown>
+
+-   ## A YAML Standard
+
+    Each function is defined in a yaml file which defines the:
+
+    - author
+    - description
+    - arguments
+    - examples
+    - code
+
+    <br>
+
+    Yaml files are:
+
+    - used for deploying and generating the documentation website.
+    - easily shared
+    - open: public functions yaml files are all open-source and downloadable with one command.
+
+-   ![function yaml](assets/yaml.png)
+
+</div>
 
 
-## 💡 2. Why BigFunctions?
+<div class="lg:two-columns" markdown>
 
+-   ## Command Line Interface
 
-**As a data-analyst**<br>
-You'll have new powers! *(such as loading data from any source or activating your data through reverse ETL)*.
+    `bigfun` CLI is installable with one `pip install` and enables you to:
 
-**As an analytics-engineer**<br>
-You'll feel at home with BigFunctions style which imitates the one of dbt *(with a yaml standard and a CLI)*.<br>
-You'll love the idea of getting more things done through SQL.
-
-**As a data-engineer**<br>
-You'll easily build software-engineering best practices through unit testing, cicd, pull request validation, continuous deployment, etc.<br>
-You will love avoiding reinventing the wheel by using functions already developed by the community.
-
-**As a central data-team player in a large company**<br>
-You'll be proud of providing a governed catalog of curated functions to your 10000+ employees with mutualized and maintainable effort.
-
-**As a security champion**<br>
-You will enjoy the ability to validate the code of functions before deployment thanks to your git validation workflow, CI Testing, binary authorization, etc.
-
-**As an open-source lover**<br>
-You'll be able to contribute so that a problem solved for you is solved for everyone.
+    - get the yaml file of a public function
+    - test the function
+    - deploy it
+    - generate a documentation website (such as this website)
 
 
 
-<br>
+-   ![bigfun command line interface](assets/bigfun.png)
 
-## 👀 3. Call public BigFunctions without install from your GCP project
+</div>
 
-All BigFunctions represented by a 'yaml' file in *bigfunctions* folder of the GitHub repo are automatically deployed in public datasets so that you can call them directly without install from your BigQuery project.
-
-Give it a try! Execute this SQL query from your GCP Project 👀:
-
-```sql
-select bigfunctions.eu.faker("name", "it_IT")
-```
-
-
-Explore all available bigfunctions **<a href="bigfunctions">here</a>**.
-
-<br>
 
 
 ## 🚀 4. Deploy BigFunctions in your GCP project
