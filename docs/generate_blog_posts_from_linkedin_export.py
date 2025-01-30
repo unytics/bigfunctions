@@ -1,9 +1,9 @@
-import urllib.request
 import json
-import re
 import os
-import time
+import re
 import shutil
+import time
+import urllib.request
 
 import jinja2
 
