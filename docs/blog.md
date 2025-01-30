@@ -47,7 +47,7 @@ search:
 
         <div>
 
-            <h3 style="font-size: 2em;">From SQL to Slack: Automating Data Workflows with Big Functions</h3>
+            <h3 style="font-size: 2em;">From SQL to Slack: Automating Data Workflows with BigFunctions</h3>
 
             <img src="../assets/blog/timo_dechau_blog.png" style="margin: 0; max-width: 400px">
 
