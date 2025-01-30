@@ -15,7 +15,7 @@ from . import bigfunctions as bf
 from . import utils
 
 TABLES_FOLDER = 'data'
-PEOPLE_FILENAME = 'people.yaml'
+PEOPLE_FILENAME = 'docs/people.yaml'
 THIS_FOLDER = os.path.dirname(os.path.realpath(__file__)).replace('\\', '/')
 MKDOCS_DEFAULT_FILE =  f'{THIS_FOLDER}/templates/mkdocs.yml'
 DOC_FOLDER_TEMPLATE_FILENAME = f'{THIS_FOLDER}/templates/folder.md'
