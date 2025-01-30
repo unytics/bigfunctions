@@ -81,7 +81,7 @@ I've been following him for two......</p>
         <div>
 
             
-                <img src="https://media.licdn.com/dms/image/v2/D5622AQEjqV3VmcrFOg/feedshare-shrink_20/B56ZSUEx1QHwA0-/0/1737651069474?e=1741219200&v=beta&t=cil5E6tPApxKovK1PP8_nEUEWO_hUR4JOK19w_v5YVY">
+                <img src="../assets/blog/2025-01-23_have_you_met_timo">
             
 
         </div>
@@ -175,7 +175,7 @@ In 2024, I built 4 Open-Source Data Apps:
         <div>
 
             
-                <img src="https://media.licdn.com/dms/image/v2/D4E22AQH8p51b_4_iNg/feedshare-shrink_480/B4EZRqg54OGwAg-/0/1736953801392?e=1741219200&v=beta&t=AL5AkdGaf2x_MagHEvEkMh-n1DOPSOjbzfi6q4NtYwA">
+                <img src="../assets/blog/2025-01-15_whats_up_for_me_in_2025__more_opensource_data_prod">
             
 
         </div>
@@ -201,7 +201,7 @@ Burak shared his......</p>
         <div>
 
             
-                <img src="https://media.licdn.com/dms/image/v2/D4E22AQFdryvheLmJDQ/feedshare-shrink_480/B4EZRkGPU8GgAY-/0/1736846146512?e=1741219200&v=beta&t=lykO0pGLevl_MfhVrZpB953oAc9T0he59JaMGVB8frQ">
+                <img src="../assets/blog/2025-01-14_unifying_analytics_platform_what_if_you_could_have">
             
 
         </div>
@@ -294,7 +294,7 @@ We built ultrasound scanners......</p>
         <div>
 
             
-                <img src="https://media.licdn.com/dms/image/v2/D4D22AQF4Ans1buQT8g/feedshare-shrink_160/B4DZQ8jlkZHYAk-/0/1736182750703?e=1741219200&v=beta&t=XPUpcITyGMP0pKZYdTWI7uQwFMYQCfLF8wDD9LaHLik">
+                <img src="../assets/blog/2025-01-06_just_tried_something_really_amazing_with_bigfuncti">
             
 
         </div>
@@ -343,7 +343,7 @@ It's trending since we can run duckdb......</p>
         <div>
 
             
-                <img src="https://media.licdn.com/dms/image/v2/D5622AQFYdIVto7qukA/feedshare-shrink_2048_1536/B56ZPa6Xh0HIAo-/0/1734544556106?e=1741219200&v=beta&t=-vOKdUBE66qHIzZ1XhWX1ApFKdCRzZvsXXKUVzY7V_U">
+                <img src="../assets/blog/2024-12-19_static_bi_is_going_to_be_huge__heres_why_i_am_very">
             
 
         </div>
@@ -366,7 +366,7 @@ It's trending since we can run duckdb......</p>
         <div>
 
             
-                <img src="https://media.licdn.com/dms/image/v2/D4E22AQGF4zm8aLcYaQ/feedshare-shrink_20/B4EZPVcDgvGcAs-/0/1734452722693?e=1741219200&v=beta&t=GhCVbwLx1BQRs5-5nrskuiCzAO_LTSP-7Dp0aWaT6mI">
+                <img src="../assets/blog/2024-12-18_ga4_data_is_known_to_be_hard_to_explore_in_bigquer">
             
 
         </div>
@@ -392,7 +392,7 @@ The formula is "% promoters - %......</p>
         <div>
 
             
-                <img src="https://media.licdn.com/dms/image/v2/D4E22AQEjV5l5NgCXmg/feedshare-shrink_800/B4EZPMUGBkHwAs-/0/1734299640448?e=1741219200&v=beta&t=961R6o4nvcJQOuK3-Z3ZHAxAVdz1kdTStxFiANQddAs">
+                <img src="../assets/blog/2024-12-16_how_do_you_reuse_logic_in_bigquery">
             
 
         </div>
@@ -440,7 +440,7 @@ Which one to......</p>
         <div>
 
             
-                <img src="https://media.licdn.com/dms/image/v2/D4E22AQHb-tMRoSWTUw/feedshare-shrink_800/B4EZPAC3HCH0Ak-/0/1734093796977?e=1741219200&v=beta&t=_ZLhTfb3ek5LpCvN7nI6dRIESXaAl8qYcg_-BKqwx5A">
+                <img src="../assets/blog/2024-12-13_geocode_an_address_in_bigquery_using_datagouvfr">
             
 
         </div>
@@ -494,7 +494,7 @@ run_stack(
         <div>
 
             
-                <img src="https://media.licdn.com/dms/image/v2/D4D22AQGga9NP1gpSiQ/feedshare-shrink_2048_1536/B4DZO6OSycHcAo-/0/1733996130016?e=1741219200&v=beta&t=-FSEyAy-D7qHq0xDektcEmkI3QzXP_nuOXGPCcyfSRA">
+                <img src="../assets/blog/2024-12-12_i_aim_to_build_and_define_the_data_stack_with_a_si">
             
 
         </div>
@@ -542,7 +542,7 @@ We explained several use cases where YOU......</p>
         <div>
 
             
-                <img src="https://media.licdn.com/dms/image/v2/D5622AQFyHtc2IeMmGA/feedshare-shrink_2048_1536/feedshare-shrink_2048_1536/0/1733315826756?e=1741219200&v=beta&t=tt05HOXr96wWLs8TWMXqrql9tm8Mt8PVPDR3ynIUOW0">
+                <img src="../assets/blog/2024-12-04_expose_your_dbt_models_as_an_api_with_a_simple_dbt">
             
 
         </div>
@@ -565,7 +565,7 @@ We explained several use cases where YOU......</p>
         <div>
 
             
-                <img src="https://media.licdn.com/dms/image/v2/D4D22AQEUWcpPkI5bGg/feedshare-shrink_2048_1536/feedshare-shrink_2048_1536/0/1733268406203?e=1741219200&v=beta&t=gNvungxiE827_cHKjvBPol4HCkMNRUeOwaUCnHsEA_g">
+                <img src="../assets/blog/2024-12-04_these_days_i_write_a_lot_about_getting_data_from_v">
             
 
         </div>
@@ -590,7 +590,7 @@ Today at......</p>
         <div>
 
             
-                <img src="https://media.licdn.com/dms/image/v2/D4E22AQGIA4sKgklwaA/feedshare-shrink_2048_1536/feedshare-shrink_2048_1536/0/1733237253181?e=1741219200&v=beta&t=43tocAJQynnD99AV8aDGvjl_eQFwOL1SP-L8874zVOs">
+                <img src="../assets/blog/2024-12-03_speaking_with_datapeople_is_always_full_of_surpris">
             
 
         </div>
@@ -617,7 +617,7 @@ What caught my eye is the UX:
         <div>
 
             
-                <img src="https://media.licdn.com/dms/image/v2/D4E22AQGF_6D32WquGw/feedshare-shrink_2048_1536/feedshare-shrink_2048_1536/0/1732868344217?e=1741219200&v=beta&t=Miz1Cl8_tT_3tFTArsUreZTUL5OHJud-QVYqLi7b06w">
+                <img src="../assets/blog/2024-11-29_i_was_impressed_by_sherloq_this_week">
             
 
         </div>
@@ -691,7 +691,7 @@ But it won’t help for business people to get trusted......</p>
         <div>
 
             
-                <img src="https://media.licdn.com/dms/image/v2/D4E22AQH3Kqo4WTx8PQ/feedshare-shrink_2048_1536/feedshare-shrink_2048_1536/0/1732544464803?e=1741219200&v=beta&t=EkzM-FWvKnuDKv9ZS1c-U7lXLBofeOdLd9O77m5slEI">
+                <img src="../assets/blog/2024-11-25_bigfunctions_is_a_framework_like_dbt_to_supercharg">
             
 
         </div>
@@ -741,7 +741,7 @@ Huge Thanks to the......</p>
         <div>
 
             
-                <img src="https://media.licdn.com/dms/image/v2/D5622AQFe-6DiipW63w/feedshare-shrink_2048_1536/feedshare-shrink_2048_1536/0/1730943320025?e=1741219200&v=beta&t=p8C7qYONkEUoOO_BFKaf52VQ3vYj1i6ddIqYPBRyOBM">
+                <img src="../assets/blog/2024-11-12_well_im_nowhere_near_kestra_and_their_10000_stars">
             
 
         </div>
@@ -791,7 +791,7 @@ Simply because sqlmesh paid product does not compete with their open-source prod
         <div>
 
             
-                <img src="https://media.licdn.com/dms/image/v2/D5622AQGAV_T8Px1IUA/feedshare-shrink_2048_1536/feedshare-shrink_2048_1536/0/1730940548131?e=1741219200&v=beta&t=NemQyAu-b7wiYyPzqY13CUxSE9dnKUgj8w7fgBsMinI">
+                <img src="../assets/blog/2024-11-07_sqlmesh_vs_dbt">
             
 
         </div>
@@ -858,7 +858,7 @@ Simply because sqlmesh paid product does not compete with their open-source prod
         <div>
 
             
-                <img src="https://media.licdn.com/dms/image/v2/D4E22AQFqBZaH1xkcug/feedshare-shrink_2048_1536/feedshare-shrink_2048_1536/0/1730097975021?e=1741219200&v=beta&t=KK90Qp27D7BKaRxqSyfv3MTal88OtALWYffNxxlks0A">
+                <img src="../assets/blog/2024-10-28_speaker_announcement_were_thrilled_to_announce_tha">
             
 
         </div>
@@ -904,7 +904,7 @@ Under the BigFunctions hood : DuckDB & Ibis......</p>
         <div>
 
             
-                <img src="https://media.licdn.com/dms/image/v2/D4E22AQG9JjTVyNBaWw/feedshare-shrink_2048_1536/feedshare-shrink_2048_1536/0/1728913037122?e=1741219200&v=beta&t=-JZRTylI-BoDjmE_u-OciSAYsjYKNSdn2wzPk0n4FxU">
+                <img src="../assets/blog/2024-10-15__new_bigfunctions__loadfileurl_filetype_destinatio">
             
 
         </div>
@@ -931,7 +931,7 @@ You'll instantly get:
         <div>
 
             
-                <img src="https://media.licdn.com/dms/image/v2/D4E22AQE6-m55Ry5xjQ/feedshare-shrink_2048_1536/feedshare-shrink_2048_1536/0/1728036704948?e=1741219200&v=beta&t=E8wbebx3T8IZp_NQHxJL_E3pkRUGKFdGLi4Tws49j1o">
+                <img src="../assets/blog/2024-10-04_do_you_have_a_lot_of_text_data__categorize_it_">
             
 
         </div>
@@ -956,7 +956,7 @@ Within 20 minutes we could deploy this......</p>
         <div>
 
             
-                <img src="https://media.licdn.com/dms/image/v2/D4E22AQF9oYCEPnXKAA/feedshare-shrink_2048_1536/feedshare-shrink_2048_1536/0/1727366162927?e=1741219200&v=beta&t=Ti0sc8Ac444vr0y8mzDWW3hFazaw-6XywjnjReEPYwo">
+                <img src="../assets/blog/2024-09-26_easiest_way_to_get_a_public_csv_file_into_bigquery">
             
 
         </div>
@@ -985,7 +985,7 @@ Using a prompt embedded in a SQL......</p>
         <div>
 
             
-                <img src="https://media.licdn.com/dms/image/v2/D4E22AQH_NQrpiCJfFg/feedshare-shrink_2048_1536/feedshare-shrink_2048_1536/0/1727335687006?e=1741219200&v=beta&t=UX3-PdfWhpbPPxpzY96gAdTcD_s5hJ1rxj_E5Yc6exU">
+                <img src="../assets/blog/2024-09-26_extract_webpage_data_with_sql_">
             
 
         </div>
@@ -1012,7 +1012,7 @@ Documentation here
         <div>
 
             
-                <img src="https://media.licdn.com/dms/image/v2/D4E22AQGL-XtaYrSt8A/feedshare-shrink_2048_1536/feedshare-shrink_2048_1536/0/1727116638626?e=1741219200&v=beta&t=fVuTFDEdiW26gJorLmh46KUU7vbcliiGr0PK2Tl1_Ww">
+                <img src="../assets/blog/2024-09-24__new_contribution_to_bigfunctions__refreshpowerbi">
             
 
         </div>
@@ -1038,7 +1038,7 @@ You can:
         <div>
 
             
-                <img src="https://media.licdn.com/dms/image/v2/D4E22AQEuo3EcgXzVMA/feedshare-shrink_2048_1536/feedshare-shrink_2048_1536/0/1726833009639?e=1741219200&v=beta&t=RGX8rjztob0kBBQdSsHOrdYIa5Kgu_Iif-1Ky1ocX_0">
+                <img src="../assets/blog/2024-09-20_converse_with_your_user_feedbacks_inside_bigquery_">
             
 
         </div>
@@ -1063,7 +1063,7 @@ Looker Studio is no......</p>
         <div>
 
             
-                <img src="https://media.licdn.com/dms/image/v2/D4E22AQFRA6po6iX8ug/feedshare-shrink_2048_1536/feedshare-shrink_2048_1536/0/1726659299688?e=1741219200&v=beta&t=qrD05ibV5uCghQwpw-SXlVwHl6Juj7vcgrm6ajNPqtc">
+                <img src="../assets/blog/2024-09-18_i_just_tried_the_brand_new_conversational_analytic">
             
 
         </div>
@@ -1109,7 +1109,7 @@ And here is the......</p>
         <div>
 
             
-                <img src="https://media.licdn.com/dms/image/v2/D4E22AQELOHwBUFSuBg/feedshare-shrink_2048_1536/feedshare-shrink_2048_1536/0/1726217009155?e=1741219200&v=beta&t=8MB3IpAAD6vCR_DZTuFIRm68qH22qYPbvKle0umaeIk">
+                <img src="../assets/blog/2024-09-13_data_analysis_is_structured_data_enough">
             
 
         </div>
@@ -1134,7 +1134,7 @@ Mathilde Gorieu made......</p>
         <div>
 
             
-                <img src="https://media.licdn.com/dms/image/v2/D4E22AQExvzwBC6oVjg/feedshare-shrink_2048_1536/feedshare-shrink_2048_1536/0/1726124955579?e=1741219200&v=beta&t=0diHXFHQZbfDVPlshWXDVoJ7Qjn_EsHKx6467X2rTZw">
+                <img src="../assets/blog/2024-09-12_surface_the_search_behind_the_rag__">
             
 
         </div>
@@ -1157,7 +1157,7 @@ Mathilde Gorieu made......</p>
         <div>
 
             
-                <img src="https://media.licdn.com/dms/image/v2/D4E22AQGF2Hk7xmfBOQ/feedshare-shrink_2048_1536/feedshare-shrink_2048_1536/0/1725955346069?e=1741219200&v=beta&t=0UOGnniqQ93It9-rQhd503HIn_MS2_RjdBlSFVIFifI">
+                <img src="../assets/blog/2024-09-10_lets_talk_about_nickel_genai_use_cases_at_google_p">
             
 
         </div>
@@ -1206,7 +1206,7 @@ Refresh_tableau is a function......</p>
         <div>
 
             
-                <img src="https://media.licdn.com/dms/image/v2/D4E22AQFffc8xiAJytA/feedshare-shrink_2048_1536/feedshare-shrink_2048_1536/0/1722014836482?e=1741219200&v=beta&t=Ll4CEubWLlEPDn9OkPiBHFyUqigduBs7tzjZYdUWpjI">
+                <img src="../assets/blog/2024-08-01_refresh_a_tableau_workbook_with_a_sql_command">
             
 
         </div>
@@ -1257,7 +1257,7 @@ Function doc:......</p>
         <div>
 
             
-                <img src="https://media.licdn.com/dms/image/v2/D4E22AQFDovroUkOgJQ/feedshare-shrink_2048_1536/feedshare-shrink_2048_1536/0/1722012926597?e=1741219200&v=beta&t=cNlFeadg61xiifDsq6iu38UCeoNcpSKBcfGDQR1iDfY">
+                <img src="../assets/blog/2024-07-29_put_the_right_label_to_a_value">
             
 
         </div>
@@ -1286,7 +1286,7 @@ It......</p>
         <div>
 
             
-                <img src="https://media.licdn.com/dms/image/v2/D4E22AQFFeIVwoGb86g/feedshare-shrink_2048_1536/feedshare-shrink_2048_1536/0/1721839747978?e=1741219200&v=beta&t=XLN8hnE-tKy_bYwgb74oBxd7vyWj9ckw7D6aCTxaBck">
+                <img src="../assets/blog/2024-07-25_load_data_from_250_sources_with_a_single_sql_query">
             
 
         </div>
@@ -1309,7 +1309,7 @@ It......</p>
         <div>
 
             
-                <img src="https://media.licdn.com/dms/image/v2/D4E22AQGfHVBUWMoYvA/feedshare-shrink_2048_1536/feedshare-shrink_2048_1536/0/1719199951783?e=1741219200&v=beta&t=w34PsWOFdLVZlwL_FsgcnYv9DelTe252sGyVuH4blyE">
+                <img src="../assets/blog/2024-06-04_banktech_day_organis_par_finance_innovation_se_dro">
             
 
         </div>
@@ -1333,7 +1333,7 @@ You're not alone. It's like searching for a needle......</p>
         <div>
 
             
-                <img src="https://media.licdn.com/dms/image/v2/D5622AQFDWi7vWtTE5w/feedshare-shrink_2048_1536/feedshare-shrink_2048_1536/0/1717083771621?e=1741219200&v=beta&t=1CUP5B2nbKeWdfOhN9e0vIqm8t0wPzrhsoLwdFVFoFU">
+                <img src="../assets/blog/2024-05-30_stop_struggling_with_nested_json_in_bigquery__flat">
             
 
         </div>
@@ -1359,7 +1359,7 @@ What if we could run them via a......</p>
         <div>
 
             
-                <img src="https://media.licdn.com/dms/image/v2/D4E22AQHJ-c9Ihbkd0Q/feedshare-shrink_2048_1536/feedshare-shrink_2048_1536/0/1716973775963?e=1741219200&v=beta&t=q2fSXWfUFsbK7nhwE--Y3ZdyTcAwjRjpbFigxiY2YEc">
+                <img src="../assets/blog/2024-05-29_loading_data_into_bigquery_should_be_as_simple_as_">
             
 
         </div>
@@ -1407,7 +1407,7 @@ Here is an......</p>
         <div>
 
             
-                <img src="https://media.licdn.com/dms/image/v2/D4E22AQEhpoS9O1MDAg/feedshare-shrink_2048_1536/feedshare-shrink_2048_1536/0/1715938200061?e=1741219200&v=beta&t=2bTG0uOjxMt-AoxaTnhikTOl33wClvCh6JxXXRqn9N4">
+                <img src="../assets/blog/2024-05-17_getting_public_data_into_bigquery_has_never_been_e">
             
 
         </div>
@@ -1432,7 +1432,7 @@ Here is an......</p>
         <div>
 
             
-                <img src="https://media.licdn.com/dms/image/v2/D4E22AQFLbaHkECZxuQ/feedshare-shrink_2048_1536/feedshare-shrink_2048_1536/0/1715844727899?e=1741219200&v=beta&t=TtfKG2Z0BgmofbjWWUBjbX1OwdUXGb1MoCSrnl1eXtU">
+                <img src="../assets/blog/2024-05-16_its_been_a_while_since_ive_been_this_excited_about">
             
 
         </div>
@@ -1478,7 +1478,7 @@ Here is an......</p>
         <div>
 
             
-                <img src="https://media.licdn.com/dms/image/v2/D4E22AQHbebiGPE55uQ/feedshare-shrink_2048_1536/feedshare-shrink_2048_1536/0/1709289688083?e=1741219200&v=beta&t=UMADToDWpRh68ndF0q43Stx9Y5htVl1m9KUd3fT6hQM">
+                <img src="../assets/blog/2024-03-01_i_am_quite_excited_with_pyairbyte___airbyte_connec">
             
 
         </div>
@@ -1503,7 +1503,7 @@ One way to scale data analysis is to embed data people in teams, tribes,......</
         <div>
 
             
-                <img src="https://media.licdn.com/dms/image/v2/D4E22AQGloFfuc4I_HA/feedshare-shrink_2048_1536/feedshare-shrink_2048_1536/0/1707155877235?e=1741219200&v=beta&t=ywRUbDHRERZmZsd21VEi5eu0_Ds2w2s1WDBbShcpyig">
+                <img src="../assets/blog/2024-02-06_what_is_a_staff_analyticsengineer_and_why_we_need_">
             
 
         </div>
@@ -1526,7 +1526,7 @@ One way to scale data analysis is to embed data people in teams, tribes,......</
         <div>
 
             
-                <img src="https://media.licdn.com/dms/image/v2/D4E22AQHWPDCHULOPig/feedshare-shrink_2048_1536/feedshare-shrink_2048_1536/0/1706100400358?e=1741219200&v=beta&t=PYiRVapG6KCavIf1Vppf0adxT69RHvaIR6KTb21FCxY">
+                <img src="../assets/blog/2024-01-24_what_if_dataanalysts_could_take_actions_themselves">
             
 
         </div>
@@ -1549,7 +1549,7 @@ One way to scale data analysis is to embed data people in teams, tribes,......</
         <div>
 
             
-                <img src="https://media.licdn.com/dms/image/v2/D4E22AQEEEFRxjtb0yA/feedshare-shrink_2048_1536/feedshare-shrink_2048_1536/0/1705704329961?e=1741219200&v=beta&t=kX30M1Mk7wBBJZQq-n2Wp90AVGgtD8K6FY7-UggR3BY">
+                <img src="../assets/blog/2024-01-23_when_to_use_bigquery_dataframes_over_sql_">
             
 
         </div>
@@ -1576,7 +1576,7 @@ It will tell you the IP......</p>
         <div>
 
             
-                <img src="https://media.licdn.com/dms/image/v2/D4E22AQGUKVy0So12wg/feedshare-shrink_2048_1536/feedshare-shrink_2048_1536/0/1703117186204?e=1741219200&v=beta&t=Dg8hMn5gWOcp4t9ZNvJonDP4TkxrYaFXSEEZVQqH_DE">
+                <img src="../assets/blog/2023-12-21_get_the_country_of_an_ip_address_in_bigquery_">
             
 
         </div>
@@ -1599,7 +1599,7 @@ It will tell you the IP......</p>
         <div>
 
             
-                <img src="https://media.licdn.com/dms/image/v2/D4E22AQH2NG52rtv8VA/feedshare-shrink_2048_1536/feedshare-shrink_2048_1536/0/1702643468041?e=1741219200&v=beta&t=MhU0rbzYxjyG--EaVKU1y-GUhsf7sN-do1zSGFUSxZQ">
+                <img src="../assets/blog/2023-12-15_moving_data_to_your_datawarehouse_has_never_been_e">
             
 
         </div>
@@ -1622,7 +1622,7 @@ It will tell you the IP......</p>
         <div>
 
             
-                <img src="https://media.licdn.com/dms/image/v2/D4D22AQH_ZKoyXSR-0A/feedshare-shrink_2048_1536/feedshare-shrink_2048_1536/0/1702556007321?e=1741219200&v=beta&t=FXJe5L8zEC47dB7FZ5UKHCo83isic9L_XVBeqF7lepA">
+                <img src="../assets/blog/2023-12-14_bigfunctions__steroids_for_bigquery">
             
 
         </div>
@@ -1645,7 +1645,7 @@ It will tell you the IP......</p>
         <div>
 
             
-                <img src="https://media.licdn.com/dms/image/v2/D4E22AQG9FTP1NJNf2w/feedshare-shrink_2048_1536/feedshare-shrink_2048_1536/0/1702505011288?e=1741219200&v=beta&t=SXwM3OHCFW7FRoGqioNDmHaH9UnhRC4BT25MxGkFxhg">
+                <img src="../assets/blog/2023-12-14_testing_gemini_googles_latest_ai_model_from_bigque">
             
 
         </div>
@@ -1668,7 +1668,7 @@ It will tell you the IP......</p>
         <div>
 
             
-                <img src="https://media.licdn.com/dms/image/v2/D4E22AQE1delljcIh5w/feedshare-shrink_2048_1536/feedshare-shrink_2048_1536/0/1702279140997?e=1741219200&v=beta&t=PcOy3vvHQzhR1VnqhJPHHGvXTCaKCsIaUBNo2rDeY1s">
+                <img src="../assets/blog/2023-12-11_bigquery_array_union__array_intersect_now_at_your_">
             
 
         </div>
@@ -1721,7 +1721,7 @@ and you'll......</p>
         <div>
 
             
-                <img src="https://media.licdn.com/dms/image/v2/D4E22AQHazyXme65Rjg/feedshare-shrink_2048_1536/feedshare-shrink_2048_1536/0/1700842104138?e=1741219200&v=beta&t=NeJqKlNVqd2qH1jlxY7aSqvvbXEfe1Egqr8hVwsVmrU">
+                <img src="../assets/blog/2023-11-24_extract_info_from_a_phone_number_in_bigquery_">
             
 
         </div>
@@ -1746,7 +1746,7 @@ and you'll......</p>
         <div>
 
             
-                <img src="https://media.licdn.com/dms/image/v2/D4E22AQGUJUzBzWoFTA/feedshare-shrink_2048_1536/feedshare-shrink_2048_1536/0/1700703992601?e=1741219200&v=beta&t=MSvm9RT0vmB3ODkqsBj952XkZOwhJ43fhve4Kj5P_J0">
+                <img src="../assets/blog/2023-11-23_data_catalog_is_key_for_your_datamesh_strategy_why">
             
 
         </div>
@@ -1793,7 +1793,7 @@ and you'll......</p>
         <div>
 
             
-                <img src="https://media.licdn.com/dms/image/v2/D5622AQEIxOv4jhfbOQ/feedshare-shrink_2048_1536/feedshare-shrink_2048_1536/0/1698215538320?e=1741219200&v=beta&t=VFHSYEaTSUpC6XVK80kJNFGM81tMq2uIHX6HYcIOg1M">
+                <img src="../assets/blog/2023-10-25_heres_what_i_do_when_i_cant_find_a_bigquery_functi">
             
 
         </div>
@@ -1882,7 +1882,7 @@ At Nickel, since we had......</p>
         <div>
 
             
-                <img src="https://media.licdn.com/dms/image/v2/D4E22AQFAcbDbynBLeQ/feedshare-shrink_2048_1536/feedshare-shrink_2048_1536/0/1696884823888?e=1741219200&v=beta&t=WX9p1wCViy9Cya10VmbwdY4xok1DqXK6R9jOOc_24Uo">
+                <img src="../assets/blog/2023-10-10_you_probably_have_too_many_dashboards">
             
 
         </div>
@@ -1909,7 +1909,7 @@ At Nickel, since we had......</p>
         <div>
 
             
-                <img src="https://media.licdn.com/dms/image/v2/D4E22AQHMBUal2VHzxQ/feedshare-shrink_2048_1536/feedshare-shrink_2048_1536/0/1696581125798?e=1741219200&v=beta&t=fmSZT3MDgOxUg-Jm1O5r1kTOAV3FbCHtnJ3YtXxduh4">
+                <img src="../assets/blog/2023-10-06_rule__1_for_reducing_bigquery_costs">
             
 
         </div>
@@ -1934,7 +1934,7 @@ This is when the great Rémi BENOIST  decided......</p>
         <div>
 
             
-                <img src="https://media.licdn.com/dms/image/v2/D4E22AQFYTo7iwgr_vQ/feedshare-shrink_2048_1536/feedshare-shrink_2048_1536/0/1696461358128?e=1741219200&v=beta&t=dJ-G_sp2hahuRhYhsgXUV7gPCDytQw7eulSbfd2LMJ4">
+                <img src="../assets/blog/2023-10-05_beware_of_dbt_tests_your_money_may_disappear_">
             
 
         </div>
@@ -1959,7 +1959,7 @@ This is when the great Rémi BENOIST  decided......</p>
         <div>
 
             
-                <img src="https://media.licdn.com/dms/image/v2/D4E22AQGN_AfFdzc62Q/feedshare-shrink_2048_1536/feedshare-shrink_2048_1536/0/1696412138062?e=1741219200&v=beta&t=3gDo4jOeZxu4-Drct-WJCQR1KYwtkhBKonqqG9CiW4I">
+                <img src="../assets/blog/2023-10-04_from_1400__to_1__a_month__my_best_bigquery_optimiz">
             
 
         </div>
@@ -1984,7 +1984,7 @@ That's how......</p>
         <div>
 
             
-                <img src="https://media.licdn.com/dms/image/v2/D4E22AQFpCFZNvTQukQ/feedshare-shrink_2048_1536/feedshare-shrink_2048_1536/0/1694790667765?e=1741219200&v=beta&t=nRfKUxMtSfGrnFhJx8nmQiScSRocDtubQy_84VrI8AA">
+                <img src="../assets/blog/2023-09-15_composable_cdp_are_dead_long_live_datawarehouse_co">
             
 
         </div>
@@ -2053,7 +2053,7 @@ And in......</p>
         <div>
 
             
-                <img src="https://media.licdn.com/dms/image/v2/D4E22AQGob6hht5px7w/feedshare-shrink_2048_1536/feedshare-shrink_2048_1536/0/1687246309021?e=1741219200&v=beta&t=ukOwg94lG7evvv0GAzpqQdFujLSAWkX_BL57y7qgwpM">
+                <img src="../assets/blog/2023-06-20_expose_your_bigquery_data_in_a_realtime_database_f">
             
 
         </div>
@@ -2077,7 +2077,7 @@ And in......</p>
         <div>
 
             
-                <img src="https://media.licdn.com/dms/image/v2/D4E22AQFAlqQSBEE2IA/feedshare-shrink_2048_1536/feedshare-shrink_2048_1536/0/1686909148683?e=1741219200&v=beta&t=H1-UWNif_eTnN6vwh0RBXby31DCVwnfjhxsG2iqkPOo">
+                <img src="../assets/blog/2023-06-16_run_any_python_code_in_bigquery__">
             
 
         </div>
@@ -2102,7 +2102,7 @@ Thanks to dbt post-hooks and the brand-new......</p>
         <div>
 
             
-                <img src="https://media.licdn.com/dms/image/v2/D4E22AQF61bWEnZxKmA/feedshare-shrink_2048_1536/feedshare-shrink_2048_1536/0/1686173086820?e=1741219200&v=beta&t=RInhjpPX-IBSsGLZIp4Xppq7vd4SI2bjavlFATj31Hg">
+                <img src="../assets/blog/2023-06-08_sync_any_dbt_model_into_google_sheet_at_dbt_run__">
             
 
         </div>
@@ -2127,7 +2127,7 @@ The BigQuery function 'ask_my_data' converts......</p>
         <div>
 
             
-                <img src="https://media.licdn.com/dms/image/v2/D4E22AQGKpWOThmvFKA/feedshare-shrink_2048_1536/feedshare-shrink_2048_1536/0/1684945261690?e=1741219200&v=beta&t=5Ri0nHVNI7MPTsrtGFf3lBIzipn0f-5o3asKBciowDY">
+                <img src="../assets/blog/2023-05-24__ask_questions_to_bigquery_in_english__">
             
 
         </div>
@@ -2153,7 +2153,7 @@ The BigQuery function 'ask_my_data' converts......</p>
         <div>
 
             
-                <img src="https://media.licdn.com/dms/image/v2/D4E22AQGKC8OMFbB0pQ/feedshare-shrink_2048_1536/feedshare-shrink_2048_1536/0/1684322404524?e=1741219200&v=beta&t=aOsZTceyuYlyHk_QMm3krt6mf-HwSGENhRP4335kV1c">
+                <img src="../assets/blog/2023-05-17_generating_pdf_invoices_from_bigquery__">
             
 
         </div>
@@ -2178,7 +2178,7 @@ The BigQuery function 'ask_my_data' converts......</p>
         <div>
 
             
-                <img src="https://media.licdn.com/dms/image/v2/D4E22AQGF9NY8Twr5UQ/feedshare-shrink_2048_1536/feedshare-shrink_2048_1536/0/1683882042913?e=1741219200&v=beta&t=idzM1Q8RPHbWf-XRwuG8_NpJKDkJAEHb9urPJAYmrUU">
+                <img src="../assets/blog/2023-05-12_generative_ai_is_available_in_bigquery_and_i_just_">
             
 
         </div>
@@ -2228,7 +2228,7 @@ By enabling data-practitioners to query data-sources without......</p>
         <div>
 
             
-                <img src="https://media.licdn.com/dms/image/v2/D5622AQHy13f05v-ZMw/feedshare-shrink_2048_1536/feedshare-shrink_2048_1536/0/1683121739584?e=1741219200&v=beta&t=UO2DXR2pwuHOOQyhF4gA3oGquAIruKZtuLGYfYenDcE">
+                <img src="../assets/blog/2023-05-04_zeroetl_in_bigquery_there_is_more_">
             
 
         </div>
@@ -2251,7 +2251,7 @@ By enabling data-practitioners to query data-sources without......</p>
         <div>
 
             
-                <img src="https://media.licdn.com/dms/image/v2/D4E22AQF517wIcfFCNg/feedshare-shrink_2048_1536/feedshare-shrink_2048_1536/0/1682701185939?e=1741219200&v=beta&t=D-0_Esp40B9c6qo5HRcbJSfWQ5qDeNsiPI-AHrfKZ-s">
+                <img src="../assets/blog/2023-05-02_sending_slack_notifications_from_bigquery_">
             
 
         </div>
@@ -2276,7 +2276,7 @@ By enabling data-practitioners to query data-sources without......</p>
         <div>
 
             
-                <img src="https://media.licdn.com/dms/image/v2/D4E22AQFDIrz6wBUSJw/feedshare-shrink_2048_1536/feedshare-shrink_2048_1536/0/1682674192785?e=1741219200&v=beta&t=0foNDL0m0LjxQO9BpJsctsJjNLBmyyKtb1LgMY8NWLQ">
+                <img src="../assets/blog/2023-04-28_sending_notifications_from_bigquery_">
             
 
         </div>
@@ -2301,7 +2301,7 @@ Shivam......</p>
         <div>
 
             
-                <img src="https://media.licdn.com/dms/image/v2/D4E22AQEeO0OgTKF0Uw/feedshare-shrink_2048_1536/feedshare-shrink_2048_1536/0/1682406749932?e=1741219200&v=beta&t=ow7DAffgJL_QkrbbY4ub7HapaImQp2vjUWfcmq4nmwE">
+                <img src="../assets/blog/2023-04-25_generate_fake_data_in_bigquery">
             
 
         </div>
@@ -2326,7 +2326,7 @@ As you get data without transform from your sources into you warehouse, (using..
         <div>
 
             
-                <img src="https://media.licdn.com/dms/image/v2/D4E22AQGnTYEoZrzR8Q/feedshare-shrink_2048_1536/feedshare-shrink_2048_1536/0/1681858325989?e=1741219200&v=beta&t=T9gwoRoWbetEvyKMe8ftplTzoIuamh9Q4kz63jKtJfY">
+                <img src="../assets/blog/2023-04-19_deidentifying_text_in_bigquery">
             
 
         </div>
@@ -2349,7 +2349,7 @@ As you get data without transform from your sources into you warehouse, (using..
         <div>
 
             
-                <img src="https://media.licdn.com/dms/image/v2/D4E22AQGy7Aca2d8H2A/feedshare-shrink_2048_1536/feedshare-shrink_2048_1536/0/1681557477818?e=1741219200&v=beta&t=BaXjlGZ9UcYKCG8nFnb1S3YxigQVGydprSReX6ZeUbs">
+                <img src="../assets/blog/2023-04-15_celebrating__10_contributors_to_help_data_practici">
             
 
         </div>
@@ -2373,7 +2373,7 @@ As you get data without transform from your sources into you warehouse, (using..
         <div>
 
             
-                <img src="https://media.licdn.com/dms/image/v2/D5622AQHSvEw9GSEaOw/feedshare-shrink_2048_1536/feedshare-shrink_2048_1536/0/1681414652921?e=1741219200&v=beta&t=iT4EXq1Kub-HoJubjyYcCjTaC559QGekvkYvnVlOlCo">
+                <img src="../assets/blog/2023-04-13_tonight_i_met_felipe_hoffa_from_snowflake">
             
 
         </div>
@@ -2398,7 +2398,7 @@ As you get data without transform from your sources into you warehouse, (using..
         <div>
 
             
-                <img src="https://media.licdn.com/dms/image/v2/D4E22AQE6RRE5p9nvRQ/feedshare-shrink_2048_1536/feedshare-shrink_2048_1536/0/1681246515500?e=1741219200&v=beta&t=87Cm1FgO40K25v3g3jHII8UV8hPG6DKlhzopG2Ww3xM">
+                <img src="../assets/blog/2023-04-12_5_reasons_why_you_want_to_use_this_bigquery_functi">
             
 
         </div>
@@ -2421,7 +2421,7 @@ As you get data without transform from your sources into you warehouse, (using..
         <div>
 
             
-                <img src="https://media.licdn.com/dms/image/v2/D4E22AQHw-cE22OeFDg/feedshare-shrink_2048_1536/feedshare-shrink_2048_1536/0/1681213367862?e=1741219200&v=beta&t=6wq2BVx4YHWFuKreEukF3VkEmHifKMIFQhEu7QkRhms">
+                <img src="../assets/blog/2023-04-11_elt_replaced_etl">
             
 
         </div>
@@ -2448,7 +2448,7 @@ Je ne suis pas peu fier......</p>
         <div>
 
             
-                <img src="https://media.licdn.com/dms/image/v2/C4E22AQG45CMrFtqziw/feedshare-shrink_2048_1536/feedshare-shrink_2048_1536/0/1678897866966?e=1741219200&v=beta&t=C3imC6qneLAmRI52rlbMBN-C4R9qlHqYi5s2rHSA22s">
+                <img src="../assets/blog/2023-03-15_les_dataanalysts_ne_devraient_pas_se_contenter_de_">
             
 
         </div>
@@ -2471,7 +2471,7 @@ Je ne suis pas peu fier......</p>
         <div>
 
             
-                <img src="https://media.licdn.com/dms/image/v2/C4E22AQEI1AfO2VufaA/feedshare-shrink_2048_1536/feedshare-shrink_2048_1536/0/1671621705679?e=1741219200&v=beta&t=0RaEKdBupbzNg3gL-qQrCLovHmd4euvaoUiuOUrqz0U">
+                <img src="../assets/blog/2022-12-21_the_modern_data_stack_was_founded_to_give_full_aut">
             
 
         </div>
@@ -2494,7 +2494,7 @@ Je ne suis pas peu fier......</p>
         <div>
 
             
-                <img src="https://media.licdn.com/dms/image/v2/C4E22AQEaUSAPP80BNg/feedshare-shrink_2048_1536/feedshare-shrink_2048_1536/0/1671449684463?e=1741219200&v=beta&t=aU6ZY_SquQQXVgGQQ_tKXhrYR5_uLP1xKzwHEG86tng">
+                <img src="../assets/blog/2022-12-19_how_i_created_an_opensource_repository_after_meeti">
             
 
         </div>
@@ -2519,7 +2519,7 @@ Je ne suis pas peu fier......</p>
         <div>
 
             
-                <img src="https://media.licdn.com/dms/image/v2/C4E22AQHmmTvu2V_vsA/feedshare-shrink_2048_1536/feedshare-shrink_2048_1536/0/1671092989857?e=1741219200&v=beta&t=mj1_zmw64VuAbgKq3gDznQKF-lmRV3z4mr2XdAJaEsI">
+                <img src="../assets/blog/2022-12-15_discretize_continuous_value_to_faster_dataanalysis">
             
 
         </div>
@@ -2567,7 +2567,7 @@ sid ali sadi from Esmoz created some very nice bigquery functions callable by an
         <div>
 
             
-                <img src="https://media.licdn.com/dms/image/v2/C4E22AQG9OpH71AuwuQ/feedshare-shrink_2048_1536/feedshare-shrink_2048_1536/0/1670584981747?e=1741219200&v=beta&t=A_uAfLttr9lr30JvDEzM4m-voUxTewlKg2vae8TBiCs">
+                <img src="../assets/blog/2022-12-09__bigquery_json_made_easy">
             
 
         </div>
@@ -2592,7 +2592,7 @@ A big Thanks 🙏 Benjamin Tabet for this contribution that will......</p>
         <div>
 
             
-                <img src="https://media.licdn.com/dms/image/v2/C5622AQHNYqvUsTZerQ/feedshare-shrink_2048_1536/feedshare-shrink_2048_1536/0/1670519444360?e=1741219200&v=beta&t=xJgTwMYV7JqTF9FQ-awcxcZD-uKOqyoAhZ4FW3f56EM">
+                <img src="../assets/blog/2022-12-08__where_will_this_end_yesterday_a_new_contributor_d">
             
 
         </div>
@@ -2638,7 +2638,7 @@ Rendons les data-analysts autonomes sur toute la chaîne (de la collecte, aux...
         <div>
 
             
-                <img src="https://media.licdn.com/dms/image/v2/C4E22AQGkkVo7rjeIVw/feedshare-shrink_2048_1536/feedshare-shrink_2048_1536/0/1670402020357?e=1741219200&v=beta&t=Hs9NvZiElvsMKUosF81CXvULARIC4js5okU9bskLEEk">
+                <img src="../assets/blog/2022-12-07__bigquery_text_cleaning_and_text_comparison">
             
 
         </div>
@@ -2684,7 +2684,7 @@ What if you don't know......</p>
         <div>
 
             
-                <img src="https://media.licdn.com/dms/image/v2/C4E22AQF2V90opnePWw/feedshare-shrink_2048_1536/feedshare-shrink_2048_1536/0/1668776456231?e=1741219200&v=beta&t=zVyqsQd3jqF8iO0l_3yymV0pdGceztrSapAeIL3e2OE">
+                <img src="../assets/blog/2022-11-18__bigquery_auto_date_cleaning">
             
 
         </div>
@@ -2709,7 +2709,7 @@ I ❤️ the......</p>
         <div>
 
             
-                <img src="https://media.licdn.com/dms/image/v2/C4E22AQEtBx_YTofwRA/feedshare-shrink_2048_1536/feedshare-shrink_2048_1536/0/1666972952235?e=1741219200&v=beta&t=_L1VbyrCJ75A1CBNXMHKwryway2v4PrO7F80QwEoH1c">
+                <img src="../assets/blog/2022-10-28__bigquery_arrays_made_easy">
             
 
         </div>
@@ -2755,7 +2755,7 @@ I ❤️ the......</p>
         <div>
 
             
-                <img src="https://media.licdn.com/dms/image/v2/C4E22AQFMkYf9oobYEA/feedshare-shrink_2048_1536/feedshare-shrink_2048_1536/0/1665739933446?e=1741219200&v=beta&t=UssSHQBqOgMWN9YcAg4wqERpgICpar_0JH06X55u5No">
+                <img src="../assets/blog/2022-10-14_rejoignezmoi_lundi__google_next_recap_france">
             
 
         </div>
@@ -2778,7 +2778,7 @@ I ❤️ the......</p>
         <div>
 
             
-                <img src="https://media.licdn.com/dms/image/v2/C4E22AQFRlsYYlTj8ag/feedshare-shrink_2048_1536/feedshare-shrink_2048_1536/0/1665388025743?e=1741219200&v=beta&t=_TRtCJYrB77FyyXST7UgyGtTohwaZAJ62JfGphrM5LY">
+                <img src="../assets/blog/2022-10-10__furcy_pin_brings_graph_algorithms_to_bigquery">
             
 
         </div>
@@ -2802,7 +2802,7 @@ I ❤️ the......</p>
         <div>
 
             
-                <img src="https://media.licdn.com/dms/image/v2/C4E22AQGUcbpQbvj8-A/feedshare-shrink_2048_1536/feedshare-shrink_2048_1536/0/1664786400863?e=1741219200&v=beta&t=o3kuUCgZSFnDS2TQJaPM5A4Zp_BoNTCMrRFr7HQ4RNg">
+                <img src="../assets/blog/2022-10-03__what_if_common_bigquery_functions_were_available_">
             
 
         </div>
@@ -2828,7 +2828,7 @@ I ❤️ the......</p>
         <div>
 
             
-                <img src="https://media.licdn.com/dms/image/v2/C4E22AQFj9iqwsDqUkA/feedshare-shrink_2048_1536/feedshare-shrink_2048_1536/0/1664181955701?e=1741219200&v=beta&t=HcKGpqzg-QPHezk5qwvzccEjfF-T6kaPyVkvrqWS5ts">
+                <img src="../assets/blog/2022-09-26_et_si_on_pouvait_voir_le_profiling_des_donnes_dans">
             
 
         </div>

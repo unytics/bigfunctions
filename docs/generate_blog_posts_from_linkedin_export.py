@@ -1,4 +1,10 @@
+import urllib.request
 import json
+import re
+import os
+import time
+import shutil
+
 import jinja2
 
 template = jinja2.Template('''---
@@ -58,8 +64,8 @@ search:
 
         <div>
 
-            {% if post.images %}
-                <img src="{{ post.images[0] }}">
+            {% if post.image_url %}
+                <img src="{{ post.image_url }}">
             {% endif %}
 
         </div>
@@ -82,31 +88,51 @@ letters_mapping = str.maketrans({
     **{italic_letter: letter for letter, italic_letter in zip(letters, italic_letters)}
 })
 
-# def clean_text(text):
-#     text = text.translate(letters_mapping).strip()
-#     lines = [line for line in lines if line]
-#     return '\n'.join(lines)
-
-
-posts = json.loads(open('2025-01-30_linkedin_posts.json', encoding='utf-8').read())
-# post = next(post for post in posts if 'numImpressions' not in post)
-# print(post)
-posts = [
-    {
+def format_post(post):
+    date = post['postedAtISO'][:10]
+    text = post['text'].translate(letters_mapping).strip().replace('#', '')
+    title = text.split('\n')[0].strip()
+    text = '\n'.join(text.split('\n')[1:]).strip()
+    slug = re.sub('[^0-9a-z ]+', '', title.lower()).replace(' ', '_')[:50]
+    id = date + '_' + slug
+    image_url = '../assets/blog/' + id if 'images' in post else None
+    return {
         'type': post['type'],
-        'title': post['text'].split('\n')[0].translate(letters_mapping).strip().replace('#', ''),
-        'text': '\n'.join(post['text'].split('\n')[1:]).translate(letters_mapping).strip().replace('#', ''),
+        'id': id,
+        'title': title,
+        'text': text,
         'article_title': post.get('article', {}).get('title'),
         'article_url': post.get('article', {}).get('url'),
         'images': post.get('images', []),
+        'image_url': image_url,
         'author': post['authorName'],
-        'date': post['postedAtISO'][:10],
+        'date': date,
         'url': post['url'],
         'likes': post['numLikes'],
         'reshares': post['numShares'],
         'impressions': post.get('numImpressions'),
         'comments': post['numComments'],
     }
+
+def download_images(posts):
+    os.makedirs('assets/blog', exist_ok=True)
+    existing_images = os.listdir('assets/blog')
+    for post in posts:
+        if not post['images']:
+            continue
+        url = post['images'][0]
+        destination_filename = 'assets/blog/' + post['id']
+        if post['id'] in existing_images:
+            continue
+        print(destination_filename)
+        urllib.request.urlretrieve(url, destination_filename)
+        time.sleep(2)
+
+posts = json.loads(open('2025-01-30_linkedin_posts.json', encoding='utf-8').read())
+# post = next(post for post in posts if 'numImpressions' not in post)
+# print(post)
+posts = [
+    format_post(post)
     for post in posts
     if (
         'type' in post and
@@ -116,8 +142,10 @@ posts = [
 ]
 
 content = template.render(posts=posts)
-
 open('blog.md', 'w', encoding='utf-8').write(content)
+
+
+download_images(posts)
 
 # import pandas as pd
 # df = pd.DataFrame(posts)
