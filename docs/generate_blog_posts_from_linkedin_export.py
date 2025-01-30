@@ -38,7 +38,7 @@ search:
   color: rgb(92, 92, 92);
 }
 
-.blog-post-abstract img {
+.blog-post-abstract img, .lg\:two-columns img {
   margin: 2.5em 0px 0em;
 }
 
@@ -48,6 +48,29 @@ search:
 <div class="blog-posts">
 
     <h1>Blog</h1>
+
+    <hr>
+
+
+    <a class="blog-post-abstract" href="https://timodechau.com/from-sql-to-slack-automating-data-workflows-with-big-functions/" target="_blank">
+
+        <div>
+
+            <h3 style="font-size: 2em;">From SQL to Slack: Automating Data Workflows with Big Functions</h3>
+
+            <img src="../assets/blog/timo_dechau_blog.png" style="margin: 0; max-width: 400px">
+
+            <p>BigFunctions bridges the gap between data analysis and action by enabling analysts to trigger actions.</p>
+
+            <p class="footer">2025-01-23 • Timo Dechau</p>
+        </div>
+
+        <div>
+
+        </div>
+
+    </a>
+    <hr>
 
 
     {% for post in posts %}
