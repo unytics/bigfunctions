@@ -48,7 +48,7 @@ nav:
   - Community:
       - Contribute!: CONTRIBUTING.md
       - Join Slack!: https://join.slack.com/t/unytics/shared_invite/zt-1gbv491mu-cs03EJbQ1fsHdQMcFN7E1Q
-  # - Blog: blog.md
+  - Blog: blog.md
 validation:
   nav:
     omitted_files: ignore

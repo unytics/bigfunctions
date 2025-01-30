@@ -1,0 +1,2862 @@
+---
+title: "BigFunctions - Blog"
+description: "Blog Posts related to BigFunctions"
+hide:
+  - navigation
+  - toc
+search:
+  exclude: true
+---
+
+<style>
+
+.blog-posts {
+    max-width: 800px;
+    margin: auto;
+}
+
+.blog-post-abstract {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 20%;
+    grid-column-gap: 5%;
+}
+
+.blog-post-abstract p {
+  color: rgb(38, 38, 38);
+}
+
+.blog-post-abstract p.footer, .blog-post-abstract:hover p {
+  color: rgb(92, 92, 92);
+}
+
+.blog-post-abstract img {
+  margin: 2.5em 0px 0em;
+}
+
+
+</style>
+
+<div class="blog-posts">
+
+    <h1>Blog</h1>
+
+
+    
+    <a class="blog-post-abstract" href="https://www.linkedin.com/posts/paul-marcombes_in-2025-analytics-engineers-will-build-data-apps-activity-7289945363237543936-GCiT?utm_source=combined_share_message&utm_medium=member_desktop" target="_blank">
+
+        <div>
+
+            <h3>In 2025, Analytics Engineers will build Data-Apps</h3>
+
+            <p>Technologies make roles change.  
+
+Since the rise of cloud data-warehouses and the birth of dbt, data engineers......</p>
+
+            <p class="footer">2025-01-28 • Paul Marcombes</p>
+        </div>
+
+        <div>
+
+            
+
+        </div>
+
+    </a>
+    <hr>
+
+    
+    <a class="blog-post-abstract" href="https://www.linkedin.com/posts/paul-marcombes_bigfunctions-activity-7288236835531591680-V3vC?utm_source=combined_share_message&utm_medium=member_desktop" target="_blank">
+
+        <div>
+
+            <h3>Have you met Timo?</h3>
+
+            <p>👉  To me, Timo Dechau creates some of the best content about Product Analytics. 
+
+I've been following him for two......</p>
+
+            <p class="footer">2025-01-23 • Paul Marcombes</p>
+        </div>
+
+        <div>
+
+            
+                <img src="https://media.licdn.com/dms/image/v2/D5622AQEjqV3VmcrFOg/feedshare-shrink_20/B56ZSUEx1QHwA0-/0/1737651069474?e=1741219200&v=beta&t=cil5E6tPApxKovK1PP8_nEUEWO_hUR4JOK19w_v5YVY">
+            
+
+        </div>
+
+    </a>
+    <hr>
+
+    
+    <a class="blog-post-abstract" href="https://www.linkedin.com/posts/timo-dechau_a-while-ago-i-wanted-a-daily-slack-update-activity-7288154281738661888-qSGG?utm_source=combined_share_message&utm_medium=member_desktop" target="_blank">
+
+        <div>
+
+            <h3>A while ago, I wanted a daily Slack update on which kind of content was most viewed yesterday. It's nothing serious,...</h3>
+
+            <p>Luckily, I had just recorded a hands-on session with Paul Marcombes about BigFunctions. And we discussed exactly......</p>
+
+            <p class="footer">2025-01-23 • Timo Dechau</p>
+        </div>
+
+        <div>
+
+            
+
+        </div>
+
+    </a>
+    <hr>
+
+    
+    <a class="blog-post-abstract" href="https://www.linkedin.com/posts/paul-marcombes_beyond-sql-as-a-pure-database-syntax-activity-7285925077592801280-eXXV?utm_source=combined_share_message&utm_medium=member_desktop" target="_blank">
+
+        <div>
+
+            <h3>📢 I'm pleased to share the latest article by Benoit Pimpaud about BigFunctions!</h3>
+
+            <p>His article, "Beyond SQL as a Pure Database Syntax," really captures what we're trying to achieve.
+
+I'm happy with......</p>
+
+            <p class="footer">2025-01-17 • Paul Marcombes</p>
+        </div>
+
+        <div>
+
+            
+
+        </div>
+
+    </a>
+    <hr>
+
+    
+    <a class="blog-post-abstract" href="https://www.linkedin.com/posts/pimpaudben_beyond-sql-as-a-pure-database-syntax-activity-7285716946547834880-TRtB?utm_source=combined_share_message&utm_medium=member_desktop" target="_blank">
+
+        <div>
+
+            <h3>I recently explored SQL's limitations for analytics in a talk and in my writing, and I stand by these limits 🌶️</h3>
+
+            <p>But I recently realized that SQL's syntax isn't the real problem. The core issue lies in its underlying semantics –......</p>
+
+            <p class="footer">2025-01-16 • Benoit Pimpaud</p>
+        </div>
+
+        <div>
+
+            
+
+        </div>
+
+    </a>
+    <hr>
+
+    
+    <a class="blog-post-abstract" href="https://www.linkedin.com/posts/paul-marcombes_whats-up-for-me-in-2025-more-open-source-activity-7285312281217753088-Eik8?utm_source=combined_share_message&utm_medium=member_desktop" target="_blank">
+
+        <div>
+
+            <h3>What's up for me in 2025 👉 MORE Open-Source Data Products! 🤗</h3>
+
+            <p>🔹 2024
+In 2024, I built 4 Open-Source Data Apps:
+
+-  bigfunctions
+-  airbyte-serverless
+-  catalog-builder 
+- ......</p>
+
+            <p class="footer">2025-01-15 • Paul Marcombes</p>
+        </div>
+
+        <div>
+
+            
+                <img src="https://media.licdn.com/dms/image/v2/D4E22AQH8p51b_4_iNg/feedshare-shrink_480/B4EZRqg54OGwAg-/0/1736953801392?e=1741219200&v=beta&t=AL5AkdGaf2x_MagHEvEkMh-n1DOPSOjbzfi6q4NtYwA">
+            
+
+        </div>
+
+    </a>
+    <hr>
+
+    
+    <a class="blog-post-abstract" href="https://www.linkedin.com/posts/paul-marcombes_unifying-analytics-platform-what-if-you-activity-7284860745152888832-AXhL?utm_source=combined_share_message&utm_medium=member_desktop" target="_blank">
+
+        <div>
+
+            <h3>Unifying Analytics Platform: what if you could have one tool to load, transform and activate data?</h3>
+
+            <p>I had a great talk this morning with Burak, CEO of Bruin at DATANOSCO podcast from Stéphane.
+
+
+Burak shared his......</p>
+
+            <p class="footer">2025-01-14 • Paul Marcombes</p>
+        </div>
+
+        <div>
+
+            
+                <img src="https://media.licdn.com/dms/image/v2/D4E22AQFdryvheLmJDQ/feedshare-shrink_480/B4EZRkGPU8GgAY-/0/1736846146512?e=1741219200&v=beta&t=lykO0pGLevl_MfhVrZpB953oAc9T0he59JaMGVB8frQ">
+            
+
+        </div>
+
+    </a>
+    <hr>
+
+    
+    <a class="blog-post-abstract" href="https://www.linkedin.com/posts/burakkarakan_all-in-one-data-platform-with-configuration-activity-7283080790899347456-gDLX?utm_source=combined_share_message&utm_medium=member_desktop" target="_blank">
+
+        <div>
+
+            <h3>I am honored to get such high praise from the creator of BigFunctions!</h3>
+
+            <p>Thanks a lot for the kind words Paul, great to see our vision fits into what you would expect to see as well. 
+
+We......</p>
+
+            <p class="footer">2025-01-09 • Burak Karakan</p>
+        </div>
+
+        <div>
+
+            
+
+        </div>
+
+    </a>
+    <hr>
+
+    
+    <a class="blog-post-abstract" href="https://www.linkedin.com/posts/paul-marcombes_all-in-one-data-platform-with-configuration-activity-7282697551185645568-X-Io?utm_source=combined_share_message&utm_medium=member_desktop" target="_blank">
+
+        <div>
+
+            <h3>All-in-one data-platform with configuration files. Why I love Bruin vision:</h3>
+
+            <p>1/ Modern-Data-Stack limitations
+Modern-data-stack brought data tooling for any data service:
+
+- Fivetran for......</p>
+
+            <p class="footer">2025-01-08 • Paul Marcombes</p>
+        </div>
+
+        <div>
+
+            
+
+        </div>
+
+    </a>
+    <hr>
+
+    
+    <a class="blog-post-abstract" href="https://www.linkedin.com/posts/paul-marcombes_how-to-stay-fast-in-a-bigger-companyheres-activity-7282339879840059392-mwA4?utm_source=combined_share_message&utm_medium=member_desktop" target="_blank">
+
+        <div>
+
+            <h3>How to stay fast in a bigger company? Here's what I learnt during the last decade:</h3>
+
+            <p>I started working 13 years ago in medical imaging. 
+We were 5 people in the company. 
+We built ultrasound scanners......</p>
+
+            <p class="footer">2025-01-07 • Paul Marcombes</p>
+        </div>
+
+        <div>
+
+            
+
+        </div>
+
+    </a>
+    <hr>
+
+    
+    <a class="blog-post-abstract" href="https://www.linkedin.com/posts/sabrikaragonen_just-tried-something-really-amazing-with-ugcPost-7282078262535634945-yNHJ?utm_source=combined_share_message&utm_medium=member_desktop" target="_blank">
+
+        <div>
+
+            <h3>Just tried something really amazing with BigFunctions by Paul Marcombes.</h3>
+
+            <p>BigFunctions lets you use Python functions directly in BigQuery, and thanks to its prebuilt functions, you can even......</p>
+
+            <p class="footer">2025-01-06 • Sabri Karagönen</p>
+        </div>
+
+        <div>
+
+            
+                <img src="https://media.licdn.com/dms/image/v2/D4D22AQF4Ans1buQT8g/feedshare-shrink_160/B4DZQ8jlkZHYAk-/0/1736182750703?e=1741219200&v=beta&t=XPUpcITyGMP0pKZYdTWI7uQwFMYQCfLF8wDD9LaHLik">
+            
+
+        </div>
+
+    </a>
+    <hr>
+
+    
+    <a class="blog-post-abstract" href="https://www.linkedin.com/posts/forward-data-conference_unlock-new-sql-capabilities-with-bigfunctions-activity-7280187059258986496-ImgG?utm_source=combined_share_message&utm_medium=member_desktop" target="_blank">
+
+        <div>
+
+            <h3>🎯 Premier Replay de l'année : on démarre 2025 avec style !</h3>
+
+            <p>Les nouvelles capacités SQL avec BigFunctions ! 
+
+• Découvrez comment simplifier vos requêtes complexes
+• Explorez......</p>
+
+            <p class="footer">2025-01-01 • Forward Data Conference</p>
+        </div>
+
+        <div>
+
+            
+
+        </div>
+
+    </a>
+    <hr>
+
+    
+    <a class="blog-post-abstract" href="https://www.linkedin.com/posts/paul-marcombes_static-bi-is-going-to-be-huge-heres-why-activity-7275408288698044416-vi6r?utm_source=combined_share_message&utm_medium=member_desktop" target="_blank">
+
+        <div>
+
+            <h3>Static BI is going to be huge!  Here's why I am VERY excited 🤯:</h3>
+
+            <p>Static BI is about creating interactive dashboards on top of Parquet files. 
+
+It's trending since we can run duckdb......</p>
+
+            <p class="footer">2024-12-19 • Paul Marcombes</p>
+        </div>
+
+        <div>
+
+            
+                <img src="https://media.licdn.com/dms/image/v2/D5622AQFYdIVto7qukA/feedshare-shrink_2048_1536/B56ZPa6Xh0HIAo-/0/1734544556106?e=1741219200&v=beta&t=-vOKdUBE66qHIzZ1XhWX1ApFKdCRzZvsXXKUVzY7V_U">
+            
+
+        </div>
+
+    </a>
+    <hr>
+
+    
+    <a class="blog-post-abstract" href="https://www.linkedin.com/posts/paul-marcombes_ga4-data-is-known-to-be-hard-to-explore-in-activity-7275053475732885504-juY1?utm_source=combined_share_message&utm_medium=member_desktop" target="_blank">
+
+        <div>
+
+            <h3>GA4 data is known to be hard to explore in BigQuery. But this will change:</h3>
+
+            <p>Ali Izadi built dozens of handy SQL queries to cover areas like 𝗲𝘃𝗲𝗻𝘁, 𝘀𝗲𝘀𝘀𝗶𝗼𝗻, 𝗮𝗻𝗱 𝘂𝘀𝗲𝗿 𝘀𝗰𝗼𝗽𝗲 𝗮𝗻𝗮𝗹𝘆𝘀𝗶𝘀, 𝙚𝙘𝙤𝙢𝙢𝙚𝙧𝙘𝙚......</p>
+
+            <p class="footer">2024-12-18 • Paul Marcombes</p>
+        </div>
+
+        <div>
+
+            
+                <img src="https://media.licdn.com/dms/image/v2/D4E22AQGF4zm8aLcYaQ/feedshare-shrink_20/B4EZPVcDgvGcAs-/0/1734452722693?e=1741219200&v=beta&t=GhCVbwLx1BQRs5-5nrskuiCzAO_LTSP-7Dp0aWaT6mI">
+            
+
+        </div>
+
+    </a>
+    <hr>
+
+    
+    <a class="blog-post-abstract" href="https://www.linkedin.com/posts/paul-marcombes_how-do-you-re-use-logic-in-bigquery-i-activity-7274361367212523520-DhQO?utm_source=combined_share_message&utm_medium=member_desktop" target="_blank">
+
+        <div>
+
+            <h3>How do you re-use logic in BigQuery?</h3>
+
+            <p>I often need to get the Net Promoter Score from customer surveys. 
+
+
+The formula is "% promoters - %......</p>
+
+            <p class="footer">2024-12-16 • Paul Marcombes</p>
+        </div>
+
+        <div>
+
+            
+                <img src="https://media.licdn.com/dms/image/v2/D4E22AQEjV5l5NgCXmg/feedshare-shrink_800/B4EZPMUGBkHwAs-/0/1734299640448?e=1741219200&v=beta&t=961R6o4nvcJQOuK3-Z3ZHAxAVdz1kdTStxFiANQddAs">
+            
+
+        </div>
+
+    </a>
+    <hr>
+
+    
+    <a class="blog-post-abstract" href="https://www.linkedin.com/posts/paul-marcombes_mkdocs-or-docusaurus-to-build-your-data-documentation-activity-7274143684432945152-ek0W?utm_source=combined_share_message&utm_medium=member_desktop" target="_blank">
+
+        <div>
+
+            <h3>Mkdocs or docusaurus to build your data documentation website?</h3>
+
+            <p>Both tools are used by millions of developers everyday to deploy their documentation website. 
+
+Which one to......</p>
+
+            <p class="footer">2024-12-15 • Paul Marcombes</p>
+        </div>
+
+        <div>
+
+            
+
+        </div>
+
+    </a>
+    <hr>
+
+    
+    <a class="blog-post-abstract" href="https://www.linkedin.com/posts/paul-marcombes_geocode-an-address-in-bigquery-using-datagouvfr-activity-7273316555021549569-O7Sh?utm_source=combined_share_message&utm_medium=member_desktop" target="_blank">
+
+        <div>
+
+            <h3>Geocode an address in bigquery using data.gouv.fr</h3>
+
+            <p>You want to get the latitude and longitude from an address for:
+
+-  finding the nearest point of sale for a......</p>
+
+            <p class="footer">2024-12-13 • Paul Marcombes</p>
+        </div>
+
+        <div>
+
+            
+                <img src="https://media.licdn.com/dms/image/v2/D4E22AQHb-tMRoSWTUw/feedshare-shrink_800/B4EZPAC3HCH0Ak-/0/1734093796977?e=1741219200&v=beta&t=_ZLhTfb3ek5LpCvN7nI6dRIESXaAl8qYcg_-BKqwx5A">
+            
+
+        </div>
+
+    </a>
+    <hr>
+
+    
+    <a class="blog-post-abstract" href="https://www.linkedin.com/posts/paul-marcombes_sql-is-all-you-need-activity-7272924394576855040-5kvi?utm_source=combined_share_message&utm_medium=member_desktop" target="_blank">
+
+        <div>
+
+            <h3>Introducing the SQL Declarative-Data-Stack!</h3>
+
+            <p>Modern Data Stack have tools to do everything with data. 
+
+Everything EXCEPT custom stuff.
+
+➜ you end up with a ton......</p>
+
+            <p class="footer">2024-12-12 • Paul Marcombes</p>
+        </div>
+
+        <div>
+
+            
+
+        </div>
+
+    </a>
+    <hr>
+
+    
+    <a class="blog-post-abstract" href="https://www.linkedin.com/posts/sspaeti_declarativedatastack-ugcPost-7272906911648268288-u7sN?utm_source=combined_share_message&utm_medium=member_desktop" target="_blank">
+
+        <div>
+
+            <h3>I aim to build and define the data stack with a "single function", including the entire data engineering lifecycle,...</h3>
+
+            <p>```
+run_stack(
+  serve(
+    template='github://covid/covid_dashboard.md',
+    data=transform(
+      {
+        'groupb......</p>
+
+            <p class="footer">2024-12-12 • Simon Späti</p>
+        </div>
+
+        <div>
+
+            
+                <img src="https://media.licdn.com/dms/image/v2/D4D22AQGga9NP1gpSiQ/feedshare-shrink_2048_1536/B4DZO6OSycHcAo-/0/1733996130016?e=1741219200&v=beta&t=-FSEyAy-D7qHq0xDektcEmkI3QzXP_nuOXGPCcyfSRA">
+            
+
+        </div>
+
+    </a>
+    <hr>
+
+    
+    <a class="blog-post-abstract" href="https://www.linkedin.com/posts/paul-marcombes_dbt-models-as-api-endpoints-activity-7270338616273391616-CbTS?utm_source=combined_share_message&utm_medium=member_desktop" target="_blank">
+
+        <div>
+
+            <h3>How to expose dbt models as API endpoints:</h3>
+
+            <p>If your microservices could consume your dbt models with low latency, you'd unlock great use cases:
+
+⇨  content......</p>
+
+            <p class="footer">2024-12-05 • Paul Marcombes</p>
+        </div>
+
+        <div>
+
+            
+
+        </div>
+
+    </a>
+    <hr>
+
+    
+    <a class="blog-post-abstract" href="https://www.linkedin.com/posts/paul-marcombes_expose-your-dbt-models-as-an-api-with-a-simple-activity-7270053513622110208-TaZT?utm_source=combined_share_message&utm_medium=member_desktop" target="_blank">
+
+        <div>
+
+            <h3>Expose your dbt models as an api with a simple dbt hook.</h3>
+
+            <p>This morning with Hachem LATRACH from Nickel  we were at API Days Paris. 
+
+We explained several use cases where YOU......</p>
+
+            <p class="footer">2024-12-04 • Paul Marcombes</p>
+        </div>
+
+        <div>
+
+            
+                <img src="https://media.licdn.com/dms/image/v2/D5622AQFyHtc2IeMmGA/feedshare-shrink_2048_1536/feedshare-shrink_2048_1536/0/1733315826756?e=1741219200&v=beta&t=tt05HOXr96wWLs8TWMXqrql9tm8Mt8PVPDR3ynIUOW0">
+            
+
+        </div>
+
+    </a>
+    <hr>
+
+    
+    <a class="blog-post-abstract" href="https://www.linkedin.com/posts/balazsvajna_bigquery-googletrends-searchconsole-activity-7269979999682666496-f3v7?utm_source=combined_share_message&utm_medium=member_desktop" target="_blank">
+
+        <div>
+
+            <h3>These days I write a lot about getting data from various different digital platforms into BigQuery*. The GA4 native...</h3>
+
+            <p>But there is even more. BigFunctions by Unytics offers even more extremely convenient ways to bring data into......</p>
+
+            <p class="footer">2024-12-04 • Balazs Vajna</p>
+        </div>
+
+        <div>
+
+            
+                <img src="https://media.licdn.com/dms/image/v2/D4D22AQEUWcpPkI5bGg/feedshare-shrink_2048_1536/feedshare-shrink_2048_1536/0/1733268406203?e=1741219200&v=beta&t=gNvungxiE827_cHKjvBPol4HCkMNRUeOwaUCnHsEA_g">
+            
+
+        </div>
+
+    </a>
+    <hr>
+
+    
+    <a class="blog-post-abstract" href="https://www.linkedin.com/posts/paul-marcombes_speaking-with-data-people-is-always-full-activity-7269723948416696320-2DFX?utm_source=combined_share_message&utm_medium=member_desktop" target="_blank">
+
+        <div>
+
+            <h3>Speaking with data-people is always full of surprises.</h3>
+
+            <p>I like to chat with data-people from anywhere to get inspiration for my work or my side projects. 
+
+Today at......</p>
+
+            <p class="footer">2024-12-03 • Paul Marcombes</p>
+        </div>
+
+        <div>
+
+            
+                <img src="https://media.licdn.com/dms/image/v2/D4E22AQGIA4sKgklwaA/feedshare-shrink_2048_1536/feedshare-shrink_2048_1536/0/1733237253181?e=1741219200&v=beta&t=43tocAJQynnD99AV8aDGvjl_eQFwOL1SP-L8874zVOs">
+            
+
+        </div>
+
+    </a>
+    <hr>
+
+    
+    <a class="blog-post-abstract" href="https://www.linkedin.com/posts/paul-marcombes_i-was-impressed-by-sherloq-this-week-sherloq-activity-7268176634438893568-j6Xt?utm_source=combined_share_message&utm_medium=member_desktop" target="_blank">
+
+        <div>
+
+            <h3>I was impressed by Sherloq this week.</h3>
+
+            <p>Sherloq is a tool to organize and share your SQL queries.
+
+What caught my eye is the UX:
+
+>  It feels like an......</p>
+
+            <p class="footer">2024-11-29 • Paul Marcombes</p>
+        </div>
+
+        <div>
+
+            
+                <img src="https://media.licdn.com/dms/image/v2/D4E22AQGF_6D32WquGw/feedshare-shrink_2048_1536/feedshare-shrink_2048_1536/0/1732868344217?e=1741219200&v=beta&t=Miz1Cl8_tT_3tFTArsUreZTUL5OHJud-QVYqLi7b06w">
+            
+
+        </div>
+
+    </a>
+    <hr>
+
+    
+    <a class="blog-post-abstract" href="https://www.linkedin.com/posts/paul-marcombes_self-served-data-analysts-are-much-more-impactful-activity-7267805672975564800-vlCQ?utm_source=combined_share_message&utm_medium=member_desktop" target="_blank">
+
+        <div>
+
+            <h3>Self-served data-analysts are much more impactful. Here’s why:</h3>
+
+            <p>We often talk about self-service analytics. 
+
+It’s a way to democratize data access in a company. It focuses on all......</p>
+
+            <p class="footer">2024-11-28 • Paul Marcombes</p>
+        </div>
+
+        <div>
+
+            
+
+        </div>
+
+    </a>
+    <hr>
+
+    
+    <a class="blog-post-abstract" href="https://www.linkedin.com/posts/paul-marcombes_text-to-sql-may-not-be-the-answer-for-self-activity-7267466431506571264-ZiVe?utm_source=combined_share_message&utm_medium=member_desktop" target="_blank">
+
+        <div>
+
+            <h3>Text to SQL may not be the answer for self service analytics.</h3>
+
+            <p>Text to SQL is great as a coding assistant for Data Analysts. 
+
+But it won’t help for business people to get trusted......</p>
+
+            <p class="footer">2024-11-27 • Paul Marcombes</p>
+        </div>
+
+        <div>
+
+            
+
+        </div>
+
+    </a>
+    <hr>
+
+    
+    <a class="blog-post-abstract" href="https://www.linkedin.com/posts/paul-marcombes_bigfunctions-is-a-framework-like-dbt-to-supercharge-activity-7266818186103214080-zFFk?utm_source=combined_share_message&utm_medium=member_desktop" target="_blank">
+
+        <div>
+
+            <h3>BigFunctions is a framework like dbt to supercharge your data-warehouse:</h3>
+
+            <p>1/  
+- functions are deployed in yaml
+- dbt models are declared in yaml/sql. 
+
+2/ 
+- functions are tested and......</p>
+
+            <p class="footer">2024-11-25 • Paul Marcombes</p>
+        </div>
+
+        <div>
+
+            
+                <img src="https://media.licdn.com/dms/image/v2/D4E22AQH3Kqo4WTx8PQ/feedshare-shrink_2048_1536/feedshare-shrink_2048_1536/0/1732544464803?e=1741219200&v=beta&t=EkzM-FWvKnuDKv9ZS1c-U7lXLBofeOdLd9O77m5slEI">
+            
+
+        </div>
+
+    </a>
+    <hr>
+
+    
+    <a class="blog-post-abstract" href="https://www.linkedin.com/posts/paul-marcombes_its-been-2-years-i-publish-on-linkedin-activity-7266538870266114048-Xv18?utm_source=combined_share_message&utm_medium=member_desktop" target="_blank">
+
+        <div>
+
+            <h3>It’s been 2 years I publish on LinkedIn. But I never introduced myself. 5 things you don’t know about me:</h3>
+
+            <p>1. I am father of 3 children of age 3, 8 and 10. 
+
+2. I started gymnastics 2 months ago. It feels like die and......</p>
+
+            <p class="footer">2024-11-24 • Paul Marcombes</p>
+        </div>
+
+        <div>
+
+            
+
+        </div>
+
+    </a>
+    <hr>
+
+    
+    <a class="blog-post-abstract" href="https://www.linkedin.com/posts/paul-marcombes_bigfunctions-activity-7262007470632390656-8UJm?utm_source=combined_share_message&utm_medium=member_desktop" target="_blank">
+
+        <div>
+
+            <h3>Well, I’m nowhere near Kestra and their 10000+ stars,</h3>
+
+            <p>But it makes me something to have reached 600 ⭐️ with bigfunctions today 🥹
+
+Slowly but surely. 
+
+Huge Thanks to the......</p>
+
+            <p class="footer">2024-11-12 • Paul Marcombes</p>
+        </div>
+
+        <div>
+
+            
+                <img src="https://media.licdn.com/dms/image/v2/D5622AQFe-6DiipW63w/feedshare-shrink_2048_1536/feedshare-shrink_2048_1536/0/1730943320025?e=1741219200&v=beta&t=p8C7qYONkEUoOO_BFKaf52VQ3vYj1i6ddIqYPBRyOBM">
+            
+
+        </div>
+
+    </a>
+    <hr>
+
+    
+    <a class="blog-post-abstract" href="https://www.linkedin.com/posts/paul-marcombes_unify-batch-real-time-in-data-at-nickel-activity-7260557938962894848-PBK9?utm_source=combined_share_message&utm_medium=member_desktop" target="_blank">
+
+        <div>
+
+            <h3>Unify batch / real time in data 🤝</h3>
+
+            <p>At Nickel, we've built a configurable data engine:
+
+✅ that allows data analysts to deploy algorithms
+✅ in batch or......</p>
+
+            <p class="footer">2024-11-08 • Paul Marcombes</p>
+        </div>
+
+        <div>
+
+            
+
+        </div>
+
+    </a>
+    <hr>
+
+    
+    <a class="blog-post-abstract" href="https://www.linkedin.com/posts/paul-marcombes_sqlmesh-vs-dbt-i-bet-for-sqlmesh-simply-activity-7260195572647624706-Iwj3?utm_source=combined_share_message&utm_medium=member_desktop" target="_blank">
+
+        <div>
+
+            <h3>sqlmesh vs dbt?</h3>
+
+            <p>I bet for sqlmesh. 
+
+
+Simply because sqlmesh paid product does not compete with their open-source product. It’s......</p>
+
+            <p class="footer">2024-11-07 • Paul Marcombes</p>
+        </div>
+
+        <div>
+
+            
+                <img src="https://media.licdn.com/dms/image/v2/D5622AQGAV_T8Px1IUA/feedshare-shrink_2048_1536/feedshare-shrink_2048_1536/0/1730940548131?e=1741219200&v=beta&t=NemQyAu-b7wiYyPzqY13CUxSE9dnKUgj8w7fgBsMinI">
+            
+
+        </div>
+
+    </a>
+    <hr>
+
+    
+    <a class="blog-post-abstract" href="https://www.linkedin.com/posts/paul-marcombes_la-data-en-temps-r%C3%A9el-chez-nickel-activity-7259852897339719680-dJdG?utm_source=combined_share_message&utm_medium=member_desktop" target="_blank">
+
+        <div>
+
+            <h3>Unifions le batch / temps réel dans la data 🤝</h3>
+
+            <p>Chez Nickel on a construit un moteur de calculs data configurable:
+
+✅  qui permet aux data-analystes de déployer des......</p>
+
+            <p class="footer">2024-11-06 • Paul Marcombes</p>
+        </div>
+
+        <div>
+
+            
+
+        </div>
+
+    </a>
+    <hr>
+
+    
+    <a class="blog-post-abstract" href="https://www.linkedin.com/posts/iziday_nickel-les-avantages-dune-plateforme-de-activity-7259841611243646979-9713?utm_source=combined_share_message&utm_medium=member_desktop" target="_blank">
+
+        <div>
+
+            <h3>🎧 NOUVEAU PODCAST DISPONIBLE !</h3>
+
+            <p>Dans cet épisode, nous avons le plaisir de recevoir Paul Marcombes, Head of Data chez Nickel, afin d'échanger sur la......</p>
+
+            <p class="footer">2024-11-06 • iziday</p>
+        </div>
+
+        <div>
+
+            
+
+        </div>
+
+    </a>
+    <hr>
+
+    
+    <a class="blog-post-abstract" href="https://www.linkedin.com/posts/forward-data-conference_speaker-announcement-were-thrilled-to-activity-7256571649079095296-i8RR?utm_source=combined_share_message&utm_medium=member_desktop" target="_blank">
+
+        <div>
+
+            <h3>[SPEAKER ANNOUNCEMENT] We're thrilled to announce that Paul Marcombes from Nickel will be speaking at the Forward...</h3>
+
+            <p>Paul is Head of Data at Nickel, and will how to unlock new SQL capabilities with BigFunctions, a framework for......</p>
+
+            <p class="footer">2024-10-28 • Forward Data Conference</p>
+        </div>
+
+        <div>
+
+            
+                <img src="https://media.licdn.com/dms/image/v2/D4E22AQFqBZaH1xkcug/feedshare-shrink_2048_1536/feedshare-shrink_2048_1536/0/1730097975021?e=1741219200&v=beta&t=KK90Qp27D7BKaRxqSyfv3MTal88OtALWYffNxxlks0A">
+            
+
+        </div>
+
+    </a>
+    <hr>
+
+    
+    <a class="blog-post-abstract" href="https://www.linkedin.com/posts/hymaia_comment-nickel-transforme-son-entreprise-activity-7255587097636474881-cjXW?utm_source=combined_share_message&utm_medium=member_desktop" target="_blank">
+
+        <div>
+
+            <h3>[Replay du vendredi] Comment Nickel transforme son entreprise grâce à l'IA</h3>
+
+            <p>🚀 Paul Marcombes, Head of Data de Nickel, présente comment l'entreprise utilise l'IA pour améliorer l’expérience......</p>
+
+            <p class="footer">2024-10-25 • Hymaïa</p>
+        </div>
+
+        <div>
+
+            
+
+        </div>
+
+    </a>
+    <hr>
+
+    
+    <a class="blog-post-abstract" href="https://www.linkedin.com/posts/antgiraud_bigfunctions-activity-7251856908347699202-2UBB?utm_source=combined_share_message&utm_medium=member_desktop" target="_blank">
+
+        <div>
+
+            <h3>👨‍🔧 New BigFunctions : load_file(url, file_type, destination_table, options)</h3>
+
+            <p>> Download web file into destination_table in BigQuery with SQL
+
+Under the BigFunctions hood : DuckDB & Ibis......</p>
+
+            <p class="footer">2024-10-15 • Antoine Giraud</p>
+        </div>
+
+        <div>
+
+            
+                <img src="https://media.licdn.com/dms/image/v2/D4E22AQG9JjTVyNBaWw/feedshare-shrink_2048_1536/feedshare-shrink_2048_1536/0/1728913037122?e=1741219200&v=beta&t=-JZRTylI-BoDjmE_u-OciSAYsjYKNSdn2wzPk0n4FxU">
+            
+
+        </div>
+
+    </a>
+    <hr>
+
+    
+    <a class="blog-post-abstract" href="https://www.linkedin.com/posts/paul-marcombes_do-you-have-a-lot-of-text-data-categorize-activity-7247911268727029760-4kiA?utm_source=combined_share_message&utm_medium=member_desktop" target="_blank">
+
+        <div>
+
+            <h3>Do you have a lot of text data? ➜ Categorize it! ✨</h3>
+
+            <p>The easiest way to get a holistic view of your text data is to categorize it. 
+
+You'll instantly get:
+
+➜ the main......</p>
+
+            <p class="footer">2024-10-04 • Paul Marcombes</p>
+        </div>
+
+        <div>
+
+            
+                <img src="https://media.licdn.com/dms/image/v2/D4E22AQE6-m55Ry5xjQ/feedshare-shrink_2048_1536/feedshare-shrink_2048_1536/0/1728036704948?e=1741219200&v=beta&t=E8wbebx3T8IZp_NQHxJL_E3pkRUGKFdGLi4Tws49j1o">
+            
+
+        </div>
+
+    </a>
+    <hr>
+
+    
+    <a class="blog-post-abstract" href="https://www.linkedin.com/posts/paul-marcombes_easiest-way-to-get-a-public-csv-file-into-activity-7245098813319712768-sJL3?utm_source=combined_share_message&utm_medium=member_desktop" target="_blank">
+
+        <div>
+
+            <h3>Easiest way to Get a Public CSV file into BigQuery 📝</h3>
+
+            <p>I had great fun to do live coding with Javier de la Torre from CARTO.
+
+Within 20 minutes we could deploy this......</p>
+
+            <p class="footer">2024-09-26 • Paul Marcombes</p>
+        </div>
+
+        <div>
+
+            
+                <img src="https://media.licdn.com/dms/image/v2/D4E22AQF9oYCEPnXKAA/feedshare-shrink_2048_1536/feedshare-shrink_2048_1536/0/1727366162927?e=1741219200&v=beta&t=Ti0sc8Ac444vr0y8mzDWW3hFazaw-6XywjnjReEPYwo">
+            
+
+        </div>
+
+    </a>
+    <hr>
+
+    
+    <a class="blog-post-abstract" href="https://www.linkedin.com/posts/paul-marcombes_bigquery-bigfunctions-googlecloud-activity-7244970986381479937-CASX?utm_source=combined_share_message&utm_medium=member_desktop" target="_blank">
+
+        <div>
+
+            <h3>Extract Webpage Data with SQL 🌐!</h3>
+
+            <p>Get structured data.
+
+Directly from webpages. 
+
+Into your data-warehouse. 
+
+Using a prompt embedded in a SQL......</p>
+
+            <p class="footer">2024-09-26 • Paul Marcombes</p>
+        </div>
+
+        <div>
+
+            
+                <img src="https://media.licdn.com/dms/image/v2/D4E22AQH_NQrpiCJfFg/feedshare-shrink_2048_1536/feedshare-shrink_2048_1536/0/1727335687006?e=1741219200&v=beta&t=UX3-PdfWhpbPPxpzY96gAdTcD_s5hJ1rxj_E5Yc6exU">
+            
+
+        </div>
+
+    </a>
+    <hr>
+
+    
+    <a class="blog-post-abstract" href="https://www.linkedin.com/posts/antgiraud_bigfunctions-powerbi-bigquery-activity-7244239220641251330-RBda?utm_source=combined_share_message&utm_medium=member_desktop" target="_blank">
+
+        <div>
+
+            <h3>👨‍🔧 New contribution to BigFunctions : `refresh_powerbi`</h3>
+
+            <p>This function let you launch a PowerBI semantic model (dataset) refresh 📊
+from BigQuery in SQL
+
+Documentation here
+👉......</p>
+
+            <p class="footer">2024-09-24 • Antoine Giraud</p>
+        </div>
+
+        <div>
+
+            
+                <img src="https://media.licdn.com/dms/image/v2/D4E22AQGL-XtaYrSt8A/feedshare-shrink_2048_1536/feedshare-shrink_2048_1536/0/1727116638626?e=1741219200&v=beta&t=fVuTFDEdiW26gJorLmh46KUU7vbcliiGr0PK2Tl1_Ww">
+            
+
+        </div>
+
+    </a>
+    <hr>
+
+    
+    <a class="blog-post-abstract" href="https://www.linkedin.com/posts/paul-marcombes_noabrinstallabrneeded-bigfunctions-bigquery-activity-7242862602559655937-CSQU?utm_source=combined_share_message&utm_medium=member_desktop" target="_blank">
+
+        <div>
+
+            <h3>Converse with your User Feedbacks inside BigQuery ✨💬</h3>
+
+            <p>Gen AI features provides new dimensions for data-analysis. 
+
+You can:
+- Transform any text such as user feedbacks......</p>
+
+            <p class="footer">2024-09-20 • Paul Marcombes</p>
+        </div>
+
+        <div>
+
+            
+                <img src="https://media.licdn.com/dms/image/v2/D4E22AQEuo3EcgXzVMA/feedshare-shrink_2048_1536/feedshare-shrink_2048_1536/0/1726833009639?e=1741219200&v=beta&t=RGX8rjztob0kBBQdSsHOrdYIa5Kgu_Iif-1Ky1ocX_0">
+            
+
+        </div>
+
+    </a>
+    <hr>
+
+    
+    <a class="blog-post-abstract" href="https://www.linkedin.com/posts/paul-marcombes_lida-opendataqna-conversationalanalytics-activity-7242134012910014465-3fUN?utm_source=combined_share_message&utm_medium=member_desktop" target="_blank">
+
+        <div>
+
+            <h3>I just tried the brand new Conversational Analytics from Looker Studio. Here's 👇 what I learnt</h3>
+
+            <p>All BI teams are working hard to enable users to get insights from natural language questions.
+
+Looker Studio is no......</p>
+
+            <p class="footer">2024-09-18 • Paul Marcombes</p>
+        </div>
+
+        <div>
+
+            
+                <img src="https://media.licdn.com/dms/image/v2/D4E22AQFRA6po6iX8ug/feedshare-shrink_2048_1536/feedshare-shrink_2048_1536/0/1726659299688?e=1741219200&v=beta&t=qrD05ibV5uCghQwpw-SXlVwHl6Juj7vcgrm6ajNPqtc">
+            
+
+        </div>
+
+    </a>
+    <hr>
+
+    
+    <a class="blog-post-abstract" href="https://www.linkedin.com/posts/paul-marcombes_i-am-stunned-by-the-quality-of-this-genai-activity-7240717718746730497-mUi9?utm_source=combined_share_message&utm_medium=member_desktop" target="_blank">
+
+        <div>
+
+            <h3>I am stunned by the quality of this genAI created podcast 😲</h3>
+
+            <p>I just gave NotebookLM (a new tool made available by google) two urls from BigFunctions website. 
+
+And here is the......</p>
+
+            <p class="footer">2024-09-14 • Paul Marcombes</p>
+        </div>
+
+        <div>
+
+            
+
+        </div>
+
+    </a>
+    <hr>
+
+    
+    <a class="blog-post-abstract" href="https://www.linkedin.com/posts/paul-marcombes_data-analysis-is-structured-data-enough-activity-7240278912491028480-8U4A?utm_source=combined_share_message&utm_medium=member_desktop" target="_blank">
+
+        <div>
+
+            <h3>Data Analysis: Is Structured Data Enough?</h3>
+
+            <p>You can be the greatest data-analyst, you will never be able to uncover an insight for which you don't have the......</p>
+
+            <p class="footer">2024-09-13 • Paul Marcombes</p>
+        </div>
+
+        <div>
+
+            
+                <img src="https://media.licdn.com/dms/image/v2/D4E22AQELOHwBUFSuBg/feedshare-shrink_2048_1536/feedshare-shrink_2048_1536/0/1726217009155?e=1741219200&v=beta&t=8MB3IpAAD6vCR_DZTuFIRm68qH22qYPbvKle0umaeIk">
+            
+
+        </div>
+
+    </a>
+    <hr>
+
+    
+    <a class="blog-post-abstract" href="https://www.linkedin.com/posts/paul-marcombes_surface-the-search-behind-the-rag-retrieval-activity-7239892809229504513-MxIu?utm_source=combined_share_message&utm_medium=member_desktop" target="_blank">
+
+        <div>
+
+            <h3>Surface the search behind the RAG 🔎 !</h3>
+
+            <p>Retrieval Augmented Generation is one of the best way to get started with GenAI in a company. 
+
+Mathilde Gorieu made......</p>
+
+            <p class="footer">2024-09-12 • Paul Marcombes</p>
+        </div>
+
+        <div>
+
+            
+                <img src="https://media.licdn.com/dms/image/v2/D4E22AQExvzwBC6oVjg/feedshare-shrink_2048_1536/feedshare-shrink_2048_1536/0/1726124955579?e=1741219200&v=beta&t=0diHXFHQZbfDVPlshWXDVoJ7Qjn_EsHKx6467X2rTZw">
+            
+
+        </div>
+
+    </a>
+    <hr>
+
+    
+    <a class="blog-post-abstract" href="https://www.linkedin.com/posts/paul-marcombes_lets-talk-about-nickel-genai-use-cases-at-activity-7239181414254931968-aFPz?utm_source=combined_share_message&utm_medium=member_desktop" target="_blank">
+
+        <div>
+
+            <h3>Let's talk about Nickel GenAI use cases at Google Paris Office!</h3>
+
+            <p>With Mathilde Gorieu we're going to share today what we've learned at Nickel while implementing several RAG use......</p>
+
+            <p class="footer">2024-09-10 • Paul Marcombes</p>
+        </div>
+
+        <div>
+
+            
+                <img src="https://media.licdn.com/dms/image/v2/D4E22AQGF2Hk7xmfBOQ/feedshare-shrink_2048_1536/feedshare-shrink_2048_1536/0/1725955346069?e=1741219200&v=beta&t=0UOGnniqQ93It9-rQhd503HIn_MS2_RjdBlSFVIFifI">
+            
+
+        </div>
+
+    </a>
+    <hr>
+
+    
+    <a class="blog-post-abstract" href="https://www.linkedin.com/posts/masthead-data_bigquery-champions-level-up-your-data-activity-7232297664124514305-q54g?utm_source=combined_share_message&utm_medium=member_desktop" target="_blank">
+
+        <div>
+
+            <h3>🦸 BigQuery Champions, Level Up Your Data Work with BigFunctions!</h3>
+
+            <p>Data engineers, are you tired of manually building and managing BigQuery functions? 
+BigFunctions is revolutionizing......</p>
+
+            <p class="footer">2024-08-22 • Masthead Data</p>
+        </div>
+
+        <div>
+
+            
+
+        </div>
+
+    </a>
+    <hr>
+
+    
+    <a class="blog-post-abstract" href="https://www.linkedin.com/posts/paul-marcombes_bigquery-bigfunctions-activity-7224670243372109825-hlMZ?utm_source=combined_share_message&utm_medium=member_desktop" target="_blank">
+
+        <div>
+
+            <h3>Refresh a Tableau Workbook with a SQL command</h3>
+
+            <p>dbt provides post-hooks.
+
+Post-hooks are SQL queries that run after model creation.
+
+Refresh_tableau is a function......</p>
+
+            <p class="footer">2024-08-01 • Paul Marcombes</p>
+        </div>
+
+        <div>
+
+            
+                <img src="https://media.licdn.com/dms/image/v2/D4E22AQFffc8xiAJytA/feedshare-shrink_2048_1536/feedshare-shrink_2048_1536/0/1722014836482?e=1741219200&v=beta&t=Ll4CEubWLlEPDn9OkPiBHFyUqigduBs7tzjZYdUWpjI">
+            
+
+        </div>
+
+    </a>
+    <hr>
+
+    
+    <a class="blog-post-abstract" href="https://www.linkedin.com/posts/ethanaaron_the-stuff-no-one-will-tell-you-about-running-activity-7224048593538560002-dICF?utm_source=combined_share_message&utm_medium=member_desktop" target="_blank">
+
+        <div>
+
+            <h3>The stuff no one will tell you about running a data team:</h3>
+
+            <p>1. You'll might need to say NO to more stuff
+2. You can say NO to more stuff
+3. You should say NO to more stuff 
+4.......</p>
+
+            <p class="footer">2024-07-30 • Ethan Aaron</p>
+        </div>
+
+        <div>
+
+            
+
+        </div>
+
+    </a>
+    <hr>
+
+    
+    <a class="blog-post-abstract" href="https://www.linkedin.com/posts/paul-marcombes_bigquery-bigfunctions-activity-7223583106891485184-U5-Y?utm_source=combined_share_message&utm_medium=member_desktop" target="_blank">
+
+        <div>
+
+            <h3>Put the right label to a value</h3>
+
+            <p>Available to anyone in BigQuery
+
+Thanks Bartosz Figas for this great contribution to BigFunctions.
+
+Function doc:......</p>
+
+            <p class="footer">2024-07-29 • Paul Marcombes</p>
+        </div>
+
+        <div>
+
+            
+                <img src="https://media.licdn.com/dms/image/v2/D4E22AQFDovroUkOgJQ/feedshare-shrink_2048_1536/feedshare-shrink_2048_1536/0/1722012926597?e=1741219200&v=beta&t=cNlFeadg61xiifDsq6iu38UCeoNcpSKBcfGDQR1iDfY">
+            
+
+        </div>
+
+    </a>
+    <hr>
+
+    
+    <a class="blog-post-abstract" href="https://www.linkedin.com/posts/paul-marcombes_bigfunctions-airbyte-bigquery-activity-7222133476475498496-W_BK?utm_source=combined_share_message&utm_medium=member_desktop" target="_blank">
+
+        <div>
+
+            <h3>Load data from 250+ Sources with a single SQL query!</h3>
+
+            <p>`get_data` bigfunction is available in BigQuery.
+
+It loads data from your favorite SAAS.
+
+No install is needed.
+
+It......</p>
+
+            <p class="footer">2024-07-25 • Paul Marcombes</p>
+        </div>
+
+        <div>
+
+            
+                <img src="https://media.licdn.com/dms/image/v2/D4E22AQFFeIVwoGb86g/feedshare-shrink_2048_1536/feedshare-shrink_2048_1536/0/1721839747978?e=1741219200&v=beta&t=XLN8hnE-tKy_bYwgb74oBxd7vyWj9ckw7D6aCTxaBck">
+            
+
+        </div>
+
+    </a>
+    <hr>
+
+    
+    <a class="blog-post-abstract" href="https://www.linkedin.com/posts/paul-marcombes_banktech-day-organis%C3%A9-par-finance-innovation-activity-7203679225927647232-xdKo?utm_source=combined_share_message&utm_medium=member_desktop" target="_blank">
+
+        <div>
+
+            <h3>BankTech Day organisé par Finance Innovation se déroulera le 13 juin 2024 au Cloud Business Center !</h3>
+
+            <p>Je participerai à l'atelier : L'Expérience client à l’ère de la data : banques & fintechs en quête......</p>
+
+            <p class="footer">2024-06-04 • Paul Marcombes</p>
+        </div>
+
+        <div>
+
+            
+                <img src="https://media.licdn.com/dms/image/v2/D4E22AQGfHVBUWMoYvA/feedshare-shrink_2048_1536/feedshare-shrink_2048_1536/0/1719199951783?e=1741219200&v=beta&t=w34PsWOFdLVZlwL_FsgcnYv9DelTe252sGyVuH4blyE">
+            
+
+        </div>
+
+    </a>
+    <hr>
+
+    
+    <a class="blog-post-abstract" href="https://www.linkedin.com/posts/paul-marcombes_bigquery-bigfunctions-googlecloud-activity-7201971338377351168-DqGn?utm_source=combined_share_message&utm_medium=member_desktop" target="_blank">
+
+        <div>
+
+            <h3>Stop struggling with nested JSON in BigQuery! 🤼‍♂️ Flatten your data 🚀</h3>
+
+            <p>Tired of endlessly navigating nested fields in your JSON data? 😩
+You're not alone. It's like searching for a needle......</p>
+
+            <p class="footer">2024-05-30 • Paul Marcombes</p>
+        </div>
+
+        <div>
+
+            
+                <img src="https://media.licdn.com/dms/image/v2/D5622AQFDWi7vWtTE5w/feedshare-shrink_2048_1536/feedshare-shrink_2048_1536/0/1717083771621?e=1741219200&v=beta&t=1CUP5B2nbKeWdfOhN9e0vIqm8t0wPzrhsoLwdFVFoFU">
+            
+
+        </div>
+
+    </a>
+    <hr>
+
+    
+    <a class="blog-post-abstract" href="https://www.linkedin.com/posts/paul-marcombes_bigquery-airbyte-bigfunctions-activity-7201509980221358080-zBHb?utm_source=combined_share_message&utm_medium=member_desktop" target="_blank">
+
+        <div>
+
+            <h3>Loading data into BigQuery should be as simple as a SQL query 👅 !</h3>
+
+            <p>Airbyte built awesome open-source connectors to move data into your warehouse. 
+
+
+What if we could run them via a......</p>
+
+            <p class="footer">2024-05-29 • Paul Marcombes</p>
+        </div>
+
+        <div>
+
+            
+                <img src="https://media.licdn.com/dms/image/v2/D4E22AQHJ-c9Ihbkd0Q/feedshare-shrink_2048_1536/feedshare-shrink_2048_1536/0/1716973775963?e=1741219200&v=beta&t=q2fSXWfUFsbK7nhwE--Y3ZdyTcAwjRjpbFigxiY2YEc">
+            
+
+        </div>
+
+    </a>
+    <hr>
+
+    
+    <a class="blog-post-abstract" href="https://www.linkedin.com/posts/paul-marcombes_supercharge-bigquery-with-bigfunctions-activity-7199683895712202753-lP_-?utm_source=combined_share_message&utm_medium=member_desktop" target="_blank">
+
+        <div>
+
+            <h3>Build your own catalog of BigQuery functions 🌌</h3>
+
+            <p>I like this article from Jake Holmquist ☁️ as it describes the two sides of bigfunctions:
+
+➡️ Effortless access to......</p>
+
+            <p class="footer">2024-05-24 • Paul Marcombes</p>
+        </div>
+
+        <div>
+
+            
+
+        </div>
+
+    </a>
+    <hr>
+
+    
+    <a class="blog-post-abstract" href="https://www.linkedin.com/posts/paul-marcombes_bigquery-bigfunctions-dataengineering-activity-7197166459716804608-DvLS?utm_source=combined_share_message&utm_medium=member_desktop" target="_blank">
+
+        <div>
+
+            <h3>Getting public data into BigQuery has never been easier ☀️</h3>
+
+            <p>Thanks to remote functions, you can get data from any website into BigQuery with a simple SQL query 🤗
+
+Here is an......</p>
+
+            <p class="footer">2024-05-17 • Paul Marcombes</p>
+        </div>
+
+        <div>
+
+            
+                <img src="https://media.licdn.com/dms/image/v2/D4E22AQEhpoS9O1MDAg/feedshare-shrink_2048_1536/feedshare-shrink_2048_1536/0/1715938200061?e=1741219200&v=beta&t=2bTG0uOjxMt-AoxaTnhikTOl33wClvCh6JxXXRqn9N4">
+            
+
+        </div>
+
+    </a>
+    <hr>
+
+    
+    <a class="blog-post-abstract" href="https://www.linkedin.com/posts/paul-marcombes_bigquery-bigfunctions-dataanalysis-activity-7196774410429579264-M-xW?utm_source=combined_share_message&utm_medium=member_desktop" target="_blank">
+
+        <div>
+
+            <h3>It's been a while since I've been this excited about a BigQuery function! 🎢</h3>
+
+            <p>You can ask any question to the user reviews of an app (from the app store). 😮
+
+1️⃣  The last 500 reviews are......</p>
+
+            <p class="footer">2024-05-16 • Paul Marcombes</p>
+        </div>
+
+        <div>
+
+            
+                <img src="https://media.licdn.com/dms/image/v2/D4E22AQFLbaHkECZxuQ/feedshare-shrink_2048_1536/feedshare-shrink_2048_1536/0/1715844727899?e=1741219200&v=beta&t=TtfKG2Z0BgmofbjWWUBjbX1OwdUXGb1MoCSrnl1eXtU">
+            
+
+        </div>
+
+    </a>
+    <hr>
+
+    
+    <a class="blog-post-abstract" href="https://www.linkedin.com/posts/paul-marcombes_bigfunctions-now-supports-udaf-user-defined-activity-7195744263567990785-35Kt?utm_source=combined_share_message&utm_medium=member_desktop" target="_blank">
+
+        <div>
+
+            <h3>Great contribution to BigFunctions 👏 Axel Thevenot.</h3>
+
+            <p>You made my day by adding support to UDAF + adding this great function. 
+
+🙌...</p>
+
+            <p class="footer">2024-05-13 • Paul Marcombes</p>
+        </div>
+
+        <div>
+
+            
+
+        </div>
+
+    </a>
+    <hr>
+
+    
+    <a class="blog-post-abstract" href="https://www.linkedin.com/posts/paul-marcombes_dataengineering-airbyte-activity-7169280585352335360-LVkv?utm_source=combined_share_message&utm_medium=member_desktop" target="_blank">
+
+        <div>
+
+            <h3>I am quite excited with PyAirbyte 😲  (Airbyte connectors available from python)</h3>
+
+            <p>Airbyte (the leading open-source solution to move your data to your data-warehouse) finally released their......</p>
+
+            <p class="footer">2024-03-01 • Paul Marcombes</p>
+        </div>
+
+        <div>
+
+            
+                <img src="https://media.licdn.com/dms/image/v2/D4E22AQHbebiGPE55uQ/feedshare-shrink_2048_1536/feedshare-shrink_2048_1536/0/1709289688083?e=1741219200&v=beta&t=UMADToDWpRh68ndF0q43Stx9Y5htVl1m9KUd3fT6hQM">
+            
+
+        </div>
+
+    </a>
+    <hr>
+
+    
+    <a class="blog-post-abstract" href="https://www.linkedin.com/posts/paul-marcombes_datanalytics-analyticsengineering-dataengineering-activity-7160542653451816961-8PmJ?utm_source=combined_share_message&utm_medium=member_desktop" target="_blank">
+
+        <div>
+
+            <h3>What is a Staff Analytics-Engineer and why we need them?</h3>
+
+            <p>Embed data-people in teams to scale
+
+One way to scale data analysis is to embed data people in teams, tribes,......</p>
+
+            <p class="footer">2024-02-06 • Paul Marcombes</p>
+        </div>
+
+        <div>
+
+            
+                <img src="https://media.licdn.com/dms/image/v2/D4E22AQGloFfuc4I_HA/feedshare-shrink_2048_1536/feedshare-shrink_2048_1536/0/1707155877235?e=1741219200&v=beta&t=ywRUbDHRERZmZsd21VEi5eu0_Ds2w2s1WDBbShcpyig">
+            
+
+        </div>
+
+    </a>
+    <hr>
+
+    
+    <a class="blog-post-abstract" href="https://www.linkedin.com/posts/paul-marcombes_bigquery-bigfunctions-dataanalysis-activity-7155903739478904832-9W9m?utm_source=combined_share_message&utm_medium=member_desktop" target="_blank">
+
+        <div>
+
+            <h3>What if data-analysts could take actions themselves 🏀?</h3>
+
+            <p>We had a great presentation from Tangi Gouez and Manuel Cellier from Dashlane last week at Nickel. They told us......</p>
+
+            <p class="footer">2024-01-24 • Paul Marcombes</p>
+        </div>
+
+        <div>
+
+            
+                <img src="https://media.licdn.com/dms/image/v2/D4E22AQHWPDCHULOPig/feedshare-shrink_2048_1536/feedshare-shrink_2048_1536/0/1706100400358?e=1741219200&v=beta&t=PYiRVapG6KCavIf1Vppf0adxT69RHvaIR6KTb21FCxY">
+            
+
+        </div>
+
+    </a>
+    <hr>
+
+    
+    <a class="blog-post-abstract" href="https://www.linkedin.com/posts/paul-marcombes_bigquery-bigfunctions-bigframes-activity-7155499433772666881-kkur?utm_source=combined_share_message&utm_medium=member_desktop" target="_blank">
+
+        <div>
+
+            <h3>When to use BigQuery Dataframes over SQL ?</h3>
+
+            <p>Querying your BigQuery data in SQL is very natural and efficient but you want to use BigQuery Dataframes (aka......</p>
+
+            <p class="footer">2024-01-23 • Paul Marcombes</p>
+        </div>
+
+        <div>
+
+            
+                <img src="https://media.licdn.com/dms/image/v2/D4E22AQEEEFRxjtb0yA/feedshare-shrink_2048_1536/feedshare-shrink_2048_1536/0/1705704329961?e=1741219200&v=beta&t=kX30M1Mk7wBBJZQq-n2Wp90AVGgtD8K6FY7-UggR3BY">
+            
+
+        </div>
+
+    </a>
+    <hr>
+
+    
+    <a class="blog-post-abstract" href="https://www.linkedin.com/posts/paul-marcombes_bigquery-bigfunctions-gcp-activity-7143510443934826497-O2bg?utm_source=combined_share_message&utm_medium=member_desktop" target="_blank">
+
+        <div>
+
+            <h3>Get the Country of an IP address in BigQuery 🌐👀</h3>
+
+            <p>Execute this query in your BigQuery :
+
+select bigfunctions.eu.ip2country('152.216.7.110')
+
+It will tell you the IP......</p>
+
+            <p class="footer">2023-12-21 • Paul Marcombes</p>
+        </div>
+
+        <div>
+
+            
+                <img src="https://media.licdn.com/dms/image/v2/D4E22AQGUKVy0So12wg/feedshare-shrink_2048_1536/feedshare-shrink_2048_1536/0/1703117186204?e=1741219200&v=beta&t=Dg8hMn5gWOcp4t9ZNvJonDP4TkxrYaFXSEEZVQqH_DE">
+            
+
+        </div>
+
+    </a>
+    <hr>
+
+    
+    <a class="blog-post-abstract" href="https://www.linkedin.com/posts/paul-marcombes_airbyte-serverless-dataengineering-activity-7141404312785604608-a-lI?utm_source=combined_share_message&utm_medium=member_desktop" target="_blank">
+
+        <div>
+
+            <h3>Moving data to your Data-Warehouse has never been easier 🏌‍♂️  !</h3>
+
+            <p>Every data project starts with moving data from different sources to your data-warehouse for analysis. To this end,......</p>
+
+            <p class="footer">2023-12-15 • Paul Marcombes</p>
+        </div>
+
+        <div>
+
+            
+                <img src="https://media.licdn.com/dms/image/v2/D4E22AQH2NG52rtv8VA/feedshare-shrink_2048_1536/feedshare-shrink_2048_1536/0/1702643468041?e=1741219200&v=beta&t=MhU0rbzYxjyG--EaVKU1y-GUhsf7sN-do1zSGFUSxZQ">
+            
+
+        </div>
+
+    </a>
+    <hr>
+
+    
+    <a class="blog-post-abstract" href="https://www.linkedin.com/posts/aleksandr-ignatenko_bigquery-sql-bigfunctions-activity-7141037483680591875-5PST?utm_source=combined_share_message&utm_medium=member_desktop" target="_blank">
+
+        <div>
+
+            <h3>BigFunctions - steroids for BigQuery</h3>
+
+            <p>If you're not familiar with or not using BigFunctions, be sure to check out the documentation – it's worth it.......</p>
+
+            <p class="footer">2023-12-14 • Alex Ignatenko</p>
+        </div>
+
+        <div>
+
+            
+                <img src="https://media.licdn.com/dms/image/v2/D4D22AQH_ZKoyXSR-0A/feedshare-shrink_2048_1536/feedshare-shrink_2048_1536/0/1702556007321?e=1741219200&v=beta&t=FXJe5L8zEC47dB7FZ5UKHCo83isic9L_XVBeqF7lepA">
+            
+
+        </div>
+
+    </a>
+    <hr>
+
+    
+    <a class="blog-post-abstract" href="https://www.linkedin.com/posts/paul-marcombes_bigquery-bigfunctions-dataengineering-activity-7141003906012082176-rCxd?utm_source=combined_share_message&utm_medium=member_desktop" target="_blank">
+
+        <div>
+
+            <h3>Testing Gemini, Google's latest AI model, from BigQuery</h3>
+
+            <p>Excited to explore Google's latest AI model, I compared Gemini with other Google AI models using the 'ask_ai'......</p>
+
+            <p class="footer">2023-12-14 • Paul Marcombes</p>
+        </div>
+
+        <div>
+
+            
+                <img src="https://media.licdn.com/dms/image/v2/D4E22AQG9FTP1NJNf2w/feedshare-shrink_2048_1536/feedshare-shrink_2048_1536/0/1702505011288?e=1741219200&v=beta&t=SXwM3OHCFW7FRoGqioNDmHaH9UnhRC4BT25MxGkFxhg">
+            
+
+        </div>
+
+    </a>
+    <hr>
+
+    
+    <a class="blog-post-abstract" href="https://www.linkedin.com/posts/axel-thevenot_bigquery-dataengineering-analytics-activity-7139876215447785472-tld3?utm_source=combined_share_message&utm_medium=member_desktop" target="_blank">
+
+        <div>
+
+            <h3>BigQuery: Array Union & Array Intersect now at your fingertips! 🐣</h3>
+
+            <p>BigFunctions has just release two easy but useful functions to obtain the union and/or intersection of two......</p>
+
+            <p class="footer">2023-12-11 • Axel Thevenot</p>
+        </div>
+
+        <div>
+
+            
+                <img src="https://media.licdn.com/dms/image/v2/D4E22AQE1delljcIh5w/feedshare-shrink_2048_1536/feedshare-shrink_2048_1536/0/1702279140997?e=1741219200&v=beta&t=PcOy3vvHQzhR1VnqhJPHHGvXTCaKCsIaUBNo2rDeY1s">
+            
+
+        </div>
+
+    </a>
+    <hr>
+
+    
+    <a class="blog-post-abstract" href="https://www.linkedin.com/posts/paul-marcombes_%F0%9D%97%A6%F0%9D%97%94%F0%9D%97%A9%F0%9D%97%98-%F0%9D%97%A7%F0%9D%97%9B%F0%9D%97%98-%F0%9D%97%97%F0%9D%97%94%F0%9D%97%A7%F0%9D%97%98-rejoignez-nous-activity-7138204518353203202-Pwuk?utm_source=combined_share_message&utm_medium=member_desktop" target="_blank">
+
+        <div>
+
+            <h3>Want a demo of Serverless Data Pipelines?</h3>
+
+            <p>✅  Move data with Airbyte Serverless 
+✅  Transform it with dbt
+✅  Orchestrate with Google Workflows
+
+
+Airbyte is......</p>
+
+            <p class="footer">2023-12-06 • Paul Marcombes</p>
+        </div>
+
+        <div>
+
+            
+
+        </div>
+
+    </a>
+    <hr>
+
+    
+    <a class="blog-post-abstract" href="https://www.linkedin.com/posts/paul-marcombes_bigquery-bigfunctions-gcp-activity-7133848847801290753--ebl?utm_source=combined_share_message&utm_medium=member_desktop" target="_blank">
+
+        <div>
+
+            <h3>Extract info from a phone number in BigQuery 📱👀</h3>
+
+            <p>Execute this query in your BigQuery :
+
+select bigfunctions.eu.phone_number_info('+33123456789', null)
+
+and you'll......</p>
+
+            <p class="footer">2023-11-24 • Paul Marcombes</p>
+        </div>
+
+        <div>
+
+            
+                <img src="https://media.licdn.com/dms/image/v2/D4E22AQHazyXme65Rjg/feedshare-shrink_2048_1536/feedshare-shrink_2048_1536/0/1700842104138?e=1741219200&v=beta&t=NeJqKlNVqd2qH1jlxY7aSqvvbXEfe1Egqr8hVwsVmrU">
+            
+
+        </div>
+
+    </a>
+    <hr>
+
+    
+    <a class="blog-post-abstract" href="https://www.linkedin.com/posts/paul-marcombes_data-catalog-is-key-for-your-data-mesh-strategy-activity-7133393773518053376-weGa?utm_source=combined_share_message&utm_medium=member_desktop" target="_blank">
+
+        <div>
+
+            <h3>Data catalog is key for your data-mesh strategy. Why building vs buying?</h3>
+
+            <p>I was at a (great) c2c event last night and I realized two things:
+
+1️⃣ Without a good catalog, your data-mesh......</p>
+
+            <p class="footer">2023-11-23 • Paul Marcombes</p>
+        </div>
+
+        <div>
+
+            
+                <img src="https://media.licdn.com/dms/image/v2/D4E22AQGUJUzBzWoFTA/feedshare-shrink_2048_1536/feedshare-shrink_2048_1536/0/1700703992601?e=1741219200&v=beta&t=MSvm9RT0vmB3ODkqsBj952XkZOwhJ43fhve4Kj5P_J0">
+            
+
+        </div>
+
+    </a>
+    <hr>
+
+    
+    <a class="blog-post-abstract" href="https://www.linkedin.com/posts/google-cloud_famous-assists-lionel-messi-with-argentina-ugcPost-7128849050732244993-J8TK?utm_source=combined_share_message&utm_medium=member_desktop" target="_blank">
+
+        <div>
+
+            <h3>Famous assists:</h3>
+
+            <p>⚽ Lionel Messi with Argentina
+👠 Andy Sachs with Miranda Priestly
+🇺🇸 Gary Walsh with Selina Meyer
+☁️ Duet AI with......</p>
+
+            <p class="footer">2023-11-10 • Google Cloud</p>
+        </div>
+
+        <div>
+
+            
+
+        </div>
+
+    </a>
+    <hr>
+
+    
+    <a class="blog-post-abstract" href="https://www.linkedin.com/posts/paul-marcombes_bigquery-bigfunctions-dataengineering-activity-7122832228438478848-POer?utm_source=combined_share_message&utm_medium=member_desktop" target="_blank">
+
+        <div>
+
+            <h3>Here’s what I do when I can’t find a BigQuery function to solve a problem 👇</h3>
+
+            <p>Yesterday, again, I needed to do a transform for which 𝗜 𝗰𝗼𝘂𝗹𝗱 𝗻𝗼𝘁 𝗳𝗶𝗻𝗱 𝗮𝗻𝘆 𝗻𝗮𝘁𝗶𝘃𝗲 𝗕𝗶𝗴𝗤𝘂𝗲𝗿𝘆 𝗳𝘂𝗻𝗰𝘁𝗶𝗼𝗻. 🧐 (decode......</p>
+
+            <p class="footer">2023-10-25 • Paul Marcombes</p>
+        </div>
+
+        <div>
+
+            
+                <img src="https://media.licdn.com/dms/image/v2/D5622AQEIxOv4jhfbOQ/feedshare-shrink_2048_1536/feedshare-shrink_2048_1536/0/1698215538320?e=1741219200&v=beta&t=VFHSYEaTSUpC6XVK80kJNFGM81tMq2uIHX6HYcIOg1M">
+            
+
+        </div>
+
+    </a>
+    <hr>
+
+    
+    <a class="blog-post-abstract" href="https://www.linkedin.com/posts/khuyen-tran-1401_if-you-want-to-build-a-web-app-seamlessly-ugcPost-7119688114297597952-CP2u?utm_source=combined_share_message&utm_medium=member_desktop" target="_blank">
+
+        <div>
+
+            <h3>If you want to build a web app seamlessly within your Jupyter Notebook, use Mercury.</h3>
+
+            <p>Link to Mercury: https://lnkd.in/gpV3Sqk3...</p>
+
+            <p class="footer">2023-10-16 • Khuyen Tran</p>
+        </div>
+
+        <div>
+
+            
+
+        </div>
+
+    </a>
+    <hr>
+
+    
+    <a class="blog-post-abstract" href="https://www.linkedin.com/posts/paul-marcombes_github-unyticsairbyteserverless-airbyte-activity-7118520351256391680-mRFa?utm_source=combined_share_message&utm_medium=member_desktop" target="_blank">
+
+        <div>
+
+            <h3>Introducing Airbyte-Serverless for Airbyte & Serverless lovers ❤️</h3>
+
+            <p>Airbyte is a must-have in your data-stack with its 𝗰𝗮𝘁𝗮𝗹𝗼𝗴 𝗼𝗳 𝗼𝗽𝗲𝗻-𝘀𝗼𝘂𝗿𝗰𝗲 𝗰𝗼𝗻𝗻𝗲𝗰𝘁𝗼𝗿𝘀 𝘁𝗼 𝗺𝗼𝘃𝗲 𝘆𝗼𝘂𝗿 𝗱𝗮𝘁𝗮 𝗳𝗿𝗼𝗺 𝗮𝗻𝘆......</p>
+
+            <p class="footer">2023-10-13 • Paul Marcombes</p>
+        </div>
+
+        <div>
+
+            
+
+        </div>
+
+    </a>
+    <hr>
+
+    
+    <a class="blog-post-abstract" href="https://www.linkedin.com/posts/paul-marcombes_github-unyticsairbyteserverless-airbyte-activity-7117595324566626305-XLjT?utm_source=combined_share_message&utm_medium=member_desktop" target="_blank">
+
+        <div>
+
+            <h3>Introducing Airbyte-Serverless for Airbyte & Serverless lovers ❤️</h3>
+
+            <p>Airbyte is a must-have in your data-stack with its 𝗰𝗮𝘁𝗮𝗹𝗼𝗴 𝗼𝗳 𝗼𝗽𝗲𝗻-𝘀𝗼𝘂𝗿𝗰𝗲 𝗰𝗼𝗻𝗻𝗲𝗰𝘁𝗼𝗿𝘀 𝘁𝗼 𝗺𝗼𝘃𝗲 𝘆𝗼𝘂𝗿 𝗱𝗮𝘁𝗮 𝗳𝗿𝗼𝗺 𝗮𝗻𝘆......</p>
+
+            <p class="footer">2023-10-10 • Paul Marcombes</p>
+        </div>
+
+        <div>
+
+            
+
+        </div>
+
+    </a>
+    <hr>
+
+    
+    <a class="blog-post-abstract" href="https://www.linkedin.com/posts/paul-marcombes_lessismore-data-activity-7117433624060116992-cqi9?utm_source=combined_share_message&utm_medium=member_desktop" target="_blank">
+
+        <div>
+
+            <h3>You probably have too many dashboards…</h3>
+
+            <p>… how do you want people to find the information they need from this overcrowded space 🧐? 
+
+
+At Nickel, since we had......</p>
+
+            <p class="footer">2023-10-10 • Paul Marcombes</p>
+        </div>
+
+        <div>
+
+            
+                <img src="https://media.licdn.com/dms/image/v2/D4E22AQFAcbDbynBLeQ/feedshare-shrink_2048_1536/feedshare-shrink_2048_1536/0/1696884823888?e=1741219200&v=beta&t=WX9p1wCViy9Cya10VmbwdY4xok1DqXK6R9jOOc_24Uo">
+            
+
+        </div>
+
+    </a>
+    <hr>
+
+    
+    <a class="blog-post-abstract" href="https://www.linkedin.com/posts/paul-marcombes_bigquery-finops-gcp-activity-7115977007707893761-B_SO?utm_source=combined_share_message&utm_medium=member_desktop" target="_blank">
+
+        <div>
+
+            <h3>Rule № 1️⃣ for reducing BigQuery costs:</h3>
+
+            <p>The best data is the data you don’t store!
+
+- I just deleted 3433 tables. 
+- And I instantly felt way better. 🤗 
+-......</p>
+
+            <p class="footer">2023-10-06 • Paul Marcombes</p>
+        </div>
+
+        <div>
+
+            
+                <img src="https://media.licdn.com/dms/image/v2/D4E22AQHMBUal2VHzxQ/feedshare-shrink_2048_1536/feedshare-shrink_2048_1536/0/1696581125798?e=1741219200&v=beta&t=fmSZT3MDgOxUg-Jm1O5r1kTOAV3FbCHtnJ3YtXxduh4">
+            
+
+        </div>
+
+    </a>
+    <hr>
+
+    
+    <a class="blog-post-abstract" href="https://www.linkedin.com/posts/paul-marcombes_dbt-finops-activity-7115625411715178497-H-kI?utm_source=combined_share_message&utm_medium=member_desktop" target="_blank">
+
+        <div>
+
+            <h3>Beware of dbt tests…. your money may disappear 💸</h3>
+
+            <p>At Nickel, as dbt jobs costs kept rising we decided to take action. ☝️
+
+This is when the great Rémi BENOIST  decided......</p>
+
+            <p class="footer">2023-10-05 • Paul Marcombes</p>
+        </div>
+
+        <div>
+
+            
+                <img src="https://media.licdn.com/dms/image/v2/D4E22AQFYTo7iwgr_vQ/feedshare-shrink_2048_1536/feedshare-shrink_2048_1536/0/1696461358128?e=1741219200&v=beta&t=dJ-G_sp2hahuRhYhsgXUV7gPCDytQw7eulSbfd2LMJ4">
+            
+
+        </div>
+
+    </a>
+    <hr>
+
+    
+    <a class="blog-post-abstract" href="https://www.linkedin.com/posts/paul-marcombes_bigquery-gcp-googlecloud-activity-7115268234395676672-GCtj?utm_source=combined_share_message&utm_medium=member_desktop" target="_blank">
+
+        <div>
+
+            <h3>From 1400 $ to 1 $ a month 👉 my best BigQuery optimization 🤑</h3>
+
+            <p>If you are into reducing BigQuery costs you may have already explored:
+1️⃣ partitioning your tables
+2️⃣ requiring a......</p>
+
+            <p class="footer">2023-10-04 • Paul Marcombes</p>
+        </div>
+
+        <div>
+
+            
+                <img src="https://media.licdn.com/dms/image/v2/D4E22AQGN_AfFdzc62Q/feedshare-shrink_2048_1536/feedshare-shrink_2048_1536/0/1696412138062?e=1741219200&v=beta&t=3gDo4jOeZxu4-Drct-WJCQR1KYwtkhBKonqqG9CiW4I">
+            
+
+        </div>
+
+    </a>
+    <hr>
+
+    
+    <a class="blog-post-abstract" href="https://www.linkedin.com/posts/paul-marcombes_composable-cdp-are-dead-long-live-data-warehouse-activity-7108467280665042945-oQUj?utm_source=combined_share_message&utm_medium=member_desktop" target="_blank">
+
+        <div>
+
+            <h3>Composable CDP are dead, long live Data-Warehouse Connected Products 🔌?</h3>
+
+            <p>It makes no sense to waste effort building a 360° Customer View several times over with several tools. 🧐
+
+That's how......</p>
+
+            <p class="footer">2023-09-15 • Paul Marcombes</p>
+        </div>
+
+        <div>
+
+            
+                <img src="https://media.licdn.com/dms/image/v2/D4E22AQFpCFZNvTQukQ/feedshare-shrink_2048_1536/feedshare-shrink_2048_1536/0/1694790667765?e=1741219200&v=beta&t=nRfKUxMtSfGrnFhJx8nmQiScSRocDtubQy_84VrI8AA">
+            
+
+        </div>
+
+    </a>
+    <hr>
+
+    
+    <a class="blog-post-abstract" href="https://www.linkedin.com/posts/paul-marcombes_self-service-r%C3%AAve-ou-r%C3%A9alit%C3%A9-cest-activity-7094969227513626624-yTga?utm_source=combined_share_message&utm_medium=member_desktop" target="_blank">
+
+        <div>
+
+            <h3>Tout sur le self-service analytics ou l’autonomie dans l’analyse de données.</h3>
+
+            <p>A écouter sur la plage ou au bord de la piscine sans modération. 
+
+Je retiens de cette discussion avec Christophe......</p>
+
+            <p class="footer">2023-08-09 • Paul Marcombes</p>
+        </div>
+
+        <div>
+
+            
+
+        </div>
+
+    </a>
+    <hr>
+
+    
+    <a class="blog-post-abstract" href="https://www.linkedin.com/posts/paul-marcombes_bigquery-to-datastore-via-remote-functions-activity-7086646820033945600-Kqtg?utm_source=combined_share_message&utm_medium=member_desktop" target="_blank">
+
+        <div>
+
+            <h3>Data-Engineering practices are changing!</h3>
+
+            <p>I love this very educational video from Richard Shenghua (升华) He which explains how a SQL query can export BigQuery......</p>
+
+            <p class="footer">2023-07-17 • Paul Marcombes</p>
+        </div>
+
+        <div>
+
+            
+
+        </div>
+
+    </a>
+    <hr>
+
+    
+    <a class="blog-post-abstract" href="https://www.linkedin.com/posts/paul-marcombes_bigquery-bigfunctions-dataengineering-activity-7076847468805550080-sENE?utm_source=combined_share_message&utm_medium=member_desktop" target="_blank">
+
+        <div>
+
+            <h3>Expose your BigQuery data in a real-time database from `dbt` 💎</h3>
+
+            <p>BigQuery is perfect for massive calculations, but is not designed to obtain key-value data very quickly. 
+
+And in......</p>
+
+            <p class="footer">2023-06-20 • Paul Marcombes</p>
+        </div>
+
+        <div>
+
+            
+                <img src="https://media.licdn.com/dms/image/v2/D4E22AQGob6hht5px7w/feedshare-shrink_2048_1536/feedshare-shrink_2048_1536/0/1687246309021?e=1741219200&v=beta&t=ukOwg94lG7evvv0GAzpqQdFujLSAWkX_BL57y7qgwpM">
+            
+
+        </div>
+
+    </a>
+    <hr>
+
+    
+    <a class="blog-post-abstract" href="https://www.linkedin.com/posts/paul-marcombes_bigquery-bigfunctions-dataengineering-activity-7075409796245381120-PIaU?utm_source=combined_share_message&utm_medium=member_desktop" target="_blank">
+
+        <div>
+
+            <h3>Run any python code in BigQuery  🐍</h3>
+
+            <p>When Axel Thevenot from Devoteam came to me and told me:
+👉 ❝ What if we had a function capable of executing any......</p>
+
+            <p class="footer">2023-06-16 • Paul Marcombes</p>
+        </div>
+
+        <div>
+
+            
+                <img src="https://media.licdn.com/dms/image/v2/D4E22AQFAlqQSBEE2IA/feedshare-shrink_2048_1536/feedshare-shrink_2048_1536/0/1686909148683?e=1741219200&v=beta&t=H1-UWNif_eTnN6vwh0RBXby31DCVwnfjhxsG2iqkPOo">
+            
+
+        </div>
+
+    </a>
+    <hr>
+
+    
+    <a class="blog-post-abstract" href="https://www.linkedin.com/posts/paul-marcombes_bigquery-bigfunctions-dataengineering-activity-7072497509008334848-TNy6?utm_source=combined_share_message&utm_medium=member_desktop" target="_blank">
+
+        <div>
+
+            <h3>Sync any dbt model into Google Sheet at `dbt run`  👌</h3>
+
+            <p>Keep your finance team updated ✅ (or any other spreadsheet-lover ❤️) !
+
+Thanks to dbt post-hooks and the brand-new......</p>
+
+            <p class="footer">2023-06-08 • Paul Marcombes</p>
+        </div>
+
+        <div>
+
+            
+                <img src="https://media.licdn.com/dms/image/v2/D4E22AQF61bWEnZxKmA/feedshare-shrink_2048_1536/feedshare-shrink_2048_1536/0/1686173086820?e=1741219200&v=beta&t=RInhjpPX-IBSsGLZIp4Xppq7vd4SI2bjavlFATj31Hg">
+            
+
+        </div>
+
+    </a>
+    <hr>
+
+    
+    <a class="blog-post-abstract" href="https://www.linkedin.com/posts/paul-marcombes_bigquery-bigfunctions-gcp-activity-7067172657221263360-cJaZ?utm_source=combined_share_message&utm_medium=member_desktop" target="_blank">
+
+        <div>
+
+            <h3>😲 Ask Questions to BigQuery in English  !</h3>
+
+            <p>Every BigQuery user can NOW ask questions over their data in English.
+
+The BigQuery function 'ask_my_data' converts......</p>
+
+            <p class="footer">2023-05-24 • Paul Marcombes</p>
+        </div>
+
+        <div>
+
+            
+                <img src="https://media.licdn.com/dms/image/v2/D4E22AQGKpWOThmvFKA/feedshare-shrink_2048_1536/feedshare-shrink_2048_1536/0/1684945261690?e=1741219200&v=beta&t=5Ri0nHVNI7MPTsrtGFf3lBIzipn0f-5o3asKBciowDY">
+            
+
+        </div>
+
+    </a>
+    <hr>
+
+    
+    <a class="blog-post-abstract" href="https://www.linkedin.com/posts/paul-marcombes_bigquery-bigfunctions-dataengineering-activity-7064560205765693440-aIbv?utm_source=combined_share_message&utm_medium=member_desktop" target="_blank">
+
+        <div>
+
+            <h3>Generating PDF invoices from BigQuery  📄</h3>
+
+            <p>You want to generate PDF files from BigQuery to:
+
+1️⃣ Generate custom PDF reports with data
+2️⃣ Generate customized......</p>
+
+            <p class="footer">2023-05-17 • Paul Marcombes</p>
+        </div>
+
+        <div>
+
+            
+                <img src="https://media.licdn.com/dms/image/v2/D4E22AQGKC8OMFbB0pQ/feedshare-shrink_2048_1536/feedshare-shrink_2048_1536/0/1684322404524?e=1741219200&v=beta&t=aOsZTceyuYlyHk_QMm3krt6mf-HwSGENhRP4335kV1c">
+            
+
+        </div>
+
+    </a>
+    <hr>
+
+    
+    <a class="blog-post-abstract" href="https://www.linkedin.com/posts/paul-marcombes_palm2-bigquery-bigfunctions-activity-7062713193789300736-YU2h?utm_source=combined_share_message&utm_medium=member_desktop" target="_blank">
+
+        <div>
+
+            <h3>Generative AI is available in BigQuery and I just learned two things 🧠</h3>
+
+            <p>Google released new language models paLM2 this wednesday and I could not wait to add a bigquery integration. 😊
+
+👉......</p>
+
+            <p class="footer">2023-05-12 • Paul Marcombes</p>
+        </div>
+
+        <div>
+
+            
+                <img src="https://media.licdn.com/dms/image/v2/D4E22AQGF9NY8Twr5UQ/feedshare-shrink_2048_1536/feedshare-shrink_2048_1536/0/1683882042913?e=1741219200&v=beta&t=idzM1Q8RPHbWf-XRwuG8_NpJKDkJAEHb9urPJAYmrUU">
+            
+
+        </div>
+
+    </a>
+    <hr>
+
+    
+    <a class="blog-post-abstract" href="https://www.linkedin.com/posts/paul-marcombes_bigquery-excel-report-the-easy-way-activity-7061995791602606080-hp60?utm_source=combined_share_message&utm_medium=member_desktop" target="_blank">
+
+        <div>
+
+            <h3>BigQuery Excel Report in your inbox ➜ the easy way!</h3>
+
+            <p>Sending a BigQuery table as an Excel file to your team simply requires the execution of a SQL query 👀.
+
+(Thanks to......</p>
+
+            <p class="footer">2023-05-10 • Paul Marcombes</p>
+        </div>
+
+        <div>
+
+            
+
+        </div>
+
+    </a>
+    <hr>
+
+    
+    <a class="blog-post-abstract" href="https://www.linkedin.com/posts/paul-marcombes_bigquery-bigfunctions-activity-7059821460420235264-jpDf?utm_source=combined_share_message&utm_medium=member_desktop" target="_blank">
+
+        <div>
+
+            <h3>Zero-ETL in BigQuery: there is More ➕</h3>
+
+            <p>Did you know you can query any API from BigQuery 👀?
+
+
+
+By enabling data-practitioners to query data-sources without......</p>
+
+            <p class="footer">2023-05-04 • Paul Marcombes</p>
+        </div>
+
+        <div>
+
+            
+                <img src="https://media.licdn.com/dms/image/v2/D5622AQHy13f05v-ZMw/feedshare-shrink_2048_1536/feedshare-shrink_2048_1536/0/1683121739584?e=1741219200&v=beta&t=UO2DXR2pwuHOOQyhF4gA3oGquAIruKZtuLGYfYenDcE">
+            
+
+        </div>
+
+    </a>
+    <hr>
+
+    
+    <a class="blog-post-abstract" href="https://www.linkedin.com/posts/paul-marcombes_bigquery-bigfunctions-activity-7059096700816089091-8N06?utm_source=combined_share_message&utm_medium=member_desktop" target="_blank">
+
+        <div>
+
+            <h3>Sending Slack notifications from BigQuery 💬</h3>
+
+            <p>👀 Guillaume Pivette from Neoxia just created a new function to send Slack messages with a simple BigQuery SQL query......</p>
+
+            <p class="footer">2023-05-02 • Paul Marcombes</p>
+        </div>
+
+        <div>
+
+            
+                <img src="https://media.licdn.com/dms/image/v2/D4E22AQF517wIcfFCNg/feedshare-shrink_2048_1536/feedshare-shrink_2048_1536/0/1682701185939?e=1741219200&v=beta&t=D-0_Esp40B9c6qo5HRcbJSfWQ5qDeNsiPI-AHrfKZ-s">
+            
+
+        </div>
+
+    </a>
+    <hr>
+
+    
+    <a class="blog-post-abstract" href="https://www.linkedin.com/posts/paul-marcombes_bigquery-bigfunctions-activity-7057647104319442944-qEzb?utm_source=combined_share_message&utm_medium=member_desktop" target="_blank">
+
+        <div>
+
+            <h3>Sending notifications from BigQuery 💌</h3>
+
+            <p>Sending Google Chat notifications from BigQuery has never been easier.
+
+👉 Shivam Singh created a simple BigQuery......</p>
+
+            <p class="footer">2023-04-28 • Paul Marcombes</p>
+        </div>
+
+        <div>
+
+            
+                <img src="https://media.licdn.com/dms/image/v2/D4E22AQFDIrz6wBUSJw/feedshare-shrink_2048_1536/feedshare-shrink_2048_1536/0/1682674192785?e=1741219200&v=beta&t=0foNDL0m0LjxQO9BpJsctsJjNLBmyyKtb1LgMY8NWLQ">
+            
+
+        </div>
+
+    </a>
+    <hr>
+
+    
+    <a class="blog-post-abstract" href="https://www.linkedin.com/posts/paul-marcombes_bigquery-bigfunctions-activity-7056559998029418496-sTRi?utm_source=combined_share_message&utm_medium=member_desktop" target="_blank">
+
+        <div>
+
+            <h3>Generate fake data in BigQuery</h3>
+
+            <p>While working in a non-production environment you may want to generate fake data for testing purposes. 
+
+Shivam......</p>
+
+            <p class="footer">2023-04-25 • Paul Marcombes</p>
+        </div>
+
+        <div>
+
+            
+                <img src="https://media.licdn.com/dms/image/v2/D4E22AQEeO0OgTKF0Uw/feedshare-shrink_2048_1536/feedshare-shrink_2048_1536/0/1682406749932?e=1741219200&v=beta&t=ow7DAffgJL_QkrbbY4ub7HapaImQp2vjUWfcmq4nmwE">
+            
+
+        </div>
+
+    </a>
+    <hr>
+
+    
+    <a class="blog-post-abstract" href="https://www.linkedin.com/posts/paul-marcombes_bigquery-bigfunctions-activity-7054363025339736064-zRQf?utm_source=combined_share_message&utm_medium=member_desktop" target="_blank">
+
+        <div>
+
+            <h3>De-identifying text in BigQuery</h3>
+
+            <p>ELT has a drawback over ETL. 
+
+As you get data without transform from your sources into you warehouse, (using......</p>
+
+            <p class="footer">2023-04-19 • Paul Marcombes</p>
+        </div>
+
+        <div>
+
+            
+                <img src="https://media.licdn.com/dms/image/v2/D4E22AQGnTYEoZrzR8Q/feedshare-shrink_2048_1536/feedshare-shrink_2048_1536/0/1681858325989?e=1741219200&v=beta&t=T9gwoRoWbetEvyKMe8ftplTzoIuamh9Q4kz63jKtJfY">
+            
+
+        </div>
+
+    </a>
+    <hr>
+
+    
+    <a class="blog-post-abstract" href="https://www.linkedin.com/posts/paul-marcombes_bigfunctions-data-activity-7052963262488797184-BO1B?utm_source=combined_share_message&utm_medium=member_desktop" target="_blank">
+
+        <div>
+
+            <h3>Celebrating 🥳 10 contributors to help data practicioners</h3>
+
+            <p>When I launched bigfunctions, an open-source product to help data analysts not reinvent the wheel, I wasn't even......</p>
+
+            <p class="footer">2023-04-15 • Paul Marcombes</p>
+        </div>
+
+        <div>
+
+            
+                <img src="https://media.licdn.com/dms/image/v2/D4E22AQGy7Aca2d8H2A/feedshare-shrink_2048_1536/feedshare-shrink_2048_1536/0/1681557477818?e=1741219200&v=beta&t=BaXjlGZ9UcYKCG8nFnb1S3YxigQVGydprSReX6ZeUbs">
+            
+
+        </div>
+
+    </a>
+    <hr>
+
+    
+    <a class="blog-post-abstract" href="https://www.linkedin.com/posts/paul-marcombes_snowflake-bigfunctions-bigquery-activity-7052364212555173889-y7aH?utm_source=combined_share_message&utm_medium=member_desktop" target="_blank">
+
+        <div>
+
+            <h3>Tonight I met Felipe Hoffa from snowflake</h3>
+
+            <p>Felipe Hoffa inspired me for a long time by writing content about data-warehousing and in particular:
+👉 how to......</p>
+
+            <p class="footer">2023-04-13 • Paul Marcombes</p>
+        </div>
+
+        <div>
+
+            
+                <img src="https://media.licdn.com/dms/image/v2/D5622AQHSvEw9GSEaOw/feedshare-shrink_2048_1536/feedshare-shrink_2048_1536/0/1681414652921?e=1741219200&v=beta&t=iT4EXq1Kub-HoJubjyYcCjTaC559QGekvkYvnVlOlCo">
+            
+
+        </div>
+
+    </a>
+    <hr>
+
+    
+    <a class="blog-post-abstract" href="https://www.linkedin.com/posts/paul-marcombes_bigquery-bigfunction-activity-7051947091337596928-FTwe?utm_source=combined_share_message&utm_medium=member_desktop" target="_blank">
+
+        <div>
+
+            <h3>5 reasons why you want to use this bigquery function</h3>
+
+            <p>1️⃣ Check that addresses exist
+2️⃣ Clean up typos in addresses
+3️⃣ Get address hierarchy with address components......</p>
+
+            <p class="footer">2023-04-12 • Paul Marcombes</p>
+        </div>
+
+        <div>
+
+            
+                <img src="https://media.licdn.com/dms/image/v2/D4E22AQE6RRE5p9nvRQ/feedshare-shrink_2048_1536/feedshare-shrink_2048_1536/0/1681246515500?e=1741219200&v=beta&t=87Cm1FgO40K25v3g3jHII8UV8hPG6DKlhzopG2Ww3xM">
+            
+
+        </div>
+
+    </a>
+    <hr>
+
+    
+    <a class="blog-post-abstract" href="https://www.linkedin.com/posts/paul-marcombes_bigquery-bigfunctions-activity-7051519957183913984-yr4J?utm_source=combined_share_message&utm_medium=member_desktop" target="_blank">
+
+        <div>
+
+            <h3>ELT replaced ETL</h3>
+
+            <p>Most transformations are now performed in SQL in the data warehouse. For specific needs such as parsing xml data,......</p>
+
+            <p class="footer">2023-04-11 • Paul Marcombes</p>
+        </div>
+
+        <div>
+
+            
+                <img src="https://media.licdn.com/dms/image/v2/D4E22AQHw-cE22OeFDg/feedshare-shrink_2048_1536/feedshare-shrink_2048_1536/0/1681213367862?e=1741219200&v=beta&t=6wq2BVx4YHWFuKreEukF3VkEmHifKMIFQhEu7QkRhms">
+            
+
+        </div>
+
+    </a>
+    <hr>
+
+    
+    <a class="blog-post-abstract" href="https://www.linkedin.com/posts/paul-marcombes_data-realtime-dataanalysts-activity-7041808042627092480-pXPO?utm_source=combined_share_message&utm_medium=member_desktop" target="_blank">
+
+        <div>
+
+            <h3>Les data-analysts ne devraient pas se contenter de faire des analyses de données pour obtenir des insights.</h3>
+
+            <p>@Data-Analysts, 
+🚀 Impactez directement l'experience utilisateur avec des algos data. 🚀
+
+
+Je ne suis pas peu fier......</p>
+
+            <p class="footer">2023-03-15 • Paul Marcombes</p>
+        </div>
+
+        <div>
+
+            
+                <img src="https://media.licdn.com/dms/image/v2/C4E22AQG45CMrFtqziw/feedshare-shrink_2048_1536/feedshare-shrink_2048_1536/0/1678897866966?e=1741219200&v=beta&t=C3imC6qneLAmRI52rlbMBN-C4R9qlHqYi5s2rHSA22s">
+            
+
+        </div>
+
+    </a>
+    <hr>
+
+    
+    <a class="blog-post-abstract" href="https://www.linkedin.com/posts/paul-marcombes_bigfunctions-bigquery-activity-7011289613080100865-Czif?utm_source=combined_share_message&utm_medium=member_desktop" target="_blank">
+
+        <div>
+
+            <h3>The modern data stack was founded to give full autonomy to data-analysts BUT we miss essential features...</h3>
+
+            <p>What if a data-analyst needs to compute the sentiment score of a customer survey comment. He would ask a......</p>
+
+            <p class="footer">2022-12-21 • Paul Marcombes</p>
+        </div>
+
+        <div>
+
+            
+                <img src="https://media.licdn.com/dms/image/v2/C4E22AQEI1AfO2VufaA/feedshare-shrink_2048_1536/feedshare-shrink_2048_1536/0/1671621705679?e=1741219200&v=beta&t=0RaEKdBupbzNg3gL-qQrCLovHmd4euvaoUiuOUrqz0U">
+            
+
+        </div>
+
+    </a>
+    <hr>
+
+    
+    <a class="blog-post-abstract" href="https://www.linkedin.com/posts/paul-marcombes_bigfunctions-bigquery-bigfunctions-activity-7010568101637332993-cnGD?utm_source=combined_share_message&utm_medium=member_desktop" target="_blank">
+
+        <div>
+
+            <h3>How I created an open-source repository after meeting a Himalayan climber.</h3>
+
+            <p>Like some of us, I have dreamed of creating a product for a long time. But every time I wanted to get started, I......</p>
+
+            <p class="footer">2022-12-19 • Paul Marcombes</p>
+        </div>
+
+        <div>
+
+            
+                <img src="https://media.licdn.com/dms/image/v2/C4E22AQEaUSAPP80BNg/feedshare-shrink_2048_1536/feedshare-shrink_2048_1536/0/1671449684463?e=1741219200&v=beta&t=aU6ZY_SquQQXVgGQQ_tKXhrYR5_uLP1xKzwHEG86tng">
+            
+
+        </div>
+
+    </a>
+    <hr>
+
+    
+    <a class="blog-post-abstract" href="https://www.linkedin.com/posts/paul-marcombes_bigquery-bigquery-bigfunctions-activity-7009072015533854720-55Ib?utm_source=combined_share_message&utm_medium=member_desktop" target="_blank">
+
+        <div>
+
+            <h3>Discretize continuous value to faster Data-Analysis in bigquery</h3>
+
+            <p>To help your data-analysis you may want to discretize continuous values into bins of equal width. 
+
+1️⃣ You can then......</p>
+
+            <p class="footer">2022-12-15 • Paul Marcombes</p>
+        </div>
+
+        <div>
+
+            
+                <img src="https://media.licdn.com/dms/image/v2/C4E22AQHmmTvu2V_vsA/feedshare-shrink_2048_1536/feedshare-shrink_2048_1536/0/1671092989857?e=1741219200&v=beta&t=mj1_zmw64VuAbgKq3gDznQKF-lmRV3z4mr2XdAJaEsI">
+            
+
+        </div>
+
+    </a>
+    <hr>
+
+    
+    <a class="blog-post-abstract" href="https://www.linkedin.com/posts/paul-marcombes_bigquery-advanced-json-queries-activity-7008339733281918977-eblE?utm_source=combined_share_message&utm_medium=member_desktop" target="_blank">
+
+        <div>
+
+            <h3>🔵  Advanced Json Query in BigQuery  👇</h3>
+
+            <p>BigQuery native json support is nice but limited. We need more! 🚧
+
+💥 sid ali sadi from Esmoz is bringing advanced......</p>
+
+            <p class="footer">2022-12-13 • Paul Marcombes</p>
+        </div>
+
+        <div>
+
+            
+
+        </div>
+
+    </a>
+    <hr>
+
+    
+    <a class="blog-post-abstract" href="https://www.linkedin.com/posts/paul-marcombes_bigquery-bigfunctions-activity-7006941275996225536-ErDP?utm_source=combined_share_message&utm_medium=member_desktop" target="_blank">
+
+        <div>
+
+            <h3>🔵 BigQuery json made easy!</h3>
+
+            <p>Oups he did it again! 
+
+sid ali sadi from Esmoz created some very nice bigquery functions callable by anyone from......</p>
+
+            <p class="footer">2022-12-09 • Paul Marcombes</p>
+        </div>
+
+        <div>
+
+            
+                <img src="https://media.licdn.com/dms/image/v2/C4E22AQG9OpH71AuwuQ/feedshare-shrink_2048_1536/feedshare-shrink_2048_1536/0/1670584981747?e=1741219200&v=beta&t=A_uAfLttr9lr30JvDEzM4m-voUxTewlKg2vae8TBiCs">
+            
+
+        </div>
+
+    </a>
+    <hr>
+
+    
+    <a class="blog-post-abstract" href="https://www.linkedin.com/posts/paul-marcombes_bigquery-bigquery-bigfunctions-activity-7006666393081323520-M41Y?utm_source=combined_share_message&utm_medium=member_desktop" target="_blank">
+
+        <div>
+
+            <h3>🔵 Where will this end? Yesterday, a new contributor deployed open BigQuery functions to clean up text. And...</h3>
+
+            <p>Today, another contributor deployed some more!
+
+A big Thanks 🙏 Benjamin Tabet for this contribution that will......</p>
+
+            <p class="footer">2022-12-08 • Paul Marcombes</p>
+        </div>
+
+        <div>
+
+            
+                <img src="https://media.licdn.com/dms/image/v2/C5622AQHNYqvUsTZerQ/feedshare-shrink_2048_1536/feedshare-shrink_2048_1536/0/1670519444360?e=1741219200&v=beta&t=xJgTwMYV7JqTF9FQ-awcxcZD-uKOqyoAhZ4FW3f56EM">
+            
+
+        </div>
+
+    </a>
+    <hr>
+
+    
+    <a class="blog-post-abstract" href="https://www.linkedin.com/posts/paul-marcombes_4-bonnes-raisons-de-larguer-sa-stack-data-activity-7006549739550703617-jUbE?utm_source=combined_share_message&utm_medium=member_desktop" target="_blank">
+
+        <div>
+
+            <h3>👉 Donnons le pouvoir aux data-analysts!</h3>
+
+            <p>Complètement d'accord Robin Conquet.
+  
+Rendons les data-analysts autonomes sur toute la chaîne (de la collecte, aux......</p>
+
+            <p class="footer">2022-12-08 • Paul Marcombes</p>
+        </div>
+
+        <div>
+
+            
+
+        </div>
+
+    </a>
+    <hr>
+
+    
+    <a class="blog-post-abstract" href="https://www.linkedin.com/posts/paul-marcombes_bigquery-bigfunctions-activity-7006173879899414528-l-YR?utm_source=combined_share_message&utm_medium=member_desktop" target="_blank">
+
+        <div>
+
+            <h3>🔵 BigQuery Text Cleaning and Text Comparison</h3>
+
+            <p>👀 sid ali sadi from Esmoz did a great job by adding the new `remove_accents` bigquery function callable by anyone......</p>
+
+            <p class="footer">2022-12-07 • Paul Marcombes</p>
+        </div>
+
+        <div>
+
+            
+                <img src="https://media.licdn.com/dms/image/v2/C4E22AQGkkVo7rjeIVw/feedshare-shrink_2048_1536/feedshare-shrink_2048_1536/0/1670402020357?e=1741219200&v=beta&t=Hs9NvZiElvsMKUosF81CXvULARIC4js5okU9bskLEEk">
+            
+
+        </div>
+
+    </a>
+    <hr>
+
+    
+    <a class="blog-post-abstract" href="https://www.linkedin.com/posts/paul-marcombes_why-dbts-semantic-layer-sucks-activity-7001074129462255616-9SHt?utm_source=combined_share_message&utm_medium=member_desktop" target="_blank">
+
+        <div>
+
+            <h3>Great article Robert Yi to get a view of semantic layer strategic choices.</h3>
+
+            <p>...</p>
+
+            <p class="footer">2022-11-23 • Paul Marcombes</p>
+        </div>
+
+        <div>
+
+            
+
+        </div>
+
+    </a>
+    <hr>
+
+    
+    <a class="blog-post-abstract" href="https://www.linkedin.com/posts/paul-marcombes_bigquery-bigfunctions-activity-6999355772329467904-ift0?utm_source=combined_share_message&utm_medium=member_desktop" target="_blank">
+
+        <div>
+
+            <h3>🔵 BigQuery Auto Date Cleaning!</h3>
+
+            <p>Sebabrata Banerjee   (Sebo) did a great video tutorial to use regex for date cleaning 👨‍💻.
+
+What if you don't know......</p>
+
+            <p class="footer">2022-11-18 • Paul Marcombes</p>
+        </div>
+
+        <div>
+
+            
+                <img src="https://media.licdn.com/dms/image/v2/C4E22AQF2V90opnePWw/feedshare-shrink_2048_1536/feedshare-shrink_2048_1536/0/1668776456231?e=1741219200&v=beta&t=zVyqsQd3jqF8iO0l_3yymV0pdGceztrSapAeIL3e2OE">
+            
+
+        </div>
+
+    </a>
+    <hr>
+
+    
+    <a class="blog-post-abstract" href="https://www.linkedin.com/posts/paul-marcombes_bigquery-bigfunctions-activity-6991791325377404928-X4_C?utm_source=combined_share_message&utm_medium=member_desktop" target="_blank">
+
+        <div>
+
+            <h3>🔵 BigQuery arrays made easy!</h3>
+
+            <p>I recently discovered the great 'sql-snippets' open-source repository from Taylor Brownlow from Count. 
+
+I ❤️ the......</p>
+
+            <p class="footer">2022-10-28 • Paul Marcombes</p>
+        </div>
+
+        <div>
+
+            
+                <img src="https://media.licdn.com/dms/image/v2/C4E22AQEtBx_YTofwRA/feedshare-shrink_2048_1536/feedshare-shrink_2048_1536/0/1666972952235?e=1741219200&v=beta&t=_L1VbyrCJ75A1CBNXMHKwryway2v4PrO7F80QwEoH1c">
+            
+
+        </div>
+
+    </a>
+    <hr>
+
+    
+    <a class="blog-post-abstract" href="https://www.linkedin.com/posts/paul-marcombes_datacleaning-sql-dbt-activity-6990801218084253696-m1RJ?utm_source=combined_share_message&utm_medium=member_desktop" target="_blank">
+
+        <div>
+
+            <h3>Totally agree with you @Madison Schott!  ➜ opensource for data is great to avoid reinventing the wheel and to share efforts 👇</h3>
+
+            <p>Mateusz Klimek: I took the liberty of re-developing your `clean_additional_whitespaces` dbt macro as a public......</p>
+
+            <p class="footer">2022-10-25 • Paul Marcombes</p>
+        </div>
+
+        <div>
+
+            
+
+        </div>
+
+    </a>
+    <hr>
+
+    
+    <a class="blog-post-abstract" href="https://www.linkedin.com/posts/paul-marcombes_%F0%9D%90%91%F0%9D%90%9E%F0%9D%90%A3%F0%9D%90%A8%F0%9D%90%A2%F0%9D%90%A0%F0%9D%90%A7%F0%9D%90%9E%F0%9D%90%B3-%F0%9D%90%A6%F0%9D%90%A8%F0%9D%90%A2-%F0%9D%90%A5%F0%9D%90%AE%F0%9D%90%A7%F0%9D%90%9D%F0%9D%90%A2-%C3%A0-%F0%9D%90%86-activity-6986619669633716224-WNUJ?utm_source=combined_share_message&utm_medium=member_desktop" target="_blank">
+
+        <div>
+
+            <h3>Rejoignez-moi lundi à Google Next Recap France:</h3>
+
+            <p>- si vous voulez tout savoir sur le scaling des usages data chez Nickel grâce à GCP. 
+
+- si vous êtes intrigués par......</p>
+
+            <p class="footer">2022-10-14 • Paul Marcombes</p>
+        </div>
+
+        <div>
+
+            
+                <img src="https://media.licdn.com/dms/image/v2/C4E22AQFMkYf9oobYEA/feedshare-shrink_2048_1536/feedshare-shrink_2048_1536/0/1665739933446?e=1741219200&v=beta&t=UssSHQBqOgMWN9YcAg4wqERpgICpar_0JH06X55u5No">
+            
+
+        </div>
+
+    </a>
+    <hr>
+
+    
+    <a class="blog-post-abstract" href="https://www.linkedin.com/posts/paul-marcombes_bigquery-bigfunctions-data-activity-6985143660828844032-X5oe?utm_source=combined_share_message&utm_medium=member_desktop" target="_blank">
+
+        <div>
+
+            <h3>🌐 Furcy Pin brings Graph Algorithms to BigQuery!</h3>
+
+            <p>What a pleasure to see Furcy brings the first Graph Algorithm to BigQuery as an open function callable by anyone......</p>
+
+            <p class="footer">2022-10-10 • Paul Marcombes</p>
+        </div>
+
+        <div>
+
+            
+                <img src="https://media.licdn.com/dms/image/v2/C4E22AQFRlsYYlTj8ag/feedshare-shrink_2048_1536/feedshare-shrink_2048_1536/0/1665388025743?e=1741219200&v=beta&t=_TRtCJYrB77FyyXST7UgyGtTohwaZAJ62JfGphrM5LY">
+            
+
+        </div>
+
+    </a>
+    <hr>
+
+    
+    <a class="blog-post-abstract" href="https://www.linkedin.com/posts/paul-marcombes_data-bigquery-opensource-activity-6982620263657938945-A1QC?utm_source=combined_share_message&utm_medium=member_desktop" target="_blank">
+
+        <div>
+
+            <h3>👀 What if common BigQuery functions were available from a unique place?</h3>
+
+            <p>Last week, a question was asked in our modern-data-stack slack-community: 
+"how do you get if a date is a......</p>
+
+            <p class="footer">2022-10-03 • Paul Marcombes</p>
+        </div>
+
+        <div>
+
+            
+                <img src="https://media.licdn.com/dms/image/v2/C4E22AQGUcbpQbvj8-A/feedshare-shrink_2048_1536/feedshare-shrink_2048_1536/0/1664786400863?e=1741219200&v=beta&t=o3kuUCgZSFnDS2TQJaPM5A4Zp_BoNTCMrRFr7HQ4RNg">
+            
+
+        </div>
+
+    </a>
+    <hr>
+
+    
+    <a class="blog-post-abstract" href="https://www.linkedin.com/posts/paul-marcombes_bigquery-data-dataanalytics-activity-6980085040453980161-QRwu?utm_source=combined_share_message&utm_medium=member_desktop" target="_blank">
+
+        <div>
+
+            <h3>Et si on pouvait voir le profiling des données dans BigQuery ?</h3>
+
+            <p>C'est important quand on commence un projet data de:
+- 👃 sentir les données, 
+- 👀 savoir s'il y a des outliers,
+- 🌊......</p>
+
+            <p class="footer">2022-09-26 • Paul Marcombes</p>
+        </div>
+
+        <div>
+
+            
+                <img src="https://media.licdn.com/dms/image/v2/C4E22AQFj9iqwsDqUkA/feedshare-shrink_2048_1536/feedshare-shrink_2048_1536/0/1664181955701?e=1741219200&v=beta&t=HcKGpqzg-QPHezk5qwvzccEjfF-T6kaPyVkvrqWS5ts">
+            
+
+        </div>
+
+    </a>
+    <hr>
+
+    
+    <a class="blog-post-abstract" href="https://www.linkedin.com/posts/paul-marcombes_ai-engineering-10-dbt-et-la-modern-data-activity-6973190711496097792-LJzC?utm_source=combined_share_message&utm_medium=member_desktop" target="_blank">
+
+        <div>
+
+            <h3>Ravi de pouvoir exposer comment dbt permet de mettre le data-warehouse cloud tel que BigQuery ou Snowflake au centre...</h3>
+
+            <p>- en rendant possible l’autonomie des data-analysts sur toute la chaîne: de l’ingestion des données à l’activation......</p>
+
+            <p class="footer">2022-09-07 • Paul Marcombes</p>
+        </div>
+
+        <div>
+
+            
+
+        </div>
+
+    </a>
+    <hr>
+
+    
+
+</div>
