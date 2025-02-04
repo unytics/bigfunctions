@@ -9,7 +9,7 @@ theme:
   name: material
   custom_dir: docs/theme_overrides
   logo: assets/logo.png
-  favicon: assets/logo.png
+  favicon: /assets/favicon.ico
   features:
     - tabs
     - content.tabs.link
