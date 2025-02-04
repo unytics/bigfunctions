@@ -20,6 +20,10 @@
 <meta property="og:description" content="{{ config.site_description }}" />
 {% endif %}
 
+{% if page.canonical_url %}
+<meta property="og:url" content="{{ page.canonical_url }}" />
+{% endif %}
+
 {% if page and page.meta and page.meta.image_url %}
 <meta property="og:image" content="{{ page.meta.image_url }}" />
 <meta property="og:image:type" content="{{ page.meta.image_type }}" />
