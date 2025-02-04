@@ -1,8 +1,8 @@
 <div class="hero" markdown>
 
-# Deploy Functions in your BigQuery Project
+# BigFunctions Framework
 
-Deploy public functions (or your own)<br>in your BigQuery project<br>with the Command-Line Interface.
+Deploy a catalog of BigQuery functions
 
 
 </div>
@@ -12,19 +12,13 @@ Deploy public functions (or your own)<br>in your BigQuery project<br>with the Co
 
 -   ## A YAML Standard
 
-    Each function is defined in a yaml file which defines the:
+    Each function is defined in a **yaml file** *(with its author, description, arguments, examples, code, etc)*
 
-    - author
-    - description
-    - arguments
-    - examples
-    - code
 
-    <br>
+    Yaml files are used to **test & deploy the functions** and **generate a documentation website** (such as this website).
 
-    Yaml files are:
+    They are
 
-    - used for deploying and generating the documentation website.
     - easily shared
     - open: public functions yaml files are all open-source and downloadable with one command.
 
