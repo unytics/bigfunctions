@@ -2,7 +2,11 @@
 
 # BigFunctions Framework
 
-Deploy a catalog of BigQuery functions
+Build a catalog of BigQuery functions<br>
+using BigFunctions Framework<br>
+
+*(yaml files to describe functions + CLI to manage them)*
+{ .small }
 
 
 </div>
@@ -16,11 +20,6 @@ Deploy a catalog of BigQuery functions
 
 
     Yaml files are used to **test & deploy the functions** and **generate a documentation website** (such as this website).
-
-    They are
-
-    - easily shared
-    - open: public functions yaml files are all open-source and downloadable with one command.
 
 -   ![function yaml](assets/yaml.png)
 
