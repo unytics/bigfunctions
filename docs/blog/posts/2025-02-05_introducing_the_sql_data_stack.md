@@ -1,5 +1,5 @@
 ---
-title: "Introducing SQL Data Stacks"
+title: "Introducing SQL Data Stack"
 description: |
   Tired of complex data stacks? Discover the SQL Data Stack: a new paradigm that uses SQL for data ingestion, transformation, and activation, empowering analysts and simplifying your data workflow
 ---
