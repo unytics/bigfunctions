@@ -1,5 +1,5 @@
 ---
-title: "{{ name }} - BigQuery"
+title: "{{ name }} - BigQuery function"
 description: "BigFunction {{ name }} is a BigQuery function which {{ description.split('\n')[0] }}"
 hide:
   - navigation

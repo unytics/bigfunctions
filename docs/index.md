@@ -94,7 +94,7 @@ with **150+ functions** built by the community<br>
 
     Send the figures of the week or alerts when data is wrong.
 
-    With dbt post hook, you can trigger activations at model creation.
+    With dbt post hook, you can trigger actions at model creation.
 
 -   ![email notification](assets/email.png){ .primary-border }
 

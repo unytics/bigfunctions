@@ -1,3 +1,14 @@
+---
+title: "BigFunctions Framework helps you build a catalog of BigQuery functions"
+description: |
+  BigFunctions is a framework to build
+  a catalog of functions in BigQuery
+  Like dbt, it comes with a yaml standard and
+  a Command-Line-Interface to test, deploy
+  and generate a documentation website
+---
+
+
 <div class="hero" markdown>
 
 # BigFunctions Framework
@@ -44,32 +55,18 @@ using BigFunctions Framework<br>
 </div>
 
 
-
-## 🚀 4. Deploy BigFunctions in your GCP project
-
-You can also deploy any bigfunction in your project! To deploy *my_bigfunction* defined in *bigfunctions/my_bigfunction.yaml* file, simply call:
-
-``` sh
-bigfun deploy my_bigfunction
-```
-
-Details about `bigfun` command line are given below.
-
-<br>
-
-
-## 💥 5. `bigfun` CLI
+## 💥 `bigfun` Command-Line-Interface
 
 `bigfun` CLI (command-line-interface) facilitates BigFunctions development, test, deployment, documentation and monitoring.
 
-### 5.1 Install `bigfun` 🛠️
+### 1. Install `bigfun` 🛠️
 
 
 ``` sh
 pip install bigfunctions
 ```
 
-### 5.2 Use `bigfun` 🔥
+### 2. Use `bigfun` 🔥
 
 ``` sh
 $ bigfun --help
@@ -86,7 +83,7 @@ Commands:
 ```
 
 
-### 5.3 Create you first function 👷
+### 3. Create you first function 👷
 
 Functions are defined as yaml files under `bigfunctions` folder. To create your first function locally, the easiest is to download an existing yaml file of unytics/bigfunctions Github repo.
 
@@ -101,7 +98,7 @@ You can then update the file to suit your needs.
 
 
 
-### 5.4 Deploy you first function 👨‍💻
+### 4. Deploy you first function 👨‍💻
 
 > 1. Make sure the `gcloud` command is [installed on your computer](https://cloud.google.com/sdk/docs/install)
 > 2. Activate the application-default account with `gcloud auth application-default login`. A browser window should open, and you should be prompted to log into your Google account. Once you've done that, `bigfun` will use your oauth'd credentials to connect to BigQuery through BigQuery python client!
@@ -128,7 +125,7 @@ select PROJECT.DATASET.is_email_valid('paul.marcombes@unytics.io')
 <br>
 
 
-### 5.5 Deploy you first javascript function which depends on *npm packages* 👽
+### 5. Deploy you first javascript function which depends on *npm packages* 👽
 
 *To deploy a **javascript** function* which depends on **npm packages** there are additional requirements *in addition to the ones above*.
 
@@ -151,7 +148,7 @@ select PROJECT.DATASET.render_template('Hello {{ user }}', json '{"user": "James
 <br>
 
 
-### 5.6 Deploy you first *remote* function ⚡️
+### 6. Deploy you first *remote* function ⚡️
 
 *To deploy a **remote** function* (e.g. python function), there are additional requirements *in addition to the ones of **Deploy you first function** section*.
 

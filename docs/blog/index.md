@@ -36,10 +36,73 @@ search:
 
 </style>
 
+
+<div class="hero" markdown>
+
+# Featured Posts
+
+</div>
+
+
+
+<div class="lg:two-columns lg:revert-items" markdown>
+
+-   ## SQL Data Stack:<br>A New Paradigm for Data Platforms
+
+    Tired of complex data stacks?
+
+    Discover the SQL Data Stack: a new paradigm that uses SQL for data ingestion, transformation, and activation, empowering analysts and simplifying your data workflow
+
+    [Read More :octicons-arrow-right-24:](posts/2025-02-05_introducing_the_sql_data_stack.md){ .md-button }
+
+-   ![paul introducing sql data stack](../assets/blog/2025-02-05_introducing_sql_data_stack.png)
+
+</div>
+
+
+<div class="lg:two-columns" markdown>
+
+-   ## From SQL to Slack:<br>Automating Data Workflows with BigFunctions
+
+    BigFunctions bridges the gap between data analysis and actions by enabling analysts to trigger actions.
+
+    [Read More :octicons-arrow-right-24:](https://timodechau.com/from-sql-to-slack-automating-data-workflows-with-big-functions/){ .md-button }
+
+-   ![timo dechau blog image](../assets/blog/timo_dechau_blog.png)
+
+</div>
+
+---
+
+<div class="hero" markdown>
+
+# Latest Posts
+
+</div>
+
+
+
 <div class="blog-posts">
 
-    <h1>Blog</h1>
 
+    <a class="blog-post-abstract" href="https://timodechau.com/from-sql-to-slack-automating-data-workflows-with-big-functions/" target="_blank">
+
+        <div>
+
+            <h3 style="font-size: 2em;">From SQL to Slack: Automating Data Workflows with BigFunctions</h3>
+
+            <img src="../assets/blog/timo_dechau_blog.png" style="margin: 0; max-width: 400px">
+
+            <p>BigFunctions bridges the gap between data analysis and action by enabling analysts to trigger actions.</p>
+
+            <p class="footer">2025-01-23 • Timo Dechau</p>
+        </div>
+
+        <div>
+
+        </div>
+
+    </a>
     <hr>
 
 
