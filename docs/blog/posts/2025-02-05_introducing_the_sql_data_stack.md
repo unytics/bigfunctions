@@ -82,3 +82,12 @@ Check out the [GitHub repo](https://github.com/unytics/bigfunctions), contribute
 And if you’re keen to dive deeper or have questions, let’s connect on [LinkedIn](https://www.linkedin.com/in/paul-marcombes/). I’m always eager to discuss how we can push the boundaries of data management and empower our teams.
 
 Together, let’s make the SQL data stack the new way!
+
+
+---
+
+## Replay on Youtube
+
+[Watch the Replay (in French) :simple-youtube:](https://www.youtube.com/watch?v=ehB80iZjdwU)
+
+[![Youtube Video](https://img.youtube.com/vi/ehB80iZjdwU/0.jpg)](https://www.youtube.com/watch?v=ehB80iZjdwU)
