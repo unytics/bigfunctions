@@ -68,11 +68,42 @@ search:
 
     Trigger Slack notifications, enrich data, and integrate AI directly from BigQuery, all using SQL.
 
-    [Read More :octicons-arrow-right-24:](https://timodechau.com/from-sql-to-slack-automating-data-workflows-with-big-functions/){ .md-button }
+    [Read More :octicons-arrow-right-24:](https://timodechau.com/from-sql-to-slack-automating-data-workflows-with-big-functions/){ .md-button target="_blank" }
 
 -   ![timo dechau photo](https://timodechau.com/content/images/size/w400/format/webp/2024/12/timo_square.jpeg)
 
 </div>
+
+
+<div class="lg:two-columns lg:revert-items" markdown>
+
+-   ## Open-Source Framework + Open-Source Functions
+
+    This tutorial introduces BigFunctions.
+
+    Learn how to access and utilize these functions directly from BigQuery to enhance data analysis capabilities without additional setup.
+
+    [Read More :octicons-arrow-right-24:](https://medium.com/google-cloud/supercharge-bigquery-with-bigfunctions-2139a1bba620){ .md-button target="_blank" }
+
+-   ![jake holmquist profile image](../assets/blog/2025-02-06_Jake_Holmquist.png)
+
+</div>
+
+
+<div class="lg:two-columns" markdown>
+
+-   ## Beyond SQL as a Pure Database Syntax
+
+    BigFunctions extends SQL, enabling composable, reusable analytics patterns.
+
+    By embedding code into functions, it bridges SQL's limitations, reduces code footprint, and accelerates data insights.
+
+    [Read More :octicons-arrow-right-24:](https://fromanengineersight.substack.com/p/beyond-sql-as-a-pure-database-syntax){ .md-button target="_blank" }
+
+-   ![benoit pimpaud profile image](https://cdn.theorg.com/be98c465-6d08-43ad-8ef3-f43b34addfde_medium.jpg){ style="max-width: 400px; width: 100%" }
+
+</div>
+
 
 ---
 
