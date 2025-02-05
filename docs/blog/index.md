@@ -62,13 +62,15 @@ search:
 
 <div class="lg:two-columns" markdown>
 
--   ## From SQL to Slack:<br>Automating Data Workflows with BigFunctions
+-   ## Bridge the gap between SQL and action
 
-    BigFunctions bridges the gap between data analysis and actions by enabling analysts to trigger actions.
+    Automate data workflows with BigFunctions, bridging the gap between SQL and action.
+
+    Trigger Slack notifications, enrich data, and integrate AI directly from BigQuery, all using SQL.
 
     [Read More :octicons-arrow-right-24:](https://timodechau.com/from-sql-to-slack-automating-data-workflows-with-big-functions/){ .md-button }
 
--   ![timo dechau blog image](../assets/blog/timo_dechau_blog.png)
+-   ![timo dechau photo](https://timodechau.com/content/images/size/w400/format/webp/2024/12/timo_square.jpeg)
 
 </div>
 
@@ -83,49 +85,6 @@ search:
 
 
 <div class="blog-posts">
-
-
-    <a class="blog-post-abstract" href="https://timodechau.com/from-sql-to-slack-automating-data-workflows-with-big-functions/" target="_blank">
-
-        <div>
-
-            <h3 style="font-size: 2em;">From SQL to Slack: Automating Data Workflows with BigFunctions</h3>
-
-            <img src="../assets/blog/timo_dechau_blog.png" style="margin: 0; max-width: 400px">
-
-            <p>BigFunctions bridges the gap between data analysis and action by enabling analysts to trigger actions.</p>
-
-            <p class="footer">2025-01-23 • Timo Dechau</p>
-        </div>
-
-        <div>
-
-        </div>
-
-    </a>
-    <hr>
-
-
-    <a class="blog-post-abstract" href="https://timodechau.com/from-sql-to-slack-automating-data-workflows-with-big-functions/" target="_blank">
-
-        <div>
-
-            <h3 style="font-size: 2em;">From SQL to Slack: Automating Data Workflows with BigFunctions</h3>
-
-            <img src="../assets/blog/timo_dechau_blog.png" style="margin: 0; max-width: 400px">
-
-            <p>BigFunctions bridges the gap between data analysis and action by enabling analysts to trigger actions.</p>
-
-            <p class="footer">2025-01-23 • Timo Dechau</p>
-        </div>
-
-        <div>
-
-        </div>
-
-    </a>
-    <hr>
-
 
 
     <a class="blog-post-abstract" href="https://www.linkedin.com/posts/paul-marcombes_in-2025-analytics-engineers-will-build-data-apps-activity-7289945363237543936-GCiT?utm_source=combined_share_message&utm_medium=member_desktop" target="_blank">
