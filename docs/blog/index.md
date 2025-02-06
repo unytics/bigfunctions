@@ -92,7 +92,7 @@ search:
 
     [Read More :octicons-arrow-right-24:](https://www.youtube.com/watch?v=kFy78r1Iabs){ .md-button target="_blank" }
 
--   ![richard shenghua video screenshot](../assets/blog/2025-02-06_richard-shenghua.png)
+-   ![richard shenghua profile photo](https://miro.medium.com/v2/resize:fit:2400/1*sQBZAcpkOhRvSe5zYudx_A.jpeg)
 
 </div>
 
