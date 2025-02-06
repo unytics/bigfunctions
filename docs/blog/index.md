@@ -85,7 +85,7 @@ search:
 
     [Read More :octicons-arrow-right-24:](https://medium.com/google-cloud/supercharge-bigquery-with-bigfunctions-2139a1bba620){ .md-button target="_blank" }
 
--   ![jake holmquist profile image](../assets/blog/2025-02-06_Jake_Holmquist.png)
+-   ![jake holmquist profile photo](../assets/blog/2025-02-06_Jake_Holmquist.png)
 
 </div>
 
@@ -100,7 +100,22 @@ search:
 
     [Read More :octicons-arrow-right-24:](https://fromanengineersight.substack.com/p/beyond-sql-as-a-pure-database-syntax){ .md-button target="_blank" }
 
--   ![benoit pimpaud profile image](https://cdn.theorg.com/be98c465-6d08-43ad-8ef3-f43b34addfde_medium.jpg){ style="max-width: 400px; width: 100%" }
+-   ![benoit pimpaud profile photo](https://cdn.theorg.com/be98c465-6d08-43ad-8ef3-f43b34addfde_medium.jpg){ style="max-width: 400px; width: 100%" }
+
+</div>
+
+
+<div class="lg:two-columns lg:revert-items" markdown>
+
+-   ## Benefits of BigFunctions: A Data Engineering Perspective
+
+    BigFunctions assists data engineers by providing them with 150+ open-source functions that are ready to go.
+
+    Functions allow them to extend BigQuery functionality, improve the reusability of BigQuery queries, and ensure consistent business logic across a company’s analytical operations.
+
+    [Read More :octicons-arrow-right-24:](https://mastheadata.com/exploring-the-benefits-of-bigfunctions-for-bigquery-a-data-engineers-perspective/){ .md-button target="_blank" }
+
+-   ![Yuliia Tkachova profile photo](https://cache.sessionize.com/image/0168-400o400o2-24epqXXuyWFRatd2QKMhY.jpg)
 
 </div>
 
