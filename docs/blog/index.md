@@ -147,13 +147,11 @@ search:
 
 -   ## BigFunctions is dataform's best friend
 
-    With BigFunctions, *all your data tasks* can be run from SQL.
+    With BigFunctions, *any task* can be run from SQL.
 
-    Then *all your data tasks* can be orchestrated with dataform
+    :octicons-arrow-right-24: So *any task* can be orchestrated by SQL orchestrators such as dataform, dbt, sqlmesh or scheduled queries.
 
-    *(or dbt, sqlmesh, scheduled queries, etc)*
-
-    [Read More :octicons-arrow-right-24:](https://michael-scherding.medium.com/spicing-up-gcs-to-bigquery-transfers-from-dataform-with-bigfunctions-0d286e5a91c1){ .md-button target="_blank" }
+    [See an example :octicons-arrow-right-24:](https://michael-scherding.medium.com/spicing-up-gcs-to-bigquery-transfers-from-dataform-with-bigfunctions-0d286e5a91c1){ .md-button target="_blank" }
 
 -   ![mickael sherding profile photo](https://miro.medium.com/v2/resize:fit:2400/1*K6lBFw65lMIHIX4z7m6jPA.jpeg){ style="max-width: 400px; width: 100%" }
 
