@@ -77,6 +77,28 @@ search:
 
 <div class="lg:two-columns lg:revert-items" markdown>
 
+-   ## Unlock new use cases
+
+    Run a simple SQL query to expose
+    BigQuery data to a low latency API or to send BigQuery data to any destination.
+
+    Unlock:
+
+    1. embedded analytics
+    2. real-time feature store
+    3. actions triggered by data
+    4. ...*sky is the limit*
+
+
+    [Read More :octicons-arrow-right-24:](https://www.youtube.com/watch?v=kFy78r1Iabs){ .md-button target="_blank" }
+
+-   ![richard shenghua video screenshot](https://img.youtube.com/vi/kFy78r1Iabs/0.jpg){ .primary-border style="width: 100%;" }
+
+</div>
+
+
+<div class="lg:two-columns" markdown>
+
 -   ## Open-Source Framework + Open-Source Functions
 
     This tutorial introduces BigFunctions.
@@ -90,7 +112,7 @@ search:
 </div>
 
 
-<div class="lg:two-columns" markdown>
+<div class="lg:two-columns lg:revert-items" markdown>
 
 -   ## Beyond SQL as a Pure Database Syntax
 
@@ -105,7 +127,7 @@ search:
 </div>
 
 
-<div class="lg:two-columns lg:revert-items" markdown>
+<div class="lg:two-columns" markdown>
 
 -   ## Benefits of BigFunctions: A Data Engineering Perspective
 
@@ -118,6 +140,26 @@ search:
 -   ![Yuliia Tkachova profile photo](https://cache.sessionize.com/image/0168-400o400o2-24epqXXuyWFRatd2QKMhY.jpg)
 
 </div>
+
+
+
+<div class="lg:two-columns lg:revert-items" markdown>
+
+-   ## BigFunctions is dataform's best friend
+
+    With BigFunctions, *all your data tasks* can be run from SQL.
+
+    Then *all your data tasks* can be orchestrated with dataform
+
+    *(or dbt, sqlmesh, scheduled queries, etc)*
+
+    [Read More :octicons-arrow-right-24:](https://michael-scherding.medium.com/spicing-up-gcs-to-bigquery-transfers-from-dataform-with-bigfunctions-0d286e5a91c1){ .md-button target="_blank" }
+
+-   ![mickael sherding profile photo](https://miro.medium.com/v2/resize:fit:2400/1*K6lBFw65lMIHIX4z7m6jPA.jpeg){ style="max-width: 400px; width: 100%" }
+
+</div>
+
+
 
 
 ---
