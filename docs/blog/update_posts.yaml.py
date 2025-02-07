@@ -6,7 +6,6 @@ import re
 
 import jinja2
 
-
 YAML_TEMPLATE = jinja2.Template('''
 {% for post in posts %}
 - id: {{ post.id }}

@@ -1,5 +1,5 @@
-import yaml
 import jinja2
+import yaml
 
 template = jinja2.Template(open('index.md.template', encoding='utf-8').read())
 

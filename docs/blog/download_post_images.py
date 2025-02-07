@@ -1,5 +1,7 @@
 import urllib.request
 
+import yaml
+
 
 def download_images(posts):
     os.makedirs('assets/blog', exist_ok=True)
@@ -15,4 +17,5 @@ def download_images(posts):
         urllib.request.urlretrieve(url, destination_filename)
         time.sleep(2)
 
+posts = yaml.safe_load(open('posts.yaml', encoding='utf-8').read())
 download_images(posts)

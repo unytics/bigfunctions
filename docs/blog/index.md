@@ -162,7 +162,7 @@ search:
 <div class="blog-posts">
 
 
-    
+
     <a class="blog-post-abstract" href="https://www.linkedin.com/posts/paul-marcombes_in-2025-analytics-engineers-will-build-data-apps-activity-7289945363237543936-GCiT?utm_source=combined_share_message&utm_medium=member_desktop" target="_blank">
 
         <div>
@@ -185,7 +185,7 @@ Since the rise of cloud data-warehouses and the birth of dbt, data engineers don
     </a>
     <hr>
 
-    
+
     <a class="blog-post-abstract" href="https://www.linkedin.com/posts/paul-marcombes_bigfunctions-activity-7288236835531591680-V3vC?utm_source=combined_share_message&utm_medium=member_desktop" target="_blank">
 
         <div>
@@ -208,7 +208,7 @@ I've been following him for two......</p>
     </a>
     <hr>
 
-    
+
     <a class="blog-post-abstract" href="https://www.linkedin.com/posts/timo-dechau_a-while-ago-i-wanted-a-daily-slack-update-activity-7288154281738661888-qSGG?utm_source=combined_share_message&utm_medium=member_desktop" target="_blank">
 
         <div>
@@ -229,7 +229,7 @@ I've been following him for two......</p>
     </a>
     <hr>
 
-    
+
     <a class="blog-post-abstract" href="https://www.linkedin.com/posts/paul-marcombes_beyond-sql-as-a-pure-database-syntax-activity-7285925077592801280-eXXV?utm_source=combined_share_message&utm_medium=member_desktop" target="_blank">
 
         <div>
@@ -252,7 +252,7 @@ I'm happy with......</p>
     </a>
     <hr>
 
-    
+
     <a class="blog-post-abstract" href="https://www.linkedin.com/posts/pimpaudben_beyond-sql-as-a-pure-database-syntax-activity-7285716946547834880-TRtB?utm_source=combined_share_message&utm_medium=member_desktop" target="_blank">
 
         <div>
@@ -273,7 +273,7 @@ I'm happy with......</p>
     </a>
     <hr>
 
-    
+
     <a class="blog-post-abstract" href="https://www.linkedin.com/posts/paul-marcombes_whats-up-for-me-in-2025-more-open-source-activity-7285312281217753088-Eik8?utm_source=combined_share_message&utm_medium=member_desktop" target="_blank">
 
         <div>
@@ -300,7 +300,7 @@ In 2024, I built 4 Open-Source Data Apps:
     </a>
     <hr>
 
-    
+
     <a class="blog-post-abstract" href="https://www.linkedin.com/posts/paul-marcombes_unifying-analytics-platform-what-if-you-activity-7284860745152888832-AXhL?utm_source=combined_share_message&utm_medium=member_desktop" target="_blank">
 
         <div>
@@ -324,7 +324,7 @@ Burak shared his......</p>
     </a>
     <hr>
 
-    
+
     <a class="blog-post-abstract" href="https://www.linkedin.com/posts/burakkarakan_all-in-one-data-platform-with-configuration-activity-7283080790899347456-gDLX?utm_source=combined_share_message&utm_medium=member_desktop" target="_blank">
 
         <div>
@@ -347,7 +347,7 @@ We......</p>
     </a>
     <hr>
 
-    
+
     <a class="blog-post-abstract" href="https://www.linkedin.com/posts/paul-marcombes_all-in-one-data-platform-with-configuration-activity-7282697551185645568-X-Io?utm_source=combined_share_message&utm_medium=member_desktop" target="_blank">
 
         <div>
@@ -371,7 +371,7 @@ Modern-data-stack brought data tooling for any data service:
     </a>
     <hr>
 
-    
+
     <a class="blog-post-abstract" href="https://www.linkedin.com/posts/paul-marcombes_how-to-stay-fast-in-a-bigger-companyheres-activity-7282339879840059392-mwA4?utm_source=combined_share_message&utm_medium=member_desktop" target="_blank">
 
         <div>
@@ -394,7 +394,7 @@ We built ultrasound scanners......</p>
     </a>
     <hr>
 
-    
+
     <a class="blog-post-abstract" href="https://www.linkedin.com/posts/sabrikaragonen_just-tried-something-really-amazing-with-ugcPost-7282078262535634945-yNHJ?utm_source=combined_share_message&utm_medium=member_desktop" target="_blank">
 
         <div>
@@ -415,7 +415,7 @@ We built ultrasound scanners......</p>
     </a>
     <hr>
 
-    
+
     <a class="blog-post-abstract" href="https://www.linkedin.com/posts/forward-data-conference_unlock-new-sql-capabilities-with-bigfunctions-activity-7280187059258986496-ImgG?utm_source=combined_share_message&utm_medium=member_desktop" target="_blank">
 
         <div>
@@ -439,7 +439,7 @@ We built ultrasound scanners......</p>
     </a>
     <hr>
 
-    
+
     <a class="blog-post-abstract" href="https://www.linkedin.com/posts/paul-marcombes_static-bi-is-going-to-be-huge-heres-why-activity-7275408288698044416-vi6r?utm_source=combined_share_message&utm_medium=member_desktop" target="_blank">
 
         <div>
@@ -462,7 +462,7 @@ It's trending since we can run duckdb......</p>
     </a>
     <hr>
 
-    
+
     <a class="blog-post-abstract" href="https://www.linkedin.com/posts/paul-marcombes_ga4-data-is-known-to-be-hard-to-explore-in-activity-7275053475732885504-juY1?utm_source=combined_share_message&utm_medium=member_desktop" target="_blank">
 
         <div>
@@ -483,7 +483,7 @@ It's trending since we can run duckdb......</p>
     </a>
     <hr>
 
-    
+
     <a class="blog-post-abstract" href="https://www.linkedin.com/posts/paul-marcombes_how-do-you-re-use-logic-in-bigquery-i-activity-7274361367212523520-DhQO?utm_source=combined_share_message&utm_medium=member_desktop" target="_blank">
 
         <div>
@@ -507,7 +507,7 @@ The formula is "% promoters - %......</p>
     </a>
     <hr>
 
-    
+
     <a class="blog-post-abstract" href="https://www.linkedin.com/posts/paul-marcombes_mkdocs-or-docusaurus-to-build-your-data-documentation-activity-7274143684432945152-ek0W?utm_source=combined_share_message&utm_medium=member_desktop" target="_blank">
 
         <div>
@@ -530,7 +530,7 @@ Which one to......</p>
     </a>
     <hr>
 
-    
+
     <a class="blog-post-abstract" href="https://www.linkedin.com/posts/paul-marcombes_geocode-an-address-in-bigquery-using-datagouvfr-activity-7273316555021549569-O7Sh?utm_source=combined_share_message&utm_medium=member_desktop" target="_blank">
 
         <div>
@@ -553,7 +553,7 @@ Which one to......</p>
     </a>
     <hr>
 
-    
+
     <a class="blog-post-abstract" href="https://www.linkedin.com/posts/paul-marcombes_sql-is-all-you-need-activity-7272924394576855040-5kvi?utm_source=combined_share_message&utm_medium=member_desktop" target="_blank">
 
         <div>
@@ -578,7 +578,7 @@ Everything EXCEPT custom stuff.
     </a>
     <hr>
 
-    
+
     <a class="blog-post-abstract" href="https://www.linkedin.com/posts/sspaeti_declarativedatastack-ugcPost-7272906911648268288-u7sN?utm_source=combined_share_message&utm_medium=member_desktop" target="_blank">
 
         <div>
@@ -605,7 +605,7 @@ run_stack(
     </a>
     <hr>
 
-    
+
     <a class="blog-post-abstract" href="https://www.linkedin.com/posts/paul-marcombes_dbt-models-as-api-endpoints-activity-7270338616273391616-CbTS?utm_source=combined_share_message&utm_medium=member_desktop" target="_blank">
 
         <div>
@@ -628,7 +628,7 @@ run_stack(
     </a>
     <hr>
 
-    
+
     <a class="blog-post-abstract" href="https://www.linkedin.com/posts/paul-marcombes_expose-your-dbt-models-as-an-api-with-a-simple-activity-7270053513622110208-TaZT?utm_source=combined_share_message&utm_medium=member_desktop" target="_blank">
 
         <div>
@@ -651,7 +651,7 @@ We explained several use cases where YOU......</p>
     </a>
     <hr>
 
-    
+
     <a class="blog-post-abstract" href="https://www.linkedin.com/posts/balazsvajna_bigquery-googletrends-searchconsole-activity-7269979999682666496-f3v7?utm_source=combined_share_message&utm_medium=member_desktop" target="_blank">
 
         <div>
@@ -672,7 +672,7 @@ We explained several use cases where YOU......</p>
     </a>
     <hr>
 
-    
+
     <a class="blog-post-abstract" href="https://www.linkedin.com/posts/paul-marcombes_speaking-with-data-people-is-always-full-activity-7269723948416696320-2DFX?utm_source=combined_share_message&utm_medium=member_desktop" target="_blank">
 
         <div>
@@ -695,7 +695,7 @@ Today at......</p>
     </a>
     <hr>
 
-    
+
     <a class="blog-post-abstract" href="https://www.linkedin.com/posts/paul-marcombes_i-was-impressed-by-sherloq-this-week-sherloq-activity-7268176634438893568-j6Xt?utm_source=combined_share_message&utm_medium=member_desktop" target="_blank">
 
         <div>
@@ -720,7 +720,7 @@ What caught my eye is the UX:
     </a>
     <hr>
 
-    
+
     <a class="blog-post-abstract" href="https://www.linkedin.com/posts/paul-marcombes_self-served-data-analysts-are-much-more-impactful-activity-7267805672975564800-vlCQ?utm_source=combined_share_message&utm_medium=member_desktop" target="_blank">
 
         <div>
@@ -743,7 +743,7 @@ It’s a way to democratize data access in a company. It focuses on all......</p
     </a>
     <hr>
 
-    
+
     <a class="blog-post-abstract" href="https://www.linkedin.com/posts/paul-marcombes_text-to-sql-may-not-be-the-answer-for-self-activity-7267466431506571264-ZiVe?utm_source=combined_share_message&utm_medium=member_desktop" target="_blank">
 
         <div>
@@ -766,7 +766,7 @@ But it won’t help for business people to get trusted......</p>
     </a>
     <hr>
 
-    
+
     <a class="blog-post-abstract" href="https://www.linkedin.com/posts/paul-marcombes_bigfunctions-is-a-framework-like-dbt-to-supercharge-activity-7266818186103214080-zFFk?utm_source=combined_share_message&utm_medium=member_desktop" target="_blank">
 
         <div>
@@ -792,7 +792,7 @@ But it won’t help for business people to get trusted......</p>
     </a>
     <hr>
 
-    
+
     <a class="blog-post-abstract" href="https://www.linkedin.com/posts/paul-marcombes_its-been-2-years-i-publish-on-linkedin-activity-7266538870266114048-Xv18?utm_source=combined_share_message&utm_medium=member_desktop" target="_blank">
 
         <div>
@@ -815,7 +815,7 @@ But it won’t help for business people to get trusted......</p>
     </a>
     <hr>
 
-    
+
     <a class="blog-post-abstract" href="https://www.linkedin.com/posts/paul-marcombes_bigfunctions-activity-7262007470632390656-8UJm?utm_source=combined_share_message&utm_medium=member_desktop" target="_blank">
 
         <div>
@@ -840,7 +840,7 @@ Huge Thanks to the......</p>
     </a>
     <hr>
 
-    
+
     <a class="blog-post-abstract" href="https://www.linkedin.com/posts/paul-marcombes_unify-batch-real-time-in-data-at-nickel-activity-7260557938962894848-PBK9?utm_source=combined_share_message&utm_medium=member_desktop" target="_blank">
 
         <div>
@@ -864,7 +864,7 @@ Huge Thanks to the......</p>
     </a>
     <hr>
 
-    
+
     <a class="blog-post-abstract" href="https://www.linkedin.com/posts/paul-marcombes_sqlmesh-vs-dbt-i-bet-for-sqlmesh-simply-activity-7260195572647624706-Iwj3?utm_source=combined_share_message&utm_medium=member_desktop" target="_blank">
 
         <div>
@@ -888,7 +888,7 @@ Simply because sqlmesh paid product does not compete with their open-source prod
     </a>
     <hr>
 
-    
+
     <a class="blog-post-abstract" href="https://www.linkedin.com/posts/paul-marcombes_la-data-en-temps-r%C3%A9el-chez-nickel-activity-7259852897339719680-dJdG?utm_source=combined_share_message&utm_medium=member_desktop" target="_blank">
 
         <div>
@@ -911,7 +911,7 @@ Simply because sqlmesh paid product does not compete with their open-source prod
     </a>
     <hr>
 
-    
+
     <a class="blog-post-abstract" href="https://www.linkedin.com/posts/iziday_nickel-les-avantages-dune-plateforme-de-activity-7259841611243646979-9713?utm_source=combined_share_message&utm_medium=member_desktop" target="_blank">
 
         <div>
@@ -932,7 +932,7 @@ Simply because sqlmesh paid product does not compete with their open-source prod
     </a>
     <hr>
 
-    
+
     <a class="blog-post-abstract" href="https://www.linkedin.com/posts/forward-data-conference_speaker-announcement-were-thrilled-to-activity-7256571649079095296-i8RR?utm_source=combined_share_message&utm_medium=member_desktop" target="_blank">
 
         <div>
@@ -953,7 +953,7 @@ Simply because sqlmesh paid product does not compete with their open-source prod
     </a>
     <hr>
 
-    
+
     <a class="blog-post-abstract" href="https://www.linkedin.com/posts/hymaia_comment-nickel-transforme-son-entreprise-activity-7255587097636474881-cjXW?utm_source=combined_share_message&utm_medium=member_desktop" target="_blank">
 
         <div>
@@ -974,7 +974,7 @@ Simply because sqlmesh paid product does not compete with their open-source prod
     </a>
     <hr>
 
-    
+
     <a class="blog-post-abstract" href="https://www.linkedin.com/posts/antgiraud_bigfunctions-activity-7251856908347699202-2UBB?utm_source=combined_share_message&utm_medium=member_desktop" target="_blank">
 
         <div>
@@ -997,7 +997,7 @@ Under the BigFunctions hood : DuckDB & Ibis......</p>
     </a>
     <hr>
 
-    
+
     <a class="blog-post-abstract" href="https://www.linkedin.com/posts/paul-marcombes_do-you-have-a-lot-of-text-data-categorize-activity-7247911268727029760-4kiA?utm_source=combined_share_message&utm_medium=member_desktop" target="_blank">
 
         <div>
@@ -1022,7 +1022,7 @@ You'll instantly get:
     </a>
     <hr>
 
-    
+
     <a class="blog-post-abstract" href="https://www.linkedin.com/posts/paul-marcombes_easiest-way-to-get-a-public-csv-file-into-activity-7245098813319712768-sJL3?utm_source=combined_share_message&utm_medium=member_desktop" target="_blank">
 
         <div>
@@ -1045,7 +1045,7 @@ Within 20 minutes we could deploy this......</p>
     </a>
     <hr>
 
-    
+
     <a class="blog-post-abstract" href="https://www.linkedin.com/posts/paul-marcombes_bigquery-bigfunctions-googlecloud-activity-7244970986381479937-CASX?utm_source=combined_share_message&utm_medium=member_desktop" target="_blank">
 
         <div>
@@ -1072,7 +1072,7 @@ Using a prompt embedded in a SQL......</p>
     </a>
     <hr>
 
-    
+
     <a class="blog-post-abstract" href="https://www.linkedin.com/posts/antgiraud_bigfunctions-powerbi-bigquery-activity-7244239220641251330-RBda?utm_source=combined_share_message&utm_medium=member_desktop" target="_blank">
 
         <div>
@@ -1097,7 +1097,7 @@ Documentation here
     </a>
     <hr>
 
-    
+
     <a class="blog-post-abstract" href="https://www.linkedin.com/posts/paul-marcombes_noabrinstallabrneeded-bigfunctions-bigquery-activity-7242862602559655937-CSQU?utm_source=combined_share_message&utm_medium=member_desktop" target="_blank">
 
         <div>
@@ -1121,7 +1121,7 @@ You can:
     </a>
     <hr>
 
-    
+
     <a class="blog-post-abstract" href="https://www.linkedin.com/posts/paul-marcombes_lida-opendataqna-conversationalanalytics-activity-7242134012910014465-3fUN?utm_source=combined_share_message&utm_medium=member_desktop" target="_blank">
 
         <div>
@@ -1144,7 +1144,7 @@ Looker Studio is no......</p>
     </a>
     <hr>
 
-    
+
     <a class="blog-post-abstract" href="https://www.linkedin.com/posts/paul-marcombes_i-am-stunned-by-the-quality-of-this-genai-activity-7240717718746730497-mUi9?utm_source=combined_share_message&utm_medium=member_desktop" target="_blank">
 
         <div>
@@ -1167,7 +1167,7 @@ And here is the......</p>
     </a>
     <hr>
 
-    
+
     <a class="blog-post-abstract" href="https://www.linkedin.com/posts/paul-marcombes_data-analysis-is-structured-data-enough-activity-7240278912491028480-8U4A?utm_source=combined_share_message&utm_medium=member_desktop" target="_blank">
 
         <div>
@@ -1188,7 +1188,7 @@ And here is the......</p>
     </a>
     <hr>
 
-    
+
     <a class="blog-post-abstract" href="https://www.linkedin.com/posts/paul-marcombes_surface-the-search-behind-the-rag-retrieval-activity-7239892809229504513-MxIu?utm_source=combined_share_message&utm_medium=member_desktop" target="_blank">
 
         <div>
@@ -1211,7 +1211,7 @@ Mathilde Gorieu made......</p>
     </a>
     <hr>
 
-    
+
     <a class="blog-post-abstract" href="https://www.linkedin.com/posts/paul-marcombes_lets-talk-about-nickel-genai-use-cases-at-activity-7239181414254931968-aFPz?utm_source=combined_share_message&utm_medium=member_desktop" target="_blank">
 
         <div>
@@ -1232,7 +1232,7 @@ Mathilde Gorieu made......</p>
     </a>
     <hr>
 
-    
+
     <a class="blog-post-abstract" href="https://www.linkedin.com/posts/masthead-data_bigquery-champions-level-up-your-data-activity-7232297664124514305-q54g?utm_source=combined_share_message&utm_medium=member_desktop" target="_blank">
 
         <div>
@@ -1254,7 +1254,7 @@ BigFunctions is revolutionizing......</p>
     </a>
     <hr>
 
-    
+
     <a class="blog-post-abstract" href="https://www.linkedin.com/posts/paul-marcombes_bigquery-bigfunctions-activity-7224670243372109825-hlMZ?utm_source=combined_share_message&utm_medium=member_desktop" target="_blank">
 
         <div>
@@ -1279,7 +1279,7 @@ Refresh_tableau is a function......</p>
     </a>
     <hr>
 
-    
+
     <a class="blog-post-abstract" href="https://www.linkedin.com/posts/ethanaaron_the-stuff-no-one-will-tell-you-about-running-activity-7224048593538560002-dICF?utm_source=combined_share_message&utm_medium=member_desktop" target="_blank">
 
         <div>
@@ -1303,7 +1303,7 @@ Refresh_tableau is a function......</p>
     </a>
     <hr>
 
-    
+
     <a class="blog-post-abstract" href="https://www.linkedin.com/posts/paul-marcombes_bigquery-bigfunctions-activity-7223583106891485184-U5-Y?utm_source=combined_share_message&utm_medium=member_desktop" target="_blank">
 
         <div>
@@ -1328,7 +1328,7 @@ Function doc:......</p>
     </a>
     <hr>
 
-    
+
     <a class="blog-post-abstract" href="https://www.linkedin.com/posts/paul-marcombes_bigfunctions-airbyte-bigquery-activity-7222133476475498496-W_BK?utm_source=combined_share_message&utm_medium=member_desktop" target="_blank">
 
         <div>
@@ -1355,7 +1355,7 @@ It......</p>
     </a>
     <hr>
 
-    
+
     <a class="blog-post-abstract" href="https://www.linkedin.com/posts/paul-marcombes_banktech-day-organis%C3%A9-par-finance-innovation-activity-7203679225927647232-xdKo?utm_source=combined_share_message&utm_medium=member_desktop" target="_blank">
 
         <div>
@@ -1376,7 +1376,7 @@ It......</p>
     </a>
     <hr>
 
-    
+
     <a class="blog-post-abstract" href="https://www.linkedin.com/posts/paul-marcombes_bigquery-bigfunctions-googlecloud-activity-7201971338377351168-DqGn?utm_source=combined_share_message&utm_medium=member_desktop" target="_blank">
 
         <div>
@@ -1398,7 +1398,7 @@ You're not alone. It's like searching for a needle......</p>
     </a>
     <hr>
 
-    
+
     <a class="blog-post-abstract" href="https://www.linkedin.com/posts/paul-marcombes_bigquery-airbyte-bigfunctions-activity-7201509980221358080-zBHb?utm_source=combined_share_message&utm_medium=member_desktop" target="_blank">
 
         <div>
@@ -1422,7 +1422,7 @@ What if we could run them via a......</p>
     </a>
     <hr>
 
-    
+
     <a class="blog-post-abstract" href="https://www.linkedin.com/posts/paul-marcombes_supercharge-bigquery-with-bigfunctions-activity-7199683895712202753-lP_-?utm_source=combined_share_message&utm_medium=member_desktop" target="_blank">
 
         <div>
@@ -1445,7 +1445,7 @@ What if we could run them via a......</p>
     </a>
     <hr>
 
-    
+
     <a class="blog-post-abstract" href="https://www.linkedin.com/posts/paul-marcombes_bigquery-bigfunctions-dataengineering-activity-7197166459716804608-DvLS?utm_source=combined_share_message&utm_medium=member_desktop" target="_blank">
 
         <div>
@@ -1468,7 +1468,7 @@ Here is an......</p>
     </a>
     <hr>
 
-    
+
     <a class="blog-post-abstract" href="https://www.linkedin.com/posts/paul-marcombes_bigquery-bigfunctions-dataanalysis-activity-7196774410429579264-M-xW?utm_source=combined_share_message&utm_medium=member_desktop" target="_blank">
 
         <div>
@@ -1491,7 +1491,7 @@ Here is an......</p>
     </a>
     <hr>
 
-    
+
     <a class="blog-post-abstract" href="https://www.linkedin.com/posts/paul-marcombes_bigfunctions-now-supports-udaf-user-defined-activity-7195744263567990785-35Kt?utm_source=combined_share_message&utm_medium=member_desktop" target="_blank">
 
         <div>
@@ -1515,7 +1515,7 @@ Here is an......</p>
     </a>
     <hr>
 
-    
+
     <a class="blog-post-abstract" href="https://www.linkedin.com/posts/paul-marcombes_dataengineering-airbyte-activity-7169280585352335360-LVkv?utm_source=combined_share_message&utm_medium=member_desktop" target="_blank">
 
         <div>
@@ -1536,7 +1536,7 @@ Here is an......</p>
     </a>
     <hr>
 
-    
+
     <a class="blog-post-abstract" href="https://www.linkedin.com/posts/paul-marcombes_datanalytics-analyticsengineering-dataengineering-activity-7160542653451816961-8PmJ?utm_source=combined_share_message&utm_medium=member_desktop" target="_blank">
 
         <div>
@@ -1559,7 +1559,7 @@ One way to scale data analysis is to embed data people in teams, tribes,......</
     </a>
     <hr>
 
-    
+
     <a class="blog-post-abstract" href="https://www.linkedin.com/posts/paul-marcombes_bigquery-bigfunctions-dataanalysis-activity-7155903739478904832-9W9m?utm_source=combined_share_message&utm_medium=member_desktop" target="_blank">
 
         <div>
@@ -1580,7 +1580,7 @@ One way to scale data analysis is to embed data people in teams, tribes,......</
     </a>
     <hr>
 
-    
+
     <a class="blog-post-abstract" href="https://www.linkedin.com/posts/paul-marcombes_bigquery-bigfunctions-bigframes-activity-7155499433772666881-kkur?utm_source=combined_share_message&utm_medium=member_desktop" target="_blank">
 
         <div>
@@ -1601,7 +1601,7 @@ One way to scale data analysis is to embed data people in teams, tribes,......</
     </a>
     <hr>
 
-    
+
     <a class="blog-post-abstract" href="https://www.linkedin.com/posts/paul-marcombes_bigquery-bigfunctions-gcp-activity-7143510443934826497-O2bg?utm_source=combined_share_message&utm_medium=member_desktop" target="_blank">
 
         <div>
@@ -1626,7 +1626,7 @@ It will tell you the IP......</p>
     </a>
     <hr>
 
-    
+
     <a class="blog-post-abstract" href="https://www.linkedin.com/posts/paul-marcombes_airbyte-serverless-dataengineering-activity-7141404312785604608-a-lI?utm_source=combined_share_message&utm_medium=member_desktop" target="_blank">
 
         <div>
@@ -1647,7 +1647,7 @@ It will tell you the IP......</p>
     </a>
     <hr>
 
-    
+
     <a class="blog-post-abstract" href="https://www.linkedin.com/posts/aleksandr-ignatenko_bigquery-sql-bigfunctions-activity-7141037483680591875-5PST?utm_source=combined_share_message&utm_medium=member_desktop" target="_blank">
 
         <div>
@@ -1668,7 +1668,7 @@ It will tell you the IP......</p>
     </a>
     <hr>
 
-    
+
     <a class="blog-post-abstract" href="https://www.linkedin.com/posts/paul-marcombes_bigquery-bigfunctions-dataengineering-activity-7141003906012082176-rCxd?utm_source=combined_share_message&utm_medium=member_desktop" target="_blank">
 
         <div>
@@ -1689,7 +1689,7 @@ It will tell you the IP......</p>
     </a>
     <hr>
 
-    
+
     <a class="blog-post-abstract" href="https://www.linkedin.com/posts/axel-thevenot_bigquery-dataengineering-analytics-activity-7139876215447785472-tld3?utm_source=combined_share_message&utm_medium=member_desktop" target="_blank">
 
         <div>
@@ -1710,7 +1710,7 @@ It will tell you the IP......</p>
     </a>
     <hr>
 
-    
+
     <a class="blog-post-abstract" href="https://www.linkedin.com/posts/paul-marcombes_%F0%9D%97%A6%F0%9D%97%94%F0%9D%97%A9%F0%9D%97%98-%F0%9D%97%A7%F0%9D%97%9B%F0%9D%97%98-%F0%9D%97%97%F0%9D%97%94%F0%9D%97%A7%F0%9D%97%98-rejoignez-nous-activity-7138204518353203202-Pwuk?utm_source=combined_share_message&utm_medium=member_desktop" target="_blank">
 
         <div>
@@ -1736,7 +1736,7 @@ Airbyte is......</p>
     </a>
     <hr>
 
-    
+
     <a class="blog-post-abstract" href="https://www.linkedin.com/posts/paul-marcombes_bigquery-bigfunctions-gcp-activity-7133848847801290753--ebl?utm_source=combined_share_message&utm_medium=member_desktop" target="_blank">
 
         <div>
@@ -1761,7 +1761,7 @@ and you'll......</p>
     </a>
     <hr>
 
-    
+
     <a class="blog-post-abstract" href="https://www.linkedin.com/posts/paul-marcombes_data-catalog-is-key-for-your-data-mesh-strategy-activity-7133393773518053376-weGa?utm_source=combined_share_message&utm_medium=member_desktop" target="_blank">
 
         <div>
@@ -1784,7 +1784,7 @@ and you'll......</p>
     </a>
     <hr>
 
-    
+
     <a class="blog-post-abstract" href="https://www.linkedin.com/posts/google-cloud_famous-assists-lionel-messi-with-argentina-ugcPost-7128849050732244993-J8TK?utm_source=combined_share_message&utm_medium=member_desktop" target="_blank">
 
         <div>
@@ -1808,7 +1808,7 @@ and you'll......</p>
     </a>
     <hr>
 
-    
+
     <a class="blog-post-abstract" href="https://www.linkedin.com/posts/paul-marcombes_bigquery-bigfunctions-dataengineering-activity-7122832228438478848-POer?utm_source=combined_share_message&utm_medium=member_desktop" target="_blank">
 
         <div>
@@ -1829,7 +1829,7 @@ and you'll......</p>
     </a>
     <hr>
 
-    
+
     <a class="blog-post-abstract" href="https://www.linkedin.com/posts/khuyen-tran-1401_if-you-want-to-build-a-web-app-seamlessly-ugcPost-7119688114297597952-CP2u?utm_source=combined_share_message&utm_medium=member_desktop" target="_blank">
 
         <div>
@@ -1851,7 +1851,7 @@ and you'll......</p>
     </a>
     <hr>
 
-    
+
     <a class="blog-post-abstract" href="https://www.linkedin.com/posts/paul-marcombes_github-unyticsairbyteserverless-airbyte-activity-7118520351256391680-mRFa?utm_source=combined_share_message&utm_medium=member_desktop" target="_blank">
 
         <div>
@@ -1872,7 +1872,7 @@ and you'll......</p>
     </a>
     <hr>
 
-    
+
     <a class="blog-post-abstract" href="https://www.linkedin.com/posts/paul-marcombes_github-unyticsairbyteserverless-airbyte-activity-7117595324566626305-XLjT?utm_source=combined_share_message&utm_medium=member_desktop" target="_blank">
 
         <div>
@@ -1893,7 +1893,7 @@ and you'll......</p>
     </a>
     <hr>
 
-    
+
     <a class="blog-post-abstract" href="https://www.linkedin.com/posts/paul-marcombes_lessismore-data-activity-7117433624060116992-cqi9?utm_source=combined_share_message&utm_medium=member_desktop" target="_blank">
 
         <div>
@@ -1917,7 +1917,7 @@ At Nickel, since we had......</p>
     </a>
     <hr>
 
-    
+
     <a class="blog-post-abstract" href="https://www.linkedin.com/posts/paul-marcombes_bigquery-finops-gcp-activity-7115977007707893761-B_SO?utm_source=combined_share_message&utm_medium=member_desktop" target="_blank">
 
         <div>
@@ -1942,7 +1942,7 @@ At Nickel, since we had......</p>
     </a>
     <hr>
 
-    
+
     <a class="blog-post-abstract" href="https://www.linkedin.com/posts/paul-marcombes_dbt-finops-activity-7115625411715178497-H-kI?utm_source=combined_share_message&utm_medium=member_desktop" target="_blank">
 
         <div>
@@ -1965,7 +1965,7 @@ This is when the great Rémi BENOIST  decided......</p>
     </a>
     <hr>
 
-    
+
     <a class="blog-post-abstract" href="https://www.linkedin.com/posts/paul-marcombes_bigquery-gcp-googlecloud-activity-7115268234395676672-GCtj?utm_source=combined_share_message&utm_medium=member_desktop" target="_blank">
 
         <div>
@@ -1988,7 +1988,7 @@ This is when the great Rémi BENOIST  decided......</p>
     </a>
     <hr>
 
-    
+
     <a class="blog-post-abstract" href="https://www.linkedin.com/posts/paul-marcombes_composable-cdp-are-dead-long-live-data-warehouse-activity-7108467280665042945-oQUj?utm_source=combined_share_message&utm_medium=member_desktop" target="_blank">
 
         <div>
@@ -2011,7 +2011,7 @@ That's how......</p>
     </a>
     <hr>
 
-    
+
     <a class="blog-post-abstract" href="https://www.linkedin.com/posts/paul-marcombes_self-service-r%C3%AAve-ou-r%C3%A9alit%C3%A9-cest-activity-7094969227513626624-yTga?utm_source=combined_share_message&utm_medium=member_desktop" target="_blank">
 
         <div>
@@ -2034,7 +2034,7 @@ Je retiens de cette discussion avec Christophe......</p>
     </a>
     <hr>
 
-    
+
     <a class="blog-post-abstract" href="https://www.linkedin.com/posts/paul-marcombes_bigquery-to-datastore-via-remote-functions-activity-7086646820033945600-Kqtg?utm_source=combined_share_message&utm_medium=member_desktop" target="_blank">
 
         <div>
@@ -2055,7 +2055,7 @@ Je retiens de cette discussion avec Christophe......</p>
     </a>
     <hr>
 
-    
+
     <a class="blog-post-abstract" href="https://www.linkedin.com/posts/paul-marcombes_bigquery-bigfunctions-dataengineering-activity-7076847468805550080-sENE?utm_source=combined_share_message&utm_medium=member_desktop" target="_blank">
 
         <div>
@@ -2078,7 +2078,7 @@ And in the......</p>
     </a>
     <hr>
 
-    
+
     <a class="blog-post-abstract" href="https://www.linkedin.com/posts/paul-marcombes_bigquery-bigfunctions-dataengineering-activity-7075409796245381120-PIaU?utm_source=combined_share_message&utm_medium=member_desktop" target="_blank">
 
         <div>
@@ -2100,7 +2100,7 @@ And in the......</p>
     </a>
     <hr>
 
-    
+
     <a class="blog-post-abstract" href="https://www.linkedin.com/posts/paul-marcombes_bigquery-bigfunctions-dataengineering-activity-7072497509008334848-TNy6?utm_source=combined_share_message&utm_medium=member_desktop" target="_blank">
 
         <div>
@@ -2123,7 +2123,7 @@ Thanks to dbt post-hooks and the brand-new......</p>
     </a>
     <hr>
 
-    
+
     <a class="blog-post-abstract" href="https://www.linkedin.com/posts/paul-marcombes_bigquery-bigfunctions-gcp-activity-7067172657221263360-cJaZ?utm_source=combined_share_message&utm_medium=member_desktop" target="_blank">
 
         <div>
@@ -2146,7 +2146,7 @@ The BigQuery function 'ask_my_data' converts......</p>
     </a>
     <hr>
 
-    
+
     <a class="blog-post-abstract" href="https://www.linkedin.com/posts/paul-marcombes_bigquery-bigfunctions-dataengineering-activity-7064560205765693440-aIbv?utm_source=combined_share_message&utm_medium=member_desktop" target="_blank">
 
         <div>
@@ -2170,7 +2170,7 @@ The BigQuery function 'ask_my_data' converts......</p>
     </a>
     <hr>
 
-    
+
     <a class="blog-post-abstract" href="https://www.linkedin.com/posts/paul-marcombes_palm2-bigquery-bigfunctions-activity-7062713193789300736-YU2h?utm_source=combined_share_message&utm_medium=member_desktop" target="_blank">
 
         <div>
@@ -2193,7 +2193,7 @@ The BigQuery function 'ask_my_data' converts......</p>
     </a>
     <hr>
 
-    
+
     <a class="blog-post-abstract" href="https://www.linkedin.com/posts/paul-marcombes_bigquery-excel-report-the-easy-way-activity-7061995791602606080-hp60?utm_source=combined_share_message&utm_medium=member_desktop" target="_blank">
 
         <div>
@@ -2216,7 +2216,7 @@ The BigQuery function 'ask_my_data' converts......</p>
     </a>
     <hr>
 
-    
+
     <a class="blog-post-abstract" href="https://www.linkedin.com/posts/paul-marcombes_bigquery-bigfunctions-activity-7059821460420235264-jpDf?utm_source=combined_share_message&utm_medium=member_desktop" target="_blank">
 
         <div>
@@ -2241,7 +2241,7 @@ By enabling data-practitioners to query data-sources without......</p>
     </a>
     <hr>
 
-    
+
     <a class="blog-post-abstract" href="https://www.linkedin.com/posts/paul-marcombes_bigquery-bigfunctions-activity-7059096700816089091-8N06?utm_source=combined_share_message&utm_medium=member_desktop" target="_blank">
 
         <div>
@@ -2262,7 +2262,7 @@ By enabling data-practitioners to query data-sources without......</p>
     </a>
     <hr>
 
-    
+
     <a class="blog-post-abstract" href="https://www.linkedin.com/posts/paul-marcombes_bigquery-bigfunctions-activity-7057647104319442944-qEzb?utm_source=combined_share_message&utm_medium=member_desktop" target="_blank">
 
         <div>
@@ -2285,7 +2285,7 @@ By enabling data-practitioners to query data-sources without......</p>
     </a>
     <hr>
 
-    
+
     <a class="blog-post-abstract" href="https://www.linkedin.com/posts/paul-marcombes_bigquery-bigfunctions-activity-7056559998029418496-sTRi?utm_source=combined_share_message&utm_medium=member_desktop" target="_blank">
 
         <div>
@@ -2308,7 +2308,7 @@ Shivam Singh......</p>
     </a>
     <hr>
 
-    
+
     <a class="blog-post-abstract" href="https://www.linkedin.com/posts/paul-marcombes_bigquery-bigfunctions-activity-7054363025339736064-zRQf?utm_source=combined_share_message&utm_medium=member_desktop" target="_blank">
 
         <div>
@@ -2331,7 +2331,7 @@ As you get data without transform from your sources into you warehouse, (using..
     </a>
     <hr>
 
-    
+
     <a class="blog-post-abstract" href="https://www.linkedin.com/posts/paul-marcombes_bigfunctions-data-activity-7052963262488797184-BO1B?utm_source=combined_share_message&utm_medium=member_desktop" target="_blank">
 
         <div>
@@ -2352,7 +2352,7 @@ As you get data without transform from your sources into you warehouse, (using..
     </a>
     <hr>
 
-    
+
     <a class="blog-post-abstract" href="https://www.linkedin.com/posts/paul-marcombes_snowflake-bigfunctions-bigquery-activity-7052364212555173889-y7aH?utm_source=combined_share_message&utm_medium=member_desktop" target="_blank">
 
         <div>
@@ -2374,7 +2374,7 @@ As you get data without transform from your sources into you warehouse, (using..
     </a>
     <hr>
 
-    
+
     <a class="blog-post-abstract" href="https://www.linkedin.com/posts/paul-marcombes_bigquery-bigfunction-activity-7051947091337596928-FTwe?utm_source=combined_share_message&utm_medium=member_desktop" target="_blank">
 
         <div>
@@ -2398,7 +2398,7 @@ As you get data without transform from your sources into you warehouse, (using..
     </a>
     <hr>
 
-    
+
     <a class="blog-post-abstract" href="https://www.linkedin.com/posts/paul-marcombes_bigquery-bigfunctions-activity-7051519957183913984-yr4J?utm_source=combined_share_message&utm_medium=member_desktop" target="_blank">
 
         <div>
@@ -2419,7 +2419,7 @@ As you get data without transform from your sources into you warehouse, (using..
     </a>
     <hr>
 
-    
+
     <a class="blog-post-abstract" href="https://www.linkedin.com/posts/paul-marcombes_data-realtime-dataanalysts-activity-7041808042627092480-pXPO?utm_source=combined_share_message&utm_medium=member_desktop" target="_blank">
 
         <div>
@@ -2444,7 +2444,7 @@ Je ne suis pas peu fier......</p>
     </a>
     <hr>
 
-    
+
     <a class="blog-post-abstract" href="https://www.linkedin.com/posts/paul-marcombes_bigfunctions-bigquery-activity-7011289613080100865-Czif?utm_source=combined_share_message&utm_medium=member_desktop" target="_blank">
 
         <div>
@@ -2465,7 +2465,7 @@ Je ne suis pas peu fier......</p>
     </a>
     <hr>
 
-    
+
     <a class="blog-post-abstract" href="https://www.linkedin.com/posts/paul-marcombes_bigfunctions-bigquery-bigfunctions-activity-7010568101637332993-cnGD?utm_source=combined_share_message&utm_medium=member_desktop" target="_blank">
 
         <div>
@@ -2486,7 +2486,7 @@ Je ne suis pas peu fier......</p>
     </a>
     <hr>
 
-    
+
     <a class="blog-post-abstract" href="https://www.linkedin.com/posts/paul-marcombes_bigquery-bigquery-bigfunctions-activity-7009072015533854720-55Ib?utm_source=combined_share_message&utm_medium=member_desktop" target="_blank">
 
         <div>
@@ -2509,7 +2509,7 @@ Je ne suis pas peu fier......</p>
     </a>
     <hr>
 
-    
+
     <a class="blog-post-abstract" href="https://www.linkedin.com/posts/paul-marcombes_bigquery-advanced-json-queries-activity-7008339733281918977-eblE?utm_source=combined_share_message&utm_medium=member_desktop" target="_blank">
 
         <div>
@@ -2532,7 +2532,7 @@ Je ne suis pas peu fier......</p>
     </a>
     <hr>
 
-    
+
     <a class="blog-post-abstract" href="https://www.linkedin.com/posts/paul-marcombes_bigquery-bigfunctions-activity-7006941275996225536-ErDP?utm_source=combined_share_message&utm_medium=member_desktop" target="_blank">
 
         <div>
@@ -2555,7 +2555,7 @@ sid ali sadi from Esmoz created some very nice bigquery functions callable by an
     </a>
     <hr>
 
-    
+
     <a class="blog-post-abstract" href="https://www.linkedin.com/posts/paul-marcombes_bigquery-bigquery-bigfunctions-activity-7006666393081323520-M41Y?utm_source=combined_share_message&utm_medium=member_desktop" target="_blank">
 
         <div>
@@ -2578,7 +2578,7 @@ A big Thanks 🙏 Benjamin Tabet for this contribution that will......</p>
     </a>
     <hr>
 
-    
+
     <a class="blog-post-abstract" href="https://www.linkedin.com/posts/paul-marcombes_4-bonnes-raisons-de-larguer-sa-stack-data-activity-7006549739550703617-jUbE?utm_source=combined_share_message&utm_medium=member_desktop" target="_blank">
 
         <div>
@@ -2601,7 +2601,7 @@ Rendons les data-analysts autonomes sur toute la chaîne (de la collecte, aux...
     </a>
     <hr>
 
-    
+
     <a class="blog-post-abstract" href="https://www.linkedin.com/posts/paul-marcombes_bigquery-bigfunctions-activity-7006173879899414528-l-YR?utm_source=combined_share_message&utm_medium=member_desktop" target="_blank">
 
         <div>
@@ -2622,7 +2622,7 @@ Rendons les data-analysts autonomes sur toute la chaîne (de la collecte, aux...
     </a>
     <hr>
 
-    
+
     <a class="blog-post-abstract" href="https://www.linkedin.com/posts/paul-marcombes_why-dbts-semantic-layer-sucks-activity-7001074129462255616-9SHt?utm_source=combined_share_message&utm_medium=member_desktop" target="_blank">
 
         <div>
@@ -2643,7 +2643,7 @@ Rendons les data-analysts autonomes sur toute la chaîne (de la collecte, aux...
     </a>
     <hr>
 
-    
+
     <a class="blog-post-abstract" href="https://www.linkedin.com/posts/paul-marcombes_bigquery-bigfunctions-activity-6999355772329467904-ift0?utm_source=combined_share_message&utm_medium=member_desktop" target="_blank">
 
         <div>
@@ -2666,7 +2666,7 @@ What if you don't know......</p>
     </a>
     <hr>
 
-    
+
     <a class="blog-post-abstract" href="https://www.linkedin.com/posts/paul-marcombes_bigquery-bigfunctions-activity-6991791325377404928-X4_C?utm_source=combined_share_message&utm_medium=member_desktop" target="_blank">
 
         <div>
@@ -2689,7 +2689,7 @@ I ❤️ the......</p>
     </a>
     <hr>
 
-    
+
     <a class="blog-post-abstract" href="https://www.linkedin.com/posts/paul-marcombes_datacleaning-sql-dbt-activity-6990801218084253696-m1RJ?utm_source=combined_share_message&utm_medium=member_desktop" target="_blank">
 
         <div>
@@ -2710,7 +2710,7 @@ I ❤️ the......</p>
     </a>
     <hr>
 
-    
+
     <a class="blog-post-abstract" href="https://www.linkedin.com/posts/paul-marcombes_%F0%9D%90%91%F0%9D%90%9E%F0%9D%90%A3%F0%9D%90%A8%F0%9D%90%A2%F0%9D%90%A0%F0%9D%90%A7%F0%9D%90%9E%F0%9D%90%B3-%F0%9D%90%A6%F0%9D%90%A8%F0%9D%90%A2-%F0%9D%90%A5%F0%9D%90%AE%F0%9D%90%A7%F0%9D%90%9D%F0%9D%90%A2-%C3%A0-%F0%9D%90%86-activity-6986619669633716224-WNUJ?utm_source=combined_share_message&utm_medium=member_desktop" target="_blank">
 
         <div>
@@ -2733,7 +2733,7 @@ I ❤️ the......</p>
     </a>
     <hr>
 
-    
+
     <a class="blog-post-abstract" href="https://www.linkedin.com/posts/paul-marcombes_bigquery-bigfunctions-data-activity-6985143660828844032-X5oe?utm_source=combined_share_message&utm_medium=member_desktop" target="_blank">
 
         <div>
@@ -2754,7 +2754,7 @@ I ❤️ the......</p>
     </a>
     <hr>
 
-    
+
     <a class="blog-post-abstract" href="https://www.linkedin.com/posts/paul-marcombes_data-bigquery-opensource-activity-6982620263657938945-A1QC?utm_source=combined_share_message&utm_medium=member_desktop" target="_blank">
 
         <div>
@@ -2776,7 +2776,7 @@ I ❤️ the......</p>
     </a>
     <hr>
 
-    
+
     <a class="blog-post-abstract" href="https://www.linkedin.com/posts/paul-marcombes_bigquery-data-dataanalytics-activity-6980085040453980161-QRwu?utm_source=combined_share_message&utm_medium=member_desktop" target="_blank">
 
         <div>
@@ -2800,7 +2800,7 @@ I ❤️ the......</p>
     </a>
     <hr>
 
-    
+
     <a class="blog-post-abstract" href="https://www.linkedin.com/posts/paul-marcombes_ai-engineering-10-dbt-et-la-modern-data-activity-6973190711496097792-LJzC?utm_source=combined_share_message&utm_medium=member_desktop" target="_blank">
 
         <div>
@@ -2821,6 +2821,6 @@ I ❤️ the......</p>
     </a>
     <hr>
 
-    
+
 
 </div>
