@@ -1,0 +1,156 @@
+type: procedure
+author: Paul Marcombes
+description: |
+  Load data from 250+ sources using [Airbyte Python Connectors](https://docs.airbyte.com/using-airbyte/pyairbyte/getting-started#available-connectors)
+  .
+
+  - The function creates a temporary dataset only accessible to you in `bigfunctions` project.
+  - [Airbye Serverless](https://github.com/unytics/airbyte_serverless) will extract data from `source` (one of 250+ Airbyte Python Connectors available on [PyPI](https://pypi.org/search/?q=airbyte-source-)) using `source_config` (source configuration in yaml format expected by Airbyte Serverless).
+  - It will create one table per stream (a stream is like a resource type) in the dataset + one table `_airbyte_logs` for logs and one table `_airbyte_states` for states.
+  - The data in then moved from the temporary dataset to be appended in `destination_dataset`. Tables of the temporary dataset are deleted.
+  - If you call this function several times, the function will start by getting the latest state from `destination_dataset._airbyte_states` table to only extract and load new data.
+  - Examples below explain how to set the arguments.
+arguments:
+  - name: destination_table
+    type: string
+  - name: keywords
+    type: array<string>
+  - name: start_month
+    type: string
+  - name: geo
+    type: string
+  - name: category
+    type: int64
+  - name: gprop
+    type: string
+output:
+  name: result
+  type: string
+examples:
+  - description: |
+      Show valid sources for `source` argument by setting `source` to `null`
+
+      You can then copy one of these sources for `source` argument.
+    arguments:
+      - "'your_project.dataset.table'"
+      - "'chaise, fauteuil'"
+      - "11"
+      - "'2025-01-01 2025-01-07'"
+      - "'FR'"
+      - "null"
+code: | #sql
+  declare query string;
+
+
+  -- Get Monthly Trends
+  create temp table full_period_trends as
+  select
+    {BIGFUNCTIONS_DATASET}.get_google_trends(
+      array_to_string(keywords, ','),
+      start_month || '-01 ' || format_date('%Y-%m', current_date - 1),
+      geo,
+      category,
+      gprop
+    ) as trend
+  ;
+
+
+  assert array_length(split(destination_table, '.')) = 3 as '`destination_table` must be like PROJECT.DATASET.TABLE';
+
+  -- CREATE DESTINATION TABLE IF NOT EXISTS
+  set query = format(
+    '''
+    create table if not exists `%s`
+    (
+    date date options(description="day of the trend"),
+    keyword string options(description="keyword"),
+    value int64 options(description="indexed query search volume"),
+    _raw_value int64 options(description="value at load time before normalization"),
+    _load_date date options(description="date when the data was downloaded from google trends"),
+    )
+    options(
+    description="google trends downloaded using bigfunctions.eu.load_google_trends. See https://unytics.io/bigfunctions/bigfunctions/load_google_trends/ for details"
+    )
+    ''',
+    destination_table
+  );
+  select query;
+  execute immediate query;
+
+
+  -- CREATE TEMP TABLE WITH MISSING (date, keyword)
+  set query = format(
+    '''
+    create temp table missing_dates_keywords as
+    select
+      date,
+      keyword,
+    from unnest(%s) as keyword,
+    unnest(generate_date_array(date('%s' || '-01'), current_date - 1)) as date
+    left join `%s` destination using(date, keyword)
+    where destination._raw_value is null;
+    ''',
+    to_json_string(keywords), start_month, destination_table
+  );
+  select query;
+  execute immediate query;
+
+
+  -- DOWNLOAD MONTHLY TRENDS FOR MISSING (date, keyword)
+  create temp table new_month_trends as
+  select
+    keyword,
+    format_date( '%Y-%m', date) as month,
+    {BIGFUNCTIONS_DATASET}.get_google_trends(
+      keyword,
+      min(date) || ' ' || max(date),
+      geo,
+      category,
+      gprop
+    ) as month_trend,
+  from missing_dates_keywords
+  group by keyword, format_date('%Y-%m', date);
+
+
+  -- FORMAT TO DESTINATION FORMAT
+  create temp table new_daily_trends as
+  select
+    date(string(trend.timestamp)) as date,
+    keyword,
+    int64(trend.value) as _raw_value,
+    current_date as _load_date,
+  from new_month_trends,
+  unnest(json_query_array(month_trend, '$')) as trend;
+
+
+  -- MERGE INTO DESTINATION
+  set query = format(
+    '''
+    merge `%s` destination
+    using new_daily_trends
+    on destination.keyword = new_daily_trends.keyword and destination.date = new_daily_trends.date
+    when matched then
+      update set
+        _raw_value = new_daily_trends._raw_value,
+        _load_date = new_daily_trends._load_date,
+        value = null
+    when not matched then
+      insert (date, keyword, _raw_value, _load_date)
+      values(date, keyword, _raw_value, _load_date)
+    ''',
+    destination_table
+  );
+  select query;
+  execute immediate query;
+
+
+
+  select
+    {BIGFUNCTIONS_DATASET}.get_google_trends(
+      array_to_string(keywords, ','),
+      'all',
+      geo,
+      category,
+      gprop
+    ) as trend
+  ;
