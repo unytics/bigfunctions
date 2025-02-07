@@ -53,7 +53,7 @@ search:
 
     [Read More :octicons-arrow-right-24:](posts/2025-02-05_introducing_the_sql_data_stack.md){ .md-button }
 
--   ![post cover photo](../assets/blog/2025-02-05_introducing_sql_data_stack.png){ loading=lazy style="max-height: 500px; height: 70%; width: auto; display: block; margin-left: auto;" }
+-   ![post cover photo](../assets/blog/2025-02-05_introducing_sql_data_stack.png){ loading=lazy style=" display: block; margin-left: auto;" }
 
 </div>
 
@@ -67,7 +67,7 @@ search:
 
     [Read More :octicons-arrow-right-24:](https://timodechau.com/from-sql-to-slack-automating-data-workflows-with-big-functions/){ .md-button target="_blank"  }
 
--   ![post cover photo](https://timodechau.com/content/images/size/w400/format/webp/2024/12/timo_square.jpeg){ loading=lazy style="max-height: 500px; height: 70%; width: auto; display: block; margin-right: auto;" }
+-   ![post cover photo](https://timodechau.com/content/images/size/w400/format/webp/2024/12/timo_square.jpeg){ loading=lazy style=" display: block; margin-right: auto;" }
 
 </div>
 
@@ -87,7 +87,7 @@ search:
 
     [Read More :octicons-arrow-right-24:](https://www.youtube.com/watch?v=kFy78r1Iabs){ .md-button target="_blank"  }
 
--   ![post cover photo](https://miro.medium.com/v2/resize:fit:2400/1*sQBZAcpkOhRvSe5zYudx_A.jpeg){ loading=lazy style="max-height: 500px; height: 70%; width: auto; display: block; margin-left: auto;" }
+-   ![post cover photo](https://miro.medium.com/v2/resize:fit:2400/1*sQBZAcpkOhRvSe5zYudx_A.jpeg){ loading=lazy style="max-width: 400px; height: auto; display: block; margin-left: auto;" }
 
 </div>
 
@@ -101,7 +101,7 @@ search:
 
     [Read More :octicons-arrow-right-24:](https://medium.com/google-cloud/supercharge-bigquery-with-bigfunctions-2139a1bba620){ .md-button target="_blank"  }
 
--   ![post cover photo](../assets/blog/2025-02-06_Jake_Holmquist.png){ loading=lazy style="max-height: 500px; height: 70%; width: auto; display: block; margin-right: auto;" }
+-   ![post cover photo](../assets/blog/2025-02-06_Jake_Holmquist.png){ loading=lazy style=" display: block; margin-right: auto;" }
 
 </div>
 
@@ -115,7 +115,7 @@ search:
 
     [Read More :octicons-arrow-right-24:](https://fromanengineersight.substack.com/p/beyond-sql-as-a-pure-database-syntax){ .md-button target="_blank"  }
 
--   ![post cover photo](https://cdn.theorg.com/be98c465-6d08-43ad-8ef3-f43b34addfde_medium.jpg){ loading=lazy style="max-height: 500px; height: 70%; width: auto; display: block; margin-left: auto;" }
+-   ![post cover photo](https://cdn.theorg.com/be98c465-6d08-43ad-8ef3-f43b34addfde_medium.jpg){ loading=lazy style="max-width: 400px; height: auto; display: block; margin-left: auto;" }
 
 </div>
 
@@ -129,7 +129,7 @@ search:
 
     [Read More :octicons-arrow-right-24:](https://mastheadata.com/exploring-the-benefits-of-bigfunctions-for-bigquery-a-data-engineers-perspective/){ .md-button target="_blank"  }
 
--   ![post cover photo](https://cache.sessionize.com/image/0168-400o400o2-24epqXXuyWFRatd2QKMhY.jpg){ loading=lazy style="max-height: 500px; height: 70%; width: auto; display: block; margin-right: auto;" }
+-   ![post cover photo](https://cache.sessionize.com/image/0168-400o400o2-24epqXXuyWFRatd2QKMhY.jpg){ loading=lazy style=" display: block; margin-right: auto;" }
 
 </div>
 
@@ -143,7 +143,7 @@ search:
 
     [Read More :octicons-arrow-right-24:](https://michael-scherding.medium.com/spicing-up-gcs-to-bigquery-transfers-from-dataform-with-bigfunctions-0d286e5a91c){ .md-button target="_blank"  }
 
--   ![post cover photo](https://miro.medium.com/v2/resize:fit:2400/1*K6lBFw65lMIHIX4z7m6jPA.jpeg){ loading=lazy style="max-height: 500px; height: 70%; width: auto; display: block; margin-left: auto;" }
+-   ![post cover photo](https://miro.medium.com/v2/resize:fit:2400/1*K6lBFw65lMIHIX4z7m6jPA.jpeg){ loading=lazy style="max-width: 400px; height: auto; display: block; margin-left: auto;" }
 
 </div>
 
