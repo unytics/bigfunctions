@@ -23,9 +23,9 @@ examples:
   - description: "GET trends for chaise and fauteuil"
     arguments:
       - "'chaise, fauteuil'"
-      - "null"
-      - "null"
-      - "null"
+      - "11"
+      - "'2025-01-01 2025-01-07'"
+      - "'FR'"
       - "null"
     output: |
       [
@@ -35,30 +35,35 @@ examples:
       ]
 code: | #python
   import time
-  from pytrends.request import TrendReq
+  import random
+  from pytrends.request import TrendReq, exceptions
+  import pandas as pd
+
   if not keywords:
     return []
+
   keywords = [kw.strip() for kw in keywords.split(',')]
   gprop = gprop or ''
   timeframe = timeframe or 'today 5-y'
 
-  pytrends = TrendReq(hl='en-US', tz=360)
+  pytrends = TrendReq(hl='en-US', tz=360, retries=20)
   pytrends.build_payload(keywords, cat=category, timeframe=timeframe, geo=geo, gprop=gprop)
 
-  sleeping_times = [1, 3, 5, 7, 9, 11, 13, 15, 17, 21, 23, 25]
-  for k, sleep_time in enumerate(sleeping_times):
-    try:
-      df = pytrends.interest_over_time()
-      break
-    except:
-      if k == (len(sleeping_times) - 1):
-        raise
-      time.sleep(sleep_time)
+  try:
+    df = pytrends.interest_over_time()
+  except exceptions.TooManyRequestsError:
+    return []
+  except exceptions.ResponseError as e:
+    assert False, str(e)
 
   df = df.reset_index()
-  df['date'] = df['date'].map(lambda date: date.isoformat())
+  df = df.loc[~df['isPartial']]
+  df['date'] = df['date'].map(lambda date: date.strftime('%Y-%m-%d'))
+  df = pd.melt(df, id_vars=['date'], value_vars=keywords, var_name='key')
+
   return df.to_dict(orient='records')
 requirements: |
+  urllib3<2
   pytrends
 max_batching_rows: 1
 cloud_run:
