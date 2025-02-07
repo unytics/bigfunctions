@@ -53,7 +53,7 @@ search:
 
     [Read More :octicons-arrow-right-24:](posts/2025-02-05_introducing_the_sql_data_stack.md){ .md-button }
 
--   ![post cover photo](../assets/blog/2025-02-05_introducing_sql_data_stack.png){ style="max-height: 500px; height: 70%; width: auto; display: block; margin-left: auto;" }
+-   ![post cover photo](../assets/blog/2025-02-05_introducing_sql_data_stack.png){ loading=lazy style="max-height: 500px; height: 70%; width: auto; display: block; margin-left: auto;" }
 
 </div>
 
@@ -67,7 +67,7 @@ search:
 
     [Read More :octicons-arrow-right-24:](https://timodechau.com/from-sql-to-slack-automating-data-workflows-with-big-functions/){ .md-button target="_blank"  }
 
--   ![post cover photo](https://timodechau.com/content/images/size/w400/format/webp/2024/12/timo_square.jpeg){ style="max-height: 500px; height: 70%; width: auto; display: block; margin-right: auto;" }
+-   ![post cover photo](https://timodechau.com/content/images/size/w400/format/webp/2024/12/timo_square.jpeg){ loading=lazy style="max-height: 500px; height: 70%; width: auto; display: block; margin-right: auto;" }
 
 </div>
 
@@ -87,7 +87,7 @@ search:
 
     [Read More :octicons-arrow-right-24:](https://www.youtube.com/watch?v=kFy78r1Iabs){ .md-button target="_blank"  }
 
--   ![post cover photo](https://miro.medium.com/v2/resize:fit:2400/1*sQBZAcpkOhRvSe5zYudx_A.jpeg){ style="max-height: 500px; height: 70%; width: auto; display: block; margin-left: auto;" }
+-   ![post cover photo](https://miro.medium.com/v2/resize:fit:2400/1*sQBZAcpkOhRvSe5zYudx_A.jpeg){ loading=lazy style="max-height: 500px; height: 70%; width: auto; display: block; margin-left: auto;" }
 
 </div>
 
@@ -101,7 +101,7 @@ search:
 
     [Read More :octicons-arrow-right-24:](https://medium.com/google-cloud/supercharge-bigquery-with-bigfunctions-2139a1bba620){ .md-button target="_blank"  }
 
--   ![post cover photo](../assets/blog/2025-02-06_Jake_Holmquist.png){ style="max-height: 500px; height: 70%; width: auto; display: block; margin-right: auto;" }
+-   ![post cover photo](../assets/blog/2025-02-06_Jake_Holmquist.png){ loading=lazy style="max-height: 500px; height: 70%; width: auto; display: block; margin-right: auto;" }
 
 </div>
 
@@ -115,7 +115,7 @@ search:
 
     [Read More :octicons-arrow-right-24:](https://fromanengineersight.substack.com/p/beyond-sql-as-a-pure-database-syntax){ .md-button target="_blank"  }
 
--   ![post cover photo](https://cdn.theorg.com/be98c465-6d08-43ad-8ef3-f43b34addfde_medium.jpg){ style="max-height: 500px; height: 70%; width: auto; display: block; margin-left: auto;" }
+-   ![post cover photo](https://cdn.theorg.com/be98c465-6d08-43ad-8ef3-f43b34addfde_medium.jpg){ loading=lazy style="max-height: 500px; height: 70%; width: auto; display: block; margin-left: auto;" }
 
 </div>
 
@@ -129,7 +129,7 @@ search:
 
     [Read More :octicons-arrow-right-24:](https://mastheadata.com/exploring-the-benefits-of-bigfunctions-for-bigquery-a-data-engineers-perspective/){ .md-button target="_blank"  }
 
--   ![post cover photo](https://cache.sessionize.com/image/0168-400o400o2-24epqXXuyWFRatd2QKMhY.jpg){ style="max-height: 500px; height: 70%; width: auto; display: block; margin-right: auto;" }
+-   ![post cover photo](https://cache.sessionize.com/image/0168-400o400o2-24epqXXuyWFRatd2QKMhY.jpg){ loading=lazy style="max-height: 500px; height: 70%; width: auto; display: block; margin-right: auto;" }
 
 </div>
 
@@ -143,7 +143,7 @@ search:
 
     [Read More :octicons-arrow-right-24:](https://michael-scherding.medium.com/spicing-up-gcs-to-bigquery-transfers-from-dataform-with-bigfunctions-0d286e5a91c){ .md-button target="_blank"  }
 
--   ![post cover photo](https://miro.medium.com/v2/resize:fit:2400/1*K6lBFw65lMIHIX4z7m6jPA.jpeg){ style="max-height: 500px; height: 70%; width: auto; display: block; margin-left: auto;" }
+-   ![post cover photo](https://miro.medium.com/v2/resize:fit:2400/1*K6lBFw65lMIHIX4z7m6jPA.jpeg){ loading=lazy style="max-height: 500px; height: 70%; width: auto; display: block; margin-left: auto;" }
 
 </div>
 
@@ -178,7 +178,7 @@ Since the rise of cloud data-warehouses and the birth of dbt, data engineers don
 
         <div>
 
-            
+            <img src="https://dummyimage.com/200x150/eee/eee" loading=lazy>
 
         </div>
 
@@ -201,9 +201,7 @@ I've been following him for two......</p>
 
         <div>
 
-            
-                <img src="../assets/blog/2025-01-23_have_you_met_timo">
-            
+            <img src="../assets/blog/2025-01-23_have_you_met_timo" loading=lazy>
 
         </div>
 
@@ -224,7 +222,7 @@ I've been following him for two......</p>
 
         <div>
 
-            
+            <img src="https://dummyimage.com/200x150/eee/eee" loading=lazy>
 
         </div>
 
@@ -247,7 +245,7 @@ I'm happy with......</p>
 
         <div>
 
-            
+            <img src="https://dummyimage.com/200x150/eee/eee" loading=lazy>
 
         </div>
 
@@ -268,7 +266,7 @@ I'm happy with......</p>
 
         <div>
 
-            
+            <img src="https://dummyimage.com/200x150/eee/eee" loading=lazy>
 
         </div>
 
@@ -295,9 +293,7 @@ In 2024, I built 4 Open-Source Data Apps:
 
         <div>
 
-            
-                <img src="../assets/blog/2025-01-15_whats_up_for_me_in_2025__more_opensource_data_prod">
-            
+            <img src="../assets/blog/2025-01-15_whats_up_for_me_in_2025__more_opensource_data_prod" loading=lazy>
 
         </div>
 
@@ -321,9 +317,7 @@ Burak shared his......</p>
 
         <div>
 
-            
-                <img src="../assets/blog/2025-01-14_unifying_analytics_platform_what_if_you_could_have">
-            
+            <img src="../assets/blog/2025-01-14_unifying_analytics_platform_what_if_you_could_have" loading=lazy>
 
         </div>
 
@@ -346,7 +340,7 @@ We......</p>
 
         <div>
 
-            
+            <img src="https://dummyimage.com/200x150/eee/eee" loading=lazy>
 
         </div>
 
@@ -370,7 +364,7 @@ Modern-data-stack brought data tooling for any data service:
 
         <div>
 
-            
+            <img src="https://dummyimage.com/200x150/eee/eee" loading=lazy>
 
         </div>
 
@@ -393,7 +387,7 @@ We built ultrasound scanners......</p>
 
         <div>
 
-            
+            <img src="https://dummyimage.com/200x150/eee/eee" loading=lazy>
 
         </div>
 
@@ -414,9 +408,7 @@ We built ultrasound scanners......</p>
 
         <div>
 
-            
-                <img src="../assets/blog/2025-01-06_just_tried_something_really_amazing_with_bigfuncti">
-            
+            <img src="../assets/blog/2025-01-06_just_tried_something_really_amazing_with_bigfuncti" loading=lazy>
 
         </div>
 
@@ -440,7 +432,7 @@ We built ultrasound scanners......</p>
 
         <div>
 
-            
+            <img src="https://dummyimage.com/200x150/eee/eee" loading=lazy>
 
         </div>
 
@@ -463,9 +455,7 @@ It's trending since we can run duckdb......</p>
 
         <div>
 
-            
-                <img src="../assets/blog/2024-12-19_static_bi_is_going_to_be_huge__heres_why_i_am_very">
-            
+            <img src="../assets/blog/2024-12-19_static_bi_is_going_to_be_huge__heres_why_i_am_very" loading=lazy>
 
         </div>
 
@@ -486,9 +476,7 @@ It's trending since we can run duckdb......</p>
 
         <div>
 
-            
-                <img src="../assets/blog/2024-12-18_ga4_data_is_known_to_be_hard_to_explore_in_bigquer">
-            
+            <img src="../assets/blog/2024-12-18_ga4_data_is_known_to_be_hard_to_explore_in_bigquer" loading=lazy>
 
         </div>
 
@@ -512,9 +500,7 @@ The formula is "% promoters - %......</p>
 
         <div>
 
-            
-                <img src="../assets/blog/2024-12-16_how_do_you_reuse_logic_in_bigquery">
-            
+            <img src="../assets/blog/2024-12-16_how_do_you_reuse_logic_in_bigquery" loading=lazy>
 
         </div>
 
@@ -537,7 +523,7 @@ Which one to......</p>
 
         <div>
 
-            
+            <img src="https://dummyimage.com/200x150/eee/eee" loading=lazy>
 
         </div>
 
@@ -560,9 +546,7 @@ Which one to......</p>
 
         <div>
 
-            
-                <img src="../assets/blog/2024-12-13_geocode_an_address_in_bigquery_using_datagouvfr">
-            
+            <img src="../assets/blog/2024-12-13_geocode_an_address_in_bigquery_using_datagouvfr" loading=lazy>
 
         </div>
 
@@ -587,7 +571,7 @@ Everything EXCEPT custom stuff.
 
         <div>
 
-            
+            <img src="https://dummyimage.com/200x150/eee/eee" loading=lazy>
 
         </div>
 
@@ -614,9 +598,7 @@ run_stack(
 
         <div>
 
-            
-                <img src="../assets/blog/2024-12-12_i_aim_to_build_and_define_the_data_stack_with_a_si">
-            
+            <img src="../assets/blog/2024-12-12_i_aim_to_build_and_define_the_data_stack_with_a_si" loading=lazy>
 
         </div>
 
@@ -639,7 +621,7 @@ run_stack(
 
         <div>
 
-            
+            <img src="https://dummyimage.com/200x150/eee/eee" loading=lazy>
 
         </div>
 
@@ -662,9 +644,7 @@ We explained several use cases where YOU......</p>
 
         <div>
 
-            
-                <img src="../assets/blog/2024-12-04_expose_your_dbt_models_as_an_api_with_a_simple_dbt">
-            
+            <img src="../assets/blog/2024-12-04_expose_your_dbt_models_as_an_api_with_a_simple_dbt" loading=lazy>
 
         </div>
 
@@ -685,9 +665,7 @@ We explained several use cases where YOU......</p>
 
         <div>
 
-            
-                <img src="../assets/blog/2024-12-04_these_days_i_write_a_lot_about_getting_data_from_v">
-            
+            <img src="../assets/blog/2024-12-04_these_days_i_write_a_lot_about_getting_data_from_v" loading=lazy>
 
         </div>
 
@@ -710,9 +688,7 @@ Today at......</p>
 
         <div>
 
-            
-                <img src="../assets/blog/2024-12-03_speaking_with_datapeople_is_always_full_of_surpris">
-            
+            <img src="../assets/blog/2024-12-03_speaking_with_datapeople_is_always_full_of_surpris" loading=lazy>
 
         </div>
 
@@ -737,9 +713,7 @@ What caught my eye is the UX:
 
         <div>
 
-            
-                <img src="../assets/blog/2024-11-29_i_was_impressed_by_sherloq_this_week">
-            
+            <img src="../assets/blog/2024-11-29_i_was_impressed_by_sherloq_this_week" loading=lazy>
 
         </div>
 
@@ -762,7 +736,7 @@ It’s a way to democratize data access in a company. It focuses on all......</p
 
         <div>
 
-            
+            <img src="https://dummyimage.com/200x150/eee/eee" loading=lazy>
 
         </div>
 
@@ -785,7 +759,7 @@ But it won’t help for business people to get trusted......</p>
 
         <div>
 
-            
+            <img src="https://dummyimage.com/200x150/eee/eee" loading=lazy>
 
         </div>
 
@@ -811,9 +785,7 @@ But it won’t help for business people to get trusted......</p>
 
         <div>
 
-            
-                <img src="../assets/blog/2024-11-25_bigfunctions_is_a_framework_like_dbt_to_supercharg">
-            
+            <img src="../assets/blog/2024-11-25_bigfunctions_is_a_framework_like_dbt_to_supercharg" loading=lazy>
 
         </div>
 
@@ -836,7 +808,7 @@ But it won’t help for business people to get trusted......</p>
 
         <div>
 
-            
+            <img src="https://dummyimage.com/200x150/eee/eee" loading=lazy>
 
         </div>
 
@@ -861,9 +833,7 @@ Huge Thanks to the......</p>
 
         <div>
 
-            
-                <img src="../assets/blog/2024-11-12_well_im_nowhere_near_kestra_and_their_10000_stars">
-            
+            <img src="../assets/blog/2024-11-12_well_im_nowhere_near_kestra_and_their_10000_stars" loading=lazy>
 
         </div>
 
@@ -887,7 +857,7 @@ Huge Thanks to the......</p>
 
         <div>
 
-            
+            <img src="https://dummyimage.com/200x150/eee/eee" loading=lazy>
 
         </div>
 
@@ -911,9 +881,7 @@ Simply because sqlmesh paid product does not compete with their open-source prod
 
         <div>
 
-            
-                <img src="../assets/blog/2024-11-07_sqlmesh_vs_dbt">
-            
+            <img src="../assets/blog/2024-11-07_sqlmesh_vs_dbt" loading=lazy>
 
         </div>
 
@@ -936,7 +904,7 @@ Simply because sqlmesh paid product does not compete with their open-source prod
 
         <div>
 
-            
+            <img src="https://dummyimage.com/200x150/eee/eee" loading=lazy>
 
         </div>
 
@@ -957,7 +925,7 @@ Simply because sqlmesh paid product does not compete with their open-source prod
 
         <div>
 
-            
+            <img src="https://dummyimage.com/200x150/eee/eee" loading=lazy>
 
         </div>
 
@@ -978,9 +946,7 @@ Simply because sqlmesh paid product does not compete with their open-source prod
 
         <div>
 
-            
-                <img src="../assets/blog/2024-10-28_speaker_announcement_were_thrilled_to_announce_tha">
-            
+            <img src="../assets/blog/2024-10-28_speaker_announcement_were_thrilled_to_announce_tha" loading=lazy>
 
         </div>
 
@@ -1001,7 +967,7 @@ Simply because sqlmesh paid product does not compete with their open-source prod
 
         <div>
 
-            
+            <img src="https://dummyimage.com/200x150/eee/eee" loading=lazy>
 
         </div>
 
@@ -1024,9 +990,7 @@ Under the BigFunctions hood : DuckDB & Ibis......</p>
 
         <div>
 
-            
-                <img src="../assets/blog/2024-10-15__new_bigfunctions__loadfileurl_filetype_destinatio">
-            
+            <img src="../assets/blog/2024-10-15__new_bigfunctions__loadfileurl_filetype_destinatio" loading=lazy>
 
         </div>
 
@@ -1051,9 +1015,7 @@ You'll instantly get:
 
         <div>
 
-            
-                <img src="../assets/blog/2024-10-04_do_you_have_a_lot_of_text_data__categorize_it_">
-            
+            <img src="../assets/blog/2024-10-04_do_you_have_a_lot_of_text_data__categorize_it_" loading=lazy>
 
         </div>
 
@@ -1076,9 +1038,7 @@ Within 20 minutes we could deploy this......</p>
 
         <div>
 
-            
-                <img src="../assets/blog/2024-09-26_easiest_way_to_get_a_public_csv_file_into_bigquery">
-            
+            <img src="../assets/blog/2024-09-26_easiest_way_to_get_a_public_csv_file_into_bigquery" loading=lazy>
 
         </div>
 
@@ -1105,9 +1065,7 @@ Using a prompt embedded in a SQL......</p>
 
         <div>
 
-            
-                <img src="../assets/blog/2024-09-26_extract_webpage_data_with_sql_">
-            
+            <img src="../assets/blog/2024-09-26_extract_webpage_data_with_sql_" loading=lazy>
 
         </div>
 
@@ -1132,9 +1090,7 @@ Documentation here
 
         <div>
 
-            
-                <img src="../assets/blog/2024-09-24__new_contribution_to_bigfunctions__refreshpowerbi">
-            
+            <img src="../assets/blog/2024-09-24__new_contribution_to_bigfunctions__refreshpowerbi" loading=lazy>
 
         </div>
 
@@ -1158,9 +1114,7 @@ You can:
 
         <div>
 
-            
-                <img src="../assets/blog/2024-09-20_converse_with_your_user_feedbacks_inside_bigquery_">
-            
+            <img src="../assets/blog/2024-09-20_converse_with_your_user_feedbacks_inside_bigquery_" loading=lazy>
 
         </div>
 
@@ -1183,9 +1137,7 @@ Looker Studio is no......</p>
 
         <div>
 
-            
-                <img src="../assets/blog/2024-09-18_i_just_tried_the_brand_new_conversational_analytic">
-            
+            <img src="../assets/blog/2024-09-18_i_just_tried_the_brand_new_conversational_analytic" loading=lazy>
 
         </div>
 
@@ -1208,7 +1160,7 @@ And here is the......</p>
 
         <div>
 
-            
+            <img src="https://dummyimage.com/200x150/eee/eee" loading=lazy>
 
         </div>
 
@@ -1229,9 +1181,7 @@ And here is the......</p>
 
         <div>
 
-            
-                <img src="../assets/blog/2024-09-13_data_analysis_is_structured_data_enough">
-            
+            <img src="../assets/blog/2024-09-13_data_analysis_is_structured_data_enough" loading=lazy>
 
         </div>
 
@@ -1254,9 +1204,7 @@ Mathilde Gorieu made......</p>
 
         <div>
 
-            
-                <img src="../assets/blog/2024-09-12_surface_the_search_behind_the_rag__">
-            
+            <img src="../assets/blog/2024-09-12_surface_the_search_behind_the_rag__" loading=lazy>
 
         </div>
 
@@ -1277,9 +1225,7 @@ Mathilde Gorieu made......</p>
 
         <div>
 
-            
-                <img src="../assets/blog/2024-09-10_lets_talk_about_nickel_genai_use_cases_at_google_p">
-            
+            <img src="../assets/blog/2024-09-10_lets_talk_about_nickel_genai_use_cases_at_google_p" loading=lazy>
 
         </div>
 
@@ -1301,7 +1247,7 @@ BigFunctions is revolutionizing......</p>
 
         <div>
 
-            
+            <img src="https://dummyimage.com/200x150/eee/eee" loading=lazy>
 
         </div>
 
@@ -1326,9 +1272,7 @@ Refresh_tableau is a function......</p>
 
         <div>
 
-            
-                <img src="../assets/blog/2024-08-01_refresh_a_tableau_workbook_with_a_sql_command">
-            
+            <img src="../assets/blog/2024-08-01_refresh_a_tableau_workbook_with_a_sql_command" loading=lazy>
 
         </div>
 
@@ -1352,7 +1296,7 @@ Refresh_tableau is a function......</p>
 
         <div>
 
-            
+            <img src="https://dummyimage.com/200x150/eee/eee" loading=lazy>
 
         </div>
 
@@ -1377,9 +1321,7 @@ Function doc:......</p>
 
         <div>
 
-            
-                <img src="../assets/blog/2024-07-29_put_the_right_label_to_a_value">
-            
+            <img src="../assets/blog/2024-07-29_put_the_right_label_to_a_value" loading=lazy>
 
         </div>
 
@@ -1406,9 +1348,7 @@ It......</p>
 
         <div>
 
-            
-                <img src="../assets/blog/2024-07-25_load_data_from_250_sources_with_a_single_sql_query">
-            
+            <img src="../assets/blog/2024-07-25_load_data_from_250_sources_with_a_single_sql_query" loading=lazy>
 
         </div>
 
@@ -1429,9 +1369,7 @@ It......</p>
 
         <div>
 
-            
-                <img src="../assets/blog/2024-06-04_banktech_day_organis_par_finance_innovation_se_dro">
-            
+            <img src="../assets/blog/2024-06-04_banktech_day_organis_par_finance_innovation_se_dro" loading=lazy>
 
         </div>
 
@@ -1453,9 +1391,7 @@ You're not alone. It's like searching for a needle......</p>
 
         <div>
 
-            
-                <img src="../assets/blog/2024-05-30_stop_struggling_with_nested_json_in_bigquery__flat">
-            
+            <img src="../assets/blog/2024-05-30_stop_struggling_with_nested_json_in_bigquery__flat" loading=lazy>
 
         </div>
 
@@ -1479,9 +1415,7 @@ What if we could run them via a......</p>
 
         <div>
 
-            
-                <img src="../assets/blog/2024-05-29_loading_data_into_bigquery_should_be_as_simple_as_">
-            
+            <img src="../assets/blog/2024-05-29_loading_data_into_bigquery_should_be_as_simple_as_" loading=lazy>
 
         </div>
 
@@ -1504,7 +1438,7 @@ What if we could run them via a......</p>
 
         <div>
 
-            
+            <img src="https://dummyimage.com/200x150/eee/eee" loading=lazy>
 
         </div>
 
@@ -1527,9 +1461,7 @@ Here is an......</p>
 
         <div>
 
-            
-                <img src="../assets/blog/2024-05-17_getting_public_data_into_bigquery_has_never_been_e">
-            
+            <img src="../assets/blog/2024-05-17_getting_public_data_into_bigquery_has_never_been_e" loading=lazy>
 
         </div>
 
@@ -1552,9 +1484,7 @@ Here is an......</p>
 
         <div>
 
-            
-                <img src="../assets/blog/2024-05-16_its_been_a_while_since_ive_been_this_excited_about">
-            
+            <img src="../assets/blog/2024-05-16_its_been_a_while_since_ive_been_this_excited_about" loading=lazy>
 
         </div>
 
@@ -1578,7 +1508,7 @@ Here is an......</p>
 
         <div>
 
-            
+            <img src="https://dummyimage.com/200x150/eee/eee" loading=lazy>
 
         </div>
 
@@ -1599,9 +1529,7 @@ Here is an......</p>
 
         <div>
 
-            
-                <img src="../assets/blog/2024-03-01_i_am_quite_excited_with_pyairbyte___airbyte_connec">
-            
+            <img src="../assets/blog/2024-03-01_i_am_quite_excited_with_pyairbyte___airbyte_connec" loading=lazy>
 
         </div>
 
@@ -1624,9 +1552,7 @@ One way to scale data analysis is to embed data people in teams, tribes,......</
 
         <div>
 
-            
-                <img src="../assets/blog/2024-02-06_what_is_a_staff_analyticsengineer_and_why_we_need_">
-            
+            <img src="../assets/blog/2024-02-06_what_is_a_staff_analyticsengineer_and_why_we_need_" loading=lazy>
 
         </div>
 
@@ -1647,9 +1573,7 @@ One way to scale data analysis is to embed data people in teams, tribes,......</
 
         <div>
 
-            
-                <img src="../assets/blog/2024-01-24_what_if_dataanalysts_could_take_actions_themselves">
-            
+            <img src="../assets/blog/2024-01-24_what_if_dataanalysts_could_take_actions_themselves" loading=lazy>
 
         </div>
 
@@ -1670,9 +1594,7 @@ One way to scale data analysis is to embed data people in teams, tribes,......</
 
         <div>
 
-            
-                <img src="../assets/blog/2024-01-23_when_to_use_bigquery_dataframes_over_sql_">
-            
+            <img src="../assets/blog/2024-01-23_when_to_use_bigquery_dataframes_over_sql_" loading=lazy>
 
         </div>
 
@@ -1697,9 +1619,7 @@ It will tell you the IP......</p>
 
         <div>
 
-            
-                <img src="../assets/blog/2023-12-21_get_the_country_of_an_ip_address_in_bigquery_">
-            
+            <img src="../assets/blog/2023-12-21_get_the_country_of_an_ip_address_in_bigquery_" loading=lazy>
 
         </div>
 
@@ -1720,9 +1640,7 @@ It will tell you the IP......</p>
 
         <div>
 
-            
-                <img src="../assets/blog/2023-12-15_moving_data_to_your_datawarehouse_has_never_been_e">
-            
+            <img src="../assets/blog/2023-12-15_moving_data_to_your_datawarehouse_has_never_been_e" loading=lazy>
 
         </div>
 
@@ -1743,9 +1661,7 @@ It will tell you the IP......</p>
 
         <div>
 
-            
-                <img src="../assets/blog/2023-12-14_bigfunctions__steroids_for_bigquery">
-            
+            <img src="../assets/blog/2023-12-14_bigfunctions__steroids_for_bigquery" loading=lazy>
 
         </div>
 
@@ -1766,9 +1682,7 @@ It will tell you the IP......</p>
 
         <div>
 
-            
-                <img src="../assets/blog/2023-12-14_testing_gemini_googles_latest_ai_model_from_bigque">
-            
+            <img src="../assets/blog/2023-12-14_testing_gemini_googles_latest_ai_model_from_bigque" loading=lazy>
 
         </div>
 
@@ -1789,9 +1703,7 @@ It will tell you the IP......</p>
 
         <div>
 
-            
-                <img src="../assets/blog/2023-12-11_bigquery_array_union__array_intersect_now_at_your_">
-            
+            <img src="../assets/blog/2023-12-11_bigquery_array_union__array_intersect_now_at_your_" loading=lazy>
 
         </div>
 
@@ -1817,7 +1729,7 @@ Airbyte is......</p>
 
         <div>
 
-            
+            <img src="https://dummyimage.com/200x150/eee/eee" loading=lazy>
 
         </div>
 
@@ -1842,9 +1754,7 @@ and you'll......</p>
 
         <div>
 
-            
-                <img src="../assets/blog/2023-11-24_extract_info_from_a_phone_number_in_bigquery_">
-            
+            <img src="../assets/blog/2023-11-24_extract_info_from_a_phone_number_in_bigquery_" loading=lazy>
 
         </div>
 
@@ -1867,9 +1777,7 @@ and you'll......</p>
 
         <div>
 
-            
-                <img src="../assets/blog/2023-11-23_data_catalog_is_key_for_your_datamesh_strategy_why">
-            
+            <img src="../assets/blog/2023-11-23_data_catalog_is_key_for_your_datamesh_strategy_why" loading=lazy>
 
         </div>
 
@@ -1893,7 +1801,7 @@ and you'll......</p>
 
         <div>
 
-            
+            <img src="https://dummyimage.com/200x150/eee/eee" loading=lazy>
 
         </div>
 
@@ -1914,9 +1822,7 @@ and you'll......</p>
 
         <div>
 
-            
-                <img src="../assets/blog/2023-10-25_heres_what_i_do_when_i_cant_find_a_bigquery_functi">
-            
+            <img src="../assets/blog/2023-10-25_heres_what_i_do_when_i_cant_find_a_bigquery_functi" loading=lazy>
 
         </div>
 
@@ -1938,7 +1844,7 @@ and you'll......</p>
 
         <div>
 
-            
+            <img src="https://dummyimage.com/200x150/eee/eee" loading=lazy>
 
         </div>
 
@@ -1959,7 +1865,7 @@ and you'll......</p>
 
         <div>
 
-            
+            <img src="https://dummyimage.com/200x150/eee/eee" loading=lazy>
 
         </div>
 
@@ -1980,7 +1886,7 @@ and you'll......</p>
 
         <div>
 
-            
+            <img src="https://dummyimage.com/200x150/eee/eee" loading=lazy>
 
         </div>
 
@@ -2004,9 +1910,7 @@ At Nickel, since we had......</p>
 
         <div>
 
-            
-                <img src="../assets/blog/2023-10-10_you_probably_have_too_many_dashboards">
-            
+            <img src="../assets/blog/2023-10-10_you_probably_have_too_many_dashboards" loading=lazy>
 
         </div>
 
@@ -2031,9 +1935,7 @@ At Nickel, since we had......</p>
 
         <div>
 
-            
-                <img src="../assets/blog/2023-10-06_rule__1_for_reducing_bigquery_costs">
-            
+            <img src="../assets/blog/2023-10-06_rule__1_for_reducing_bigquery_costs" loading=lazy>
 
         </div>
 
@@ -2056,9 +1958,7 @@ This is when the great Rémi BENOIST  decided......</p>
 
         <div>
 
-            
-                <img src="../assets/blog/2023-10-05_beware_of_dbt_tests_your_money_may_disappear_">
-            
+            <img src="../assets/blog/2023-10-05_beware_of_dbt_tests_your_money_may_disappear_" loading=lazy>
 
         </div>
 
@@ -2081,9 +1981,7 @@ This is when the great Rémi BENOIST  decided......</p>
 
         <div>
 
-            
-                <img src="../assets/blog/2023-10-04_from_1400__to_1__a_month__my_best_bigquery_optimiz">
-            
+            <img src="../assets/blog/2023-10-04_from_1400__to_1__a_month__my_best_bigquery_optimiz" loading=lazy>
 
         </div>
 
@@ -2106,9 +2004,7 @@ That's how......</p>
 
         <div>
 
-            
-                <img src="../assets/blog/2023-09-15_composable_cdp_are_dead_long_live_datawarehouse_co">
-            
+            <img src="../assets/blog/2023-09-15_composable_cdp_are_dead_long_live_datawarehouse_co" loading=lazy>
 
         </div>
 
@@ -2131,7 +2027,7 @@ Je retiens de cette discussion avec Christophe......</p>
 
         <div>
 
-            
+            <img src="https://dummyimage.com/200x150/eee/eee" loading=lazy>
 
         </div>
 
@@ -2152,7 +2048,7 @@ Je retiens de cette discussion avec Christophe......</p>
 
         <div>
 
-            
+            <img src="https://dummyimage.com/200x150/eee/eee" loading=lazy>
 
         </div>
 
@@ -2175,9 +2071,7 @@ And in the......</p>
 
         <div>
 
-            
-                <img src="../assets/blog/2023-06-20_expose_your_bigquery_data_in_a_realtime_database_f">
-            
+            <img src="../assets/blog/2023-06-20_expose_your_bigquery_data_in_a_realtime_database_f" loading=lazy>
 
         </div>
 
@@ -2199,9 +2093,7 @@ And in the......</p>
 
         <div>
 
-            
-                <img src="../assets/blog/2023-06-16_run_any_python_code_in_bigquery__">
-            
+            <img src="../assets/blog/2023-06-16_run_any_python_code_in_bigquery__" loading=lazy>
 
         </div>
 
@@ -2224,9 +2116,7 @@ Thanks to dbt post-hooks and the brand-new......</p>
 
         <div>
 
-            
-                <img src="../assets/blog/2023-06-08_sync_any_dbt_model_into_google_sheet_at_dbt_run__">
-            
+            <img src="../assets/blog/2023-06-08_sync_any_dbt_model_into_google_sheet_at_dbt_run__" loading=lazy>
 
         </div>
 
@@ -2249,9 +2139,7 @@ The BigQuery function 'ask_my_data' converts......</p>
 
         <div>
 
-            
-                <img src="../assets/blog/2023-05-24__ask_questions_to_bigquery_in_english__">
-            
+            <img src="../assets/blog/2023-05-24__ask_questions_to_bigquery_in_english__" loading=lazy>
 
         </div>
 
@@ -2275,9 +2163,7 @@ The BigQuery function 'ask_my_data' converts......</p>
 
         <div>
 
-            
-                <img src="../assets/blog/2023-05-17_generating_pdf_invoices_from_bigquery__">
-            
+            <img src="../assets/blog/2023-05-17_generating_pdf_invoices_from_bigquery__" loading=lazy>
 
         </div>
 
@@ -2300,9 +2186,7 @@ The BigQuery function 'ask_my_data' converts......</p>
 
         <div>
 
-            
-                <img src="../assets/blog/2023-05-12_generative_ai_is_available_in_bigquery_and_i_just_">
-            
+            <img src="../assets/blog/2023-05-12_generative_ai_is_available_in_bigquery_and_i_just_" loading=lazy>
 
         </div>
 
@@ -2325,7 +2209,7 @@ The BigQuery function 'ask_my_data' converts......</p>
 
         <div>
 
-            
+            <img src="https://dummyimage.com/200x150/eee/eee" loading=lazy>
 
         </div>
 
@@ -2350,9 +2234,7 @@ By enabling data-practitioners to query data-sources without......</p>
 
         <div>
 
-            
-                <img src="../assets/blog/2023-05-04_zeroetl_in_bigquery_there_is_more_">
-            
+            <img src="../assets/blog/2023-05-04_zeroetl_in_bigquery_there_is_more_" loading=lazy>
 
         </div>
 
@@ -2373,9 +2255,7 @@ By enabling data-practitioners to query data-sources without......</p>
 
         <div>
 
-            
-                <img src="../assets/blog/2023-05-02_sending_slack_notifications_from_bigquery_">
-            
+            <img src="../assets/blog/2023-05-02_sending_slack_notifications_from_bigquery_" loading=lazy>
 
         </div>
 
@@ -2398,9 +2278,7 @@ By enabling data-practitioners to query data-sources without......</p>
 
         <div>
 
-            
-                <img src="../assets/blog/2023-04-28_sending_notifications_from_bigquery_">
-            
+            <img src="../assets/blog/2023-04-28_sending_notifications_from_bigquery_" loading=lazy>
 
         </div>
 
@@ -2423,9 +2301,7 @@ Shivam Singh......</p>
 
         <div>
 
-            
-                <img src="../assets/blog/2023-04-25_generate_fake_data_in_bigquery">
-            
+            <img src="../assets/blog/2023-04-25_generate_fake_data_in_bigquery" loading=lazy>
 
         </div>
 
@@ -2448,9 +2324,7 @@ As you get data without transform from your sources into you warehouse, (using..
 
         <div>
 
-            
-                <img src="../assets/blog/2023-04-19_deidentifying_text_in_bigquery">
-            
+            <img src="../assets/blog/2023-04-19_deidentifying_text_in_bigquery" loading=lazy>
 
         </div>
 
@@ -2471,9 +2345,7 @@ As you get data without transform from your sources into you warehouse, (using..
 
         <div>
 
-            
-                <img src="../assets/blog/2023-04-15_celebrating__10_contributors_to_help_data_practici">
-            
+            <img src="../assets/blog/2023-04-15_celebrating__10_contributors_to_help_data_practici" loading=lazy>
 
         </div>
 
@@ -2495,9 +2367,7 @@ As you get data without transform from your sources into you warehouse, (using..
 
         <div>
 
-            
-                <img src="../assets/blog/2023-04-13_tonight_i_met_felipe_hoffa_from_snowflake">
-            
+            <img src="../assets/blog/2023-04-13_tonight_i_met_felipe_hoffa_from_snowflake" loading=lazy>
 
         </div>
 
@@ -2521,9 +2391,7 @@ As you get data without transform from your sources into you warehouse, (using..
 
         <div>
 
-            
-                <img src="../assets/blog/2023-04-12_5_reasons_why_you_want_to_use_this_bigquery_functi">
-            
+            <img src="../assets/blog/2023-04-12_5_reasons_why_you_want_to_use_this_bigquery_functi" loading=lazy>
 
         </div>
 
@@ -2544,9 +2412,7 @@ As you get data without transform from your sources into you warehouse, (using..
 
         <div>
 
-            
-                <img src="../assets/blog/2023-04-11_elt_replaced_etl">
-            
+            <img src="../assets/blog/2023-04-11_elt_replaced_etl" loading=lazy>
 
         </div>
 
@@ -2571,9 +2437,7 @@ Je ne suis pas peu fier......</p>
 
         <div>
 
-            
-                <img src="../assets/blog/2023-03-15_les_dataanalysts_ne_devraient_pas_se_contenter_de_">
-            
+            <img src="../assets/blog/2023-03-15_les_dataanalysts_ne_devraient_pas_se_contenter_de_" loading=lazy>
 
         </div>
 
@@ -2594,9 +2458,7 @@ Je ne suis pas peu fier......</p>
 
         <div>
 
-            
-                <img src="../assets/blog/2022-12-21_the_modern_data_stack_was_founded_to_give_full_aut">
-            
+            <img src="../assets/blog/2022-12-21_the_modern_data_stack_was_founded_to_give_full_aut" loading=lazy>
 
         </div>
 
@@ -2617,9 +2479,7 @@ Je ne suis pas peu fier......</p>
 
         <div>
 
-            
-                <img src="../assets/blog/2022-12-19_how_i_created_an_opensource_repository_after_meeti">
-            
+            <img src="../assets/blog/2022-12-19_how_i_created_an_opensource_repository_after_meeti" loading=lazy>
 
         </div>
 
@@ -2642,9 +2502,7 @@ Je ne suis pas peu fier......</p>
 
         <div>
 
-            
-                <img src="../assets/blog/2022-12-15_discretize_continuous_value_to_faster_dataanalysis">
-            
+            <img src="../assets/blog/2022-12-15_discretize_continuous_value_to_faster_dataanalysis" loading=lazy>
 
         </div>
 
@@ -2667,7 +2525,7 @@ Je ne suis pas peu fier......</p>
 
         <div>
 
-            
+            <img src="https://dummyimage.com/200x150/eee/eee" loading=lazy>
 
         </div>
 
@@ -2690,9 +2548,7 @@ sid ali sadi from Esmoz created some very nice bigquery functions callable by an
 
         <div>
 
-            
-                <img src="../assets/blog/2022-12-09__bigquery_json_made_easy">
-            
+            <img src="../assets/blog/2022-12-09__bigquery_json_made_easy" loading=lazy>
 
         </div>
 
@@ -2715,9 +2571,7 @@ A big Thanks 🙏 Benjamin Tabet for this contribution that will......</p>
 
         <div>
 
-            
-                <img src="../assets/blog/2022-12-08__where_will_this_end_yesterday_a_new_contributor_d">
-            
+            <img src="../assets/blog/2022-12-08__where_will_this_end_yesterday_a_new_contributor_d" loading=lazy>
 
         </div>
 
@@ -2740,7 +2594,7 @@ Rendons les data-analysts autonomes sur toute la chaîne (de la collecte, aux...
 
         <div>
 
-            
+            <img src="https://dummyimage.com/200x150/eee/eee" loading=lazy>
 
         </div>
 
@@ -2761,9 +2615,7 @@ Rendons les data-analysts autonomes sur toute la chaîne (de la collecte, aux...
 
         <div>
 
-            
-                <img src="../assets/blog/2022-12-07__bigquery_text_cleaning_and_text_comparison">
-            
+            <img src="../assets/blog/2022-12-07__bigquery_text_cleaning_and_text_comparison" loading=lazy>
 
         </div>
 
@@ -2784,7 +2636,7 @@ Rendons les data-analysts autonomes sur toute la chaîne (de la collecte, aux...
 
         <div>
 
-            
+            <img src="https://dummyimage.com/200x150/eee/eee" loading=lazy>
 
         </div>
 
@@ -2807,9 +2659,7 @@ What if you don't know......</p>
 
         <div>
 
-            
-                <img src="../assets/blog/2022-11-18__bigquery_auto_date_cleaning">
-            
+            <img src="../assets/blog/2022-11-18__bigquery_auto_date_cleaning" loading=lazy>
 
         </div>
 
@@ -2832,9 +2682,7 @@ I ❤️ the......</p>
 
         <div>
 
-            
-                <img src="../assets/blog/2022-10-28__bigquery_arrays_made_easy">
-            
+            <img src="../assets/blog/2022-10-28__bigquery_arrays_made_easy" loading=lazy>
 
         </div>
 
@@ -2855,7 +2703,7 @@ I ❤️ the......</p>
 
         <div>
 
-            
+            <img src="https://dummyimage.com/200x150/eee/eee" loading=lazy>
 
         </div>
 
@@ -2878,9 +2726,7 @@ I ❤️ the......</p>
 
         <div>
 
-            
-                <img src="../assets/blog/2022-10-14_rejoignezmoi_lundi__google_next_recap_france">
-            
+            <img src="../assets/blog/2022-10-14_rejoignezmoi_lundi__google_next_recap_france" loading=lazy>
 
         </div>
 
@@ -2901,9 +2747,7 @@ I ❤️ the......</p>
 
         <div>
 
-            
-                <img src="../assets/blog/2022-10-10__furcy_pin_brings_graph_algorithms_to_bigquery">
-            
+            <img src="../assets/blog/2022-10-10__furcy_pin_brings_graph_algorithms_to_bigquery" loading=lazy>
 
         </div>
 
@@ -2925,9 +2769,7 @@ I ❤️ the......</p>
 
         <div>
 
-            
-                <img src="../assets/blog/2022-10-03__what_if_common_bigquery_functions_were_available_">
-            
+            <img src="../assets/blog/2022-10-03__what_if_common_bigquery_functions_were_available_" loading=lazy>
 
         </div>
 
@@ -2951,9 +2793,7 @@ I ❤️ the......</p>
 
         <div>
 
-            
-                <img src="../assets/blog/2022-09-26_et_si_on_pouvait_voir_le_profiling_des_donnes_dans">
-            
+            <img src="../assets/blog/2022-09-26_et_si_on_pouvait_voir_le_profiling_des_donnes_dans" loading=lazy>
 
         </div>
 
@@ -2974,7 +2814,7 @@ I ❤️ the......</p>
 
         <div>
 
-            
+            <img src="https://dummyimage.com/200x150/eee/eee" loading=lazy>
 
         </div>
 

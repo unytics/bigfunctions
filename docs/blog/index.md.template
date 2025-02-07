@@ -51,7 +51,7 @@ search:
 
     [Read More :octicons-arrow-right-24:]({{ post.url }}){ .md-button{% if post.url.startswith('https://') %} target="_blank" {% endif %} }
 
--   ![post cover photo]({{ post.image_url }}){ style="max-height: 500px; height: 70%; width: auto; display: block; margin-{{ loop.cycle('left', 'right') }}: auto;" }
+-   ![post cover photo]({{ post.image_url }}){ loading=lazy style="max-height: 500px; height: 70%; width: auto; display: block; margin-{{ loop.cycle('left', 'right') }}: auto;" }
 
 </div>
 {% endfor %}
@@ -84,9 +84,7 @@ search:
 
         <div>
 
-            {% if post.image_url %}
-                <img src="{{ post.image_url }}">
-            {% endif %}
+            <img src="{{ post.image_url or 'https://dummyimage.com/200x150/eee/eee' }}" loading=lazy>
 
         </div>
 
