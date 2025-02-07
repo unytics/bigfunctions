@@ -169,7 +169,7 @@ search:
 
             <h3>In 2025, Analytics Engineers will build Data-Apps</h3>
 
-            <p>Technologies make roles change. 
+            <p>Technologies make roles change.
 
 Since the rise of cloud data-warehouses and the birth of dbt, data engineers don’t......</p>
 
@@ -1239,7 +1239,7 @@ Mathilde Gorieu made......</p>
 
             <h3>🦸 BigQuery Champions, Level Up Your Data Work with BigFunctions!</h3>
 
-            <p>Data engineers, are you tired of manually building and managing BigQuery functions? 
+            <p>Data engineers, are you tired of manually building and managing BigQuery functions?
 BigFunctions is revolutionizing......</p>
 
             <p class="footer">2024-08-22 • Masthead Data</p>
@@ -2761,7 +2761,7 @@ I ❤️ the......</p>
 
             <h3>👀 What if common BigQuery functions were available from a unique place?</h3>
 
-            <p>Last week, a question was asked in our modern-data-stack slack-community: 
+            <p>Last week, a question was asked in our modern-data-stack slack-community:
 "how do you get if a date is a......</p>
 
             <p class="footer">2022-10-03 • Paul Marcombes</p>
@@ -2784,7 +2784,7 @@ I ❤️ the......</p>
             <h3>Et si on pouvait voir le profiling des données dans BigQuery ?</h3>
 
             <p>C'est important quand on commence un projet data de:
-- 👃 sentir les données, 
+- 👃 sentir les données,
 - 👀 savoir s'il y a des outliers,
 - 🌊......</p>
 

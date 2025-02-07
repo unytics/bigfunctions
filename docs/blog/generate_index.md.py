@@ -7,4 +7,9 @@ posts = yaml.safe_load(open('posts.yaml', encoding='utf-8').read())
 
 content = template.render(posts=posts)
 
-open('index.md', 'w', encoding='utf-8').write(content)
+content = '\n'.join([
+    line.rstrip()
+    for line in content.splitlines()
+])
+
+open('index.md', 'w', encoding='utf-8').write(content + '\n')
