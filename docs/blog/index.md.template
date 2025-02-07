@@ -51,7 +51,7 @@ search:
 
     [Read More :octicons-arrow-right-24:]({{ post.url }}){ .md-button{% if post.url.startswith('https://') %} target="_blank" {% endif %} }
 
--   ![post cover photo]({{ post.image_url }}){ loading=lazy style="{{ 'max-width: 400px; height: auto;' if post.is_image_vertical else '' }} display: block; margin-{{ loop.cycle('left', 'right') }}: auto;" }
+-   ![post cover photo]({{ post.image_url }}){ loading=lazy style="{{ 'width: 100%; max-width: 400px; height: auto;' if post.is_image_vertical else '' }} display: block; margin-{{ loop.cycle('left', 'right') }}: auto;" }
 
 </div>
 {% endfor %}

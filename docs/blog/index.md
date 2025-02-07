@@ -87,7 +87,7 @@ search:
 
     [Read More :octicons-arrow-right-24:](https://www.youtube.com/watch?v=kFy78r1Iabs){ .md-button target="_blank"  }
 
--   ![post cover photo](https://miro.medium.com/v2/resize:fit:2400/1*sQBZAcpkOhRvSe5zYudx_A.jpeg){ loading=lazy style="max-width: 400px; height: auto; display: block; margin-left: auto;" }
+-   ![post cover photo](https://miro.medium.com/v2/resize:fit:2400/1*sQBZAcpkOhRvSe5zYudx_A.jpeg){ loading=lazy style="width: 100%; max-width: 400px; height: auto; display: block; margin-left: auto;" }
 
 </div>
 
@@ -115,7 +115,7 @@ search:
 
     [Read More :octicons-arrow-right-24:](https://fromanengineersight.substack.com/p/beyond-sql-as-a-pure-database-syntax){ .md-button target="_blank"  }
 
--   ![post cover photo](https://cdn.theorg.com/be98c465-6d08-43ad-8ef3-f43b34addfde_medium.jpg){ loading=lazy style="max-width: 400px; height: auto; display: block; margin-left: auto;" }
+-   ![post cover photo](https://cdn.theorg.com/be98c465-6d08-43ad-8ef3-f43b34addfde_medium.jpg){ loading=lazy style="width: 100%; max-width: 400px; height: auto; display: block; margin-left: auto;" }
 
 </div>
 
@@ -143,7 +143,7 @@ search:
 
     [Read More :octicons-arrow-right-24:](https://michael-scherding.medium.com/spicing-up-gcs-to-bigquery-transfers-from-dataform-with-bigfunctions-0d286e5a91c){ .md-button target="_blank"  }
 
--   ![post cover photo](https://miro.medium.com/v2/resize:fit:2400/1*K6lBFw65lMIHIX4z7m6jPA.jpeg){ loading=lazy style="max-width: 400px; height: auto; display: block; margin-left: auto;" }
+-   ![post cover photo](https://miro.medium.com/v2/resize:fit:2400/1*K6lBFw65lMIHIX4z7m6jPA.jpeg){ loading=lazy style="width: 100%; max-width: 400px; height: auto; display: block; margin-left: auto;" }
 
 </div>
 
