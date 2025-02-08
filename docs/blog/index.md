@@ -43,19 +43,6 @@ search:
 </div>
 
 
-<div class="lg:two-columns lg:revert-items" markdown>
-
--   ## [SQL Data Stack:<br>A New Paradigm for Data Platforms](posts/2025-02-05_introducing_the_sql_data_stack.md)
-
-    Tired of complex data stacks?
-
-    Discover the SQL Data Stack: a new paradigm that uses SQL for data ingestion, transformation, and activation, empowering analysts and simplifying your data workflow
-
-    [Read More :octicons-arrow-right-24:](posts/2025-02-05_introducing_the_sql_data_stack.md){ .md-button }
-
--   ![post cover photo](../assets/blog/2025-02-05_introducing_sql_data_stack.png){ loading=lazy style=" display: block; margin-left: auto;" }
-
-</div>
 
 <div class="lg:two-columns " markdown>
 
