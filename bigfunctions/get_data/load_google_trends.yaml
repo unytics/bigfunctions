@@ -8,7 +8,7 @@ description: |
 
   - download daily google trends (search volume) for each `(keyword, month)` which are not in destination table (+ trends of the current month in any case). The daily search volume is normalized between `[0, 100]` for each `(keyword, month)`.
   - download monthly google trends for all keywords altogether during the whole period. The monthly search volumes for all keywords and the whole are then comparable.
-  - normalize the daily google trends using the monthly google trends to make them comparable.
+  - globally normalize the daily google trends using the monthly google trends to make them comparable.
 
   `destination_table` schema:
 
@@ -16,9 +16,9 @@ description: |
   |----------------|---|
   | `date`| day of the trend |
   | `keyword`| keyword |
-  | `value`| search volume (normalized) |
-  | `_raw_value`| search volume at load time (before normalization) |
-  | `_raw_month_value`| search month volume at load time (before normalization) |
+  | `search_volume`| search volume (normalized) |
+  | `_raw_search_volume`| search volume at load time (before global normalization) |
+  | `_raw_month_search_volume`| search month volume at load time (before global normalization) |
   | `_load_date`| date when the data was downloaded from google trends |
 
 
@@ -34,10 +34,13 @@ description: |
   | `gprop`| What Google property to filter to. Example 'images'. Defaults to web searches. Can be images, news, youtube or froogle (for Google Shopping results) |
 
 
-  !!! warning "You may need to retry this function"
+  !!! warning "You may need call this function several times a day"
 
-      Google Trends put some quotas to request its API.
-      For this reason, this function may not return
+      Google Trends put some quotas to request their API.
+      For this reason, this function may not return data for all months in one call.
+      But if you schedule this function to be called several times a day, you will certainly have all the data.
+
+  (This function is calling [`get_google_trends`](get_google_trends) function under the hood)
 arguments:
   - name: destination_table
     type: string
@@ -76,7 +79,7 @@ code: | #sql
   select
     date(string(trend.timestamp)) as date,
     string(trend.keyword) as keyword,
-    int64(trend.value) as month_value,
+    int64(trend.value) as month_search_volume,
   from unnest(json_query_array(
     (
       select
@@ -105,9 +108,9 @@ code: | #sql
     (
       date date options(description="day of the trend"),
       keyword string options(description="keyword"),
-      value float64 options(description="search volume (normalized)"),
-      _raw_value int64 options(description="search volume at load time (before normalization)"),
-      _raw_month_value int64 options(description="search month volume at load time (before normalization)"),
+      search_volume float64 options(description="search volume (normalized)"),
+      _raw_search_volume int64 options(description="search volume at load time (before normalization)"),
+      _raw_month_search_volume int64 options(description="search month volume at load time (before normalization)"),
       _load_date date options(description="date when the data was downloaded from google trends"),
     )
     options(
@@ -132,7 +135,7 @@ code: | #sql
     unnest(generate_date_array(date('%s' || '-01'), current_date - 2)) as date
     left join `%s` destination using(date, keyword)
     where
-      destination._raw_value is null
+      destination._raw_search_volume is null
       or format_date('%%Y-%%m', date) = format_date('%%Y-%%m', current_date)
     ;
     ''',
@@ -163,7 +166,7 @@ code: | #sql
   select
     date(string(trend.timestamp)) as date,
     keyword,
-    int64(trend.value) as _raw_value,
+    int64(trend.value) as _raw_search_volume,
     current_date as _load_date,
   from new_daily_trends_by_month,
   unnest(json_query_array(daily_trend, '$')) as trend;
@@ -177,12 +180,12 @@ code: | #sql
     on destination.keyword = new_daily_trends.keyword and destination.date = new_daily_trends.date
     when matched then
       update set
-        _raw_value = new_daily_trends._raw_value,
+        _raw_search_volume = new_daily_trends._raw_search_volume,
         _load_date = new_daily_trends._load_date,
-        value = null
+        search_volume = null
     when not matched then
-      insert (date, keyword, _raw_value, _load_date)
-      values(date, keyword, _raw_value, _load_date)
+      insert (date, keyword, _raw_search_volume, _load_date)
+      values(date, keyword, _raw_search_volume, _load_date)
     ''',
     destination_table
   );
@@ -190,12 +193,12 @@ code: | #sql
   execute immediate query;
 
 
-  select 'Update monthly raw values from daily raw values';
+  select 'Update monthly raw search_volumes from daily raw search_volumes';
   set query = format(
     '''
     update `%s` destination
-    set _raw_month_value = (
-      select sum(d._raw_value)
+    set _raw_month_search_volume = (
+      select sum(d._raw_search_volume)
       from `%s` d
       where
         d.keyword = destination.keyword and
@@ -213,7 +216,7 @@ code: | #sql
   set query = format(
     '''
     update `%s` destination
-    set value = destination._raw_value * safe_divide(monthly_trends.month_value, destination._raw_month_value)
+    set search_volume = destination._raw_search_volume * safe_divide(monthly_trends.month_search_volume, destination._raw_month_search_volume)
     from monthly_trends
     where
       destination.keyword = monthly_trends.keyword and
