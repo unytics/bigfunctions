@@ -61,7 +61,10 @@ output:
   name: result
   type: string
 examples:
-  - description: Download daily google trends comparing bigquery and snowflake
+  - description: |
+      Download daily google trends comparing bigquery and snowflake
+
+      ![snowflake vs bigquery google trends comparison](load_google_trends.png){ width=600 }
     arguments:
       - "'your_project.dataset.table'"
       - "['bigquery', 'snowflake']"
@@ -219,7 +222,15 @@ code: | #sql
   set query = format(
     '''
     update `%s` destination
-    set search_volume = destination._raw_search_volume * safe_divide(monthly_trends.month_search_volume, destination._raw_month_search_volume)
+    set search_volume = (
+      destination._raw_search_volume *
+      safe_divide(monthly_trends.month_search_volume, destination._raw_month_search_volume) *
+      if(
+        format_date('%%Y-%%m', destination.date) = format_date('%%Y-%%m', current_date),
+        1./30 * date_diff(current_date, date_trunc(current_date, month), day),
+        1
+      )
+    )
     from monthly_trends
     where
       destination.keyword = monthly_trends.keyword and
