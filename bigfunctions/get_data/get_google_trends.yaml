@@ -1,10 +1,25 @@
 type: function_py
 author: Paul Marcombes
+hide_in_doc: true
 description: |
-  GET Google Trends data
-  using [pytrends python library](https://github.com/GeneralMills/pytrends).
+  GET [Google Trends](https://trends.google.com/) data
 
-  Parameters used in this function are passed as is to pytrends. Refer to [pytrends documentation](https://github.com/GeneralMills/pytrends).
+  **Params**
+
+  | Param          | Description  |
+  |----------------|---|
+  | `destination_table`| Fully qualified destination table (PROJECT.DATASET.TABLE) |
+  | `keywords`| Array of one to five search terms (a search term can be an expression) |
+  | `start_month`| First month (`YYYY-MM`) to load data from |
+  | `geo`| Two letter country abbreviation. For example United States is 'US'. Defaults to World. More detail available for States/Provinces by specifying additional abbreviations. For example: Alabama would be 'US-AL'. For example: England would be 'GB-ENG' |
+  | `category`| Category to narrow results. Find available categories by inspecting the url when manually using Google Trends. The category starts after cat= and ends before the next & or view [this wiki page](https://github.com/pat310/google-trends-api/wiki/Google-Trends-Categories) containing all available categories. For example: "https://www.google.com/trends/explore#q=pizza&cat=71". '71' is the category. Defaults to no category |
+  | `gprop`| What Google property to filter to. Example 'images'. Defaults to web searches. Can be images, news, youtube or froogle (for Google Shopping results) |
+
+  !!! warning "This function may return `[]`"
+
+      Google Trends put some quotas to request their API.
+      For this reason, this function may sometimes return `[]`.
+      It is advised to call it several times a day if you want to make sure to retrieve the data.
 arguments:
   - name: keywords
     type: string

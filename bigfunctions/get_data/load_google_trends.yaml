@@ -1,16 +1,21 @@
 type: procedure
 author: Paul Marcombes
 description: |
-  Load daily Google Trends data
-  into `destination_table`.
+  Load daily [Google Trends](https://trends.google.com/)
+  (search volume) of `keywords` into `destination_table`.
 
-  This function will:
+  ??? note "How it works"
 
-  - download daily google trends (search volume) for each `(keyword, month)` which are not in destination table (+ trends of the current month in any case). The daily search volume is normalized between `[0, 100]` for each `(keyword, month)`.
-  - download monthly google trends for all keywords altogether during the whole period. The monthly search volumes for all keywords and the whole are then comparable.
-  - globally normalize the daily google trends using the monthly google trends to make them comparable.
+      This function will:
 
-  `destination_table` schema:
+      - download daily search volume for each `keyword` for each `month` which are not already in destination table. Search volumes of the current month are downloaded anyway even if already in destination table. The daily search volumes are normalized between `[0, 100]` for each `(keyword, month)`.
+      - download monthly search volume at once for all keywords altogether during the whole period. The downloaded volumes are then comparable for all keywords and the whole period.
+      - globally normalize the daily search volumes using the monthly search volumes to make them comparable.
+
+      (This function calls [`get_google_trends`](get_google_trends.md) function under the hood)
+
+
+  **Destination Table Schema**
 
   | Column         | Description  |
   |----------------|---|
@@ -22,7 +27,7 @@ description: |
   | `_load_date`| date when the data was downloaded from google trends |
 
 
-  Params:
+  **Params**
 
   | Param          | Description  |
   |----------------|---|
@@ -39,8 +44,6 @@ description: |
       Google Trends put some quotas to request their API.
       For this reason, this function may not return data for all months in one call.
       But if you schedule this function to be called several times a day, you will certainly have all the data.
-
-  (This function is calling [`get_google_trends`](get_google_trends) function under the hood)
 arguments:
   - name: destination_table
     type: string
