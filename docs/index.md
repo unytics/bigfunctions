@@ -16,7 +16,7 @@ SQL
 Supercharge **BigQuery** with **BigFunctions**<br>
 *to load, transform and take actions*<br><br>
 
-[Book a Demo :octicons-arrow-right-24:](https://calendar.app.google/zu54nNMHLVw7jYWy8){ .md-button .md-button--primary }
+[Supercharge BigQuery :octicons-arrow-right-24:](#supercharge-bigquery-with-ready-to-use-functions){ .md-button .md-button--primary }
 
 
 </div>
