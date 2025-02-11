@@ -28,7 +28,7 @@ You can now perform any advanced data task, be it load, transform or take action
 
 ## 👀 2. Call public BigFunctions without install from your GCP project
 
-All BigFunctions represented by a 'yaml' file in *bigfunctions* folder of the GitHub repo are automatically deployed in public datasets so that you can call them directly without install from your BigQuery project.
+**All BigFunctions represented by a 'yaml' file in *bigfunctions* folder are deployed in public datasets**. You can then call them directly without install from your BigQuery project.
 
 Give it a try! Execute this SQL query from your GCP Project 👀:
 
@@ -37,7 +37,7 @@ select bigfunctions.eu.faker("name", "it_IT")
 ```
 
 
-[Explore available bigfunctions >](https://unytics.io/bigfunctions/bigfunctions/)
+[Explore open BigFunctions >](https://unytics.io/bigfunctions/bigfunctions/)
 
 <br>
 
