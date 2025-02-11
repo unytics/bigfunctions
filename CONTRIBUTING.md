@@ -9,6 +9,13 @@ BigFunctions is fully open-source. Any contribution is more than welcome 🤗!
 > - Open a Pull-Request! See instructions below.
 
 
+## Contributors
+
+<a href="https://github.com/unytics/bigfunctions/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=unytics/bigfunctions" />
+</a>
+
+
 ## How to submit pull requests
 
 To make a change to this repository:

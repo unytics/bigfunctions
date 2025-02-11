@@ -174,7 +174,7 @@ select PROJECT.DATASET.faker("name", "it_IT")
 <br>
 
 
-## ❓ 6. FAQ
+## ❓ FAQ
 
 <details>
   <summary><strong>How to define specific parameters for cloud run of python functions?</strong></summary>
@@ -195,26 +195,3 @@ select PROJECT.DATASET.faker("name", "it_IT")
 
   In yaml files multiline string are by default highlighted as strings. That makes reading <code>code</code> field hard to read (with all code in the same string color). To correctly highlight the code regarding its python / javascript / sql syntax, you can install <a href="https://marketplace.visualstudio.com/items?itemName=harrydowning.yaml-embedded-languages">YAML Embedded Languages</a> VSCode extension.
 </details>
-
-
-<br>
-
-
-## 👋 7. Contribute
-
-BigFunctions is fully open-source. Any contribution is more than welcome 🤗!
-
-- Add a ⭐ on the repo to show your support
-- [Join our Slack](https://join.slack.com/t/unytics/shared_invite/zt-1gbv491mu-cs03EJbQ1fsHdQMcFN7E1Q) and talk with us
-- Suggest a new function [here](https://github.com/unytics/bigfunctions/issues/new?assignees=&labels=new-bigfunction&projects=&template=0_new_bigfunction.yaml&title=%5Bnew%5D%3A+%60function_name%28argument1%2C+argument2%29%60)
-- Raise an issue [there](https://github.com/unytics/bigfunctions/issues/new/choose)
-- Open a Pull-Request! (See [contributing instructions](https://github.com/unytics/bigfunctions/blob/main/CONTRIBUTING.md)).
-
-
-<br>
-
-**Contributors**
-
-<a href="https://github.com/unytics/bigfunctions/graphs/contributors">
-  <img src="https://contrib.rocks/image?repo=unytics/bigfunctions" />
-</a>
