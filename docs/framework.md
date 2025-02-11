@@ -18,16 +18,22 @@ hide:
 Build a catalog of BigQuery functions<br>
 using BigFunctions Framework<br>
 
-*(yaml files to describe functions + CLI to manage them)*
-{ .small }
-
+[Discover the framework :octicons-arrow-right-24:](#discover-the-framework){ .md-button .md-button--primary }
 
 </div>
 
+<br>
+
+---
+
+<br>
+
+
+## Discover the framework
 
 <div class="lg:two-columns lg:revert-items" markdown>
 
--   ## A YAML Standard
+-   ### A YAML Standard
 
     Each function is defined in a **yaml file** *(with its author, description, arguments, examples, code, etc)*
 
@@ -41,7 +47,7 @@ using BigFunctions Framework<br>
 
 <div class="lg:two-columns" markdown>
 
--   ## Command Line Interface
+-   ### A Command Line Interface
 
     `bigfun` CLI is installable with one `pip install` and enables you to:
 
@@ -57,7 +63,7 @@ using BigFunctions Framework<br>
 </div>
 
 
-## 💥 `bigfun` Command-Line-Interface
+## Get Started!
 
 `bigfun` CLI (command-line-interface) facilitates BigFunctions development, test, deployment, documentation and monitoring.
 
