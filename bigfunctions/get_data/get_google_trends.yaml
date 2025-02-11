@@ -131,7 +131,7 @@ init_code: | #python
   def fetch_trends_data(keywords, timeframe='now 7-d', geo='US', category=0, property='', max_retries_per_browser=5):
       browsers = ['chrome99', 'chrome100', 'chrome101', 'chrome104', 'chrome107', 'chrome110', 'chrome116', 'chrome119', 'chrome120', 'chrome123', 'chrome124', 'chrome99_android', 'edge99', 'edge101', 'safari15_3', 'safari15_5', 'safari17_0', 'safari17_2_ios']
       random.shuffle(browsers)
-      browsers = browsers[:3]
+      browsers = browsers[:5]
       for browser in browsers:
           print(f"Starting with browser version to {browser}")
           cookies = get_google_cookies(browser)
@@ -145,7 +145,8 @@ init_code: | #python
                       break
               else:
                   print(f"Exceeded maximum retry attempts ({max_retries_per_browser}) while fetching token.")
-                  break
+                  time.sleep(5)
+                  continue
 
               # phase 2: trends data
               for retry in range(max_retries_per_browser):
@@ -156,10 +157,7 @@ init_code: | #python
                       return trends_data
               else:
                   print(f"Exceeded maximum retry attempts ({max_retries_per_browser}) while fetching trends data.")
-                  break
-
-          time.sleep(5)
-          print(f"Switching browser and retrying...")
+                  time.sleep(5)
 
       print(f"FAILED with all browsers. Exiting...")
       return []
