@@ -16,7 +16,7 @@ SQL
 Supercharge **BigQuery** with **BigFunctions**<br>
 *to load, transform and take actions*<br><br>
 
-[Supercharge BigQuery :octicons-arrow-right-24:](#supercharge-bigquery-with-ready-to-use-functions){ .md-button .md-button--primary }
+[Supercharge BigQuery :octicons-arrow-right-24:](#supercharge-bigquery-with-powerful-functions){ .md-button .md-button--primary }
 
 
 </div>
@@ -42,63 +42,23 @@ Supercharge **BigQuery** with **BigFunctions**<br>
 <!------------- POWER OF FUNCTIONS HEADER  ----------->
 <div class="hero" markdown>
 
-# Supercharge BigQuery with ready-to-use functions
+# Supercharge BigQuery with powerful functions
 
-Gain **new SQL powers**<br>
+Enrich BigQuery<br>
 with **150+ functions** built by the community<br>
-*to load, transform and take actions*
 
 *no install needed*
 { .small }
 
+[Gain new SQL powers :octicons-arrow-right-24:](bigfunctions/README.md){ .md-button }
 
-[Explore Functions :octicons-arrow-right-24:](bigfunctions/README.md){ .md-button }
 
 </div>
 
-
-<div class="lg:two-columns lg:revert-items" markdown>
-
--   ## 1. Load
-
-    Load data with one SQL command from:
-
-    - any SAAS such as Salesforce, Hubspot, Zendesk, etc.
-    - external data such as `exchange_rate`, weather data.
-    - any source
-
--   ![Load Data from Zendesk](assets/load_api_data.png){ .primary-border }
-
-</div>
-
-
-<div class="lg:two-columns" markdown>
-
--   ## 2. Transform
-
-    Make Advanced Transforms from SQL.
-
-    Benefit from the functions of the community.
-
--   ![Geocode Address](assets/geocode.png){ .primary-border }
-
-</div>
-
-
-<div class="lg:two-columns lg:revert-items" markdown>
-
--   ## 3. Take Actions
-
-    Send Slack, Google Chat, Teams messages or emails to your teams.
-
-
-    Send the figures of the week or alerts when data is wrong.
-
-    With dbt post hook, you can trigger actions at model creation.
-
--   ![email notification](assets/email.png){ .primary-border }
-
-</div>
+<figure markdown="span">
+  ![functions examples](assets/functions.png)
+  <figcaption>BigQuery can now perform any task with SQL</figcaption>
+</figure>
 
 
 <br>
