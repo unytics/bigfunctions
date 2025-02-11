@@ -68,8 +68,8 @@ examples:
     arguments:
       - "'your_project.dataset.table'"
       - "['bigquery', 'snowflake']"
-      - "null"
       - "'2024-01'"
+      - "null"
       - "null"
       - "null"
 code: | #sql
