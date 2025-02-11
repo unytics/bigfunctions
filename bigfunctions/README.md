@@ -20,6 +20,8 @@ folders:
   - convert_data_format
   - explore
   - utils
+hide:
+  - navigation
 ---
 
 # BigFunctions

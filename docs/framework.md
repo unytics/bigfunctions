@@ -6,6 +6,8 @@ description: |
   Like dbt, it comes with a yaml standard and
   a Command-Line-Interface to test, deploy
   and generate a documentation website
+hide:
+  - navigation
 ---
 
 

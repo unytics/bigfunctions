@@ -155,8 +155,8 @@ is all you need
 
     ![dbt logo](assets/dbt.png){ style="max-height: 50px" }
 
-
 </div>
+
 
 <div class="hero" markdown>
 

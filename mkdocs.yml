@@ -46,8 +46,12 @@ nav:
   - BigFunctions: bigfunctions/README.md
   - Framework: framework.md
   - Community:
-      - Contribute!: CONTRIBUTING.md
-      - Join Slack!: https://join.slack.com/t/unytics/shared_invite/zt-1gbv491mu-cs03EJbQ1fsHdQMcFN7E1Q
+    - community.md
+    - Join Slack: https://join.slack.com/t/unytics/shared_invite/zt-1gbv491mu-cs03EJbQ1fsHdQMcFN7E1Q
+    - Add a star on GitHub: https://github.com/unytics/bigfunctions
+    - Suggest a function: https://github.com/unytics/bigfunctions/issues/new?assignees=&labels=new-bigfunction&projects=&template=0_new_bigfunction.yaml&title=%5Bnew%5D%3A+%60function_name%28argument1%2C+argument2%29%60
+    - Report a bug: https://github.com/unytics/bigfunctions/issues/new/choose
+    - Contribute: community/contribute.md
   - Blog: blog/index.md
 validation:
   nav:
