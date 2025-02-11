@@ -20,7 +20,7 @@ It also comes with **150+ functions** built by the community that you can call d
 You can now perform any advanced data task, be it load, transform or take actions by running SQL commmands in BigQuery.
 
 
-[Learn more about BigFunctions >](https://unytics.io/bigfunctions/)
+[Learn more >](https://unytics.io/bigfunctions/)
 
 
 
