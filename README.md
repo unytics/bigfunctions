@@ -13,11 +13,9 @@
 
 ## 🔍️ 1. Supercharge BigQuery with BigFunctions
 
-BigFunctions is **a framework** to build a **governed catalog of BigQuery functions to supercharge BigQuery**.
-
-It also comes with **150+ functions** built by the community that you can call directly (no install) or redeploy in YOUR catalog.
-
-You can now perform any advanced data task, be it load, transform or take actions by running SQL commmands in BigQuery.
+1. BigFunctions is **a framework** to build a **governed catalog of BigQuery functions to supercharge BigQuery**.
+2. It also comes with **150+ functions** built by the community that you can call directly (no install) or redeploy in YOUR catalog.
+3. You can now perform any advanced data task, be it load, transform or take actions by running SQL commmands in BigQuery.
 
 
 [Learn more >](https://unytics.io/bigfunctions/)
