@@ -7,13 +7,6 @@
     <em>Supercharge BigQuery with BigFunctions</em><br><br>
 </p>
 
-<p align="center">
-    <strong>❯
-      <a href="https://unytics.io/bigfunctions/" target="_blank">Website</a>
-     ❮</strong>
-</p>
-
-
 ---
 
 <br>
