@@ -74,7 +74,7 @@ select bigfunctions.eu.faker("name", "it_IT")
 ```
 
 
-Explore all available bigfunctions **<a href="bigfunctions">here</a>**.
+Explore all available bigfunctions <a href="https://unytics.io/bigfunctions/" target="_blank">on the website</a>**.
 
 <br>
 
