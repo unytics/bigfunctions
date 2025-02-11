@@ -5,8 +5,6 @@
 
 <p align="center">
     Supercharge <em>BigQuery</em><br>with <em>BigFunctions</em><br><br>
-    <b>Upgrade your data impact</b><br>
-    with 150+ ready-to-use BigQuery Functions
 </p>
 
 <p align="center">
@@ -20,7 +18,7 @@
 
 <br>
 
-## 🔍️ 1. What is BigFunctions?
+## 🔍️ 1. Supercharge BigQuery with BigFunctions
 
 BigFunctions is **a framework** to build a **governed catalog of BigQuery functions to supercharge BigQuery**.
 
