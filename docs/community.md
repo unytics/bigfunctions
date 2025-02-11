@@ -29,7 +29,7 @@ hide:
 
 !!! note ""
 
-    BigFunctions is fully open-source. Any contribution is more than welcome 🤗!
+    BigFunctions is fully open-source. Any contribution is more than welcome :hugging:!
 
 
 <div class="grid cards  " markdown>
@@ -49,7 +49,7 @@ hide:
 
     Add a star to bigfunctions GitHub :simple-github: to make it more visible and attract contributors.
 
-    [Github repo :octicons-arrow-right-24:](https://github.com/unytics/bigfunctions/)
+    [Add a star on Github :octicons-arrow-right-24:](https://github.com/unytics/bigfunctions/)
 
 
 
@@ -71,13 +71,13 @@ hide:
     [Raise an issue :octicons-arrow-right-24:](https://github.com/unytics/bigfunctions/issues/new/choose)
 
 
--   [**Get your hands-on :point_up:**](#contribute)
+-   [**Get your hands-on :hugging:**](#contribute)
 
     ---
 
     Open a Pull-Request to create a new function or improve the framework.
 
-    [See contributing guidelines :octicons-arrow-right-24:](#contribute)
+    [See contribution guidelines :octicons-arrow-right-24:](#contribute)
 
 
 -   [**Get Premium Support :magic_wand:**](https://calendar.app.google/zu54nNMHLVw7jYWy8)
