@@ -63,6 +63,19 @@ using BigFunctions Framework<br>
 </div>
 
 
+<div class="lg:two-columns lg:revert-items" markdown>
+
+-   ### A Documentation Website
+
+    The command line interface generates your catalog of the available functions in your company with use cases and examples.
+
+    **Foster self-service for your data-people!**
+
+-   ![website screenshot](assets/catalog.png){ .primary-border }
+
+</div>
+
+
 ## Get Started!
 
 `bigfun` CLI (command-line-interface) facilitates BigFunctions development, test, deployment, documentation and monitoring.
