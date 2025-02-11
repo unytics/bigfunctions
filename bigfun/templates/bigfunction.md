@@ -4,6 +4,10 @@ description: "BigFunction {{ name }} is a BigQuery function which {{ description
 hide:
   - navigation
   - toc
+{% if hide_in_doc %}
+search:
+  exclude: true
+{% endif %}
 ---
 
 <span style="color: silver; position: relative; top: -1rem">
