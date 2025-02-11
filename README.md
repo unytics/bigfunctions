@@ -6,14 +6,12 @@
 <p align="center">
     Supercharge <em>BigQuery</em><br>with <em>BigFunctions</em><br><br>
     <b>Upgrade your data impact</b><br>
-    with 100+ ready-to-use BigQuery Functions<br>
-    <i>(+ build a catalog of functions)</i><br>
+    with 150+ ready-to-use BigQuery Functions
 </p>
 
 <p align="center">
     <strong>❯
-      <a href="https://unytics.io/bigfunctions/" target="_blank">Website</a> |
-      <a href="https://github.com/unytics/bigfunctions" target="_blank">GitHub</a>
+      <a href="https://unytics.io/bigfunctions/" target="_blank">Website</a>
      ❮</strong>
 </p>
 
@@ -24,46 +22,20 @@
 
 ## 🔍️ 1. What is BigFunctions?
 
-BigFunctions is:
+BigFunctions is **a framework** to build a **governed catalog of BigQuery functions to supercharge BigQuery**.
 
-✅ **a framework** to build a **governed catalog of powerful BigQuery functions** at YOUR company.
+It also comes with **150+ functions** built by the community that you can call directly (no install) or redeploy in YOUR catalog.
 
-✅ **100+ open-source functions to supercharge BigQuery** that you can call directly (no install) or redeploy in YOUR catalog.
-
-
+You can now perform any advanced data task, be it load, transform or take actions by running SQL commmands in BigQuery.
 
 
-<br>
-
-
-## 💡 2. Why BigFunctions?
-
-
-**As a data-analyst**<br>
-You'll have new powers! *(such as loading data from any source or activating your data through reverse ETL)*.
-
-**As an analytics-engineer**<br>
-You'll feel at home with BigFunctions style which imitates the one of dbt *(with a yaml standard and a CLI)*.<br>
-You'll love the idea of getting more things done through SQL.
-
-**As a data-engineer**<br>
-You'll easily build software-engineering best practices through unit testing, cicd, pull request validation, continuous deployment, etc.<br>
-You will love avoiding reinventing the wheel by using functions already developed by the community.
-
-**As a central data-team player in a large company**<br>
-You'll be proud of providing a governed catalog of curated functions to your 10000+ employees with mutualized and maintainable effort.
-
-**As a security champion**<br>
-You will enjoy the ability to validate the code of functions before deployment thanks to your git validation workflow, CI Testing, binary authorization, etc.
-
-**As an open-source lover**<br>
-You'll be able to contribute so that a problem solved for you is solved for everyone.
+[Learn more about BigFunctions >](https://unytics.io/bigfunctions/)
 
 
 
 <br>
 
-## 👀 3. Call public BigFunctions without install from your GCP project
+## 👀 2. Call public BigFunctions without install from your GCP project
 
 All BigFunctions represented by a 'yaml' file in *bigfunctions* folder of the GitHub repo are automatically deployed in public datasets so that you can call them directly without install from your BigQuery project.
 
@@ -74,12 +46,12 @@ select bigfunctions.eu.faker("name", "it_IT")
 ```
 
 
-Explore all available bigfunctions <a href="https://unytics.io/bigfunctions/" target="_blank">on the website</a>**.
+[Explore available bigfunctions >](https://unytics.io/bigfunctions/bigfunctions/)
 
 <br>
 
 
-## 🚀 4. Deploy BigFunctions in your GCP project
+## 🚀 3. Deploy BigFunctions in your GCP project
 
 You can also deploy any bigfunction in your project! To deploy *my_bigfunction* defined in *bigfunctions/my_bigfunction.yaml* file, simply call:
 
@@ -87,157 +59,12 @@ You can also deploy any bigfunction in your project! To deploy *my_bigfunction* 
 bigfun deploy my_bigfunction
 ```
 
-Details about `bigfun` command line are given below.
+[Discover the framework >](https://unytics.io/bigfunctions/framework/)
 
 <br>
 
 
-## 💥 5. `bigfun` CLI
-
-`bigfun` CLI (command-line-interface) facilitates BigFunctions development, test, deployment, documentation and monitoring.
-
-### 5.1 Install `bigfun` 🛠️
-
-
-``` sh
-pip install bigfunctions
-```
-
-### 5.2 Use `bigfun` 🔥
-
-``` sh
-$ bigfun --help
-Usage: bigfun [OPTIONS] COMMAND [ARGS]...
-
-Options:
-  --help  Show this message and exit.
-
-Commands:
-  deploy      Deploy BIGFUNCTION
-  docs        Generate, serve and publish documentation
-  get         Download BIGFUNCTION yaml file from unytics/bigfunctions...
-  test        Test BIGFUNCTION
-```
-
-
-### 5.3 Create you first function 👷
-
-Functions are defined as yaml files under `bigfunctions` folder. To create your first function locally, the easiest is to download an existing yaml file of unytics/bigfunctions Github repo.
-
-For instance to download `is_email_valid.yaml` into bigfunctions folder, do:
-
-```sh
-bigfun get is_email_valid
-```
-
-You can then update the file to suit your needs.
-
-
-
-
-### 5.4 Deploy you first function 👨‍💻
-
-> 1. Make sure the `gcloud` command is [installed on your computer](https://cloud.google.com/sdk/docs/install)
-> 2. Activate the application-default account with `gcloud auth application-default login`. A browser window should open, and you should be prompted to log into your Google account. Once you've done that, `bigfun` will use your oauth'd credentials to connect to BigQuery through BigQuery python client!
-> 3. Get or create a `DATASET` where you have permission to edit data and where the function will be deployed.
-> 4. The `DATASET` must belong to a `PROJECT` in which you have permission to run BigQuery queries.
-
-You now can deploy the function `is_email_valid` defined in `bigfunctions/is_email_valid.yaml` yaml file by running:
-
-```sh
-bigfun deploy is_email_valid
-```
-
-> The first time you run this command it will ask for `PROJECT` and `DATASET`.
->
-> Your inputs will be written to `config.yaml` file in current directory so that you won't be asked again (unless you delete the entries in `config.yaml`). You can also override this config at deploy time: `bigfun deploy is_email_valid --project=PROJECT --dataset=DATASET`.
-
-
-Test it with 👀:
-
-```sql
-select PROJECT.DATASET.is_email_valid('paul.marcombes@unytics.io')
-```
-
-<br>
-
-
-### 5.5 Deploy you first javascript function which depends on *npm packages* 👽
-
-*To deploy a **javascript** function* which depends on **npm packages** there are additional requirements *in addition to the ones above*.
-
-> 1. You will need to install each *npm package* on your machine and bundle it into one file. For that, you need to [install *nodejs*](https://nodejs.org/en/download/).
-> 2. The bundled js file will be uploaded into a cloud storage bucket in which you must have write access. The bucket name must be provided in `config.yaml` file in a variable named `bucket_js_dependencies`. Users of your functions must have read access to the bucket.
-
-You now can deploy the function `render_template` defined in `bigfunctions/render_template.yaml` yaml file by running:
-
-```sh
-bigfun deploy render_template
-```
-
-Test it with 👀:
-
-```sql
-select PROJECT.DATASET.render_template('Hello {{ user }}', json '{"user": "James"}')
-```
-
-
-<br>
-
-
-### 5.6 Deploy you first *remote* function ⚡️
-
-*To deploy a **remote** function* (e.g. python function), there are additional requirements *in addition to the ones of **Deploy you first function** section*.
-
-> 1. A *Cloud Run* service will be deployed to host the code ([as seen here](https://cloud.google.com/bigquery/docs/reference/standard-sql/remote-functions)). So you must have [permissions to deploy a *Cloud Run* service](https://cloud.google.com/run/docs/deploying-source-code#permissions_required_to_deploy) in your project `PROJECT`.
-> 2. `gcloud` CLI will be used directly to deploy the service (using `gcloud run deploy`). Then, make sure you are logged in with `gcloud` by calling: `gcloud auth login`. A browser window should also open, and you should be prompted to log into your Google account. WARNING: you read correctly: you have to authenticate twice. Once for bigquery python client (to deploy any function including remote as seen above.) and once now to use `gcloud` (to deploy a *Cloud Run* service).
-> 3. A *BigQuery Remote Connection* will be created to link BigQuery with the *Cloud Run* service. You then should have permissions to create a remote connection. *[BigQuery Connection Admin](https://cloud.google.com/bigquery/docs/access-control#bigquery.connectionAdmin)* or *[BigQuery Admin](https://cloud.google.com/bigquery/docs/access-control#bigquery.admin)* roles have these permissions.
-> 4. A service account will be automatically created by Google along with the *BigQuery Remote Connection*. BigQuery will use this service account of the remote connection to invoke the *Cloud Run* service. You then must have the permission to authorize this service account to invoke the *Cloud Run* service. This permission is provided in the role *[roles/run.admin](https://cloud.google.com/run/docs/reference/iam/roles)*
-
-
-You now can deploy the function `faker` defined in `bigfunctions/faker.yaml` yaml file by running:
-
-```sh
-bigfun deploy faker
-```
-
-Test it with 👀:
-
-```sql
-select PROJECT.DATASET.faker("name", "it_IT")
-```
-
-
-<br>
-
-
-## ❓ 6. FAQ
-
-<details>
-  <summary><strong>How to define specific parameters for cloud run of python functions?</strong></summary>
-
-  In yaml files you can add a `cloud_run` field with cloud run parameters. Any argument of <a href="https://cloud.google.com/sdk/gcloud/reference/run/deploy">'cloud run deploy' command</a> can be put under `cloud_run` field.
-
-  You can see an example <a href="https://github.com/unytics/bigfunctions/blob/main/bigfunctions/get_data/load_api_data_into_temp_dataset.yaml#L339">here</a>.
-
-  You can also put the same config in your `config.yaml` file to define default values (useful for defining a default service account for functions). The arguments defined in `config.yaml` will be overriden by the arguments (if defined) defined in the function yaml files.
-</details>
-<details>
-  <summary><strong>How to change the cloud run service account for python functions?</strong></summary>
-
-  By default, your default compute service account is used when deploying cloud run. To change that, see the previous FAQ item which show how to define specific parameters for cloud run.
-</details>
-<details>
-  <summary><strong>How to correctly highlight <code>sql</code>, <code>python</code> and <code>javascript</code> code in yaml files?</strong></summary>
-
-  In yaml files multiline string are by default highlighted as strings. That makes reading <code>code</code> field hard to read (with all code in the same string color). To correctly highlight the code regarding its python / javascript / sql syntax, you can install <a href="https://marketplace.visualstudio.com/items?itemName=harrydowning.yaml-embedded-languages">YAML Embedded Languages</a> VSCode extension.
-</details>
-
-
-<br>
-
-
-## 👋 7. Contribute
+## 👋 4. Contribute
 
 BigFunctions is fully open-source. Any contribution is more than welcome 🤗!
 
@@ -245,7 +72,7 @@ BigFunctions is fully open-source. Any contribution is more than welcome 🤗!
 - [Join our Slack](https://join.slack.com/t/unytics/shared_invite/zt-1gbv491mu-cs03EJbQ1fsHdQMcFN7E1Q) and talk with us
 - Suggest a new function [here](https://github.com/unytics/bigfunctions/issues/new?assignees=&labels=new-bigfunction&projects=&template=0_new_bigfunction.yaml&title=%5Bnew%5D%3A+%60function_name%28argument1%2C+argument2%29%60)
 - Raise an issue [there](https://github.com/unytics/bigfunctions/issues/new/choose)
-- Open a Pull-Request! (See [contributing instructions](https://github.com/unytics/bigfunctions/blob/main/CONTRIBUTING.md)).
+- Open a Pull-Request! (See [contributing instructions](https://unytics.io/bigfunctions/community/)).
 
 
 <br>
