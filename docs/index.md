@@ -76,10 +76,10 @@ with **150+ functions** built by the community<br>
 
 Build your own catalog of advanced functions.
 
+[Discover the Framework :octicons-arrow-right-24:](framework.md){ .md-button }
 
 ![bigfun command line interface](assets/bigfun.png){ style="max-width: 400px; width: 100%" }
 
-[Discover the Framework :octicons-arrow-right-24:](framework.md){ .md-button }
 
 </div>
 
