@@ -24,8 +24,23 @@ hide:
   - navigation
 ---
 
-# BigFunctions
+<div class="hero" markdown>
 
+# BigFunctions Supercharge BigQuery
+
+You can now perform any task with SQL<br>
+
+[Discover the functions :octicons-arrow-right-24:](#call-any-bigfunction-without-install){ .md-button .md-button--primary }
+
+</div>
+
+<br>
+
+---
+
+<br>
+
+## ☝️ Call ANY BigFunction without install
 
 BigFunctions are open-source BigQuery functions that give you **SQL-superpowers** in BigQuery 💪.
 
@@ -84,3 +99,9 @@ BigFunctions are open-source BigQuery functions that give you **SQL-superpowers*
     | `us-west2` | `bigfunctions.us_west2` |
     | `us-west3` | `bigfunctions.us_west3` |
     | `us-west4` | `bigfunctions.us_west4` |
+
+
+![functions examples](../assets/functions.png){ style="max-width: 500px; width: 100%;" }
+
+
+---
