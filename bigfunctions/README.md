@@ -48,16 +48,14 @@ BigFunctions are open-source BigQuery functions that give you **SQL-superpowers*
 
 !!! note ""
 
-    **✅ You can call ANY of the following public BigFunctions from your Google Cloud Project** (*no install*).
+    **✅ You can call ANY public BigFunction without install**<br>
+    *The functions are deployed in 39 public datasets (one dataset per region) so that you can call them without install.*
 
-    - The functions are deployed in `bigfunctions` GCP project in 39 datasets for all of the 39 BigQuery regions.
-    - They are public, so they can be called by anyone.
+    **✅ You can also deploy the public BigFunctions**<br>
+    *You can deploy public BigFunctions (or your own) in your GCP project with a single command using [BigFunctions framework](../framework.md).*
 
-    🚀 **You can also deploy the BigFunctions** in your own project with [BigFunctions framework](../framework.md).
 
-    🔴 **Found a bug?** Please raise an issue [here](https://github.com/unytics/bigfunctions/issues/new/choose)
-
-??? info "All BigFunctions Datasets >"
+??? info "All BigFunctions Public Datasets >"
 
     | Region | Dataset |
     |--------|---------|

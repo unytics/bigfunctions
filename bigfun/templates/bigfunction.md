@@ -256,6 +256,20 @@ from sample_data
 {% endfor %}
 
 
+{% if project == 'bigfunctions' %}
+
+??? danger "Found a bug using `{{ name }}`?"
+
+    If the function does not work as expected, please [open an issue](https://github.com/unytics/bigfunctions/issues/new/choose) so that it can be improved.
+    Or open the discussion on [Slack](https://join.slack.com/t/unytics/shared_invite/zt-1gbv491mu-cs03EJbQ1fsHdQMcFN7E1Q).
+
+    [:octicons-arrow-right-24: Report a bug](https://github.com/unytics/bigfunctions/issues/new/choose)
+
+    [:octicons-arrow-right-24: Join Slack](https://join.slack.com/t/unytics/shared_invite/zt-1gbv491mu-cs03EJbQ1fsHdQMcFN7E1Q)
+
+
+{% endif %}
+
 
 {% if use_case is defined and use_case %}
 
