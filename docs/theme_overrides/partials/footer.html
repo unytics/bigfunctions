@@ -7,19 +7,17 @@
     <div class="md-footer-meta__inner md-grid">
 
       <!-- Copyright and theme information -->
-      <div class="md-footer-copyright">
+      <div style="width: 200px; margin: auto 0;">
         <img
           src="{{config.site_url}}assets/logo_and_name.png"
           alt="bigfunctions logo"
-          draggable="false"
-          width="300"
         >
-        {% if config.copyright %}
-          <div class="md-footer-copyright__highlight" style="color: rgb(92, 92, 92);">
-            {{ config.copyright }}
-          </div>
-        {% endif %}
       </div>
+      {% if config.copyright %}
+        <div style="color: rgb(92, 92, 92); margin: auto 0;">
+          {{ config.copyright }}
+        </div>
+      {% endif %}
 
       <!-- Social links -->
       {% include "partials/social.html" %}
