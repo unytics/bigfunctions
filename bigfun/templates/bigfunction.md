@@ -290,7 +290,7 @@ from sample_data
 
 BigFunctions is fully open-source. Help make it a success by spreading the word!
 
-[Share on :simple-linkedin: :octicons-arrow-right-24:](https://www.linkedin.com/sharing/share-offsite/?url=https://unytics.io/bigfunctions/bigfunctions/{{ name }}){ .md-button target="_blank" }
+[Share on :fontawesome-brands-linkedin: :octicons-arrow-right-24:](https://www.linkedin.com/sharing/share-offsite/?url=https://unytics.io/bigfunctions/bigfunctions/{{ name }}){ .md-button target="_blank" }
 [Add a :octicons-star-fill-16: on :simple-github: :octicons-arrow-right-24:](https://github.com/unytics/bigfunctions){ .md-button .md-button--primary target="_blank" }
 
 {% endif %}
