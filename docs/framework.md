@@ -15,7 +15,7 @@ hide:
 
 <div class="hero" markdown>
 
-# BigFunctions Framework
+# A Framework<br>for BigQuery functions
 
 Build a catalog of BigQuery functions<br>
 using BigFunctions Framework<br>
