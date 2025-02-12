@@ -1,5 +1,8 @@
 ---
 title: "Join the Community"
+description: "The power of BigFunctions come from its community of contributors who build functions for every data need"
+search:
+  exclude: true
 hide:
   - navigation
 ---

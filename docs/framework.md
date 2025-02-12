@@ -2,10 +2,12 @@
 title: "BigFunctions Framework helps you build a catalog of BigQuery functions"
 description: |
   BigFunctions is a framework to build
-  a catalog of functions in BigQuery
+  a catalog of functions in BigQuery.
   Like dbt, it comes with a yaml standard and
   a Command-Line-Interface to test, deploy
   and generate a documentation website
+search:
+  exclude: true
 hide:
   - navigation
 ---

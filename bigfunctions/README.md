@@ -1,5 +1,6 @@
 ---
-description: "Catalog of open-source BigFunctions"
+title: Supercharge BigQuery with BigFunctions
+description: "Gain new SQL Powers with 150+ BigQuery functions (no install needed) built by the community"
 search:
   exclude: true
 folders:

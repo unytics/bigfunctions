@@ -1,5 +1,9 @@
 ---
 title: "BigFunctions Supercharge BigQuery"
+description: |
+  SQL is all you need!
+  BigFunctions supercharge BigQuery
+  so that you can perform any task with SQL
 hide:
   - navigation
   - toc
