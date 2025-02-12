@@ -256,14 +256,21 @@ from sample_data
 
 {% if project == 'bigfunctions' %}
 
+??? question "Need help using `{{ name }}`?"
+
+    The community can help! Engage the conversation on [Slack](https://join.slack.com/t/unytics/shared_invite/zt-1gbv491mu-cs03EJbQ1fsHdQMcFN7E1Q)
+
+    **For professional suppport, don't hesitate to [chat with us](../chat_with_us.md)**.
+
+
 ??? danger "Found a bug using `{{ name }}`?"
 
-    If the function does not work as expected, please [open an issue](https://github.com/unytics/bigfunctions/issues/new/choose) so that it can be improved.
-    Or open the discussion on [Slack](https://join.slack.com/t/unytics/shared_invite/zt-1gbv491mu-cs03EJbQ1fsHdQMcFN7E1Q).
+    If the function does not work as expected, please
 
-    [:octicons-arrow-right-24: Report a bug](https://github.com/unytics/bigfunctions/issues/new/choose)
+    - [report a bug](https://github.com/unytics/bigfunctions/issues/new/choose) so that it can be improved.
+    - or open the discussion with the community on [Slack](https://join.slack.com/t/unytics/shared_invite/zt-1gbv491mu-cs03EJbQ1fsHdQMcFN7E1Q).
 
-    [:octicons-arrow-right-24: Join Slack](https://join.slack.com/t/unytics/shared_invite/zt-1gbv491mu-cs03EJbQ1fsHdQMcFN7E1Q)
+    **For professional suppport, don't hesitate to [chat with us](../chat_with_us.md)**.
 
 
 {% endif %}
