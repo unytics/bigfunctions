@@ -1,5 +1,6 @@
 type: function_py
 author: Antoine Giraud
+hide_in_doc: true
 description: |
   Download web file into a temp dataset
   in bigfunctions project.
