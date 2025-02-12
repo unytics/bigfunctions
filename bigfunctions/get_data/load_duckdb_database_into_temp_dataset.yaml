@@ -1,5 +1,6 @@
 type: function_py
 author: Paul Marcombes
+hide_in_doc: true
 description: |
   Download duckdb database into a temp dataset
   in bigfunctions project.
