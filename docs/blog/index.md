@@ -46,7 +46,7 @@ search:
 <div class="lg:two-columns lg:revert-items" markdown>
   
 -   ## [SQL is all you need](https://medium.com/google-cloud/sql-is-all-you-need-77554fea90c0){ target="_blank" }
--   
+   
     Tired of complex data stacks?
     
     Discover the SQL Data Stack: a new paradigm that uses SQL for data ingestion, transformation, and activation, empowering analysts and simplifying your data workflow
@@ -54,7 +54,7 @@ search:
     [Read More :octicons-arrow-right-24:](https://medium.com/google-cloud/sql-is-all-you-need-77554fea90c0){ .md-button target="_blank" }
     
 -   ![post cover photo](../assets/blog/2025-02-05_introducing_sql_data_stack.png){ loading=lazy style=" display: block; margin-left: auto;" }
--   
+  
 </div>
 
 
