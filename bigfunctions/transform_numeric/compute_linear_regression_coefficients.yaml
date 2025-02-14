@@ -1,0 +1,66 @@
+type: aggregate_function_js
+author: Axel Thevenot
+description: |
+  Returns slope and intercept from X, Y series.
+arguments:
+  - name: x
+    type: float64
+  - name: y
+    type: float64
+output:
+  name: coefficients
+  type: struct<slope float64, intercept float64>
+examples:
+  - description: "Example with a generated time serie"
+    temp_table: |
+      select
+          x,
+          2 * x + 1 as y  -- example relationship: y = 2x + 1
+      from unnest([1.0, -1.0, 3.0, -3.0, 5.0, -5.0]) as x
+    arguments:
+      - x
+      - y
+    output: |
+      struct(2.0 as slope, 1.0 as intercept)
+
+code: |
+  export function initialState() {
+    return {
+      count: 0,
+      sum_x: 0,
+      sum_y: 0,
+      sum_xy: 0,
+      sum_x2: 0
+    };
+  }
+
+  export function aggregate(state, x, y) {
+    state.count += 1;
+    state.sum_x += x;
+    state.sum_y += y;
+    state.sum_xy += x * y;
+    state.sum_x2 += x * x;
+  }
+
+  export function merge(state, partialState) {
+    state.count += partialState.count;
+    state.sum_x += partialState.sum_x;
+    state.sum_y += partialState.sum_y;
+    state.sum_xy += partialState.sum_xy;
+    state.sum_x2 += partialState.sum_x2;
+  }
+
+  export function finalize(state) {
+    if (state.count < 2) {
+      return { slope: null, intercept: null }; // Not enough data
+    }
+
+    let n = state.count;
+    let num = (n * state.sum_xy) - (state.sum_x * state.sum_y);
+    let den = (n * state.sum_x2) - (state.sum_x ** 2);
+
+    let slope = den !== 0 ? num / den : null;
+    let intercept = slope !== null ? (state.sum_y - slope * state.sum_x) / n : null;
+
+    return {slope: slope, intercept: intercept };
+  }
