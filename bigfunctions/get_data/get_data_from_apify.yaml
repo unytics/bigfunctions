@@ -1,0 +1,47 @@
+type: function_py
+author: Alexandre Nataf
+description: |
+  Get data using apify actor.
+
+  {SECRET_ENCRYPTER}
+arguments:
+  - name: actor
+    type: string
+  - name: input
+    type: json
+  - name: api_token
+    type: string
+output:
+  name: data
+  type: json
+examples:
+  - description: "Without headers"
+    arguments:
+      - "'https://unytics.io/bigfunctions/'"
+      - "null"
+    output: "&lt;html>...&lt;/html>"
+  - description: "With `Content-Type = application/json` headers"
+    arguments:
+      - "'https://api.github.com/repos/unytics/bigfunctions'"
+      - "json_object('Content-Type', 'application/json')"
+    output: "{...}"
+  - description: "With encrypted bearer token"
+    arguments:
+      - "'https://api.github.com/repos/unytics/bigfunctions_terraform'"
+      - |
+        json_object(
+          'Content-Type', 'application/json',
+          'Authorization', 'Bearer ENCRYPTED_SECRET(ioLZsCtEu5ZKu...)'
+        )
+    output: "{...}"
+code: | #python
+  from apify_client import ApifyClient
+
+  client = ApifyClient(api_token)
+  run = client.actor(actor).call(run_input=input)
+  items = [item for item in client.dataset(run["defaultDatasetId"]).iterate_items()]
+  return items
+requirements: |
+  apify-client
+quotas:
+  max_rows_per_query: 1
