@@ -1,0 +1,50 @@
+type: function_py
+author: Alexandre Nataf
+description: |
+  Get data using an [apify](https://apify.com) `actor`.
+
+  **Requirements**
+
+  You must create an account on apify and rent an actor to be able to get data from it.
+
+  {SECRET_ENCRYPTER}
+arguments:
+  - name: actor
+    type: string
+  - name: input
+    type: json
+  - name: api_token
+    type: string
+output:
+  name: data
+  type: json
+examples:
+  - description: "Get PSG followers on instagram"
+    arguments:
+      - "'apify/instagram-followers-count-scraper'"
+      - "json '{ \"usernames\": [\"psg\"] }'"
+      - "'ENCRYPTED_SECRET(Eu5XjDuxO1IBPOAN0U...==)'"
+    output: |
+      [
+        {
+          "followersCount": 62841046,
+          "followsCount": 168,
+          "profilePic": "https://instagram.fmel7-1.fna.fbcdn.net/v/t51.2885-19/449700979_1506857413562380_7088351830712502452_n.jpg?stp=dst-jpg_e0_s150x150_tt6&_nc_ht=instagram.fmel7-1.fna.fbcdn.net&_nc_cat=1&_nc_oc=Q6cZ2AF9oFgyWnsA4x8tu8w5Rr1J_mI9FoabJNg7fHkelZ6jSaMwUSor_QZNs9IQ-iRs_iw&_nc_ohc=gUrxGWpcWb4Q7kNvgEJE0ih&_nc_gid=cb1d2f086b814adca4020f9401c84a32&edm=AOQ1c0wBAAAA&ccb=7-5&oh=00_AYBbHG5DjV1qxsQhy0IaD0_d51XzY0LAcRhK2Fx1lnjRKA&oe=67B4E610&_nc_sid=8b3546",
+          "timestamp": "2025-02-14 - 11:22",
+          "userFullName": "Paris Saint-Germain",
+          "userId": "232024162",
+          "userName": "psg",
+          "userUrl": "https://www.instagram.com/psg"
+        }
+      ]
+code: | #python
+  from apify_client import ApifyClient
+  api_token = decrypt_secrets_in_argument_and_check(api_token, bigfunction_user)
+  client = ApifyClient(api_token)
+  run = client.actor(actor).call(run_input=input)
+  items = [item for item in client.dataset(run["defaultDatasetId"]).iterate_items()]
+  return items
+requirements: |
+  apify-client
+quotas:
+  max_rows_per_query: 1
