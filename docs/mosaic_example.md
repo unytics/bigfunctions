@@ -1,3 +1,12 @@
+---
+title: "Mosaic Data App"
+hide:
+  - navigation
+  - toc
+search:
+  exclude: true
+---
+
 # Generate Static Dashboards using Mozaic
 
 **Select an Example**
