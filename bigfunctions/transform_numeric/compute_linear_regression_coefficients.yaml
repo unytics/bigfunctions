@@ -1,7 +1,13 @@
 type: aggregate_function_js
 author: Axel Thevenot
 description: |
-  Returns slope and intercept from X, Y series.
+  Returns linear regression coefficients from `x`, `y` columns.
+
+  Compute linear regression of `(x, y)` and return `slope` and `intercept` coefficients so that:
+
+  ```
+  Y ~= slope * X + intercept
+  ```
 arguments:
   - name: x
     type: float64
