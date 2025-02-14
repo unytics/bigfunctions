@@ -200,7 +200,7 @@ with sample_data as (
 {% endif %}
 {% if example.temp_table is defined %}
 create temp table sample_data as (
-  {{ example.with_clause | indent(2) }}
+  {{ example.temp_table | indent(2) }}
 );
 {% endif %}
 {% if type == 'procedure' %}call{% elif type == 'table_function' %}select * from{% else %}select{% endif %} {{ project }}.{{ dataset }}.{{ name }}({% for argument in example.arguments %}{{ argument | replace('{BIGFUNCTIONS_DATASET}',  project + '.' + dataset ) | replace('\n', '\n  ') }}{% if not loop.last %}, {% endif %}{% endfor %}){% if type == 'procedure' %};{% elif 'output' in bigfunction and type != 'table_function' %} as {{ output.name }}{% endif %}
