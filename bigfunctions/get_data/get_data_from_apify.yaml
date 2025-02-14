@@ -1,7 +1,7 @@
 type: function_py
 author: Alexandre Nataf
 description: |
-  Get data using apify actor.
+  Get data using an [apify](https://apify.com) `actor`.
 
   **Requirements**
 
