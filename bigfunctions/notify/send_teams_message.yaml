@@ -32,9 +32,9 @@ code: |
           'contentType': 'application/vnd.microsoft.card.adaptive',
           'content': {
             'type': 'AdaptiveCard',
-            'body': [{'type': 'TextBlock', 'text': message}],
+            'body': [{'type': 'TextBlock', 'text': message, 'wrap': True}],
             '$schema': 'http://adaptivecards.io/schemas/adaptive-card.json',
-            'version': '1.0'
+            'version': '1.4'
           }
         }]
       })
