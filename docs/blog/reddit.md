@@ -4,7 +4,7 @@ Hey r/dataengineering!
 
 I'm excited to introduce [BigFunctions](https://github.com/unytics/bigfunctions), an open-source project designed to supercharge your BigQuery data-warehouse and empower your data analysts! 
 
-After 2 years building it, we just wrote our first [article](https://medium.com/google-cloud/sql-is-all-you-need-77554fea90c0) to announce it. 
+After 2 years building it, I just wrote our first [article](https://medium.com/google-cloud/sql-is-all-you-need-77554fea90c0) to announce it. 
 
 
 ## What is BigFunctions?
