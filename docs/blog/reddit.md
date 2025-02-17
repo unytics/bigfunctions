@@ -18,7 +18,7 @@ Inspired by the growing **"SQL Data Stack"** movement, BigFunctions is a framewo
 
 ## The Problem We're Solving
 
-The modern data stack can get complicated. Lots of tools, lots of custom scripts...it's a management headache. We believe the future is a simplified stack where SQL (and BigQuery) does it all. 
+The modern data stack can get complicated. Lots of tools, lots of custom scripts...it's a management headache. We believe the future is a simplified stack where SQL (and the data warehouse) does it all. 
 
 Here are some benefits:
 
