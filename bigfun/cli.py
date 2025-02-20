@@ -100,6 +100,8 @@ def generate_doc(project, dataset):
         images = glob.glob('bigfunctions/**/*.png', recursive=True)
         for image in images:
             destination_filename = 'docs/bigfunctions/' + image.split('/')[-1]
+            destination_dir = os.path.dirname(destination_filename)
+            os.makedirs(destination_dir, exist_ok=True)
             shutil.copy(image, destination_filename)
 
     def generate_bigfunctions_list_markdown(bigfunctions):
