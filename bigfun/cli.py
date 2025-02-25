@@ -110,7 +110,6 @@ def generate_doc(project, dataset):
         if os.path.isfile('bigfunctions/README.md'):
             content = open('bigfunctions/README.md', encoding='utf-8').read()
             if content.startswith('---'):
-                content_without_first_line = content[content.find('\n'):]
                 front_matter = content[:content.find('\n---')]
                 front_matter = yaml.safe_load(front_matter)
                 if 'folders' in front_matter:
@@ -127,11 +126,7 @@ def generate_doc(project, dataset):
                     folder_readme = open(f'bigfunctions/{folder}/README.md', encoding='utf-8').read()
                 folders[folder] = {'path': folder, 'readme': folder_readme, 'bigfunctions': []}
             folders[folder]['bigfunctions'].append(bigfunction.config)
-        if folders_to_add:
-            folders = [folders[folder] for folder in folders_to_add]
-        else:
-            folders = folders.values()
-        folders_content = '\n\n\n'.join([folder_template.render(**folder) for folder in folders])
+        folders_content = '\n\n\n'.join([folder_template.render(**folder) for folder in folders.values()])
 
         open('docs/bigfunctions/README.md', 'w', encoding='utf-8').write(content + '\n' * 3 + folders_content)
 
