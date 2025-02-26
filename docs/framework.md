@@ -197,6 +197,51 @@ select PROJECT.DATASET.faker("name", "it_IT")
 <br>
 
 
+### 7. Host your Documentation on GitHub Pages
+
+> **💡 Note:**
+> If you want to host your documentation on GitLab, please check [this link](#https://gitlab.com/pages/mkdocs).
+
+#### Steps to Host Your Documentation on GitHub Pages
+
+1. **Create a new repository** on GitHub.
+2. **Initialize Git** in your local project:
+   ```sh
+   git init
+   ```
+3. Add the remote repository
+  ```sh
+  git remote add origin <repository-url>
+  ```
+4. Generate the documentation
+  ```sh
+    bigfun docs generate
+  ```
+5. (Optional) Preview the documentation before publishing
+  ```sh
+  bigfun docs serve
+  ```
+  Then open http://localhost:8000 in your browser.
+
+6. Add, commit, and push your changes
+  ```sh
+  git add .
+  git commit -m "Add documentation"
+  git push origin main
+  ```
+7. Deploy to GitHub Pages
+  ```sh
+  mkdocs gh-deploy --force
+  ```
+8. Access your hosted documentation
+  ```sh
+  https://<your-github-username>.github.io/<repository-name>/
+  ```
+
+
+<br>
+
+
 ## ❓ FAQ
 
 <details>
