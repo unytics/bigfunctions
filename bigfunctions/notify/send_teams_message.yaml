@@ -23,22 +23,10 @@ code: |
   if not message:
     return 'EMPTY MESSAGE. NOT SENDING'
   assert webhook_url.startswith('https://') and '.webhook.office.com/' in webhook_url, 'webhook_url should start with `https://<xxxxx>.webhook.office.com/`'
-  response = requests.post(
-      webhook_url,
-      headers={'Content-Type': 'application/json; charset=UTF-8'},
-      json={
-        'type': 'message',
-        'attachments': [{
-          'contentType': 'application/vnd.microsoft.card.adaptive',
-          'content': {
-            'type': 'AdaptiveCard',
-            'body': [{'type': 'TextBlock', 'text': message, 'wrap': True}],
-            'msTeams': {'width': 'full'},
-            '$schema': 'http://adaptivecards.io/schemas/adaptive-card.json',
-            'version': '1.4'
-          }
-        }]
-      })
+  response = requests.post(webhook_url,
+                          headers={'Content-Type': 'application/json; charset=UTF-8'},
+                          json={'text': message}
+                          )
   assert response.ok, 'ERROR: ' + response.text
   return response.text
 requirements: |
