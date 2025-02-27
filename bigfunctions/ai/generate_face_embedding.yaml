@@ -62,4 +62,3 @@ quotas:
 cloud_run:
   memory: 2048Mi
   concurrency: 1
-  max_instances: 10

@@ -47,4 +47,3 @@ max_batching_rows: 1
 cloud_run:
   cpu: 2
   memory: 8Gi
-  max_instances: 10

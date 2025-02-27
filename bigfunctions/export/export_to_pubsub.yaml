@@ -52,8 +52,6 @@ code: |
 requirements:
   google-cloud-pubsub
 cloud_run:
-  memory: 512Mi
   concurrency: 16
-  max_instances: 10
 quotas:
   max_rows_per_user_per_day: 10000000

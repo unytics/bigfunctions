@@ -56,5 +56,3 @@ requirements: |
   google-play-scraper
 quotas:
   max_rows_per_query: 1
-cloud_run:
-  max_instances: 10

@@ -213,7 +213,6 @@ dockerfile:
 cloud_run:
   memory: 1024Mi
   concurrency: 1
-  max_instances: 10
   service_account: no-permission@bigfunctions.iam.gserviceaccount.com
 quotas:
   backend: "none"
