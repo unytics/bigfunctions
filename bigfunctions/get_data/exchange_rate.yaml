@@ -49,7 +49,6 @@ code: | #python
       report_exception(e)
       return
     CACHE[cache_key] = rate
-
   return CACHE[cache_key]
 requirements: |
   yfinance
