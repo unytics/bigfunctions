@@ -77,6 +77,7 @@ def log(status, status_info='', **kwargs):
     duration = 1000 * (time.time() - g.created_time)
     message = {
         **{
+            'status': status,
             "severity": 'INFO',
             'message': f"{status.upper()}: {{ name }} from {g.user} with {g.row_count} rows (elasped {duration} ms)",
             "bigfunction": '{{ name }}',
