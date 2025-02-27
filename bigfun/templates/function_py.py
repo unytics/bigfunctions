@@ -10,7 +10,7 @@ import google.auth
 import google.cloud.error_reporting
 from cryptography.hazmat.primitives import hashes, serialization
 from cryptography.hazmat.primitives.asymmetric import padding
-from flask import Flask, jsonify, request
+from flask import Flask, jsonify, request, g
 
 error_reporter = google.cloud.error_reporting.Client()
 app = Flask(__name__)
@@ -65,32 +65,37 @@ class QuotaException(Exception):
 
 
 
-class Logger:
+def init_global_context(data):
+    g.created_time = time.time()
+    g.user = data['sessionUser']
+    g.row_count = len(data['calls'])
+    g.request_id = data['requestId']
+    g.caller = data['caller']
 
-    def __init__(self, data):
-        self.created_time = time.time()
-        self.user = data['sessionUser']
-        self.row_count = len(data['calls'])
-        self.request_id = data['requestId']
-        self.caller = data['caller']
 
-    def log(self, **kwargs):
-        duration = 1000 * (time.time() - self.created_time)
-        status = kwargs['status']
-        message = {
-            **{
-                "severity": 'INFO',
-                'message': f"{status.upper()}: {{ name }} from {self.user} with {self.row_count} rows (elasped {duration} ms)",
-                "bigfunction": '{{ name }}',
-                "user": self.user,
-                "row_count": self.row_count,
-                "request_id": self.request_id,
-                "caller": self.caller,
-                'elapsed_ms': duration,
-            },
-            **kwargs,
-        }
-        print(json.dumps(message))
+def log(status, status_info='', **kwargs):
+    duration = 1000 * (time.time() - g.created_time)
+    message = {
+        **{
+            "severity": 'INFO',
+            'message': f"{status.upper()}: {{ name }} from {g.user} with {g.row_count} rows (elasped {duration} ms)",
+            "bigfunction": '{{ name }}',
+            "user": g.user,
+            "row_count": g.row_count,
+            "request_id": g.request_id,
+            "caller": g.caller,
+            'elapsed_ms': duration,
+            'status_info': status_info,
+        },
+        **kwargs,
+    }
+    print(json.dumps(message))
+
+
+def report_exception(exception):
+    error_message = (str(exception) + ' --- ' + traceback.format_exc())[:1000]
+    log('error', error_message)
+    error_reporter.report_exception(google.cloud.error_reporting.build_flask_context(request))
 
 
 class BaseQuotaManager:
@@ -254,8 +259,8 @@ def compute_one_row(args, bigfunction_user, bigfunction_dataset_location, user_p
 def handle():
     try:
         data = request.get_json()
-        logger = Logger(data)
-        logger.log(status='started')
+        init_global_context(data)
+        log('started')
         user_project_matches = re.findall(r'bigquery.googleapis.com/projects/([^/]*)/', data['caller'])
         user_project = user_project_matches[0] if user_project_matches else None
         bigfunction_user = data['sessionUser']
@@ -269,11 +274,11 @@ def handle():
         replies = [compute_one_row(row, bigfunction_user, bigfunction_dataset_location, user_project) for row in rows]
         {% endif %}
         response = jsonify( { "replies" :  replies} )
-        logger.log(status='success')
+        log('success')
         return response
     except QuotaException as e:
         error_message = e.args[0]
-        logger.log(status='quota_error', status_info=error_message)
+        log('quota_error', error_message)
         return jsonify({
             'errorMessage': f'''
                 Thanks for using BigFunctions!
@@ -286,10 +291,8 @@ def handle():
         }), 400
     except AssertionError as e:
         error_message = e.args[0]
-        logger.log(status='assertion_error', status_info=error_message)
+        log('assertion_error', error_message)
         return jsonify({'errorMessage': error_message}), 400
     except Exception as e:
-        error_message = (str(e) + ' --- ' + traceback.format_exc())[:1000]
-        logger.log(status='error', status_info=error_message)
-        error_reporter.report_exception(google.cloud.error_reporting.build_flask_context(request))
+        report_exception(e)
         return jsonify({'errorMessage': f"{type(e).__name__}: {str(e)}"}), 400
