@@ -45,7 +45,8 @@ code: | #python
     ticker = yf.Ticker(ticker_name)
     try:
       rate = 0.5 * (ticker.info['bid'] + ticker.info['ask'])
-    except:
+    except Exception as e:
+      print(f'ERROR: {e}')
       return None
     CACHE[cache_key] = rate
 
@@ -54,3 +55,4 @@ requirements: |
   yfinance
 cloud_run:
   max_instances: 10
+  concurrency: 1
