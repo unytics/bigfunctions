@@ -63,7 +63,7 @@ search:
         ```
 
         {% if secrets is defined -%}
-        `{{ name }}` uses the following secrets. You must store them in [Google Secret Manager](https://console.cloud.google.com/security/secret-manager){ target="_blank" } in the project where you deploy the function (and give Accessor role to the service account of the function):
+        `{{ name }}` uses the following secrets. Get them by reading the documentation link and store them in [Google Secret Manager](https://console.cloud.google.com/security/secret-manager){ target="_blank" } in the project where you deploy the function (and give Accessor role to the service account of the function):
 
         | name | description | documentation to get the secret |
         |------|-------------|-----|
