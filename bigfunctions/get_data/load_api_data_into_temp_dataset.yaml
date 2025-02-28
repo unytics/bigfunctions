@@ -296,8 +296,8 @@ code: |
     streams = list_streams(executable, source_config)
     return '# AVAILABLE STREAMS\n\n' + ', '.join(streams)
 
-  bigquery = google.cloud.bigquery.Client(location=bigfunction_dataset_location)
-  destination_dataset = create_temp_dataset(bigquery, bigfunction_user)
+  bigquery = google.cloud.bigquery.Client(location=g.bigfunction_dataset_location)
+  destination_dataset = create_temp_dataset(bigquery, g.user)
 
   state = state or {}
   run(executable, source_config, streams, state, destination_dataset)

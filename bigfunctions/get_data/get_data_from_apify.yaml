@@ -39,7 +39,7 @@ examples:
       ]
 code: | #python
   from apify_client import ApifyClient
-  api_token = decrypt_secrets_in_argument_and_check(api_token, bigfunction_user)
+  api_token = decrypt_secrets_in_argument_and_check(api_token, g.user)
   client = ApifyClient(api_token)
   run = client.actor(actor).call(run_input=input)
   items = [item for item in client.dataset(run["defaultDatasetId"]).iterate_items()]

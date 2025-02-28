@@ -133,8 +133,7 @@ code: | #python
   }
   reply_to = {'email': 'noreply@unytics.io'}
   emails = check_emails(to)
-  content = format_content(content)
-  send_mail(emails, subject, content, attachment)
+  send_mail(emails, subject, content, attachments)
   return True
 requirements: |
   requests

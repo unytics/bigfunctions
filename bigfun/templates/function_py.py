@@ -7,11 +7,11 @@ import traceback
 import uuid
 
 import google.auth
-import google.cloud.error_reporting
 import google.cloud.datastore
+import google.cloud.error_reporting
 from cryptography.hazmat.primitives import hashes, serialization
 from cryptography.hazmat.primitives.asymmetric import padding
-from flask import Flask, jsonify, request, g
+from flask import Flask, g, jsonify, request
 
 error_reporter = google.cloud.error_reporting.Client()
 app = Flask(__name__)
@@ -39,11 +39,11 @@ def get_current_service_account():
     return CACHE['current_service_account']
 
 
-def create_temp_dataset(bigquery, bigfunction_user, default_table_expiration_days=0.042):
+def create_temp_dataset(bigquery, default_table_expiration_days=0.042):
     random_id = str(uuid.uuid4()).replace('-', '_')
     dataset_id = f'{PROJECT}.temp_{random_id}'
-    is_user_service_account = 'iam.gserviceaccount.com' in bigfunction_user
-    member = 'serviceAccount:' + bigfunction_user if is_user_service_account else 'user:' + bigfunction_user
+    is_user_service_account = 'iam.gserviceaccount.com' in g.user
+    member = 'serviceAccount:' + g.user if is_user_service_account else 'user:' + g.user
     query = f'''
 
     create schema `{dataset_id}`
@@ -72,8 +72,11 @@ def init_global_context(data):
     g.row_count = len(data['calls'])
     g.request_id = data['requestId']
     g.caller = data['caller']
+    g.bigfunction_user = data['sessionUser']
     user_project_matches = re.findall(r'bigquery.googleapis.com/projects/([^/]*)/', data['caller'])
     g.user_project = user_project_matches[0] if user_project_matches else None
+    g.bigfunction_dataset_location = data.get('userDefinedContext', {}).get('dataset_location')
+
 
 
 def log(status, status_info='', **kwargs):
@@ -300,12 +303,12 @@ def decrypt_secrets_in_argument_and_check(value, user):
 
 {% if code_process_rows_as_batch %}
 
-def compute_all_rows(rows, bigfunction_user, bigfunction_dataset_location):
+def compute_all_rows(rows):
     {{ code | replace('\n', '\n    ') | replace('{BIGFUNCTIONS_DATASET}',  '`' +  project + '`.`' + dataset + '`' ) }}
 
 {% else %}
 
-def compute_one_row(args, bigfunction_user, bigfunction_dataset_location):
+def compute_one_row(args):
     {% if arguments %}{% for argument in arguments %}{{ argument.name }}, {% endfor %} = args{% endif %}
     {{ code | replace('\n', '\n    ') | replace('{BIGFUNCTIONS_DATASET}',  '`' +  project + '`.`' + dataset + '`' ) }}
 
@@ -318,15 +321,13 @@ def handle():
         data = request.get_json()
         init_global_context(data)
         log('started')
-        bigfunction_user = data['sessionUser']
-        bigfunction_dataset_location = data.get('userDefinedContext', {}).get('dataset_location')
         quota_manager = QuotaManager(data)
         quota_manager.check_quotas()
         rows = data['calls']
         {% if code_process_rows_as_batch %}
-        replies = compute_all_rows(rows, bigfunction_user, bigfunction_dataset_location)
+        replies = compute_all_rows(rows)
         {% else %}
-        replies = [compute_one_row(row, bigfunction_user, bigfunction_dataset_location) for row in rows]
+        replies = [compute_one_row(row) for row in rows]
         {% endif %}
         response = jsonify( { "replies" :  replies} )
         log('success')

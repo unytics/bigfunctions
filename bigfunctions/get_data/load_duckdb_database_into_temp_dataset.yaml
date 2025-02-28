@@ -53,8 +53,8 @@ init_code: |
       assert False, f'Service Account `{get_current_service_account()}` does not have data-editor permission for given destination dataset (or the dataset does not exsit). Please add it'
 code: |
   dataframes = duckdb2dataframes(duckdb_file_url)
-  bigquery = google.cloud.bigquery.Client(location=bigfunction_dataset_location)
-  destination_dataset = create_temp_dataset(bigquery, bigfunction_user)
+  bigquery = google.cloud.bigquery.Client(location=g.bigfunction_dataset_location)
+  destination_dataset = create_temp_dataset(bigquery, g.user)
   for table, df in dataframes.items():
     destination_table = f'{destination_dataset}.{table}'
     upload_dataframe(df, bigquery, destination_table, duckdb_file_url)
