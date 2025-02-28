@@ -72,6 +72,8 @@ def init_global_context(data):
     g.row_count = len(data['calls'])
     g.request_id = data['requestId']
     g.caller = data['caller']
+    user_project_matches = re.findall(r'bigquery.googleapis.com/projects/([^/]*)/', data['caller'])
+    g.user_project = user_project_matches[0] if user_project_matches else None
 
 
 def log(status, status_info='', **kwargs):
@@ -298,12 +300,12 @@ def decrypt_secrets_in_argument_and_check(value, user):
 
 {% if code_process_rows_as_batch %}
 
-def compute_all_rows(rows, bigfunction_user, bigfunction_dataset_location, user_project):
+def compute_all_rows(rows, bigfunction_user, bigfunction_dataset_location):
     {{ code | replace('\n', '\n    ') | replace('{BIGFUNCTIONS_DATASET}',  '`' +  project + '`.`' + dataset + '`' ) }}
 
 {% else %}
 
-def compute_one_row(args, bigfunction_user, bigfunction_dataset_location, user_project):
+def compute_one_row(args, bigfunction_user, bigfunction_dataset_location):
     {% if arguments %}{% for argument in arguments %}{{ argument.name }}, {% endfor %} = args{% endif %}
     {{ code | replace('\n', '\n    ') | replace('{BIGFUNCTIONS_DATASET}',  '`' +  project + '`.`' + dataset + '`' ) }}
 
@@ -316,17 +318,15 @@ def handle():
         data = request.get_json()
         init_global_context(data)
         log('started')
-        user_project_matches = re.findall(r'bigquery.googleapis.com/projects/([^/]*)/', data['caller'])
-        user_project = user_project_matches[0] if user_project_matches else None
         bigfunction_user = data['sessionUser']
         bigfunction_dataset_location = data.get('userDefinedContext', {}).get('dataset_location')
         quota_manager = QuotaManager(data)
         quota_manager.check_quotas()
         rows = data['calls']
         {% if code_process_rows_as_batch %}
-        replies = compute_all_rows(rows, bigfunction_user, bigfunction_dataset_location, user_project)
+        replies = compute_all_rows(rows, bigfunction_user, bigfunction_dataset_location)
         {% else %}
-        replies = [compute_one_row(row, bigfunction_user, bigfunction_dataset_location, user_project) for row in rows]
+        replies = [compute_one_row(row, bigfunction_user, bigfunction_dataset_location) for row in rows]
         {% endif %}
         response = jsonify( { "replies" :  replies} )
         log('success')
