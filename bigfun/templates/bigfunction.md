@@ -62,7 +62,11 @@ search:
 
 **Description**
 
-{{ description | replace('{SECRET_ENCRYPTER}', '''
+{{ description }}
+
+{% set arguments_containing_secrets = arguments|selectattr('contains_secret')|map(attribute='name')|list %}
+
+{% if arguments_containing_secrets %}
 
 <br>
 ⚠️ **Encrypt your secrets!**
@@ -110,7 +114,7 @@ Instead, generate an encrypted version of your secret that you can safely share.
     - No function but the function `{{ name }}` can decrypt it.
 
 
-''') | replace('{{ name }}', name) }}
+{% endif %}
 
 
 
@@ -263,7 +267,7 @@ from sample_data
     **For professional suppport, don't hesitate to [chat with us](../chat_with_us.md)**.
 
 
-??? danger "Found a bug using `{{ name }}`?"
+??? warning "Found a bug using `{{ name }}`?"
 
     If the function does not work as expected, please
 

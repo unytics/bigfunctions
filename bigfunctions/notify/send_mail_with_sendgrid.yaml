@@ -1,5 +1,6 @@
 type: function_py
 author: Paul Marcombes
+hide_in_doc: true
 description: |
   Sends an email using your gmail account
 
@@ -11,13 +12,12 @@ description: |
   | `subject`     | Email subject |
   | `content`     | Email content   |
   | `attachments`  | json like `{filename: content}` with `content` a plain text or base64 encoded bytes (for excel, pdf, image, etc)  |
-
-  {SECRET_ENCRYPTER}
 arguments:
   - name: gmail_email
     type: string
   - name: gmail_app_password
     type: string
+    contains_secret: true
   - name: to
     type: string
   - name: subject

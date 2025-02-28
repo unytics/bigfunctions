@@ -6,8 +6,6 @@ description: |
   **Requirements**
 
   You must create an account on apify and rent an actor to be able to get data from it.
-
-  {SECRET_ENCRYPTER}
 arguments:
   - name: actor
     type: string

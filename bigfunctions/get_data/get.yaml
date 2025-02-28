@@ -2,8 +2,6 @@ type: function_py
 author: Paul Marcombes
 description: |
   Request `url`
-
-  {SECRET_ENCRYPTER}
 arguments:
   - name: url
     type: string

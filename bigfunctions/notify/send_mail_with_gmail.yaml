@@ -11,8 +11,6 @@ description: |
   | `subject`     | Email subject |
   | `content`     | Email content   |
   | `attachments`  | json like `{filename: content}` with `content` a plain text or base64 encoded bytes (for excel, pdf, image, etc)  |
-
-  {SECRET_ENCRYPTER}
 arguments:
   - name: gmail_email
     type: string
