@@ -54,6 +54,8 @@ search:
         - This is particularly useful if you want to create private functions (for example calling your internal APIs).
         - Get started by reading [the framework page ](../framework.md)
 
+        **Deployment**
+
         `{{ name }}` function can be deployed with:
 
         ```bash
@@ -63,6 +65,8 @@ search:
         ```
 
         {% if secrets is defined -%}
+        **Requirements**
+        
         `{{ name }}` uses the following secrets. Get them by reading the documentation link and store them in [Google Secret Manager](https://console.cloud.google.com/security/secret-manager){ target="_blank" } in the project where you deploy the function (and give Accessor role to the service account of the function):
 
         | name | description | documentation to get the secret |
