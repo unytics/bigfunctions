@@ -40,16 +40,18 @@ code: | #python
 
   today = datetime.datetime.now(datetime.UTC).strftime("%Y-%m-%d")
   cache_key = f'{today}_{base}_{to}'
-  if cache_key not in CACHE:
-    ticker_name = f'{base}{to}=X'
-    ticker = yf.Ticker(ticker_name)
-    try:
-      rate = 0.5 * (ticker.info['bid'] + ticker.info['ask'])
-    except Exception as e:
-      report_exception(e)
-      return
-    CACHE[cache_key] = rate
-  return CACHE[cache_key]
+  rate = cache.get(cache_key)
+  if rate:
+    return rate
+  ticker_name = f'{base}{to}=X'
+  ticker = yf.Ticker(ticker_name)
+  try:
+    rate = 0.5 * (ticker.info['bid'] + ticker.info['ask'])
+  except Exception as e:
+    report_exception(e)
+    return
+  cache.set(cache_key, rate)
+  return rate
 requirements: |
   yfinance
 cloud_run:
