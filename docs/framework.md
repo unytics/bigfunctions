@@ -272,10 +272,10 @@ select PROJECT.DATASET.faker("name", "it_IT")
     To change that, see the previous FAQ item which show how to define specific parameters for cloud run.
 
 
-??? note "How to generate key pair for secret encryption / decryption"
+??? note "How to generate key pair for encryption / decryption of secrets contained in arguments"
 
     In order not to pass secrets in plain text in function arguments,
-    bigfunctions provide a mechanism to encrypt a secret on the documentation page of a function (for example [here](https://unytics.io/bigfunctions/bigfunctions/send_mail_with_gmail/#encrypt-your-secrets)).
+    bigfunctions provides a mechanism to encrypt a secret on the documentation page of a function (for example [here](https://unytics.io/bigfunctions/bigfunctions/send_mail_with_gmail/#encrypt-your-secrets)).
     Only the given function will be able to decrypt it for the given users.
 
     For this to work you need to:

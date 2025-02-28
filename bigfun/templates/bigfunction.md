@@ -31,21 +31,48 @@ search:
 
 ??? note "Call or Deploy `{{ name }}` ?"
 
-    **✅ You can call this `{{ name }}` bigfunction directly from your Google Cloud Project** (*no install required*).
 
-    - This `{{ name }}` function is deployed in `bigfunctions` GCP project in 39 datasets for all of the 39 BigQuery regions. *You need to use the dataset in the same region as your datasets (otherwise you may have a function not found error).*
-    - Function is public, so it can be called by anyone. Just copy / paste examples below in your BigQuery console. It just works!
-    - You may prefer to deploy the BigFunction in your own project if you want to build and manage your own catalog of functions. This is particularly useful if you want to create private functions (for example calling your internal APIs). [:octicons-arrow-right-24: Discover the framework](../framework.md)
+    ??? success "Call `{{ name }}` directly"
+
+        - `{{ name }}` function is deployed in 39 public datasets for all of the 39 BigQuery regions.
+        - *You need to use the dataset in the same region as your datasets (otherwise you may have a function not found error).*
+        - It can be called by anyone. Just copy / paste examples below in your BigQuery console. It just works!
+
+        Public BigFunctions Datasets:
+
+        | Region | Dataset |
+        |--------|---------|
+        {% for dataset in dataset.split(',') -%}
+        | `{{ dataset.replace('_', '-') }}` | `{{ project }}.{{ dataset }}` |
+        {% endfor -%}
+        |  ...   |   ...   |
 
 
-    Public BigFunctions Datasets:
+    ??? success "Deploy `{{ name }}` in your project"
 
-    | Region | Dataset |
-    |--------|---------|
-    {% for dataset in dataset.split(',') -%}
-    | `{{ dataset.replace('_', '-') }}` | `{{ project }}.{{ dataset }}` |
-    {% endfor -%}
-    |  ...   |   ...   |
+        - You may prefer to deploy the BigFunction in your own project to build and manage your own catalog of functions.
+        - This is particularly useful if you want to create private functions (for example calling your internal APIs).
+        - :octicons-arrow-right-24: Get started by reading [the framework page ](../framework.md)
+
+        `{{ name }}` function can be deployed with:
+
+        ```bash
+        pip install bigfunctions
+        bigfun get {{ name }}
+        bigfun deploy {{ name }}
+        ```
+
+        {% if secrets is defined -%}
+        `{{ name }}` function depends on secrets. For it to work you must store the following secrets in [Google Secret Manager](https://console.cloud.google.com/security/secret-manager){ target="_blank" } in the same project where you deploy the function (and give Accessor role to the service account of the function):
+
+        | name | description | documentation to get the secret |
+        |------|-------------|-----|
+        {% for secret in secrets -%}
+        | `{{ secret.name }}` | {{ secret.description }} | [doc]({{ secret.documentation_link }}){ target="_blank" } |
+        {% endfor %}
+        {% endif %}
+
+
 
 
 {% endif %}
