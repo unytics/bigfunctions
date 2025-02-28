@@ -8,6 +8,7 @@ import uuid
 
 import google.auth
 import google.cloud.datastore
+import google.cloud.datastore.query
 import google.cloud.error_reporting
 from cryptography.hazmat.primitives import hashes, serialization
 from cryptography.hazmat.primitives.asymmetric import padding
@@ -120,12 +121,26 @@ class Store:
             return entity.get('value')
 
     def set(self, key, value):
-        key = self.datastore.key(self.kind, key)
+        if key is None:
+            key = self.datastore.key(self.kind)
+        else:
+            key = self.datastore.key(self.kind, key)
         entity = google.cloud.datastore.Entity(key)
-        entity.update({
-            'value': value,
-        })
+        if not isinstance(value, dict):
+            value = {'value': value}
+        entity.update(value)
         self.datastore.put(entity)
+
+    def compute_aggregate(self, aggregate_function, aggregate_attribute=None, filter=None):
+        aggregate_attributes = aggregate_attribute or []
+        filter = filter or []
+        query = self.datastore.query(kind=self.kind)
+        if filter:
+            query.add_filter(filter=google.cloud.datastore.query.PropertyFilter(*filter))
+        result = getattr(self.datastore.aggregation_query(query), aggregate_function)(aggregate_attribute).fetch()
+        result = list(list(result)[0])[0].value
+        print(f'{aggregate_function}({aggregate_attributes}) where {"".join(filter)}:', result)
+        return result
 
     @property
     def datastore(self):
@@ -157,70 +172,35 @@ class Cache:
 cache = Cache()
 
 
-class BaseQuotaManager:
-
-    def __init__(self, data):
-        self.row_count = len(data['calls'])
-
-    def check_quotas(self):
-        max_rows_per_query = QUOTAS.get('max_rows_per_query') or QUOTAS.get('max_rows_per_user_per_day')
-        if max_rows_per_query and (self.row_count > max_rows_per_query):
-            raise QuotaException(f"It only accepts {max_rows_per_query} rows per query and you called it now on {self.row_count} rows or more.")
+def check_max_rows_per_query_quota():
+    max_rows_per_query = min(QUOTAS.get('max_rows_per_query'), QUOTAS.get('max_rows_per_user_per_day'))
+    if max_rows_per_query and (g.row_count > max_rows_per_query):
+        raise QuotaException(f"It only accepts {max_rows_per_query} rows per query and you called it now on {g.row_count} rows or more.")
 
 
-class DatastoreQuotaManager(BaseQuotaManager):
-
-    kind = 'bigfunction_call'
-
-    _datastore = None
-
-    def __init__(self, data):
-        super().__init__(data)
-        self.created_at = datetime.datetime.utcnow()
-        today = self.created_at.strftime("%Y-%m-%d")
-        self.user_bigfunction_date = f'{g.user}/{{ name }}/{today}'
-
-    @property
-    def datastore(self):
-        if self._datastore is None:
-            self._datastore = google.cloud.datastore.Client()
-        return self._datastore
-
-    def compute_stat(self, aggregate_function, aggregate_attribute=None, filter=None):
-        from google.cloud.datastore import query as filters
-        aggregate_attributes = aggregate_attribute or []
-        filter = filter or []
-        query = self.datastore.query(kind=self.kind)
-        if filter:
-            query.add_filter(filter=filters.PropertyFilter(*filter))
-        result = getattr(self.datastore.aggregation_query(query), aggregate_function)(aggregate_attribute).fetch()
-        result = list(list(result)[0])[0].value
-        print(f'{aggregate_function}({aggregate_attributes}) where {"".join(filter)}:', result)
-        return result
-
-    def get_today_row_count_for_this_bigfunction(self):
-        return self.compute_stat('sum', aggregate_attribute='row_count', filter=["user_bigfunction_date", "=", self.user_bigfunction_date])
-
-    def save_usage(self):
-        key = self.datastore.key(self.kind)
-        entity = google.cloud.datastore.Entity(key)
-        entity.update({
-            'timestamp': self.created_at,
-            'user_bigfunction_date': self.user_bigfunction_date,
-            "row_count": self.row_count,
-        })
-        self.datastore.put(entity)
-
-    def check_quotas(self):
-        super().check_quotas()
+def check_max_rows_per_user_per_day_quota():
+    if QUOTAS.get('backend') == 'datastore':
         if 'max_rows_per_user_per_day' in QUOTAS:
-            today_row_count_for_this_bigfunction = self.get_today_row_count_for_this_bigfunction()
-            if today_row_count_for_this_bigfunction + self.row_count > QUOTAS['max_rows_per_user_per_day']:
-                raise QuotaException(f"It only accepts {QUOTAS['max_rows_per_user_per_day']} rows per day per user and you called it today for {today_row_count_for_this_bigfunction + self.row_count} rows.")
-            self.save_usage()
+            store = Store('bigfunction_call')
+            today = datetime.datetime.now(datetime.UTC).strftime('%Y-%m-%d')
+            user_bigfunction_date = f'{g.user}/{{ name }}/{today}'
+            today_row_count_for_this_bigfunction = store.compute_aggregate(
+                'sum',
+                aggregate_attribute='row_count',
+                filter=["user_bigfunction_date", "=", user_bigfunction_date]
+            )
+            if today_row_count_for_this_bigfunction + g.row_count > QUOTAS['max_rows_per_user_per_day']:
+                raise QuotaException(f"It only accepts {QUOTAS['max_rows_per_user_per_day']} rows per day per user and you called it today for {today_row_count_for_this_bigfunction + g.row_count} rows.")
+            store.set(None, {
+                'timestamp': datetime.datetime.now(datetime.UTC),
+                'user_bigfunction_date': user_bigfunction_date,
+                "row_count": g.row_count,
+            })
 
 
-QuotaManager = DatastoreQuotaManager if QUOTAS.get('backend') == 'datastore' else BaseQuotaManager
+def check_quotas():
+    check_max_rows_per_query_quota()
+    check_max_rows_per_user_per_day_quota()
 
 
 class SecretManager:
@@ -317,8 +297,7 @@ def handle():
         data = request.get_json()
         init_global_context(data)
         log('started')
-        quota_manager = QuotaManager(data)
-        quota_manager.check_quotas()
+        check_quotas()
         rows = data['calls']
         {% if code_process_rows_as_batch %}
         replies = compute_all_rows(rows)
