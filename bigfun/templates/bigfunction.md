@@ -34,11 +34,13 @@ search:
 
     ??? success "Call `{{ name }}` directly"
 
+        **The easiest way to use bigfunctions**
+        
         - `{{ name }}` function is deployed in 39 public datasets for all of the 39 BigQuery regions.
         - It can be called by anyone. Just copy / paste examples below in your BigQuery console. It just works!
         - *(You need to use the dataset in the same region as your datasets otherwise you may have a function not found error)*
 
-        Public BigFunctions Datasets:
+        **Public BigFunctions Datasets**
 
         | Region | Dataset |
         |--------|---------|
