@@ -297,7 +297,7 @@ from sample_data
 
 {% if project == 'bigfunctions' %}
 
-??? question "Need help using `{{ name }}` or found a bug :fontawesome-solid-bug:?"
+??? question "Need help using `{{ name }}`? Found a bug :octicons-bug-24: ?"
 
     ??? success "Get help using `{{ name }}`"
     
