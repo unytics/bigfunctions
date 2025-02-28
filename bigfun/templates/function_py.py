@@ -130,7 +130,6 @@ class Store:
     @property
     def datastore(self):
         if self._datastore is None:
-            import google.cloud.datastore
             self._datastore = google.cloud.datastore.Client()
         return self._datastore
 
@@ -184,7 +183,6 @@ class DatastoreQuotaManager(BaseQuotaManager):
     @property
     def datastore(self):
         if self._datastore is None:
-            import google.cloud.datastore
             self._datastore = google.cloud.datastore.Client()
         return self._datastore
 
@@ -204,7 +202,6 @@ class DatastoreQuotaManager(BaseQuotaManager):
         return self.compute_stat('sum', aggregate_attribute='row_count', filter=["user_bigfunction_date", "=", self.user_bigfunction_date])
 
     def save_usage(self):
-        import google.cloud.datastore
         key = self.datastore.key(self.kind)
         entity = google.cloud.datastore.Entity(key)
         entity.update({
@@ -280,12 +277,8 @@ def decrypt_secrets_in_argument_and_check(value):
     encrypted_secrets = re.findall(r'ENCRYPTED_SECRET\(([^\)]*)\)', value)
     for encrypted_secret in encrypted_secrets:
         decrypted_secret = decrypt(encrypted_secret)
-        try:
-            decrypted_secret = json.loads(decrypted_secret)
-        except:
-            # for backwards compatibility only
-            value = value.replace(f'ENCRYPTED_SECRET({encrypted_secret})', decrypted_secret)
-            continue
+        decrypted_secret = json.loads(decrypted_secret)
+        log('decrypted_json_secret', decrypted_secret['secret'])
         assert g.user in decrypted_secret['authorized_users'], f'Permission Error: User `{g.user}` do not belong to secret `authorized readers`'
         assert decrypted_secret['function'] == '{{ name }}', f'Permission Error: Secret was not created to be used with this function'
         decrypted_secret = decrypted_secret['secret']
