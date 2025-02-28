@@ -50,7 +50,7 @@ search:
 
     ??? success "Deploy `{{ name }}` in your project"
 
-        - You may prefer to deploy the BigFunction in your own project to build and manage your own catalog of functions.
+        - You may prefer to deploy `{{ name }}` in your own project to build and manage your own catalog of functions.
         - This is particularly useful if you want to create private functions (for example calling your internal APIs).
         - :octicons-arrow-right-24: Get started by reading [the framework page ](../framework.md)
 
