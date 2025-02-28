@@ -267,9 +267,9 @@ def decrypt(text):
     return plaintext.decode()
 
 
-def decrypt_secrets_in_argument_and_check(value):
+def decrypt_secrets(value):
     if isinstance(value, dict):
-        return {k: decrypt_secrets_in_argument_and_check(v) for k, v in value.items()}
+        return {k: decrypt_secrets(v) for k, v in value.items()}
 
     if not isinstance(value, str):
         return value
@@ -302,6 +302,10 @@ def compute_all_rows(rows):
 
 def compute_one_row(args):
     {% if arguments %}{% for argument in arguments %}{{ argument.name }}, {% endfor %} = args{% endif %}
+    {% for argument in arguments if argument.contains_secret -%}
+    {{ argument.name }} = decrypt_secrets({{ argument.name }})
+    {% endfor %}
+
     {{ code | replace('\n', '\n    ') | replace('{BIGFUNCTIONS_DATASET}',  '`' +  project + '`.`' + dataset + '`' ) }}
 
 {% endif %}

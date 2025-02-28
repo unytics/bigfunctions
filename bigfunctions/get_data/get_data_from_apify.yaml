@@ -15,6 +15,7 @@ arguments:
     type: json
   - name: api_token
     type: string
+    contains_secret: true
 output:
   name: data
   type: json
@@ -39,7 +40,6 @@ examples:
       ]
 code: | #python
   from apify_client import ApifyClient
-  api_token = decrypt_secrets_in_argument_and_check(api_token)
   client = ApifyClient(api_token)
   run = client.actor(actor).call(run_input=input)
   items = [item for item in client.dataset(run["defaultDatasetId"]).iterate_items()]
