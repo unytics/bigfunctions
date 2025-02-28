@@ -305,3 +305,55 @@ def serve(project, dataset, config):
     # observer.start()
     # bf.generate_doc(project, dataset)
     os.system('mkdocs serve')
+
+
+@cli.group()
+def config():
+    """
+    Get, set or generate config
+    """
+    pass
+
+
+@config.command('get')
+@click.argument('name')
+@click.option('--config', default='config.yaml', help='Path to the config file')
+def get_value(name, config):
+    '''
+    Print value of config named NAME in config.yaml
+    '''
+    print(get_config_value(name, config))
+
+
+@config.command()
+@click.option('--config', default='config.yaml', help='Path to the config file')
+def generate_key_pair_for_secrets(config):
+    """
+    Generate a key pair for secret encrytion/decryption
+    """
+    from cryptography.hazmat.primitives.asymmetric import rsa
+    from cryptography.hazmat.primitives import serialization
+
+    private_key = rsa.generate_private_key(public_exponent=65537, key_size=2048)
+
+    # PRINT PRIVATE KEY
+    pem = private_key.private_bytes(
+        encoding=serialization.Encoding.PEM,
+        format=serialization.PrivateFormat.TraditionalOpenSSL,
+        encryption_algorithm=serialization.NoEncryption()
+    )
+    print(pem.decode())
+
+    # STORE PUBLIC KEY IN CONFIG
+    public_key = private_key.public_key()
+    pem = public_key.public_bytes(
+        encoding=serialization.Encoding.PEM,
+        format=serialization.PublicFormat.SubjectPublicKeyInfo
+    )
+    public_key = pem.decode()
+
+    with open(config, 'a', encoding='utf-8') as file:
+        file.write(
+            '\npublic_key_to_encrypt_secrets: |\n  ' +
+            '\n  '.join(public_key.split('\n'))
+        )

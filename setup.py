@@ -35,6 +35,7 @@ setuptools.setup(
         'click',
         'click-help-colors',
         'vertexai',
+        'cryptography',
     ],
     extras_require={
         'dev': [
