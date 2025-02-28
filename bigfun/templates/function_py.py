@@ -8,6 +8,7 @@ import uuid
 
 import google.auth
 import google.cloud.error_reporting
+import google.cloud.datastore
 from cryptography.hazmat.primitives import hashes, serialization
 from cryptography.hazmat.primitives.asymmetric import padding
 from flask import Flask, jsonify, request, g
@@ -97,6 +98,59 @@ def report_exception(exception):
     error_message = (str(exception) + ' --- ' + traceback.format_exc())[:1000]
     log('error', error_message)
     error_reporter.report_exception(google.cloud.error_reporting.build_flask_context(request))
+
+
+
+class Store:
+
+    _datastore = None
+
+    def __init__(self, kind):
+        self.kind = kind
+
+    def get(self, key):
+        key = self.datastore.key(self.kind, key)
+        entity = self.datastore.get(key)
+        if entity:
+            return entity.get('value')
+
+    def set(self, key, value):
+        key = self.datastore.key(self.kind, key)
+        entity = google.cloud.datastore.Entity(key)
+        entity.update({
+            'value': value,
+        })
+        self.datastore.put(entity)
+
+    @property
+    def datastore(self):
+        if self._datastore is None:
+            import google.cloud.datastore
+            self._datastore = google.cloud.datastore.Client()
+        return self._datastore
+
+
+class Cache:
+
+    def __init__(self, name='cache'):
+        self.cache = {}
+        self.store = Store(name)
+
+    def get(self, key):
+        value = self.cache.get(key)
+        if value is not None:
+            return value
+        value = self.store.get(key)
+        if value is not None:
+            self.cache[key] = value
+            return value
+
+    def set(self, key, value):
+        self.cache[key] = value
+        self.store.set(key, value)
+
+
+cache = Cache()
 
 
 class BaseQuotaManager:
