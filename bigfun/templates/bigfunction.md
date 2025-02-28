@@ -298,21 +298,27 @@ from sample_data
 
 {% if project == 'bigfunctions' %}
 
-??? question "Need help using `{{ name }}`?"
+??? question "Need help using `{{ name }}` or found a bug?"
 
-    The community can help! Engage the conversation on [Slack](https://join.slack.com/t/unytics/shared_invite/zt-1gbv491mu-cs03EJbQ1fsHdQMcFN7E1Q)
+    ??? success "Get help using `{{ name }}`"
+    
+        The community can help! Engage the conversation on [Slack](https://join.slack.com/t/unytics/shared_invite/zt-1gbv491mu-cs03EJbQ1fsHdQMcFN7E1Q)
+    
+        **We also provide [professional suppport](../chat_with_us.md)**.
+    
+    
+    ??? success "Report a bug about `{{ name }}`"
+    
+        If the function does not work as expected, please
+    
+        - [report a bug](https://github.com/unytics/bigfunctions/issues/new/choose) so that it can be improved.
+        - or open the discussion with the community on [Slack](https://join.slack.com/t/unytics/shared_invite/zt-1gbv491mu-cs03EJbQ1fsHdQMcFN7E1Q).
+    
+        **We also provide [professional suppport](../chat_with_us.md)**.
 
-    **For professional suppport, don't hesitate to [chat with us](../chat_with_us.md)**.
+        
 
 
-??? warning "Found a bug using `{{ name }}`?"
-
-    If the function does not work as expected, please
-
-    - [report a bug](https://github.com/unytics/bigfunctions/issues/new/choose) so that it can be improved.
-    - or open the discussion with the community on [Slack](https://join.slack.com/t/unytics/shared_invite/zt-1gbv491mu-cs03EJbQ1fsHdQMcFN7E1Q).
-
-    **For professional suppport, don't hesitate to [chat with us](../chat_with_us.md)**.
 
 
 {% endif %}
