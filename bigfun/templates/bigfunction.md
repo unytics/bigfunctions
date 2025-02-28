@@ -64,12 +64,15 @@ search:
 
 {{ description }}
 
+
+
+
 {% set arguments_containing_secrets = arguments|selectattr('contains_secret')|map(attribute='name')|list %}
 
 {% if arguments_containing_secrets %}
 
-<br>
-⚠️ **Encrypt your secrets!**
+
+## ⚠️ Encrypt your secrets!
 
 !!! note ""
 
