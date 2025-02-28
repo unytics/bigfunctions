@@ -3,7 +3,6 @@ title: "{{ name }} - BigQuery function"
 description: "BigFunction {{ name }} is a BigQuery function which {{ description.split('\n')[0] }}"
 hide:
   - navigation
-  - toc
 {% if hide_in_doc %}
 search:
   exclude: true
@@ -334,7 +333,7 @@ from sample_data
 
 {% if project == 'bigfunctions' %}
 
-## Spread the word
+## Spread the word!
 
 BigFunctions is fully open-source. Help make it a success by spreading the word!
 
