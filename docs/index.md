@@ -127,6 +127,9 @@ is all you need
 **dbt can be replaced by any sql orchestrator (dataform, sqlmesh, scheduled queries, etc)*
 { .small }
 
+[Discover the SQL Data Stack :octicons-arrow-right-24:](https://medium.com/google-cloud/sql-is-all-you-need-77554fea90c0){ .md-button target="_blank" }
+
+
 </div>
 
 <div class="primary-background" markdown>
