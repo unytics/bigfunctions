@@ -44,7 +44,7 @@ code: | #python
   if 'metadata-flavor' in [k.lower() for k in (headers or {}).keys()]:
     return 'invalid metadata-flavor header'
   import requests
-  headers = decrypt_secrets_in_argument_and_check(headers, g.user)
+  headers = decrypt_secrets_in_argument_and_check(headers)
   return requests.get(url, headers=headers, allow_redirects=False).text
 requirements: |
   requests

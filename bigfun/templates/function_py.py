@@ -39,7 +39,8 @@ def get_current_service_account():
     return CACHE['current_service_account']
 
 
-def create_temp_dataset(bigquery, default_table_expiration_days=0.042):
+def create_temp_dataset(default_table_expiration_days=0.042):
+    bigquery = google.cloud.bigquery.Client(location=g.bigfunction_dataset_location)
     random_id = str(uuid.uuid4()).replace('-', '_')
     dataset_id = f'{PROJECT}.temp_{random_id}'
     is_user_service_account = 'iam.gserviceaccount.com' in g.user
@@ -68,11 +69,10 @@ class QuotaException(Exception):
 
 def init_global_context(data):
     g.created_time = time.time()
-    g.user = data['sessionUser']
     g.row_count = len(data['calls'])
     g.request_id = data['requestId']
     g.caller = data['caller']
-    g.bigfunction_user = data['sessionUser']
+    g.user = data['sessionUser']
     user_project_matches = re.findall(r'bigquery.googleapis.com/projects/([^/]*)/', data['caller'])
     g.user_project = user_project_matches[0] if user_project_matches else None
     g.bigfunction_dataset_location = data.get('userDefinedContext', {}).get('dataset_location')
@@ -178,9 +178,8 @@ class DatastoreQuotaManager(BaseQuotaManager):
     def __init__(self, data):
         super().__init__(data)
         self.created_at = datetime.datetime.utcnow()
-        self.user = data['sessionUser']
         today = self.created_at.strftime("%Y-%m-%d")
-        self.user_bigfunction_date = f'{self.user}/{{ name }}/{today}'
+        self.user_bigfunction_date = f'{g.user}/{{ name }}/{today}'
 
     @property
     def datastore(self):
@@ -271,9 +270,9 @@ def decrypt(text):
     return plaintext.decode()
 
 
-def decrypt_secrets_in_argument_and_check(value, user):
+def decrypt_secrets_in_argument_and_check(value):
     if isinstance(value, dict):
-        return {k: decrypt_secrets_in_argument_and_check(v, user) for k, v in value.items()}
+        return {k: decrypt_secrets_in_argument_and_check(v) for k, v in value.items()}
 
     if not isinstance(value, str):
         return value
@@ -287,7 +286,7 @@ def decrypt_secrets_in_argument_and_check(value, user):
             # for backwards compatibility only
             value = value.replace(f'ENCRYPTED_SECRET({encrypted_secret})', decrypted_secret)
             continue
-        assert user in decrypted_secret['authorized_users'], f'Permission Error: User `{user}` do not belong to secret `authorized readers`'
+        assert g.user in decrypted_secret['authorized_users'], f'Permission Error: User `{g.user}` do not belong to secret `authorized readers`'
         assert decrypted_secret['function'] == '{{ name }}', f'Permission Error: Secret was not created to be used with this function'
         decrypted_secret = decrypted_secret['secret']
         value = value.replace(f'ENCRYPTED_SECRET({encrypted_secret})', decrypted_secret)

@@ -124,9 +124,7 @@ code: |
   except Exception as e:
     assert False, "options argument is an invalid json " + repr(e)
 
-  bigquery = google.cloud.bigquery.Client(location=g.bigfunction_dataset_location)
-
-  destination_dataset = create_temp_dataset(bigquery, g.user)
+  destination_dataset = create_temp_dataset()
   destination_table = f'{destination_dataset}.file_data'
 
   df = download_file(url, file_type, options)
