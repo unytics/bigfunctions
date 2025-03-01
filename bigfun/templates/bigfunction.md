@@ -28,7 +28,7 @@ search:
 
 {% if project == 'bigfunctions' %}
 
-??? success ""
+!!! success ""
 
 
     ??? success "Call `{{ name }}` directly"
