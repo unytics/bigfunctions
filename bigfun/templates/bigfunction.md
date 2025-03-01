@@ -28,53 +28,56 @@ search:
 
 {% if project == 'bigfunctions' %}
 
-??? success "Call `{{ name }}` directly"
+??? note "Call or Deploy `{{ name }}` ?"
 
-    **The easiest way to use bigfunctions**
+
+    ??? success "Call `{{ name }}` directly"
+
+        **The easiest way to use bigfunctions**
         
-    - `{{ name }}` function is deployed in 39 public datasets for all of the 39 BigQuery regions.
-    - It can be called by anyone. Just copy / paste examples below in your BigQuery console. It just works!
-    - *(You need to use the dataset in the same region as your datasets otherwise you may have a function not found error)*
+        - `{{ name }}` function is deployed in 39 public datasets for all of the 39 BigQuery regions.
+        - It can be called by anyone. Just copy / paste examples below in your BigQuery console. It just works!
+        - *(You need to use the dataset in the same region as your datasets otherwise you may have a function not found error)*
 
-    **Public BigFunctions Datasets**
+        **Public BigFunctions Datasets**
 
-    | Region | Dataset |
-    |--------|---------|
-    {% for dataset in dataset.split(',') -%}
-    | `{{ dataset.replace('_', '-') }}` | `{{ project }}.{{ dataset }}` |
-    {% endfor -%}
-    |  ...   |   ...   |
+        | Region | Dataset |
+        |--------|---------|
+        {% for dataset in dataset.split(',') -%}
+        | `{{ dataset.replace('_', '-') }}` | `{{ project }}.{{ dataset }}` |
+        {% endfor -%}
+        |  ...   |   ...   |
 
 
-??? success "Deploy `{{ name }}` in your project"
+    ??? success "Deploy `{{ name }}` in your project"
 
-    **Why deploy?**
+        **Why deploy?**
 
-    - You may prefer to deploy `{{ name }}` in your own project to build and manage your own catalog of functions.
-    - This is particularly useful if you want to create private functions (for example calling your internal APIs).
-    - Get started by reading [the framework page ](../framework.md)
+        - You may prefer to deploy `{{ name }}` in your own project to build and manage your own catalog of functions.
+        - This is particularly useful if you want to create private functions (for example calling your internal APIs).
+        - Get started by reading [the framework page ](../framework.md)
 
-    **Deployment**
+        **Deployment**
 
-    `{{ name }}` function can be deployed with:
+        `{{ name }}` function can be deployed with:
 
-    ```bash
-    pip install bigfunctions
-    bigfun get {{ name }}
-    bigfun deploy {{ name }}
-    ```
+        ```bash
+        pip install bigfunctions
+        bigfun get {{ name }}
+        bigfun deploy {{ name }}
+        ```
 
-    {% if secrets is defined -%}
-    **Requirements**
+        {% if secrets is defined -%}
+        **Requirements**
         
-    `{{ name }}` uses the following secrets. Get them by reading the documentation link and store them in [Google Secret Manager](https://console.cloud.google.com/security/secret-manager){ target="_blank" } in the project where you deploy the function (and give Accessor role to the service account of the function):
+        `{{ name }}` uses the following secrets. Get them by reading the documentation link and store them in [Google Secret Manager](https://console.cloud.google.com/security/secret-manager){ target="_blank" } in the project where you deploy the function (and give Accessor role to the service account of the function):
 
-    | name | description | documentation to get the secret |
-    |------|-------------|-----|
-    {% for secret in secrets -%}
-    | `{{ secret.name }}` | {{ secret.description }} | [doc]({{ secret.documentation_link }}){ target="_blank" } |
-    {% endfor %}
-    {% endif %}
+        | name | description | documentation to get the secret |
+        |------|-------------|-----|
+        {% for secret in secrets -%}
+        | `{{ secret.name }}` | {{ secret.description }} | [doc]({{ secret.documentation_link }}){ target="_blank" } |
+        {% endfor %}
+        {% endif %}
 
 
 
