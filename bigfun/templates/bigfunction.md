@@ -28,7 +28,7 @@ search:
 
 {% if project == 'bigfunctions' %}
 
-??? note "Call or Deploy `{{ name }}` ?"
+??? success ""
 
 
     ??? success "Call `{{ name }}` directly"
