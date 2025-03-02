@@ -52,4 +52,3 @@ quotas:
   max_rows_per_query: 1000
 cloud_run:
   concurrency: 2
-  max_instances: 10

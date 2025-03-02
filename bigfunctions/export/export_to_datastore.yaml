@@ -48,7 +48,7 @@ code: | #python
     namespace = namespace if namespace != 'default' else None
 
     if store is None:
-      assert project != 'bigfunctions' or bigfunction_user.endswith('unytics.io') or bigfunction_user.endswith('nickel.eu'), 'Forbidden to write here'
+      assert project != 'bigfunctions' or g.user.endswith('unytics.io') or g.user.endswith('nickel.eu'), 'Forbidden to write here'
       store = google.cloud.datastore.Client(project=project, database=database)
       _project = project
       _database = database

@@ -63,8 +63,6 @@ secrets:
     description: IP Info Token
     documentation_link: https://ipinfo.io/account/token
 cloud_run:
-  memory: 512Mi
-  max_instances: 10
   add_volume: '"name=storage,type=cloud-storage,bucket=bigfunctions_storage"'
   add_volume_mount: '"volume=storage,mount-path=/storage"'
   execution-environment: gen2

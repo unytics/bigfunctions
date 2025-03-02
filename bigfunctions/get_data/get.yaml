@@ -2,13 +2,12 @@ type: function_py
 author: Paul Marcombes
 description: |
   Request `url`
-
-  {SECRET_ENCRYPTER}
 arguments:
   - name: url
     type: string
   - name: headers
     type: json
+    contains_secret: true
 output:
   name: response
   type: string
@@ -44,7 +43,6 @@ code: | #python
   if 'metadata-flavor' in [k.lower() for k in (headers or {}).keys()]:
     return 'invalid metadata-flavor header'
   import requests
-  headers = decrypt_secrets_in_argument_and_check(headers, bigfunction_user)
   return requests.get(url, headers=headers, allow_redirects=False).text
 requirements: |
   requests

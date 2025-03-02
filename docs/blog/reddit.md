@@ -2,9 +2,9 @@
 
 Hey r/dataengineering!
 
-I'm excited to introduce [BigFunctions](https://github.com/unytics/bigfunctions), an open-source project designed to supercharge your BigQuery data-warehouse and empower your data analysts! 
+I'm excited to introduce [BigFunctions](https://github.com/unytics/bigfunctions), an open-source project designed to supercharge your BigQuery data-warehouse and empower your data analysts!
 
-After 2 years building it, I just wrote our first [article](https://medium.com/google-cloud/sql-is-all-you-need-77554fea90c0) to announce it. 
+After 2 years building it, I just wrote our first [article](https://medium.com/google-cloud/sql-is-all-you-need-77554fea90c0) to announce it.
 
 
 ## What is BigFunctions?
@@ -18,7 +18,7 @@ Inspired by the growing **"SQL Data Stack"** movement, BigFunctions is a framewo
 
 ## The Problem We're Solving
 
-The modern data stack can get complicated. Lots of tools, lots of custom scripts...it's a management headache. We believe the future is a simplified stack where SQL (and the data warehouse) does it all. 
+The modern data stack can get complicated. Lots of tools, lots of custom scripts...it's a management headache. We believe the future is a simplified stack where SQL (and the data warehouse) does it all.
 
 Here are some benefits:
 
@@ -30,7 +30,7 @@ Here are some benefits:
 
 - **YAML-Based Configuration**: Define your functions using simple YAML, just like dbt uses for transformations.
 - **CLI for Testing & Deployment**: Test and deploy your functions with ease using our command-line interface.
-- **Community-Driven Function Library**: Access a growing library of over 120 functions contributed by the community. 
+- **Community-Driven Function Library**: Access a growing library of over 120 functions contributed by the community.
 
 Deploy them with a single command!
 
@@ -48,13 +48,13 @@ All in SQL. No more jumping between different tools and languages.
 
 ## Why We Built This
 
-As Head of Data at Nickel, I saw the need for a better way to empower our 25 data analysts. 
+As Head of Data at Nickel, I saw the need for a better way to empower our 25 data analysts.
 
-Thanks to SQL and configuration, our data-analysts at Nickel send 100M+ communications to customers every year, personalize content on mobile app based on customer behavior and call internal APIs to take actions based on machine learning scoring.  
+Thanks to SQL and configuration, our data-analysts at Nickel send 100M+ communications to customers every year, personalize content on mobile app based on customer behavior and call internal APIs to take actions based on machine learning scoring.
 
 I built BigFunctions 2 years ago as an open-source project to benefit the entire community. So that any team can empower its SQL users.
 
-Today, I think it has been used in production long enough to announce it publicly. Hence this first [article on medium](https://medium.com/google-cloud/sql-is-all-you-need-77554fea90c0). 
+Today, I think it has been used in production long enough to announce it publicly. Hence this first [article on medium](https://medium.com/google-cloud/sql-is-all-you-need-77554fea90c0).
 
 The road is not finished; we still have a lot to do. Stay tuned for the journey.
 

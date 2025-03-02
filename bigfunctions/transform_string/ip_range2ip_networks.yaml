@@ -29,5 +29,3 @@ code: |
   return [str(cidr) for cidr in cidrs]
 requirements: |
   netaddr
-cloud_run:
-  max_instances: 10

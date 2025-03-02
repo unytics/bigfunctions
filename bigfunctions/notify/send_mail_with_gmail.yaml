@@ -11,13 +11,12 @@ description: |
   | `subject`     | Email subject |
   | `content`     | Email content   |
   | `attachments`  | json like `{filename: content}` with `content` a plain text or base64 encoded bytes (for excel, pdf, image, etc)  |
-
-  {SECRET_ENCRYPTER}
 arguments:
   - name: gmail_email
     type: string
   - name: gmail_app_password
     type: string
+    contains_secret: true
   - name: to
     type: string
   - name: subject
@@ -135,7 +134,6 @@ init_code: | #python
 code: | #python
   if not to:
     return True
-  gmail_app_password = decrypt_secrets_in_argument_and_check(gmail_app_password, bigfunction_user)
   msg = build_message(gmail_email, to, subject, content, attachments)
   send_mail(gmail_email, gmail_app_password, msg)
   return True

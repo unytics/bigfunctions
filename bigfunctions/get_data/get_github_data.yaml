@@ -100,6 +100,5 @@ quotas:
   max_rows_per_user_per_day: 100
 cloud_run:
   memory: 1024Mi
-  max_instances: 10
   concurrency: 1
   timeout: 30m
