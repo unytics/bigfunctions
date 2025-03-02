@@ -1,0 +1,99 @@
+type: function_py
+author: Taha Kiziltepe
+description: |
+    Sends `Adaptive Card` to a Microsoft Teams channel.
+
+    > To get the `webhook_url` for a channel, follow this [doc from Microsoft](https://learn.microsoft.com/en-us/microsoftteams/platform/webhooks-and-connectors/how-to/add-incoming-webhook).
+arguments:
+  - name: webhook_url
+    type: string
+  - name: title
+    type: string
+  - name: message
+    type: string
+  - name: image_url
+    type: string
+  - name: button_text
+    type: string
+  - name: button_url
+    type: string
+output:
+  name: response
+  type: string
+examples:
+  - description: ""
+    arguments:
+      - '"YOUR_WEBHOOK_URL"'
+      - '"BigFunctions"'
+      - '"Hello 👋 from bigfunctions!"'
+      - '"https://adaptivecards.io/content/adaptive-card-50.png"'
+      - '"Click me!"'
+      - '"https://www.bigfunctions.com"'
+    output: 'ok'
+code: |
+  import json
+  import requests
+
+  assert title and message, "Title and message must be provided"
+  assert webhook_url.startswith('https://') and '.webhook.office.com/' in webhook_url, 'webhook_url should start with `https://<xxxxx>.webhook.office.com/`'
+
+  base_schema = {'type': 'message',
+                  'attachments': [{
+                      'contentType': 'application/vnd.microsoft.card.adaptive'
+                      }]
+  }
+
+  card_schema = {
+      "$schema": "http://adaptivecards.io/schemas/adaptive-card.json",
+      "type": "AdaptiveCard",
+      "version": "1.4",
+      "msTeams": {"width": "full"},
+      "body": None
+  }
+
+  body = [
+      {
+          "type": "TextBlock",
+          "text": title,
+          "weight": "Bolder",
+          "size": "Medium",
+          "wrap": True
+      },
+      {
+          "type": "TextBlock",
+          "text": message,
+          "wrap": True
+      }
+  ]
+
+  if image_url:
+      body.insert(1, {
+          "type": "Image",
+          "url": image_url,
+          "size": "Medium"
+      })
+
+  if button_url:
+      body.append({
+          "type": "ActionSet",
+          "actions": [
+              {
+                  "type": "Action.OpenUrl",
+                  "title": button_text,
+                  "url": button_url
+              }
+          ]
+      })
+
+  card_schema["body"] = body
+  base_schema["attachments"][0]["content"] = card_schema
+  payload = json.dumps(base_schema, indent=4)
+  response = requests.post(webhook_url, headers={'Content-Type': 'application/json'}, json=base_schema)
+
+  assert response.ok, 'ERROR: ' + response.text
+  return response.text
+requirements: |
+  requests
+  json
+quotas:
+  max_rows_per_query: 10
