@@ -2,7 +2,7 @@ type: function_py
 author: Paul Marcombes
 hide_in_doc: true
 description: |
-  Load data from 250+ sources using [Airbyte Python Connectors](https://docs.airbyte.com/using-airbyte/pyairbyte/getting-started#available-connectors)
+  Load SAAS data from 250+ sources using [Airbyte Python Connectors](https://docs.airbyte.com/using-airbyte/pyairbyte/getting-started#available-connectors)
   .
 
   - The function creates a temporary dataset only accessible to you in `bigfunctions` project.
@@ -15,7 +15,7 @@ arguments:
   - name: source
     type: string
   - name: source_config
-    type: string
+    type: yaml
     contains_secret: true
   - name: streams
     type: string
@@ -121,7 +121,7 @@ examples:
       - "tickets"
       - "{...}"
     output: "..."
-init_code: |
+init_code: | #python
   import base64
   import json
   import os
@@ -133,17 +133,10 @@ init_code: |
   from airbyte_serverless import airbyte_utils
   import google.api_core.exceptions
   import google.cloud.bigquery
-  from cryptography.hazmat.primitives import serialization
-  from cryptography.hazmat.primitives import hashes
-  from cryptography.hazmat.primitives.asymmetric import padding
 
   os.environ['TZ'] = 'UTC'
 
   SOURCES_URL = 'https://connectors.airbyte.com/files/registries/v0/oss_registry.json'
-  PRIVATE_KEY = serialization.load_pem_private_key(
-      get_data_rsa_private_key.encode(),
-      password=None,
-  )
 
 
   def get_sources():
@@ -165,37 +158,6 @@ init_code: |
     if yaml_config.startswith('#'):
       yaml_config = '\n'.join(yaml_config.split('\n')[1:])
     return yaml_config
-
-
-  def yaml2dict(source_yaml_config):
-    try:
-      source_config = yaml.safe_load(source_yaml_config) or {}
-    except:
-      assert False, 'Given `source_config` is NOT a valid yaml content'
-    if isinstance(source_config, str):
-      return {}
-    return source_config
-
-
-  def decrypt_secrets(data):
-    for key, value in data.items():
-        if isinstance(value, dict):
-            decrypt_secrets(value)
-        elif isinstance(value, str) and value.strip().startswith("ENCRYPTED_SECRET("):
-            value = value.strip()
-            value = value[len("ENCRYPTED_SECRET("):]
-            assert ')' in value, 'missing `)` closing parenthese in encrypted secret'
-            value = value[:value.find(')')]
-            ciphertext = base64.b64decode(value)
-            plaintext = PRIVATE_KEY.decrypt(
-                ciphertext,
-                padding.OAEP(
-                    mgf=padding.MGF1(algorithm=hashes.SHA256()),
-                    algorithm=hashes.SHA256(),
-                    label=None
-                )
-            )
-            data[key] = plaintext.decode()
 
 
   def list_streams(executable, source_config):
@@ -236,20 +198,15 @@ code: | #python
     return '# AVAILABLE SOURCES\n\n' + '\n'.join(AVAILABLE_SOURCES)
 
   executable = f'pipx run {source}'
-  source_config = source_config or ''
-  if not source_config.strip():
-    source_config = get_yaml_definition_example(executable)
-    return '# SOURCE CONFIG\n\n' + source_config
-
-  source_config = yaml2dict(source_config)
-  decrypt_secrets(source_config)
+  if not source_config:
+    source_config_string = get_yaml_definition_example(executable)
+    return '# SOURCE CONFIG\n\n' + source_config_string
 
   if not streams:
     streams = list_streams(executable, source_config)
     return '# AVAILABLE STREAMS\n\n' + ', '.join(streams)
 
   destination_dataset = create_temp_dataset()
-
   state = state or {}
   run(executable, source_config, streams, state, destination_dataset)
   return destination_dataset
@@ -262,7 +219,6 @@ quotas:
   max_rows_per_query: 1
 cloud_run:
   memory: 1024Mi
-  max_instances: 20
   concurrency: 1
-  timeout: 30m
+  timeout: 60m
   service_account: load-airbyte-source@bigfunctions.iam.gserviceaccount.com
