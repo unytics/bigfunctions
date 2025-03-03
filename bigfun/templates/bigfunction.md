@@ -3,7 +3,6 @@ title: "{{ name }} - BigQuery function"
 description: "BigFunction {{ name }} is a BigQuery function which {{ description.split('\n')[0] }}"
 hide:
   - navigation
-  - toc
 {% if hide_in_doc %}
 search:
   exclude: true
@@ -34,11 +33,13 @@ search:
 
     ??? success "Call `{{ name }}` directly"
 
+        **The easiest way to use bigfunctions**
+        
         - `{{ name }}` function is deployed in 39 public datasets for all of the 39 BigQuery regions.
-        - *You need to use the dataset in the same region as your datasets (otherwise you may have a function not found error).*
         - It can be called by anyone. Just copy / paste examples below in your BigQuery console. It just works!
+        - *(You need to use the dataset in the same region as your datasets otherwise you may have a function not found error)*
 
-        Public BigFunctions Datasets:
+        **Public BigFunctions Datasets**
 
         | Region | Dataset |
         |--------|---------|
@@ -50,9 +51,13 @@ search:
 
     ??? success "Deploy `{{ name }}` in your project"
 
-        - You may prefer to deploy the BigFunction in your own project to build and manage your own catalog of functions.
+        **Why deploy?**
+
+        - You may prefer to deploy `{{ name }}` in your own project to build and manage your own catalog of functions.
         - This is particularly useful if you want to create private functions (for example calling your internal APIs).
-        - :octicons-arrow-right-24: Get started by reading [the framework page ](../framework.md)
+        - Get started by reading [the framework page ](../framework.md)
+
+        **Deployment**
 
         `{{ name }}` function can be deployed with:
 
@@ -63,7 +68,9 @@ search:
         ```
 
         {% if secrets is defined -%}
-        `{{ name }}` function depends on secrets. For it to work you must store the following secrets in [Google Secret Manager](https://console.cloud.google.com/security/secret-manager){ target="_blank" } in the same project where you deploy the function (and give Accessor role to the service account of the function):
+        **Requirements**
+        
+        `{{ name }}` uses the following secrets. Get them by reading the documentation link and store them in [Google Secret Manager](https://console.cloud.google.com/security/secret-manager){ target="_blank" } in the project where you deploy the function (and give Accessor role to the service account of the function):
 
         | name | description | documentation to get the secret |
         |------|-------------|-----|
@@ -290,21 +297,27 @@ from sample_data
 
 {% if project == 'bigfunctions' %}
 
-??? question "Need help using `{{ name }}`?"
+??? question "Need help or Found a bug using `{{ name }}`?"
 
-    The community can help! Engage the conversation on [Slack](https://join.slack.com/t/unytics/shared_invite/zt-1gbv491mu-cs03EJbQ1fsHdQMcFN7E1Q)
+    ??? success "Get help using `{{ name }}`"
+    
+        The community can help! Engage the conversation on [Slack](https://join.slack.com/t/unytics/shared_invite/zt-1gbv491mu-cs03EJbQ1fsHdQMcFN7E1Q)
+    
+        **We also provide [professional suppport](../chat_with_us.md)**.
+    
+    
+    ??? success "Report a bug about `{{ name }}`"
+    
+        If the function does not work as expected, please
+    
+        - [report a bug](https://github.com/unytics/bigfunctions/issues/new/choose) so that it can be improved.
+        - or open the discussion with the community on [Slack](https://join.slack.com/t/unytics/shared_invite/zt-1gbv491mu-cs03EJbQ1fsHdQMcFN7E1Q).
+    
+        **We also provide [professional suppport](../chat_with_us.md)**.
 
-    **For professional suppport, don't hesitate to [chat with us](../chat_with_us.md)**.
+        
 
 
-??? warning "Found a bug using `{{ name }}`?"
-
-    If the function does not work as expected, please
-
-    - [report a bug](https://github.com/unytics/bigfunctions/issues/new/choose) so that it can be improved.
-    - or open the discussion with the community on [Slack](https://join.slack.com/t/unytics/shared_invite/zt-1gbv491mu-cs03EJbQ1fsHdQMcFN7E1Q).
-
-    **For professional suppport, don't hesitate to [chat with us](../chat_with_us.md)**.
 
 
 {% endif %}
@@ -320,7 +333,7 @@ from sample_data
 
 {% if project == 'bigfunctions' %}
 
-## Spread the word
+## Spread the word!
 
 BigFunctions is fully open-source. Help make it a success by spreading the word!
 

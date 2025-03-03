@@ -102,6 +102,8 @@ Build your own catalog of advanced functions.
 **BigQuery**, **BigFunctions** and **dbt**<br>
 is all you need
 
+[Discover the SQL Data Stack :octicons-arrow-right-24:](https://medium.com/google-cloud/sql-is-all-you-need-77554fea90c0){ .md-button target="_blank" }
+
 </div>
 
 <div class="grid cards text-center" markdown>
