@@ -38,7 +38,6 @@ dev = [
 [project.urls]
 Homepage = "https://unytics.io/bigfunctions/"
 Documentation = "https://unytics.io/bigfunctions/framework/"
-Repository = "https://github.com/unytics/bigfunctions.git"
 GitHub = "https://github.com/unytics/bigfunctions"
 
 [project.scripts]
