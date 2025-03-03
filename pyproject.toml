@@ -1,0 +1,53 @@
+[build-system]
+requires = ["setuptools>=64", "setuptools-scm>=8"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "bigfunctions"
+authors = [
+    {name = "Unytics", email = "paul.marcombes@unytics.io"},
+]
+description = "Supercharge BigQuery with BigFunctions"
+readme = "README.md"
+requires-python = ">=3.8"
+keywords = ["bigquery", "data", "analytics"]
+license = {text = "MIT"}
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Operating System :: OS Independent",
+]
+dependencies = [
+    "google-cloud-bigquery",
+    "google-cloud-bigquery-connection",
+    "google-cloud-storage",
+    "pyyaml",
+    "jinja2",
+    "mkdocs-material",
+    "click",
+    "click-help-colors",
+    "vertexai",
+    "cryptography",
+]
+dynamic = ["version"]
+
+[project.optional-dependencies]
+dev = [
+  "pre-commit>=3,<4",
+]
+
+[project.urls]
+Homepage = "https://unytics.io/bigfunctions/"
+Documentation = "https://unytics.io/bigfunctions/framework/"
+Repository = "https://github.com/unytics/bigfunctions.git"
+GitHub = "https://github.com/unytics/bigfunctions"
+
+[project.scripts]
+bigfun = "bigfun.cli:cli"
+
+[tool.setuptools]
+packages = ["bigfun"]
+
+[tool.setuptools.package-data]
+bigfun = ["templates/**/*", "datastore/**/*"]
+
+[tool.setuptools_scm]

@@ -1,0 +1,10 @@
+prune .github
+prune bigfunctions
+prune data
+prune docs
+prune tests
+prune use_cases
+exclude .*
+exclude *.yaml
+exclude *.yml
+exclude mkdocs.yml
