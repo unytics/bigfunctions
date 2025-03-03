@@ -55,7 +55,7 @@ def create_temp_dataset(default_table_expiration_days=0.042):
         description="Temporary Dataset created by `{{ name }}` bigfunction to store temporary data"
     );
 
-    grant `projects/bigfunctions/roles/bigquery_table_reader_and_deleter`
+    grant `roles/bigquery.dataEditor`
     on schema `{dataset_id}`
     to '{member}';
 
