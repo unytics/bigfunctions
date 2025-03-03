@@ -3,7 +3,7 @@ author: Paul Marcombes
 description: |
   Load data from 250+ sources using [Airbyte Python Connectors](https://docs.airbyte.com/using-airbyte/pyairbyte/getting-started#available-connectors)
 
-  DEPRECATED. Use [`load_saas_data`](load_saas_data.md) instead.
+  DEPRECATED. Use load_saas_data_from
   .
 
   - The function creates a temporary dataset only accessible to you in `bigfunctions` project.
@@ -184,7 +184,7 @@ code: |
 
   if source is null or source = '' or source_config is null or source_config = '' or streams is null or streams = '' then
     create or replace temp table bigfunction_result as
-    select {BIGFUNCTIONS_DATASET}.load_api_data_into_temp_dataset(source, source_config, streams, state) as result;
+    select {BIGFUNCTIONS_DATASET}.load_saas_data_into_temp_dataset(source, source_config, streams, state) as result;
     return;
   end if;
 
@@ -272,7 +272,7 @@ code: |
   end if;
 
   set temp_dataset = (
-    select {BIGFUNCTIONS_DATASET}.load_api_data_into_temp_dataset(source, source_config, streams, state)
+    select {BIGFUNCTIONS_DATASET}.load_saas_data_into_temp_dataset(source, source_config, streams, state)
   );
 
   execute immediate format(
