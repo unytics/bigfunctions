@@ -18,7 +18,7 @@ WORKDIR $APP_HOME
 COPY . ./
 
 # Install production dependencies.
-RUN uv pip install --system --no-cache-dir -r requirements.txt
+RUN uv pip install --system --no-cache-dir -r requirements.txt || pip install -r requirements.txt
 
 {% if dockerfile is defined %}{{ dockerfile.additional_commands }}{% endif %}
 {{ additional_install_commands_in_dockerfile }}
