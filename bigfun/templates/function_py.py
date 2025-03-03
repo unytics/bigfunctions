@@ -2,6 +2,7 @@ import base64
 import datetime
 import json
 import re
+import sys
 import time
 import traceback
 import uuid
@@ -173,8 +174,8 @@ cache = Cache()
 
 
 def check_max_rows_per_query_quota():
-    max_rows_per_query = min(QUOTAS.get('max_rows_per_query'), QUOTAS.get('max_rows_per_user_per_day'))
-    if max_rows_per_query and (g.row_count > max_rows_per_query):
+    max_rows_per_query = min(QUOTAS.get('max_rows_per_query', sys.maxsize), QUOTAS.get('max_rows_per_user_per_day', sys.maxsize))
+    if g.row_count > max_rows_per_query:
         raise QuotaException(f"It only accepts {max_rows_per_query} rows per query and you called it now on {g.row_count} rows or more.")
 
 
@@ -227,6 +228,18 @@ secrets = SecretManager()
 {% endfor %}
 {% endif %}
 
+
+def parse_yaml_string(yaml_string, name):
+    yaml_string = yaml_string or ''
+    if not yaml_string.strip():
+        return
+    try:
+        obj = yaml.safe_load(yaml_string)
+    except:
+        assert False, f'Given `{name}` is NOT a valid yaml content'
+    if isinstance(obj, str):
+        return
+    return obj
 
 
 def decrypt(text):
@@ -282,6 +295,9 @@ def compute_all_rows(rows):
 
 def compute_one_row(args):
     {% if arguments %}{% for argument in arguments %}{{ argument.name }}, {% endfor %} = args{% endif %}
+    {% for argument in arguments if argument.type == 'yaml' -%}
+    {{ argument.name }} = parse_yaml_string({{ argument.name }}, '{{ argument.name }}')
+    {% endfor %}
     {% for argument in arguments if argument.contains_secret -%}
     {{ argument.name }} = decrypt_secrets({{ argument.name }})
     {% endfor %}
