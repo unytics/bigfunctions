@@ -1,9 +1,7 @@
 type: procedure
 author: Paul Marcombes
 description: |
-  Load data from 250+ sources using [Airbyte Python Connectors](https://docs.airbyte.com/using-airbyte/pyairbyte/getting-started#available-connectors)
-
-  DEPRECATED. Use load_saas_data_from
+  Load SAAS data from 250+ sources using [Airbyte Python Connectors](https://docs.airbyte.com/using-airbyte/pyairbyte/getting-started#available-connectors)
   .
 
   - The function creates a temporary dataset only accessible to you in `bigfunctions` project.
