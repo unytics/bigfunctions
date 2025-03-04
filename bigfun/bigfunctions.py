@@ -157,6 +157,7 @@ class BigFunction:
         os.makedirs(TESTS_FOLDER, exist_ok=True)
         code_filename = f'{TESTS_FOLDER}/bf__{self.name}.py'
         print_info(f'Generating python code file {code_filename}')
+        os.makedirs(os.path.dirname(code_filename), exist_ok=True)
         with open(code_filename, 'w', encoding='utf-8') as out:
             out.write(code)
         print_info(f'Executing python code file {code_filename}')
