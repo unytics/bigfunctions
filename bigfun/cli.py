@@ -316,7 +316,7 @@ def serve(project, dataset, config):
     # observer.schedule(event_handler, BIGFUNCTIONS_FOLDER, recursive=True)
     # observer.start()
     # bf.generate_doc(project, dataset)
-    os.system('mkdocs serve -a localhost:7000')
+    os.system('mkdocs serve')
 
 
 @cli.group()
