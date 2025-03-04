@@ -9,9 +9,18 @@ search:
 {% endif %}
 ---
 
-<span style="color: silver; position: relative; top: -1rem">
-  <a href=".." style="color: silver">bigfunctions </a> > {{ name }}
-</span>
+<div class="breadcrumb" markdown>
+
+{% set path_parts = filename.split('/')[:-1] %}
+{% set nb_path_parts = path_parts|length %}
+
+{% for part in path_parts -%}
+- [{{ part }}](../{{ path_parts[:loop.index] | join('/') }}/README.md){% if not loop.last %}<span style="margin: 0 20px">❯</span>{% endif %}
+{% endfor -%}
+
+
+</div>
+
 
 # {{ name }}
 
