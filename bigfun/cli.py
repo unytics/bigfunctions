@@ -21,6 +21,7 @@ MKDOCS_DEFAULT_FILE =  f'{THIS_FOLDER}/templates/mkdocs.yml'
 DOC_FOLDER_TEMPLATE_FILENAME = f'{THIS_FOLDER}/templates/folder.md'
 CONFIGS = {}
 
+
 def get_config_value(name, config_filename):
     if config_filename not in CONFIGS:
         if os.path.exists(config_filename):
@@ -92,6 +93,48 @@ def generate_doc(project, dataset):
             print('INFO: CREATING mkdocs.yml FILE in CURRENT DIRECTORY. It is the configuration file of the website...')
             shutil.copyfile(MKDOCS_DEFAULT_FILE, 'mkdocs.yml')
 
+    def generate_folders_markdown(bigfunctions):
+        template = jinja2.Template(open(DOC_FOLDER_TEMPLATE_FILENAME, encoding='utf-8').read())
+        for folder, subfolders, files in os.walk(bf.BIGFUNCTIONS_FOLDER):
+            readme = '\n'.join([
+                '---',
+                'hide:',
+                '  - navigation',
+                '---',
+                '',
+                f"# {folder.replace('_', ' ').title()}",
+            ])
+            if 'README.md' in files:
+                readme = open(f'{folder}/README.md', encoding='utf-8').read()
+                if readme.strip().startswith('---'):
+                    front_matter = readme.strip()[:readme.find('\n---')]
+                    front_matter = yaml.safe_load(front_matter)
+                    if 'folders' in front_matter:
+                        subfolders = front_matter['folders']
+            _subfolders = []
+            for subfolder in subfolders:
+                title = subfolder.replace('_', ' ').title()
+                subreadme = ''
+                if os.path.isfile(f'{folder}/{subfolder}/README.md'):
+                    subreadme = open(f'{folder}/{subfolder}/README.md', encoding='utf-8').read()
+                    if subreadme.strip().startswith('---'):
+                        subreadme = subreadme.strip()[subreadme.find('\n---\n') + 5:]
+                    subreadme = subreadme.strip()
+                    if subreadme.startswith('#'):
+                        title, subreadme = (subreadme + '\n').split('\n', 1)
+                        title = title.lstrip('# ')
+                        subreadme = subreadme.strip()
+                _subfolders.append({
+                    'name': subfolder,
+                    'title': title,
+                    'content': subreadme,
+                })
+            _bigfunctions = [b.config for b in bigfunctions if b.folder == folder]
+            depth = folder.count('/')
+            content = template.render(readme=readme, subfolders=_subfolders, bigfunctions=_bigfunctions, depth=depth)
+            os.makedirs(f'docs/{folder}', exist_ok=True)
+            open(f'docs/{folder}/README.md', 'w', encoding='utf-8').write(content)
+
     def generate_bigfunctions_markdown(bigfunctions):
         for bigfunction in bigfunctions:
             open(f'docs/bigfunctions/{bigfunction.name}.md', 'w', encoding='utf-8').write(bigfunction.doc)
@@ -104,32 +147,6 @@ def generate_doc(project, dataset):
             os.makedirs(destination_dir, exist_ok=True)
             shutil.copy(image, destination_filename)
 
-    def generate_bigfunctions_list_markdown(bigfunctions):
-        content = '# BigFunctions\n\n'
-        folders_to_add = None
-        if os.path.isfile('bigfunctions/README.md'):
-            content = open('bigfunctions/README.md', encoding='utf-8').read()
-            if content.startswith('---'):
-                front_matter = content[:content.find('\n---')]
-                front_matter = yaml.safe_load(front_matter)
-                if 'folders' in front_matter:
-                    folders_to_add = front_matter['folders']
-        folder_template = jinja2.Template(open(DOC_FOLDER_TEMPLATE_FILENAME, encoding='utf-8').read())
-        folders = {}
-        for bigfunction in bigfunctions:
-            folder = bigfunction.config_folder
-            if folders_to_add and folder not in folders_to_add:
-                continue
-            if folder not in folders:
-                folder_readme = f"## {folder.replace('_', ' ').title()}"
-                if os.path.isfile(f'bigfunctions/{folder}/README.md'):
-                    folder_readme = open(f'bigfunctions/{folder}/README.md', encoding='utf-8').read()
-                folders[folder] = {'path': folder, 'readme': folder_readme, 'bigfunctions': []}
-            folders[folder]['bigfunctions'].append(bigfunction.config)
-        folders_content = '\n\n\n'.join([folder_template.render(**folder) for folder in folders.values()])
-
-        open('docs/bigfunctions/README.md', 'w', encoding='utf-8').write(content + '\n' * 3 + folders_content)
-
     bigfunctions = [
         bf.BigFunction(bigfunction_name, project=project, dataset=dataset)
         for bigfunction_name in bf.BIGFUNCTIONS
@@ -138,9 +155,9 @@ def generate_doc(project, dataset):
     init_docs_folder()
     create_homepage_if_not_exists()
     copy_default_site_config()
+    generate_folders_markdown(bigfunctions)
     generate_bigfunctions_markdown(bigfunctions)
     copy_screenshots_to_docs_folder()
-    generate_bigfunctions_list_markdown(bigfunctions)
 
 
 @click.group(
@@ -304,7 +321,7 @@ def serve(project, dataset, config):
     # observer.schedule(event_handler, BIGFUNCTIONS_FOLDER, recursive=True)
     # observer.start()
     # bf.generate_doc(project, dataset)
-    os.system('mkdocs serve')
+    os.system('mkdocs serve -a localhost:7000')
 
 
 @cli.group()

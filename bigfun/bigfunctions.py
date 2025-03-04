@@ -54,21 +54,21 @@ class BigFunction:
         self._dataset = None
 
     @property
-    def config_filename(self):
+    def filename(self):
         if self.name not in BIGFUNCTIONS:
             handle_error(f'Could not find a yaml file in `{BIGFUNCTIONS_FOLDER}` folder for bigfunction `{self.name}`')
         return BIGFUNCTIONS[self.name]
 
     @property
-    def config_folder(self):
-        return '/'.join(self.config_filename.replace('bigfunctions/', '').split('/')[:-1])
+    def folder(self):
+        return '/'.join(self.filename.split('/')[:-1])
 
     @property
     def config_from_file(self):
         if self._config_from_file is None:
-            if not os.path.isfile(self.config_filename):
-                handle_error(f'Could not find configuration file {self.config_filename}')
-            content = open(self.config_filename, encoding='utf-8').read()
+            if not os.path.isfile(self.filename):
+                handle_error(f'Could not find configuration file {self.filename}')
+            content = open(self.filename, encoding='utf-8').read()
             self._config_from_file = yaml.safe_load(content)
         return self._config_from_file
 
@@ -80,7 +80,7 @@ class BigFunction:
                 [dict(DEFAULT_CONFIG), self.config_from_file, self.config_override]
             )
             self._config['name'] = self.name
-            self._config['filename'] = self.config_filename
+            self._config['filename'] = self.filename
             self._config['short_description'] = self._config['description'].split('\n')[0]
             self._config['signature'] = (
                 self.name +
