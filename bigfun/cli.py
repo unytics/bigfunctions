@@ -97,7 +97,7 @@ def generate_doc(project, dataset):
         template = jinja2.Template(open(DOC_FOLDER_TEMPLATE_FILENAME, encoding='utf-8').read())
         for folder, subfolders, files in os.walk(bf.BIGFUNCTIONS_FOLDER):
             frontmatter = 'hide:\n  navigation'
-            readme = f"# {folder.replace('_', ' ').title()}"
+            readme = f"# {folder.split('/')[-1].replace('_', ' ').title()}"
             if 'README.md' in files:
                 readme = open(f'{folder}/README.md', encoding='utf-8').read().strip()
                 if readme.startswith('---'):

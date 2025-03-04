@@ -4,22 +4,9 @@ description: "Gain new SQL Powers with 150+ Ready to use BigQuery functions buil
 search:
   exclude: true
 folders:
-  - ai
-  - notify
-  - get_data
-  - export
-  - ga4
-  - trigger_event
-  - transform_numeric
-  - transform_string
-  - transform_geo_data
-  - transform_date
-  - transform_json
-  - transform_array
-  - machine_learning
-  - graph
-  - convert_data_format
-  - explore
+  - load
+  - transform
+  - take_actions
   - utils
 hide:
   - navigation
