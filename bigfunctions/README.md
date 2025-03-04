@@ -36,7 +36,7 @@ You can now perform any task with SQL<br>
 </div>
 
 
-!!! success "Functions are Ready to Use!"
+??? success "Functions are Ready to Use!"
 
     **✅ You can call ANY public BigFunction without install**<br>
     *The functions are deployed in 39 public datasets (one dataset per region) so that you can call them without install.*

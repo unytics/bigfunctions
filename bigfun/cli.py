@@ -96,34 +96,29 @@ def generate_doc(project, dataset):
     def generate_folders_markdown(bigfunctions):
         template = jinja2.Template(open(DOC_FOLDER_TEMPLATE_FILENAME, encoding='utf-8').read())
         for folder, subfolders, files in os.walk(bf.BIGFUNCTIONS_FOLDER):
-            readme = '\n'.join([
-                '---',
-                'hide:',
-                '  - navigation',
-                '---',
-                '',
-                f"# {folder.replace('_', ' ').title()}",
-            ])
+            frontmatter = 'hide:\n  navigation'
+            readme = f"# {folder.replace('_', ' ').title()}"
             if 'README.md' in files:
-                readme = open(f'{folder}/README.md', encoding='utf-8').read()
-                if readme.strip().startswith('---'):
-                    front_matter = readme.strip()[:readme.find('\n---')]
-                    front_matter = yaml.safe_load(front_matter)
-                    if 'folders' in front_matter:
-                        subfolders = front_matter['folders']
+                readme = open(f'{folder}/README.md', encoding='utf-8').read().strip()
+                if readme.startswith('---'):
+                    frontmatter = readme[readme.find('\n') + 1:readme.find('\n---')]
+                    frontmatter_parsed = yaml.safe_load(frontmatter)
+                    if 'folders' in frontmatter_parsed:
+                        subfolders = frontmatter_parsed['folders']
+                    readme = readme[readme.find('\n---') + 4:]
             _subfolders = []
             for subfolder in subfolders:
                 title = subfolder.replace('_', ' ').title()
                 subreadme = ''
                 if os.path.isfile(f'{folder}/{subfolder}/README.md'):
-                    subreadme = open(f'{folder}/{subfolder}/README.md', encoding='utf-8').read()
-                    if subreadme.strip().startswith('---'):
-                        subreadme = subreadme.strip()[subreadme.find('\n---\n') + 5:]
+                    subreadme = open(f'{folder}/{subfolder}/README.md', encoding='utf-8').read().strip()
+                    if subreadme.startswith('---'):
+                        subreadme = subreadme[subreadme.find('\n---\n') + 5:]
                     subreadme = subreadme.strip()
                     if subreadme.startswith('#'):
                         title, subreadme = (subreadme + '\n').split('\n', 1)
                         title = title.lstrip('# ')
-                        subreadme = subreadme.strip()
+                        subreadme = subreadme
                 _subfolders.append({
                     'name': subfolder,
                     'title': title,
@@ -131,7 +126,7 @@ def generate_doc(project, dataset):
                 })
             _bigfunctions = [b.config for b in bigfunctions if b.folder == folder]
             depth = folder.count('/')
-            content = template.render(readme=readme, subfolders=_subfolders, bigfunctions=_bigfunctions, depth=depth)
+            content = template.render(frontmatter=frontmatter, readme=readme, subfolders=_subfolders, bigfunctions=_bigfunctions, depth=depth)
             os.makedirs(f'docs/{folder}', exist_ok=True)
             open(f'docs/{folder}/README.md', 'w', encoding='utf-8').write(content)
 

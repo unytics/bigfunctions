@@ -1,3 +1,7 @@
+---
+{{ frontmatter }}
+---
+
 {{ readme }}
 
 
@@ -29,10 +33,10 @@
 
 <div class="functions-table" markdown>
 
-| Signature | Short Description |
+| Function | Short Description |
 |------|---------|
 {% for bigfunction in bigfunctions if not bigfunction.hide_in_doc -%}
-| [<code>{{ bigfunction.signature }}</code>]({{ '../' * depth }}{{ bigfunction.name }}.md) | {{ bigfunction.short_description }} |
+| [<code>{{ bigfunction.name }}</code>]({{ '../' * depth }}{{ bigfunction.name }}.md) | {{ bigfunction.short_description }} |
 {% endfor -%}
 
 </div>
