@@ -2,6 +2,22 @@
 {{ frontmatter }}
 ---
 
+{% set path_parts = folder.split('/') %}
+
+{% if path_parts|length > 1 %}
+
+<div class="breadcrumb" markdown>
+
+{% for part in path_parts -%}
+- [{{ part }}]({{ '../' * loop.revindex0 }}README.md){% if not loop.last %}<span style="margin: 0 20px">❯</span>{% endif %}
+{% endfor -%}
+
+</div>
+
+{% endif %}
+
+
+
 {{ readme }}
 
 

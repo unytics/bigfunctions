@@ -126,7 +126,7 @@ def generate_doc(project, dataset):
                 })
             _bigfunctions = [b.config for b in bigfunctions if b.folder == folder]
             depth = folder.count('/')
-            content = template.render(frontmatter=frontmatter, readme=readme, subfolders=_subfolders, bigfunctions=_bigfunctions, depth=depth)
+            content = template.render(folder=folder, frontmatter=frontmatter, readme=readme, subfolders=_subfolders, bigfunctions=_bigfunctions, depth=depth)
             os.makedirs(f'docs/{folder}', exist_ok=True)
             open(f'docs/{folder}/README.md', 'w', encoding='utf-8').write(content)
 
