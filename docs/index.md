@@ -54,7 +54,7 @@ with **150+ functions** built by the community<br>
 *no install needed*
 { .small }
 
-[Gain new SQL powers :octicons-arrow-right-24:](bigfunctions/README.md){ .md-button }
+[Discover the Functions :octicons-arrow-right-24:](bigfunctions/README.md){ .md-button }
 
 
 </div>
