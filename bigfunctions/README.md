@@ -13,10 +13,15 @@ hide:
 ---
 
 
+<div class="hero" markdown>
 
 # Catalog of public BigFunctions
 
-> You can perform any task in SQL with advanced functions. 
+Perform any task from SQL<br>
+
+[Discover the functions :octicons-arrow-right-24:](#function-categories){ .md-button .md-button--primary }
+
+</div>
 
 
 
