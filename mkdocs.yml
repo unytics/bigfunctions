@@ -52,7 +52,7 @@ nav:
       - Suggest a function: https://github.com/unytics/bigfunctions/issues/new?assignees=&labels=new-bigfunction&projects=&template=0_new_bigfunction.yaml&title=%5Bnew%5D%3A+%60function_name%28argument1%2C+argument2%29%60
       - Report a bug: https://github.com/unytics/bigfunctions/issues/new/choose
   - Blog: blog/index.md
-  - Chat with us: chat_with_us.md
+  - Partner with us: chat_with_us.md
 validation:
   nav:
     omitted_files: ignore
