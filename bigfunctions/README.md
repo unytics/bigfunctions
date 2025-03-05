@@ -16,7 +16,7 @@ hide:
 
 # Catalog of public BigFunctions
 
-> You can now perform any task with SQL thanks to functions which enrich BigQuery. 
+> You can perform any task with SQL with advanced functions. 
 
 
 
