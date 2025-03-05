@@ -23,7 +23,7 @@
 
 {% if subfolders %}
 
-## Categories
+## Function Categories
 
 <div class="grid cards  " markdown>
 
