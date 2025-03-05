@@ -16,7 +16,7 @@ hide:
 
 # Catalog of public BigFunctions
 
-> You can perform any task with SQL with advanced functions. 
+> You can perform any task in SQL with advanced functions. 
 
 
 
