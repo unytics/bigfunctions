@@ -197,7 +197,8 @@ code: | #python
   if source_is_unavailable:
     return '# AVAILABLE SOURCES\n\n' + '\n'.join(AVAILABLE_SOURCES)
 
-  executable = f'pipx run {source}'
+  cli = source.replace("airbyte-", "").split('=')[0]
+  executable = f'uvx --from {source} {cli}'
   if not source_config:
     source_config_string = get_yaml_definition_example(executable)
     return '# SOURCE CONFIG\n\n' + source_config_string
@@ -210,9 +211,6 @@ code: | #python
   state = state or {}
   run(executable, source_config, streams, state, destination_dataset)
   return destination_dataset
-dockerfile:
-  image: ubuntu:22.04
-  apt_packages: python3.10-venv python3-pip
 requirements: |
   airbyte-serverless
 quotas:
