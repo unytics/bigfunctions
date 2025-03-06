@@ -1,6 +1,6 @@
 ---
 title: Catalog of BigFunctions
-description: "Gain new SQL Powers with 150+ Ready to use BigQuery functions built by the community"
+description: "Catalog of BigFunctions homepage"
 search:
   exclude: true
 folders:
@@ -12,15 +12,17 @@ hide:
   - navigation
 ---
 
+
 <div class="hero" markdown>
 
-# BigFunctions Supercharge BigQuery
+# Catalog of public BigFunctions
 
-You can now perform any task with SQL<br>
+Perform any task from SQL<br>
 
 [Discover the functions :octicons-arrow-right-24:](#function-categories){ .md-button .md-button--primary }
 
 </div>
+
 
 
 ??? success "Functions are Ready to Use!"
