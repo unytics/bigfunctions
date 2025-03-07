@@ -15,6 +15,7 @@ from .utils import (BigQuery, CloudRun, build_and_upload_npm_package,
 BIGFUNCTIONS_FOLDER = 'bigfunctions'
 DEFAULT_CONFIG_FILENAME = './config.yaml'
 PEOPLE_FILENAME = 'docs/people.yaml'
+NAV_FILENAME = 'docs/.nav.yml'
 PEOPLE = None
 REMOTE_CONNECTION_NAME = 'remote-bigfunctions'
 TEMPLATE_FOLDER = os.path.dirname(os.path.realpath(__file__)).replace('\\', '/') + '/templates'
@@ -274,6 +275,9 @@ class Folder:
         self.path = path
         self.name = path.split('/')[-1]
         self.title, self.content, self.frontmatter = self.parse_readme()
+        self.clean_title = re.sub('[^a-zA-Z ]', '', self.title).strip()
+        self.inner_link = f'#{self.clean_title.lower().replace(" ", "-")}'
+        self.frontmatter['title'] = self.frontmatter.get('title') or self.title
         self.depth = len(path.split('/')) - 1
         self.nb_bigfunctions = len([1 for b in BIGFUNCTIONS.values() if b.startswith(f'{path}/')])
         self.subfolder_names = self.frontmatter.get('folders') or [d.name for d in os.scandir(path) if d.is_dir()]
@@ -285,6 +289,7 @@ class Folder:
             'title': self.title,
             'depth': self.depth,
             'path': self.path,
+            'inner_link': self.inner_link,
             'frontmatter': self.frontmatter,
             'content': self.content,
             'content_contains_title': True if re.findall(r'^\s*# .+', self.content, re.MULTILINE) else False,
@@ -326,6 +331,16 @@ class Folder:
             docs.append((f'bigfunctions/{bigfunction.name}.md', bigfunction.doc))
         return docs
 
+    @property
+    def nav(self):
+        return {
+            self.clean_title: [
+                *[f'{self.path}/README.md'],
+                *[subfolder.nav for subfolder in self.subfolders],
+                *[f'bigfunctions/{bigfunction.name}.md' for bigfunction in self.bigfunctions]
+            ]
+        }
+
 
 def generate_doc():
 
@@ -334,14 +349,31 @@ def generate_doc():
         shutil.rmtree('docs/bigfunctions', ignore_errors=True)
         os.makedirs('docs/bigfunctions')
 
-    def generate_markdown_files():
-        folder = Folder(BIGFUNCTIONS_FOLDER)
+    def generate_markdown_files(folder):
         docs = folder.generate_docs()
         for path, content in docs:
             path = f'docs/{path}'
             os.makedirs(os.path.dirname(path), exist_ok=True)
             with open(path, 'w', encoding='utf-8') as file:
                 file.write(content)
+
+    def generate_nav(folder):
+        if not os.path.isfile(NAV_FILENAME):
+            return
+        mkdocs_config = open(MKDOCS_DEFAULT_FILE, encoding='utf-8').read()
+        if '{BIGFUNCTIONS_DOC}' not in mkdocs_config:
+            return
+        mkdocs_config = yaml.safe_load(mkdocs_config)
+        nav = mkdocs_config['nav']
+        bigfunctions_index = next((
+            k for k, tab in enumerate(nav)
+            if tab == '{BIGFUNCTIONS_DOC}'
+        ), None)
+        if bigfunctions_index is None:
+            return
+        nav['nav'][bigfunctions_index] = folder.nav
+        with open(NAV_FILENAME, 'w', encoding='utf-8') as file:
+            file.write(yaml.dump(nav))
 
     def create_homepage_if_not_exists():
         if os.path.isfile('docs/index.md'):
@@ -370,5 +402,7 @@ def generate_doc():
     init_docs_folder()
     create_homepage_if_not_exists()
     copy_default_site_config()
-    generate_markdown_files()
+    folder = Folder(BIGFUNCTIONS_FOLDER)
+    generate_markdown_files(folder)
+    generate_nav(folder)
     copy_screenshots_to_docs_folder()

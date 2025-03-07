@@ -1,8 +1,6 @@
 ---
-title: "{{ name }} - BigQuery function"
+title: "{{ name }}"
 description: "BigFunction {{ name }} is a BigQuery function which {{ description.split('\n')[0] }}"
-hide:
-  - navigation
 {% if hide_in_doc %}
 search:
   exclude: true

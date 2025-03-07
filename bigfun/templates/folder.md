@@ -25,6 +25,19 @@
 {{ content }}
 
 
+{% if subfolders %}
+
+!!! note ""
+
+    #### Function Categories
+
+    {% for subfolder in subfolders -%}
+    {{ loop.index }}. <a href="{{ subfolder.inner_link }}-{{ subfolder.nb_bigfunctions }}-functions">{{ subfolder.title }}</a>
+    {% endfor %}
+
+---
+{% endif %}
+
 
 {% for subfolder in subfolders -%}
 

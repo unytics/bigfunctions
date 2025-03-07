@@ -23,6 +23,7 @@ dependencies = [
     "pyyaml",
     "jinja2",
     "mkdocs-material",
+    "mkdocs-awesome-nav",
     "click",
     "click-help-colors",
     "vertexai",
