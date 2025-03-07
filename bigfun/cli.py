@@ -177,7 +177,8 @@ def generate_use_case(bigfunction):
 
 @docs.command()
 @click.option('--config', default='config.yaml', help='Path to the config file')
-def serve(config):
+@click.option('--port', default='8000', help='Port to serve docs on')
+def serve(config, port):
     """
     Serve docs locally on http://localhost:8000
     """
@@ -192,7 +193,7 @@ def serve(config):
     # observer.schedule(event_handler, BIGFUNCTIONS_FOLDER, recursive=True)
     # observer.start()
     # bf.bf.generate_doc()
-    os.system('mkdocs serve')
+    os.system(f'mkdocs serve -a localhost:{port}')
 
 
 @cli.group()
