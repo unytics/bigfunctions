@@ -200,7 +200,7 @@ select PROJECT.DATASET.faker("name", "it_IT")
 ### 7. Host your Documentation on GitHub Pages
 
 > **💡 Note:**
-> If you want to host your documentation on GitLab, please check [this link](#https://gitlab.com/pages/mkdocs).
+> If you want to host your documentation on GitLab, please check [this link](https://gitlab.com/pages/mkdocs).
 
 #### Steps to Host Your Documentation on GitHub Pages
 
