@@ -99,7 +99,7 @@ Build your own catalog of advanced functions.
 
 # Keep it Simple<br>with SQL-Data-Stack
 
-**BigQuery**, **BigFunctions** and **dbt**<br>
+**BigQuery**, **BigFunctions** and **dataform**<br>
 is all you need
 
 [Discover the SQL Data Stack :octicons-arrow-right-24:](https://medium.com/google-cloud/sql-is-all-you-need-77554fea90c0){ .md-button target="_blank" }
@@ -117,17 +117,19 @@ is all you need
     ![bigfunctions logo](assets/logo_and_name.png){ style="max-height: 50px" }
 
 
--   **dbt** orchestrates SQL
+-   **dataform** orchestrates SQL
 
-    ![dbt logo](assets/dbt.png){ style="max-height: 50px" }
+    ![dataform logo](assets/dataform.jpeg.jpg){ style="max-height: 50px" }
 
 </div>
 
 
 <div class="hero" markdown>
 
-**dbt can be replaced by any sql orchestrator (dataform, sqlmesh, scheduled queries, etc)*
+**dataform can be replaced by any sql orchestrator (dbt, sqlmesh, scheduled queries, etc)*
 { .small }
 
 </div>
 
+<br>
+<br>
