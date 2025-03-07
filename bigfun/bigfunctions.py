@@ -360,9 +360,10 @@ def generate_doc():
     def generate_nav(folder):
         if not os.path.isfile(NAV_FILENAME):
             return
-        mkdocs_config = open(MKDOCS_DEFAULT_FILE, encoding='utf-8').read()
+        mkdocs_config = open('mkdocs.yml', encoding='utf-8').read()
         if '{BIGFUNCTIONS_DOC}' not in mkdocs_config:
             return
+        mkdocs_config = re.sub(' !.*', ' ""', mkdocs_config)
         mkdocs_config = yaml.safe_load(mkdocs_config)
         nav = mkdocs_config['nav']
         bigfunctions_index = next((
@@ -371,9 +372,9 @@ def generate_doc():
         ), None)
         if bigfunctions_index is None:
             return
-        nav['nav'][bigfunctions_index] = folder.nav
+        nav[bigfunctions_index] = folder.nav
         with open(NAV_FILENAME, 'w', encoding='utf-8') as file:
-            file.write(yaml.dump(nav))
+            file.write(yaml.dump({'nav': nav}))
 
     def create_homepage_if_not_exists():
         if os.path.isfile('docs/index.md'):
