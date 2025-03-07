@@ -1,10 +1,7 @@
-import glob
 import multiprocessing
 import os
-import shutil
 
 import click
-import jinja2
 import requests
 import yaml
 from click_help_colors import HelpColorsGroup
@@ -15,10 +12,6 @@ from . import bigfunctions as bf
 from . import utils
 
 TABLES_FOLDER = 'data'
-PEOPLE_FILENAME = 'docs/people.yaml'
-THIS_FOLDER = os.path.dirname(os.path.realpath(__file__)).replace('\\', '/')
-MKDOCS_DEFAULT_FILE =  f'{THIS_FOLDER}/templates/mkdocs.yml'
-DOC_FOLDER_TEMPLATE_FILENAME = f'{THIS_FOLDER}/templates/folder.md'
 CONFIGS = {}
 
 
@@ -44,115 +37,6 @@ def get_config_value(name, config_filename):
     with open(config_filename, 'w', encoding='utf-8') as outfile:
         yaml.dump(config, outfile, default_flow_style=False)
     return config[name]
-
-
-def generate_doc(project, dataset):
-
-    def get_people():
-        if not os.path.isfile(PEOPLE_FILENAME):
-            return {}
-        with open(PEOPLE_FILENAME, encoding='utf-8') as f:
-            people = yaml.safe_load(f.read())
-        return {
-            person['name']: person
-            for person in people
-        }
-
-    def enrich_bigfunctions_author(bigfunctions):
-        people = get_people()
-        for bigfunction in bigfunctions:
-            if 'author' not in bigfunction.config:
-                continue
-            author = bigfunction.config['author']
-            if isinstance(author, dict):
-                # backward compatibility
-                continue
-            if author in people:
-                bigfunction._config['author'] = people[author]
-            else:
-                bigfunction._config['author'] = {'name': author}
-
-    def init_docs_folder():
-        os.makedirs('docs', exist_ok=True)
-        shutil.rmtree('docs/bigfunctions', ignore_errors=True)
-        os.makedirs('docs/bigfunctions')
-
-    def create_homepage_if_not_exists():
-        if os.path.isfile('docs/index.md'):
-            return
-        print('INFO: CREATING docs/index.md FILE WHICH WILL BE THE ROOT CONTENT OF THE WEBSITE')
-        content = '\n\n'.join([
-            '# BigFunctions!',
-            'Update this page content by editing `docs/index.md`',
-            '[Explore Functions](bigfunctions/){ .md-button }',
-        ])
-        open('docs/index.md', 'w', encoding='utf-8').write(content)
-
-    def copy_default_site_config():
-        if not os.path.isfile('mkdocs.yml'):
-            print('INFO: CREATING mkdocs.yml FILE in CURRENT DIRECTORY. It is the configuration file of the website...')
-            shutil.copyfile(MKDOCS_DEFAULT_FILE, 'mkdocs.yml')
-
-    def generate_folders_markdown(bigfunctions):
-        template = jinja2.Template(open(DOC_FOLDER_TEMPLATE_FILENAME, encoding='utf-8').read())
-        for folder, subfolders, files in os.walk(bf.BIGFUNCTIONS_FOLDER):
-            frontmatter = 'hide:\n  navigation'
-            readme = f"# {folder.split('/')[-1].replace('_', ' ').title()}"
-            if 'README.md' in files:
-                readme = open(f'{folder}/README.md', encoding='utf-8').read().strip()
-                if readme.startswith('---'):
-                    frontmatter = readme[readme.find('\n') + 1:readme.find('\n---')]
-                    frontmatter_parsed = yaml.safe_load(frontmatter)
-                    if 'folders' in frontmatter_parsed:
-                        subfolders = frontmatter_parsed['folders']
-                    readme = readme[readme.find('\n---') + 4:]
-            _subfolders = []
-            for subfolder in subfolders:
-                title = subfolder.replace('_', ' ').title()
-                subreadme = ''
-                if os.path.isfile(f'{folder}/{subfolder}/README.md'):
-                    subreadme = open(f'{folder}/{subfolder}/README.md', encoding='utf-8').read().strip()
-                    if subreadme.startswith('---'):
-                        subreadme = subreadme[subreadme.find('\n---\n') + 5:]
-                    subreadme = subreadme.strip()
-                    if subreadme.startswith('#'):
-                        title, subreadme = (subreadme + '\n').split('\n', 1)
-                        title = title.lstrip('# ')
-                        subreadme = subreadme
-                _subfolders.append({
-                    'name': subfolder,
-                    'title': title,
-                    'content': subreadme,
-                })
-            _bigfunctions = [b.config for b in bigfunctions if b.folder == folder]
-            depth = folder.count('/')
-            content = template.render(folder=folder, frontmatter=frontmatter, readme=readme, subfolders=_subfolders, bigfunctions=_bigfunctions, depth=depth)
-            os.makedirs(f'docs/{folder}', exist_ok=True)
-            open(f'docs/{folder}/README.md', 'w', encoding='utf-8').write(content)
-
-    def generate_bigfunctions_markdown(bigfunctions):
-        for bigfunction in bigfunctions:
-            open(f'docs/bigfunctions/{bigfunction.name}.md', 'w', encoding='utf-8').write(bigfunction.doc)
-
-    def copy_screenshots_to_docs_folder():
-        images = glob.glob('bigfunctions/**/*.png', recursive=True)
-        for image in images:
-            destination_filename = 'docs/bigfunctions/' + image.split('/')[-1]
-            destination_dir = os.path.dirname(destination_filename)
-            os.makedirs(destination_dir, exist_ok=True)
-            shutil.copy(image, destination_filename)
-
-    bigfunctions = [
-        bf.BigFunction(bigfunction_name, project=project, dataset=dataset)
-        for bigfunction_name in bf.BIGFUNCTIONS
-    ]
-    enrich_bigfunctions_author(bigfunctions)
-    init_docs_folder()
-    create_homepage_if_not_exists()
-    copy_default_site_config()
-    generate_folders_markdown(bigfunctions)
-    generate_bigfunctions_markdown(bigfunctions)
-    copy_screenshots_to_docs_folder()
 
 
 @click.group(
@@ -268,16 +152,12 @@ def docs():
 
 
 @docs.command()
-@click.option('--project', help='Google Cloud project where the table is created')
-@click.option('--dataset', help='BigQuery dataset name where the table is created')
 @click.option('--config', default='config.yaml', help='Path to the config file')
-def generate(project, dataset, config):
+def generate(config):
     """
     Generate markdown files for documentation from yaml bigfunctions files
     """
-    project = project or get_config_value('project', config)
-    dataset = dataset or get_config_value('dataset', config)
-    generate_doc(project, dataset)
+    bf.generate_doc()
     os.system('mkdocs build')
 
 
@@ -296,26 +176,22 @@ def generate_use_case(bigfunction):
 
 
 @docs.command()
-@click.option('--project', help='Google Cloud project where the table is created')
-@click.option('--dataset', help='BigQuery dataset name where the table is created')
 @click.option('--config', default='config.yaml', help='Path to the config file')
-def serve(project, dataset, config):
+def serve(config):
     """
     Serve docs locally on http://localhost:8000
     """
-    project = project or get_config_value('project', config)
-    dataset = dataset or get_config_value('dataset', config)
-    generate_doc(project, dataset)
+    bf.generate_doc()
 
     class EventHandler(RegexMatchingEventHandler):
         def on_any_event(self, event):
             print(f'File {event.src_path} {event.event_type} --> generating README files...')
-            generate_doc(project, dataset)
+            bf.generate_doc()
     # event_handler = EventHandler(regexes=[r'.*\.yaml'])
     # observer = Observer()
     # observer.schedule(event_handler, BIGFUNCTIONS_FOLDER, recursive=True)
     # observer.start()
-    # bf.generate_doc(project, dataset)
+    # bf.bf.generate_doc()
     os.system('mkdocs serve')
 
 

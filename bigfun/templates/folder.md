@@ -2,7 +2,7 @@
 {{ frontmatter }}
 ---
 
-{% set path_parts = folder.split('/') %}
+{% set path_parts = path.split('/') %}
 
 {% if path_parts|length > 1 %}
 
@@ -18,7 +18,7 @@
 
 
 
-{{ readme }}
+{{ content }}
 
 
 {% if subfolders %}
