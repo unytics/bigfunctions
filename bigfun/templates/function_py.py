@@ -8,6 +8,7 @@ import traceback
 import uuid
 
 import google.auth
+import google.cloud.bigquery
 import google.cloud.datastore
 import google.cloud.datastore.query
 import google.cloud.error_reporting

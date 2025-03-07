@@ -126,44 +126,12 @@ init_code: | #python
   import json
   import os
 
-  import requests
   import yaml
   from airbyte_serverless.connections import Connection
-  from airbyte_serverless.sources import ExecutableAirbyteSource
-  from airbyte_serverless import airbyte_utils
+  from airbyte_serverless.sources import ExecutableAirbyteSource, get_available_python_sources
   import google.api_core.exceptions
-  import google.cloud.bigquery
 
   os.environ['TZ'] = 'UTC'
-
-  SOURCES_URL = 'https://connectors.airbyte.com/files/registries/v0/oss_registry.json'
-
-
-  def get_sources():
-    resp = requests.get(SOURCES_URL)
-    res = resp.json()
-    sources = res['sources']
-    python_sources = [
-      f"{source.get('remoteRegistries', {}).get('pypi', {}).get('packageName')}=={source['dockerImageTag']}"
-      for source in sources
-      if source.get('remoteRegistries', {}).get('pypi', {}).get('enabled') is True
-    ]
-    return python_sources
-
-
-  def get_yaml_definition_example(executable):
-    airbyte_source =  ExecutableAirbyteSource(executable)
-    spec = airbyte_source.spec
-    yaml_config = airbyte_utils.generate_connection_yaml_config_sample(spec)
-    if yaml_config.startswith('#'):
-      yaml_config = '\n'.join(yaml_config.split('\n')[1:])
-    return yaml_config
-
-
-  def list_streams(executable, source_config):
-    airbyte_source = ExecutableAirbyteSource(executable=executable, config=source_config)
-    return airbyte_source.available_streams
-
 
   def run(executable, source_config, streams, state, destination_dataset):
     config = {
@@ -180,32 +148,27 @@ init_code: | #python
         },
       },
     }
-    yaml_config = yaml.dump(config)
-    connection = Connection(yaml_config)
+    connection = Connection(config)
     try:
-      messages = connection.source.extract(state=state)
-      connection.destination.load(messages)
+      connection.run(state=state)
     except (google.api_core.exceptions.Forbidden, google.api_core.exceptions.NotFound, google.api_core.exceptions.PermissionDenied) as e:
       assert False, f'Service Account `{get_current_service_account()}` does not have data-editor permission for given destination dataset (or the dataset does not exsit). Please add it'
-
-
-  AVAILABLE_SOURCES = get_sources()
-
 code: | #python
   source = source or ''
-  source_is_unavailable = not source or not [s for s in AVAILABLE_SOURCES if s.split('==')[0] == source.split('==')[0]]
+  python_sources = get_available_python_sources()
+  source_is_unavailable = not source or not [s for s in python_sources if s.split('==')[0] == source.split('==')[0]]
   if source_is_unavailable:
-    return '# AVAILABLE SOURCES\n\n' + '\n'.join(AVAILABLE_SOURCES)
+    return '# AVAILABLE SOURCES\n\n' + '\n'.join(python_sources)
 
   cli = source.replace("airbyte-", "").split('=')[0]
   executable = f'uvx --from {source} {cli}'
+  airbyte_source =  ExecutableAirbyteSource(executable, source_config)
+
   if not source_config:
-    source_config_string = get_yaml_definition_example(executable)
-    return '# SOURCE CONFIG\n\n' + source_config_string
+    return '# SOURCE CONFIG\n\n' + airbyte_source.yaml_config_example
 
   if not streams:
-    streams = list_streams(executable, source_config)
-    return '# AVAILABLE STREAMS\n\n' + ', '.join(streams)
+    return '# AVAILABLE STREAMS\n\n' + ', '.join(airbyte_source.available_streams)
 
   destination_dataset = create_temp_dataset()
   state = state or {}
