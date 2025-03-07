@@ -305,7 +305,7 @@ class Folder:
         readme = readme.strip()
 
         frontmatter = {}
-        frontmatter_matches = re.findall('^---([\s\S]*?)---\n', readme)
+        frontmatter_matches = re.findall(r'^---([\s\S]*?)---\n', readme)
         if readme.startswith('---') and frontmatter_matches:
             frontmatter_string = frontmatter_matches[0]
             frontmatter = yaml.safe_load(frontmatter_string)
