@@ -17,7 +17,9 @@
 {% endif %}
 
 
+{% if not content_contains_title %}
 # {{ title }}
+{% endif %}
 
 
 {{ content }}

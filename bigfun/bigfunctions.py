@@ -287,6 +287,7 @@ class Folder:
             'path': self.path,
             'frontmatter': self.frontmatter,
             'content': self.content,
+            'content_contains_title': True if re.findall(r'^\s*# .+', self.content, re.MULTILINE) else False,
             'nb_bigfunctions': self.nb_bigfunctions,
             'subfolders': [subf.dict for subf in self.subfolders],
             'bigfunctions': [b.config for b in self.bigfunctions],
