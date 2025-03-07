@@ -132,7 +132,6 @@ config.yaml
 SECRET
 meetups/
 docs/bigfunctions/
-docs/.nav.yml
 emails/
 TODO.md
 test.py
