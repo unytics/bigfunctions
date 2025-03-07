@@ -17,44 +17,62 @@
 {% endif %}
 
 
+# {{ title }}
+
 
 {{ content }}
 
 
-{% if subfolders %}
-
-## Function Categories
-
-<div class="grid cards  " markdown>
 
 {% for subfolder in subfolders -%}
 
--   ### [{{ subfolder.title }}]({{ subfolder.name }}/README.md)
+## {{ subfolder.title }} [({{ subfolder.nb_bigfunctions }} functions)]({{ subfolder.name }}/README.md)
 
-    {% if subfolder.content -%}
-    ---
+> {{ subfolder.content | replace('\n', '\n> ') }}
 
-    {{ subfolder.content | indent(4) }}
-    {% endif %}
+
+{% for subsubfolder in subfolder.subfolders -%}
+
+
+!!! note "{{ subsubfolder.title }}"
+
+    > {{ subsubfolder.content | replace('\n', '\n    > ') }}
+
+    {% for subsubsubfolder in subsubfolder.subfolders -%}
+    - [{{ subsubsubfolder.title }}]({{ subsubsubfolder.name }}.md)
+    {% endfor %}
+
+
+    {% for bigfunction in subsubfolder.bigfunctions if not bigfunction.hide_in_doc -%}
+    - [<code>{{ bigfunction.name }}</code>]({{ '../' * depth }}{{ bigfunction.name }}.md): {{ bigfunction.short_description }}
+    {% endfor %}
+
 
 {% endfor %}
 
+
+{% if subfolder.bigfunctions %}
+
+!!! note ""
+
+    {% for bigfunction in subfolder.bigfunctions if not bigfunction.hide_in_doc -%}
+    - [<code>{{ bigfunction.name }}</code>]({{ '../' * depth }}{{ bigfunction.name }}.md): {{ bigfunction.short_description }}
+    {% endfor %}
+
 {% endif %}
+
+
+{% endfor %}
 
 
 
 {% if bigfunctions %}
 
-## Functions
+!!! note ""
 
-<div class="functions-table" markdown>
+    {% for bigfunction in bigfunctions if not bigfunction.hide_in_doc -%}
+    - [<code>{{ bigfunction.name }}</code>]({{ '../' * depth }}{{ bigfunction.name }}.md): {{ bigfunction.short_description }}
+    {% endfor %}
 
-| Function | Short Description |
-|------|---------|
-{% for bigfunction in bigfunctions if not bigfunction.hide_in_doc -%}
-| [<code>{{ bigfunction.name }}</code>]({{ '../' * depth }}{{ bigfunction.name }}.md) | {{ bigfunction.short_description }} |
-{% endfor -%}
-
-</div>
 
 {% endif %}

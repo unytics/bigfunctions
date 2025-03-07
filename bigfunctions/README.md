@@ -8,8 +8,6 @@ folders:
   - transform
   - take_actions
   - utils
-hide:
-  - navigation
 ---
 
 <div class="hero" markdown>
