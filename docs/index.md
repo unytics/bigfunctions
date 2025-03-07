@@ -131,35 +131,3 @@ is all you need
 
 </div>
 
-<div class="primary-background" markdown>
-
-<div class="md:two-columns max-width-800" markdown>
-
--   ## Modern-Data-Stack
-
-    ![Modern-Data-Stack](assets/modern_data_stack2.png)
-
-    :x: **Tool Sprawl**: A multitude of tools for various tasks complicates the data workflow.
-
-    :x: **Custom Scripting**: Reliance on custom Python scripts introduces complexity and increases maintenance overhead.
-
-    :x: **Lack of Self-Service**: Data analysts often depend on data engineers for complex tasks, hindering agility and efficiency.
-
-
--   ## SQL-Data-Stack
-
-    ![SQL-Data-Stack](assets/sql_data_stack2.png)
-
-    :white_check_mark: **Simplicity**: Achieve everything with SQL, thus minimizing the need for multiple tools.
-
-    :white_check_mark: **Centralized Governance**: Control all data processes from a central data warehouse with declarative assets.
-
-    :white_check_mark: **Self-Service**:  Empower data analysts to perform intricate tasks using SQL functions directly.
-
-</div>
-
-</div>
-
-
-
-<br>
