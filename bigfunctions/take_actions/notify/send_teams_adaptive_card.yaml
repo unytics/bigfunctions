@@ -28,9 +28,9 @@ examples:
       - '"Hello 👋 from bigfunctions!"'
       - '"https://adaptivecards.io/content/adaptive-card-50.png"'
       - '"Click me!"'
-      - '"https://www.bigfunctions.com"'
+      - '"https://unytics.io/bigfunctions/"'
     output: 'ok'
-code: |
+code: | #python
   import json
   import requests
 
@@ -79,7 +79,7 @@ code: |
           "actions": [
               {
                   "type": "Action.OpenUrl",
-                  "title": button_text,
+                  "title": button_text or 'Click me!',
                   "url": button_url
               }
           ]
@@ -89,11 +89,9 @@ code: |
   base_schema["attachments"][0]["content"] = card_schema
   payload = json.dumps(base_schema, indent=4)
   response = requests.post(webhook_url, headers={'Content-Type': 'application/json'}, json=base_schema)
-
   assert response.ok, 'ERROR: ' + response.text
   return response.text
 requirements: |
   requests
-  json
 quotas:
   max_rows_per_query: 10
