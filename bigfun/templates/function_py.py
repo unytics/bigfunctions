@@ -272,7 +272,6 @@ def decrypt_secrets(value):
     for encrypted_secret in encrypted_secrets:
         decrypted_secret = decrypt(encrypted_secret)
         decrypted_secret = json.loads(decrypted_secret)
-        log('decrypted_json_secret', decrypted_secret['secret'])
         assert g.user in decrypted_secret['authorized_users'], f'Permission Error: User `{g.user}` do not belong to secret `authorized readers`'
         assert decrypted_secret['function'] == '{{ name }}', f'Permission Error: Secret was not created to be used with this function'
         decrypted_secret = decrypted_secret['secret']
