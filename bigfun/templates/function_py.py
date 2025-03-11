@@ -8,7 +8,6 @@ import traceback
 import uuid
 
 import google.auth
-import google.cloud.bigquery
 import google.cloud.datastore
 import google.cloud.datastore.query
 import google.cloud.error_reporting
@@ -43,6 +42,7 @@ def get_current_service_account():
 
 
 def create_temp_dataset(default_table_expiration_days=0.042):
+    import google.cloud.bigquery
     bigquery = google.cloud.bigquery.Client(location=g.bigfunction_dataset_location)
     random_id = str(uuid.uuid4()).replace('-', '_')
     dataset_id = f'{PROJECT}.temp_{random_id}'
