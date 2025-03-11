@@ -358,8 +358,6 @@ def generate_doc():
                 file.write(content)
 
     def generate_nav(folder):
-        if not os.path.isfile(NAV_FILENAME):
-            return
         mkdocs_config = open('mkdocs.yml', encoding='utf-8').read()
         if '{BIGFUNCTIONS_DOC}' not in mkdocs_config:
             return
