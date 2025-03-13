@@ -14,6 +14,7 @@ theme:
     - tabs
     - content.tabs.link
     - content.code.copy
+    - content.code.annotate
     # - instant
     # - toc.integrate
     # - navigation.instant
@@ -24,6 +25,8 @@ theme:
     - navigation.indexes
     - navigation.hide
     # - navigation.expand
+
+
 markdown_extensions:
   - attr_list
   - md_in_html
@@ -39,6 +42,10 @@ markdown_extensions:
       emoji_generator: !!python/name:material.extensions.emoji.to_svg
   - pymdownx.tabbed:
       alternate_style: true
+
+extra_css:
+  - extra.css
+
 plugins:
   - search
 nav:
