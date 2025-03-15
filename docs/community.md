@@ -125,7 +125,7 @@ To make a change to this repository:
 2. Clone your fork
 3. Create a virtual env then install the packages (including dev packages) with `pip install -e .[dev]`
 4. Make your changes.
-5. Run pre-commit to follow the repo rules using `precommit run`
+5. Run pre-commit to follow the repo rules using `pre-commit run`
 6. Commit and Push your changes to your fork.
 7. [Create a pull request](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/creating-a-pull-request-from-a-fork).
 
