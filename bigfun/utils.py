@@ -258,9 +258,14 @@ class CloudRun:
     def exec(self, command, options=None):
         if shutil.which('gcloud') is None:
             handle_error('`gcloud` is not installed while needed to deploy a Remote Function.')
-        command += " " + self.service
+        gcloud = "gcloud"
+        if "gcloud_version" in options:
+            gcloud = "gcloud " + options['gcloud_version']
+            del options['gcloud_version']
+        command = gcloud + " run " + command + " " + self.service
         options = options or {}
-        options["region"] = self.region
+        if 'regions' not in options:
+            options["region"] = self.region
         options["project"] = self.project
         options_str = "".join([f" --{name} {value}" for name, value in options.items()])
         command += options_str
@@ -284,12 +289,13 @@ class CloudRun:
         if self.service in os.environ:
             # This service image has already been built, let's use it
             options["image"] = os.environ[self.service]
-            return self.exec("gcloud run deploy", options=options)
+            return self.exec("deploy", options=options)
 
         options["source"] = source_folder
-        result = self.exec("gcloud run deploy", options=options)
+        result = self.exec("deploy", options=options)
+
         os.environ[self.service] = self.exec(
-            "gcloud run services describe", options={"format": '"value(image)"'}
+            "services describe", options={"format": '"value(image)"'}
         )
         return result
 
@@ -297,7 +303,7 @@ class CloudRun:
     def url(self):
         print_info(f"Get Cloud Run url of service `{self.service}`")
         return self.exec(
-            "gcloud run services describe",
+            "services describe",
             options={
                 "platform": "managed",
                 "format": '"value(status.url)"',
@@ -307,7 +313,7 @@ class CloudRun:
     def add_invoker_permission(self, member):
         print_info(f"Give invoker permission to {member} for service `{self.service}`")
         return self.exec(
-            "gcloud run services add-iam-policy-binding",
+            "services add-iam-policy-binding",
             options={
                 "member": member,
                 "role": "roles/run.invoker",

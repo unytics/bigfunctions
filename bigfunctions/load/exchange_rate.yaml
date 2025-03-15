@@ -1,0 +1,58 @@
+type: function_py
+author: Johan PROTIN
+description: |
+  Get `exchange_rate`
+  from `base` (e.g. `USD`) to `to` (e.g. `EUR`)
+  from [Yahoo Finance](https://finance.yahoo.com/quote/USDEUR=X/).
+
+  This functions uses [yfinance python package](https://github.com/ranaroussi/yfinance) and returns the average of the `bid price` and the `ask price`. If the data is not available in Yahoo Finance, will return `null`
+
+  | Param  | Possible values  |
+  |---|---|
+  | `base`<br>and<br>`to`  | Iso 4217 currency codes such as `EUR` or `USD`. See active codes on [wikipedia](https://en.wikipedia.org/wiki/ISO_4217#Active_codes_(List_One)) |
+arguments:
+  - name: base
+    type: string
+  - name: to
+    type: string
+output:
+  name: exchange_rate
+  type: float64
+examples:
+  - description: "To know how many euros a dollar is worth"
+    arguments:
+      - "'USD'"
+      - "'EUR'"
+    output: "0.910437"
+init_code: | #python
+  import datetime
+  import yfinance as yf
+code: | #python
+  base = (base or '').upper()
+  to = (to or '').upper()
+  if (len(base) != 3) or (len(to) != 3):
+    return None
+  if base == to:
+    return 1
+  country_codes_iso4217 = ['AED', 'AFN', 'ALL', 'AMD', 'ANG', 'AOA', 'ARS', 'AUD', 'AWG', 'AZN', 'BAM', 'BBD', 'BDT', 'BGN', 'BHD', 'BIF', 'BMD', 'BND', 'BOB', 'BOV', 'BRL', 'BSD', 'BTN', 'BWP', 'BYN', 'BZD', 'CAD', 'CDF', 'CHE', 'CHF', 'CHW', 'CLF', 'CLP', 'CNY', 'COP', 'COU', 'CRC', 'CUP', 'CVE', 'CZK', 'DJF', 'DKK', 'DOP', 'DZD', 'EGP', 'ERN', 'ETB', 'EUR', 'FJD', 'FKP', 'GBP', 'GEL', 'GHS', 'GIP', 'GMD', 'GNF', 'GTQ', 'GYD', 'HKD', 'HNL', 'HTG', 'HUF', 'IDR', 'ILS', 'INR', 'IQD', 'IRR', 'ISK', 'JMD', 'JOD', 'JPY', 'KES', 'KGS', 'KHR', 'KMF', 'KPW', 'KRW', 'KWD', 'KYD', 'KZT', 'LAK', 'LBP', 'LKR', 'LRD', 'LSL', 'LYD', 'MAD', 'MDL', 'MGA', 'MKD', 'MMK', 'MNT', 'MOP', 'MRU', 'MUR', 'MVR', 'MWK', 'MXN', 'MXV', 'MYR', 'MZN', 'NAD', 'NGN', 'NIO', 'NOK', 'NPR', 'NZD', 'OMR', 'PAB', 'PEN', 'PGK', 'PHP', 'PKR', 'PLN', 'PYG', 'QAR', 'RON', 'RSD', 'RUB', 'RWF', 'SAR', 'SBD', 'SCR', 'SDG', 'SEK', 'SGD', 'SHP', 'SLE', 'SOS', 'SRD', 'SSP', 'STN', 'SVC', 'SYP', 'SZL', 'THB', 'TJS', 'TMT', 'TND', 'TOP', 'TRY', 'TTD', 'TWD', 'TZS', 'UAH', 'UGX', 'USD', 'USN', 'UYI', 'UYU', 'UYW', 'UZS', 'VED', 'VES', 'VND', 'VUV', 'WST', 'XAF', 'XAG', 'XAU', 'XBA', 'XBB', 'XBC', 'XBD', 'XCD', 'XDR', 'XOF', 'XPD', 'XPF', 'XPT', 'XSU', 'XTS', 'XUA', 'XXX', 'YER', 'ZAR', 'ZMW', 'ZWG', 'ZWL']
+  if (base not in country_codes_iso4217) or (to not in country_codes_iso4217):
+    return None
+
+  current_day_hour = datetime.datetime.now(datetime.UTC).strftime("%Y-%m-%d %H")
+  cache_key = f'{current_day_hour}_{base}_{to}'
+  rate = cache.get(cache_key)
+  if rate:
+    return rate
+  ticker_name = f'{base}{to}=X'
+  ticker = yf.Ticker(ticker_name)
+  try:
+    rate = 0.5 * (ticker.info['bid'] + ticker.info['ask'])
+  except Exception as e:
+    report_exception(e)
+    return
+  cache.set(cache_key, rate)
+  return rate
+requirements: |
+  yfinance
+cloud_run:
+  concurrency: 1

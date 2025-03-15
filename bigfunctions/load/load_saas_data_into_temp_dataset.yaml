@@ -1,0 +1,185 @@
+type: function_py
+author: Paul Marcombes
+hide_in_doc: true
+description: |
+  Load SAAS data from 250+ sources using [Airbyte Python Connectors](https://docs.airbyte.com/using-airbyte/pyairbyte/getting-started#available-connectors)
+  .
+
+  - The function creates a temporary dataset only accessible to you in `bigfunctions` project.
+  - [Airbye Serverless](https://github.com/unytics/airbyte_serverless) will extract data from `source` (one of 250+ Airbyte Python Connectors available on [PyPI](https://pypi.org/search/?q=airbyte-source-)) using `source_config` (source configuration in yaml format expected by Airbyte Serverless).
+  - It will create one table per stream (a stream is like a resource type) in the dataset + one table `_airbyte_logs` for logs and one table `_airbyte_states` for states.
+  - If you provide a `state`, only new data from that state is loaded.
+  - While running, connector logs are appended in table `_airbyte_logs`.
+  - Examples below explain how to set the arguments.
+arguments:
+  - name: source
+    type: string
+  - name: source_config
+    type: yaml
+    contains_secret: true
+  - name: streams
+    type: string
+  - name: state
+    type: json
+output:
+  name: destination_dataset
+  type: string
+examples:
+  - description: |
+      Show valid sources for `source` argument by setting `source` to `null`
+
+      You can then copy one of these sources for `source` argument.
+    arguments:
+      - "null"
+      - "null"
+      - "null"
+      - "null"
+    output: |
+      # AVAILABLE SOURCES
+
+      airbyte-source-activecampaign==0.1.10
+      airbyte-source-adjust==0.1.11
+      airbyte-source-aha==0.3.10
+      ...
+  - description: |
+      Show `source_config` sample at expected format by setting `source_config` to `null`.
+
+      You can then copy the result, modify it and provide it as `source_config` argument.
+    arguments:
+      - "'airbyte-source-file==0.5.13'"
+      - "null"
+      - "null"
+      - "null"
+    output: |
+      # SOURCE CONFIG
+
+      dataset_name: # REQUIRED | string | The Name of the final table to replicate this file into (should include letters, numbers dash and underscores only).
+      format: "csv" # REQUIRED | string | The Format of the file which should be replicated (Warning: some formats may be experimental, please refer to the docs).
+      reader_options: # OPTIONAL | string | This should be a string in JSON format. It depends on the chosen file format to provide additional options and tune its behavior. | Examples: {}, {&#34;sep&#34;: &#34; &#34;}, {&#34;sep&#34;: &#34;	&#34;, &#34;header&#34;: 0, &#34;names&#34;: [&#34;column1&#34;, &#34;column2&#34;] }
+      url: # REQUIRED | string | The URL path to access the file which should be replicated. | Examples: https://storage.googleapis.com/covid19-open-data/v2/latest/epidemiology.csv, gs://my-google-bucket/data.csv, s3://gdelt-open-data/events/20190914.export.csv
+      provider:
+        ## -------- Pick one valid structure among the examples below: --------
+        storage: "HTTPS" # REQUIRED | string
+        user_agent: # OPTIONAL | boolean | Add User-Agent to request
+        ...
+  - description: |
+      Provide `source_config` with secrets encrypted:
+    arguments:
+      - "'airbyte-source-zendesk-support==2.6.10'"
+      - |
+        '''
+        credentials:
+          access_token: ENCRYPTED_SECRET(kdoekdswlxzapdldpzlfpfd)
+        '''
+      - "null"
+      - "null"
+    output: "..."
+  - description: |
+      Show available streams by setting `streams` argument to `null`.
+
+      You can then copy one or several of these streams (separate them with commas) for `streams` argument.
+    arguments:
+      - "'airbyte-source-file==0.5.13'"
+      - |
+        '''
+        dataset_name: "my_stream"
+        format: "csv"
+        url: https://raw.githubusercontent.com/AntoineGiraud/dbt_hypermarche/refs/heads/main/input/achats.csv
+        provider:
+          storage: "HTTPS"
+        '''
+      - "null"
+      - "null"
+    output: |
+      # AVAILABLE STREAMS
+
+      my_stream
+  - description: |
+      Extract and load `my_stream` into the temporary dataset.
+    arguments:
+      - "'airbyte-source-file==0.5.13'"
+      - |
+        '''
+        dataset_name: "my_stream"
+        format: "csv"
+        url: https://raw.githubusercontent.com/AntoineGiraud/dbt_hypermarche/refs/heads/main/input/achats.csv
+        provider:
+          storage: "HTTPS"
+        '''
+      - "'my_stream'"
+      - "null"
+    output: "bigfunctions.temp__dkzodskslfdkdl`"
+  - description: |
+      Provide a state to load only new data (since this state)
+    arguments:
+      - "'airbyte-source-zendesk-support==2.6.10'"
+      - |
+        '''
+        credentials:
+          access_token: ENCRYPTED_SECRET(kdoekdswlxzapdldpzlfpfd)
+        '''
+      - "tickets"
+      - "{...}"
+    output: "..."
+init_code: | #python
+  import base64
+  import json
+  import os
+
+  import yaml
+  from airbyte_serverless.connections import Connection
+  from airbyte_serverless.sources import ExecutableAirbyteSource, get_available_python_sources
+  import google.api_core.exceptions
+
+  os.environ['TZ'] = 'UTC'
+
+  def run(executable, source_config, streams, state, destination_dataset):
+    config = {
+      'source': {
+        'executable': executable,
+        'config': source_config,
+        'streams': streams,
+      },
+      'destination': {
+        'connector': 'bigquery',
+        'config': {
+          'dataset': destination_dataset,
+          'buffer_size_max': 1000,
+        },
+      },
+    }
+    connection = Connection(config)
+    try:
+      connection.run(state=state)
+    except (google.api_core.exceptions.Forbidden, google.api_core.exceptions.NotFound, google.api_core.exceptions.PermissionDenied) as e:
+      assert False, f'Service Account `{get_current_service_account()}` does not have data-editor permission for given destination dataset (or the dataset does not exsit). Please add it'
+code: | #python
+  source = source or ''
+  python_sources = get_available_python_sources()
+  source_is_unavailable = not source or not [s for s in python_sources if s.split('==')[0] == source.split('==')[0]]
+  if source_is_unavailable:
+    return '# AVAILABLE SOURCES\n\n' + '\n'.join(python_sources)
+
+  cli = source.replace("airbyte-", "").split('=')[0]
+  executable = f'uvx --from {source} {cli}'
+  airbyte_source =  ExecutableAirbyteSource(executable, source_config)
+
+  if not source_config:
+    return '# SOURCE CONFIG\n\n' + airbyte_source.yaml_config_example
+
+  if not streams:
+    return '# AVAILABLE STREAMS\n\n' + ', '.join(airbyte_source.available_streams)
+
+  destination_dataset = create_temp_dataset()
+  state = state or {}
+  run(executable, source_config, streams, state, destination_dataset)
+  return destination_dataset
+requirements: |
+  airbyte-serverless
+quotas:
+  max_rows_per_query: 1
+cloud_run:
+  memory: 1024Mi
+  concurrency: 1
+  timeout: 60m
+  service_account: load-airbyte-source@bigfunctions.iam.gserviceaccount.com

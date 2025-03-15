@@ -1,6 +1,5 @@
 import functools
 import glob
-import json
 import os
 import re
 import shutil
@@ -15,14 +14,20 @@ from .utils import (BigQuery, CloudRun, build_and_upload_npm_package,
 
 BIGFUNCTIONS_FOLDER = 'bigfunctions'
 DEFAULT_CONFIG_FILENAME = './config.yaml'
+PEOPLE_FILENAME = 'docs/people.yaml'
+NAV_FILENAME = 'docs/.nav.yml'
+PEOPLE = None
 REMOTE_CONNECTION_NAME = 'remote-bigfunctions'
 TEMPLATE_FOLDER = os.path.dirname(os.path.realpath(__file__)).replace('\\', '/') + '/templates'
 BIGFUNCTION_DOC_TEMPLATE_FILENAME = f'{TEMPLATE_FOLDER}/bigfunction.md'
+DOC_FOLDER_TEMPLATE_FILENAME = f'{TEMPLATE_FOLDER}/folder.md'
+MKDOCS_DEFAULT_FILE =  f'{TEMPLATE_FOLDER}/mkdocs.yml'
 DEFAULT_CONFIG = yaml.safe_load(open(DEFAULT_CONFIG_FILENAME, encoding='utf-8').read()) if os.path.isfile(DEFAULT_CONFIG_FILENAME) else {}
 TESTS_FOLDER = 'tests'
 USE_CASES_FOLDER = 'use_cases'
 
 BIGFUNCTION_DOC_TEMPLATE = jinja2.Template(open(BIGFUNCTION_DOC_TEMPLATE_FILENAME, encoding='utf-8').read())
+DOC_FOLDER_TEMPLATE = jinja2.Template(open(DOC_FOLDER_TEMPLATE_FILENAME, encoding='utf-8').read())
 
 
 
@@ -36,39 +41,47 @@ def list_bigfunctions():
     }
 
 
+def list_people():
+    if not os.path.isfile(PEOPLE_FILENAME):
+        return {}
+    with open(PEOPLE_FILENAME, encoding='utf-8') as f:
+        people_list = yaml.safe_load(f.read())
+        return {
+            person['name']: person
+            for person in people_list
+        }
+
+
 BIGFUNCTIONS = list_bigfunctions()
+PEOPLE = list_people()
 
 
 class BigFunction:
 
-    def __init__(self, name, project=None, dataset=None, **config_override):
+    def __init__(self, name, **config_override):
         self.name = name
         self.config_override = config_override
-        if project:
-            self.config_override['project'] = project
-        if dataset:
-            self.config_override['dataset'] = dataset
         self._config_from_file = None
         self._config = None
         self._bigquery = None
         self._dataset = None
 
     @property
-    def config_filename(self):
+    def filename(self):
         if self.name not in BIGFUNCTIONS:
             handle_error(f'Could not find a yaml file in `{BIGFUNCTIONS_FOLDER}` folder for bigfunction `{self.name}`')
         return BIGFUNCTIONS[self.name]
 
     @property
-    def config_folder(self):
-        return '/'.join(self.config_filename.replace('bigfunctions/', '').split('/')[:-1])
+    def folder(self):
+        return '/'.join(self.filename.split('/')[:-1])
 
     @property
     def config_from_file(self):
         if self._config_from_file is None:
-            if not os.path.isfile(self.config_filename):
-                handle_error(f'Could not find configuration file {self.config_filename}')
-            content = open(self.config_filename, encoding='utf-8').read()
+            if not os.path.isfile(self.filename):
+                handle_error(f'Could not find configuration file {self.filename}')
+            content = open(self.filename, encoding='utf-8').read()
             self._config_from_file = yaml.safe_load(content)
         return self._config_from_file
 
@@ -80,7 +93,7 @@ class BigFunction:
                 [dict(DEFAULT_CONFIG), self.config_from_file, self.config_override]
             )
             self._config['name'] = self.name
-            self._config['filename'] = self.config_filename
+            self._config['filename'] = self.filename
             self._config['short_description'] = self._config['description'].split('\n')[0]
             self._config['signature'] = (
                 self.name +
@@ -88,6 +101,8 @@ class BigFunction:
                 ', '.join(argument['name'] for argument in self._config.get('arguments', [])) +
                 ')'
             )
+            if 'author' in self._config and isinstance(self._config['author'], str):
+                self._config['author'] = PEOPLE.get(self._config['author']) or {'name': self._config['author']}
         return self._config
 
     @property
@@ -157,6 +172,7 @@ class BigFunction:
         os.makedirs(TESTS_FOLDER, exist_ok=True)
         code_filename = f'{TESTS_FOLDER}/bf__{self.name}.py'
         print_info(f'Generating python code file {code_filename}')
+        os.makedirs(os.path.dirname(code_filename), exist_ok=True)
         with open(code_filename, 'w', encoding='utf-8') as out:
             out.write(code)
         print_info(f'Executing python code file {code_filename}')
@@ -187,7 +203,6 @@ class BigFunction:
                 return
             os.remove(self.use_case_filename)
 
-        doc = self.doc
         prompt = '\n\n'.join([
             'Give a use case of this function',
             'FUNCTION MARKDOWN DOCUMENTATION:',
@@ -251,3 +266,142 @@ class BigFunction:
         dockerfile = template.render(**self.config)
         with open(f'{folder}/Dockerfile', 'w', encoding='utf-8') as out:
             out.write(dockerfile)
+
+
+class Folder:
+
+    def __init__(self, path):
+        self._readme = None
+        self.path = path
+        self.name = path.split('/')[-1]
+        self.title, self.content, self.frontmatter = self.parse_readme()
+        self.clean_title = re.sub('[^a-zA-Z ]', '', self.title).strip()
+        self.inner_link = f'#{self.clean_title.lower().replace(" ", "-")}'
+        self.frontmatter['title'] = self.frontmatter.get('title') or self.title
+        self.depth = len(path.split('/')) - 1
+        self.nb_bigfunctions = len([1 for b in BIGFUNCTIONS.values() if b.startswith(f'{path}/')])
+        self.subfolder_names = self.frontmatter.get('folders') or [d.name for d in os.scandir(path) if d.is_dir()]
+        self.subfolder_paths = [f'{path}/{subfolder}' for subfolder in self.subfolder_names]
+        self.subfolders = [Folder(subfolder_path) for subfolder_path in self.subfolder_paths]
+        self.bigfunctions = [BigFunction(name) for name, _path in BIGFUNCTIONS.items() if re.match(f'{path}/([^/]+.yaml)', _path)]
+        self.dict = {
+            'name': self.name,
+            'title': self.title,
+            'depth': self.depth,
+            'path': self.path,
+            'inner_link': self.inner_link,
+            'frontmatter': self.frontmatter,
+            'content': self.content,
+            'content_contains_title': True if re.findall(r'^\s*# .+', self.content, re.MULTILINE) else False,
+            'nb_bigfunctions': self.nb_bigfunctions,
+            'subfolders': [subf.dict for subf in self.subfolders],
+            'bigfunctions': [b.config for b in self.bigfunctions],
+        }
+
+    def parse_readme(self):
+        readme = ''
+        if os.path.isfile(f'{self.path}/README.md'):
+            readme = open(f'{self.path}/README.md', encoding='utf-8').read()
+        readme = readme.strip()
+
+        frontmatter = {}
+        frontmatter_matches = re.findall(r'^---([\s\S]*?)---\n', readme)
+        if readme.startswith('---') and frontmatter_matches:
+            frontmatter_string = frontmatter_matches[0]
+            frontmatter = yaml.safe_load(frontmatter_string)
+            readme = readme.replace(f'---{frontmatter_string}---', '').strip()
+
+        title = self.name.replace('_', ' ').title()
+        if readme.startswith('#'):
+            title, readme = (readme + '\n').split('\n', 1)
+            title = title.lstrip('# ')
+
+        return title, readme, frontmatter
+
+    @property
+    def doc(self):
+        return DOC_FOLDER_TEMPLATE.render(**self.dict)
+
+    def generate_docs(self):
+        docs = []
+        docs.append((f'{self.path}/README.md', self.doc))
+        for subfolder in self.subfolders:
+            docs.extend(subfolder.generate_docs())
+        for bigfunction in self.bigfunctions:
+            docs.append((f'bigfunctions/{bigfunction.name}.md', bigfunction.doc))
+        return docs
+
+    @property
+    def nav(self):
+        return {
+            self.clean_title: [
+                *[f'{self.path}/README.md'],
+                *[subfolder.nav for subfolder in self.subfolders],
+                *[f'bigfunctions/{bigfunction.name}.md' for bigfunction in self.bigfunctions]
+            ]
+        }
+
+
+def generate_doc():
+
+    def init_docs_folder():
+        os.makedirs('docs', exist_ok=True)
+        shutil.rmtree('docs/bigfunctions', ignore_errors=True)
+        os.makedirs('docs/bigfunctions')
+
+    def generate_markdown_files(folder):
+        docs = folder.generate_docs()
+        for path, content in docs:
+            path = f'docs/{path}'
+            os.makedirs(os.path.dirname(path), exist_ok=True)
+            with open(path, 'w', encoding='utf-8') as file:
+                file.write(content)
+
+    def generate_nav(folder):
+        mkdocs_config = open('mkdocs.yml', encoding='utf-8').read()
+        if '{BIGFUNCTIONS_DOC}' not in mkdocs_config:
+            return
+        mkdocs_config = re.sub(' !.*', ' ""', mkdocs_config)
+        mkdocs_config = yaml.safe_load(mkdocs_config)
+        nav = mkdocs_config['nav']
+        bigfunctions_index = next((
+            k for k, tab in enumerate(nav)
+            if tab == '{BIGFUNCTIONS_DOC}'
+        ), None)
+        if bigfunctions_index is None:
+            return
+        nav[bigfunctions_index] = folder.nav
+        with open(NAV_FILENAME, 'w', encoding='utf-8') as file:
+            file.write(yaml.dump({'nav': nav}))
+
+    def create_homepage_if_not_exists():
+        if os.path.isfile('docs/index.md'):
+            return
+        print('INFO: CREATING docs/index.md FILE WHICH WILL BE THE ROOT CONTENT OF THE WEBSITE')
+        content = '\n\n'.join([
+            '# BigFunctions!',
+            'Update this page content by editing `docs/index.md`',
+            '[Explore Functions](bigfunctions/){ .md-button }',
+        ])
+        open('docs/index.md', 'w', encoding='utf-8').write(content)
+
+    def copy_default_site_config():
+        if not os.path.isfile('mkdocs.yml'):
+            print('INFO: CREATING mkdocs.yml FILE in CURRENT DIRECTORY. It is the configuration file of the website...')
+            shutil.copyfile(MKDOCS_DEFAULT_FILE, 'mkdocs.yml')
+
+    def copy_screenshots_to_docs_folder():
+        images = glob.glob('bigfunctions/**/*.png', recursive=True)
+        for image in images:
+            destination_filename = 'docs/bigfunctions/' + image.split('/')[-1]
+            destination_dir = os.path.dirname(destination_filename)
+            os.makedirs(destination_dir, exist_ok=True)
+            shutil.copy(image, destination_filename)
+
+    init_docs_folder()
+    create_homepage_if_not_exists()
+    copy_default_site_config()
+    folder = Folder(BIGFUNCTIONS_FOLDER)
+    generate_markdown_files(folder)
+    generate_nav(folder)
+    copy_screenshots_to_docs_folder()

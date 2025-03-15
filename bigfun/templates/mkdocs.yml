@@ -34,9 +34,10 @@ markdown_extensions:
       alternate_style: true
 plugins:
   - search
+  - awesome-nav
 nav:
   - Home: index.md
-  - BigFunctions!: bigfunctions/README.md
+  - "{BIGFUNCTIONS_DOC}"
 validation:
   nav:
     omitted_files: ignore

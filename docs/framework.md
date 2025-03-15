@@ -242,6 +242,7 @@ select PROJECT.DATASET.faker("name", "it_IT")
 <br>
 
 
+<<<<<<< HEAD
 
 
 
@@ -560,24 +561,50 @@ select PROJECT.DATASET.faker("name", "it_IT")
 
 
 
+=======
+>>>>>>> upstream/main
 ## ❓ FAQ
 
-<details>
-  <summary><strong>How to define specific parameters for cloud run of python functions?</strong></summary>
+??? note "How to correctly highlight `sql`, `python` and `javascript` code in yaml files?"
 
-  In yaml files you can add a `cloud_run` field with cloud run parameters. Any argument of <a href="https://cloud.google.com/sdk/gcloud/reference/run/deploy" target="_blank">'cloud run deploy' command</a> can be put under `cloud_run` field.
+    In yaml files multiline string are by default highlighted as strings.
+    That makes reading `code` field hard to read (with all code in the same string color).
+    To correctly highlight the code regarding its python / javascript / sql syntax,
+    you can install [YAML Embedded Languages VSCode extension](https://marketplace.visualstudio.com/items?itemName=harrydowning.yaml-embedded-languages){ target="_blank" }.
 
-  You can see an example <a href="https://github.com/unytics/bigfunctions/blob/main/bigfunctions/get_data/load_api_data_into_temp_dataset.yaml#L339" target="_blank">here</a>.
 
-  You can also put the same config in your `config.yaml` file to define default values (useful for defining a default service account for functions). The arguments defined in `config.yaml` will be overriden by the arguments (if defined) defined in the function yaml files.
-</details>
-<details>
-  <summary><strong>How to change the cloud run service account for python functions?</strong></summary>
+??? note "How to define specific parameters for cloud run of python functions?"
 
-  By default, your default compute service account is used when deploying cloud run. To change that, see the previous FAQ item which show how to define specific parameters for cloud run.
-</details>
-<details>
-  <summary><strong>How to correctly highlight <code>sql</code>, <code>python</code> and <code>javascript</code> code in yaml files?</strong></summary>
+    In yaml files you can add a `cloud_run` field with cloud run parameters.
+    Any argument of ['cloud run deploy' command](https://cloud.google.com/sdk/gcloud/reference/run/deploy){ target="_blank" }
+    can be put under `cloud_run` field.
 
-  In yaml files multiline string are by default highlighted as strings. That makes reading <code>code</code> field hard to read (with all code in the same string color). To correctly highlight the code regarding its python / javascript / sql syntax, you can install <a href="https://marketplace.visualstudio.com/items?itemName=harrydowning.yaml-embedded-languages" target="_blank">YAML Embedded Languages</a> VSCode extension.
-</details>
+    You can see an example [here](https://github.com/unytics/bigfunctions/blob/main/bigfunctions/get_data/load_api_data_into_temp_dataset.yaml#L339){ target="_blank" }.
+
+    You can also put the same config in your `config.yaml` file to define default values
+    (useful for defining a default service account for functions).
+    The arguments defined in `config.yaml` will be overriden by the arguments (if defined)
+    in the function yaml files.
+
+
+??? note "How to change the cloud run service account for python functions?"
+
+    By default, your default compute service account is used when deploying cloud run.
+    To change that, see the previous FAQ item which show how to define specific parameters for cloud run.
+
+
+??? note "How to generate key pair for encryption / decryption of secrets contained in arguments"
+
+    In order not to pass secrets in plain text in function arguments,
+    bigfunctions provides a mechanism to encrypt a secret on the documentation page of a function (for example [here](https://unytics.io/bigfunctions/bigfunctions/send_mail_with_gmail/#encrypt-your-secrets)).
+    Only the given function will be able to decrypt it for the given users.
+
+    For this to work you need to:
+
+    1. Generate a key pair for encryption / decryption by running `bigfun config generate-key-pair-for-secrets`.
+        - The public key (used for encryption on the website) will be stored in your `config.yaml` and used when you generate your website.
+        - The private key (used for decryption by the function) will be printed on the console
+    2. Store the private key in a secret named `bigfunctions_private_key` in the [Google Secret Manager](https://console.cloud.google.com/security/secret-manager){ target="_blank" } of the project where you deploy the function.
+    3. Give to the service account of the function `Secret Accessor` role to the private key.
+
+    The deployed function will automatically download the private key and decrypt any encrypted secret in arguments tagged as secrets (and check secrets were encrypted for this function and for the user who calls it).

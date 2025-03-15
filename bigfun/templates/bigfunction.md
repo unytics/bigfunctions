@@ -1,23 +1,28 @@
 ---
-title: "{{ name }} - BigQuery function"
+title: "{{ name }}"
 description: "BigFunction {{ name }} is a BigQuery function which {{ description.split('\n')[0] }}"
-hide:
-  - navigation
-  - toc
 {% if hide_in_doc %}
 search:
   exclude: true
 {% endif %}
 ---
 
-<span style="color: silver; position: relative; top: -1rem">
-  <a href=".." style="color: silver">bigfunctions </a> > {{ name }}
-</span>
+<div class="breadcrumb" markdown>
+
+{% set path_parts = filename.split('/')[:-1] %}
+
+{% for part in path_parts -%}
+- [{{ part }}](../{{ path_parts[:loop.index] | join('/') }}/README.md){% if not loop.last %}<span style="margin: 0 20px">❯</span>{% endif %}
+{% endfor -%}
+
+
+</div>
+
 
 # {{ name }}
 
 
-<div style="position: relative; top: -4rem; margin-bottom:  -2rem; text-align: right; z-index: 9999;">
+<div style="position: relative; top: -4rem; margin-bottom:  -4rem; text-align: right; z-index: 9999;">
   {% if author %}
   <a href="{{ author.url }}" title="{% if not author.name.startswith('Credits') %}Author: {% endif %}{{ author.name }}" target="_blank">
     <img src="{{ author.avatar_url }}" alt="author photo" width="32" style=" border-radius: 50% !important">
@@ -27,45 +32,25 @@ search:
 </div>
 
 
-{% if project == 'bigfunctions' %}
-
-??? note "Call or Deploy `{{ name }}` ?"
-
-    **✅ You can call this `{{ name }}` bigfunction directly from your Google Cloud Project** (*no install required*).
-
-    - This `{{ name }}` function is deployed in `bigfunctions` GCP project in 39 datasets for all of the 39 BigQuery regions. *You need to use the dataset in the same region as your datasets (otherwise you may have a function not found error).*
-    - Function is public, so it can be called by anyone. Just copy / paste examples below in your BigQuery console. It just works!
-    - You may prefer to deploy the BigFunction in your own project if you want to build and manage your own catalog of functions. This is particularly useful if you want to create private functions (for example calling your internal APIs). [:octicons-arrow-right-24: Discover the framework](../framework.md)
-
-
-    Public BigFunctions Datasets:
-
-    | Region | Dataset |
-    |--------|---------|
-    {% for dataset in dataset.split(',') -%}
-    | `{{ dataset.replace('_', '-') }}` | `{{ project }}.{{ dataset }}` |
-    {% endfor -%}
-    |  ...   |   ...   |
-
-
-{% endif %}
-
-
-
-## Description
-
-**Signature**
-
 ```
 {{ signature }}
 ```
 
-**Description**
 
-{{ description | replace('{SECRET_ENCRYPTER}', '''
+## Description
 
-<br>
-⚠️ **Encrypt your secrets!**
+
+{{ description }}
+
+
+
+
+{% set arguments_containing_secrets = arguments|selectattr('contains_secret')|map(attribute='name')|list %}
+
+{% if arguments_containing_secrets %}
+
+
+## Encrypt your secrets! ⚠️
 
 !!! note ""
 
@@ -110,7 +95,7 @@ Instead, generate an encrypted version of your secret that you can safely share.
     - No function but the function `{{ name }}` can decrypt it.
 
 
-''') | replace('{{ name }}', name) }}
+{% endif %}
 
 
 
@@ -145,6 +130,66 @@ Instead, generate an encrypted version of your secret that you can safely share.
 
 
 ## Examples
+
+{% if project == 'bigfunctions' %}
+
+??? note "Call or Deploy `{{ name }}` ?"
+
+
+    ??? success "Call `{{ name }}` directly"
+
+        **The easiest way to use bigfunctions**
+
+        - `{{ name }}` function is deployed in 39 public datasets for all of the 39 BigQuery regions.
+        - It can be called by anyone. Just copy / paste examples below in your BigQuery console. It just works!
+        - *(You need to use the dataset in the same region as your datasets otherwise you may have a function not found error)*
+
+        **Public BigFunctions Datasets**
+
+        | Region | Dataset |
+        |--------|---------|
+        {% for dataset in dataset.split(',') -%}
+        | `{{ dataset.replace('_', '-') }}` | `{{ project }}.{{ dataset }}` |
+        {% endfor -%}
+        |  ...   |   ...   |
+
+
+    ??? success "Deploy `{{ name }}` in your project"
+
+        **Why deploy?**
+
+        - You may prefer to deploy `{{ name }}` in your own project to build and manage your own catalog of functions.
+        - This is particularly useful if you want to create private functions (for example calling your internal APIs).
+        - Get started by reading [the framework page ](../framework.md)
+
+        **Deployment**
+
+        `{{ name }}` function can be deployed with:
+
+        ```bash
+        pip install bigfunctions
+        bigfun get {{ name }}
+        bigfun deploy {{ name }}
+        ```
+
+        {% if secrets is defined -%}
+        **Requirements**
+
+        `{{ name }}` uses the following secrets. Get them by reading the documentation link and store them in [Google Secret Manager](https://console.cloud.google.com/security/secret-manager){ target="_blank" } in the project where you deploy the function (and give Accessor role to the service account of the function):
+
+        | name | description | documentation to get the secret |
+        |------|-------------|-----|
+        {% for secret in secrets -%}
+        | `{{ secret.name }}` | {{ secret.description }} | [doc]({{ secret.documentation_link }}){ target="_blank" } |
+        {% endfor %}
+        {% endif %}
+
+
+
+
+{% endif %}
+
+
 
 {% for example in examples %}
 
@@ -256,21 +301,27 @@ from sample_data
 
 {% if project == 'bigfunctions' %}
 
-??? question "Need help using `{{ name }}`?"
+??? question "Need help or Found a bug using `{{ name }}`?"
 
-    The community can help! Engage the conversation on [Slack](https://join.slack.com/t/unytics/shared_invite/zt-1gbv491mu-cs03EJbQ1fsHdQMcFN7E1Q)
+    ??? success "Get help using `{{ name }}`"
 
-    **For professional suppport, don't hesitate to [chat with us](../chat_with_us.md)**.
+        The community can help! Engage the conversation on [Slack](https://join.slack.com/t/unytics/shared_invite/zt-1gbv491mu-cs03EJbQ1fsHdQMcFN7E1Q)
+
+        **We also provide [professional suppport](../chat_with_us.md)**.
 
 
-??? danger "Found a bug using `{{ name }}`?"
+    ??? success "Report a bug about `{{ name }}`"
 
-    If the function does not work as expected, please
+        If the function does not work as expected, please
 
-    - [report a bug](https://github.com/unytics/bigfunctions/issues/new/choose) so that it can be improved.
-    - or open the discussion with the community on [Slack](https://join.slack.com/t/unytics/shared_invite/zt-1gbv491mu-cs03EJbQ1fsHdQMcFN7E1Q).
+        - [report a bug](https://github.com/unytics/bigfunctions/issues/new/choose) so that it can be improved.
+        - or open the discussion with the community on [Slack](https://join.slack.com/t/unytics/shared_invite/zt-1gbv491mu-cs03EJbQ1fsHdQMcFN7E1Q).
 
-    **For professional suppport, don't hesitate to [chat with us](../chat_with_us.md)**.
+        **We also provide [professional suppport](../chat_with_us.md)**.
+
+
+
+
 
 
 {% endif %}
@@ -286,7 +337,7 @@ from sample_data
 
 {% if project == 'bigfunctions' %}
 
-## Spread the word
+## Spread the word!
 
 BigFunctions is fully open-source. Help make it a success by spreading the word!
 

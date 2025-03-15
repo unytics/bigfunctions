@@ -1,0 +1,272 @@
+type: procedure
+author: Paul Marcombes
+description: |
+  Load SAAS data from 250+ sources using [Airbyte Python Connectors](https://docs.airbyte.com/using-airbyte/pyairbyte/getting-started#available-connectors)
+  .
+
+  - The function creates a temporary dataset only accessible to you in `bigfunctions` project.
+  - [Airbye Serverless](https://github.com/unytics/airbyte_serverless) will extract data from `source` (one of 250+ Airbyte Python Connectors available on [PyPI](https://pypi.org/search/?q=airbyte-source-)) using `source_config` (source configuration in yaml format expected by Airbyte Serverless).
+  - It will create one table per stream (a stream is like a resource type) in the dataset + one table `_airbyte_logs` for logs and one table `_airbyte_states` for states.
+  - The data in then moved from the temporary dataset to be appended in `destination_dataset`. Tables of the temporary dataset are deleted.
+  - If you call this function several times, the function will start by getting the latest state from `destination_dataset._airbyte_states` table to only extract and load new data.
+  - Examples below explain how to set the arguments.
+arguments:
+  - name: source
+    type: string
+  - name: source_config
+    type: string
+    contains_secret: true
+  - name: streams
+    type: string
+  - name: destination_dataset
+    type: string
+output:
+  name: result
+  type: string
+examples:
+  - description: |
+      Show valid sources for `source` argument by setting `source` to `null`
+
+      You can then copy one of these sources for `source` argument.
+    arguments:
+      - "null"
+      - "null"
+      - "null"
+      - "null"
+    output: |
+      +----------------------------------------+
+      |                 result                 |
+      +----------------------------------------+
+      | # AVAILABLE SOURCES                    |
+      |                                        |
+      | airbyte-source-activecampaign==0.1.10  |
+      | airbyte-source-adjust==0.1.11          |
+      | airbyte-source-aha==0.3.10             |
+      | ...                                    |
+      +----------------------------------------+
+  - description: |
+      Show `source_config` sample at expected format by setting `source_config` to `null`.
+
+      You can then copy the result, modify it and provide it as `source_config` argument.
+    arguments:
+      - "'airbyte-source-file==0.5.13'"
+      - "null"
+      - "null"
+      - "null"
+    output: |
+      +----------------------------------------------------+
+      |                 result                             |
+      +----------------------------------------------------+
+      | # SOURCE CONFIG
+      |
+      | dataset_name: # REQUIRED | string | The Name of... |
+      | format: "csv" # REQUIRED | string | The Format ... |
+      | reader_options: # OPTIONAL | string | This shou... |
+      | url: # REQUIRED | string | The URL path to acce... |
+      | provider:                                          |
+      |   ## -------- Pick one valid structure among th... |
+      |   storage: "HTTPS" # REQUIRED | string             |
+      |   user_agent: # OPTIONAL | boolean | Add User-A... |
+      | ...                                                |
+      +----------------------------------------------------+
+  - description: |
+      Provide `source_config` with secrets encrypted:
+    arguments:
+      - "'airbyte-source-zendesk-support==2.6.10'"
+      - |
+        '''
+        credentials:
+          access_token: ENCRYPTED_SECRET(kdoekdswlxzapdldpzlfpfd)
+        '''
+      - "null"
+      - "null"
+    output: "..."
+  - description: |
+      Show available streams by setting `streams` argument to `null`.
+
+      You can then copy one or several of these streams (separate them with commas) for `streams` argument.
+    arguments:
+      - "'airbyte-source-file==0.5.13'"
+      - |
+        '''
+        dataset_name: "my_stream"
+        format: "csv"
+        url: https://raw.githubusercontent.com/MobilityData/gbfs/refs/heads/master/systems.csv
+        provider:
+          storage: "HTTPS"
+        '''
+      - "null"
+      - "null"
+    output: |
+      +----------------------------------------+
+      |                 result                 |
+      +----------------------------------------+
+      | # AVAILABLE STREAMS                    |
+      |                                        |
+      | my_stream                              |
+      +----------------------------------------+
+  - description: |
+      Extract and load `my_stream` into `your_project.your_dataset`.
+    arguments:
+      - "'airbyte-source-file==0.5.13'"
+      - |
+        '''
+        dataset_name: "my_stream"
+        format: "csv"
+        url: https://raw.githubusercontent.com/MobilityData/gbfs/refs/heads/master/systems.csv
+        provider:
+          storage: "HTTPS"
+        '''
+      - "'my_stream'"
+      - "'your_project.your_dataset'"
+    output: |
+      +----------------------------------------+
+      |                 result                 |
+      +----------------------------------------+
+      | ok                                     |
+      +----------------------------------------+
+code: | #sql
+  declare temp_dataset string;
+  declare state_table_exists bool;
+  declare state json;
+  declare tables array<string>;
+
+
+  if source is null or source = '' or source_config is null or source_config = '' or streams is null or streams = '' then
+    create or replace temp table bigfunction_result as
+    select {BIGFUNCTIONS_DATASET}.load_saas_data_into_temp_dataset(source, source_config, streams, state) as result;
+    return;
+  end if;
+
+  assert array_length(split(destination_dataset, '.')) = 2 as '`destination_dataset` must be like PROJECT.DATASET';
+
+  begin
+    execute immediate format(
+      '''
+      select exists(
+        select 1
+        from `%s`.__TABLES__
+        where table_id = '_airbyte_states'
+      )
+      ''',
+      destination_dataset
+    ) into state_table_exists;
+  exception when error then
+    assert false as '`destintation_dataset` must exist';
+  end;
+
+  if state_table_exists then
+    execute immediate format(
+      '''
+      with
+
+      stream_states as (
+
+          select
+              json_value(_airbyte_data, '$.stream.stream_descriptor.name') as stream,
+              _airbyte_data as state,
+              _airbyte_loaded_at,
+          from `%s._airbyte_states`
+          where json_value(_airbyte_data, '$.type') = 'STREAM'
+          qualify row_number() over (partition by stream order by _airbyte_loaded_at desc) = 1
+
+      ),
+
+      global_state as (
+
+          select
+              _airbyte_data as state,
+              _airbyte_loaded_at,
+          from `%s._airbyte_states`
+          where json_value(_airbyte_data, '$.type') = 'GLOBAL'
+          order by _airbyte_loaded_at desc
+          limit 1
+
+      ),
+
+      legacy_state as (
+
+          select
+              json_extract(_airbyte_data, '$.data') as state,
+              _airbyte_loaded_at,
+          from `%s._airbyte_states`
+          where json_extract(_airbyte_data, '$.data') is not null
+          order by _airbyte_loaded_at desc
+          limit 1
+
+      ),
+
+
+      stream_states_formatted as (
+          select
+              to_json(array_agg(state)) as state,
+              max(_airbyte_loaded_at) as _airbyte_loaded_at,
+          from stream_states
+      ),
+
+      global_state_formatted as (
+          select
+              json_array(state) as state,
+              _airbyte_loaded_at,
+          from global_state
+      )
+
+      select state, _airbyte_loaded_at from stream_states_formatted union all
+      select state, _airbyte_loaded_at from global_state_formatted union all
+      select state, _airbyte_loaded_at from legacy_state
+      order by _airbyte_loaded_at desc
+      limit 1;
+      ''',
+      destination_dataset, destination_dataset, destination_dataset
+    ) into state;
+  end if;
+
+  set temp_dataset = (
+    select {BIGFUNCTIONS_DATASET}.load_saas_data_into_temp_dataset(source, source_config, streams, state)
+  );
+
+  execute immediate format(
+    '''
+    select array_agg(table_id)
+    from `%s`.__TABLES__
+    ''',
+    temp_dataset
+  ) into tables;
+
+  for table in (select name from unnest(tables) name)
+  do
+    execute immediate format(
+      '''
+      create table if not exists `%s`.%s (
+        _airbyte_raw_id           string     options(description='Record uuid generated at ingestion'),
+        _airbyte_job_started_at   timestamp  options(description='Extract-load job start timestamp'),
+        _airbyte_slice_started_at timestamp  options(description='When incremental mode is used, data records are emitted by chunks a.k.a. slices. At the end of each slice, a state record is emitted to store a checkpoint. This column stores the timestamp when the slice started'),
+        _airbyte_extracted_at     timestamp  options(description='Record extract timestamp from source'),
+        _airbyte_loaded_at        timestamp  options(description='Record ingestion timestamp'),
+        _airbyte_data             json       options(description='Record data as json'),
+      )
+      partition by date(_airbyte_loaded_at)
+      options(
+          description="records ingested by airbyte_serverless"
+      )
+      ''',
+      destination_dataset, table.name
+    );
+
+    execute immediate format(
+      '''
+      insert into `%s`.%s
+      select _airbyte_raw_id, _airbyte_job_started_at, _airbyte_slice_started_at, _airbyte_extracted_at, _airbyte_loaded_at, _airbyte_data
+      from `%s`.%s
+      ''',
+      destination_dataset, table.name, temp_dataset, table.name
+    );
+
+    execute immediate format(
+      'drop table `%s`.%s',
+      temp_dataset, table.name
+    );
+  end for;
+
+  create or replace temp table bigfunction_result as
+  select 'ok' as result;

@@ -20,11 +20,11 @@ examples:
         "bigquery-public-data.austin_311",
         ...
       ]
-code: |
+code: | #python
   import google.cloud.bigquery_datatransfer
   import google.protobuf.json_format
   bigquery_datatransfer = google.cloud.bigquery_datatransfer.DataTransferServiceClient()
-  project = project or user_project
+  project = project or g.user_project
   parent = f'projects/{project}/locations/EU'
   datatransfers = bigquery_datatransfer.list_transfer_configs(parent=parent)
   datatransfers = [

@@ -1,0 +1,49 @@
+type: function_py
+author: Paul Marcombes
+description: |
+  Classify `text` among `candidate_labels`
+  using [zero-shot classification](https://huggingface.co/tasks/zero-shot-classification)
+
+  - `candidate_labels` is a string of comma separated classes used for classification
+  - Output is probability `scores` for each label.
+arguments:
+  - name: text
+    type: string
+  - name: candidate_labels
+    type: string
+output:
+  name: scores
+  type: json
+examples:
+  - description: ""
+    arguments:
+      - "'one day I will see the world'"
+      - '"travel, cooking, dancing, exploration"'
+    output: |
+      [
+        {'label': 'travel',      'score': 0.995},
+        {'label': 'exploration', 'score': 0.938},
+        {'label': 'dancing',     'score': 0.005},
+        {'label': 'cooking',     'score': 0.002}
+      ]
+dockerfile:
+  additional_commands: |
+    RUN python -c "from transformers import pipeline; pipeline('zero-shot-classification', model='facebook/bart-large-mnli').save_pretrained('./mymodel')"
+init_code: |
+  from transformers import pipeline
+  classifier = pipeline("zero-shot-classification", model="./mymodel")
+code: |
+  if not text or not candidate_labels or not candidate_labels.strip():
+    return
+  candidate_labels = [l.strip() for l in candidate_labels.split(',')]
+  result = classifier(text, candidate_labels)
+  return [
+    {'label': label, 'score': score}
+    for label, score in zip(result['labels'], result['scores'])
+  ]
+requirements: |
+  transformers[torch]
+max_batching_rows: 1
+cloud_run:
+  cpu: 2
+  memory: 8Gi

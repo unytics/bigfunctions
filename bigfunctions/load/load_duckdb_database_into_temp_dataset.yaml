@@ -1,0 +1,70 @@
+type: function_py
+author: Paul Marcombes
+hide_in_doc: true
+description: |
+  Download duckdb database into a temp dataset
+  in bigfunctions project.
+
+  Each call to this function **creates a new temporary dataset** which:
+
+  - will contains the duckdb tables present in the duckdb file,
+  - is accessible only to you (who calls the function) and the function. You have permission to read data, delete the tables and delete the dataset.
+  - has a limited period of life. Default expiration time is set to 1h so that every table created will be automatically deleted after 1h. Empty datasets are periodically removed.
+  - has a random name returned by the function
+arguments:
+  - name: duckdb_file_url
+    type: string
+output:
+  name: destination_dataset
+  type: string
+examples:
+  - description: "load duckdb database used in evidence examples"
+    arguments:
+      - "'https://github.com/evidence-dev/sql-prophet/raw/refs/heads/main/sources/needful_things/needful_things.duckdb'"
+    output: "bigfunctions.temp_6bdb75ca_7f72_4f1f_b46a_6ca59f7f66ac.file_data"
+init_code: |
+  import tempfile
+  import urllib.request
+
+  import google.cloud.bigquery
+  import google.api_core.exceptions
+
+  def duckdb2dataframes(url):
+    import duckdb
+    with tempfile.TemporaryDirectory() as folder:
+      urllib.request.urlretrieve(url, f'{folder}/db.duckdb')
+      with duckdb.connect(f'{folder}/db.duckdb') as con:
+        tables = con.sql("show tables").fetchall()
+        tables = [t[0] for t in tables]
+        dataframes = {
+          table: con.table(table).df()
+          for table in tables
+        }
+        return dataframes
+
+  def upload_dataframe(df, bigquery, destination_table, url):
+    job_config = google.cloud.bigquery.LoadJobConfig(
+      write_disposition="WRITE_TRUNCATE",
+      destination_table_description=f'File downloaded by BigFunctions from the web url: {url}'
+    )
+    try:
+      bigquery.load_table_from_dataframe(df, destination_table, job_config=job_config).result()
+    except (google.api_core.exceptions.Forbidden, google.api_core.exceptions.NotFound, google.api_core.exceptions.PermissionDenied) as e:
+      assert False, f'Service Account `{get_current_service_account()}` does not have data-editor permission for given destination dataset (or the dataset does not exsit). Please add it'
+code: |
+  dataframes = duckdb2dataframes(duckdb_file_url)
+  destination_dataset = create_temp_dataset()
+  for table, df in dataframes.items():
+    destination_table = f'{destination_dataset}.{table}'
+    upload_dataframe(df, bigquery, destination_table, duckdb_file_url)
+  return destination_dataset
+requirements: |
+  duckdb
+  google-cloud-bigquery[pandas,pyarrow]
+quotas:
+  max_rows_per_query: 1
+cloud_run:
+  memory: 4096Mi
+  concurrency: 1
+  max_instances: 20
+  service_account: load-file@bigfunctions.iam.gserviceaccount.com

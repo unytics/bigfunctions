@@ -54,7 +54,7 @@ with **150+ functions** built by the community<br>
 *no install needed*
 { .small }
 
-[Gain new SQL powers :octicons-arrow-right-24:](bigfunctions/README.md){ .md-button }
+[Discover the Functions :octicons-arrow-right-24:](bigfunctions/README.md){ .md-button }
 
 
 </div>
@@ -99,8 +99,10 @@ Build your own catalog of advanced functions.
 
 # Keep it Simple<br>with SQL-Data-Stack
 
-**BigQuery**, **BigFunctions** and **dbt**<br>
+**BigQuery**, **BigFunctions** and **dataform**<br>
 is all you need
+
+[Discover the SQL Data Stack :octicons-arrow-right-24:](https://medium.com/google-cloud/sql-is-all-you-need-77554fea90c0){ .md-button target="_blank" }
 
 </div>
 
@@ -115,49 +117,19 @@ is all you need
     ![bigfunctions logo](assets/logo_and_name.png){ style="max-height: 50px" }
 
 
--   **dbt** orchestrates SQL
+-   **dataform** orchestrates SQL
 
-    ![dbt logo](assets/dbt.png){ style="max-height: 50px" }
+    ![dataform logo](assets/dataform.jpeg.jpg){ style="max-height: 50px" }
 
 </div>
 
 
 <div class="hero" markdown>
 
-**dbt can be replaced by any sql orchestrator (dataform, sqlmesh, scheduled queries, etc)*
+**dataform can be replaced by any sql orchestrator (dbt, sqlmesh, scheduled queries, etc)*
 { .small }
 
 </div>
 
-<div class="primary-background" markdown>
-
-<div class="md:two-columns max-width-800" markdown>
-
--   ## Modern-Data-Stack
-
-    ![Modern-Data-Stack](assets/modern_data_stack2.png)
-
-    :x: **Tool Sprawl**: A multitude of tools for various tasks complicates the data workflow.
-
-    :x: **Custom Scripting**: Reliance on custom Python scripts introduces complexity and increases maintenance overhead.
-
-    :x: **Lack of Self-Service**: Data analysts often depend on data engineers for complex tasks, hindering agility and efficiency.
-
-
--   ## SQL-Data-Stack
-
-    ![SQL-Data-Stack](assets/sql_data_stack2.png)
-
-    :white_check_mark: **Simplicity**: Achieve everything with SQL, thus minimizing the need for multiple tools.
-
-    :white_check_mark: **Centralized Governance**: Control all data processes from a central data warehouse with declarative assets.
-
-    :white_check_mark: **Self-Service**:  Empower data analysts to perform intricate tasks using SQL functions directly.
-
-</div>
-
-</div>
-
-
-
+<br>
 <br>

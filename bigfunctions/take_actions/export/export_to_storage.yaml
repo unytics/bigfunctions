@@ -1,0 +1,49 @@
+type: function_py
+author: Paul Marcombes
+description: |
+  Exports `content` to Cloud Storage
+
+  > 💡 *For this to work, `bigfunction@bigfunctions.iam.gserviceaccount.com` must have objectCreator role to the bucket.*
+
+arguments:
+  - name: path
+    type: string
+  - name: content
+    type: string
+  - name: content_type
+    type: string
+output:
+  name: status
+  type: string
+examples:
+  - description: Export `data` to default database, to default namespace with auto-generated `key`.
+    arguments:
+      - "'gs://bucket/path/to/filename.csv'"
+      - "'column1,column2\nvalue1,value2'"
+    output: "OK"
+init_code: | #python
+  import google.cloud.storage
+  import google.api_core.exceptions
+
+  storage = google.cloud.storage.Client()
+code: | #python
+  if not path:
+    return 'NO_PATH_PROVIDED'
+  if not content:
+    return 'NO_CONTENT_PROVIDED'
+  content_type = content_type or 'text/plain'
+  path = path.replace('gs://', '')
+  if '/' not in path:
+    return 'INVALID_PATH_PROVIDED'
+  bucket_name, filename = path.split('/', 1)
+  bucket = storage.bucket(bucket_name)
+  blob = bucket.blob(filename)
+  try:
+    blob.upload_from_string(content, content_type=content_type)
+  except google.api_core.exceptions.NotFound:
+    assert False, f'Given bucket does not exist OR service Account `{get_current_service_account()}` does not have objectCreator role'
+  except (google.api_core.exceptions.PermissionDenied, google.api_core.exceptions.Forbidden):
+    assert False, f'Service Account `{get_current_service_account()}` does not have objectCreator role into given bucket'
+  return 'OK'
+requirements: |
+  google-cloud-storage

@@ -1,0 +1,52 @@
+type: function_py
+author: Guillaume Pivette from Neoxia
+description: |
+    Convert `html` to `pdf`
+    encoded as a base64 string.
+
+    > This function is useful to combine with `send_mail` if you want to send a personnalized pdf to some people.
+    >
+    > To have a beautiful pdf, we advise you to get inspired by [this invoice template](https://github.com/sparksuite/simple-html-invoice-template).
+arguments:
+  - name: html
+    type: string
+output:
+  name: pdf_base64
+  type: string
+examples:
+  - description: ""
+    arguments:
+      - '"<h1>Love It!</h1>"'
+    output: 'JVBERi0xLjQK....'
+    screenshot: html2pdf.png
+code: |
+  import base64
+  import tempfile
+
+  if 'browser' not in CACHE:
+      from playwright.sync_api import sync_playwright
+      CACHE['playwright'] = sync_playwright().start()
+      CACHE['browser'] = CACHE['playwright'].chromium.launch()
+      CACHE['context'] = CACHE['browser'].new_context(
+          offline=True,
+          java_script_enabled=False,
+          service_workers='block',
+      )
+      CACHE['page'] = CACHE['context'].new_page()
+
+  with tempfile.TemporaryDirectory() as folder:
+      hmtl_file = f'{folder}/in.html'
+      open(hmtl_file, 'w', encoding='utf-8').write(html)
+      response = CACHE['page'].goto(f'file://{hmtl_file}')
+      assert response.ok, f'Chrome Response status is {response.status}. Response: {response.text}'
+      pdf = CACHE['page'].pdf()
+  return base64.b64encode(pdf).decode()
+requirements: |
+  playwright
+dockerfile:
+  additional_commands: |
+    ENV PLAYWRIGHT_BROWSERS_PATH=/opt/
+    RUN playwright install --with-deps chromium
+cloud_run:
+  memory: 1024Mi
+  concurrency: 1

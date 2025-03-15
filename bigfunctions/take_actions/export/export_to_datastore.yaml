@@ -1,0 +1,85 @@
+type: function_py
+author: El-Walid
+description: |
+  Exports `data` to Datastore
+  (Firestore in Datastore mode) to `key` at `datastore_path` (like `project/database/namespace/kind`)
+
+  > 💡 *For this to work, `bigfunction@bigfunctions.iam.gserviceaccount.com` must have datastore user role in your project.*
+
+arguments:
+  - name: datastore_path
+    type: string
+  - name: key
+    type: string
+  - name: data
+    type: json
+output:
+  name: key
+  type: string
+examples:
+  - description: Export `data` to default database, to default namespace with auto-generated `key`.
+    arguments:
+      - "'your-project/default/default/users'"
+      - "null"
+      - "json '{\"name\": \"Marc Harris\", \"email\": \"marc@harris.com\"}'"
+    output: "4503604769587200"
+  - description: Export `data` with email as `key`.
+    arguments:
+      - "'your-project/default/default/users'"
+      - "'marc@harris.com'"
+      - "json '{\"name\": \"Marc Harris\"}'"
+    output: "marc@harris.com"
+code_process_rows_as_batch: true
+code: | #python
+  import google.cloud.datastore
+  import google.api_core.exceptions
+
+  NB_RETRIES = 10
+
+  store = None
+  entities = []
+  for row in rows:
+    datastore_path, key, data = row
+
+    assert len(datastore_path.split('/')) == 4, '`datastore_path` must be like `project/database/namespace/kind`'
+
+    project, database, namespace, kind = datastore_path.split('/')
+    database = database if database != 'default' else None
+    namespace = namespace if namespace != 'default' else None
+
+    if store is None:
+      assert project != 'bigfunctions' or g.user.endswith('unytics.io') or g.user.endswith('nickel.eu'), 'Forbidden to write here'
+      store = google.cloud.datastore.Client(project=project, database=database)
+      _project = project
+      _database = database
+    elif (project != _project) or (database != _database):
+      assert False, "`project` and `database` must be equal for all rows"
+
+    if key:
+      try:
+        key = int(key)
+      except:
+        pass
+      entity_key = store.key(kind, key, namespace=namespace)
+    else:
+      entity_key = store.key(kind, namespace=namespace)
+
+    entity = google.cloud.datastore.Entity(entity_key)
+    entity.update(data)
+    entities.append(entity)
+
+  for k in range(NB_RETRIES):
+    try:
+      store.put_multi(entities)
+      break
+    except Exception as e:
+      if type(e).__name__.upper() == 'ABORTED':
+        if k == (NB_RETRIES - 1):
+          raise
+        continue
+      else:
+        raise
+
+  return [str(entity.key.id_or_name) for entity in entities]
+requirements: |
+  google-cloud-datastore

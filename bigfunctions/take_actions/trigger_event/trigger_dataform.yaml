@@ -1,0 +1,113 @@
+type: function_py
+author: Moldavanka
+description: |
+  Triggers a Dataform workflow in the specified project, location, repository and workspace.
+  Returns the workflow invocation ID if successful.
+
+arguments:
+  - name: repo_location
+    type: string
+    description: The GCP location of the Dataform repository (e.g., 'us-central1')
+  - name: repo_name
+    type: string
+    description: The name of the Dataform repository
+  - name: repo_workspace
+    type: string
+    description: The name of the Dataform workspace
+  - name: project_id
+    type: string
+    description: The GCP project ID where the Dataform repository is located
+  - name: compilation_result_id
+    type: string
+    description: Optional compilation result ID. If provided, uses this instead of creating a new compilation
+    default: ""
+
+output:
+  name: invocation_result
+  type: string
+  description: JSON string with workflow invocation ID or error message
+
+examples:
+  - description: "Trigger a Dataform workflow with a new compilation"
+    arguments:
+      - "'us-central1'"
+      - "'my-repo'"
+      - "'my-workspace'"
+      - "'my-project'"
+    output: '{"workflow_invocation_id": "workflow_invocation_123456"}'
+
+code: | #python
+  import os
+  import json
+  from google.cloud import dataform
+  
+  # Parse the input parameters
+  try:
+      # Initialize the Dataform client
+      client = dataform.DataformClient()
+      
+      # Set up repository path
+      repo_path = client.repository_path(
+          project=project_id, location=repo_location, repository=repo_name
+      )
+      
+      # If compilation_result_id is provided, use it
+      if compilation_result_id:
+          compilation_result_path = client.compilation_result_path(
+              project=project_id,
+              location=repo_location,
+              repository=repo_name,
+              compilation_result=compilation_result_id
+          )
+          
+          # Create a compilation result object
+          compilation_result = dataform.CompilationResult()
+          compilation_result.name = compilation_result_path
+      else:
+          # Need to compile from workspace
+          workspace_path = client.workspace_path(
+              project=project_id,
+              location=repo_location,
+              repository=repo_name,
+              workspace=repo_workspace,
+          )
+          
+          # Create a new compilation
+          compilation_result = dataform.CompilationResult()
+          compilation_result.workspace = workspace_path
+          
+          # Request to create the compilation
+          create_compilation_request = dataform.CreateCompilationResultRequest()
+          create_compilation_request.parent = repo_path
+          create_compilation_request.compilation_result = compilation_result
+          
+          # Execute the compilation
+          compilation_result = client.create_compilation_result(request=create_compilation_request)
+      
+      # Create workflow invocation
+      wf_invocation = dataform.WorkflowInvocation()
+      wf_invocation.compilation_result = compilation_result.name
+      
+      # Set up the request
+      request = dataform.CreateWorkflowInvocationRequest()
+      request.parent = repo_path
+      request.workflow_invocation = wf_invocation
+      
+      # Execute the workflow invocation
+      result = client.create_workflow_invocation(request=request)
+      
+      # Return the workflow invocation ID
+      invocation_id = result.name.split('/')[-1]
+      return json.dumps({"workflow_invocation_id": invocation_id})
+      
+  except Exception as e:
+      return json.dumps({"error": str(e)})
+
+requirements: |
+  google-cloud-dataform==0.5.2
+
+cloud_run:
+  memory: 512Mi
+  cpu: 1
+  max_instances: 5
+  timeout: 300
