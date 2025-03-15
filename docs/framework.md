@@ -242,12 +242,6 @@ select PROJECT.DATASET.faker("name", "it_IT")
 <br>
 
 
-<<<<<<< HEAD
-
-
-
-
-
 ## YAML Syntax for Function Structure
 
 === "SQL"
@@ -467,7 +461,6 @@ select PROJECT.DATASET.faker("name", "it_IT")
       **⚠️ Important Notes:**
         - Prefer official images for security
         - Don't modify the default `EXPOSE 8080`
-      [Dockerfile Documentation :material-arrow-right:](https://docs.docker.com/engine/reference/builder/)
     9. <code>code</code>
       <i>(Required)</i>
       Python function implementation containing the core business logic.
@@ -527,7 +520,7 @@ select PROJECT.DATASET.faker("name", "it_IT")
             Maximum rows returned per API call.
     13. <i class="optional">(Optional)</i> Cloud Run Configuration
       Configure scaling, compute resources, and deployment settings for your Cloud Run service.
-      For advanced configurations, see the [official Cloud Run documentation][cloud-run-docs].
+      For advanced configurations, see the [official Cloud Run documentation :material-arrow-right:](https://cloud.google.com/run/docs/).
       ```yaml
         # Docker image deployed to Cloud Run (e.g., from Google Container Registry)
         image: gcr.io/project-id/image:tag
@@ -558,11 +551,6 @@ select PROJECT.DATASET.faker("name", "it_IT")
       ```
     14. <i>(Optional)</i> Secrets
 
-
-
-
-=======
->>>>>>> upstream/main
 ## ❓ FAQ
 
 ??? note "How to correctly highlight `sql`, `python` and `javascript` code in yaml files?"
