@@ -391,10 +391,6 @@ select PROJECT.DATASET.faker("name", "it_IT")
         cpu: 2 # vCPU count
     ```
 
-=== "Javascript Function"    
-
-    To be documented
-
     1. <code>type</code>
       <i>(Required)</i>
       Function category declaration.
@@ -554,6 +550,24 @@ select PROJECT.DATASET.faker("name", "it_IT")
         max_instances: 100
       ```
     14. <i>(Optional)</i> Secrets
+
+
+=== "Javascript Function"    
+
+    To be documented
+
+=== "SQL Stored Procedure"    
+
+    To be documented
+
+=== "SQL Aggregate Function"    
+
+    To be documented    
+
+=== "Javascript Aggregate Function"    
+
+    To be documented        
+        
 
 ## ❓ FAQ
 
