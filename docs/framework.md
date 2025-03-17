@@ -244,7 +244,7 @@ select PROJECT.DATASET.faker("name", "it_IT")
 
 ## YAML Syntax for Function Structure
 
-=== "SQL Function"
+=== "SQL"
 
     ```yaml
       type: function_sql  #(1)!
@@ -332,7 +332,7 @@ select PROJECT.DATASET.faker("name", "it_IT")
       SQL query implementation for the function's logic.
 
 
-=== "Python Function"
+=== "Python"
 
     ```yaml
       type: function_py  #(1)!
@@ -549,7 +549,7 @@ select PROJECT.DATASET.faker("name", "it_IT")
     14. <i>(Optional)</i> Secrets
 
 
-=== "Javascript Function"
+=== "Javascript"
 
     To be documented
 
