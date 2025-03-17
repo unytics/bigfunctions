@@ -247,20 +247,20 @@ select PROJECT.DATASET.faker("name", "it_IT")
 === "SQL Function"
 
     ```yaml
-      type: function_sql  #(1)! Function type (SQL native)
-      author: John Doe  #(2)! Function author
-      description: |  #(3)! Clear and concise description
+      type: function_sql  #(1)!
+      author: John Doe  #(2)!
+      description: |  #(3)!
         Multiplies a number by a factor
         (example function for documentation purposes)
-      arguments:  #(4)! List of arguments
+      arguments:  #(4)!
         - name: num
           type: float64
         - name: factor
           type: float64
-      output:  #(5)! Function output
+      output:  #(5)!
         name: product
         type: float64
-      examples:  #(6)! Usage examples
+      examples:  #(6)!
         - description: Basic multiplication
           arguments:
             - 5
@@ -271,7 +271,7 @@ select PROJECT.DATASET.faker("name", "it_IT")
             - 2.5
             - 4
           output: 10.0
-      code: |  #(7)! SQL implementation
+      code: |  #(7)!
         (
           SELECT num * factor
         )
@@ -335,20 +335,20 @@ select PROJECT.DATASET.faker("name", "it_IT")
 === "Python Function"
 
     ```yaml
-      type: function_py  #(1)! Python UDF type
-      author: John Doe  #(2)! Function creator
-      description: |  #(3)!
+      type: function_py  #(1)!
+      author: John Doe  #(2)!
+      description: |  #(3)
         Generates a personalized greeting message
         Combines first and last name with a welcome phrase
-      arguments:  #(4)! Input parameters
+      arguments:  #(4)!
         - name: first_name
           type: string
         - name: last_name
           type: string
-      output:  #(5)! Return specification
+      output:  #(5)!
         name: greeting
         type: string
-      examples:  #(6)! Usage demonstrations
+      examples:  #(6)!
         - description: Basic usage
           arguments:
             - "'John'"
@@ -359,31 +359,31 @@ select PROJECT.DATASET.faker("name", "it_IT")
             - "'Marie'"
             - "'Curie'"
           output: "Hello Marie Curie"
-      init_code: | #(7)! Initialization code
+      init_code: | #(7)!
         # Pre-imported modules (executed once)
         import requests  # Example dependency
-      code: | #(9)! Main function logic
+      code: | #(9)!
         return f"Hello {first_name} {last_name}"
-      requirements: | #(10)! Python dependencies
+      requirements: | #(10)!
         # External libraries needed
         numpy==1.24.2
         requests>=2.28.1
-      dockerfile: | #(8)! Custom runtime setup
+      dockerfile: | #(8)!
         image: python:3.9-slim  # Base image
         apt_packages:  # System dependencies
           - libgomp1
         additional_commands: |
           # Additional setup commands
           RUN pip install --upgrade pip
-      secrets: | #(14)! Secure configurations
+      secrets: | #(14)!
         - name: API_KEY
           description: External service authentication
           documentation_link: https://example.com/api-docs
-      max_batching_rows: 1 #(11)! Max rows processed per batch (remote execution)
-      quotas: | #(12)! Usage limits
+      max_batching_rows: 1 #(11)!
+      quotas: | #(12)!
         max_rows_per_user_per_day: 10000000 # Daily user quota
         max_rows_per_query: 2 # Per-query limit
-      cloud_run: #(13)! Serverless config
+      cloud_run: #(13)!
         memory: 2Gi
         concurrency: 80 # Max concurrent requests/instance
         cpu: 2 # vCPU count
