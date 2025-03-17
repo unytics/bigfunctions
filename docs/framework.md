@@ -242,7 +242,7 @@ select PROJECT.DATASET.faker("name", "it_IT")
 <br>
 
 
-## YAML Syntax for Function Structure
+## YAML Syntax
 
 === "SQL"
 
