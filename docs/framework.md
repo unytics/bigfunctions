@@ -549,22 +549,22 @@ select PROJECT.DATASET.faker("name", "it_IT")
     14. <i>(Optional)</i> Secrets
 
 
-=== "Javascript Function"    
+=== "Javascript Function"
 
     To be documented
 
-=== "SQL Stored Procedure"    
+=== "SQL Stored Procedure"
 
     To be documented
 
-=== "SQL Aggregate Function"    
+=== "SQL Aggregate Function"
 
-    To be documented    
+    To be documented
 
-=== "Javascript Aggregate Function"    
+=== "Javascript Aggregate Function"
 
-    To be documented        
-        
+    To be documented
+
 
 ## ❓ FAQ
 
