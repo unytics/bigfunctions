@@ -277,20 +277,19 @@ select PROJECT.DATASET.faker("name", "it_IT")
         )
     ```
 
-    1. <code>type</code>
-      <i>(Required)</i>
+    1. `type`
+      *(Required)*
       Function category declaration.
-    2. <code>author</code>
-      <i>(Optional)</i>
+    2. `author`
+      *(Optional)*
       Function creator/maintainer identifier.
-    3. <code>description</code>
-      <i>(Required)</i>
+    3. `description`
+      *(Required)*
       Clear explanation of the function's purpose and behavior.
-    4. <code>arguments</code>
-      <i>(Required)</i>
-      List of input parameters with BigQuery-compatible type definitions and descriptions.
-      **Parameter Structure:**
-        Each argument requires:
+    4. `arguments`
+      *(Required)*
+      List of input arguments with BigQuery-compatible types.
+      **Argument structure**:
         - **`name`**
           Valid identifier (snake_case recommended)
           Example: `user_id`, `transaction_amount`
@@ -300,8 +299,8 @@ select PROJECT.DATASET.faker("name", "it_IT")
           BOOL | INT64 | FLOAT64 | STRING | JSON | DATE | TIMESTAMP
           ```
       [BigQuery Data Types Reference :material-arrow-right:](https://cloud.google.com/bigquery/docs/reference/standard-sql/data-types)
-    5.  <code>output</code>
-      <i>(Required)</i>
+    5.  `output`
+      *(Required)*
       Definition of the function's return value structure.
       **Output Structure:**
         - **`name`**
@@ -320,15 +319,15 @@ select PROJECT.DATASET.faker("name", "it_IT")
           description: Total amount after applying discounts and taxes
         ```
       [BigQuery Data Types Reference :material-arrow-right:](https://cloud.google.com/bigquery/docs/reference/standard-sql/data-types)
-    6. <code>examples</code>
-        <i>(Required)</i>
+    6. `examples`
+        *(Required)*
         List of practical usage demonstrations for the function.
         **Key Elements:**
         - **`description`** : Context explanation
         - **`arguments`** : Input values
         - **`output`** : Expected result
-    7. <code>code</code>
-      <i>(Required)</i>
+    7. `code`
+      *(Required)*
       SQL query implementation for the function's logic.
 
 
@@ -389,17 +388,17 @@ select PROJECT.DATASET.faker("name", "it_IT")
         cpu: 2 # vCPU count
     ```
 
-    1. <code>type</code>
-      <i>(Required)</i>
+    1. `type`
+      *(Required)*
       Function category declaration.
-    2. <code>author</code>
-      <i>(Optional)</i>
+    2. `author`
+      *(Optional)*
       Function creator/maintainer identifier.
-    3. <code>description</code>
-      <i>(Required)</i>
+    3. `description`
+      *(Required)*
       Clear explanation of the function's purpose and behavior.
-    4. <code>arguments</code>
-      <i>(Required)</i>
+    4. `arguments`
+      *(Required)*
       List of input parameters with type definitions and descriptions.
       **Parameter Structure:**
         Each argument requires:
@@ -414,8 +413,8 @@ select PROJECT.DATASET.faker("name", "it_IT")
       [Python Type Hints Documentation :material-arrow-right:](https://docs.python.org/3/library/typing.html)
     5. Output structure (name, type).
     6. List of usage examples (description, arguments, output).
-    7. <code>init_code</code>
-      <i>(Optional)</i>
+    7. `init_code`
+      *(Optional)*
       Initialization code executed once during container startup, before any function invocation.
       **Example:**
         ```python
@@ -437,8 +436,8 @@ select PROJECT.DATASET.faker("name", "it_IT")
         - Changes to `init_code` require a new deployment
         - Not suitable for request-specific authentication tokens
       [Python Import System Documentation :material-arrow-right:](https://docs.python.org/3/reference/import.html)
-    8. <code>dockerfile</code>
-      <i>(Optional)</i>
+    8. `dockerfile`
+      *(Optional)*
       Custom Docker container configuration for function packaging.
       **Configurable Elements:**
         - **`image`**
@@ -459,15 +458,15 @@ select PROJECT.DATASET.faker("name", "it_IT")
       **⚠️ Important Notes:**
         - Prefer official images for security
         - Don't modify the default `EXPOSE 8080`
-    9. <code>code</code>
-      <i>(Required)</i>
+    9. `code`
+      *(Required)*
       Python function implementation containing the core business logic.
 
       **Key Considerations:**
         - Arguments defined in the `arguments` section of the yaml are available here in the code.
         - Dependencies must be declared in `requirements` section
-    10. <code>requirements</code>
-      <i>(Optional)</i>
+    10. `requirements`
+      *(Optional)*
       Python packages required by the function, following `requirements.txt` syntax.
       **Format:**
       ```text
@@ -482,17 +481,17 @@ select PROJECT.DATASET.faker("name", "it_IT")
       google-cloud-storage  # For cloud integration
       ```
       [Python Packaging Documentation :material-arrow-right:](https://packaging.python.org/en/latest/tutorials/managing-dependencies/)
-    11. <code>max_batching_rows</code>
-      <i>(Optional)</i>
+    11. `max_batching_rows`
+      *(Optional)*
       You can specify `max_batching_rows` as the maximum number of rows in each HTTP request, to avoid Cloud Run functions timeout. If you specify `max_batching_rows`, BigQuery determines the number of rows in a batch up to the `max_batching_rows` limit. If not specified, BigQuery determines the number of rows to batch automatically. [Documentation](https://cloud.google.com/bigquery/docs/remote-functions#limiting_number_of_rows_in_a_batch_request).
-    12. <code>quotas</code>
-      <i>(Optional)</i>
+    12. `quotas`
+      *(Optional)*
       Resource limits to prevent abuse and ensure system stability:
-        - **<code>max_rows_per_query</code>**
+        - **`max_rows_per_query`**
             Maximum number of rows in a query using the function.
-        - **<code>max_rows_per_user_per_day</code>**
+        - **`max_rows_per_user_per_day`**
             Maximum number of rows per day per user in queries using the function.
-    13. <i class="optional">(Optional)</i> Cloud Run Configuration
+    13. *(Optional)* Cloud Run Configuration
       Configure scaling, compute resources, and deployment settings for your Cloud Run service.
       All arguments from [official Cloud Run documentation :material-arrow-right:](https://cloud.google.com/run/docs/) are suported (we replaced `-` by `_` in arguments name for convention).
       Examples of configuration:
@@ -524,7 +523,8 @@ select PROJECT.DATASET.faker("name", "it_IT")
       # Maximum number of instances allowed
       max_instances: 100
       ```
-    14. <i>(Optional)</i> Secrets
+    14. *(Optional)*
+      Secrets
 
 
 === "Javascript"
