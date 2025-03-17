@@ -484,22 +484,14 @@ select PROJECT.DATASET.faker("name", "it_IT")
       [Python Packaging Documentation :material-arrow-right:](https://packaging.python.org/en/latest/tutorials/managing-dependencies/)
     11. <code>max_batching_rows</code>
       <i>(Optional)</i>
-      Maximum number of rows processed in a single batch during remote function execution.
-      It is defined by BigQuery by default.
-      **Impact:**
-      Higher values improve throughput for bulk operations
-      Lower values reduce memory consumption per request
-      **Use Case:**
-      Set to >1 when processing multiple BigQuery rows simultaneously
-      **Documentation:**
-      [BigQuery Batch Processing Limits :material-arrow-right:](https://cloud.google.com/bigquery/quotas#query_jobs)
+      You can specify `max_batching_rows` as the maximum number of rows in each HTTP request, to avoid Cloud Run functions timeout. If you specify `max_batching_rows`, BigQuery determines the number of rows in a batch up to the `max_batching_rows` limit. If not specified, BigQuery determines the number of rows to batch automatically. [Documentation](https://cloud.google.com/bigquery/docs/remote-functions#limiting_number_of_rows_in_a_batch_request).
     12. <code>quotas</code>
       <i>(Optional)</i>
       Resource limits to prevent abuse and ensure system stability:
-        - **<code>max_rows_per_user_per_day</code>**
-            Maximum database rows a single user can retrieve in 24 hours.
         - **<code>max_rows_per_query</code>**
-            Maximum rows returned per API call.
+            Maximum number of rows in a query using the function.
+        - **<code>max_rows_per_user_per_day</code>**
+            Maximum number of rows per day per user in queries using the function.
     13. <i class="optional">(Optional)</i> Cloud Run Configuration
       Configure scaling, compute resources, and deployment settings for your Cloud Run service.
 
