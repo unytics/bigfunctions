@@ -462,25 +462,10 @@ select PROJECT.DATASET.faker("name", "it_IT")
     9. <code>code</code>
       <i>(Required)</i>
       Python function implementation containing the core business logic.
-      **Format:**
-      ```python
-      def your_function_name(parameter1: type, parameter2: type) -> return_type:
-          """Function docstring explaining purpose and behavior"""
-          # Implementation code here
-          return result
-      ```
-      **Example:**
-      ```python
-      def calculate_price(quantity: int, unit_price: float) -> float:
-          """Calculate total price with 20% tax"""
-          tax_rate = 0.20
-          subtotal = quantity * unit_price
-          return subtotal * (1 + tax_rate)
-      ```
+
       **Key Considerations:**
-        - Must match parameter names/types defined in `arguments` section
+        - Arguments defined in the `arguments` section of the yaml are available here in the code.
         - Dependencies must be declared in `requirements` section
-      [Python Function Best Practices :material-arrow-right:](https://peps.python.org/pep-0008/)
     10. <code>requirements</code>
       <i>(Optional)</i>
       Python packages required by the function, following `requirements.txt` syntax.
@@ -517,34 +502,38 @@ select PROJECT.DATASET.faker("name", "it_IT")
             Maximum rows returned per API call.
     13. <i class="optional">(Optional)</i> Cloud Run Configuration
       Configure scaling, compute resources, and deployment settings for your Cloud Run service.
-      For advanced configurations, see the [official Cloud Run documentation :material-arrow-right:](https://cloud.google.com/run/docs/).
+
+      All arguments from [official Cloud Run documentation :material-arrow-right:](https://cloud.google.com/run/docs/) are suported (we replaced `-` by `_` in arguments name for convention).
+
+      Examples of configuration:
+
       ```yaml
-        # Docker image deployed to Cloud Run (e.g., from Google Container Registry)
-        image: gcr.io/project-id/image:tag
+      # Service Account (default to compute engine service account of your project)
+      service_account: XXXXXXXXX-compute@developer.gserviceaccount.com
 
-        # Deployment region for the service (default: us-central1)
-        region: us-central1  # [See supported regions][cloud-run-regions]
+      # Deployment region for the service (default: same region as your dataset)
+      region: us-central1  # [See supported regions][cloud-run-regions]
 
-        # Allocated memory per instance (valid: 128Mi to 32Gi, in 64Mi increments)
-        memory: 512Mi
+      # Allocated memory per instance (valid: 128Mi to 32Gi, in 64Mi increments)
+      memory: 512Mi
 
-        # Number of allocated CPUs per instance (default: 1)
-        cpu: 1
+      # Number of allocated CPUs per instance (default: 1)
+      cpu: 1
 
-        # Maximum concurrent requests per instance (default: 80)
-        concurrency: 80  # Set to 1 for strict isolation
+      # Maximum concurrent requests per instance
+      concurrency: 80  # Set to 1 for strict isolation
 
-        # Maximum request duration (e.g., 300s = 5 minutes)
-        timeout: 300s
+      # Maximum request duration (e.g., 300s = 5 minutes)
+      timeout: 300s
 
-        # Environment variables (format: KEY1=value1,KEY2=value2)
-        set_env_vars: DEBUG=true,MAX_RETRIES=3
+      # Environment variables (format: KEY1=value1,KEY2=value2)
+      set_env_vars: DEBUG=true,MAX_RETRIES=3
 
-        # Minimum number of running instances (avoids cold starts)
-        min_instances: 1
+      # Minimum number of running instances (avoids cold starts)
+      min_instances: 1
 
-        # Maximum number of instances allowed (default: 100)
-        max_instances: 100
+      # Maximum number of instances allowed
+      max_instances: 100
       ```
     14. <i>(Optional)</i> Secrets
 
