@@ -244,7 +244,7 @@ select PROJECT.DATASET.faker("name", "it_IT")
 
 ## YAML Syntax for Function Structure
 
-=== "SQL"
+=== "SQL Function"
 
     ```yaml
       type: function_sql  #(1)! Function type (SQL native)
@@ -332,7 +332,7 @@ select PROJECT.DATASET.faker("name", "it_IT")
       SQL query implementation for the function's logic.
 
 
-=== "Python"
+=== "Python Function"
 
     ```yaml
       type: function_py  #(1)! Python UDF type
@@ -390,6 +390,10 @@ select PROJECT.DATASET.faker("name", "it_IT")
         concurrency: 80 # Max concurrent requests/instance
         cpu: 2 # vCPU count
     ```
+
+=== "Javascript Function"    
+
+    To be documented
 
     1. <code>type</code>
       <i>(Required)</i>
