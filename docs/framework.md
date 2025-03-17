@@ -494,11 +494,8 @@ select PROJECT.DATASET.faker("name", "it_IT")
             Maximum number of rows per day per user in queries using the function.
     13. <i class="optional">(Optional)</i> Cloud Run Configuration
       Configure scaling, compute resources, and deployment settings for your Cloud Run service.
-
       All arguments from [official Cloud Run documentation :material-arrow-right:](https://cloud.google.com/run/docs/) are suported (we replaced `-` by `_` in arguments name for convention).
-
       Examples of configuration:
-
       ```yaml
       # Service Account (default to compute engine service account of your project)
       service_account: XXXXXXXXX-compute@developer.gserviceaccount.com
