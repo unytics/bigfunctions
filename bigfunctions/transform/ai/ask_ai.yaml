@@ -58,7 +58,7 @@ init_code: |
   import vertexai
   from vertexai.preview.language_models import TextGenerationModel, CodeGenerationModel
   from vertexai.preview.generative_models import GenerativeModel
-  vertexai.init(location=CURRENT_LOCATION)
+  vertexai.init(location=g.region)
 code: |
   model = model or 'gemini-pro'
   prompt = (prompt or '').strip()

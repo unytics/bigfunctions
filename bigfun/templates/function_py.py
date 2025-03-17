@@ -20,7 +20,6 @@ app = Flask(__name__)
 
 
 CACHE = {}
-CURRENT_LOCATION = '{{ cloud_run_location }}'
 
 QUOTAS = {{ quotas if quotas is defined else {} }}
 
@@ -43,7 +42,7 @@ def get_current_service_account():
 
 def create_temp_dataset(default_table_expiration_days=0.042):
     import google.cloud.bigquery
-    bigquery = google.cloud.bigquery.Client(location=g.bigfunction_dataset_location)
+    bigquery = google.cloud.bigquery.Client(location=g.dataset_location)
     random_id = str(uuid.uuid4()).replace('-', '_')
     dataset_id = f'{PROJECT}.temp_{random_id}'
     is_user_service_account = 'iam.gserviceaccount.com' in g.user
@@ -78,7 +77,8 @@ def init_global_context(data):
     g.user = data['sessionUser']
     user_project_matches = re.findall(r'bigquery.googleapis.com/projects/([^/]*)/', data['caller'])
     g.user_project = user_project_matches[0] if user_project_matches else None
-    g.bigfunction_dataset_location = data.get('userDefinedContext', {}).get('dataset_location')
+    g.dataset_location = data.get('userDefinedContext', {}).get('dataset_location')
+    g.region = {'EU': 'europe-west1', 'US': 'us-west1'}.get(g.dataset_location, g.dataset_location)
 
 
 

@@ -224,7 +224,6 @@ class BigFunction:
     def _deploy_cloud_run(self):
         cloud_run_service = 'bf-' + self.name.replace("_", "-")
         cloud_run_location = {'EU': 'europe-west1', 'US': 'us-west1'}.get(self.dataset.location, self.dataset.location)
-        self.config['cloud_run_location'] = cloud_run_location
         with tempfile.TemporaryDirectory() as folder:
             remote_connection = self.bigquery.get_or_create_remote_connection(self.project, self.dataset.location, REMOTE_CONNECTION_NAME)
             self.bigquery.set_remote_connection_users(remote_connection.name, self.dataset.users)

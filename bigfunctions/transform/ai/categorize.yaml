@@ -132,7 +132,7 @@ init_code: |
     item['id'] = k
     return dicttoxml.dicttoxml(item, custom_root='item', attr_type=False, xml_declaration=False).decode('utf-8')
 
-  vertexai.init(location=CURRENT_LOCATION)
+  vertexai.init(location=g.region)
   model = GenerativeModel(MODEL)
 code: |
   if not items:

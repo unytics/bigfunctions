@@ -1,5 +1,4 @@
 CACHE = {}
-CURRENT_LOCATION = 'europe-west1'
 
 {{ init_code }}
 

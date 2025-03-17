@@ -123,7 +123,7 @@ init_code: |
       return dicttoxml.dicttoxml(item, custom_root='item', attr_type=False, xml_declaration=False).decode('utf-8')
     assert False, 'each item of `items` must be a string or an object'
 
-  vertexai.init(location=CURRENT_LOCATION)
+  vertexai.init(location=g.region)
   model = GenerativeModel(MODEL)
 code: |
   if not items:
