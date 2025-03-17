@@ -363,9 +363,7 @@ select PROJECT.DATASET.faker("name", "it_IT")
         # Pre-imported modules (executed once)
         import requests  # Example dependency
       code: | #(9)! Main function logic
-        def say_hello(first_name: str, last_name: str) -> str:
-            """Create greeting message"""
-            return f"Hello {first_name} {last_name}"
+        return f"Hello {first_name} {last_name}"
       requirements: | #(10)! Python dependencies
         # External libraries needed
         numpy==1.24.2
