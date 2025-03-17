@@ -399,9 +399,8 @@ select PROJECT.DATASET.faker("name", "it_IT")
       Clear explanation of the function's purpose and behavior.
     4. `arguments`
       *(Required)*
-      List of input parameters with type definitions and descriptions.
-      **Parameter Structure:**
-        Each argument requires:
+      List of input arguments with types.
+      **Argument structure**:
         - **`name`**
           Valid Python identifier (snake_case recommended)
           Example: `user_id`, `transaction_amount`
@@ -431,14 +430,10 @@ select PROJECT.DATASET.faker("name", "it_IT")
         - Initializing database connections/pools
         - Loading ML models or configuration files
         - Setting up shared caches or global variables
-      **⚠️ Important Notes:**
-        - Mutable global variables may cause concurrency issues
-        - Changes to `init_code` require a new deployment
-        - Not suitable for request-specific authentication tokens
-      [Python Import System Documentation :material-arrow-right:](https://docs.python.org/3/reference/import.html)
     8. `dockerfile`
       *(Optional)*
       Custom Docker container configuration for function packaging.
+      By default `uv` python image is used.
       **Configurable Elements:**
         - **`image`**
           Base Docker image (e.g., `python:3.9-slim`).
@@ -461,7 +456,6 @@ select PROJECT.DATASET.faker("name", "it_IT")
     9. `code`
       *(Required)*
       Python function implementation containing the core business logic.
-
       **Key Considerations:**
         - Arguments defined in the `arguments` section of the yaml are available here in the code.
         - Dependencies must be declared in `requirements` section
@@ -499,9 +493,6 @@ select PROJECT.DATASET.faker("name", "it_IT")
       # Service Account (default to compute engine service account of your project)
       service_account: XXXXXXXXX-compute@developer.gserviceaccount.com
 
-      # Deployment region for the service (default: same region as your dataset)
-      region: us-central1  # [See supported regions][cloud-run-regions]
-
       # Allocated memory per instance (valid: 128Mi to 32Gi, in 64Mi increments)
       memory: 512Mi
 
@@ -509,7 +500,7 @@ select PROJECT.DATASET.faker("name", "it_IT")
       cpu: 1
 
       # Maximum concurrent requests per instance
-      concurrency: 80  # Set to 1 for strict isolation
+      concurrency: 8  # Set to 1 for strict isolation
 
       # Maximum request duration (e.g., 300s = 5 minutes)
       timeout: 300s
