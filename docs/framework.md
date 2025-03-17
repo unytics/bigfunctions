@@ -500,8 +500,7 @@ select PROJECT.DATASET.faker("name", "it_IT")
     11. <code>max_batching_rows</code>
       <i>(Optional)</i>
       Maximum number of rows processed in a single batch during remote function execution.
-      **Default:**
-      1 (single-row processing)
+      It is defined by BigQuery by default.
       **Impact:**
       Higher values improve throughput for bulk operations
       Lower values reduce memory consumption per request
