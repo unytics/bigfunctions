@@ -242,6 +242,315 @@ select PROJECT.DATASET.faker("name", "it_IT")
 <br>
 
 
+## YAML Syntax for Function Structure
+
+=== "SQL"
+
+    ```yaml
+      type: function_sql  #(1)! Function type (SQL native)
+      author: John Doe  #(2)! Function author
+      description: |  #(3)! Clear and concise description
+        Multiplies a number by a factor
+        (example function for documentation purposes)
+      arguments:  #(4)! List of arguments
+        - name: num
+          type: float64
+        - name: factor
+          type: float64
+      output:  #(5)! Function output
+        name: product
+        type: float64
+      examples:  #(6)! Usage examples
+        - description: Basic multiplication
+          arguments:
+            - 5
+            - 3
+          output: 15
+        - description: Decimal multiplication
+          arguments:
+            - 2.5
+            - 4
+          output: 10.0
+      code: |  #(7)! SQL implementation
+        (
+          SELECT num * factor
+        )
+    ```
+
+    1. <code>type</code>
+      <i>(Required)</i>
+      Function category declaration.
+    2. <code>author</code>
+      <i>(Optional)</i>
+      Function creator/maintainer identifier.
+    3. <code>description</code>
+      <i>(Required)</i>
+      Clear explanation of the function's purpose and behavior.
+    4. <code>arguments</code>
+      <i>(Required)</i>
+      List of input parameters with BigQuery-compatible type definitions and descriptions.
+      **Parameter Structure:**
+        Each argument requires:
+        - **`name`**
+          Valid identifier (snake_case recommended)
+          Example: `user_id`, `transaction_amount`
+        - **`type`**
+          BigQuery-supported data type:
+          ```python
+          BOOL | INT64 | FLOAT64 | STRING | JSON | DATE | TIMESTAMP
+          ```
+      [BigQuery Data Types Reference :material-arrow-right:](https://cloud.google.com/bigquery/docs/reference/standard-sql/data-types)
+    5.  <code>output</code>
+      <i>(Required)</i>
+      Definition of the function's return value structure.
+      **Output Structure:**
+        - **`name`**
+          Identifier for the return value (snake_case recommended)
+          Example: `result`, `total_amount`
+        - **`type`**
+          BigQuery-compatible data type:
+          ```python
+          BOOL | INT64 | FLOAT64 | STRING | JSON | DATE | TIMESTAMP
+          ```
+      **Example:**
+        ```yaml
+        output:
+          name: final_price
+          type: FLOAT64
+          description: Total amount after applying discounts and taxes
+        ```
+      [BigQuery Data Types Reference :material-arrow-right:](https://cloud.google.com/bigquery/docs/reference/standard-sql/data-types)
+    6. <code>examples</code>
+        <i>(Required)</i>
+        List of practical usage demonstrations for the function.
+        **Key Elements:**
+        - **`description`** : Context explanation
+        - **`arguments`** : Input values
+        - **`output`** : Expected result
+    7. <code>code</code>
+      <i>(Required)</i>
+      SQL query implementation for the function's logic.
+
+
+=== "Python"
+
+    ```yaml
+      type: function_py  #(1)! Python UDF type
+      author: John Doe  #(2)! Function creator
+      description: |  #(3)!
+        Generates a personalized greeting message
+        Combines first and last name with a welcome phrase
+      arguments:  #(4)! Input parameters
+        - name: first_name
+          type: string
+        - name: last_name
+          type: string
+      output:  #(5)! Return specification
+        name: greeting
+        type: string
+      examples:  #(6)! Usage demonstrations
+        - description: Basic usage
+          arguments:
+            - "'John'"
+            - "'Doe'"
+          output: "Hello John Doe"
+        - description: Different name
+          arguments:
+            - "'Marie'"
+            - "'Curie'"
+          output: "Hello Marie Curie"
+      init_code: | #(7)! Initialization code
+        # Pre-imported modules (executed once)
+        import requests  # Example dependency
+      code: | #(9)! Main function logic
+        def say_hello(first_name: str, last_name: str) -> str:
+            """Create greeting message"""
+            return f"Hello {first_name} {last_name}"
+      requirements: | #(10)! Python dependencies
+        # External libraries needed
+        numpy==1.24.2
+        requests>=2.28.1
+      dockerfile: | #(8)! Custom runtime setup
+        image: python:3.9-slim  # Base image
+        apt_packages:  # System dependencies
+          - libgomp1
+        additional_commands: |
+          # Additional setup commands
+          RUN pip install --upgrade pip
+      secrets: | #(14)! Secure configurations
+        - name: API_KEY
+          description: External service authentication
+          documentation_link: https://example.com/api-docs
+      max_batching_rows: 1 #(11)! Max rows processed per batch (remote execution)
+      quotas: | #(12)! Usage limits
+        max_rows_per_user_per_day: 10000000 # Daily user quota
+        max_rows_per_query: 2 # Per-query limit
+      cloud_run: #(13)! Serverless config
+        memory: 2Gi
+        concurrency: 80 # Max concurrent requests/instance
+        cpu: 2 # vCPU count
+    ```
+
+    1. <code>type</code>
+      <i>(Required)</i>
+      Function category declaration.
+    2. <code>author</code>
+      <i>(Optional)</i>
+      Function creator/maintainer identifier.
+    3. <code>description</code>
+      <i>(Required)</i>
+      Clear explanation of the function's purpose and behavior.
+    4. <code>arguments</code>
+      <i>(Required)</i>
+      List of input parameters with type definitions and descriptions.
+      **Parameter Structure:**
+        Each argument requires:
+        - **`name`**
+          Valid Python identifier (snake_case recommended)
+          Example: `user_id`, `transaction_amount`
+        - **`type`**
+          Data type from allowed set:
+          ```python
+          BOOL | STRING | JSON | INT64 | FLOAT64
+          ```
+      [Python Type Hints Documentation :material-arrow-right:](https://docs.python.org/3/library/typing.html)
+    5. Output structure (name, type).
+    6. List of usage examples (description, arguments, output).
+    7. <code>init_code</code>
+      <i>(Optional)</i>
+      Initialization code executed once during container startup, before any function invocation.
+      **Example:**
+        ```python
+        # Pre-load expensive dependencies
+        import requests  # HTTP client
+        import numpy as np  # Numerical computations
+        from google.cloud import bigquery  # GCP integration
+        # Initialize shared resources
+        client = bigquery.Client()
+        model = load_ml_model("gs://bucket/model.pkl")  # One-time model loading
+        ```
+      **Key Use Cases:**
+        - Pre-importing expensive modules to reduce per-request latency
+        - Initializing database connections/pools
+        - Loading ML models or configuration files
+        - Setting up shared caches or global variables
+      **⚠️ Important Notes:**
+        - Mutable global variables may cause concurrency issues
+        - Changes to `init_code` require a new deployment
+        - Not suitable for request-specific authentication tokens
+      [Python Import System Documentation :material-arrow-right:](https://docs.python.org/3/reference/import.html)
+    8. <code>dockerfile</code>
+      <i>(Optional)</i>
+      Custom Docker container configuration for function packaging.
+      **Configurable Elements:**
+        - **`image`**
+          Base Docker image (e.g., `python:3.9-slim`).
+          *Recommendation: Use specific version tags (e.g., `python:3.9.18-slim`)*
+        - **`apt_packages`**
+          System packages to install:
+          ```yaml
+          apt_packages:
+            - libgomp1  # OpenMP support
+            - libpq-dev  # PostgreSQL bindings
+          ```
+        - **`additional_commands`**
+          Custom build commands (executed in order):
+          ```dockerfile
+          RUN pip install --upgrade pip
+          ```
+      **⚠️ Important Notes:**
+        - Prefer official images for security
+        - Don't modify the default `EXPOSE 8080`
+    9. <code>code</code>
+      <i>(Required)</i>
+      Python function implementation containing the core business logic.
+      **Format:**
+      ```python
+      def your_function_name(parameter1: type, parameter2: type) -> return_type:
+          """Function docstring explaining purpose and behavior"""
+          # Implementation code here
+          return result
+      ```
+      **Example:**
+      ```python
+      def calculate_price(quantity: int, unit_price: float) -> float:
+          """Calculate total price with 20% tax"""
+          tax_rate = 0.20
+          subtotal = quantity * unit_price
+          return subtotal * (1 + tax_rate)
+      ```
+      **Key Considerations:**
+        - Must match parameter names/types defined in `arguments` section
+        - Dependencies must be declared in `requirements` section
+      [Python Function Best Practices :material-arrow-right:](https://peps.python.org/pep-0008/)
+    10. <code>requirements</code>
+      <i>(Optional)</i>
+      Python packages required by the function, following `requirements.txt` syntax.
+      **Format:**
+      ```text
+      package1==1.2.3
+      package2>=4.5.6
+      package3  # Comment explaining purpose
+      ```
+      **Example:**
+      ```python
+      numpy==1.24.2
+      requests>=2.28.1
+      google-cloud-storage  # For cloud integration
+      ```
+      [Python Packaging Documentation :material-arrow-right:](https://packaging.python.org/en/latest/tutorials/managing-dependencies/)
+    11. <code>max_batching_rows</code>
+      <i>(Optional)</i>
+      Maximum number of rows processed in a single batch during remote function execution.
+      **Default:**
+      1 (single-row processing)
+      **Impact:**
+      Higher values improve throughput for bulk operations
+      Lower values reduce memory consumption per request
+      **Use Case:**
+      Set to >1 when processing multiple BigQuery rows simultaneously
+      **Documentation:**
+      [BigQuery Batch Processing Limits :material-arrow-right:](https://cloud.google.com/bigquery/quotas#query_jobs)
+    12. <code>quotas</code>
+      <i>(Optional)</i>
+      Resource limits to prevent abuse and ensure system stability:
+        - **<code>max_rows_per_user_per_day</code>**
+            Maximum database rows a single user can retrieve in 24 hours.
+        - **<code>max_rows_per_query</code>**
+            Maximum rows returned per API call.
+    13. <i class="optional">(Optional)</i> Cloud Run Configuration
+      Configure scaling, compute resources, and deployment settings for your Cloud Run service.
+      For advanced configurations, see the [official Cloud Run documentation :material-arrow-right:](https://cloud.google.com/run/docs/).
+      ```yaml
+        # Docker image deployed to Cloud Run (e.g., from Google Container Registry)
+        image: gcr.io/project-id/image:tag
+
+        # Deployment region for the service (default: us-central1)
+        region: us-central1  # [See supported regions][cloud-run-regions]
+
+        # Allocated memory per instance (valid: 128Mi to 32Gi, in 64Mi increments)
+        memory: 512Mi
+
+        # Number of allocated CPUs per instance (default: 1)
+        cpu: 1
+
+        # Maximum concurrent requests per instance (default: 80)
+        concurrency: 80  # Set to 1 for strict isolation
+
+        # Maximum request duration (e.g., 300s = 5 minutes)
+        timeout: 300s
+
+        # Environment variables (format: KEY1=value1,KEY2=value2)
+        set_env_vars: DEBUG=true,MAX_RETRIES=3
+
+        # Minimum number of running instances (avoids cold starts)
+        min_instances: 1
+
+        # Maximum number of instances allowed (default: 100)
+        max_instances: 100
+      ```
+    14. <i>(Optional)</i> Secrets
+
 ## ❓ FAQ
 
 ??? note "How to correctly highlight `sql`, `python` and `javascript` code in yaml files?"
