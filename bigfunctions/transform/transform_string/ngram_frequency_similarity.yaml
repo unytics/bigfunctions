@@ -47,7 +47,6 @@ examples:
       - "4"
     output: "0.93"
 code: |
-  (
     with
 
     ngrams1 as (
@@ -90,4 +89,3 @@ code: |
         dot_product / (magnitude1 * magnitude2)
       ) as similarity
     from coefficients
-  )

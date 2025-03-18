@@ -23,7 +23,6 @@ examples:
       - "0.4"
     output: "[\"banana\"]"
 code: |
-  (
     with
 
     value_counts as (
@@ -41,4 +40,3 @@ code: |
     )
 
     select array_agg(value) from frequent_values
-  )

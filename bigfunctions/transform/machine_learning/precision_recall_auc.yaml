@@ -19,10 +19,8 @@ examples:
       - "(select array_agg(struct(cast(predicted_score as float64), predicted_score > 500)) from unnest(generate_array(1, 1000)) as predicted_score)"
     output: "1.0"
 code: |
-  (
     select sum(auc_contrib)
     from (
         select (recall - lag(recall) over (order by recall)) * (precision + lag(precision) over (order by recall)) / 2 as auc_contrib
         from {BIGFUNCTIONS_DATASET}.precision_recall_curve(predictions)
     )
-  )

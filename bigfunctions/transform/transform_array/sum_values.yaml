@@ -13,4 +13,4 @@ examples:
     arguments:
       - "[1, 4, 3]"
     output: "8"
-code: (select sum(value) from unnest(arr) value)
+code: select sum(value) from unnest(arr) value

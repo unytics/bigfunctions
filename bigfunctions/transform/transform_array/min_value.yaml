@@ -14,4 +14,4 @@ examples:
     arguments:
       - "[1, 4, 3]"
     output: "1"
-code: (select min(value) from unnest(arr) value)
+code: select min(value) from unnest(arr) value

@@ -20,10 +20,8 @@ examples:
       - "'fr'"
     output: "vendredi"
 code: |
-  (
     select translated_day
     from {BIGFUNCTIONS_DATASET}.translated_days
     where
       lower(locale) = lower(language) and
       day_nb = extract(dayofweek from date)
-  )

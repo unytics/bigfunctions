@@ -23,10 +23,8 @@ examples:
       - "(select array_agg(struct(cast(predicted_score as float64), predicted_score < 500)) from unnest(generate_array(1, 1000)) as predicted_score)"
     output: "0.0"
 code: |
-  (
     select sum(auc_contrib)
     from (
         select (false_positive_rate - lag(false_positive_rate) over (order by false_positive_rate)) * (true_positive_rate + lag(true_positive_rate) over (order by false_positive_rate)) / 2 as auc_contrib
         from {BIGFUNCTIONS_DATASET}.roc_curve(predictions)
     )
-  )

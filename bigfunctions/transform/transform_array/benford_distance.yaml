@@ -34,7 +34,6 @@ examples:
       - "[9, 9, 9, 9, 9, 9, 9, 9, 9]"
     output: "20.7"
 code: |
-  (
     with
 
     leading_digits as (
@@ -75,4 +74,3 @@ code: |
     from benfords_distribution
     left join observed_distribution
     using(leading_digit)
-  )

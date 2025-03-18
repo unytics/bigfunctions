@@ -14,4 +14,4 @@ examples:
     arguments:
       - "[1, 4, 3]"
     output: "4"
-code: (select max(value) from unnest(arr) value)
+code: select max(value) from unnest(arr) value
