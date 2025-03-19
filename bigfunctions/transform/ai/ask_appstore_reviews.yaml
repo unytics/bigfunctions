@@ -31,7 +31,6 @@ examples:
 
       ...
 code: |
-  (
     with
 
     reviews as (
@@ -55,4 +54,3 @@ code: |
 
     select {BIGFUNCTIONS_DATASET}.ask_ai(query, 'gemini-1.5-flash-preview-0514')
     from generated_prompt
-  )

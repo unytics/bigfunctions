@@ -16,7 +16,6 @@ examples:
       - "['can', 'eat']"
     output: "I  dies"
 code: |
-  (
   with escaped_strings_to_remove as (
     select regexp_replace(str, r'(\.|\+|\*|\?|\^|\$|\(|\)|\[|\]|\{|\}|\||\\)', r'\\\1') as str
     from unnest(strings_to_remove) as str
@@ -25,5 +24,4 @@ code: |
     string,
     '(' || array_to_string((select array_agg(str) from escaped_strings_to_remove), '|') || ')',
     ''
-  )
   )

@@ -18,7 +18,6 @@ examples:
       - "3"
     output: "2020-05-29"
 code: |
-  (
     with dates as (
       select
         date_sub(date, interval x year) dt,
@@ -43,4 +42,3 @@ code: |
     select
       date_sub(date, interval weeks_cnt week)
     from weeks_to_remove
-  )

@@ -3,7 +3,7 @@ author: Axel Thevenot
 description: |
   Returns the union of two arrays.
 arguments:
-  - name: array1
+  - name: array11
     type: any type
   - name: array2
     type: any type
@@ -18,10 +18,8 @@ examples:
     output: "[1, 2, 3, 6, 7]"
     region: ALL
 code: |
-  (
     array(
       select * from unnest(array1)
       union distinct
       select * from unnest(array2)
     )
-  )

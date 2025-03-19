@@ -20,10 +20,8 @@ examples:
       - "'es'"
     output: "mayo"
 code: |
-  (
     select translated_month
     from {BIGFUNCTIONS_DATASET}.translated_months
     where
       lower(locale) = lower(language) and
       month_nb = extract(month from date)
-  )

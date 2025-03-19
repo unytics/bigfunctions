@@ -49,7 +49,6 @@ examples:
       - "['Lower than very bad!', 'Fail', 'Wait for result exam', 'Pass', 'Pass with mention', 'Genius!']"
     output: "Lower than very bad"
 code: |
-  (
     with
 
     index as (
@@ -75,4 +74,3 @@ code: |
 
     select labls[ordinal(ix)]
     from padded_labels, index
-  )

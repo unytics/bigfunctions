@@ -45,7 +45,6 @@ examples:
       - "10"
     output: "]100, +∞["
 code: |
-  (
     select
       case
         when value < min_bound then "]-∞, " || cast(min_bound as string) || "["
@@ -73,4 +72,3 @@ code: |
           from offsets, bin_width
         )
       end
-  )

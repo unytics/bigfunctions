@@ -27,4 +27,4 @@ examples:
       - "[struct('a' as key, 8 as value), struct('a' as key, 9 as value)]"
       - "'a'"
     output: "8"
-code: (select value from unnest(key_value_items) item where item.key = search_key limit 1)
+code: select value from unnest(key_value_items) item where item.key = search_key limit 1

@@ -28,11 +28,9 @@ examples:
       - "2"
     output: "null"
 code: |
-  (
     select offset
     from unnest(arr) as value
     with offset
     where value <= x
     order by offset
     limit 1
-  )

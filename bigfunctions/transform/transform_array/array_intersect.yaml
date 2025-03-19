@@ -18,10 +18,8 @@ examples:
     output: "[2]"
     region: ALL
 code: |
-  (
     array(
       select * from unnest(array1)
       intersect distinct
       select * from unnest(array2)
     )
-  )

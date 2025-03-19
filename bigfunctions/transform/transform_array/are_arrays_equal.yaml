@@ -22,4 +22,4 @@ examples:
       - "[1, 4, 3]"
       - "[1, 4]"
     output: "false"
-code: (to_json_string(array1) = to_json_string(array2))
+code: to_json_string(array1) = to_json_string(array2)

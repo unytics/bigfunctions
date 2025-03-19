@@ -25,7 +25,6 @@ examples:
       - "0.2"
     output: "[\"cherry\"]"
 code: |
-  (
     with
 
     value_counts as (
@@ -43,4 +42,3 @@ code: |
     )
 
     select array_agg(value) from rare_values
-  )

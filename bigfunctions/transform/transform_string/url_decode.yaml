@@ -15,7 +15,6 @@ examples:
       - "'http%3A%2F%2Fwww.example.com%2Fhello%3Fv%3D12345'"
     output: "http://www.example.com/hello?v=12345"
 code: |
-  (
     select string_agg(
       if(regexp_contains(y, r'^%[0-9a-fA-F]{2}'),
         safe_convert_bytes_to_string(from_hex(replace(y, '%', ''))), y), ''
@@ -23,4 +22,3 @@ code: |
       )
     from unnest(regexp_extract_all(url_encoded_string, r"%[0-9a-fA-F]{2}(?:%[0-9a-fA-F]{2})*|[^%]+")) y
     with offset as i
-  )

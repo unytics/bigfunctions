@@ -22,7 +22,6 @@ examples:
       - '"YEAR"'
     output: "31"
 code: |
-  (
     case upper(date_time_part)
       when 'MICROSECOND'     then unix_micros(timestamp_expression)
       when 'MILLISECOND'     then unix_millis(timestamp_expression)
@@ -43,4 +42,3 @@ code: |
       when 'YEAR'            then date_diff(date(timestamp_expression), '1970-01-01', YEAR)
       else error(date_time_part || ' is not a valid `date_time_part`.')
     end
-  )

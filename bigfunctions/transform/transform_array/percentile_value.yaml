@@ -29,7 +29,6 @@ examples:
       - "2"
     output: 'null'
 code: |
-  (
     select
     case
       when (percentile > 1)
@@ -77,4 +76,3 @@ code: |
         )
       end
     end
-  )

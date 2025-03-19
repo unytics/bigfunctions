@@ -33,7 +33,6 @@ examples:
       - "[0, 1, 5, 10]"
     output: "]10, +∞["
 code: |
-  (
     select
       case
         when value < bin_bounds[offset(0)] then "]-∞, " || cast(bin_bounds[offset(0)] as string) || "["
@@ -59,4 +58,3 @@ code: |
           from offsets
         )
       end
-  )
