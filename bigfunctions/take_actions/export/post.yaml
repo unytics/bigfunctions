@@ -10,6 +10,7 @@ arguments:
     type: json
   - name: headers
     type: json
+    contains_secret: true
 output:
   name: response
   type: json
@@ -24,7 +25,7 @@ examples:
         "content": {...},
         "status_code": 200
       }
-code: |
+code: | #python
   assert url, 'invalid url: it is null or empty'
   assert url.startswith(('http://', 'https://')), 'invalid url: it does not start with http:// nor https://'
   assert 'google.internal' not in url, 'invalid url: it is a google internal url'
