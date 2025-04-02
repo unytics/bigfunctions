@@ -19,7 +19,7 @@ examples:
       select json '{"user": {"friends": ["Jack", "Peter"]}}' as data
     arguments:
       - data
-      - "'sample_data.data'"
+      - "sample_data.data"
     output: |
       select
           *,
@@ -30,7 +30,7 @@ examples:
   - description: "Get SQL to flatten column `data` of your table `project.dataset.table`"
     arguments:
       - data
-      - "'project.dataset.table.data'"
+      - "project.dataset.table.data"
     output: |
       select
           *,

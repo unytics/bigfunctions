@@ -12,15 +12,15 @@ output:
 examples:
   - description: "with a valid email"
     arguments:
-      - "'paul.marcombes@unytics.io'"
+      - "paul.marcombes@unytics.io"
     output: "true"
   - description: "with incorrect format"
     arguments:
-      - "'paul/marcombes@example.com'"
+      - "paul/marcombes@example.com"
     output: "false"
   - description: "with a domain not registrable"
     arguments:
-      - "'paul.marcombes@example.con'"
+      - "paul.marcombes@example.con"
     output: "false"
 code: |
   case

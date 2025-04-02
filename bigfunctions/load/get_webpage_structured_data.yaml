@@ -12,7 +12,7 @@ output:
 examples:
   - description: ""
     arguments:
-      - "'https://apps.apple.com/fr/app/nickel-compte-pour-tous/id1119225763'"
+      - "https://apps.apple.com/fr/app/nickel-compte-pour-tous/id1119225763"
     output: "{...}"
     screenshot: get_webpage_structured_data.png
 code: |

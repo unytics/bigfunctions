@@ -35,10 +35,10 @@ output:
 examples:
   - description: "load random csv"
     arguments:
-      - "\n  'https://raw.githubusercontent.com/AntoineGiraud/dbt_hypermarche/refs/heads/main/input/achats.csv'"
-      - "\n  'csv'"
-      - "'your_project.your_dataset.random_sales'"
-      - "null\n"
+      - "https://raw.githubusercontent.com/AntoineGiraud/dbt_hypermarche/refs/heads/main/input/achats.csv"
+      - "csv"
+      - "your_project.your_dataset.random_sales"
+      - null
     output: |
       +--------+
       + status +
@@ -47,10 +47,10 @@ examples:
       +--------+
   - description: "load json - french departements"
     arguments:
-      - "\n  'https://geo.api.gouv.fr/departements?fields=nom,code,codeRegion,region'"
-      - "\n  'json'"
-      - "'your_project.your_dataset.dim_french_departements'"
-      - "null\n"
+      - "https://geo.api.gouv.fr/departements?fields=nom,code,codeRegion,region"
+      - "json"
+      - "your_project.your_dataset.dim_french_departements"
+      - null
     output: |
       +--------+
       + status +
@@ -60,10 +60,10 @@ examples:
   - description: |
       load json as string without records/struct inference (from DuckDB & BigQuery) - (cf. [issue #171](https://github.com/unytics/bigfunctions/issues/171#issuecomment-2419346439))
     arguments:
-      - "\n  'https://geo.api.gouv.fr/departements?fields=nom,code,codeRegion,region'"
-      - "\n  'json'"
-      - "'your_project.your_dataset.dim_french_departements'"
-      - '{"records":false, "columns":{"json":"string"}}\n'
+      - "https://geo.api.gouv.fr/departements?fields=nom,code,codeRegion,region"
+      - "json"
+      - "your_project.your_dataset.dim_french_departements"
+      - '{"records":false, "columns":{"json":"string"}}'
     output: |
       +--------+
       + status +
@@ -72,10 +72,10 @@ examples:
       +--------+
   - description: "load parquet on Google Cloud Storage"
     arguments:
-      - "\n  'gs://bike-sharing-history/toulouse/jcdecaux/2024/Feb.parquet'"
-      - "\n  'parquet'"
-      - "'your_project.your_dataset.station_status'"
-      - "null\n"
+      - "gs://bike-sharing-history/toulouse/jcdecaux/2024/Feb.parquet"
+      - "parquet"
+      - "your_project.your_dataset.station_status"
+      - null
     output: |
       +--------+
       + status +
@@ -84,10 +84,10 @@ examples:
       +--------+
   - description: "load xls or xlsx"
     arguments:
-      - "\n  'https://github.com/AntoineGiraud/dbt_hypermarche/raw/refs/heads/main/input/Hypermarche.xlsx'"
-      - "\n  'geo'"
-      - "'your_project.your_dataset.hypermarche_retours'"
-      - "'{\"layer\":\"Retours\", \"open_options\": [\"HEADERS=FORCE\"]}'\n"
+      - "https://github.com/AntoineGiraud/dbt_hypermarche/raw/refs/heads/main/input/Hypermarche.xlsx"
+      - "geo"
+      - "your_project.your_dataset.hypermarche_retours"
+      - "'{\"layer\":\"Retours\", \"open_options\": [\"HEADERS=FORCE\"]}'"
     output: |
       +--------+
       + status +
@@ -96,9 +96,9 @@ examples:
       +--------+
   - description: "load french tricky csv"
     arguments:
-      - "\n  'https://www.data.gouv.fr/fr/datasets/r/323af5b8-7831-445b-9a46-d4da140b61b6'"
-      - "\n  'csv'"
-      - "\n  'your_project.your_dataset.dim_french_postalcodes'"
+      - "https://www.data.gouv.fr/fr/datasets/r/323af5b8-7831-445b-9a46-d4da140b61b6"
+      - "csv"
+      - "your_project.your_dataset.dim_french_postalcodes"
       - |
 
           '''{

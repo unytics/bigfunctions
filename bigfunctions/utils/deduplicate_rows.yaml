@@ -10,7 +10,7 @@ output:
 examples:
   - description: "Returns table with duplicate rows removed."
     arguments:
-      - '"my_project.my_dataset.my_table"'
+      - "my_project.my_dataset.my_table"
     output: |
       +-----+-----+
       | id1 | id2 |
@@ -26,7 +26,7 @@ examples:
       +-----+-----+
   - description: "When incorrect table name is passed as arguments."
     arguments:
-      - '"my_project.my_dataset.my_tbl"'
+      - "my_project.my_dataset.my_tbl"
     output: |
       +-------------------------------------------------------------------------------------------------------------------------------------------+
       | f0_                                                                                                                                       |
@@ -35,7 +35,7 @@ examples:
       +-------------------------------------------------------------------------------------------------------------------------------------------+
   - description: "When a query is passed into the procedure."
     arguments:
-      - '"select data from unnest([1, 2, 3, 1]) data"'
+      - "select data from unnest([1, 2, 3, 1]) data"
     output: |
       +------+
       | data |

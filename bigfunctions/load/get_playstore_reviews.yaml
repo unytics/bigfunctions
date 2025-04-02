@@ -22,9 +22,9 @@ output:
 examples:
   - description: "GET reviews written in English for Nickel App installed on French devices"
     arguments:
-      - "'com.fpe.comptenickel'"
-      - "'fr'"
-      - "'en'"
+      - "com.fpe.comptenickel"
+      - "fr"
+      - "en"
     output: |
       [
         {

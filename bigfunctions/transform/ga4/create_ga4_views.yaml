@@ -34,8 +34,8 @@ arguments:
 examples:
   - description: ""
     arguments:
-      - "'your-project.your_ga4_dataset'"
-      - "'your-project.your_destination_dataset'"
+      - "your-project.your_ga4_dataset"
+      - "your-project.your_destination_dataset"
 code: | #sql
   declare do_user_tables_exist bool;
 

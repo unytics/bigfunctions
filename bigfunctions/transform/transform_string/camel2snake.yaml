@@ -10,6 +10,6 @@ output:
 examples:
   - description: ""
     arguments:
-      - "'FooBar !'"
+      - "FooBar !"
     output: foo_bar
 code: ltrim(lower(regexp_replace(camelCaseString, '([A-Z])', r'_\1')), '_')

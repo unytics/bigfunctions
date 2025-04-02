@@ -12,8 +12,8 @@ output:
 examples:
   - description: "To a French phone number"
     arguments:
-      - '"Hello 👋 from bigfunctions!"'
-      - '"+33xxxxxxxxx"'
+      - "Hello 👋 from bigfunctions!"
+      - "+33xxxxxxxxx"
     output: |
       {
         "body": "Hello 👋 from bigfunctions!",

@@ -12,11 +12,11 @@ output:
 examples:
   - description: "String with email in it."
     arguments:
-      - '"My email is shivam@google.co.in"'
+      - "My email is shivam@google.co.in"
     output: '[{"string": "shivam", "info_type": "PERSON_NAME", "confidence": "POSSIBLE"}, {"string": "shivam", "info_type": "FIRST_NAME", "confidence": "POSSIBLE"}, {"string": "shivam", "info_type": "FEMALE_NAME", "confidence": "POSSIBLE"}, {"string": "shivam", "info_type": "MALE_NAME", "confidence": "POSSIBLE"}, {"string": "google", "info_type": "ORGANIZATION_NAME", "confidence": "POSSIBLE"}, {"string": "shivam@google.co.in", "info_type": "EMAIL_ADDRESS", "confidence": "VERY_LIKELY"}, {"string": "google.co.in", "info_type": "DOMAIN_NAME", "confidence": "LIKELY"}]'
   - description: "String with phone number in it."
     arguments:
-      - '"My phone number is 0123456789"'
+      - "My phone number is 0123456789"
     output: '[{"string": "0123456789", "info_type": "PHONE_NUMBER", "confidence": "LIKELY"}]'
 code: |
   import google.cloud.dlp

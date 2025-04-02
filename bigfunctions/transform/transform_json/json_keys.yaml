@@ -13,7 +13,7 @@ output:
 examples:
   - description: ""
     arguments:
-      - "'{\"created_at\": \"2022-01-01\", \"user\": \"sidali\"}'"
+      - '{"created_at": "2022-01-01", "user": "sidali"}'
     output: "['created_at', 'user']"
 code: |
   try {

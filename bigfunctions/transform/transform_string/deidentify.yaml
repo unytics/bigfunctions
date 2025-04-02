@@ -18,17 +18,17 @@ output:
 examples:
   - description: "String with email in it."
     arguments:
-      - '"My email is shivam@google.co.in"'
-      - '"PHONE_NUMBER, EMAIL_ADDRESS"'
+      - "My email is shivam@google.co.in"
+      - "PHONE_NUMBER, EMAIL_ADDRESS"
     output: 'My email is [EMAIL_ADDRESS]'
   - description: "String with phone number in it."
     arguments:
-      - '"My phone number is 0123456789"'
-      - '"PHONE_NUMBER, email_address"'
+      - "My phone number is 0123456789"
+      - "PHONE_NUMBER, email_address"
     output: 'My phone number is [PHONE_NUMBER]'
   - description: "If `info_types` is `null` or empty, all built-in info types may be used"
     arguments:
-      - '"My email is shivam@google.co.in"'
+      - "My email is shivam@google.co.in"
       - null
     output: 'My email is [PERSON_NAME][EMAIL_ADDRESS]'
 code: |

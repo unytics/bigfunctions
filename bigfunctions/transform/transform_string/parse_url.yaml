@@ -12,7 +12,7 @@ output:
 examples:
   - description: ""
     arguments:
-      - "'https://www.yoursite.com/pricing/details?myparam1=123&myparam2=abc#newsfeed'"
+      - "https://www.yoursite.com/pricing/details?myparam1=123&myparam2=abc#newsfeed"
     output: struct<'www.yoursite.com' as host, 'pricing/details' as path, 'myparam1=123&myparam2=abc#newsfeed' as query, 'newsfeed' as ref, 'https' as protocol>
 code: |
   struct(

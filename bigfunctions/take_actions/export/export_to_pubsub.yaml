@@ -19,10 +19,10 @@ output:
 examples:
   - description: ""
     arguments:
-      - "'your-project'"
-      - "'your_topic'"
-      - "'Your message data'"
-      - "'{\"attribute1\": \"value1\", \"attribute2\": \"value2\"}'"
+      - "your-project"
+      - "your_topic"
+      - "Your message data"
+      - "{\"attribute1\": \"value1\", \"attribute2\": \"value2\"}"
     output: "1123432546"
 code_process_rows_as_batch: true
 code: |

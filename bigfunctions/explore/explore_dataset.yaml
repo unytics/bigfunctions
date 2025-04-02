@@ -8,7 +8,7 @@ arguments:
 examples:
   - description: ""
     arguments:
-      - '"{BIGFUNCTIONS_DATASET}"'
+      - "{BIGFUNCTIONS_DATASET}"
     screenshot: explore_dataset.png
 code: |
   declare project, dataset string;

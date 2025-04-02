@@ -23,7 +23,7 @@ output:
 examples:
   - description: "Public test image from deepface"
     arguments:
-      - "'https://raw.githubusercontent.com/serengil/deepface/master/tests/dataset/img1.jpg'"
+      - "https://raw.githubusercontent.com/serengil/deepface/master/tests/dataset/img1.jpg"
     output: |
       {
         embedding: [...],

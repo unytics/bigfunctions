@@ -12,31 +12,31 @@ output:
 examples:
   - description: ""
     arguments:
-      - "'2021-01-20 '"
+      - "2021-01-20 "
     output: "date('2021-01-20')"
   - description: ""
     arguments:
-      - "'2021-1-20 '"
+      - "2021-1-20 "
     output: "date('2021-01-20')"
   - description: ""
     arguments:
-      - "'2021/01/20 '"
+      - "2021/01/20 "
     output: "date('2021-01-20')"
   - description: ""
     arguments:
-      - "'2021/1/20 '"
+      - "2021/1/20 "
     output: "date('2021-01-20')"
   - description: ""
     arguments:
-      - "'01/20/21'"
+      - "01/20/21"
     output: "date('2021-01-20')"
   - description: ""
     arguments:
-      - "'1/20/21'"
+      - "1/20/21"
     output: "date('2021-01-20')"
   - description: ""
     arguments:
-      - "'Wed Jan 20 21:47:00 2021'"
+      - "Wed Jan 20 21:47:00 2021"
     output: "date('2021-01-20')"
 code: |
     case

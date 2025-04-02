@@ -21,8 +21,8 @@ output:
 examples:
   - description: "load duckdb database used in evidence examples"
     arguments:
-      - "'https://github.com/evidence-dev/sql-prophet/raw/refs/heads/main/sources/needful_things/needful_things.duckdb'"
-      - "'your_project.your_dataset'"
+      - "https://github.com/evidence-dev/sql-prophet/raw/refs/heads/main/sources/needful_things/needful_things.duckdb"
+      - "your_project.your_dataset"
     output: |
       +--------+
       + status +

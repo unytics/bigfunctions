@@ -66,7 +66,7 @@ examples:
 
       ![snowflake vs bigquery google trends comparison](load_google_trends.png){ width=600 }
     arguments:
-      - "'your_project.dataset.table'"
+      - "your_project.dataset.table"
       - ['bigquery', 'snowflake']
       - "2024-01"
       - null

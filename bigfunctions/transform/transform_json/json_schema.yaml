@@ -14,14 +14,14 @@ output:
 examples:
   - description: ""
     arguments:
-      - "'{\"created_at\": \"2022-01-01\", \"user\": {\"name\": \"James\", \"friends\": [\"Jack\", \"Peter\"]}}'"
+      - '{"created_at": "2022-01-01", "user": {"name": "James", "friends": ["Jack", "Peter"]}}'
     output: |
       [
       |   struct("created_at" as path, "date" as type),
       |   struct("user.name" as path, "string" as type),
       |   struct("user.friends" as path, "array" as type)
       | ]
-code: |
+code: | #js
   const getValueType = (value) => {
       let type = {
           string: "string",

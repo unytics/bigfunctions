@@ -9,7 +9,7 @@ arguments:
 examples:
   - description: ""
     arguments:
-      - "'compte-nickel-dataprod.TEMP.EVENT_TYPE_SNOWPLOW2'"
+      - "compte-nickel-dataprod.TEMP.EVENT_TYPE_SNOWPLOW2"
       - '["UserProfile", "PhoneNumberEditionWorkflowIntroduction", "PhoneNumberEditionForm", "PasswordChallenge", "CodeEmailChallenge", "CodeSMSChallenge"]'
 code: |
   assert array_length(split(events_table, '.')) = 3 as 'BAD ARGUMENT FORMAT: `events_table` argument must follow the pattern `PROJECT.DATASET.TABLE`';

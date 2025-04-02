@@ -12,7 +12,7 @@ output:
 examples:
   - description: ""
     arguments:
-      - "'Hello {{ user }}'"
+      - "Hello {{ user }}"
       - "json '{\"user\": \"James\"}'"
     output: Hello James
 code: | #js

@@ -24,7 +24,7 @@ output:
 examples:
   - description: "Get info about an international `phone_number` (starting with `+`)"
     arguments:
-      - "'+33123456789'"
+      - "+33123456789"
       - null
     output: |
       {
@@ -44,7 +44,7 @@ examples:
       }
   - description: "Get info about a national `phone_number`"
     arguments:
-      - "'0123456789'"
+      - "0123456789"
       - "json '{\"defaultCountry\": \"FR\"}'"
     output: |
       {
@@ -64,7 +64,7 @@ examples:
       }
   - description: "If no phone number is found in `phone_number` argument, a reason in given in `parseError`"
     arguments:
-      - "'Hello!'"
+      - "Hello!"
       - null
     output: |
       {
@@ -84,7 +84,7 @@ examples:
       }
   - description: "By default, if the given `phone_number` text contains a phone number among other text, it will be extracted."
     arguments:
-      - "'Hello +33123456789 !'"
+      - "Hello +33123456789 !"
       - null
     output: |
       {
@@ -104,7 +104,7 @@ examples:
       }
   - description: "To consider that `phone_number` cannot have additional text use `extract:  false` as option"
     arguments:
-      - "'Hello +33123456789 !'"
+      - "Hello +33123456789 !"
       - "json '{\"extract\": false}'"
     output: |
       {

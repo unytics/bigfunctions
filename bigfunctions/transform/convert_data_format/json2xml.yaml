@@ -10,15 +10,15 @@ output:
 examples:
   - description: "With valid JSON"
     arguments:
-      - "'{\"a\": {\"b\": \"foo\"}}'"
+      - '{"a": {"b": "foo"}}'
     output: '<a><b>foo</b></a>'
   - description: "With valid JSON and with one key that has empty string as a value"
     arguments:
-      - "'{\"a\": \"\"}'"
+      - '{"a": ""}'
     output: '<a></a>'
   - description: "With invalid JSON"
     arguments:
-      - "'{\"a\": \"\"'"
+      - '{"a": ""'
     output: "null"
 code: |
   try{

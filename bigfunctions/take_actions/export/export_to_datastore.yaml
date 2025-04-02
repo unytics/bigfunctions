@@ -19,14 +19,14 @@ output:
 examples:
   - description: Export `data` to default database, to default namespace with auto-generated `key`.
     arguments:
-      - "'your-project/default/default/users'"
+      - "your-project/default/default/users"
       - null
       - "json '{\"name\": \"Marc Harris\", \"email\": \"marc@harris.com\"}'"
     output: "4503604769587200"
   - description: Export `data` with email as `key`.
     arguments:
-      - "'your-project/default/default/users'"
-      - "'marc@harris.com'"
+      - "your-project/default/default/users"
+      - "marc@harris.com"
       - "json '{\"name\": \"Marc Harris\"}'"
     output: "marc@harris.com"
 code_process_rows_as_batch: true

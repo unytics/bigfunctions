@@ -34,7 +34,7 @@ examples:
         Question: what is the country from the following user input: 'I live in frace' ?
         Answer: formatted as alpha three code
         '''
-      - "'gemini-pro'"
+      - "gemini-pro"
     output: "FRA"
   - description: "Generate SQL"
     arguments:
@@ -46,7 +46,7 @@ examples:
         Columns: product_id, price, quantity, timestamp
         Answer: bigquery sql query
         '''
-      - "'code-bison@002'"
+      - "code-bison@002"
     output: |
       SELECT product_id, SUM(price * quantity) AS revenue
       FROM sales

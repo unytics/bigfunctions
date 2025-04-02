@@ -7,7 +7,7 @@ arguments:
 examples:
   - description: ""
     arguments:
-      - '"{BIGFUNCTIONS_DATASET}.natality.weight_pounds"'
+      - "{BIGFUNCTIONS_DATASET}.natality.weight_pounds"
     screenshot: explore_column.png
 code: |
   declare project, dataset, table, column, data_type, query string;

@@ -10,7 +10,7 @@ output:
 examples:
   - description: ""
     arguments:
-      - "'SCHÜMANN'"
+      - "SCHÜMANN"
     output: "SCH\\u00dcMANN"
     region: ALL
 code: |

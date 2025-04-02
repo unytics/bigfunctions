@@ -10,7 +10,7 @@ output:
 examples:
   - description: ""
     arguments:
-      - "'1 rue des champs elysees, Paris'"
+      - "1 rue des champs elysees, Paris"
     output: |
       {
         "latitude": 48.871285,

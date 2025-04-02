@@ -18,8 +18,8 @@ arguments:
 examples:
   - description: ""
     arguments:
-      - "'get the 3 products which generated the most revenue in 2023'"
-      - "'{BIGFUNCTIONS_DATASET}.sales'"
+      - "get the 3 products which generated the most revenue in 2023"
+      - "{BIGFUNCTIONS_DATASET}.sales"
     output: |
       +------------+---------+
       | product_id | revenue |

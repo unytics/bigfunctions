@@ -8,10 +8,10 @@ arguments:
 examples:
   - description: "List tables of `your-project.your_dataset`"
     arguments:
-      - '"your-project.your_dataset"'
+      - "your-project.your_dataset"
   - description: "You can list tables of several datasets by providing several datasets separated by commas"
     arguments:
-      - '"your-project.your_dataset1, your-project.your_dataset2"'
+      - "your-project.your_dataset1, your-project.your_dataset2"
 code: |
   declare fully_qualified_datasets array<string>;
   declare clean_fully_qualified_dataset, project, dataset string;

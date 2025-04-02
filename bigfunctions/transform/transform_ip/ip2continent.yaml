@@ -17,7 +17,7 @@ output:
 examples:
   - description: ""
     arguments:
-      - "'152.216.7.110'"
+      - "152.216.7.110"
     output: 'NA'
 init_code: |
   import datetime

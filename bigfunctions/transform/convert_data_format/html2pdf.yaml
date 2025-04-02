@@ -16,7 +16,7 @@ output:
 examples:
   - description: ""
     arguments:
-      - '"<h1>Love It!</h1>"'
+      - "<h1>Love It!</h1>"
     output: 'JVBERi0xLjQK....'
     screenshot: html2pdf.png
 code: |

@@ -17,8 +17,8 @@ output:
 examples:
   - description: ""
     arguments:
-      - "'one day I will see the world'"
-      - '"travel, cooking, dancing, exploration"'
+      - "one day I will see the world"
+      - "travel, cooking, dancing, exploration"
     output: |
       [
         {'label': 'travel',      'score': 0.995},

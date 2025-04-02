@@ -18,8 +18,8 @@ output:
 examples:
   - description: Export `data` to default database, to default namespace with auto-generated `key`.
     arguments:
-      - "'gs://bucket/path/to/filename.csv'"
-      - "'column1,column2\nvalue1,value2'"
+      - "gs://bucket/path/to/filename.csv"
+      - "column1,column2\nvalue1,value2"
     output: "OK"
 init_code: | #python
   import google.cloud.storage

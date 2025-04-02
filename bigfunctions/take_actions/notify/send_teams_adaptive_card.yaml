@@ -23,12 +23,12 @@ output:
 examples:
   - description: ""
     arguments:
-      - '"YOUR_WEBHOOK_URL"'
-      - '"BigFunctions"'
-      - '"Hello 👋 from bigfunctions!"'
-      - '"https://adaptivecards.io/content/adaptive-card-50.png"'
-      - '"Click me!"'
-      - '"https://unytics.io/bigfunctions/"'
+      - "YOUR_WEBHOOK_URL"
+      - "BigFunctions"
+      - "Hello 👋 from bigfunctions!"
+      - "https://adaptivecards.io/content/adaptive-card-50.png"
+      - "Click me!"
+      - "https://unytics.io/bigfunctions/"
     output: 'ok'
 code: | #python
   import json

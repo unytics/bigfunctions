@@ -10,7 +10,7 @@ output:
 examples:
   - description: ""
     arguments:
-      - "'# Title'"
+      - "# Title"
     output: "<h1>Title</h1>"
 code: |
   return markdown_it.default().render(markdown);

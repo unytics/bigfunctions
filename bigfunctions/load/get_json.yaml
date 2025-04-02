@@ -12,7 +12,7 @@ output:
 examples:
   - description: ""
     arguments:
-      - "'https://api.github.com/repos/unytics/bigfunctions'"
+      - "https://api.github.com/repos/unytics/bigfunctions"
       - null
     output: "{...}"
 code: |

@@ -28,9 +28,9 @@ examples:
   - description: ""
     arguments:
       - "json '[{\"col1\": \"row1\", \"col2\": 1}, {\"col1\": \"row2\", \"col2\": 2}]'"
-      - '"https://docs.google.com/spreadsheets/d/xxxxxxxxx"'
-      - '"my worksheet"'
-      - '"write_truncate"'
+      - "https://docs.google.com/spreadsheets/d/xxxxxxxxx"
+      - "my worksheet"
+      - "write_truncate"
     output: 'DATA_UPLOADED'
 code: |
   import time

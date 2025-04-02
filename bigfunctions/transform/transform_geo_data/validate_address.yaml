@@ -10,7 +10,7 @@ output:
 examples:
   - description: "Correct address"
     arguments:
-      - "'1 Avenue des Champs-Élysées, 75008 Paris, France'"
+      - "1 Avenue des Champs-Élysées, 75008 Paris, France"
     output: |
       {'result': {'verdict': {'inputGranularity': 'PREMISE',
         'validationGranularity': 'PREMISE',
@@ -26,7 +26,7 @@ examples:
       'responseId': ...}
   - description: "Address with inference"
     arguments:
-      - "'1 Avenue des Champs-Élysées, 75008 Paris, France'"
+      - "1 Avenue des Champs-Élysées, 75008 Paris, France"
     output: |
       {'result': {'verdict': {'inputGranularity': 'PREMISE',
         'validationGranularity': 'PREMISE',
@@ -53,7 +53,7 @@ examples:
       'responseId': ...}
   - description: "Route granularity"
     arguments:
-      - "'Avenue des Champs-Élysées, 75008 Paris, France'"
+      - "Avenue des Champs-Élysées, 75008 Paris, France"
     output: |
       {'result': {'verdict': {inputGranularity': 'ROUTE',
         'validationGranularity': 'ROUTE',

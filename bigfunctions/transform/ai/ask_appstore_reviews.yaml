@@ -21,8 +21,8 @@ output:
 examples:
   - description: "Coolest Feature of Blablacar app"
     arguments:
-      - "'What is the coolest feature regarding customers?'"
-      - "'https://apps.apple.com/fr/app/blablacar-covoiturage-et-bus/id341329033'"
+      - "What is the coolest feature regarding customers?"
+      - "https://apps.apple.com/fr/app/blablacar-covoiturage-et-bus/id341329033"
     output: |
       ## Blablacar App Review Analysis: Coolest Feature?
 

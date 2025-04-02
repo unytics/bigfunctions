@@ -19,9 +19,9 @@ arguments:
 examples:
   - description:
     arguments:
-      - "'your_project.your_dataset.your_table'"
-      - "'your_project.your_dataset.your_materialized_view'"
-      - "'data'"
+      - "your_project.your_dataset.your_table"
+      - "your_project.your_dataset.your_materialized_view"
+      - "data"
 code: |
   declare flattening_sql, partition_column string;
   set fully_qualified_table = replace(fully_qualified_table, '`', '');

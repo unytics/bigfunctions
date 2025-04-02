@@ -15,8 +15,8 @@ output:
 examples:
   - description: ""
     arguments:
-      - '"Hello 👋 from bigfunctions!"'
-      - '"YOUR_WEBHOOK_URL"'
+      - "Hello 👋 from bigfunctions!"
+      - "YOUR_WEBHOOK_URL"
     output: 'ok'
 code: |
   import requests

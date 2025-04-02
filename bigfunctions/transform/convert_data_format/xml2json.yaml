@@ -10,15 +10,15 @@ output:
 examples:
   - description: ""
     arguments:
-      - "'<a><b>foo</b></a>'"
+      - "<a><b>foo</b></a>"
     output: '{"a":{"b":"foo"}}'
   - description: ""
     arguments:
-      - "'<a></a>'"
+      - "<a></a>"
     output: '{"a":""}'
   - description: ""
     arguments:
-      - "'<a></a'"
+      - "<a></a"
     output: "null"
 code: |
   const isValid = fast_xml_parser.XMLValidator.validate(xml);

@@ -15,16 +15,16 @@ examples:
   - description: ""
     arguments:
       - "[struct('a' as key, 8 as value), struct('b' as key, 9 as value)]"
-      - "'a'"
+      - "a"
     output: "8"
   - description: ""
     arguments:
       - "[struct('a' as key, 8 as value), struct('b' as key, 9 as value)]"
-      - "'c'"
+      - "c"
     output: "null"
   - description: "When there are multiple occurences of `search_key`, return the first found `value`"
     arguments:
       - "[struct('a' as key, 8 as value), struct('a' as key, 9 as value)]"
-      - "'a'"
+      - "a"
     output: "8"
 code: select value from unnest(key_value_items) item where item.key = search_key limit 1

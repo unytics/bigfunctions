@@ -12,18 +12,18 @@ output:
 examples:
   - description: "Only one element for the xpath"
     arguments:
-      - '"<customer><name>John Doe</name></customer>"'
-      - '"/customer/name"'
+      - "<customer><name>John Doe</name></customer>"
+      - "/customer/name"
     output: '["John Doe"]'
   - description: "Multiple elements for the xpath"
     arguments:
-      - '"<customer><name>John Doe</name><name>Jane Doe</name></customer>"'
-      - '"/customer/name"'
+      - "<customer><name>John Doe</name><name>Jane Doe</name></customer>"
+      - "/customer/name"
     output: '["John Doe", "Jane Doe"]'
   - description: "Incorrect xpath"
     arguments:
-      - '"<customer><name>John Doe</name></customer>"'
-      - '"/customer/na"'
+      - "<customer><name>John Doe</name></customer>"
+      - "/customer/na"
     output: 'null'
 code: |
   try{

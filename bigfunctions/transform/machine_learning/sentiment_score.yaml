@@ -10,7 +10,7 @@ output:
 examples:
   - description: ""
     arguments:
-      - "'BigFunctions Rocks!'"
+      - "BigFunctions Rocks!"
     output: "0.945"
 code: |
   import google.cloud.language_v1 as language

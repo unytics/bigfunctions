@@ -50,7 +50,7 @@ examples:
       +-------+-------+
       ```
     arguments:
-      - "'{BIGFUNCTIONS_DATASET}.sample_graph'"
+      - "{BIGFUNCTIONS_DATASET}.sample_graph"
     output: |
       +---------+------------------------+
       | node_id | connected_component_id |

@@ -49,7 +49,7 @@ examples:
 
       You can then copy the result, modify it and provide it as `source_config` argument.
     arguments:
-      - "'airbyte-source-file==0.5.13'"
+      - "airbyte-source-file==0.5.13"
       - null
       - null
       - null
@@ -72,7 +72,7 @@ examples:
   - description: |
       Provide `source_config` with secrets encrypted:
     arguments:
-      - "'airbyte-source-zendesk-support==2.6.10'"
+      - "airbyte-source-zendesk-support==2.6.10"
       - |
         '''
         credentials:
@@ -86,7 +86,7 @@ examples:
 
       You can then copy one or several of these streams (separate them with commas) for `streams` argument.
     arguments:
-      - "'airbyte-source-file==0.5.13'"
+      - "airbyte-source-file==0.5.13"
       - |
         '''
         dataset_name: "my_stream"
@@ -108,7 +108,7 @@ examples:
   - description: |
       Extract and load `my_stream` into `your_project.your_dataset`.
     arguments:
-      - "'airbyte-source-file==0.5.13'"
+      - "airbyte-source-file==0.5.13"
       - |
         '''
         dataset_name: "my_stream"
@@ -117,8 +117,8 @@ examples:
         provider:
           storage: "HTTPS"
         '''
-      - "'my_stream'"
-      - "'your_project.your_dataset'"
+      - "my_stream"
+      - "your_project.your_dataset"
     output: |
       +----------------------------------------+
       |                 result                 |

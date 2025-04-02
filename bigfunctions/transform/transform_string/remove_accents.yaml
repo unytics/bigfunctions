@@ -10,6 +10,6 @@ output:
 examples:
   - description: ""
     arguments:
-      - "'Voilà !'"
+      - "Voilà !"
     output: Voila !
 code: regexp_replace(normalize(str, nfd), r"\pm", '')

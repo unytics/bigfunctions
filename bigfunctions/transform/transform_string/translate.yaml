@@ -12,8 +12,8 @@ output:
 examples:
   - description: ""
     arguments:
-      - '"Salut 👋 Florian. Merci d''avoir contribué !"'
-      - "'en'"
+      - "Salut 👋 Florian. Merci d''avoir contribué !"
+      - "en"
     output: "Hello 👋 Florian. Thanks for contributing!"
 init_code: |
   from google.cloud import translate_v2 as translate

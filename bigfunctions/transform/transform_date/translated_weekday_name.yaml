@@ -16,8 +16,8 @@ output:
 examples:
   - description: ""
     arguments:
-      - "'2023-06-02'"
-      - "'fr'"
+      - "2023-06-02"
+      - "fr"
     output: "vendredi"
 code: |
     select translated_day

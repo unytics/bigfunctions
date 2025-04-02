@@ -85,11 +85,11 @@ output:
 examples:
   - description: ""
     arguments:
-      - "'My Great Workbook'"
-      - "'site_name'"
-      - "'eu-west-1a.online.tableau.com'"
-      - "'token_name'"
-      - "'ENCRYPTED_SECRET(GvVm...)'"
+      - "My Great Workbook"
+      - "site_name"
+      - "eu-west-1a.online.tableau.com"
+      - "token_name"
+      - "ENCRYPTED_SECRET(GvVm...)"
     output: "ok"
 code: |
   import requests, json, base64

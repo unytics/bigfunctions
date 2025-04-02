@@ -19,7 +19,7 @@ examples:
   - description: ""
     arguments:
       - 'timestamp("2001-01-01")'
-      - '"YEAR"'
+      - "YEAR"
     output: "31"
 code: |
     case upper(date_time_part)

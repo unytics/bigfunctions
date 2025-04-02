@@ -20,7 +20,7 @@ output:
 examples:
   - description: "load duckdb database used in evidence examples"
     arguments:
-      - "'https://github.com/evidence-dev/sql-prophet/raw/refs/heads/main/sources/needful_things/needful_things.duckdb'"
+      - "https://github.com/evidence-dev/sql-prophet/raw/refs/heads/main/sources/needful_things/needful_things.duckdb"
     output: "bigfunctions.temp_6bdb75ca_7f72_4f1f_b46a_6ca59f7f66ac.file_data"
 init_code: |
   import tempfile

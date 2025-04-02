@@ -19,25 +19,25 @@ output:
 examples:
   - description: "Basic Query"
     arguments:
-      - "'{\"foo\": [{\"first\": \"a\"}, {\"first\": \"c\"}]}'"
-      - "'foo'"
-    output: "[{\"first\": \"a\"}, {\"first\": \"c\"}]"
+      - '{"foo": [{"first": "a"}, {"first": "c"}]}'
+      - "foo"
+    output: '[{"first": "a"}, {"first": "c"}]'
   - description: "Getting array sub-items"
     arguments:
-      - "'{\"foo\": [{\"first\": \"a\"}, {\"first\": \"c\"}]}'"
-      - "'foo[*].first'"
+      - '{"foo": [{"first": "a"}, {"first": "c"}]}'
+      - "foo[*].first"
     output: "['a', 'c']"
   - description: "Slicing"
     arguments:
-      - "'{\"foo\": [{\"first\": \"a\"}, {\"first\": \"c\"}]}'"
-      - "'foo[:1].first'"
+      - '{"foo": [{"first": "a"}, {"first": "c"}]}'
+      - "foo[:1].first"
     output: "['a']"
   - description: "Projecting"
     arguments:
-      - "'{\"foo\": [{\"first\": \"a\"}, {\"first\": \"c\"}]}'"
-      - "'foo[*].{name: first}'"
-    output: "[{\"name\": \"a\"}, {\"name\": \"c\"}]"
-code: |
+      - '{"foo": [{"first": "a"}, {"first": "c"}]}'
+      - "foo[*].{name: first}"
+    output: '[{"name": "a"}, {"name": "c"}]'
+code: | #js
   try {
     obj = JSON.parse(json_string);
   }

@@ -21,8 +21,8 @@ output:
 examples:
   - description: "To know how many euros a dollar is worth"
     arguments:
-      - "'USD'"
-      - "'EUR'"
+      - "USD"
+      - "EUR"
     output: "0.910437"
 init_code: | #python
   import datetime

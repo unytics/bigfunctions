@@ -14,7 +14,7 @@ output:
 examples:
   - description: ""
     arguments:
-      - "'latLngToCell'"
+      - "latLngToCell"
       - "json '[37.3615593, -122.0553238, 7]'"
     output: '"87283472bffffff"'
 code: |

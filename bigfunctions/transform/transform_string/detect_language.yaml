@@ -15,7 +15,7 @@ output:
 examples:
   - description: ""
     arguments:
-      - "'I love this project so much'"
+      - "I love this project so much"
     output: eng
 code: |
   return franc_min.franc(text);

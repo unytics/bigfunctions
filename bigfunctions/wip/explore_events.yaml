@@ -9,7 +9,7 @@ arguments:
 examples:
   - description: ""
     arguments:
-      - '"{BIGFUNCTIONS_DATASET}.natality.weight_pounds"'
+      - "{BIGFUNCTIONS_DATASET}.natality.weight_pounds"
 code: |
   assert array_length(split(events_table, '.')) = 3 as 'BAD ARGUMENT FORMAT: `events_table` argument must follow the pattern `PROJECT.DATASET.TABLE`';
 

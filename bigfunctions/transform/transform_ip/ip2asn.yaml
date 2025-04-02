@@ -17,7 +17,7 @@ output:
 examples:
   - description: ""
     arguments:
-      - "'152.216.7.110'"
+      - "152.216.7.110"
     output: '{"asn":"AS30313","domain":"irs.gov","name":"Internal Revenue Service"}'
 init_code: |
   import datetime

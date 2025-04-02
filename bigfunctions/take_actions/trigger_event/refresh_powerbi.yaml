@@ -92,20 +92,20 @@ output:
 examples:
   - description: "Refresh of a dataset"
     arguments:
-      - "'xxx-xxx-xxx'"
-      - "'xxx-xxx-xxx'"
-      - "'xxx-xxx-xxx'"
-      - "'xxx-xxx-xxx'"
-      - "'ENCRYPTED_SECRET(GvVm...)'"
+      - "xxx-xxx-xxx"
+      - "xxx-xxx-xxx"
+      - "xxx-xxx-xxx"
+      - "xxx-xxx-xxx"
+      - "ENCRYPTED_SECRET(GvVm...)"
       - null
     output: "ok"
   - description: "custom refresh (xmla like) - premium capacity only"
     arguments:
-      - "'xxx-xxx-xxx'"
-      - "'xxx-xxx-xxx'"
-      - "'xxx-xxx-xxx'"
-      - "'xxx-xxx-xxx'"
-      - "'ENCRYPTED_SECRET(GvVm...)'"
+      - "xxx-xxx-xxx"
+      - "xxx-xxx-xxx"
+      - "xxx-xxx-xxx"
+      - "xxx-xxx-xxx"
+      - "ENCRYPTED_SECRET(GvVm...)"
       - "json '{ \"type\": \"Full\", \"objects\": [ { \"table\": \"table_name\" } ] }'"
     output: "ok"
 code: |

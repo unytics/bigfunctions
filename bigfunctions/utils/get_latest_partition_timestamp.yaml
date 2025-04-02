@@ -10,7 +10,7 @@ output:
 examples:
   - description: ""
     arguments:
-      - '"my_project.my_dataset.my_table"'
+      - "my_project.my_dataset.my_table"
     output: |
       +----------------------------+
       | latest_partition_timestamp |

@@ -18,7 +18,7 @@ examples:
   - description: ""
     arguments:
       - "date('2022-07-14')"
-      - "'FR'"
+      - "FR"
     output: "true"
 code: |
   date in (select holidays.date from {BIGFUNCTIONS_DATASET}.holidays where holidays.country = country_code)

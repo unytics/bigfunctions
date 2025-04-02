@@ -12,7 +12,7 @@ output:
 examples:
   - description: ""
     arguments:
-      - "'http%3A%2F%2Fwww.example.com%2Fhello%3Fv%3D12345'"
+      - "http%3A%2F%2Fwww.example.com%2Fhello%3Fv%3D12345"
     output: "http://www.example.com/hello?v=12345"
 code: |
     select string_agg(

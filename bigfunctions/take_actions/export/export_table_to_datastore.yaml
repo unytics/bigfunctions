@@ -12,9 +12,9 @@ arguments:
 examples:
   - description: "load random csv"
     arguments:
-      - "'your-project.dataset.table'"
-      - "'user_id'"
-      - "'your-project/default/default/users'"
+      - "your-project.dataset.table"
+      - "user_id"
+      - "your-project/default/default/users"
     output: |
       +---------+
       +   key   +

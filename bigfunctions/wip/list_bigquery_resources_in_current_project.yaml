@@ -19,7 +19,7 @@ description: |
 examples:
   - description: ""
     arguments:
-      - "'you-bigquery-project'"
+      - "you-bigquery-project"
 code: |
   execute immediate replace(r'''
     create or replace temp table bigfunction_result as

@@ -19,12 +19,12 @@ output:
 examples:
   - description: "Generate fake italian name"
     arguments:
-      - '"name"'
-      - '"it_IT"'
+      - "name"
+      - "it_IT"
     output: "Michela Beccaria"
   - description: "Generate fake IPv4 address (without specifying locale)"
     arguments:
-      - '"ipv4_private"'
+      - "ipv4_private"
       - null
     output: "10.52.207.187"
 

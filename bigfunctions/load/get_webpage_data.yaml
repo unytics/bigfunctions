@@ -21,7 +21,7 @@ examples:
         Result must be a dict with the name of the bigfunction as key and its description as value.
         Do not include arguments in the name.
         '''
-      - "'https://unytics.io/bigfunctions/bigfunctions/'"
+      - "https://unytics.io/bigfunctions/bigfunctions/"
     output: |
       {
         "exchange_rate": "Get `exchange_rate`",

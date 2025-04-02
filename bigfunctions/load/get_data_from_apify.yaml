@@ -20,9 +20,9 @@ output:
 examples:
   - description: "Get PSG followers on instagram"
     arguments:
-      - "'apify/instagram-followers-count-scraper'"
+      - "apify/instagram-followers-count-scraper"
       - "json '{ \"usernames\": [\"psg\"] }'"
-      - "'ENCRYPTED_SECRET(Eu5XjDuxO1IBPOAN0U...==)'"
+      - "ENCRYPTED_SECRET(Eu5XjDuxO1IBPOAN0U...==)"
     output: |
       [
         {
