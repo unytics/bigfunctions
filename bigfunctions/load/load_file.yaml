@@ -118,7 +118,7 @@ examples:
       +--------+
       +   ok   +
       +--------+
-code: |
+code: | #sql
   declare table_id string;
 
   assert file_type in ('csv', 'json', 'parquet', 'geo', 'delta') as '`file_type` must be in (csv, json, parquet, geo, delta)';

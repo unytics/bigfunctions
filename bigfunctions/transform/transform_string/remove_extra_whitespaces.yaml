@@ -12,6 +12,6 @@ output:
 examples:
   - description: ""
     arguments:
-      - "Hi   Madison  and Mateusz!\\n How are you doing?"
+      - "Hi   Madison  and Mateusz!\n How are you doing?"
     output: Hi Madison and Mateusz! How are you doing?
 code: trim(regexp_replace(str, r'\s\s+', ' '))
