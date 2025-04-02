@@ -202,64 +202,42 @@ Instead, generate an encrypted version of your secret that you can safely share.
 {% set datasets = dataset.split(',') %}
 {% set nb_datasets = [(datasets|length), 3] | min %}
 
-{% if datasets|length > 1 %}
 
 {% for dataset in datasets[:nb_datasets] %}
 
 
+{% if datasets|length > 1 %}
 === "{% if dataset|length <=2 %}{{ dataset | upper | replace('_', '-') }}{% else %}{{ dataset | replace('_', '-') }}{% endif %}"
+{% endif %}
 
-    ```sql
-    {% if example.with_clause is defined %}
-    with sample_data as (
-
-      {{ example.with_clause | indent(6) }}
-    )
-    {% endif %}
-    {% if example.temp_table is defined %}
-    create temp table sample_data as (
-
-      {{ example.temp_table | indent(6) }}
-    );
-    {% endif %}
-    {% if type == 'procedure' %}call{% elif type == 'table_function' %}select * from{% else %}select{% endif %} {{ project }}.{{ dataset }}.{{ name }}({% for argument in example.arguments %}{% if argument is none or argument == 'null' %}null{% elif arguments[loop.index0]['type'] == 'string' %}{{ argument | trim('"') | trim("'") | tojson() | replace('{BIGFUNCTIONS_DATASET}',  project + '.' + dataset ) | replace('\n', '\n      ') }}{% else %}{{ argument | replace('{BIGFUNCTIONS_DATASET}',  project + '.' + dataset ) | replace('\n', '\n      ') }}{% endif %}{% if not loop.last %}, {% endif %}{% endfor %}){% if type == 'procedure' %};{% elif 'output' in bigfunction and type != 'table_function' %} as {{ output.name }}{% endif %}
-    {%- if (example.with_clause is defined or example.temp_table is defined) and type != 'table_function' %}
-    from sample_data
-    {% endif %}
-    {% if type == 'procedure' and template %}select html from bigfunction_result;{% endif %}
-    {%- if type == 'procedure' and example.output %}select * from bigfunction_result;{% endif %}
-    ```
-
-{% endfor %}
-
-
-{% else %}
-
-{% for dataset in datasets %}
+{% filter indent(width=4 if datasets|length > 1 else 0) %}
 
 ```sql
 {% if example.with_clause is defined %}
 with sample_data as (
-  {{ example.with_clause | indent(2) }}
+
+  {{ example.with_clause | indent(6) }}
 )
 {% endif %}
 {% if example.temp_table is defined %}
 create temp table sample_data as (
-  {{ example.temp_table | indent(2) }}
+
+  {{ example.temp_table | indent(6) }}
 );
 {% endif %}
-{% if type == 'procedure' %}call{% elif type == 'table_function' %}select * from{% else %}select{% endif %} {{ project }}.{{ dataset }}.{{ name }}({% for argument in example.arguments %}{% if argument is string %}{{ argument | trim('"') | trim("'") | tojson() | replace('{BIGFUNCTIONS_DATASET}',  project + '.' + dataset ) | replace('\n', '\n      ') }}{% else %}{{ argument | tojson()}}{% endif %}{% if not loop.last %}, {% endif %}{% endfor %}){% if type == 'procedure' %};{% elif 'output' in bigfunction and type != 'table_function' %} as {{ output.name }}{% endif %}
+{% if type == 'procedure' %}call{% elif type == 'table_function' %}select * from{% else %}select{% endif %} {{ project }}.{{ dataset }}.{{ name }}({% for argument in example.arguments %}{% if argument is none or argument == 'null' %}null{% elif arguments[loop.index0]['type'] == 'string' %}{{ argument | trim('"') | trim("'") | tojson() | replace('{BIGFUNCTIONS_DATASET}',  project + '.' + dataset ) | replace('\n', '\n      ') }}{% else %}{{ argument | replace('{BIGFUNCTIONS_DATASET}',  project + '.' + dataset ) | replace('\n', '\n      ') }}{% endif %}{% if not loop.last %}, {% endif %}{% endfor %}){% if type == 'procedure' %};{% elif 'output' in bigfunction and type != 'table_function' %} as {{ output.name }}{% endif %}
 {%- if (example.with_clause is defined or example.temp_table is defined) and type != 'table_function' %}
 from sample_data
 {% endif %}
 {% if type == 'procedure' and template %}select html from bigfunction_result;{% endif %}
 {%- if type == 'procedure' and example.output %}select * from bigfunction_result;{% endif %}
-
 ```
+
+{% endfilter %}
+
 
 {% endfor %}
 
-{% endif %}
 
 
 {% if type not in ('procedure', 'table_function') and 'output' in example %}
@@ -299,6 +277,9 @@ from sample_data
 {% endfor %}
 
 
+
+
+
 {% if project == 'bigfunctions' %}
 
 ??? question "Need help or Found a bug using `{{ name }}`?"
@@ -319,12 +300,10 @@ from sample_data
 
         **We also provide [professional suppport](../chat_with_us.md)**.
 
-
-
-
-
-
 {% endif %}
+
+
+
 
 
 {% if use_case is defined and use_case %}
