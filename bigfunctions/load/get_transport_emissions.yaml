@@ -13,14 +13,14 @@ output:
 examples:
   - description: "Get transport emissions for 200 km"
     arguments:
-      - "200"
+      - 200
     output: |
       [
         {"id": 2, "name": "High-speed train","value":0.46},
         {"id": 22,"name": "Carpooling combustion (1 passenger)","value":19.2},
         ...
       ]
-code: |
+code: | #sql
   {BIGFUNCTIONS_DATASET}.get_json(
     format('https://impactco2.fr/api/v1/transport?km=%d&language=en', distance_km),
     null

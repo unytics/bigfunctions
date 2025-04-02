@@ -37,11 +37,11 @@ output:
 examples:
   - description: "GET trends for chaise and fauteuil"
     arguments:
-      - "'chaise, fauteuil'"
-      - "11"
-      - "'2025-01-01 2025-01-07'"
-      - "'FR'"
-      - "null"
+      - "chaise, fauteuil"
+      - "2025-01-01 2025-01-07"
+      - "FR"
+      - 11
+      - null
     output: |
       [
         {"date":"2019-12-01T00:00:00", "keyword": "chaise", "value": 58},

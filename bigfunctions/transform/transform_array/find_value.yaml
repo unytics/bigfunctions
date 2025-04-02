@@ -14,12 +14,12 @@ output:
 examples:
   - description: "When `value` is in array"
     arguments:
-      - "[3, 4]"
-      - "4"
+      - [3, 4]
+      - 4
     output: "1"
   - description: "When `value` is not in array"
     arguments:
-      - "[3, 4]"
-      - "7"
+      - [3, 4]
+      - 7
     output: "null"
 code: select offset from unnest(arr) as x with offset where x = value order by offset limit 1

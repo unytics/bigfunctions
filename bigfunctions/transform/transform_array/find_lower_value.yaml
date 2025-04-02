@@ -14,18 +14,18 @@ output:
 examples:
   - description: "When a strictly lower `value` exists in array"
     arguments:
-      - "[5, 4, 3, 100]"
-      - "3.5"
+      - [5, 4, 3, 100]
+      - 3.5
     output: "2"
   - description: "When an identical `value` exists in array"
     arguments:
-      - "[5, 4, 3, 100]"
-      - "4"
+      - [5, 4, 3, 100]
+      - 4
     output: "1"
   - description: "When a lower `value` does NOT exist in array"
     arguments:
-      - "[5, 4, 3, 100]"
-      - "2"
+      - [5, 4, 3, 100]
+      - 2
     output: "null"
 code: |
     select offset

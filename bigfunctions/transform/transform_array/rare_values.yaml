@@ -21,10 +21,10 @@ examples:
       is 1 / 6 ~= 0.167 < 0.2.
       It is a rare string compared to the `frequency_threshold`.
     arguments:
-      - '["apple", "apple", "banana", "banana", "banana", "cherry"]'
-      - "0.2"
+      - ["apple", "apple", "banana", "banana", "banana", "cherry"]
+      - 0.2
     output: "[\"cherry\"]"
-code: |
+code: | #sql
     with
 
     value_counts as (

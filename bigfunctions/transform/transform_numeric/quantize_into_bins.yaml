@@ -14,25 +14,25 @@ output:
 examples:
   - description: ""
     arguments:
-      - "-4"
-      - "[0, 1, 5, 10]"
+      - -4
+      - [0, 1, 5, 10]
     output: "]-∞, 0["
   - description: ""
     arguments:
-      - "3"
-      - "[0, 1, 5, 10]"
+      - 3
+      - [0, 1, 5, 10]
     output: "[1, 5["
   - description: ""
     arguments:
-      - "9"
-      - "[0, 1, 5, 10]"
+      - 9
+      - [0, 1, 5, 10]
     output: "[5, 10]"
   - description: ""
     arguments:
-      - "130"
-      - "[0, 1, 5, 10]"
+      - 130
+      - [0, 1, 5, 10]
     output: "]10, +∞["
-code: |
+code: | #sql
     select
       case
         when value < bin_bounds[offset(0)] then "]-∞, " || cast(bin_bounds[offset(0)] as string) || "["

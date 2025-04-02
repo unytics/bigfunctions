@@ -10,9 +10,9 @@ output:
 examples:
   - description: "Wait for 10 seconds"
     arguments:
-      - "10"
+      - 10
     output: "ok"
-code: |
+code: | #python
   import time
   time.sleep(seconds)
   return 'ok'

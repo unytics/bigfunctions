@@ -16,11 +16,11 @@ output:
 examples:
   - description: ""
     arguments:
-      - "52.52"
-      - "13.41"
-      - "'2023-05-10'"
+      - 52.52
+      - 13.41
+      - "2023-05-10"
     output: "{...}"
-code: |
+code: | #python
   import json
   import requests
 

@@ -13,12 +13,12 @@ output:
 examples:
   - description: "When `value` is in array"
     arguments:
-      - "[3, 4]"
-      - "4"
+      - [3, 4]
+      - 4
     output: "true"
   - description: "When `value` is not in array"
     arguments:
-      - "[3, 4]"
-      - "7"
+      - [3, 4]
+      - 7
     output: "false"
 code: exists(select 1 from unnest(arr) as x where x = value)

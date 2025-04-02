@@ -15,20 +15,20 @@ output:
 examples:
   - description: ""
     arguments:
-      - "[20, 16, 15, 13, 10, 9, 8, 8, 7, 6, 3]"
-      - "0.74"
+      - [20, 16, 15, 13, 10, 9, 8, 8, 7, 6, 3]
+      - 0.74
     output: '13.8'
   - description: ""
     arguments:
-      - "[20, 16, 15, 13, 10, 9, 8, 8, 7, 6, 3, 2]"
-      - "0.9"
+      - [20, 16, 15, 13, 10, 9, 8, 8, 7, 6, 3, 2]
+      - 0.9
     output: '15.9'
   - description: ""
     arguments:
-      - "[20, 16, 15, 13, 10, 9, 8, 8, 7, 6, 3, 2]"
-      - "2"
+      - [20, 16, 15, 13, 10, 9, 8, 8, 7, 6, 3, 2]
+      - 2
     output: 'null'
-code: |
+code: | #sql
     select
     case
       when (percentile > 1)

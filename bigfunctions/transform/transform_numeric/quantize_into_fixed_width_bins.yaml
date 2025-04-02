@@ -18,33 +18,33 @@ output:
 examples:
   - description: ""
     arguments:
-      - "-4"
-      - "0"
-      - "100"
-      - "10"
+      - -4
+      - 0
+      - 100
+      - 10
     output: "]-∞, 0["
   - description: ""
     arguments:
-      - "5"
-      - "0"
-      - "100"
-      - "10"
+      - 5
+      - 0
+      - 100
+      - 10
     output: "[0, 10["
   - description: ""
     arguments:
-      - "97"
-      - "0"
-      - "100"
-      - "10"
+      - 97
+      - 0
+      - 100
+      - 10
     output: "[90, 100]"
   - description: ""
     arguments:
-      - "130"
-      - "0"
-      - "100"
-      - "10"
+      - 130
+      - 0
+      - 100
+      - 10
     output: "]100, +∞["
-code: |
+code: | #sql
     select
       case
         when value < min_bound then "]-∞, " || cast(min_bound as string) || "["

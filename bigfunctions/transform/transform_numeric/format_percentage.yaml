@@ -17,11 +17,11 @@ output:
 examples:
   - description: ""
     arguments:
-      - "1"
-      - "3"
-      - "2"
+      - 1
+      - 3
+      - 2
     output: 33.33 %
-code: |
+code: | #sql
     round
     (
       ieee_divide(first_number, second_number) * 100, nb_decimals

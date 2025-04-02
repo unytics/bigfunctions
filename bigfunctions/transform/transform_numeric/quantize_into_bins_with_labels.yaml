@@ -18,35 +18,35 @@ examples:
       `55` is between `50` and `60` so it is in second bin.
       --> Function returns `Wait for result exam` label.
     arguments:
-      - "55"
-      - "[0, 50, 60, 90, 100]"
-      - "['Fail', 'Wait for result exam', 'Pass', 'Pass with mention']"
+      - 55
+      - [0, 50, 60, 90, 100]
+      - ['Fail', 'Wait for result exam', 'Pass', 'Pass with mention']
     output: "Wait for result exam"
   - description: |
       Lower bounds are inclusive. `50` is then also in second bin.
       --> Function returns `Wait for result exam` label.
     arguments:
-      - "50"
-      - "[0, 50, 60, 90, 100]"
-      - "['Fail', 'Wait for result exam', 'Pass', 'Pass with mention']"
+      - 50
+      - [0, 50, 60, 90, 100]
+      - ['Fail', 'Wait for result exam', 'Pass', 'Pass with mention']
     output: "Wait for result exam"
   - description: |
       `-10` is below the lowest bound
       --> Function returns `UNDEFINED_INF`.
       (It returns `UNDEFINED_SUP` is above the upper bound).
     arguments:
-      - "-10"
-      - "[0, 50, 60, 90, 100]"
-      - "['Fail', 'Wait for result exam', 'Pass', 'Pass with mention']"
+      - -10
+      - [0, 50, 60, 90, 100]
+      - ['Fail', 'Wait for result exam', 'Pass', 'Pass with mention']
     output: "UNDEFINED_INF"
   - description: |
       You can also pass `n + 1` labels instead of `n - 1` labels (when `n` is the number of bounds).
       In that case, values below the first bound will have this first label (instead of `UNDEFINED_INF`).
       `-10` will then give `Lower than very bad!`.
     arguments:
-      - "-10"
-      - "[0, 50, 60, 90, 100]"
-      - "['Lower than very bad!', 'Fail', 'Wait for result exam', 'Pass', 'Pass with mention', 'Genius!']"
+      - -10
+      - [0, 50, 60, 90, 100]
+      - ['Lower than very bad!', 'Fail', 'Wait for result exam', 'Pass', 'Pass with mention', 'Genius!']
     output: "Lower than very bad"
 code: |
     with

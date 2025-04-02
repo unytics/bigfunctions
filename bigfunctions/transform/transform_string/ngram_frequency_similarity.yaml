@@ -30,21 +30,21 @@ output:
 examples:
   - description: "Calculate n-gram frequency similarity between two simple strings with n=2"
     arguments:
-      - "'hello world'"
-      - "'world hello'"
-      - "2"
+      - "hello world"
+      - "world hello"
+      - 2
     output: "0.8"
   - description: "Calculate n-gram frequency similarity between two phrases with n=3"
     arguments:
-      - "'The quick brown fox'"
-      - "'The quick brown dog'"
-      - "3"
+      - "The quick brown fox"
+      - "The quick brown dog"
+      - 3
     output: "0.82"
   - description: "Calculate n-gram frequency similarity between two sentences with n=4"
     arguments:
-      - "'Lorem ipsum dolor sit amet, consectetur adipiscing elit.'"
-      - "'Lorem ipsum dolor sit amet, consectetur adipiscing.'"
-      - "4"
+      - "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+      - "Lorem ipsum dolor sit amet, consectetur adipiscing."
+      - 4
     output: "0.93"
 code: |
     with
