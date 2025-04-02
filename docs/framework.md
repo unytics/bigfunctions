@@ -350,13 +350,13 @@ select PROJECT.DATASET.faker("name", "it_IT")
       examples:  #(6)!
         - description: Basic usage
           arguments:
-            - "'John'"
-            - "'Doe'"
+            - "John"
+            - "Doe"
           output: "Hello John Doe"
         - description: Different name
           arguments:
-            - "'Marie'"
-            - "'Curie'"
+            - "Marie"
+            - "Curie"
           output: "Hello Marie Curie"
       init_code: | #(7)!
         # Pre-imported modules (executed once)
