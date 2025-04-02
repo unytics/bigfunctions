@@ -14,9 +14,9 @@ output:
 examples:
   - description: ""
     arguments:
-      - "[1, 2, 3, 4, 5]"
+      - [1, 2, 3, 4, 5]
     output: "[-1.414, -0.707, 0, 0.707, 1.414]"
-code: |
+code: | #sql
     with stats as (
       select
         avg(value) as mean,

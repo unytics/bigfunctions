@@ -29,7 +29,7 @@ examples:
   - description: "If `info_types` is `null` or empty, all built-in info types may be used"
     arguments:
       - '"My email is shivam@google.co.in"'
-      - 'null'
+      - null
     output: 'My email is [PERSON_NAME][EMAIL_ADDRESS]'
 code: |
   import google.cloud.dlp

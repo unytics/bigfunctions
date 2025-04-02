@@ -15,7 +15,7 @@ examples:
       - "'Hello {{ user }}'"
       - "json '{\"user\": \"James\"}'"
     output: Hello James
-code: |
+code: | #js
   var env = nunjucks.configure();
 
   function chart(data, chart_type, kwargs) {

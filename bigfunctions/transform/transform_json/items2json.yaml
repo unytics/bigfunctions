@@ -12,13 +12,13 @@ output:
 examples:
   - description: ""
     arguments:
-      - "[('a', 'foo'), ('b': 'bar')]"
+      - "[('a', 'foo'), ('b', 'bar')]"
     output: '{"a": "foo", "b": "bar"}'
   - description: "⚠️ Whatever the names of the struct fields: the first field is always considered as the key and the second as the value."
     arguments:
       - "[struct('a' as value, 'foo' as key), struct('b' as one, 'bar' as two)]"
     output: '{"a": "foo", "b": "bar"}'
-code: |
+code: | #js
   let obj = {};
   for (const kv of key_value_items) {
     obj[kv.key] = kv.value;

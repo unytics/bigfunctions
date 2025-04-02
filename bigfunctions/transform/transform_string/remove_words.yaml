@@ -12,8 +12,8 @@ output:
 examples:
   - description: ""
     arguments:
-      - "'I can eat candies'"
-      - "['can', 'eat']"
+      - "I can eat candies"
+      - ['can', 'eat']
     output: "I  candies"
 code: |
   select regexp_replace(string, r'\b(' || array_to_string(words_to_remove, '|') || r')\b', '')

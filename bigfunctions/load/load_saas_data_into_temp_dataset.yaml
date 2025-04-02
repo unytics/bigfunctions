@@ -30,10 +30,10 @@ examples:
 
       You can then copy one of these sources for `source` argument.
     arguments:
-      - "null"
-      - "null"
-      - "null"
-      - "null"
+      - null
+      - null
+      - null
+      - null
     output: |
       # AVAILABLE SOURCES
 
@@ -47,9 +47,9 @@ examples:
       You can then copy the result, modify it and provide it as `source_config` argument.
     arguments:
       - "'airbyte-source-file==0.5.13'"
-      - "null"
-      - "null"
-      - "null"
+      - null
+      - null
+      - null
     output: |
       # SOURCE CONFIG
 
@@ -71,8 +71,8 @@ examples:
         credentials:
           access_token: ENCRYPTED_SECRET(kdoekdswlxzapdldpzlfpfd)
         '''
-      - "null"
-      - "null"
+      - null
+      - null
     output: "..."
   - description: |
       Show available streams by setting `streams` argument to `null`.
@@ -88,8 +88,8 @@ examples:
         provider:
           storage: "HTTPS"
         '''
-      - "null"
-      - "null"
+      - null
+      - null
     output: |
       # AVAILABLE STREAMS
 
@@ -107,7 +107,7 @@ examples:
           storage: "HTTPS"
         '''
       - "'my_stream'"
-      - "null"
+      - null
     output: "bigfunctions.temp__dkzodskslfdkdl`"
   - description: |
       Provide a state to load only new data (since this state)

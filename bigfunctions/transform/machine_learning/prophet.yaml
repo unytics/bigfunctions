@@ -26,7 +26,7 @@ examples:
     arguments:
       - to_json(array_agg(sample_data))
       - 3
-      - 'null'
+      - null
     output: |
       [
         {"ds": "2022-01-03", "yhat": 3, "yhat_upper": 3, ...},
@@ -41,7 +41,7 @@ examples:
     arguments:
       - to_json(array_agg(struct(date as ds, value as y)))
       - 3
-      - 'null'
+      - null
     output: |
       [
         {"ds": "2022-01-03", "yhat": 3, "yhat_upper": 3, ...},

@@ -33,8 +33,8 @@ examples:
       - "'contact@unytics.io'"
       - "'I love BigFunctions'"
       - "'Hey Paul, could you deploy more BigFunctions 🙏?'"
-      - "null"
-      - "null"
+      - null
+      - null
     output: "true"
   - description: "Send email with plain text file attached"
     arguments:

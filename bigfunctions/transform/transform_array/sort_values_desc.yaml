@@ -10,6 +10,6 @@ output:
 examples:
   - description: ""
     arguments:
-      - "[1, 4, 3]"
+      - [1, 4, 3]
     output: "[4, 3, 1]"
 code: array(select value from unnest(arr) as value order by value desc)

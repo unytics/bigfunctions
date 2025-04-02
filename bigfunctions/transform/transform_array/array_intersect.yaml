@@ -13,8 +13,8 @@ output:
 examples:
   - description: ""
     arguments:
-      - "[1, 2, 3]"
-      - "[2, 6, 7]"
+      - [1, 2, 3]
+      - [2, 6, 7]
     output: "[2]"
     region: ALL
 code: |

@@ -12,6 +12,6 @@ output:
 examples:
   - description: ""
     arguments:
-      - "[1, 2, 3]"
+      - [1, 2, 3]
     output: "3"
 code: arr[ordinal(array_length(arr))]

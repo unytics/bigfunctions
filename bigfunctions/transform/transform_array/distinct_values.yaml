@@ -10,6 +10,6 @@ output:
 examples:
   - description: ""
     arguments:
-      - "[1, 4, 3, 4]"
+      - [1, 4, 3, 4]
     output: "[1, 4, 3]"
 code: array(select distinct value from unnest(arr) as value)

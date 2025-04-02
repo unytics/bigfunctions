@@ -36,7 +36,7 @@ examples:
       - "'you@example.com'"
       - "'I love BigFunctions'"
       - "'Hey Paul, could you deploy more BigFunctions 🙏?'"
-      - "null"
+      - null
     output: "true"
   - description: "Send email with plain text file attached"
     arguments:

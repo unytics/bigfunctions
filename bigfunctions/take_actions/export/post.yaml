@@ -19,7 +19,7 @@ examples:
     arguments:
       - "'https://httpbin.org/post'"
       - "json '{\"hello\": \"world\"}'"
-      - "null"
+      - null
     output: |
       {
         "content": {...},

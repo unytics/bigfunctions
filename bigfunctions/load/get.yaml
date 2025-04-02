@@ -15,7 +15,7 @@ examples:
   - description: "Without headers"
     arguments:
       - "'https://unytics.io/bigfunctions/'"
-      - "null"
+      - null
     output: "&lt;html>...&lt;/html>"
   - description: "With `Content-Type = application/json` headers"
     arguments:

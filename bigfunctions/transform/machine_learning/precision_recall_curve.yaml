@@ -23,7 +23,7 @@ examples:
       |    1.0    |   0.5   |
       |    1.0    |   0     |
       +-----------+---------+
-code: |
+code: | #sql
   with
       unnested AS (
           select

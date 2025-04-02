@@ -9,7 +9,7 @@ examples:
     arguments:
       - '"{BIGFUNCTIONS_DATASET}.natality"'
     screenshot: explore_column.png
-code: |
+code: | #sql
   declare project, dataset, table, query string;
   declare table_infos json;
   declare columns_queries array<string>;
@@ -215,7 +215,7 @@ code: |
     table_infos as table,
     (select array_agg(context) from columns) as columns
   )) as json;
-template: |
+template: | #html
   <div class="container">
     <div class="columns">
       <div class="column">

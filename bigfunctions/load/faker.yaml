@@ -25,7 +25,7 @@ examples:
   - description: "Generate fake IPv4 address (without specifying locale)"
     arguments:
       - '"ipv4_private"'
-      - 'null'
+      - null
     output: "10.52.207.187"
 
 code: |

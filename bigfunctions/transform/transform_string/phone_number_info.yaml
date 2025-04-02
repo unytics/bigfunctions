@@ -25,7 +25,7 @@ examples:
   - description: "Get info about an international `phone_number` (starting with `+`)"
     arguments:
       - "'+33123456789'"
-      - "null"
+      - null
     output: |
       {
         "isPossible": true,
@@ -65,7 +65,7 @@ examples:
   - description: "If no phone number is found in `phone_number` argument, a reason in given in `parseError`"
     arguments:
       - "'Hello!'"
-      - "null"
+      - null
     output: |
       {
         "isPossible": false,
@@ -85,7 +85,7 @@ examples:
   - description: "By default, if the given `phone_number` text contains a phone number among other text, it will be extracted."
     arguments:
       - "'Hello +33123456789 !'"
-      - "null"
+      - null
     output: |
       {
         "isPossible": true,

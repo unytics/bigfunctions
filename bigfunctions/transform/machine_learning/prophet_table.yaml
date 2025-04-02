@@ -31,7 +31,7 @@ examples:
           from sample_data
         ))
       - 3
-      - 'null'
+      - null
     output: |
       | -------------------------------------|
       |    date    | yhat | yhat_lower | ... |
@@ -53,7 +53,7 @@ examples:
           from sample_data
         ))
       - 3
-      - 'null'
+      - null
     output: |
       | -------------------------------------|
       |    date    | yhat | yhat_lower | ... |

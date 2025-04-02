@@ -97,7 +97,7 @@ examples:
       - "'xxx-xxx-xxx'"
       - "'xxx-xxx-xxx'"
       - "'ENCRYPTED_SECRET(GvVm...)'"
-      - "null"
+      - null
     output: "ok"
   - description: "custom refresh (xmla like) - premium capacity only"
     arguments:

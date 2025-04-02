@@ -18,10 +18,10 @@ output:
 examples:
   - description: ""
     arguments:
-      - '31'
-      - '"YEAR"'
+      - 31
+      - "YEAR"
     output: "2001-01-01 00:00:00 UTC"
-code: |
+code: | #sql
     case upper(date_time_part)
       when 'MICROSECOND'     then timestamp_add(timestamp('1970-01-01'), INTERVAL unix_date_time MICROSECOND)
       when 'MILLISECOND'     then timestamp_add(timestamp('1970-01-01'), INTERVAL unix_date_time MILLISECOND)

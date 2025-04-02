@@ -29,19 +29,19 @@ arguments:
 examples:
   - description: "Merge tables in delta mode"
     arguments:
-      - "'dataset_id.source_table_or_view'"
-      - "'dataset_id.destination_table'"
-      - "'delta'"
-      - "['id']"
-      - "'timestamp_field'"
+      - "dataset_id.source_table_or_view"
+      - "dataset_id.destination_table"
+      - "delta"
+      - ['id']
+      - "timestamp_field"
   - description: "Merge from query in full"
     arguments:
-      - "'select * from dataset_id.source_table_or_view where filter_field = true'"
-      - "'dataset_id.destination_table'"
-      - "'full'"
-      - "['id']"
-      - "null"
-code: |
+      - "select * from dataset_id.source_table_or_view where filter_field = true"
+      - "dataset_id.destination_table"
+      - "full"
+      - ['id']
+      - null
+code: | #sql
   declare query string;
   declare context json;
   declare table_columns array<string>;

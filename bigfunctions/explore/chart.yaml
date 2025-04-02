@@ -15,11 +15,11 @@ output:
 examples:
   - description: ""
     arguments:
-      - "[('2022-08-01', 10000.), ('2022-08-02', 20000.), ('2022-08-03', 40000.), ('2022-08-04', 80000.)]"
-      - "'bar'"
-      - "'sales'"
+      - [('2022-08-01', 10000.), ('2022-08-02', 20000.), ('2022-08-03', 40000.), ('2022-08-04', 80000.)]
+      - 'bar'
+      - 'sales'
     screenshot: chart.png
-code: |
+code: | #sql
   {BIGFUNCTIONS_DATASET}.render_template(
 
     '''<html>

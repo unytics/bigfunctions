@@ -29,10 +29,10 @@ examples:
 
       You can then copy one of these sources for `source` argument.
     arguments:
-      - "null"
-      - "null"
-      - "null"
-      - "null"
+      - null
+      - null
+      - null
+      - null
     output: |
       +----------------------------------------+
       |                 result                 |
@@ -50,9 +50,9 @@ examples:
       You can then copy the result, modify it and provide it as `source_config` argument.
     arguments:
       - "'airbyte-source-file==0.5.13'"
-      - "null"
-      - "null"
-      - "null"
+      - null
+      - null
+      - null
     output: |
       +----------------------------------------------------+
       |                 result                             |
@@ -78,8 +78,8 @@ examples:
         credentials:
           access_token: ENCRYPTED_SECRET(kdoekdswlxzapdldpzlfpfd)
         '''
-      - "null"
-      - "null"
+      - null
+      - null
     output: "..."
   - description: |
       Show available streams by setting `streams` argument to `null`.
@@ -95,8 +95,8 @@ examples:
         provider:
           storage: "HTTPS"
         '''
-      - "null"
-      - "null"
+      - null
+      - null
     output: |
       +----------------------------------------+
       |                 result                 |
@@ -209,13 +209,18 @@ code: | #sql
               json_array(state) as state,
               _airbyte_loaded_at,
           from global_state
+      ),
+
+      latest_state as (
+        select state, _airbyte_loaded_at from stream_states_formatted union all
+        select state, _airbyte_loaded_at from global_state_formatted union all
+        select state, _airbyte_loaded_at from legacy_state
+        order by _airbyte_loaded_at desc
+        limit 1
       )
 
-      select state, _airbyte_loaded_at from stream_states_formatted union all
-      select state, _airbyte_loaded_at from global_state_formatted union all
-      select state, _airbyte_loaded_at from legacy_state
-      order by _airbyte_loaded_at desc
-      limit 1;
+      select state
+      from latest_state;
       ''',
       destination_dataset, destination_dataset, destination_dataset
     ) into state;

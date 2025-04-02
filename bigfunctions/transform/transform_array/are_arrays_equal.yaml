@@ -14,12 +14,12 @@ output:
 examples:
   - description: ""
     arguments:
-      - "[1, 4, 3]"
-      - "[1, 4, 3]"
+      - [1, 4, 3]
+      - [1, 4, 3]
     output: "true"
   - description: ""
     arguments:
-      - "[1, 4, 3]"
-      - "[1, 4]"
+      - [1, 4, 3]
+      - [1, 4]
     output: "false"
 code: to_json_string(array1) = to_json_string(array2)

@@ -13,7 +13,7 @@ examples:
   - description: ""
     arguments:
       - "'https://api.github.com/repos/unytics/bigfunctions'"
-      - "null"
+      - null
     output: "{...}"
 code: |
   parse_json(
