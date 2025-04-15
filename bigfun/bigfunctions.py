@@ -177,7 +177,9 @@ class BigFunction:
         with open(code_filename, 'w', encoding='utf-8') as out:
             out.write(code)
         print_info(f'Executing python code file {code_filename}')
-        os.system(f'python {code_filename}')
+        requirements = ' '.join([f'--with "{r.strip()}"' for r in self.config.get('requirements', '').split('\n')])
+        command = f'uv run --no-project  {requirements}  {code_filename}'
+        os.system(command)
 
     def deploy(self):
         self.config['dataset_location'] = self.dataset.location
