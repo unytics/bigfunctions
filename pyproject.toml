@@ -9,7 +9,7 @@ authors = [
 ]
 description = "Supercharge BigQuery with BigFunctions"
 readme = "README.md"
-requires-python = ">=3.8"
+requires-python = ">=3.10"
 keywords = ["bigquery", "data", "analytics"]
 license = {text = "MIT"}
 classifiers = [
@@ -28,6 +28,7 @@ dependencies = [
     "click-help-colors",
     "vertexai",
     "cryptography",
+    "uv",
 ]
 dynamic = ["version"]
 
