@@ -267,11 +267,12 @@ code: | #sql
       destination_dataset, table.name, temp_dataset, table.name
     );
 
-    execute immediate format(
-      'drop table `%s`.%s',
-      temp_dataset, table.name
-    );
   end for;
+
+  execute immediate format(
+    'drop schema `%s` cascade',
+    temp_dataset
+  );
 
   create or replace temp table bigfunction_result as
   select 'ok' as result;
