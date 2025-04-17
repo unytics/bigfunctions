@@ -22,7 +22,7 @@ examples:
     arguments:
       - "https://github.com/evidence-dev/sql-prophet/raw/refs/heads/main/sources/needful_things/needful_things.duckdb"
     output: "bigfunctions.temp_6bdb75ca_7f72_4f1f_b46a_6ca59f7f66ac.file_data"
-init_code: |
+init_code: | #python
   import tempfile
   import urllib.request
 
@@ -42,7 +42,7 @@ init_code: |
         }
         return dataframes
 
-  def upload_dataframe(df, bigquery, destination_table, url):
+  def upload_dataframe(df, destination_table, url):
     job_config = google.cloud.bigquery.LoadJobConfig(
       write_disposition="WRITE_TRUNCATE",
       destination_table_description=f'File downloaded by BigFunctions from the web url: {url}'
@@ -51,12 +51,12 @@ init_code: |
       bigquery.load_table_from_dataframe(df, destination_table, job_config=job_config).result()
     except (google.api_core.exceptions.Forbidden, google.api_core.exceptions.NotFound, google.api_core.exceptions.PermissionDenied) as e:
       assert False, f'Service Account `{get_current_service_account()}` does not have data-editor permission for given destination dataset (or the dataset does not exsit). Please add it'
-code: |
+code: | #python
   dataframes = duckdb2dataframes(duckdb_file_url)
-  destination_dataset = create_temp_dataset()
+  destination_dataset = bigquery.create_temp_dataset()
   for table, df in dataframes.items():
     destination_table = f'{destination_dataset}.{table}'
-    upload_dataframe(df, bigquery, destination_table, duckdb_file_url)
+    upload_dataframe(df, destination_table, duckdb_file_url)
   return destination_dataset
 requirements: |
   duckdb
