@@ -170,7 +170,7 @@ code: | #python
   if not streams:
     return '# AVAILABLE STREAMS\n\n' + ', '.join(airbyte_source.available_streams)
 
-  destination_dataset = create_temp_dataset()
+  destination_dataset = bigquery.create_temp_dataset()
   state = state or {}
   run(executable, source_config, streams, state, destination_dataset)
   return destination_dataset
