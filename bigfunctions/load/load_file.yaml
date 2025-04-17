@@ -120,6 +120,7 @@ examples:
       +--------+
 code: | #sql
   declare table_id string;
+  declare dataset_id string;
 
   assert file_type in ('csv', 'json', 'parquet', 'geo', 'delta') as '`file_type` must be in (csv, json, parquet, geo, delta)';
   assert array_length(split(destination_table, '.')) = 3 as '`destination_table` must be like PROJECT.DATASET.TABLE';
@@ -127,6 +128,8 @@ code: | #sql
   set table_id = (
     select {BIGFUNCTIONS_DATASET}.load_file_into_temp_dataset(url, file_type, options)
   );
+  set dataset_id = regexp_extract(table_id, r'(\w*\.\w*)\.\w*');
+
 
   execute immediate format(
     'create or replace table %s copy %s',
@@ -134,9 +137,10 @@ code: | #sql
   );
 
   execute immediate format(
-    'drop table %s',
-    table_id
+    'drop schema %s cascade',
+    dataset_id
   );
+
 
   create or replace temp table bigfunction_result as
   select 'ok' as status;
