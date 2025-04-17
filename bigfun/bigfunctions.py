@@ -157,7 +157,7 @@ class BigFunction:
 
     def _test_python_function_locally(self):
         argument_names = [arg['name'] for arg in self.config['arguments']]
-        argument_values = [str(value).strip() for value in self.config['examples'][0]['arguments']]
+        argument_values = [value for value in self.config['examples'][0]['arguments']]
         argument_types = [arg['type'] for arg in self.config['arguments']]
         arguments = zip(argument_names, argument_values, argument_types)
         template_file = f'{TEMPLATE_FOLDER}/function_py_test.py'

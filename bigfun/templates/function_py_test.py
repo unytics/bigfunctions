@@ -4,8 +4,8 @@ CACHE = {}
 
 def run():
     {% for name, value, type in arguments %}
-    {% if type == 'string' %}
-    {{ name }} = "{{ value }}"
+    {% if type == 'string' and value is not none %}
+    {{ name }} = {{ value | tojson }}
     {% else %}
     {{ name }} = {{ value }}
     {% endif %}
