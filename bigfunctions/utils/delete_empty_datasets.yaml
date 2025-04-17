@@ -1,0 +1,35 @@
+type: procedure
+author: Paul Marcombes
+description: |
+  Delete empty datasets in `project`
+arguments:
+  - name: project
+    type: string
+examples:
+  - description: ""
+    arguments:
+      - your-project"
+code: | #sql
+  execute immediate format(
+    '''
+    create or replace temp table bigfunction_result as
+    select catalog_name || '.' || schema_name as dataset
+    from `%s`.INFORMATION_SCHEMA.SCHEMATA schema
+    where
+      not exists(
+        select 1
+        from `%s`.{BIGFUNCTIONS_DATASET_REGION}.INFORMATION_SCHEMA.TABLES table
+        where schema.schema_name = table.table_schema
+      )
+      and
+      not exists(
+        select 1
+        from `%s`.{BIGFUNCTIONS_DATASET_REGION}.INFORMATION_SCHEMA.ROUTINES routine
+        where schema.schema_name = routine.routine_schema
+      )
+    ''', project, project, project
+  );
+
+  for record in (select dataset from bigfunction_result) do
+    execute immediate 'drop schema ' || record.dataset;
+  end for;
