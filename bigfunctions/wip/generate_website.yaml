@@ -14,14 +14,14 @@ output:
 examples:
   - description: "Without headers"
     arguments:
-      - "'My Website'"
+      - "My Website"
       - |
         json '''[
           {"path": "/", "content": "# Hello\n\nThis is my first website"}
         ]'''
       - null
     output: "https://catalogs.unytics.io/public/my-website/"
-init_code: |
+init_code: | #python
   import os
   import tempfile
   import re
@@ -128,7 +128,7 @@ init_code: |
     assert all(not isinstance(result, Exception) for result in results), 'Could NOT upload file'
 
 
-code: |
+code: | #python
   if not assets:
     return 'no asset given'
   assert site_name, 'site_name must not be null nor empty'
