@@ -29,9 +29,6 @@ arguments:
     type: string
   - name: options
     type: string
-output:
-  name: status
-  type: string
 examples:
   - description: "load random csv"
     arguments:
