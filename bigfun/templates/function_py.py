@@ -40,29 +40,6 @@ def get_current_service_account():
     return CACHE['current_service_account']
 
 
-def create_temp_dataset(default_table_expiration_days=0.042):
-    import google.cloud.bigquery
-    bigquery = google.cloud.bigquery.Client(location=g.dataset_location)
-    random_id = str(uuid.uuid4()).replace('-', '_')
-    dataset_id = f'{PROJECT}.temp_{random_id}'
-    is_user_service_account = 'iam.gserviceaccount.com' in g.user
-    member = 'serviceAccount:' + g.user if is_user_service_account else 'user:' + g.user
-    query = f'''
-
-    create schema `{dataset_id}`
-    options(
-        default_table_expiration_days={default_table_expiration_days},
-        description="Temporary Dataset created by `{{ name }}` bigfunction to store temporary data"
-    );
-
-    grant `roles/bigquery.dataEditor`
-    on schema `{dataset_id}`
-    to '{member}';
-
-    '''
-    bigquery.query(query).result()
-    return dataset_id
-
 
 class QuotaException(Exception):
     pass
@@ -108,19 +85,60 @@ def report_exception(exception):
     error_reporter.report_exception(google.cloud.error_reporting.build_flask_context(request))
 
 
+class BigQuery:
+
+    def __init__(self):
+        self._client = None
+
+    @property
+    def client(self):
+        if self._client is None:
+            import google.cloud.bigquery
+            self._client = google.cloud.bigquery.Client(location=g.dataset_location)
+        return self._client
+
+    def query(self, *args, **kwargs):
+        return self.client.query(*args, **kwargs)
+
+    def load_table_from_dataframe(self, *args, **kwargs):
+        return self.client.load_table_from_dataframe(*args, **kwargs)
+
+    def create_temp_dataset(self, default_table_expiration_days=0.042):
+        random_id = str(uuid.uuid4()).replace('-', '_')
+        dataset_id = f'{PROJECT}.temp_{random_id}'
+        is_user_service_account = 'iam.gserviceaccount.com' in g.user
+        member = 'serviceAccount:' + g.user if is_user_service_account else 'user:' + g.user
+        query = f'''
+
+        create schema `{dataset_id}`
+        options(
+            default_table_expiration_days={default_table_expiration_days},
+            description="Temporary Dataset created by `{{ name }}` bigfunction to store temporary data"
+        );
+
+        grant `roles/bigquery.dataOwner`
+        on schema `{dataset_id}`
+        to '{member}';
+
+        '''
+        self.query(query).result()
+        return dataset_id
+
+
 
 class Store:
 
-    _datastore = None
-
-    def __init__(self, kind):
+    def __init__(self, kind, project=None):
         self.kind = kind
+        self.project = project
+        self._datastore = None
 
     def get(self, key):
         key = self.datastore.key(self.kind, key)
         entity = self.datastore.get(key)
-        if entity:
+        if entity and 'value' in entity:
             return entity.get('value')
+        return entity
 
     def set(self, key, value):
         if key is None:
@@ -147,7 +165,7 @@ class Store:
     @property
     def datastore(self):
         if self._datastore is None:
-            self._datastore = google.cloud.datastore.Client()
+            self._datastore = google.cloud.datastore.Client(project=self.project)
         return self._datastore
 
 
@@ -171,7 +189,28 @@ class Cache:
         self.store.set(key, value)
 
 
+class UserStore(Store):
+
+    def __init__(self):
+        super().__init__('users', project='unytics-user-storage')
+
+    def get_or_create_user(self):
+        user = self.get(g.user)
+        if user is None:
+            user_uuid = str(uuid.uuid4())
+            user_bucket = f'unytics_{user_uuid}'
+            user = {
+                'uuid': user_uuid,
+                'bucket': user_bucket,
+            }
+            self.set(g.user, user)
+        return user
+
+
+
+bigquery = BigQuery()
 cache = Cache()
+user_store = UserStore()
 
 
 def check_max_rows_per_query_quota():
