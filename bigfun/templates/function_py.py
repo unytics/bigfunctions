@@ -328,7 +328,7 @@ def decrypt_secrets(value):
 {% if code_process_rows_as_batch %}
 
 def compute_all_rows(rows):
-    {{ code | replace('\n', '\n    ') | replace('{BIGFUNCTIONS_DATASET}',  '`' +  project + '`.`' + dataset + '`' ) }}
+    {{ code | replace('\n', '\n    ') | replace('{BIGFUNCTIONS_DATASET}',  '`' +  project + '`.`' + dataset + '`' ) | replace('{BIGFUNCTIONS_DATASET_REGION}', '`region-' +  dataset_location|lower + '`') }}
 
 {% else %}
 
@@ -341,7 +341,7 @@ def compute_one_row(args):
     {{ argument.name }} = decrypt_secrets({{ argument.name }})
     {% endfor %}
 
-    {{ code | replace('\n', '\n    ') | replace('{BIGFUNCTIONS_DATASET}',  '`' +  project + '`.`' + dataset + '`' ) }}
+    {{ code | replace('\n', '\n    ') | replace('{BIGFUNCTIONS_DATASET}',  '`' +  project + '`.`' + dataset + '`' ) | replace('{BIGFUNCTIONS_DATASET_REGION}', '`region-' +  dataset_location|lower + '`') }}
 
 {% endif %}
 
