@@ -9,7 +9,7 @@ description: |
 
   1. Creates a new temporary dataset only accessible to you in bigfunctions project.
   2. Downloads the tables of the duckdb database to this temporary dataset.
-  3. Copies the table into `destination_dataset` before deleting them from the temporary dataset.
+  3. Copies the table into `destination_dataset` before deleting the temporary dataset.
 arguments:
   - name: duckdb_file_url
     type: string
