@@ -1,7 +1,7 @@
 type: procedure
 author: Paul Marcombes
 description: |
-  Get daily jobs cost 
+  Get daily jobs cost
   into `daily_jobs_cost` temporary table
 arguments:
   - name: project
@@ -15,13 +15,13 @@ examples:
 code: | #sql
   execute immediate format(
     r'''
-    create temp table daily_jobs_cost as 
+    create temp table daily_jobs_cost as
 
-    with 
+    with
 
     jobs as (
-      select 
-        date(creation_time) as date, 
+      select
+        date(creation_time) as date,
         query,
         labels,
         user_email,
@@ -29,9 +29,9 @@ code: | #sql
 
         total_bytes_billed * 7.5 / pow(2, 40) as cost,
 
-        case 
+        case
 
-          when regexp_extract(query, '"node_id": "([^"]*)"') is not null 
+          when regexp_extract(query, '"node_id": "([^"]*)"') is not null
           then 'dbt::' || regexp_extract(query, '"node_id": "([^"]*)"')
 
           when {BIGFUNCTIONS_DATASET}.get_value(labels, 'data_source_id') = 'scheduled_query'
@@ -39,11 +39,11 @@ code: | #sql
             (destination_table.project_id || '.' || destination_table.dataset_id || '.' || destination_table.table_id) is not null and not starts_with(destination_table.dataset_id, '_'),
             destination_table.project_id || '.' || destination_table.dataset_id || '.' || destination_table.table_id,
             {BIGFUNCTIONS_DATASET}.get_value(labels, 'dts_config_id')
-          ) 
+          )
 
           when {BIGFUNCTIONS_DATASET}.get_value(labels, 'looker_studio_report_id') is not null
           then (
-            "lookerstudio::https://lookerstudio.google.com/reporting/" || 
+            "lookerstudio::https://lookerstudio.google.com/reporting/" ||
             {BIGFUNCTIONS_DATASET}.get_value(labels, 'looker_studio_report_id')
           )
 
@@ -77,25 +77,25 @@ code: | #sql
             {BIGFUNCTIONS_DATASET}.get_value(labels, 'dataform_workflow_execution_action_id_name')
           )
 
-          when ends_with(user_email, 'iam.gserviceaccount.com') 
+          when ends_with(user_email, 'iam.gserviceaccount.com')
           then 'service::' || user_email
 
           else 'user::' || user_email
         end as node_id,
-        
+
 
 
       from `%s`.{BIGFUNCTIONS_DATASET_REGION}.INFORMATION_SCHEMA.JOBS
-      where 
+      where
         date(creation_time) >= current_date - %d
         and parent_job_id is null
         and total_bytes_billed is not null
-    
-    ) 
+
+    )
 
 
-    select 
-      * except(cost, labels), 
+    select
+      * except(cost, labels),
       split(node_id, '::')[offset(0)] as node_type,
       -- array_agg(distinct to_json_string(labels)) as labels,
       sum(cost) as cost,
@@ -104,6 +104,6 @@ code: | #sql
     -- where node_id is null
     group by all
     order by cost desc
-    ''', 
+    ''',
     project, nb_days
   );

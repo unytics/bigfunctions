@@ -103,6 +103,9 @@ class BigQuery:
     def load_table_from_dataframe(self, *args, **kwargs):
         return self.client.load_table_from_dataframe(*args, **kwargs)
 
+    def extract_table(self, *args, **kwargs):
+        return self.client.extract_table(*args, **kwargs)
+
     def create_temp_dataset(self, default_table_expiration_days=0.042):
         random_id = str(uuid.uuid4()).replace('-', '_')
         dataset_id = f'{PROJECT}.temp_{random_id}'

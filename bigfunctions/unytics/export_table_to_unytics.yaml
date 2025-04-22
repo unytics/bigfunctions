@@ -10,7 +10,7 @@ arguments:
     type: string
 output:
   name: status
-  type: string  
+  type: string
 examples:
   - description: ""
     output: "bigfunctions.temp_6bdb75ca_7f72_4f1f_b46a_6ca59f7f66ac"
@@ -18,7 +18,7 @@ code: | #sql
   declare temp_dataset string;
 
   assert array_length(split(destination_unytics_table, '.')) = 3 as '`destination_unytics_table` must be like PROJECT.DATASET.TABLE';
-  
+
   set temp_dataset = (select {BIGFUNCTIONS_DATASET}.create_temp_dataset());
 
   execute immediate format('''
@@ -29,3 +29,4 @@ code: | #sql
   select {BIGFUNCTIONS_DATASET}._export_table_to_unytics(temp_dataset || '.source_table', destination_unytics_table);
 
   execute immediate format('drop schema `%s` cascade', temp_dataset);
+
