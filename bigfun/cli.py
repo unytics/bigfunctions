@@ -104,6 +104,9 @@ def deploy(bigfunction, project, dataset, config):
         bigfunctions = bf.BIGFUNCTIONS
 
     for name in bigfunctions:
+        # for dataset in datasets:
+        #     bigfunction = bf.BigFunction(name, project=project, dataset=dataset)
+        #     bigfunction.deploy()                
         bigfunction = bf.BigFunction(name, project=project, dataset=datasets[0])
         bigfunction.deploy()
         if len(datasets) > 1:
