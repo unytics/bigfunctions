@@ -1,0 +1,109 @@
+type: procedure
+author: Paul Marcombes
+description: |
+  Get daily jobs cost 
+  into `daily_jobs_cost` temporary table
+arguments:
+  - name: project
+    type: string
+  - name: nb_days
+    type: int64
+examples:
+  - description: ""
+    arguments:
+      - your-project"
+code: | #sql
+  execute immediate format(
+    r'''
+    create temp table daily_jobs_cost as 
+
+    with 
+
+    jobs as (
+      select 
+        date(creation_time) as date, 
+        query,
+        labels,
+        user_email,
+
+
+        total_bytes_billed * 7.5 / pow(2, 40) as cost,
+
+        case 
+
+          when regexp_extract(query, '"node_id": "([^"]*)"') is not null 
+          then 'dbt::' || regexp_extract(query, '"node_id": "([^"]*)"')
+
+          when {BIGFUNCTIONS_DATASET}.get_value(labels, 'data_source_id') = 'scheduled_query'
+          then 'scheduledquery::' || if(
+            (destination_table.project_id || '.' || destination_table.dataset_id || '.' || destination_table.table_id) is not null and not starts_with(destination_table.dataset_id, '_'),
+            destination_table.project_id || '.' || destination_table.dataset_id || '.' || destination_table.table_id,
+            {BIGFUNCTIONS_DATASET}.get_value(labels, 'dts_config_id')
+          ) 
+
+          when {BIGFUNCTIONS_DATASET}.get_value(labels, 'looker_studio_report_id') is not null
+          then (
+            "lookerstudio::https://lookerstudio.google.com/reporting/" || 
+            {BIGFUNCTIONS_DATASET}.get_value(labels, 'looker_studio_report_id')
+          )
+
+          when {BIGFUNCTIONS_DATASET}.get_value(labels, 'requestor') = 'looker_studio'
+          then 'lookerstudio::explore'
+
+          when {BIGFUNCTIONS_DATASET}.get_value(labels, "dataform-action-type") in ("table", "incremental_table")
+          then 'dataform_table::' || (
+            {BIGFUNCTIONS_DATASET}.get_value(labels, 'dataform_workflow_execution_action_id_database') || '.' ||
+            {BIGFUNCTIONS_DATASET}.get_value(labels, 'dataform_workflow_execution_action_id_schema') || '.' ||
+            {BIGFUNCTIONS_DATASET}.get_value(labels, 'dataform_workflow_execution_action_id_name')
+          )
+
+          when {BIGFUNCTIONS_DATASET}.get_value(labels, "dataform-action-type") = 'view'
+          then 'dataform_view::' || (
+            {BIGFUNCTIONS_DATASET}.get_value(labels, 'dataform_workflow_execution_action_id_database') || '.' ||
+            {BIGFUNCTIONS_DATASET}.get_value(labels, 'dataform_workflow_execution_action_id_schema') || '.' ||
+            {BIGFUNCTIONS_DATASET}.get_value(labels, 'dataform_workflow_execution_action_id_name')
+          )
+
+          when {BIGFUNCTIONS_DATASET}.get_value(labels, "dataform-action-type") = "assertion"
+          then 'dataform_assertion::' || (
+            {BIGFUNCTIONS_DATASET}.get_value(labels, 'dataform_workflow_execution_action_id_database') || '.' ||
+            {BIGFUNCTIONS_DATASET}.get_value(labels, 'dataform_workflow_execution_action_id_schema') || '.' ||
+            {BIGFUNCTIONS_DATASET}.get_value(labels, 'dataform_workflow_execution_action_id_name')
+          )
+
+          when {BIGFUNCTIONS_DATASET}.get_value(labels, "dataform-action-type") = "operations"
+          then 'dataform_operation::' || (
+            {BIGFUNCTIONS_DATASET}.get_value(labels, 'dataform_workflow_execution_action_id_database') || '.' ||
+            {BIGFUNCTIONS_DATASET}.get_value(labels, 'dataform_workflow_execution_action_id_name')
+          )
+
+          when ends_with(user_email, 'iam.gserviceaccount.com') 
+          then 'service::' || user_email
+
+          else 'user::' || user_email
+        end as node_id,
+        
+
+
+      from `%s`.{BIGFUNCTIONS_DATASET_REGION}.INFORMATION_SCHEMA.JOBS
+      where 
+        date(creation_time) >= current_date - %d
+        and parent_job_id is null
+        and total_bytes_billed is not null
+    
+    ) 
+
+
+    select 
+      * except(cost, labels), 
+      split(node_id, '::')[offset(0)] as node_type,
+      -- array_agg(distinct to_json_string(labels)) as labels,
+      sum(cost) as cost,
+      count(*) as nb,
+    from jobs
+    -- where node_id is null
+    group by all
+    order by cost desc
+    ''', 
+    project, nb_days
+  );
