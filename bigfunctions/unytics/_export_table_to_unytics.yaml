@@ -1,0 +1,34 @@
+type: function_py
+author: Paul Marcombes
+description: |
+  Creates a temp dataset in `bigfunctions` project
+  and gives you ownership permission on it.
+arguments:
+  - name: source_table
+    type: string
+  - name: destination_unytics_table
+    type: string
+output:
+  name: status
+  type: string  
+examples:
+  - description: ""
+    output: "bigfunctions.temp_6bdb75ca_7f72_4f1f_b46a_6ca59f7f66ac"
+init_code: | #python
+  import google.cloud.bigquery
+code: | #python
+  destination = f"gs://data.{g.dataset_location.lower()}.unytics.io/{destination_unytics_table.replace('.', '/')}"
+  job_config = google.cloud.bigquery.job.ExtractJobConfig(destination_format='PARQUET', compression='GZIP')
+  bigquery.extract_table(
+    source_table,
+    destination,
+    location=g.dataset_location,
+    job_config=job_config,
+  ).result()
+  return 'success'
+requirements: |
+  google-cloud-bigquery
+quotas:
+  max_rows_per_query: 1
+cloud_run:
+  service_account: unytics-data-editor@bigfunctions.iam.gserviceaccount.com
