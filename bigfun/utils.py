@@ -259,9 +259,9 @@ class CloudRun:
         if shutil.which('gcloud') is None:
             handle_error('`gcloud` is not installed while needed to deploy a Remote Function.')
         gcloud = "gcloud"
-        if "gcloud_version" in options:
-            gcloud = "gcloud " + options['gcloud_version']
-            del options['gcloud_version']
+        if "gcloud-version" in options:
+            gcloud = "gcloud " + options['gcloud-version']
+            del options['gcloud-version']
         command = gcloud + " run " + command + " " + self.service
         options = options or {}
         if 'regions' not in options:
@@ -272,6 +272,10 @@ class CloudRun:
         return exec(command)
 
     def deploy(self, source_folder, options):
+        if self.service in os.environ:
+            # This service has already been deployed
+            return
+
         print_info(f"Deploy Cloud Run service `{self.service}`")
         options = {
             **{
@@ -286,18 +290,17 @@ class CloudRun:
             },
             **{k.replace("_", "-"): v for k, v in options.items()},
         }
-        if self.service in os.environ:
-            # This service image has already been built, let's use it
-            options["image"] = os.environ[self.service]
-            return self.exec("deploy", options=options)
 
-        options["source"] = source_folder
-        result = self.exec("deploy", options=options)
+        if 'regions' in options:
+            # Multi-region deploy needs to build first the image
+            image = f'{self.region}-docker.pkg.dev/{self.project}/cloud-run-source-deploy/{self.service}:latest'
+            exec(f'gcloud builds submit --tag {image} --region {self.region}  --project {self.project} {source_folder}/')
+            options['image'] = image
+        else:
+            options["source"] = source_folder
 
-        os.environ[self.service] = self.exec(
-            "services describe", options={"format": '"value(image)"'}
-        )
-        return result
+        self.exec("deploy", options=options)
+        os.environ[self.service] = 'deployed'
 
     @property
     def url(self):
