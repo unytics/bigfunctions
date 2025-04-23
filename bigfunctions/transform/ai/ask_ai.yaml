@@ -7,14 +7,10 @@ description: |
 
   `model` must be one of:
 
-  - `gemini-pro`
-  - `text-bison@001`
-  - `text-bison@002`
-  - `text-unicorn@001`
-  - `code-bison@001`
-  - `code-bison@002`
+  - `gemini-2.0-flash-001`
+  - `gemini-2.0-flash-lite-001`
   - ... any future model
-  - `null`, then `gemini-pro` will be used
+  - `null`, then `gemini-2.0-flash-001` will be used
 
   Default parameters are used for each model.
 arguments:
@@ -34,7 +30,7 @@ examples:
         Question: what is the country from the following user input: 'I live in frace' ?
         Answer: formatted as alpha three code
         '''
-      - "gemini-pro"
+      - "gemini-2.0-flash-001"
     output: "FRA"
   - description: "Generate SQL"
     arguments:
@@ -46,7 +42,7 @@ examples:
         Columns: product_id, price, quantity, timestamp
         Answer: bigquery sql query
         '''
-      - "code-bison@002"
+      - "gemini-2.0-flash-001"
     output: |
       SELECT product_id, SUM(price * quantity) AS revenue
       FROM sales
@@ -54,13 +50,11 @@ examples:
       GROUP BY product_id
       ORDER BY revenue DESC
       LIMIT 10
-init_code: |
-  import vertexai
-  from vertexai.preview.language_models import TextGenerationModel, CodeGenerationModel
-  from vertexai.preview.generative_models import GenerativeModel
-  vertexai.init(location=g.region)
-code: |
-  model = model or 'gemini-pro'
+init_code: | #python
+  import google.genai
+  genai = genai.Client(google.vertexai=True, project=PROJECT, location=g.region)
+code: | #python
+  model = model or 'gemini-2.0-flash-001'
   prompt = (prompt or '').strip()
   if not prompt:
     return
@@ -70,31 +64,13 @@ code: |
   if cached:
     return cached
 
-  if model.startswith('text-'):
-    model = TextGenerationModel.from_pretrained(model)
-    response = model.predict(prompt)
-  elif model.startswith('code-'):
-    model = CodeGenerationModel.from_pretrained(model)
-    response = model.predict(prompt)
-  else:
-    model = GenerativeModel(model)
-    response = model.generate_content(prompt)
-
-  try:
-    answer = response.text
-  except Exception as e:
-    print('ERROR:', e)
-    print('RESPONSE:')
-    print(response)
-    return 'ERROR IN GOOGLE RESPONSE: \n' + str(response)
-
-  if not answer:
-    return 'GOOGLE LANGUAGE MODEL QUOTA REACHED'
-
-  CACHE[cache_key] = answer
+  response = genai.models.generate_content(model=model, contents=prompt)
+  answer = response.text
+  assert answer, 'empty answer from google'
+  CACHE.set(cache_key, answer)
   return answer
 requirements: |
-  google-cloud-aiplatform
+  google-genai
 quotas:
   max_rows_per_user_per_day: 1000
   max_rows_per_query: 10
