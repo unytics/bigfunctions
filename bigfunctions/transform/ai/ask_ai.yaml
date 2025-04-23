@@ -51,23 +51,24 @@ examples:
       ORDER BY revenue DESC
       LIMIT 10
 init_code: | #python
+  import hashlib
   import google.genai
-  genai = google.genai.Client(vertexai=True, project=PROJECT, location=g.region)
 code: | #python
   model = model or 'gemini-2.0-flash-001'
   prompt = (prompt or '').strip()
   if not prompt:
     return
 
-  cache_key = hash(model + prompt)
-  cached = CACHE.get(cache_key)
+  cache_key = hashlib.md5((model + prompt).encode()).hexdigest()
+  cached = cache.get(cache_key)
   if cached:
     return cached
 
+  genai = google.genai.Client(vertexai=True, project=PROJECT, location=g.region)
   response = genai.models.generate_content(model=model, contents=prompt)
   answer = response.text
   assert answer, 'empty answer from google'
-  CACHE.set(cache_key, answer)
+  cache.set(cache_key, answer)
   return answer
 requirements: |
   google-genai
