@@ -125,7 +125,7 @@ init_code: |
 
   vertexai.init(location=g.region)
   model = GenerativeModel(MODEL)
-code: |
+code: | #python
   if not items:
     return {}
 
