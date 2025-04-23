@@ -29,4 +29,3 @@ code: | #sql
   select {BIGFUNCTIONS_DATASET}._export_table_to_unytics(temp_dataset || '.source_table', destination_unytics_table);
 
   execute immediate format('drop schema `%s` cascade', temp_dataset);
-
