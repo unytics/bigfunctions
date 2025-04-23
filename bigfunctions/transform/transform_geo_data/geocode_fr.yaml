@@ -25,14 +25,14 @@ init_code: | #python
   import numpy as np
   import pandas as pd
   import requests
-code: |
+code: | #python
   addresses = [row[0] for row in rows]
   addresses = pd.Series(addresses, name="address")
   addresses_csv = addresses.to_csv(index=False)
   file = (
     'addresses.csv',
-    addresses_csv.encode('latin-1'),
-    'text/csv; charset=latin-1'
+    addresses_csv.encode('utf-8'),
+    'text/csv; charset=utf-8'
   )
   url = 'https://api-adresse.data.gouv.fr/search/csv/'
   response = requests.post(url, files={'data': file})
@@ -44,3 +44,5 @@ code: |
 requirements: |
   pandas
   requests
+cloud_run:
+  concurrency: 1
