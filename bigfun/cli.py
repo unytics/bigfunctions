@@ -104,20 +104,20 @@ def deploy(bigfunction, project, dataset, config):
         bigfunctions = bf.BIGFUNCTIONS
 
     for name in bigfunctions:
-        # for dataset in datasets:
-        #     bigfunction = bf.BigFunction(name, project=project, dataset=dataset)
-        #     bigfunction.deploy()                
-        bigfunction = bf.BigFunction(name, project=project, dataset=datasets[0])
-        bigfunction.deploy()
-        if len(datasets) > 1:
-            with multiprocessing.Pool(processes=8) as pool:
-                pool.map(
-                    bf.BigFunction.deploy,
-                    [
-                        bf.BigFunction(name, project=project, dataset=dataset)
-                        for dataset in datasets[1:]
-                    ]
-                )
+        for dataset in datasets:
+            bigfunction = bf.BigFunction(name, project=project, dataset=dataset)
+            bigfunction.deploy()
+        # bigfunction = bf.BigFunction(name, project=project, dataset=datasets[0])
+        # bigfunction.deploy()
+        # if len(datasets) > 1:
+        #     with multiprocessing.Pool(processes=8) as pool:
+        #         pool.map(
+        #             bf.BigFunction.deploy,
+        #             [
+        #                 bf.BigFunction(name, project=project, dataset=dataset)
+        #                 for dataset in datasets[1:]
+        #             ]
+        #         )
 
 
 @cli.command()
