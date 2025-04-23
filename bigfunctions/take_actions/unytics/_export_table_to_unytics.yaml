@@ -17,7 +17,7 @@ examples:
 init_code: | #python
   import google.cloud.bigquery
 code: | #python
-  destination = f"gs://data.{g.dataset_location.lower()}.unytics.io/{destination_unytics_table.replace('.', '/')}"
+  destination = f"gs://data.{g.dataset_location.lower()}.unytics.io/{destination_unytics_table.replace('.', '/')}.parquet"
   job_config = google.cloud.bigquery.job.ExtractJobConfig(destination_format='PARQUET', compression='GZIP')
   bigquery.extract_table(
     source_table,
