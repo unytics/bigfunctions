@@ -7,7 +7,7 @@ description: |
 
   1. Calls [`get_appstore_reviews`](https://unytics.io/bigfunctions/bigfunctions/get_appstore_reviews/) function to retrieve the 500 latest user reviews of the mobile app.
   2. Builds a prompt using your question and including the retrieved user reviews.
-  3. Calls [`ask_ai`](https://unytics.io/bigfunctions/bigfunctions/ask_ai/) function to get the prompt answer using `gemini-1.5-flash-preview-0514` model.
+  3. Calls [`ask_ai`](https://unytics.io/bigfunctions/bigfunctions/ask_ai/) function to get the prompt answer using `gemini`.
 
   Click the GitHub icon to see the code.
 arguments:
@@ -30,7 +30,7 @@ examples:
       Users appreciate the opportunity to connect with others, share costs, and contribute to a more sustainable way of travel
 
       ...
-code: |
+code: | #sql
     with
 
     reviews as (
@@ -52,5 +52,5 @@ code: |
     )
 
 
-    select {BIGFUNCTIONS_DATASET}.ask_ai(query, 'gemini-1.5-flash-preview-0514')
+    select {BIGFUNCTIONS_DATASET}.ask_ai(query, null)
     from generated_prompt
