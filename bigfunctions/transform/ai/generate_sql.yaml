@@ -32,7 +32,7 @@ examples:
       +---------------+-------------------+-------------------------+
       + SELECT ...    + Question: get ... | sql``` SELECT...        |
       +---------------+-------------------+-------------------------+
-code: |
+code: | #sql
   assert array_length(split(fully_qualified_table, '.')) = 3 as 'BAD ARGUMENT FORMAT: `fully_qualified_table` argument must follow the pattern `PROJECT.DATASET.TABLE`';
 
   execute immediate {BIGFUNCTIONS_DATASET}.render_template(
@@ -64,7 +64,7 @@ code: |
     ),
 
     answer as (
-      select {BIGFUNCTIONS_DATASET}.ask_ai(question.question, 'code-bison@002') as raw_answer_before_clean
+      select {BIGFUNCTIONS_DATASET}.ask_ai(question.question, null) as raw_answer_before_clean
       from question
     ),
 
