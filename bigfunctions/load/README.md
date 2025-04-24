@@ -1,4 +1,16 @@
-## ⬆️ Load Data
+---
+title: Load BigFunctions
+description: "Gain new SQL Powers with 150+ Ready to use BigQuery functions built by the community"
+search:
+  exclude: true
+folders:
+  - public_services
+  - web
+  - saas
+  - generate
+---
+
+# ⬆️ Load Data
 
 There are 2 types pof load functions:
 
