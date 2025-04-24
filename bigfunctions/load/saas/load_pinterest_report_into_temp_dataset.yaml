@@ -1,10 +1,10 @@
 type: function_py
 author: Paul Marcombes
 description: |
-  Download [Pinterest Custom Report](https://help.pinterest.com/en-gb/business/article/create-edit-and-review-custom-reports){ target="_blank" }
+  Download [Pinterest Custom Report](https://help.pinterest.com/en-gb/business/article/create-edit-and-review-custom-reports){ target='_blank' }
   into `destination_table` inside a temporary dataset.
 
-  ??? info "More on temporary datasets"
+  ??? note "More on temporary datasets"
 
       Each call to this function **creates a new temporary dataset** which:
 
