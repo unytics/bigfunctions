@@ -145,3 +145,4 @@ TEST
 venv
 .venv/
 query.py
+uv.lock
