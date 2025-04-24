@@ -44,59 +44,7 @@ search:
 
 
 
-
-{% set arguments_containing_secrets = arguments|selectattr('contains_secret')|map(attribute='name')|list %}
-
-{% if arguments_containing_secrets %}
-
-
-??? warning "Keep the secrets safe!"
-
-    **Do NOT write secrets in plain text in your SQL queries!**
-
-    Otherwise, anyone with access to your BigQuery logs can read and use them.
-
-    Instead, **generate an encrypted version** that you can safely share:
-
-    <div>
-      <input id="secret-to-encrypt" type="text" class="md-input" placeholder="secret">
-      <input id="authorized-users" type="text" class="md-input" placeholder="you@example.com">
-      <button class="md-button md-button--primary" onclick="encrypt();">Encrypt Secret</button>
-    </div>
-
-    1. Enter a secret value below along with the emails of the users who are authorized to use it (separated by commas).
-    2. Click on `Encrypt Secret`.
-    3. The browser (no server is called) will generate an encrypted version and copy it in the clipboard
-    4. Paste the encrypted secret into the arguments of your function exactly like if you passed the plain text version.
-    5. This function `{{ name }}` (and only this function) will be able to decrypt it (if the user who calls the function is authorized).
-
-
-
-
-
-    ??? quote "More on secret encryption"
-
-        Technically, this encryption system uses the same encryption mechanism used to transfer data over the internet.
-        It uses a pair of a public and private keys.
-
-        The public key (contained in this web page) is used to encrypt a text.
-        The corresponding private key is the only one who is able to decrypt the text.
-        The private key is stored in a secret manager and is only accessible to this function.
-        Thus, this function (and this function only) can decrypt it.
-
-        Moreover, the function will check that the caller of the function belong to the list of `authorized users`
-        that you gave at encryption time.
-
-        Thanks to this:
-
-        - Nobody but this function will be able to decrypt it.
-        - Nobody but `authorized users` can use the encrypted version in a function.
-        - No function but the function `{{ name }}` can decrypt it.
-
-
-{% endif %}
-
-
+## Usage
 
 
 {% if project == 'bigfunctions' %}
@@ -154,26 +102,61 @@ search:
         {% endif %}
 
 
-??? note "Need help or Found a bug?"
-
-    ??? success "Get help using `{{ name }}`"
-
-        The community can help! Engage the conversation on [Slack](https://join.slack.com/t/unytics/shared_invite/zt-1gbv491mu-cs03EJbQ1fsHdQMcFN7E1Q)
-
-        **We also provide [professional suppport](../chat_with_us.md)**.
+{% endif %}
 
 
-    ??? success "Report a bug about `{{ name }}`"
 
-        If the function does not work as expected, please
+{% set arguments_containing_secrets = arguments|selectattr('contains_secret')|map(attribute='name')|list %}
 
-        - [report a bug](https://github.com/unytics/bigfunctions/issues/new/choose) so that it can be improved.
-        - or open the discussion with the community on [Slack](https://join.slack.com/t/unytics/shared_invite/zt-1gbv491mu-cs03EJbQ1fsHdQMcFN7E1Q).
+{% if arguments_containing_secrets %}
 
-        **We also provide [professional suppport](../chat_with_us.md)**.
+
+??? warning "Keep the secrets safe!"
+
+    **Do NOT write secrets in plain text in your SQL queries!**
+
+    Otherwise, anyone with access to your BigQuery logs can read and use them.
+
+    Instead, **generate an encrypted version** that you can safely share:
+
+    <div>
+      <input id="secret-to-encrypt" type="text" class="md-input" placeholder="secret">
+      <input id="authorized-users" type="text" class="md-input" placeholder="you@example.com">
+      <button class="md-button md-button--primary" onclick="encrypt();">Encrypt Secret</button>
+    </div>
+
+    1. Enter a secret value below along with the emails of the users who are authorized to use it (separated by commas).
+    2. Click on `Encrypt Secret`.
+    3. The browser (no server is called) will generate an encrypted version and copy it in the clipboard
+    4. Paste the encrypted secret into the arguments of your function exactly like if you passed the plain text version.
+    5. This function `{{ name }}` (and only this function) will be able to decrypt it (if the user who calls the function is authorized).
+
+
+
+
+
+    ??? quote "More on secret encryption"
+
+        Technically, this encryption system uses the same encryption mechanism used to transfer data over the internet.
+        It uses a pair of a public and private keys.
+
+        The public key (contained in this web page) is used to encrypt a text.
+        The corresponding private key is the only one who is able to decrypt the text.
+        The private key is stored in a secret manager and is only accessible to this function.
+        Thus, this function (and this function only) can decrypt it.
+
+        Moreover, the function will check that the caller of the function belong to the list of `authorized users`
+        that you gave at encryption time.
+
+        Thanks to this:
+
+        - Nobody but this function will be able to decrypt it.
+        - Nobody but `authorized users` can use the encrypted version in a function.
+        - No function but the function `{{ name }}` can decrypt it.
 
 
 {% endif %}
+
 
 
 
@@ -286,8 +269,30 @@ from sample_data
 
 {% if project == 'bigfunctions' %}
 
+---
 
-[Add a :octicons-star-fill-16: on :simple-github: :octicons-arrow-right-24:](https://github.com/unytics/bigfunctions){ .md-button  target="_blank" }
+??? question "Need help or Found a bug?"
+
+    ??? success "Get help using `{{ name }}`"
+
+        The community can help! Engage the conversation on [Slack](https://join.slack.com/t/unytics/shared_invite/zt-1gbv491mu-cs03EJbQ1fsHdQMcFN7E1Q)
+
+        **We also provide [professional suppport](../chat_with_us.md)**.
+
+
+    ??? success "Report a bug about `{{ name }}`"
+
+        If the function does not work as expected, please
+
+        - [report a bug](https://github.com/unytics/bigfunctions/issues/new/choose) so that it can be improved.
+        - or open the discussion with the community on [Slack](https://join.slack.com/t/unytics/shared_invite/zt-1gbv491mu-cs03EJbQ1fsHdQMcFN7E1Q).
+
+        **We also provide [professional suppport](../chat_with_us.md)**.
+
+---
+
+
+[Show your :heart: by adding a :star: on :simple-github: :octicons-arrow-right-24:](https://github.com/unytics/bigfunctions){ .md-button  target="_blank" style="width: 100%; text-align: center;" }
 
 {% endif %}
 
