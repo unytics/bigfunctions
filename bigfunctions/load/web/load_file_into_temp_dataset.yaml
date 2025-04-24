@@ -141,5 +141,4 @@ quotas:
 cloud_run:
   memory: 2048Mi
   concurrency: 1
-  max_instances: 20
   service_account: load-file@bigfunctions.iam.gserviceaccount.com
