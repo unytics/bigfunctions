@@ -1,0 +1,101 @@
+type: function_py
+author: Paul Marcombes
+description: |
+  Download [Pinterest Custom Report](https://help.pinterest.com/en-gb/business/article/create-edit-and-review-custom-reports){ target="_blank" }
+  into `destination_table` inside a temporary dataset.
+
+  ??? info "More on temporary datasets"
+
+      Each call to this function **creates a new temporary dataset** which:
+
+      - belongs to bigfunctions project.
+      - contains the extracted data,
+      - is accessible only to you (who calls the function) and the function. You are owner of the dataset which means that you can read or delete it.
+      - has a limited period of life. Default expiration time is set to 1h so that every table created will be automatically deleted after 1h. Empty datasets are periodically removed.
+      - has a random name
+arguments:
+  - name: ad_account_id
+    type: int64
+  - name: report_template_id
+    type: int64
+  - name: access_token
+    type: string
+    contains_secret: true
+  - name: start_date
+    type: date
+  - name: end_date
+    type: date
+  - name: granularity
+    type: string
+output:
+  name: destination_table
+  type: string
+examples:
+  - description: ""
+    arguments:
+      - 12345
+      - 678910
+      - ENCRYPTED_SECRET(kdoekdswlxzapdldpzlfpfd)
+    output: "bigfunctions.temp_6bdb75ca_7f72_4f1f_b46a_6ca59f7f66ac.file_data"
+code: | #python
+  import requests
+  import time
+  import urllib
+
+  assert ad_account_id, 'invalid ad_account_id: it is null or empty'
+  assert report_template_id, 'invalid report_template_id: it is null or empty'
+
+  def request(method, url):
+    headers = {
+      'Authorization': f'Bearer {access_token}',
+      'Content-Type': 'application/json',
+      'Accept': 'application/json',
+    }
+    base_url = 'https://api.pinterest.com/v5'
+    response = requests.request(method, base_url + url, headers=headers)
+    return response.json()
+
+  def get(url):
+    return request('GET', url)
+
+  def post(url):
+    return request('POST', url)
+
+  def create_report_from_template():
+    report = post(f'/ad_accounts/{ad_account_id}/templates/{report_template_id}/reports')
+    report['report_status'] = 'TO_CHECK'
+    report_token = report['token']
+    while report['report_status'] != 'FINISHED':
+      print('waiting')
+      time.sleep(1)
+      report = get(f'/ad_accounts/{ad_account_id}/reports?token={report_token}')
+    return report['url']
+
+  def dowload_report(report_url):
+    with tempfile.TemporaryDirectory() as folder:
+      urllib.request.urlretrieve(report_url, f'{folder}/report.csv')
+    df = pd.read_csv(f'{folder}/report.csv')
+    return df
+
+  def upload_dataframe(df, destination_table):
+    job_config = google.cloud.bigquery.LoadJobConfig(
+      write_disposition="WRITE_TRUNCATE",
+      destination_table_description=f'File downloaded by BigFunctions using the Pinterest API'
+    )
+    bigquery.load_table_from_dataframe(df, destination_table, job_config=job_config).result()
+
+  destination_dataset = bigquery.create_temp_dataset()
+  report_url = create_report_from_template()
+  df = dowload_report(report_url)
+  upload_dataframe(df, f'{destination_dataset}.report')
+  return destination_table
+requirements: |
+  requests
+  google-cloud-bigquery[pandas,pyarrow]
+quotas:
+  max_rows_per_query: 10
+cloud_run:
+  memory: 2048Mi
+  concurrency: 1
+  max_instances: 20
+  service_account: load-file@bigfunctions.iam.gserviceaccount.com
