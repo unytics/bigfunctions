@@ -50,7 +50,7 @@ search:
 {% if arguments_containing_secrets %}
 
 
-## Encrypt your secrets! ⚠️
+## How to manage secrets
 
 !!! note ""
 
