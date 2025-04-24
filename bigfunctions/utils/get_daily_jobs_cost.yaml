@@ -91,6 +91,23 @@ code: | #sql
         and parent_job_id is null
         and total_bytes_billed is not null
 
+    ),
+
+
+    top_queries as (
+      select query
+      from jobs
+      group by query
+      order by sum(cost) desc
+      limit 100
+    ),
+
+
+    jobs_w_small_queries_as_null as (
+      select
+        * except(query),
+        case when query in (select query from top_queries) then query else null end as query,
+      from jobs
     )
 
 
@@ -100,7 +117,7 @@ code: | #sql
       -- array_agg(distinct to_json_string(labels)) as labels,
       sum(cost) as cost,
       count(*) as nb,
-    from jobs
+    from jobs_w_small_queries_as_null
     -- where node_id is null
     group by all
     order by cost desc
