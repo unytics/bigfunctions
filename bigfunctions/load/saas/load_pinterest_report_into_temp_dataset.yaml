@@ -43,6 +43,7 @@ code: | #python
   import urllib
   import duckdb
   import google.cloud.bigquery
+  import slugify.slugify
 
   assert ad_account_id, 'invalid ad_account_id: it is null or empty'
   assert report_template_id, 'invalid report_template_id: it is null or empty'
@@ -87,12 +88,14 @@ code: | #python
   destination_table = f'{destination_dataset}.report'
   report_url = create_report_from_template()
   df = dowload_report(report_url)
+  df.columns = [slugify.slugify(col, separator="_") for col in df.columns]
   upload_dataframe(df, f'{destination_dataset}.report')
   return destination_table
 requirements: |
   requests
   duckdb
   google-cloud-bigquery[pandas,pyarrow]
+  python-slugify
 quotas:
   max_rows_per_query: 10
 cloud_run:
