@@ -41,6 +41,8 @@ code: | #python
   import requests
   import time
   import urllib
+  import duckdb
+  import google.cloud.bigquery
 
   assert ad_account_id, 'invalid ad_account_id: it is null or empty'
   assert report_template_id, 'invalid report_template_id: it is null or empty'
@@ -72,10 +74,7 @@ code: | #python
     return report['url']
 
   def dowload_report(report_url):
-    with tempfile.TemporaryDirectory() as folder:
-      urllib.request.urlretrieve(report_url, f'{folder}/report.csv')
-    df = pd.read_csv(f'{folder}/report.csv')
-    return df
+    return duckdb.read_csv(report_url, sample_size=-1).df()
 
   def upload_dataframe(df, destination_table):
     job_config = google.cloud.bigquery.LoadJobConfig(
@@ -85,17 +84,17 @@ code: | #python
     bigquery.load_table_from_dataframe(df, destination_table, job_config=job_config).result()
 
   destination_dataset = bigquery.create_temp_dataset()
+  destination_table = f'{destination_dataset}.report'
   report_url = create_report_from_template()
   df = dowload_report(report_url)
   upload_dataframe(df, f'{destination_dataset}.report')
   return destination_table
 requirements: |
   requests
+  duckdb
   google-cloud-bigquery[pandas,pyarrow]
 quotas:
   max_rows_per_query: 10
 cloud_run:
   memory: 2048Mi
   concurrency: 1
-  max_instances: 20
-  service_account: load-file@bigfunctions.iam.gserviceaccount.com
