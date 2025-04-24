@@ -54,16 +54,17 @@ search:
 
 !!! note ""
 
-    *Do NOT write secrets in plain text in your SQL queries!*
+    Do NOT write secrets in plain text in your SQL queries.
 
-Otherwise, anyone with access to your BigQuery logs can read them.
+Otherwise, anyone with access to your BigQuery logs can read and use them.
 
-Instead, generate an encrypted version of your secret that you can safely share.
+Instead, generate an encrypted version that you can safely share:
 
-> *Enter a secret value to encrypt below along with the emails of the users who are authorized to use it.*
-> *It will generate an encrypted version that you can paste into the arguments of your function (exactly like if you passed the plain text version).*
-> *If a user, who is not in the auhorized users list, tries to use the encrypted version, the function will raise a permission error.*
-> *Besides, the encrypted version can only be used with this function `{{ name }}`.*
+> - Enter a secret value below along with the emails of the users who are authorized to use it (separated by commas).
+> - Click on `Encrypt Secret`.
+> - The browser (no server is called) will generate an encrypted version and copy it in the clipboard
+> - Paste the encrypted secret into the arguments of your function exactly like if you passed the plain text version.
+> - This function `{{ name }}` (and only this function) will be able to decrypt it (if the user who calls the function is authorized).
 
 
 !!! example "Encrypt a secret"
@@ -85,7 +86,7 @@ Instead, generate an encrypted version of your secret that you can safely share.
     The private key is stored in a secret manager and is only accessible to this function.
     Thus, this function (and this function only) can decrypt it.
 
-    Moreover, the function will check that the caller of the function belong to the kist of `authorized users`
+    Moreover, the function will check that the caller of the function belong to the list of `authorized users`
     that you gave at encryption time.
 
     Thanks to this:
