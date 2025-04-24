@@ -1,8 +1,8 @@
 type: procedure
 author: Paul Marcombes
 description: |
-  Load SAAS data from 250+ sources using the [Python Connectors](https://pypi.org/search/?q=airbyte-source-) of [Airbyte](https://airbyte.com/)
-  using [Airbye Serverless](https://github.com/unytics/airbyte_serverless).
+  Load SAAS data from 250+ sources using the [Python Connectors](https://pypi.org/search/?q=airbyte-source-){ target="_blank" } of [Airbyte](https://airbyte.com/){ target="_blank" }
+  using [Airbye Serverless](https://github.com/unytics/airbyte_serverless){ target="_blank" }.
   .
 
   - The function creates a temporary dataset (only accessible to you) in `bigfunctions` project.
