@@ -129,9 +129,7 @@ search:
     2. Click on `Encrypt Secret`.
     3. The browser (no server is called) will generate an encrypted version and copy it in the clipboard
     4. Paste the encrypted secret into the arguments of your function exactly like if you passed the plain text version.
-    5. This function `{{ name }}` (and only this function) will be able to decrypt it (if the user who calls the function is authorized).
-
-
+    5. The bigfunction will decrypt it and check that the calling user is authorized.
 
 
 
@@ -314,15 +312,16 @@ function encrypt() {
   const plainText = document.getElementById('secret-to-encrypt').value;
   const authorizedUsers = document.getElementById('authorized-users').value;
   if (!plainText) {
+    alert("Missing secret value! Please add a secret.");
     return;
   }
   if (!authorizedUsers) {
+    alert("Missing Authorized users! Please add at least one user.");
     return;
   }
   const plainObj = {
-    secret: plainText,
-    authorized_users: authorizedUsers,
-    function: "{{ name }}",
+    s: plainText,
+    u: authorizedUsers,
   };
   const plainObjAsString = JSON.stringify(plainObj);
   const encrypted = publicKey.encrypt(plainObjAsString, 'RSA-OAEP', {

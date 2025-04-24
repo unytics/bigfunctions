@@ -314,9 +314,12 @@ def decrypt_secrets(value):
     for encrypted_secret in encrypted_secrets:
         decrypted_secret = decrypt(encrypted_secret)
         decrypted_secret = json.loads(decrypted_secret)
-        assert g.user in decrypted_secret['authorized_users'], f'Permission Error: User `{g.user}` do not belong to secret `authorized readers`'
-        assert decrypted_secret['function'] == '{{ name }}', f'Permission Error: Secret was not created to be used with this function'
-        decrypted_secret = decrypted_secret['secret']
+        authorized_users = decrypted_secret.get('u') or decrypted_secret.get('authorized_users')
+        assert authorized_users, 'Missing authorized users in encrypted secret'
+        authorized_users = [u.strip() for u in authorized_users.split(',')]
+        assert g.user in authorized_users, f'Permission Error: User `{g.user}` do not belong to secret `authorized users`'
+        decrypted_secret = decrypted_secret.get('s') or decrypted_secret.get('secret')
+        assert decrypted_secret, 'Missing secret in encrypted secret'
         value = value.replace(f'ENCRYPTED_SECRET({encrypted_secret})', decrypted_secret)
     return value
 
