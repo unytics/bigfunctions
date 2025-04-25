@@ -179,6 +179,30 @@ def generate_use_case(bigfunction):
 
 
 @docs.command()
+@click.argument('bigfunction')
+def generate_description_improvement(bigfunction):
+    """
+    Generate markdown files for documentation from yaml bigfunctions files
+    """
+    bigfunctions = [bigfunction.strip() for bigfunction in bigfunction.split(',')]
+    if bigfunction == 'ALL':
+        bigfunctions = bf.BIGFUNCTIONS
+    for name in bigfunctions:
+        bigfunction = bf.BigFunction(name)
+        bigfunction.generate_description_improvement()
+
+
+@docs.command()
+@click.argument('folder_path')
+def generate_folder_readme(folder_path):
+    """
+    Generate README.md for bigfunctions folder
+    """
+    folder = bf.Folder(folder_path)
+    folder.generate_readme()
+
+
+@docs.command()
 @click.option('--config', default='config.yaml', help='Path to the config file')
 @click.option('--port', default='8000', help='Port to serve docs on')
 def serve(config, port):

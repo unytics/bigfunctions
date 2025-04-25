@@ -200,6 +200,15 @@ class BigFunction:
             self.config['use_case'] = open(self.use_case_filename, encoding='utf-8').read()
         return BIGFUNCTION_DOC_TEMPLATE.render(**self.config)
 
+    def generate_description_improvement(self):
+        prompt = '\n\n'.join([
+            'Improve the description of this bigquery function. Return only the description.',
+            'FUNCTION YAML DEFINITION:',
+            open(self.filename, encoding='utf-8').read(),
+        ])
+        description = generate_content(prompt)
+        print(description)
+
     def generate_use_case(self, overwrite_if_exists=False):
         if os.path.isfile(self.use_case_filename):
             if not overwrite_if_exists:
@@ -319,6 +328,18 @@ class Folder:
             title = title.lstrip('# ')
 
         return title, readme, frontmatter
+
+    def generate_readme(self):
+        prompt = '''
+        BigFunctions is a catalog of BigQuery functions. Functions are categorized in folders. Generate the description of the folder containing the following functions:
+
+
+        '''.replace('\n        ', '')
+        prompt += '\n\n--------------------\n\n '.join(['FUNCTION `' + b.name + '``: ' + b.config['description'] for b in self.bigfunctions])
+        print(prompt)
+        readme = generate_content(prompt)
+        with open(f'{self.path}/README.md', 'w', encoding='utf-8') as file:
+            file.write(readme)
 
     @property
     def doc(self):

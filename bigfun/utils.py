@@ -377,32 +377,9 @@ def download(url, destination_filename):
 
 
 def generate_content(prompt):
-    import vertexai
-    from vertexai.generative_models import GenerativeModel, SafetySetting
-
-    safety_settings = [
-        SafetySetting(
-            category=SafetySetting.HarmCategory.HARM_CATEGORY_HATE_SPEECH,
-            threshold=SafetySetting.HarmBlockThreshold.OFF
-        ),
-        SafetySetting(
-            category=SafetySetting.HarmCategory.HARM_CATEGORY_DANGEROUS_CONTENT,
-            threshold=SafetySetting.HarmBlockThreshold.OFF
-        ),
-        SafetySetting(
-            category=SafetySetting.HarmCategory.HARM_CATEGORY_SEXUALLY_EXPLICIT,
-            threshold=SafetySetting.HarmBlockThreshold.OFF
-        ),
-        SafetySetting(
-            category=SafetySetting.HarmCategory.HARM_CATEGORY_HARASSMENT,
-            threshold=SafetySetting.HarmBlockThreshold.OFF
-        ),
-    ]
-
-    vertexai.init()
-    model = GenerativeModel("gemini-1.5-pro-002")
-    response = model.generate_content(
-        prompt,
-        safety_settings=safety_settings,
-    )
+    import google.auth
+    import google.genai
+    _, project = google.auth.default()
+    genai = google.genai.Client(vertexai=True, project=project, location='europe-west1')
+    response = genai.models.generate_content(model='gemini-2.0-flash-001', contents=prompt)
     return response.text
