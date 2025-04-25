@@ -26,9 +26,9 @@ dependencies = [
     "mkdocs-awesome-nav",
     "click",
     "click-help-colors",
-    "vertexai",
     "cryptography",
     "uv",
+    "google-genai",
 ]
 dynamic = ["version"]
 
