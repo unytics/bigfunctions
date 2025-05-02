@@ -1,0 +1,170 @@
+type: procedure
+author: Paul Marcombes
+description: |
+  Download Daily [Pinterest Custom Report](https://help.pinterest.com/en-gb/business/article/create-edit-and-review-custom-reports){ target='_blank' }
+  into `destination_table`.
+
+  At each run, the function will always load data of the last 28 days. It will also backfill missing data up to one year.
+
+  To get the needed `client_id`, `client_secret` and `refresh_token` from Pinterest, read their documentation [here](https://developers.pinterest.com/docs/getting-started/connect-app/) and then [there](https://developers.pinterest.com/docs/getting-started/set-up-authentication-and-authorization/).
+
+  If you need help in getting those, you can get help on BigFunctions [Slack](https://join.slack.com/t/unytics/shared_invite/zt-1gbv491mu-cs03EJbQ1fsHdQMcFN7E1Q).
+arguments:
+  - name: destination_table
+    type: string
+  - name: ad_account_id
+    type: int64
+  - name: report_template_id
+    type: int64
+  - name: client_id
+    type: string
+  - name: client_secret
+    type: string
+    contains_secret: true
+  - name: refresh_token
+    type: string
+    contains_secret: true
+output:
+  name: result
+  type: string
+examples:
+  - description: |
+      Download daily google trends comparing bigquery and snowflake
+
+      ![snowflake vs bigquery google trends comparison](load_google_trends.png){ width=600 }
+    arguments:
+      - "your_project.dataset.table"
+      - ['bigquery', 'snowflake']
+      - "2024-01"
+code: | #sql
+  declare query string;
+  declare destination_dataset string;
+  declare destination_table_name string;
+  declare temp_table string;
+  declare destination_table_exists bool;
+  declare monthly_trends json;
+
+  assert array_length(split(destination_table, '.')) = 3 as '`destination_table` must be like PROJECT.DATASET.TABLE';
+  set destination_dataset = split(destination_table, '.')[offset(0)] || '.' || split(destination_table, '.')[offset(1)];
+  set destination_table_name = split(destination_table, '.')[offset(2)];
+
+
+  select 'Check if destination table exists';
+  set query = format(
+    '''
+    select exists(
+      select 1
+      from `%s`.__TABLES__
+      where table_id = '%s'
+      limit 1
+    )
+    ''',
+    destination_dataset, destination_table_name
+  );
+  select query;
+  execute immediate query into destination_table_exists;
+
+
+  if destination_table_exists
+  then
+
+    select 'Create temp table listing missing dates in destination_table (+ current month)';
+    set query = format(
+      '''
+      create temp table missing_dates as
+      select date
+      from unnest(generate_date_array(current_date - 366, current_date - 1)) as date
+      left join `%s` destination using(date)
+      where
+        destination.date is null
+        or date > current_date - 28
+      ;
+      ''',
+      destination_table
+    );
+    select query;
+    execute immediate query;
+
+  else
+
+    select 'Create temp table listing all dates from last year';
+    set query = '''
+      create temp table missing_dates as
+      select date
+      from unnest(generate_date_array(current_date - 366, current_date - 1)) as date
+      ;
+    ''';
+    select query;
+    execute immediate query;
+
+  end if;
+
+
+
+  select 'Download reports for missing months';
+  for month in (
+
+    with months as (
+      select
+        greatest(current_date - 366, min(date)) as start_date,
+        least(current_date - 1, max(date)) as end_date,
+      from missing_dates
+      group by format_date('%Y-%m', date)
+      order by start_date
+    )
+
+    select
+      *,
+      row_number() over() as idx,
+    from months
+  )
+  do
+
+
+    select 'Download report for ' || month.start_date || ' - ' || month.end_date;
+    set temp_table = (
+      select {BIGFUNCTIONS_DATASET}.load_pinterest_report_into_temp_dataset(
+        ad_account_id, report_template_id, client_id, client_secret, refresh_token, month.start_date, month.end_date, 'DAY'
+      )
+    );
+
+    if destination_table_exists or month.idx > 1
+    then
+      select 'Drop partition for ' || month.start_date || ' in destination table';
+      set query = format(
+        '''
+        delete `%s`
+        where date between '%t' and '%t'
+        ''',
+        destination_table, month.start_date, month.end_date
+      );
+      select query;
+      execute immediate query;
+
+      select 'Insert report data from ' || month.start_date || ' into destination';
+      set query = format(
+        '''
+        insert into `%s`
+        select * from `%s`
+        ''',
+        destination_table, temp_table
+      );
+      select query;
+      execute immediate query;
+
+    else
+      select 'Create destination_table with report data from ' || month.start_date;
+      set query = format(
+        '''
+        create table `%s`
+        partition by date(date)
+        as
+        select * from %s
+        ''',
+        destination_table, temp_table
+      );
+      select query;
+      execute immediate query;
+    end if;
+
+  end for;
