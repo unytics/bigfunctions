@@ -4,6 +4,10 @@ description: |
   Download [Pinterest Custom Report](https://help.pinterest.com/en-gb/business/article/create-edit-and-review-custom-reports){ target='_blank' }
   into `destination_table` inside a temporary dataset.
 
+  To get the needed `client_id`, `client_secret` and `refresh_token` from Pinterest, read their documentation [here](https://developers.pinterest.com/docs/getting-started/connect-app/) and then [there](https://developers.pinterest.com/docs/getting-started/set-up-authentication-and-authorization/).
+
+  If you need help in getting thoses, you can get help on our [Slack](https://join.slack.com/t/unytics/shared_invite/zt-1gbv491mu-cs03EJbQ1fsHdQMcFN7E1Q).
+
   ??? note "More on temporary datasets"
 
       Each call to this function **creates a new temporary dataset** which:
@@ -18,7 +22,12 @@ arguments:
     type: int64
   - name: report_template_id
     type: int64
-  - name: access_token
+  - name: client_id
+    type: string
+  - name: client_secret
+    type: string
+    contains_secret: true
+  - name: refresh_token
     type: string
     contains_secret: true
   - name: start_date
@@ -47,6 +56,29 @@ code: | #python
 
   assert ad_account_id, 'invalid ad_account_id: it is null or empty'
   assert report_template_id, 'invalid report_template_id: it is null or empty'
+  assert client_id, 'missing client_id'
+  assert client_secret, 'missing client_secret'
+  assert refresh_token, 'missing refresh_token'
+  assert refresh_token.startswith('pina_'), 'invalid refresh_token'
+
+  def get_access_token():
+    token_url = "https://api.pinterest.com/v5/oauth/token"
+    credentials = f"{client_id}:{client_secret}"
+    credentials_bytes = credentials.encode('utf-8')
+    base64_credentials = base64.b64encode(credentials_bytes).decode('utf-8')
+    headers = {
+      "Authorization": f"Basic {base64_credentials}",
+      "Content-Type": "application/x-www-form-urlencoded",
+    }
+    payload = {
+      "grant_type": "refresh_token",
+      "refresh_token": refresh_token,
+    }
+    response = requests.post(token_url, headers=headers, data=payload)
+    data = response.json()
+    return data['access_token']
+
+  access_token = get_access_token()
 
   def request(method, url):
     headers = {
