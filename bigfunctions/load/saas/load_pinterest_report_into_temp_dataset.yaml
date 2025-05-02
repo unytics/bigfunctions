@@ -113,7 +113,7 @@ code: | #python
     report_token = report['token']
     while report['report_status'] != 'FINISHED':
       print('waiting')
-      time.sleep(1)
+      time.sleep(4)
       report = get(f'/ad_accounts/{ad_account_id}/reports?token={report_token}')
     return report['url']
 
