@@ -132,6 +132,9 @@ code: | #python
   report_url = create_report_from_template()
   df = dowload_report(report_url)
   df.columns = [slugify.slugify(col, separator="_") for col in df.columns]
+  for column in df.columns:
+    if column.endswith('_id'):
+      df[column] = df[column].astype(str)
   upload_dataframe(df, f'{destination_dataset}.report')
   return destination_table
 requirements: |
