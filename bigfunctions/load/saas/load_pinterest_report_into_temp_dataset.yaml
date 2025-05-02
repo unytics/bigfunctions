@@ -6,7 +6,7 @@ description: |
 
   To get the needed `client_id`, `client_secret` and `refresh_token` from Pinterest, read their documentation [here](https://developers.pinterest.com/docs/getting-started/connect-app/) and then [there](https://developers.pinterest.com/docs/getting-started/set-up-authentication-and-authorization/).
 
-  If you need help in getting thoses, you can get help on our [Slack](https://join.slack.com/t/unytics/shared_invite/zt-1gbv491mu-cs03EJbQ1fsHdQMcFN7E1Q).
+  If you need help in getting those, you can get help on BigFunctions [Slack](https://join.slack.com/t/unytics/shared_invite/zt-1gbv491mu-cs03EJbQ1fsHdQMcFN7E1Q).
 
   ??? note "More on temporary datasets"
 
@@ -44,13 +44,19 @@ examples:
     arguments:
       - 12345
       - 678910
+      - '123445666'
       - ENCRYPTED_SECRET(kdoekdswlxzapdldpzlfpfd)
+      - ENCRYPTED_SECRET(sqdksdoxlkwcmll;d;smgre)
+      - current_date - 14
+      - current_date - 1
+      - 'DAY'
     output: "bigfunctions.temp_6bdb75ca_7f72_4f1f_b46a_6ca59f7f66ac.file_data"
 code: | #python
   import requests
   import time
   import urllib
   import duckdb
+  import datetime
   import google.cloud.bigquery
   import slugify.slugify
 
@@ -59,7 +65,10 @@ code: | #python
   assert client_id, 'missing client_id'
   assert client_secret, 'missing client_secret'
   assert refresh_token, 'missing refresh_token'
-  assert refresh_token.startswith('pina_'), 'invalid refresh_token'
+  assert refresh_token.startswith('pinr.'), 'invalid refresh_token'
+  start_date = start_date or (datetime.datetime.now(datetime.UTC) - datetime.timedelta(days=14)).strftime('%Y-%m-%d')
+  end_date = end_date or (datetime.datetime.now(datetime.UTC) - datetime.timedelta(days=1)).strftime('%Y-%m-%d')
+  granularity = granularity or 'DAY'
 
   def get_access_token():
     token_url = "https://api.pinterest.com/v5/oauth/token"
@@ -75,6 +84,7 @@ code: | #python
       "refresh_token": refresh_token,
     }
     response = requests.post(token_url, headers=headers, data=payload)
+    assert response.ok, 'Could not get access token: ' + response.text
     data = response.json()
     return data['access_token']
 
@@ -88,6 +98,7 @@ code: | #python
     }
     base_url = 'https://api.pinterest.com/v5'
     response = requests.request(method, base_url + url, headers=headers)
+    assert response.ok, f'Error during {method} {url}: {response.text}'
     return response.json()
 
   def get(url):
@@ -97,7 +108,7 @@ code: | #python
     return request('POST', url)
 
   def create_report_from_template():
-    report = post(f'/ad_accounts/{ad_account_id}/templates/{report_template_id}/reports')
+    report = post(f'/ad_accounts/{ad_account_id}/templates/{report_template_id}/reports?start_date={start_date}&end_date={end_date}&granularity={granularity}')
     report['report_status'] = 'TO_CHECK'
     report_token = report['token']
     while report['report_status'] != 'FINISHED':
