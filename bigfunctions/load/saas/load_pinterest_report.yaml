@@ -28,14 +28,14 @@ output:
   name: result
   type: string
 examples:
-  - description: |
-      Download daily google trends comparing bigquery and snowflake
-
-      ![snowflake vs bigquery google trends comparison](load_google_trends.png){ width=600 }
+  - description: ""
     arguments:
       - "your_project.dataset.table"
-      - ['bigquery', 'snowflake']
-      - "2024-01"
+      - 12345
+      - 678910
+      - '123445666'
+      - ENCRYPTED_SECRET(kdoekdswlxzapdldpzlfpfd)
+      - ENCRYPTED_SECRET(sqdksdoxlkwcmll;d;smgre)
 code: | #sql
   declare query string;
   declare destination_dataset string;
