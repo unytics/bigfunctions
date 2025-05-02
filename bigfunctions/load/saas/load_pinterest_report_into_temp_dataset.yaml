@@ -133,7 +133,7 @@ code: | #python
   df = dowload_report(report_url)
   df.columns = [slugify.slugify(col, separator="_") for col in df.columns]
   for column in df.columns:
-    if column.endswith('_id'):
+    if column.endswith('_id') or column.endswith('_name'):
       df[column] = df[column].astype(str)
   upload_dataframe(df, f'{destination_dataset}.report')
   return destination_table
