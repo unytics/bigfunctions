@@ -1,5 +1,15 @@
 CACHE = {}
 
+class Cache:
+
+    def get(self, key):
+        pass
+
+    def set(self, key, value):
+        pass
+
+cache = Cache()
+
 {{ init_code }}
 
 def run():
