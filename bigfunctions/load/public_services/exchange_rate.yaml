@@ -25,18 +25,19 @@ examples:
       - "EUR"
     output: "0.910437"
 init_code: | #python
+  import time
   import datetime
   import yfinance as yf
 code: | #python
   base = (base or '').upper()
   to = (to or '').upper()
   if (len(base) != 3) or (len(to) != 3):
-    return None
+    return
   if base == to:
     return 1
   country_codes_iso4217 = ['AED', 'AFN', 'ALL', 'AMD', 'ANG', 'AOA', 'ARS', 'AUD', 'AWG', 'AZN', 'BAM', 'BBD', 'BDT', 'BGN', 'BHD', 'BIF', 'BMD', 'BND', 'BOB', 'BOV', 'BRL', 'BSD', 'BTN', 'BWP', 'BYN', 'BZD', 'CAD', 'CDF', 'CHE', 'CHF', 'CHW', 'CLF', 'CLP', 'CNY', 'COP', 'COU', 'CRC', 'CUP', 'CVE', 'CZK', 'DJF', 'DKK', 'DOP', 'DZD', 'EGP', 'ERN', 'ETB', 'EUR', 'FJD', 'FKP', 'GBP', 'GEL', 'GHS', 'GIP', 'GMD', 'GNF', 'GTQ', 'GYD', 'HKD', 'HNL', 'HTG', 'HUF', 'IDR', 'ILS', 'INR', 'IQD', 'IRR', 'ISK', 'JMD', 'JOD', 'JPY', 'KES', 'KGS', 'KHR', 'KMF', 'KPW', 'KRW', 'KWD', 'KYD', 'KZT', 'LAK', 'LBP', 'LKR', 'LRD', 'LSL', 'LYD', 'MAD', 'MDL', 'MGA', 'MKD', 'MMK', 'MNT', 'MOP', 'MRU', 'MUR', 'MVR', 'MWK', 'MXN', 'MXV', 'MYR', 'MZN', 'NAD', 'NGN', 'NIO', 'NOK', 'NPR', 'NZD', 'OMR', 'PAB', 'PEN', 'PGK', 'PHP', 'PKR', 'PLN', 'PYG', 'QAR', 'RON', 'RSD', 'RUB', 'RWF', 'SAR', 'SBD', 'SCR', 'SDG', 'SEK', 'SGD', 'SHP', 'SLE', 'SOS', 'SRD', 'SSP', 'STN', 'SVC', 'SYP', 'SZL', 'THB', 'TJS', 'TMT', 'TND', 'TOP', 'TRY', 'TTD', 'TWD', 'TZS', 'UAH', 'UGX', 'USD', 'USN', 'UYI', 'UYU', 'UYW', 'UZS', 'VED', 'VES', 'VND', 'VUV', 'WST', 'XAF', 'XAG', 'XAU', 'XBA', 'XBB', 'XBC', 'XBD', 'XCD', 'XDR', 'XOF', 'XPD', 'XPF', 'XPT', 'XSU', 'XTS', 'XUA', 'XXX', 'YER', 'ZAR', 'ZMW', 'ZWG', 'ZWL']
   if (base not in country_codes_iso4217) or (to not in country_codes_iso4217):
-    return None
+    return
 
   current_day_hour = datetime.datetime.now(datetime.UTC).strftime("%Y-%m-%d %H")
   cache_key = f'{current_day_hour}_{base}_{to}'
@@ -46,6 +47,7 @@ code: | #python
   ticker_name = f'{base}{to}=X'
   ticker = yf.Ticker(ticker_name)
   try:
+    time.sleep(3)
     rate = 0.5 * (ticker.info['bid'] + ticker.info['ask'])
   except Exception as e:
     report_exception(e)
@@ -54,5 +56,6 @@ code: | #python
   return rate
 requirements: |
   yfinance
+max_batching_rows: 10
 cloud_run:
   concurrency: 1
