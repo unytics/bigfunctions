@@ -1,0 +1,96 @@
+---
+title: "BigFunctions - Blog"
+description: "Blog Posts related to BigFunctions"
+hide:
+  - navigation
+  - toc
+search:
+  exclude: true
+---
+
+<style>
+
+.blog-posts {
+    max-width: 800px;
+    margin: auto;
+}
+
+.blog-post-abstract {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 20%;
+    grid-column-gap: 5%;
+}
+
+.blog-post-abstract p {
+  color: rgb(38, 38, 38);
+}
+
+.blog-post-abstract p.footer, .blog-post-abstract:hover p {
+  color: rgb(92, 92, 92);
+}
+
+.blog-post-abstract img, .lg\:two-columns img {
+  margin: 2.5em 0px 0em;
+}
+
+
+</style>
+
+<div class="hero" markdown>
+
+# Featured Posts
+
+</div>
+
+{% for post in posts if post.is_featured %}
+<div class="lg:two-columns {{ loop.cycle('lg:revert-items', '') }}" markdown>
+
+-   ## [{{ post.title }}]({{ post.url }}){% if post.url.startswith('https://') %}{ target="_blank" }{% endif %}
+
+    {{ post.text | trim | indent(width=4) }}
+
+    [Read More :octicons-arrow-right-24:]({{ post.url }}){ .md-button{% if post.url.startswith('https://') %} target="_blank" {% endif %} }
+
+-   ![post cover photo]({{ post.image_url }}){ loading=lazy style="{{ 'width: 100%; max-width: 400px; height: auto;' if post.is_image_vertical else '' }} display: block; margin-{{ loop.cycle('left', 'right') }}: auto;" }
+
+</div>
+{% endfor %}
+
+
+---
+
+<div class="hero" markdown>
+
+# Latest Posts
+
+</div>
+
+
+
+<div class="blog-posts">
+
+
+    {% for post in posts if not post.is_featured %}
+    <a class="blog-post-abstract" href="{{ post.url }}" target="_blank">
+
+        <div>
+
+            <h3>{{ post.title | truncate(120) | trim }}</h3>
+
+            <p>{{ post.text | truncate(120) }}...</p>
+
+            <p class="footer">{{ post.date }} • {{ post.author }}</p>
+        </div>
+
+        <div>
+
+            <img src="{{ post.image_url or 'https://dummyimage.com/200x150/eee/eee' }}" loading=lazy>
+
+        </div>
+
+    </a>
+    <hr>
+
+    {% endfor %}
+
+</div>
