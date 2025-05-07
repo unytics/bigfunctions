@@ -148,8 +148,10 @@ class Store:
             key = self.datastore.key(self.kind)
         else:
             key = self.datastore.key(self.kind, key)
-        entity = google.cloud.datastore.Entity(key)
-        if not isinstance(value, dict):
+        if isinstance(value, dict):
+            entity = google.cloud.datastore.Entity(key)
+        else:
+            entity = google.cloud.datastore.Entity(key, exclude_from_indexes=('value',))
             value = {'value': value}
         entity.update(value)
         self.datastore.put(entity)
