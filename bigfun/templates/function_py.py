@@ -251,19 +251,33 @@ def check_quotas():
 
 class SecretManager:
 
-    secret_manager = None
-    secrets = {}
+    def __init__(self):
+        self._secret_manager = None
+        self.secrets = {}
+
+    @property
+    def secret_manager(self):
+        if self._secret_manager is None:
+            import google.cloud.secretmanager
+            self._secret_manager = google.cloud.secretmanager.SecretManagerServiceClient()
+        return self._secret_manager
 
     def get(self, name):
         if name in self.secrets:
             return self.secrets[name]
-        if self.secret_manager is None:
-            import google.cloud.secretmanager
-            self.secret_manager = google.cloud.secretmanager.SecretManagerServiceClient()
         self.secrets[name] = self.secret_manager.access_secret_version(
             name=f'projects/{PROJECT}/secrets/{name}/versions/latest'
         ).payload.data.decode('UTF-8')
         return self.secrets[name]
+
+    def set(self, name, value):
+        self.secret_manager.add_secret_version(
+          request={
+            "parent": f'projects/{PROJECT}/secrets/{name}',
+            "payload": {"data": value.encode('UTF-8')},
+          }
+        )
+        self.secrets[name] = value
 
 
 secrets = SecretManager()
