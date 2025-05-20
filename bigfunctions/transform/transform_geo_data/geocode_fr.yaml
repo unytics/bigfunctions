@@ -2,45 +2,46 @@ type: function_py
 author: Kevin JEAN
 description: Get `address` details from api-adresse.data.gouv.fr
 arguments:
-  - name: address
-    type: string
+- name: address
+  type: string
 output:
   name: address_details
   type: json
 examples:
-  - description: ""
-    arguments:
-      - "1 rue des champs elysees, Paris"
-    output: |
-      {
-        "latitude": 48.871285,
-        "longitude": 2.302859,
-        "result_label": "Avenue des Champs Elysées 75008 Paris",
-        "result_score": 0.7805588980716253,
-        ...
-      }
-code_process_rows_as_batch: true
-init_code: | #python
+- description: ""
+  arguments:
+  - "1 rue des champs elysees, Paris"
+  output: |
+    {
+      "latitude": 48.871285,
+      "longitude": 2.302859,
+      "result_label": "Avenue des Champs Elysées 75008 Paris",
+      "result_score": 0.7805588980716253,
+      ...
+    }
+
+code: | #python
   import io
   import numpy as np
   import pandas as pd
   import requests
-code: | #python
-  addresses = [row[0] for row in rows]
-  addresses = pd.Series(addresses, name="address")
-  addresses_csv = addresses.to_csv(index=False)
-  file = (
-    'addresses.csv',
-    addresses_csv.encode('utf-8'),
-    'text/csv; charset=utf-8'
-  )
-  url = 'https://api-adresse.data.gouv.fr/search/csv/'
-  response = requests.post(url, files={'data': file})
-  assert response.ok, f"Error: {response.text}"
-  response.encoding = 'utf-8'
-  response_csv = response.text
-  results = pd.read_csv(io.StringIO(response_csv)).replace(np.nan, None)
-  return results.to_dict(orient='records')
+
+  def compute_all_rows(rows):
+    addresses = [row[0] for row in rows]
+    addresses = pd.Series(addresses, name="address")
+    addresses_csv = addresses.to_csv(index=False)
+    file = (
+      'addresses.csv',
+      addresses_csv.encode('utf-8'),
+      'text/csv; charset=utf-8'
+    )
+    url = 'https://api-adresse.data.gouv.fr/search/csv/'
+    response = requests.post(url, files={'data': file})
+    assert response.ok, f"Error: {response.text}"
+    response.encoding = 'utf-8'
+    response_csv = response.text
+    results = pd.read_csv(io.StringIO(response_csv)).replace(np.nan, None)
+    return results.to_dict(orient='records')
 requirements: |
   pandas
   requests
