@@ -340,10 +340,28 @@ def decrypt_secrets(value):
     return value
 
 
+{% if 'compute_one_row(' in code %}
 
+{{ code | replace('{BIGFUNCTIONS_DATASET}', '`' + project + '`.`' + dataset + '`') | replace('{BIGFUNCTIONS_DATASET_REGION}', '`region-' + dataset_location|lower + '`') }}
 
+def compute_all_rows(rows):
+ replies = []
+ for row in rows:
+ {% if arguments %}{% for argument in arguments %} {{ argument.name }}, {% endfor %} = row{% endif %}
+ {% for argument in arguments if argument.type == 'yaml' -%}
+  {{ argument.name }} = parse_yaml_string({{ argument.name }}, '{{ argument.name }}')
+ {% endfor %}
+ {% for argument in arguments if argument.contains_secret -%}
+  {{ argument.name }} = decrypt_secrets({{ argument.name }})
+ {% endfor %}
+  replies.append(compute_one_row({% if arguments %}{% for argument in arguments %} {{ argument.name }} {% if not loop.last %},{% endif %} {% endfor %} {% endif %}))
+ return replies
 
+{% elif 'compute_all_rows(' in code %}
 
+{{ code | replace('{BIGFUNCTIONS_DATASET}', '`' + project + '`.`' + dataset + '`') | replace('{BIGFUNCTIONS_DATASET_REGION}', '`region-' + dataset_location|lower + '`') }}
+
+{% else %}
 
 {{ init_code }}
 
@@ -355,6 +373,7 @@ def compute_all_rows(rows):
 {% else %}
 
 def compute_one_row(args):
+
     {% if arguments %}{% for argument in arguments %}{{ argument.name }}, {% endfor %} = args{% endif %}
     {% for argument in arguments if argument.type == 'yaml' -%}
     {{ argument.name }} = parse_yaml_string({{ argument.name }}, '{{ argument.name }}')
@@ -364,6 +383,12 @@ def compute_one_row(args):
     {% endfor %}
 
     {{ code | replace('\n', '\n    ') | replace('{BIGFUNCTIONS_DATASET}',  '`' +  project + '`.`' + dataset + '`' ) | replace('{BIGFUNCTIONS_DATASET_REGION}', '`region-' +  dataset_location|lower + '`') }}
+
+
+def compute_all_rows(rows):
+    return [compute_one_row(row) for row in rows]
+
+{% endif %}
 
 {% endif %}
 
@@ -376,12 +401,8 @@ def handle():
         log('started')
         check_quotas()
         rows = data['calls']
-        {% if code_process_rows_as_batch %}
         replies = compute_all_rows(rows)
-        {% else %}
-        replies = [compute_one_row(row) for row in rows]
-        {% endif %}
-        response = jsonify( { "replies" :  replies} )
+        response = jsonify( { "replies" : replies} )
         log('success')
         return response
     except QuotaException as e:
@@ -395,7 +416,7 @@ def handle():
                 To remove this limit, you can ask for quotas increase to `{QUOTAS['contact']}` or deploy the function in your own project.
                 Details are here: https://github.com/unytics/bigfunctions
                 If you need help, please reach out to the slack: https://join.slack.com/t/bigfunctions/shared_invite/zt-1gbv491mu-cs03EJbQ1fsHdQMcFN7E1Q
-            '''.replace('\n', ' ').replace('  ', ' ').replace('  ', ' '),
+            '''.replace('\n', ' ').replace(' ', ' ').replace(' ', ' '),
         }), 400
     except AssertionError as e:
         error_message = e.args[0]
