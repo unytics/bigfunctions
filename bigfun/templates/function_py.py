@@ -368,16 +368,21 @@ def compute_all_rows(rows):
 {% if code_process_rows_as_batch %}
 
 def compute_all_rows(rows):
-    {{ code | replace('\n', '\n ') | replace('{BIGFUNCTIONS_DATASET}', '`' + project + '`.`' + dataset + '`') | replace('{BIGFUNCTIONS_DATASET_REGION}', '`region-' + dataset_location|lower + '`') }}
+    {{ code | replace('\n', '\n    ') | replace('{BIGFUNCTIONS_DATASET}',  '`' +  project + '`.`' + dataset + '`' ) | replace('{BIGFUNCTIONS_DATASET_REGION}', '`region-' +  dataset_location|lower + '`') }}
 
 {% else %}
 
 def compute_one_row(args):
 
-{% if arguments %} {% for argument in arguments %}{{ argument.name }}, {% endfor %} = args {% endif %}
-{% for argument in arguments if argument.type == 'yaml' %} {{ argument.name }} = parse_yaml_string({{ argument.name }}, '{{ argument.name }}') {% endfor %}
-{% for argument in arguments if argument.contains_secret %} {{ argument.name }} = decrypt_secrets({{ argument.name }}) {% endfor %}
- {{ code | replace('\n', '\n ') | replace('{BIGFUNCTIONS_DATASET}', '`' + project + '`.`' + dataset + '`' ) | replace('{BIGFUNCTIONS_DATASET_REGION}', '`region-' + dataset_location|lower + '`') }}
+    {% if arguments %}{% for argument in arguments %}{{ argument.name }}, {% endfor %} = args{% endif %}
+    {% for argument in arguments if argument.type == 'yaml' -%}
+    {{ argument.name }} = parse_yaml_string({{ argument.name }}, '{{ argument.name }}')
+    {% endfor %}
+    {% for argument in arguments if argument.contains_secret -%}
+    {{ argument.name }} = decrypt_secrets({{ argument.name }})
+    {% endfor %}
+
+    {{ code | replace('\n', '\n    ') | replace('{BIGFUNCTIONS_DATASET}',  '`' +  project + '`.`' + dataset + '`' ) | replace('{BIGFUNCTIONS_DATASET_REGION}', '`region-' +  dataset_location|lower + '`') }}
 
 
 def compute_all_rows(rows):

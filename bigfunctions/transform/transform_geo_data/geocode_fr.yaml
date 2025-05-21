@@ -2,24 +2,23 @@ type: function_py
 author: Kevin JEAN
 description: Get `address` details from api-adresse.data.gouv.fr
 arguments:
-- name: address
-  type: string
+  - name: address
+    type: string
 output:
   name: address_details
   type: json
 examples:
-- description: ""
-  arguments:
-  - "1 rue des champs elysees, Paris"
-  output: |
-    {
-      "latitude": 48.871285,
-      "longitude": 2.302859,
-      "result_label": "Avenue des Champs Elysées 75008 Paris",
-      "result_score": 0.7805588980716253,
-      ...
-    }
-
+  - description: ""
+    arguments:
+      - "1 rue des champs elysees, Paris"
+    output: |
+      {
+        "latitude": 48.871285,
+        "longitude": 2.302859,
+        "result_label": "Avenue des Champs Elysées 75008 Paris",
+        "result_score": 0.7805588980716253,
+        ...
+      }
 code: | #python
   import io
   import numpy as np
