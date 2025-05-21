@@ -11,19 +11,19 @@ description: |
   |---|---|
   | `base`<br>and<br>`to`  | Iso 4217 currency codes such as `EUR` or `USD`. See active codes on [wikipedia](https://en.wikipedia.org/wiki/ISO_4217#Active_codes_(List_One)) |
 arguments:
-- name: base
-  type: string
-- name: to
-  type: string
+  - name: base
+    type: string
+  - name: to
+    type: string
 output:
   name: exchange_rate
   type: float64
 examples:
-- description: "To know how many euros a dollar is worth"
-  arguments:
-  - "USD"
-  - "EUR"
-  output: "0.910437"
+  - description: "To know how many euros a dollar is worth"
+    arguments:
+      - "USD"
+      - "EUR"
+    output: "0.910437"
 code: | #python
   import time
   from datetime import datetime, timezone
@@ -54,7 +54,6 @@ code: | #python
       report_exception(e)
       return
     cache.set(cache_key, rate)
-    print(f"-----------{rate}---------------")
     return rate
 requirements: |
   yfinance

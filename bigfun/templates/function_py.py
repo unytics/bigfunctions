@@ -340,62 +340,43 @@ def decrypt_secrets(value):
     return value
 
 
-
-
-
-
-
-👏
-👍
-😊
-
-
-
 {% if 'compute_one_row(' in code %}
 
-{{ code | replace('{BIGFUNCTIONS_DATASET}', '`' + project + '`.`' + dataset + '`' ) | replace('{BIGFUNCTIONS_DATASET_REGION}', '`region-' + dataset_location|lower + '`') }}
+{{ code | replace('{BIGFUNCTIONS_DATASET}', '`' + project + '`.`' + dataset + '`') | replace('{BIGFUNCTIONS_DATASET_REGION}', '`region-' + dataset_location|lower + '`') }}
 
 def compute_all_rows(rows):
  replies = []
  for row in rows:
- {% if arguments %}{% for argument in arguments %}{{ argument.name }}, {% endfor %} = row{% endif %}
+ {% if arguments %}{% for argument in arguments %} {{ argument.name }}, {% endfor %} = row{% endif %}
  {% for argument in arguments if argument.type == 'yaml' -%}
- {{ argument.name }} = parse_yaml_string({{ argument.name }}, '{{ argument.name }}')
+  {{ argument.name }} = parse_yaml_string({{ argument.name }}, '{{ argument.name }}')
  {% endfor %}
  {% for argument in arguments if argument.contains_secret -%}
- {{ argument.name }} = decrypt_secrets({{ argument.name }})
+  {{ argument.name }} = decrypt_secrets({{ argument.name }})
  {% endfor %}
- replies.append(compute_one_row({% if arguments %}{% for argument in arguments %}{{ argument.name }}{% if not loop.last %}, {% endif %}{% endfor %}))
+  replies.append(compute_one_row({% if arguments %}{% for argument in arguments %} {{ argument.name }} {% if not loop.last %},{% endif %} {% endfor %} {% endif %}))
  return replies
-
 
 {% elif 'compute_all_rows(' in code %}
 
-{{ code | replace('{BIGFUNCTIONS_DATASET}', '`' + project + '`.`' + dataset + '`' ) | replace('{BIGFUNCTIONS_DATASET_REGION}', '`region-' + dataset_location|lower + '`') }}
+{{ code | replace('{BIGFUNCTIONS_DATASET}', '`' + project + '`.`' + dataset + '`') | replace('{BIGFUNCTIONS_DATASET_REGION}', '`region-' + dataset_location|lower + '`') }}
 
 {% else %}
-
-# Old format when we had both init_code and code fields
-
 
 {{ init_code }}
 
 {% if code_process_rows_as_batch %}
 
 def compute_all_rows(rows):
-    {{ code | replace('\n', '\n ') | replace('{BIGFUNCTIONS_DATASET}', '`' + project + '`.`' + dataset + '`' ) | replace('{BIGFUNCTIONS_DATASET_REGION}', '`region-' + dataset_location|lower + '`') }}
+    {{ code | replace('\n', '\n ') | replace('{BIGFUNCTIONS_DATASET}', '`' + project + '`.`' + dataset + '`') | replace('{BIGFUNCTIONS_DATASET_REGION}', '`region-' + dataset_location|lower + '`') }}
 
 {% else %}
 
 def compute_one_row(args):
-    {% if arguments %}{% for argument in arguments %}{{ argument.name }}, {% endfor %} = args{% endif %}
-    {% for argument in arguments if argument.type == 'yaml' -%}
-    {{ argument.name }} = parse_yaml_string({{ argument.name }}, '{{ argument.name }}')
-    {% endfor %}
-    {% for argument in arguments if argument.contains_secret -%}
-    {{ argument.name }} = decrypt_secrets({{ argument.name }})
-    {% endfor %}
 
+{% if arguments %} {% for argument in arguments %}{{ argument.name }}, {% endfor %} = args {% endif %}
+{% for argument in arguments if argument.type == 'yaml' %} {{ argument.name }} = parse_yaml_string({{ argument.name }}, '{{ argument.name }}') {% endfor %}
+{% for argument in arguments if argument.contains_secret %} {{ argument.name }} = decrypt_secrets({{ argument.name }}) {% endfor %}
  {{ code | replace('\n', '\n ') | replace('{BIGFUNCTIONS_DATASET}', '`' + project + '`.`' + dataset + '`' ) | replace('{BIGFUNCTIONS_DATASET_REGION}', '`region-' + dataset_location|lower + '`') }}
 
 
@@ -403,7 +384,6 @@ def compute_all_rows(rows):
     return [compute_one_row(row) for row in rows]
 
 {% endif %}
-
 
 {% endif %}
 
@@ -440,4 +420,3 @@ def handle():
     except Exception as e:
         report_exception(e)
         return jsonify({'errorMessage': f"{type(e).__name__}: {str(e)}"}), 400
-
