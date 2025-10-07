@@ -46,7 +46,7 @@ hide:
 
 <div class="hero" markdown>
 
-# Deploy Functions in your BigQuery Project
+# A Framework for BigQuery functions
 
 Build your own catalog of advanced functions.
 
