@@ -10,46 +10,13 @@ hide:
 ---
 
 
-<div class="hero" markdown>
-
-SQL
-{ .big-word }
-
-# is all you need
-
-Supercharge **BigQuery** with **BigFunctions**<br>
-*to load, transform and take actions*<br><br>
-
-[Supercharge BigQuery :octicons-arrow-right-24:](#supercharge-bigquery-with-powerful-functions){ .md-button .md-button--primary }
-
-
-</div>
-
-
-
-<!------------- TECHNOLOGIES UPON SECTION  ----------->
-<div class="hero" markdown>
-
-*Taking the most of*
-{ .small }
-
-<figure markdown="span">
-  ![gcp](assets/gcp.svg){ .gray-scale .mt-neg width=200 }
-</figure>
-
-</div>
-
----
-
-
-
 <!------------- POWER OF FUNCTIONS HEADER  ----------->
 <div class="hero" markdown>
 
 # Supercharge BigQuery with powerful functions
 
 Enrich BigQuery<br>
-with **150+ functions** built by the community<br>
+with **150+ BigFunctions** built by the community<br>
 
 *no install needed*
 { .small }
@@ -67,7 +34,22 @@ with **150+ functions** built by the community<br>
 
 <br>
 
+
+<!------------- TECHNOLOGIES UPON SECTION  ----------->
+<div class="hero" markdown>
+
+*Taking the most of*
+{ .small }
+
+<figure markdown="span">
+  ![gcp](assets/gcp.svg){ .gray-scale .mt-neg width=200 }
+</figure>
+
+</div>
+
 ---
+
+
 
 
 
