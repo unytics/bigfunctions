@@ -15,10 +15,7 @@ hide:
 
 # Powerful Functions to Supercharge BigQuery
 
-**150+ Ready-to-Go Functions** from the community
-
-*no install needed*
-{ .small }
+**150+ Ready-to-Go Functions** from the community *(no install needed)*
 
 [Discover the Functions :octicons-arrow-right-24:](bigfunctions/README.md){ .md-button }
 
