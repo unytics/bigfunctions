@@ -15,7 +15,7 @@ hide:
 
 # Supercharge BigQuery with Powerful Functions
 
-**150+ BigFunctions** built by the community<br>
+**150+ BigFunctions** built by the community
 
 *no install needed*
 { .small }
