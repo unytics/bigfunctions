@@ -13,10 +13,9 @@ hide:
 <!------------- POWER OF FUNCTIONS HEADER  ----------->
 <div class="hero" markdown>
 
-# Supercharge BigQuery with powerful functions
+# Supercharge BigQuery with Powerful Functions
 
-Enrich BigQuery<br>
-with **150+ BigFunctions** built by the community<br>
+**150+ BigFunctions** built by the community<br>
 
 *no install needed*
 { .small }
