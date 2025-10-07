@@ -34,17 +34,6 @@ hide:
 <br>
 
 
-<!------------- TECHNOLOGIES UPON SECTION  ----------->
-<div class="hero" markdown>
-
-*Taking the most of*
-{ .small }
-
-<figure markdown="span">
-  ![gcp](assets/gcp.svg){ .gray-scale .mt-neg width=200 }
-</figure>
-
-</div>
 
 ---
 
@@ -109,6 +98,19 @@ is all you need
 
 **dataform can be replaced by any sql orchestrator (dbt, sqlmesh, scheduled queries, etc)*
 { .small }
+
+</div>
+
+
+<!------------- TECHNOLOGIES UPON SECTION  ----------->
+<div class="hero" markdown>
+
+*Taking the most of*
+{ .small }
+
+<figure markdown="span">
+  ![gcp](assets/gcp.svg){ .gray-scale .mt-neg width=200 }
+</figure>
 
 </div>
 
