@@ -13,7 +13,7 @@ hide:
 <!------------- POWER OF FUNCTIONS HEADER  ----------->
 <div class="hero" markdown>
 
-# Supercharge BigQuery with Powerful Functions
+# Powerful Functions to Supercharge BigQuery
 
 **150+ BigFunctions** built by the community
 
