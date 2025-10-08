@@ -100,7 +100,7 @@ is all you need
 </div>
 
 
-## Want to Send an email from BigQuery? 
+## Want to get an email from BigQuery with your KPIs of the day? 
 ### It's as easy as a copy & paste!
 
 To send you an email with your KPIs of the day, simply copy the following code and run it in BigQuery. 
