@@ -109,14 +109,14 @@ One Click & you got your email. No install needed!
 ``` sql
 with 
 
-# Compute the KPIs of the day
+--- Compute the KPIs of the day ---
 kpis_of_the_day as (
   select 
     1584  as total_users,
     74863.35 as total_revenue
 ),
 
-# Set email recipients (you in this case)
+--- Set email recipients (you in this case) ---
 recipients as (
   select 
     session_user() as email,
@@ -124,14 +124,14 @@ recipients as (
 )
 
 
-# Send an Email to recipients (you) with the KPIs of the day
+--- Send an Email to recipients (you) with the KPIs of the day ---
 select bigfunctions.eu.send_mail(
 
-  email,                    # Recipient
+  email,                    --- Recipient
 
-  "Daily Metrics Summary",  # Email Subject
+  "Daily Metrics Summary",  --- Email Subject
 
-  format(                   # Email Body in markdown format
+  format(                   --- Email Body in markdown format
     """
     ## Hi %s
 
@@ -146,8 +146,8 @@ select bigfunctions.eu.send_mail(
     total_users,
     total_revenue
   ),
-  null,                   # Optional Attached file name
-  null                    # Optional Attached file content
+  null,                     --- Optional Attached file name
+  null                      --- Optional Attached file content
 )
 
 from kpis_of_the_day, recipients
