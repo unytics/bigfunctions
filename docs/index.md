@@ -100,8 +100,11 @@ is all you need
 </div>
 
 
-## Want to get an email from BigQuery with your KPIs of the day? 
-### It's as easy as a copy & paste!
+<div class="hero" markdown>
+
+# Want BigQuery to send you an email with your KPIs of the day? 
+
+*It's as easy as a copy & paste!*
 
 To send you an email with your KPIs of the day, simply copy the following code and run it in BigQuery. 
 One Click & you got your email. No install needed!
@@ -152,6 +155,12 @@ select bigfunctions.eu.send_mail(
 
 from kpis_of_the_day, recipients
 ```
+
+
+
+</div>
+
+
 
 
 <!------------- TECHNOLOGIES UPON SECTION  ----------->
