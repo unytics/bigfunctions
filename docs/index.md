@@ -22,6 +22,7 @@ hide:
 
 </div>
 
+
 <figure markdown="span">
   ![functions examples](assets/functions.png)
   <figcaption>BigQuery can now perform any task with SQL</figcaption>
@@ -97,6 +98,60 @@ is all you need
 { .small }
 
 </div>
+
+
+## Want to Send an email from BigQuery? 
+### It's as easy as a copy & paste!
+
+To send you an email with your KPIs of the day, simply copy the following code and run it in BigQuery. 
+One Click & you got your email. No install needed!
+
+``` sql
+with 
+
+# Compute the KPIs of the day
+kpis_of_the_day as (
+  select 
+    1584  as total_users,
+    74863.35 as total_revenue
+),
+
+# Set email recipients (you in this case)
+recipients as (
+  select 
+    session_user() as email,
+    initcap(replace(split(session_user(), '@')[offset(0)], '.', ' ')) as username,
+)
+
+
+# Send an Email to recipients (you) with the KPIs of the day
+select bigfunctions.eu.send_mail(
+
+  email,                    # Recipient
+
+  "Daily Metrics Summary",  # Email Subject
+
+  format(                   # Email Body in markdown format
+    """
+    ## Hi %s
+
+    *Here is your Daily Metrics Summary*
+    
+    - **Total users**: %d
+    - **Total revenue**: %.2f $
+
+    Enjoy your day!    
+    """,
+    username,
+    total_users,
+    total_revenue
+  ),
+  null,                   # Optional Attached file name
+  null                    # Optional Attached file content
+)
+
+from kpis_of_the_day, recipients
+```
 
 
 <!------------- TECHNOLOGIES UPON SECTION  ----------->
