@@ -1,0 +1,26 @@
+{% import "partials/language.html" as lang with context %}
+
+<!-- Application footer -->
+<footer class="md-footer">
+  <!-- Further information -->
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+
+      <!-- Copyright and theme information -->
+      <div style="width: 200px; margin: auto 0;">
+        <img
+          src="{{config.site_url}}assets/logo_and_name.png"
+          alt="bigfunctions logo"
+        >
+      </div>
+      {% if config.copyright %}
+        <div style="color: rgb(92, 92, 92); margin: auto 0;">
+          {{ config.copyright }}
+        </div>
+      {% endif %}
+
+      <!-- Social links -->
+      {% include "partials/social.html" %}
+    </div>
+  </div>
+</footer>
