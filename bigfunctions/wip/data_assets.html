@@ -1,0 +1,241 @@
+<div class="columns">
+  <div id="left-menu" class="column is-narrow has-background-info-light p-0 m-0" style="min-height: calc(100vh - 3.25rem)"></div>
+  <div id="results-list" class="column has-background-light" style="border-right: solid 1px lightgray"></div>
+  <div id="details" class="column is-6 p-6"></div>
+</div>
+<div class="modal">
+  <div class="modal-background"></div>
+  <div class="modal-content" style="width: 100%; height:100%"></div>
+  <button class="modal-close is-large" onclick="this.parentNode.classList.remove('is-active');"></button>
+</div>
+
+
+<script src="https://mozilla.github.io/nunjucks/files/nunjucks.js" type="text/javascript" charset="utf-8"></script>
+<script>
+
+const leftMenuTemplate = `
+    <ul class="menu-list pt-5">
+      {% for asset_type, item in asset_types %}
+        {% if showAllAssetTypes or (loop.index < 3) %}
+          <li asset-type="{{ asset_type }}" class="selectable-icon {% if asset_type == selected_asset_type %}is-selected{% endif %} has-text-grey-light has-text-primary-when-hovered" style="padding: 2rem 0rem 2rem 2rem; cursor: pointer" onclick="selectAssetType(this);">
+            <i class="fa fa-{{ item.icon }} is-size-4"></i>
+            <span class="is-size-7 has-text-white" style="vertical-align: top; line-height: 0.5; padding: 0.1rem 0.3rem; border-radius: 1rem; background-color: #b3261e!important">
+              {{ item.found }}
+            </span>
+            <br>
+            {{ asset_type }}s
+          </li>
+        {% endif %}
+      {% endfor%}
+      {% if not showAllAssetTypes %}
+        <li class="selectable-icon has-text-grey-light has-text-primary-when-hovered" style="padding: 2rem 0rem 2rem 2rem; cursor: pointer" onclick="data.showAllAssetTypes = true; renderLeftMenu();">
+          <i class="fa fa-plus is-size-4"></i>
+        </li>
+      {% endif %}
+    </ul>
+  `;
+
+  const resultsListTemplate = `
+    {% for asset_type, group in asset_types %}
+      {% if (asset_type == selected_asset_type)  %}
+        <p class="is-size-5 p-5 pt-6 has-background-white">Found <span class="has-text-primary"><b>{{ group.found }} {{ asset_type }}s</b></span></p>
+        <table class="table is-fullwidth is-hoverable mt-3 has-background-light">
+          <tbody>
+            {% for hit in group.hits %}
+              <tr document-id="{{ hit.document.id }}" asset-type="{{ asset_type }}" onclick="show_details(this);">
+                <td class="p-5">
+                  <p class="has-text-link is-size-5" style="word-break: break-all;">
+                    <i class="fa fa-{{ group.icon }} fa mr-3"></i>
+                    {{ hit.document.name }}
+                  </p>
+                  {% if hit.document.dataset %}
+                  <span class="tag is-info is-light is-normal">{{ hit.document.dataset }}</span>
+                  {% endif %}
+                  <p class="has-text-grey" style="overflow: hidden; white-space: nowrap; text-overflow: ellipsis; max-width: 60ch;">{{ hit.document.description }}</p>
+                </td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      {% endif %}
+    {% endfor %}
+  `;
+
+  const detailsWhenNoAssetSelectedTemplate = `
+  <p class="is-size-5 p-5 pt-6"></p>
+  <article class="message p-5">
+    <div class="message-body">
+        <p class="is-size-5">💡 What are <span class="has-text-primary"><b>{{ name }}s</b></span> ?</p>
+        <p>{{ description | safe }}</p>
+        <p class="mt-5">👈 Select one  {{ name }} to see details.</p>
+      </div>
+    </article>
+  `;
+
+  const detailsTemplate = `
+    {% macro kpi(key, value) %}
+      <div class="level-item has-text-centered">
+        <div>
+          <p class="heading">{{ key }}</p>
+          <p class="title">{{ value }}</p>
+        </div>
+    </div>
+    {% endmacro %}
+
+    {% macro details_table(k, items, columns=null) %}
+      <div class="tab-pane content-tab{{ k }} ">
+        <table class="table mt-5 is-fullwidth is-narrow">
+          {% if columns %}
+            <tr>{% for column in columns %}<th>{{ column }}</th>{% endfor %}</tr>
+          {% endif %}
+          {% for item in items %}
+            <tr>
+              {% if columns %}
+                {% for column in columns %}
+                  <t{{ 'h' if (loop.first and (columns | length > 1)) else 'd' }}>
+                    {{ item[column ]}}
+                  </t{{ 'h' if (columns | length > 1) else 'd' }}>
+                {% endfor %}
+              {% else %}
+                <td>{{ item }}</td>
+              {% endif %}
+            </tr>
+          {% endfor %}
+        </table>
+      </div>
+    {% endmacro %}
+
+    <p class="is-size-4 has-background-white is-fullwidth has-text-centered">{{ type | title }} <span class="has-text-primary"><b>{{ name }}</b></span></p>
+    <hr>
+
+    <nav class="level mt-5">
+      {% if nb_tables %}             {{ kpi('Nb tables',       nb_tables) }}{% endif %}
+      {% if nb_users_30d %}          {{ kpi('Nb users',        nb_users_30d) }}{% endif %}
+      {% if nb_queries_30d %}        {{ kpi('Nb queries',      nb_queries_30d) }}{% endif %}
+      {% if nb_tables_queried_30d %} {{ kpi('Nb tables queried',      nb_tables_queried_30d) }}{% endif %}
+      {% if last_updated_at %}       {{ kpi('Last Updated At', last_updated_at.slice(0, 10)) }}{% endif %}
+      {% if total_rows %}            {{ kpi('Nb Rows',         total_rows | stringify_numbers) }}{% endif %}
+      {% if total_size %}            {{ kpi('Size',            total_size) }}{% endif %}
+    </nav>
+
+    <p class="is-title is-4 mt-6"><b>Description</b></p>
+    <p>{{ description }}</p>
+
+
+    <input type="radio" id="radio-tab0" name="nav-tab" {% if columns %}checked="checked"{% endif %}>
+    <input type="radio" id="radio-tab1" name="nav-tab" {% if not columns and tables %}checked="checked"{% endif %}>
+    <input type="radio" id="radio-tab2" name="nav-tab" {% if not columns and not tables and (nb_queries_by_user_30d | length) %}checked="checked"{% endif %}>
+    <input type="radio" id="radio-tab3" name="nav-tab" {% if not columns and not tables and not (nb_queries_by_user_30d | length) and (nb_queries_by_table_30d | length) %}checked="checked"{% endif %}>
+
+    <div class="tabs is-centered">
+      <ul>
+        {% if columns %}<li id="tab0"><label for="radio-tab0"><a>Columns</a></label></li>{% endif %}
+        {% if tables %}<li id="tab1"><label for="radio-tab1"><a>Tables</a></label></li>{% endif %}
+        {% if nb_queries_by_user_30d | length %}<li id="tab2"><label for="radio-tab2"><a>Usage</a></label></li>{% endif %}
+        {% if nb_queries_by_table_30d | length %}<li id="tab3"><label for="radio-tab3"><a>Usage</a></label></li>{% endif %}
+      </ul>
+    </div>
+
+    <div class="tab-content has-background-light my-padding">
+
+
+      {% if columns %}
+      {{ details_table(0, columns, ['name', 'data_type', 'description']) }}
+      {% endif %}
+
+      {% if tables %}
+      {{ details_table(1, (tables | sort)) }}
+      {% endif %}
+
+      {% if nb_queries_by_user_30d | length %}
+      {{ details_table(2, (nb_queries_by_user_30d | sort(true, false, 'nb_queries_30d')), ['user', 'nb_queries_30d']) }}
+      {% endif %}
+
+      {% if nb_queries_by_table_30d | length %}
+      {{ details_table(3, (nb_queries_by_table_30d | sort(true, false, 'nb_queries_30d')), ['table', 'nb_queries_30d']) }}
+      {% endif %}
+
+    </div>
+  `;
+
+  const nunjucksEnv = nunjucks.configure({ autoescape: true });
+  nunjucksEnv.addFilter('stringify_numbers', (x) => {
+    if (x > 1e9) {
+      return Math.round(x * 1e-9).toString() + ' Mds';
+    }
+    if (x > 1e6) {
+      return Math.round(x * 1e-6).toString() + ' M';
+    }
+    if (x > 1e3) {
+      return Math.round(x * 1e-3).toString() + ' k';
+    }
+    return x.toString()
+  });
+  const data = $(TYPESENSE_RESULT);
+  data.showAllAssetTypes = false;
+  data.asset_types = {
+    dashboard:  {icon: 'line-chart', description: 'Curated list of dashboards sorted by popularity'},
+    supertable: {icon: 'table'     , description: '<b>Super-tables are THE BigQuery tables you want to explore!</b><br>These super-tables are specifically designed by Nickel data-community to expose data to anyone in the company.<br><br><i>(tables are like spreadsheets: they contain data and have rows and columns. You can explore them from Looker Studio or directly in BigQuery)</i>.'},
+    table:      {icon: 'table'     , description: 'BigQuery Tables which contain data, sorted by popularity'},
+    dataset:    {icon: 'database'  , description: 'Databases are folders. They contain tables'},
+    column:     {icon: 'columns'   , description: 'All columns of tables in BigQuery, sorted by popularity'},
+    user:       {icon: 'user'      , description: 'BigQuery users (sorted by number of queries made the latest 30 days)'},
+    app:        {icon: 'laptop'    , description: 'Data-Apps'},
+  };
+  for (const asset_type in data.asset_types) {
+    data.asset_types[asset_type]['found'] = 0;
+    data.asset_types[asset_type]['name'] = asset_type;
+  }
+  data.selected_asset_type = Object.keys(data.asset_types)[0];
+  for (const group of data.grouped_hits) {
+    const type = group['group_key'][0];
+    data.asset_types[type] = {
+      ...data.asset_types[type],
+      ...group
+    };
+    data
+  }
+
+  function renderLeftMenu() {
+    const menuHTML = nunjucks.renderString(leftMenuTemplate, data);
+    document.getElementById("left-menu").innerHTML = menuHTML;
+  };
+
+  function renderResultsList() {
+    const resultsListHTML = nunjucks.renderString(resultsListTemplate, data);
+    document.getElementById("results-list").innerHTML = resultsListHTML;
+  };
+
+  function selectAssetType(clickedIcon) {
+    Array.from(document.getElementsByClassName('selectable-icon')).forEach(element => {
+      element.classList.remove('is-selected');
+    });
+    clickedIcon.classList.add('is-selected');
+    data.selected_asset_type = clickedIcon.getAttribute('asset-type');
+    renderResultsList();
+    show_asset_type_description_on_details_pane();
+  };
+
+  function show_asset_type_description_on_details_pane() {
+    const asset_type = data.asset_types[data.selected_asset_type];
+    const html = nunjucks.renderString(detailsWhenNoAssetSelectedTemplate, asset_type);
+    document.getElementById("details").innerHTML = html;
+  };
+
+  function show_details(clickedRow) {
+    const asset_type = clickedRow.getAttribute('asset-type');
+    const document_id = clickedRow.getAttribute('document-id');
+    const hit = data.asset_types[asset_type].hits.find((hit) => hit.document.id == document_id);
+    const html = nunjucks.renderString(detailsTemplate, hit.document);
+    document.getElementById("details").innerHTML = html;
+    Array.from(this.parentNode.getElementsByTagName('tr')).forEach( row => {
+      row.classList.remove('is-selected');
+    });
+    clickedRow.classList.add('is-selected');
+  };
+
+  renderLeftMenu();
+  renderResultsList();
+  show_asset_type_description_on_details_pane();
+
+</script>
