@@ -1,0 +1,48 @@
+type: function_py
+author: Paul Marcombes
+description: |
+  Request `url`
+arguments:
+  - name: statistics
+    type: json
+output:
+  name: html
+  type: string
+examples:
+  - description: "Without headers"
+    arguments:
+      - "https://unytics.io/bigfunctions/"
+      - null
+    output: "&lt;html>...&lt;/html>"
+  - description: "With `Content-Type = application/json` headers"
+    arguments:
+      - "https://api.github.com/repos/unytics/bigfunctions"
+      - "json_object('Content-Type', 'application/json')"
+    output: "{...}"
+  - description: "With encrypted bearer token"
+    arguments:
+      - "https://api.github.com/repos/unytics/bigfunctions_terraform"
+      - |
+        json_object(
+          'Content-Type', 'application/json',
+          'Authorization', 'Bearer ENCRYPTED_SECRET(ioLZsCtEu5ZKu...)'
+        )
+    output: "{...}"
+init_code: | #python
+  import os
+  os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
+  import tensorflow_data_validation as tfdv
+  import tensorflow_metadata as tfmd
+  from google.protobuf import json_format
+
+code: | #python
+  if not statistics:
+    return
+  statistics_pb = json_format.ParseDict(statistics, tfmd.proto.statistics_pb2.DatasetFeatureStatisticsList())
+  return tfdv.get_statistics_html(statistics_pb)
+dockerfile:
+  apt_packages: gcc g++
+requirements: |
+  tensorflow-data-validation
+cloud_run:
+  memory: 1024Mi

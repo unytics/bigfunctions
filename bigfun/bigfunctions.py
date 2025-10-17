@@ -202,7 +202,7 @@ class BigFunction:
 
     def generate_description_improvement(self):
         prompt = '\n\n'.join([
-            'Improve the description of this bigquery function. Return only the description.',
+            'Improve the description of this bigquery function. Return only the description. The first line must be short and catchy as it will appear in the functions list page.',
             'FUNCTION YAML DEFINITION:',
             open(self.filename, encoding='utf-8').read(),
         ])

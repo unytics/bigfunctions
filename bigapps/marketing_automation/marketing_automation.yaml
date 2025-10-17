@@ -1,0 +1,11 @@
+type: bigapp
+project: unytics
+dataset: marketing_automation
+region: eu
+apps:
+  campaigns:
+    functions:
+
+params:
+  gmail_username:
+  gmail_password:
