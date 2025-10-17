@@ -10,54 +10,18 @@ hide:
 ---
 
 
-<div class="hero" markdown>
-
-SQL
-{ .big-word }
-
-# is all you need
-
-Supercharge **BigQuery** with **BigFunctions**<br>
-*to load, transform and take actions*<br><br>
-
-[Supercharge BigQuery :octicons-arrow-right-24:](#supercharge-bigquery-with-powerful-functions){ .md-button .md-button--primary }
-
-
-</div>
-
-
-
-<!------------- TECHNOLOGIES UPON SECTION  ----------->
-<div class="hero" markdown>
-
-*Taking the most of*
-{ .small }
-
-<figure markdown="span">
-  ![gcp](assets/gcp.svg){ .gray-scale .mt-neg width=200 }
-</figure>
-
-</div>
-
----
-
-
-
 <!------------- POWER OF FUNCTIONS HEADER  ----------->
 <div class="hero" markdown>
 
-# Supercharge BigQuery with powerful functions
+# Powerful Functions to Supercharge BigQuery
 
-Enrich BigQuery<br>
-with **150+ functions** built by the community<br>
-
-*no install needed*
-{ .small }
+**150+ Ready-to-Go Functions** from the community *(no install needed)*
 
 [Discover the Functions :octicons-arrow-right-24:](bigfunctions/README.md){ .md-button }
 
 
 </div>
+
 
 <figure markdown="span">
   ![functions examples](assets/functions.png)
@@ -67,7 +31,11 @@ with **150+ functions** built by the community<br>
 
 <br>
 
+
+
 ---
+
+
 
 
 
@@ -76,7 +44,7 @@ with **150+ functions** built by the community<br>
 
 <div class="hero" markdown>
 
-# Deploy Functions in your BigQuery Project
+# A Framework for BigQuery functions
 
 Build your own catalog of advanced functions.
 
@@ -128,6 +96,82 @@ is all you need
 
 **dataform can be replaced by any sql orchestrator (dbt, sqlmesh, scheduled queries, etc)*
 { .small }
+
+</div>
+
+
+<div class="hero" markdown>
+
+# Want BigQuery to send you an email with your KPIs of the day? 
+
+*It's as easy as a copy & paste!*
+
+To send you an email with your KPIs of the day, simply copy the following code and run it in BigQuery. 
+One Click & you got your email. No install needed!
+
+``` sql
+with 
+
+--- Compute the KPIs of the day ---
+kpis_of_the_day as (
+  select 
+    1584  as total_users,
+    74863.35 as total_revenue
+),
+
+--- Set email recipients (you in this case) ---
+recipients as (
+  select 
+    session_user() as email,
+    initcap(replace(split(session_user(), '@')[offset(0)], '.', ' ')) as username,
+)
+
+
+--- Send an Email to recipients (you) with the KPIs of the day ---
+select bigfunctions.eu.send_mail(
+
+  email,                    --- Recipient
+
+  "Daily Metrics Summary",  --- Email Subject
+
+  format(                   --- Email Body in markdown format
+    """
+    ## Hi %s
+
+    *Here is your Daily Metrics Summary*
+    
+    - **Total users**: %d
+    - **Total revenue**: %.2f $
+
+    Enjoy your day!    
+    """,
+    username,
+    total_users,
+    total_revenue
+  ),
+  null,                     --- Optional Attached file name
+  null                      --- Optional Attached file content
+)
+
+from kpis_of_the_day, recipients
+```
+
+
+
+</div>
+
+
+
+
+<!------------- TECHNOLOGIES UPON SECTION  ----------->
+<div class="hero" markdown>
+
+*Taking the most of*
+{ .small }
+
+<figure markdown="span">
+  ![gcp](assets/gcp.svg){ .gray-scale .mt-neg width=200 }
+</figure>
 
 </div>
 
