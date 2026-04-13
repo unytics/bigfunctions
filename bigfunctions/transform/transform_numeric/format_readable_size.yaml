@@ -1,0 +1,30 @@
+type: function_sql
+
+category: transform_numeric
+
+author:
+  name: Janga Venkata Phanindra Reddy
+  url: https://www.linkedin.com/in/j-v-phanindra-reddy
+  avatar_url: https://avatars.githubusercontent.com/u/41366590
+
+description: |
+  Return a human-readable string representation of a byte size.
+  Converts byte counts into compact format with KB, MB, GB, TB suffixes
+  (e.g. `67000` → `65.4 KiB`, `1073741824` → `1.0 GiB`).
+
+arguments:
+  - name: bytes
+    type: float64
+
+output:
+  name: readable_size
+  type: string
+
+body: |
+  case
+    when bytes >= 1099511627776 then concat(cast(round(bytes / 1099511627776, 1) as string), ' TiB')
+    when bytes >= 1073741824    then concat(cast(round(bytes / 1073741824, 1) as string), ' GiB')
+    when bytes >= 1048576       then concat(cast(round(bytes / 1048576, 1) as string), ' MiB')
+    when bytes >= 1024          then concat(cast(round(bytes / 1024, 1) as string), ' KiB')
+    else concat(cast(bytes as string), ' B')
+  end
