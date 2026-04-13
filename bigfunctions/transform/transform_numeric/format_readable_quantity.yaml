@@ -1,0 +1,47 @@
+type: function_sql
+
+category: transform_numeric
+
+author:
+  name: Janga Venkata Phanindra Reddy
+  url: https://www.linkedin.com/in/j-v-phanindra-reddy
+  avatar_url: https://avatars.githubusercontent.com/u/41366590
+
+description: |
+  Return a human-readable string representation of a large number.
+  Converts large integers into compact format with K, M, B suffixes
+  (e.g. `8000000` → `8.0M`, `67000` → `67.0K`).
+
+arguments:
+  - name: value
+    type: float64
+
+output:
+  name: readable_quantity
+  type: string
+
+examples:
+  - description: "millions"
+    arguments:
+      - "8000000"
+    output: "8.0M"
+  - description: "thousands"
+    arguments:
+      - "67000"
+    output: "67.0K"
+  - description: "billions"
+    arguments:
+      - "2500000000"
+    output: "2.5B"
+  - description: "small number (no suffix)"
+    arguments:
+      - "500"
+    output: "500.0"
+
+body: |
+  case
+    when value >= 1000000000 then concat(cast(round(value / 1000000000, 1) as string), 'B')
+    when value >= 1000000    then concat(cast(round(value / 1000000, 1) as string), 'M')
+    when value >= 1000       then concat(cast(round(value / 1000, 1) as string), 'K')
+    else cast(round(value, 1) as string)
+  end
