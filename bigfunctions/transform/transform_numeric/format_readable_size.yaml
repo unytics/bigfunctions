@@ -13,18 +13,32 @@ description: |
   (e.g. `67000` → `65.4 KiB`, `1073741824` → `1.0 GiB`).
 
 arguments:
-  - name: bytes
+  - name: size_in_bytes
     type: float64
 
 output:
   name: readable_size
   type: string
 
-body: |
+examples:
+  - description: "Byte value smaller than 1 KiB"
+    arguments:
+      - 512
+    output: "512 B"
+  - description: "Byte value converted to KiB"
+    arguments:
+      - 67000
+    output: "65.4 KiB"
+  - description: "Byte value converted to GiB"
+    arguments:
+      - 1073741824
+    output: "1.0 GiB"
+
+code: |
   case
-    when bytes >= 1099511627776 then concat(cast(round(bytes / 1099511627776, 1) as string), ' TiB')
-    when bytes >= 1073741824    then concat(cast(round(bytes / 1073741824, 1) as string), ' GiB')
-    when bytes >= 1048576       then concat(cast(round(bytes / 1048576, 1) as string), ' MiB')
-    when bytes >= 1024          then concat(cast(round(bytes / 1024, 1) as string), ' KiB')
-    else concat(cast(bytes as string), ' B')
+    when size_in_bytes >= 1099511627776 then concat(cast(round(size_in_bytes / 1099511627776, 1) as string), ' TiB')
+    when size_in_bytes >= 1073741824    then concat(cast(round(size_in_bytes / 1073741824, 1) as string), ' GiB')
+    when size_in_bytes >= 1048576       then concat(cast(round(size_in_bytes / 1048576, 1) as string), ' MiB')
+    when size_in_bytes >= 1024          then concat(cast(round(size_in_bytes / 1024, 1) as string), ' KiB')
+    else concat(cast(size_in_bytes as string), ' B')
   end
