@@ -57,6 +57,5 @@ code: | #python
     return rate
 requirements: |
   yfinance
-max_batching_rows: 10
 cloud_run:
   concurrency: 1
