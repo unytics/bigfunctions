@@ -1,0 +1,4394 @@
+# - title: "SQL Data Stack:<br>A New Paradigm for Data Platforms"
+#   url: posts/2025-02-05_introducing_the_sql_data_stack.md
+#   image_url: ../assets/blog/2025-02-05_introducing_sql_data_stack.png
+#   is_featured: true
+#   text: |
+#     Tired of complex data stacks?
+
+#     Discover the SQL Data Stack: a new paradigm that uses SQL for data ingestion, transformation, and activation, empowering analysts and simplifying your data workflow
+
+
+- title: "Bridge the gap between SQL and action"
+  url: https://timodechau.com/from-sql-to-slack-automating-data-workflows-with-big-functions/
+  image_url: https://timodechau.com/content/images/size/w400/format/webp/2024/12/timo_square.jpeg
+  is_featured: true
+  text: |
+    Automate data workflows with BigFunctions, bridging the gap between SQL and action.
+
+    Trigger Slack notifications, enrich data, and integrate AI directly from BigQuery, all using SQL.
+
+
+- title: "Unlock new use cases"
+  url: https://www.youtube.com/watch?v=kFy78r1Iabs
+  image_url: https://miro.medium.com/v2/resize:fit:2400/1*sQBZAcpkOhRvSe5zYudx_A.jpeg
+  is_image_vertical: true
+  is_featured: true
+  text: |
+    Run a simple SQL query to expose
+    BigQuery data to a low latency API or to send BigQuery data to any destination.
+
+    Unlock:
+
+    1. embedded analytics
+    2. real-time feature store
+    3. actions triggered by data
+    4. ...*sky is the limit*
+
+
+- title: "Open-Source Framework + Open-Source Functions"
+  url: https://medium.com/google-cloud/supercharge-bigquery-with-bigfunctions-2139a1bba620
+  image_url: ../assets/blog/2025-02-06_Jake_Holmquist.png
+  is_featured: true
+  text: |
+    This tutorial introduces BigFunctions.
+
+    Learn how to access and utilize these functions directly from BigQuery to enhance data analysis capabilities without additional setup.
+
+
+- title: "Beyond SQL as a Pure Database Syntax"
+  url: https://fromanengineersight.substack.com/p/beyond-sql-as-a-pure-database-syntax
+  image_url: https://cdn.theorg.com/be98c465-6d08-43ad-8ef3-f43b34addfde_medium.jpg
+  is_image_vertical: true
+  is_featured: true
+  text: |
+    BigFunctions extends SQL, enabling composable, reusable analytics patterns.
+
+    By embedding code into functions, it bridges SQL's limitations, reduces code footprint, and accelerates data insights.
+
+
+- title: "Benefits of BigFunctions: A Data Engineering Perspective"
+  url: https://mastheadata.com/exploring-the-benefits-of-bigfunctions-for-bigquery-a-data-engineers-perspective/
+  image_url: https://cache.sessionize.com/image/0168-400o400o2-24epqXXuyWFRatd2QKMhY.jpg
+  is_featured: true
+  text: |
+    BigFunctions assists data engineers by providing them with 150+ open-source functions that are ready to go.
+
+    Functions allow them to extend BigQuery functionality, improve the reusability of BigQuery queries, and ensure consistent business logic across a company’s analytical operations.
+
+
+- title: "BigFunctions is dataform's best friend"
+  url: https://michael-scherding.medium.com/spicing-up-gcs-to-bigquery-transfers-from-dataform-with-bigfunctions-0d286e5a91c
+  image_url: https://miro.medium.com/v2/resize:fit:2400/1*K6lBFw65lMIHIX4z7m6jPA.jpeg
+  is_image_vertical: true
+  is_featured: true
+  text: |
+    With BigFunctions, *any task* can be run from SQL.
+
+    So *any task* can be orchestrated by SQL orchestrators such as dataform, dbt, sqlmesh or scheduled queries.
+
+
+- id: 2025-01-28_in_2025_analytics_engineers_will_build_dataapps
+  type: text
+  title: |
+    In 2025, Analytics Engineers will build Data-Apps
+  author: Paul Marcombes
+  date: "2025-01-28"
+  url: https://www.linkedin.com/posts/paul-marcombes_in-2025-analytics-engineers-will-build-data-apps-activity-7289945363237543936-GCiT?utm_source=combined_share_message&utm_medium=member_desktop
+  likes: 40
+  reshares: 5
+  impressions: 5175
+  comments: 17
+  article_title: |
+    null
+  article_url: null
+  images: []
+  image_url: null
+  text: |
+    Technologies make roles change. 
+
+    Since the rise of cloud data-warehouses and the birth of dbt, data engineers don’t do data transform anymore. SQL speaking people do: the analytics engineers.
+
+    With the rise of generative AI, analytics engineers may build data-apps too.
+
+    This is the reasoning of Marcus with who I got a great conversation last week.
+
+
+    It resonated with my own convictions.
+
+    But while Marcus was thinking of analytics engineers making streamlit apps, I think there is space again for SQL.
+
+    Evidence  tagline “Build polished data apps with SQL” goes exactly in that direction. Archie’s team is inspiring.
+
+
+    In 2025, I hope to make my own contribution with a data-apps framework - for data activation - made for SQL users.
+
+    If you’re interested in data-apps too, leave me a message, I’d love to have a chat!
+
+
+    What’s your take on this?
+
+    Will SQL users build data-apps?
+
+    What for?
+
+- id: 2025-01-23_have_you_met_timo
+  type: image
+  title: |
+    Have you met Timo?
+  author: Paul Marcombes
+  date: "2025-01-23"
+  url: https://www.linkedin.com/posts/paul-marcombes_bigfunctions-activity-7288236835531591680-V3vC?utm_source=combined_share_message&utm_medium=member_desktop
+  likes: 52
+  reshares: 2
+  impressions: 2750
+  comments: 8
+  article_title: |
+    null
+  article_url: null
+  images: ['https://media.licdn.com/dms/image/v2/D5622AQEjqV3VmcrFOg/feedshare-shrink_20/B56ZSUEx1QHwA0-/0/1737651069474?e=1741219200&v=beta&t=cil5E6tPApxKovK1PP8_nEUEWO_hUR4JOK19w_v5YVY']
+  image_url: ../assets/blog/2025-01-23_have_you_met_timo
+  text: |
+    👉  To me, Timo Dechau creates some of the best content about Product Analytics.
+
+    I've been following him for two years now, and he's forged my convictions about event data.
+
+
+    Don't know Timo yet?
+
+    Read this:
+
+    ●  From Events to Activities: https://lnkd.in/gsSJWtPc
+
+    ●  Combine Mixpanel and data-warehouse data (part 1):  https://lnkd.in/gxeCTMjW
+
+    ●  Combine Mixpanel and data-warehouse data (part 2):  https://lnkd.in/g833ZNcN
+
+    ●  Sessions vs Users: https://lnkd.in/gNCae3UB
+
+
+    Today, Timo created an article about my personal open-source project: bigfunctions
+
+    To be honest, it's much much better than anything I could have written myself.
+
+    ●  From SQL to Slack: https://lnkd.in/gaWwQzZq
+
+
+    So now, I am even more thankful to you Timo! 🙌
+
+
+    Want to support Timo?
+
+    Add a ❤️ to this post & follow him!
+
+- id: 2025-01-23_a_while_ago_i_wanted_a_daily_slack_update_on_which
+  type: text
+  title: |
+    A while ago, I wanted a daily Slack update on which kind of content was most viewed yesterday. It's nothing serious, but it's still fun and something that motivates me in the morning.
+  author: Timo Dechau
+  date: "2025-01-23"
+  url: https://www.linkedin.com/posts/timo-dechau_a-while-ago-i-wanted-a-daily-slack-update-activity-7288154281738661888-qSGG?utm_source=combined_share_message&utm_medium=member_desktop
+  likes: 19
+  reshares: 2
+  impressions: null
+  comments: 6
+  article_title: |
+    null
+  article_url: null
+  images: []
+  image_url: null
+  text: |
+    Luckily, I had just recorded a hands-on session with Paul Marcombes about BigFunctions. And we discussed exactly this use case and did a quick demo. So I got it up and running in just 5 minutes.
+
+    I just published an introduction to BigFunctions (blog and video) - an open-source project that enables analysts to automate data workflows directly from SQL.
+
+    Key takeaways:
+    - Deploy pre-built functions in 5 minutes to GCP
+    - Send data-driven notifications to Slack
+    - Enrich data with API responses and AI without engineering support
+    - Seamless integration with dbt
+
+    The best part? It's all SQL-native. No infrastructure management needed.
+
+    Link in comments or just click on "Visit my website" under my name.
+
+- id: 2025-01-17__im_pleased_to_share_the_latest_article_by_benoit_
+  type: article
+  title: |
+    📢 I'm pleased to share the latest article by Benoit Pimpaud about BigFunctions!
+  author: Paul Marcombes
+  date: "2025-01-17"
+  url: https://www.linkedin.com/posts/paul-marcombes_beyond-sql-as-a-pure-database-syntax-activity-7285925077592801280-eXXV?utm_source=combined_share_message&utm_medium=member_desktop
+  likes: 9
+  reshares: 1
+  impressions: 1334
+  comments: 0
+  article_title: |
+    Beyond SQL as a Pure Database Syntax
+  article_url: https://fromanengineersight.substack.com/p/beyond-sql-as-a-pure-database-syntax
+  images: []
+  image_url: null
+  text: |
+    His article, "Beyond SQL as a Pure Database Syntax," really captures what we're trying to achieve.
+
+    I'm happy with this article because it highlights:
+
+    •  SQL's limitations for complex analytics.
+    •  How BigFunctions improves reusability and workflow by bringing functionality and composability to SQL.
+    •  How it supports a separation of concerns for data teams.
+
+    You can read the full article here: https://lnkd.in/eAdEAs9r
+
+
+    Have a nice day!
+
+- id: 2025-01-16_i_recently_explored_sqls_limitations_for_analytics
+  type: article
+  title: |
+    I recently explored SQL's limitations for analytics in a talk and in my writing, and I stand by these limits 🌶️
+  author: Benoit Pimpaud
+  date: "2025-01-16"
+  url: https://www.linkedin.com/posts/pimpaudben_beyond-sql-as-a-pure-database-syntax-activity-7285716946547834880-TRtB?utm_source=combined_share_message&utm_medium=member_desktop
+  likes: 28
+  reshares: 3
+  impressions: null
+  comments: 3
+  article_title: |
+    Beyond SQL as a Pure Database Syntax
+  article_url: https://fromanengineersight.substack.com/p/beyond-sql-as-a-pure-database-syntax
+  images: []
+  image_url: null
+  text: |
+    But I recently realized that SQL's syntax isn't the real problem. The core issue lies in its underlying semantics – how we actually interact with and understand our data
+
+    In tech (and in general), semantics often struggles to keep pace with syntax. In my latest blog post, I explore how modern tooling like Unytics BigFunctions help to bridge this crucial gap between SQL's origins and modern analytics needs
+
+- id: 2025-01-15_whats_up_for_me_in_2025__more_opensource_data_prod
+  type: image
+  title: |
+    What's up for me in 2025 👉 MORE Open-Source Data Products! 🤗
+  author: Paul Marcombes
+  date: "2025-01-15"
+  url: https://www.linkedin.com/posts/paul-marcombes_whats-up-for-me-in-2025-more-open-source-activity-7285312281217753088-Eik8?utm_source=combined_share_message&utm_medium=member_desktop
+  likes: 154
+  reshares: 2
+  impressions: 15204
+  comments: 10
+  article_title: |
+    null
+  article_url: null
+  images: ['https://media.licdn.com/dms/image/v2/D4E22AQH8p51b_4_iNg/feedshare-shrink_480/B4EZRqg54OGwAg-/0/1736953801392?e=1741219200&v=beta&t=AL5AkdGaf2x_MagHEvEkMh-n1DOPSOjbzfi6q4NtYwA']
+  image_url: ../assets/blog/2025-01-15_whats_up_for_me_in_2025__more_opensource_data_prod
+  text: |
+    🔹 2024
+    In 2024, I built 4 Open-Source Data Apps:
+
+    -  bigfunctions
+    -  airbyte-serverless
+    -  catalog-builder
+    -  data-api
+
+    They got thousands of users and I often received nice messages. I must admit it's quite satisfying 🤗 . Thanks everyone.
+
+
+    🔹 2025
+    In 2025, I want to accelerate.
+    I'd love to make a living of building Data Apps.
+
+
+    👉 If you're thinking of activating data from your data-platform to generate value, I'd love to have a chat.
+
+    I am looking for new ideas and would be happy to share mine.
+
+    Interested in a 30-minute discussion with me?
+    Send me a message! 🙌
+
+
+    Enjoy your day!
+
+- id: 2025-01-14_unifying_analytics_platform_what_if_you_could_have
+  type: image
+  title: |
+    Unifying Analytics Platform: what if you could have one tool to load, transform and activate data?
+  author: Paul Marcombes
+  date: "2025-01-14"
+  url: https://www.linkedin.com/posts/paul-marcombes_unifying-analytics-platform-what-if-you-activity-7284860745152888832-AXhL?utm_source=combined_share_message&utm_medium=member_desktop
+  likes: 49
+  reshares: 3
+  impressions: 5060
+  comments: 5
+  article_title: |
+    null
+  article_url: null
+  images: ['https://media.licdn.com/dms/image/v2/D4E22AQFdryvheLmJDQ/feedshare-shrink_480/B4EZRkGPU8GgAY-/0/1736846146512?e=1741219200&v=beta&t=lykO0pGLevl_MfhVrZpB953oAc9T0he59JaMGVB8frQ']
+  image_url: ../assets/blog/2025-01-14_unifying_analytics_platform_what_if_you_could_have
+  text: |
+    I had a great talk this morning with Burak, CEO of Bruin at DATANOSCO podcast from Stéphane.
+
+
+    Burak shared his vision to bring an all-in-one data-platform through bruin.
+
+    Here are key elements:
+
+    1/ NO no-code! 
+    Bruin is code and configuration-based first. It's built around standards to fasten development. It makes it versionable in git and easily extensible.
+
+    2/ All-in-one changes everything
+    Bruin can provide templates to get started loading some data from a specific source up to making the data transforms in a opinionated way. If you had to mix different tools, the user experience would be much less fluid. What's more, this considerably reduces the amount of gluing required for data engineers.
+
+    3/ Built on open-source
+    Bruin team created ingestr, a wrapper above dlt from dltHub to ingest data from any data-warehouse. Building above top open-source data tools makes bruin benefits from the data-community to get fast and on top. Giving back to open-source is part of the deal.
+
+
+    Thanks a lot Stéphane for the invitation to your podcast! Burak, I will be follow what you build with attention!
+
+- id: 2025-01-09_i_am_honored_to_get_such_high_praise_from_the_crea
+  type: text
+  title: |
+    I am honored to get such high praise from the creator of BigFunctions!
+  author: Burak Karakan
+  date: "2025-01-09"
+  url: https://www.linkedin.com/posts/burakkarakan_all-in-one-data-platform-with-configuration-activity-7283080790899347456-gDLX?utm_source=combined_share_message&utm_medium=member_desktop
+  likes: 39
+  reshares: 2
+  impressions: null
+  comments: 2
+  article_title: |
+    null
+  article_url: null
+  images: []
+  image_url: null
+  text: |
+    Thanks a lot for the kind words Paul, great to see our vision fits into what you would expect to see as well.
+
+    We are really excited for this year, as a lot of the stuff we have been building will go public!
+
+- id: 2025-01-08_allinone_dataplatform_with_configuration_files_why
+  type: text
+  title: |
+    All-in-one data-platform with configuration files. Why I love Bruin vision:
+  author: Paul Marcombes
+  date: "2025-01-08"
+  url: https://www.linkedin.com/posts/paul-marcombes_all-in-one-data-platform-with-configuration-activity-7282697551185645568-X-Io?utm_source=combined_share_message&utm_medium=member_desktop
+  likes: 88
+  reshares: 5
+  impressions: 17923
+  comments: 16
+  article_title: |
+    null
+  article_url: null
+  images: []
+  image_url: null
+  text: |
+    1/ Modern-Data-Stack limitations
+    Modern-data-stack brought data tooling for any data service:
+
+    - Fivetran for ingestion.
+    - dbt Labs for transform.
+    - Hightouch for activation.
+    - Prefect for orchestration
+    - SYNQ for reliability
+    - CastorDoc for catalog
+
+    This has been seen as a revolution.
+    Whatever your need, there's a tool for it.
+
+    BUT is also led to a common criticism.
+
+    👉 You still need to choose, understand, buy and manage all of these tools from different vendors. 🤦‍♂️
+
+
+    2/ Hello all-in-one data-platforms
+    That's when all-in-one data-platforms came in.
+    Y42 brings a one-stop-shop for companies to handle their data-platforms.
+
+    Problem solved!
+
+    BUT, y42 only runs inside y42.
+
+    👉 Hello vendor lock-in. 🤦‍♂️
+
+
+    3/ Bruin: the new player in the game
+    That's when Bruin entered the game.
+
+    They provide a all-in-one data-platform with ingestion, SQL transform, python jobs (for custom load, transform or activation), and orchestration.
+
+    It works locally, it's mostly open-source, and you can run it everywhere.
+
+    Did I mention it also comes with a VS code extension to streamline development?
+
+    I am impressed about what they built in a year.
+
+
+    Do you share my enthusiasm? Why not?
+
+- id: 2025-01-07_how_to_stay_fast_in_a_bigger_companyheres_what_i_l
+  type: text
+  title: |
+    How to stay fast in a bigger company? Here's what I learnt during the last decade:
+  author: Paul Marcombes
+  date: "2025-01-07"
+  url: https://www.linkedin.com/posts/paul-marcombes_how-to-stay-fast-in-a-bigger-companyheres-activity-7282339879840059392-mwA4?utm_source=combined_share_message&utm_medium=member_desktop
+  likes: 114
+  reshares: 1
+  impressions: 7639
+  comments: 8
+  article_title: |
+    null
+  article_url: null
+  images: []
+  image_url: null
+  text: |
+    I started working 13 years ago in medical imaging.
+    We were 5 people in the company.
+    We built ultrasound scanners from end to end.
+    I was impressed by our speed compared to our competitors.
+
+    It was because we were small.
+    Us, engineers, were in direct contact with doctors.
+    We were able to discover their problems in the morning and ship solutions in the afternoon.
+
+    At that time I thought that competitors with hundreds of employees were unlucky.
+    They would never be as fast as us.
+    Their flow from idea to delivery contained too numerous asphixying steps.
+
+    This was before I came to Nickel.
+
+
+    👉 At Nickel, I realized that you can be 900 employees and still be fast.
+
+    One way is to get autonomous teams
+    while respecting big companies requirements.
+
+    One key for this is to create a FRAMEWORK which:
+
+    ✅ is a space of trust in which teams can make their own decisions.
+    ✅ defines guidelines and standards (security, compliance, brand, etc.).
+    ✅ defines boundaries that limit teams inter-dependencies.
+    ✅ comes with platform tools & platform teams to go faster while harmonizing the work.
+
+
+    For example:
+
+    ❌ BAD ➜ teams depend on CENTRAL BOTTLENECK committees for validation of everything. Even minor initiatives.
+
+    ✅ GOOD ➜ security team gives you the autonomy to build stuff while helping you to follow cybersecurity standards.
+
+    👉 AVOID bottlenecks & EMPOWER people within a FRAMEWORK.
+
+
+    I may give details of how we did for Nickel data people in a next post.
+    Stay tuned.
+
+
+    I wish you a Happy New Year!
+
+- id: 2025-01-06_just_tried_something_really_amazing_with_bigfuncti
+  type: image
+  title: |
+    Just tried something really amazing with BigFunctions by Paul Marcombes.
+  author: Sabri Karagönen
+  date: "2025-01-06"
+  url: https://www.linkedin.com/posts/sabrikaragonen_just-tried-something-really-amazing-with-ugcPost-7282078262535634945-yNHJ?utm_source=combined_share_message&utm_medium=member_desktop
+  likes: 128
+  reshares: 4
+  impressions: null
+  comments: 3
+  article_title: |
+    null
+  article_url: null
+  images: ['https://media.licdn.com/dms/image/v2/D4D22AQF4Ans1buQT8g/feedshare-shrink_160/B4DZQ8jlkZHYAk-/0/1736182750703?e=1741219200&v=beta&t=XPUpcITyGMP0pKZYdTWI7uQwFMYQCfLF8wDD9LaHLik', 'https://media.licdn.com/dms/image/v2/D4D22AQEiUonvS3ZG8w/feedshare-shrink_800/B4DZQ8jlkrHUAg-/0/1736182750376?e=1741219200&v=beta&t=KuK5P3fFI37i3TgNXl9RHYDnGPDzp7MGjqAPhtKSBJw']
+  image_url: ../assets/blog/2025-01-06_just_tried_something_really_amazing_with_bigfuncti
+  text: |
+    BigFunctions lets you use Python functions directly in BigQuery, and thanks to its prebuilt functions, you can even run LLMs through SQL. It’s a great way to extend BigQuery’s capabilities without needing external tools.
+
+    In my case, I wanted to quickly get foundational details (country, city, and year of establishment) for some well-known football teams. Using the ask_ai function, I was able to send a simple prompt, get structured responses, and parse them—all within BigQuery.
+
+    This is just one example, but there’s a lot more you can do with it. It’s a practical tool that simplifies working with AI and Python in a SQL environment.
+    Big thanks to Paul for building and sharing this!
+
+- id: 2025-01-01__premier_replay_de_lanne__on_dmarre_2025_avec_styl
+  type: article
+  title: |
+    🎯 Premier Replay de l'année : on démarre 2025 avec style !
+  author: Forward Data Conference
+  date: "2025-01-01"
+  url: https://www.linkedin.com/posts/forward-data-conference_unlock-new-sql-capabilities-with-bigfunctions-activity-7280187059258986496-ImgG?utm_source=combined_share_message&utm_medium=member_desktop
+  likes: 17
+  reshares: 1
+  impressions: null
+  comments: 0
+  article_title: |
+    Unlock new SQL capabilities with BigFunctions !
+  article_url: https://youtu.be/ehB80iZjdwU
+  images: []
+  image_url: null
+  text: |
+    Les nouvelles capacités SQL avec BigFunctions !
+
+    • Découvrez comment simplifier vos requêtes complexes
+    • Explorez les nouvelles fonctionnalités qui vont révolutionner votre approche SQL
+    • Apprenez des cas d'usage concrets directement applicables
+
+    Un grand merci à Paul Marcombes ! 🙏
+    📺 Replay disponible ici : https://lnkd.in/eT--ysUr
+
+    A huge thanks to our sponsors for this conference: CastorDoc, Mirakl,
+    SYNQ, nibble.ai, Sparkline, Omni, Corail Analytics and Monte Carlo ❤️
+
+- id: 2024-12-19_static_bi_is_going_to_be_huge__heres_why_i_am_very
+  type: image
+  title: |
+    Static BI is going to be huge!  Here's why I am VERY excited 🤯:
+  author: Paul Marcombes
+  date: "2024-12-19"
+  url: https://www.linkedin.com/posts/paul-marcombes_static-bi-is-going-to-be-huge-heres-why-activity-7275408288698044416-vi6r?utm_source=combined_share_message&utm_medium=member_desktop
+  likes: 85
+  reshares: 3
+  impressions: 10406
+  comments: 25
+  article_title: |
+    null
+  article_url: null
+  images: ['https://media.licdn.com/dms/image/v2/D5622AQFYdIVto7qukA/feedshare-shrink_2048_1536/B56ZPa6Xh0HIAo-/0/1734544556106?e=1741219200&v=beta&t=-vOKdUBE66qHIzZ1XhWX1ApFKdCRzZvsXXKUVzY7V_U']
+  image_url: ../assets/blog/2024-12-19_static_bi_is_going_to_be_huge__heres_why_i_am_very
+  text: |
+    Static BI is about creating interactive dashboards on top of Parquet files.
+
+    It's trending since we can run duckdb in the browser.
+
+    If you follow this area, you already know Observable and Evidence tools.
+
+
+    But I am pretty sure you don't know mozaic yet.
+
+
+    ➜ Mozaic Dashboards are interactive, fast, based on parquet files and they can deal with a lot of data.
+
+    ➜ What make them great in my opinion is that you can generate them on the fly using a simple yaml configuration AND with vanilla javascript.
+
+    NO MORE front-end build or deployment needed!
+
+
+    This opens a wide new area for static BI.
+
+    In the example of the screenshot, I am downloading a YAML configuration file from another website and generating the dashboard on the fly with it!
+
+    It means that we can share YAML configurations templates for common dashboards on common analyses 😲.
+
+    The example is in the comment. Don't hesitate to play with it. It's fun.
+
+
+    In your opinion, is there a place for static BI?
+    What would you use it for?
+
+- id: 2024-12-18_ga4_data_is_known_to_be_hard_to_explore_in_bigquer
+  type: image
+  title: |
+    GA4 data is known to be hard to explore in BigQuery. But this will change:
+  author: Paul Marcombes
+  date: "2024-12-18"
+  url: https://www.linkedin.com/posts/paul-marcombes_ga4-data-is-known-to-be-hard-to-explore-in-activity-7275053475732885504-juY1?utm_source=combined_share_message&utm_medium=member_desktop
+  likes: 231
+  reshares: 9
+  impressions: 15302
+  comments: 20
+  article_title: |
+    null
+  article_url: null
+  images: ['https://media.licdn.com/dms/image/v2/D4E22AQGF4zm8aLcYaQ/feedshare-shrink_20/B4EZPVcDgvGcAs-/0/1734452722693?e=1741219200&v=beta&t=GhCVbwLx1BQRs5-5nrskuiCzAO_LTSP-7Dp0aWaT6mI']
+  image_url: ../assets/blog/2024-12-18_ga4_data_is_known_to_be_hard_to_explore_in_bigquer
+  text: |
+    Ali Izadi built dozens of handy SQL queries to cover areas like 𝗲𝘃𝗲𝗻𝘁, 𝘀𝗲𝘀𝘀𝗶𝗼𝗻, 𝗮𝗻𝗱 𝘂𝘀𝗲𝗿 𝘀𝗰𝗼𝗽𝗲 𝗮𝗻𝗮𝗹𝘆𝘀𝗶𝘀, 𝙚𝙘𝙤𝙢𝙢𝙚𝙧𝙘𝙚 𝙢𝙚𝙩𝙧𝙞𝙘𝙨, 𝙩𝙧𝙖𝙛𝙛𝙞𝙘 𝙖𝙩𝙩𝙧𝙞𝙗𝙪𝙩𝙞𝙤𝙣, 𝙖𝙣𝙙 𝙚𝙫𝙚𝙣 𝙎𝙀𝙊 𝙖𝙣𝙙 𝘼𝙙𝙨.
+
+    It's free, it's open source. It's available in 'Bigquery-GA4-Queries' GitHub repo.
+
+
+    We built together with Ali an integration of 'Bigquery-GA4-Queries' on bigfunctions.
+
+    By calling a bigfunction, you will automatically create all the queries of the GitHub repo as table functions in your GCP project.
+
+
+    We hope it will make it even easier to get started with these awesome queries.
+
+    Links are in comments. Please add a star to Ali's repo if you want to support his work.
+
+- id: 2024-12-16_how_do_you_reuse_logic_in_bigquery
+  type: image
+  title: |
+    How do you re-use logic in BigQuery?
+  author: Paul Marcombes
+  date: "2024-12-16"
+  url: https://www.linkedin.com/posts/paul-marcombes_how-do-you-re-use-logic-in-bigquery-i-activity-7274361367212523520-DhQO?utm_source=combined_share_message&utm_medium=member_desktop
+  likes: 53
+  reshares: 2
+  impressions: 5814
+  comments: 2
+  article_title: |
+    null
+  article_url: null
+  images: ['https://media.licdn.com/dms/image/v2/D4E22AQEjV5l5NgCXmg/feedshare-shrink_800/B4EZPMUGBkHwAs-/0/1734299640448?e=1741219200&v=beta&t=961R6o4nvcJQOuK3-Z3ZHAxAVdz1kdTStxFiANQddAs']
+  image_url: ../assets/blog/2024-12-16_how_do_you_reuse_logic_in_bigquery
+  text: |
+    I often need to get the Net Promoter Score from customer surveys.
+
+
+    The formula is "% promoters - % detractors".
+
+    It's not very complex.
+
+    I could re-write this formula each time.
+
+
+    But as an engineer,
+
+    I really prefer to put this logic in a function.
+
+    And re-use this function everywhere.
+
+
+    How do you do it on your side?
+
+- id: 2024-12-15_mkdocs_or_docusaurus_to_build_your_data_documentat
+  type: text
+  title: |
+    Mkdocs or docusaurus to build your data documentation website?
+  author: Paul Marcombes
+  date: "2024-12-15"
+  url: https://www.linkedin.com/posts/paul-marcombes_mkdocs-or-docusaurus-to-build-your-data-documentation-activity-7274143684432945152-ek0W?utm_source=combined_share_message&utm_medium=member_desktop
+  likes: 13
+  reshares: 0
+  impressions: 4677
+  comments: 17
+  article_title: |
+    null
+  article_url: null
+  images: []
+  image_url: null
+  text: |
+    Both tools are used by millions of developers everyday to deploy their documentation website.
+
+    Which one to choose?
+
+
+    ➜  It depends if your a pythonist or a front end engineer.
+
+
+    With docusaurus you can mix mardown with react components. It brings huge possibilities in an elegant mannner.
+
+    But if you’re not a front end engineer but a pythonist you will find docusaurus over complicated and would rather stick with mkdocs (using Mkdocs material or readthedoc themes).
+
+
+
+    ☝ I feel the same for bi as code tools.
+
+    Observable and evidence.dev look absolutely awesome to me.
+
+    But as a pythonist I think we can do simpler.
+
+    I am even considering making bi as code  with a simple mkdocs plugin.
+
+    Would you be interested?
+
+    Am I wrong with the above thoughts?
+
+- id: 2024-12-13_geocode_an_address_in_bigquery_using_datagouvfr
+  type: image
+  title: |
+    Geocode an address in bigquery using data.gouv.fr
+  author: Paul Marcombes
+  date: "2024-12-13"
+  url: https://www.linkedin.com/posts/paul-marcombes_geocode-an-address-in-bigquery-using-datagouvfr-activity-7273316555021549569-O7Sh?utm_source=combined_share_message&utm_medium=member_desktop
+  likes: 120
+  reshares: 2
+  impressions: 10604
+  comments: 25
+  article_title: |
+    null
+  article_url: null
+  images: ['https://media.licdn.com/dms/image/v2/D4E22AQHb-tMRoSWTUw/feedshare-shrink_800/B4EZPAC3HCH0Ak-/0/1734093796977?e=1741219200&v=beta&t=_ZLhTfb3ek5LpCvN7nI6dRIESXaAl8qYcg_-BKqwx5A']
+  image_url: ../assets/blog/2024-12-13_geocode_an_address_in_bigquery_using_datagouvfr
+  text: |
+    You want to get the latitude and longitude from an address for:
+
+    -  finding the nearest point of sale for a customer.
+    -  visualizing you sales on a map
+    -  doing geo data analysis
+
+
+    Now, it's easier than ever to do so directly in BigQuery.
+
+    Kévin from EFFIDIC  created a function today that geocode addresses using an open api from data.gouv.fr. 👏
+
+    Link in comment.
+
+- id: 2024-12-12_introducing_the_sql_declarativedatastack
+  type: document
+  title: |
+    Introducing the SQL Declarative-Data-Stack!
+  author: Paul Marcombes
+  date: "2024-12-12"
+  url: https://www.linkedin.com/posts/paul-marcombes_sql-is-all-you-need-activity-7272924394576855040-5kvi?utm_source=combined_share_message&utm_medium=member_desktop
+  likes: 139
+  reshares: 6
+  impressions: 29644
+  comments: 28
+  article_title: |
+    null
+  article_url: null
+  images: []
+  image_url: null
+  text: |
+    Modern Data Stack have tools to do everything with data.
+
+    Everything EXCEPT custom stuff.
+
+    ➜ you end up with a ton of python scripts floating around.
+
+
+    Kestra aims to solve this.
+
+    They propose a central tool to orchestrate your jobs in a declarative way.
+
+
+    We propose ANOTHER way.
+
+    We propose you simply use dbt instead (or sqlmesh or dataform).
+
+    It means all your jobs must be callable from SQL.
+
+    Which is easy nowadays.
+
+    As data-warehouses natively do python callable from SQL.
+
+
+    What if you could easily build :
+
+    -  a catalog
+    -  of advanced functions
+    -  callable by anyone from SQL
+    -  & defined in a declarative manner
+
+    ?
+
+
+    Say hi to the SQL Declarative-Data-Stack!
+
+
+    What's your opinion on this?
+
+    Would you be ready to do everything from SQL?
+
+    If not, Why?
+
+- id: 2024-12-12_i_aim_to_build_and_define_the_data_stack_with_a_si
+  type: image
+  title: |
+    I aim to build and define the data stack with a "single function", including the entire data engineering lifecycle, starting up a full declarativedatastack.
+  author: Simon Späti
+  date: "2024-12-12"
+  url: https://www.linkedin.com/posts/sspaeti_declarativedatastack-ugcPost-7272906911648268288-u7sN?utm_source=combined_share_message&utm_medium=member_desktop
+  likes: 109
+  reshares: 3
+  impressions: null
+  comments: 37
+  article_title: |
+    null
+  article_url: null
+  images: ['https://media.licdn.com/dms/image/v2/D4D22AQGga9NP1gpSiQ/feedshare-shrink_2048_1536/B4DZO6OSycHcAo-/0/1733996130016?e=1741219200&v=beta&t=-FSEyAy-D7qHq0xDektcEmkI3QzXP_nuOXGPCcyfSRA', 'https://media.licdn.com/dms/image/v2/D4D22AQHVCaPHGqFc8g/feedshare-shrink_800/B4DZO6OSypG0Ak-/0/1733996130008?e=1741219200&v=beta&t=Wou3t-kwmV-V1sOCXMQVGUPN0lhcCi5e2bC1djOUz5s']
+  image_url: ../assets/blog/2024-12-12_i_aim_to_build_and_define_the_data_stack_with_a_si
+  text: |
+    ```
+    run_stack(
+      serve(
+        template='github://covid/covid_dashboard.md',
+        data=transform(
+          {
+            'groupby': 'country',
+            'aggregate': {
+              'cases': 'sum',
+              'deaths': 'sum'
+            }
+          },
+          ingest(
+            source='duckdb',
+            query='SELECT * FROM "s3://coviddata/covid_*.parquet"'
+          )
+        )
+      )
+    )
+    ```
+
+    I'm thinking something like this (images attached). The "engine" is basically only transpiling from config to the actual data stack with multiple adapters— e.g., dbt, SDF, SQLMesh for `transform()`.
+
+    I can't help but think about DWH Automation (DWA).
+
+    > Config = template
+    > Engine = DWA
+    > DDS = generated SQLs
+
+    If you were to implement a declarative data stack engine (DDSE), would you focus on the *one-time* generation of a data stack (second image attached) or the continuous update?
+
+    What I mean is, would you fix or update configs/templates as DWA did or the artifacts (SQL, YAMLs) without touching the generated code?
+
+    Any thoughts? 🤔 Gregor Zeiler, Jan Kaul, Matthew Kosovec and others in my network?
+
+- id: 2024-12-05_how_to_expose_dbt_models_as_api_endpoints
+  type: document
+  title: |
+    How to expose dbt models as API endpoints:
+  author: Paul Marcombes
+  date: "2024-12-05"
+  url: https://www.linkedin.com/posts/paul-marcombes_dbt-models-as-api-endpoints-activity-7270338616273391616-CbTS?utm_source=combined_share_message&utm_medium=member_desktop
+  likes: 270
+  reshares: 8
+  impressions: 35032
+  comments: 70
+  article_title: |
+    null
+  article_url: null
+  images: []
+  image_url: null
+  text: |
+    If your microservices could consume your dbt models with low latency, you'd unlock great use cases:
+
+    ⇨  content personalization
+    ⇨  embedded analytics
+    ⇨  feature flipping
+    ⇨  feature store
+    ⇨  etc
+
+
+    These slides demonstrate how analytics-engineers can expose their dbt models as API endpoints with one line in dbt.
+
+    (they are a re-work from our presentation at API Days with Hachem LATRACH yesterday).
+
+    Looking forward to reading your comments.
+
+    What is your use cases for consuming a low-latency api on dbt models data?
+
+
+    dbt dataapi
+
+- id: 2024-12-04_expose_your_dbt_models_as_an_api_with_a_simple_dbt
+  type: image
+  title: |
+    Expose your dbt models as an api with a simple dbt hook.
+  author: Paul Marcombes
+  date: "2024-12-04"
+  url: https://www.linkedin.com/posts/paul-marcombes_expose-your-dbt-models-as-an-api-with-a-simple-activity-7270053513622110208-TaZT?utm_source=combined_share_message&utm_medium=member_desktop
+  likes: 184
+  reshares: 2
+  impressions: 14992
+  comments: 54
+  article_title: |
+    null
+  article_url: null
+  images: ['https://media.licdn.com/dms/image/v2/D5622AQFyHtc2IeMmGA/feedshare-shrink_2048_1536/feedshare-shrink_2048_1536/0/1733315826756?e=1741219200&v=beta&t=tt05HOXr96wWLs8TWMXqrql9tm8Mt8PVPDR3ynIUOW0', 'https://media.licdn.com/dms/image/v2/D5622AQFvDfqfkq2VEA/feedshare-shrink_2048_1536/feedshare-shrink_2048_1536/0/1733315826454?e=1741219200&v=beta&t=FNkssFF7pIyZ4mx8v5avDHgm_yBnkldqOjvqOZGEjp0']
+  image_url: ../assets/blog/2024-12-04_expose_your_dbt_models_as_an_api_with_a_simple_dbt
+  text: |
+    This morning with Hachem LATRACH from Nickel  we were at API Days Paris.
+
+    We explained several use cases where YOU WANT to expose your dbt models as an api.
+
+
+    We demonstrated how you can build a:
+
+    -  scalable (millions of requests / s),
+    -  serverless,
+    -  low latency (milliseconds)
+
+    data-api on top of dbt models by a simple sql line in dbt configuration.
+
+    Interested?
+
+    Add a comment and if we get enough we will post our slides.
+
+- id: 2024-12-04_these_days_i_write_a_lot_about_getting_data_from_v
+  type: image
+  title: |
+    These days I write a lot about getting data from various different digital platforms into BigQuery*. The GA4 native export is getting a lot of traction, but there are other data sources as well e.g. through the BigQuery Data Transfer and other native export mechanisms.
+  author: Balazs Vajna
+  date: "2024-12-04"
+  url: https://www.linkedin.com/posts/balazsvajna_bigquery-googletrends-searchconsole-activity-7269979999682666496-f3v7?utm_source=combined_share_message&utm_medium=member_desktop
+  likes: 96
+  reshares: 6
+  impressions: null
+  comments: 16
+  article_title: |
+    null
+  article_url: null
+  images: ['https://media.licdn.com/dms/image/v2/D4D22AQEUWcpPkI5bGg/feedshare-shrink_2048_1536/feedshare-shrink_2048_1536/0/1733268406203?e=1741219200&v=beta&t=gNvungxiE827_cHKjvBPol4HCkMNRUeOwaUCnHsEA_g']
+  image_url: ../assets/blog/2024-12-04_these_days_i_write_a_lot_about_getting_data_from_v
+  text: |
+    But there is even more. BigFunctions by Unytics offers even more extremely convenient ways to bring data into BigQuery. For example, it is now possible to ingest GoogleTrends data through the API with a simple function call:
+
+    select bigfunctions.eu.get_google_trends('bigquery', null, 'today 5-y', null, null)
+    🤩 🚀
+
+    Sure, the output will need to be unpacked with JSON / array functions, but still, a good few hours or days can be saved especially if you don’t have data engineering resources at your disposal.
+
+    Google Trends data can be useful for many reasons, but one can be to check the overall “global” trends of keywords when a website’s organic traffic shows a significant decline for these keywords. Checking what’s going on “outside” the SearchConsole data can help troubleshoot whether we’re dealing with an SEO issue or a decline in interest (i.e. an economical situation).
+
+    This is not an affiliate post. It’s a happy user & fan post. BigFunctions is just soo handy, and free, with many functions ready to use in BigQuery without any setup or “installation”. (Thanks Paul Marcombes)
+
+    Enjoy and leverage Google Trends data!
+
+    –
+    Follow me for posts on digitalmarketing analytics and BigQuery, and hit the bell on my profile to receive updates.
+
+    —
+    (* “These days I write a lot about getting data from various different digital platforms into BigQuery”. That is, if I find the time to write - I’m snowed under these days so I’m not posting as much as I would like.)
+
+- id: 2024-12-03_speaking_with_datapeople_is_always_full_of_surpris
+  type: image
+  title: |
+    Speaking with data-people is always full of surprises.
+  author: Paul Marcombes
+  date: "2024-12-03"
+  url: https://www.linkedin.com/posts/paul-marcombes_speaking-with-data-people-is-always-full-activity-7269723948416696320-2DFX?utm_source=combined_share_message&utm_medium=member_desktop
+  likes: 134
+  reshares: 4
+  impressions: 9379
+  comments: 28
+  article_title: |
+    null
+  article_url: null
+  images: ['https://media.licdn.com/dms/image/v2/D4E22AQGIA4sKgklwaA/feedshare-shrink_2048_1536/feedshare-shrink_2048_1536/0/1733237253181?e=1741219200&v=beta&t=43tocAJQynnD99AV8aDGvjl_eQFwOL1SP-L8874zVOs']
+  image_url: ../assets/blog/2024-12-03_speaking_with_datapeople_is_always_full_of_surpris
+  text: |
+    I like to chat with data-people from anywhere to get inspiration for my work or my side projects.
+
+    Today at lunchtime was fun.
+
+    I was talking to Olivier Lemasle about data marketing and we ended up live-coding a function to integrate google trends into your data-warehouse.
+
+
+    What do you do for your lunchtimes?
+
+- id: 2024-11-29_i_was_impressed_by_sherloq_this_week
+  type: image
+  title: |
+    I was impressed by Sherloq this week.
+  author: Paul Marcombes
+  date: "2024-11-29"
+  url: https://www.linkedin.com/posts/paul-marcombes_i-was-impressed-by-sherloq-this-week-sherloq-activity-7268176634438893568-j6Xt?utm_source=combined_share_message&utm_medium=member_desktop
+  likes: 74
+  reshares: 4
+  impressions: 5835
+  comments: 9
+  article_title: |
+    null
+  article_url: null
+  images: ['https://media.licdn.com/dms/image/v2/D4E22AQGF_6D32WquGw/feedshare-shrink_2048_1536/feedshare-shrink_2048_1536/0/1732868344217?e=1741219200&v=beta&t=Miz1Cl8_tT_3tFTArsUreZTUL5OHJud-QVYqLi7b06w']
+  image_url: ../assets/blog/2024-11-29_i_was_impressed_by_sherloq_this_week
+  text: |
+    Sherloq is a tool to organize and share your SQL queries.
+
+    What caught my eye is the UX:
+
+    >  It feels like an integral part of your data warehouse console.
+    >  (thanks to a browser extension).
+
+
+    I could not wait to build my own chrome extension.
+
+
+    It’s fun because I started BigFunctions two years ago by making visualizations in BigQuery console.
+
+    But it was hacky (inspect the page and inject JavaScript) and I could not find an elegant way.
+
+    I think I just did.
+
+- id: 2024-11-28_selfserved_dataanalysts_are_much_more_impactful_he
+  type: text
+  title: |
+    Self-served data-analysts are much more impactful. Here’s why:
+  author: Paul Marcombes
+  date: "2024-11-28"
+  url: https://www.linkedin.com/posts/paul-marcombes_self-served-data-analysts-are-much-more-impactful-activity-7267805672975564800-vlCQ?utm_source=combined_share_message&utm_medium=member_desktop
+  likes: 39
+  reshares: 3
+  impressions: 5419
+  comments: 4
+  article_title: |
+    null
+  article_url: null
+  images: []
+  image_url: null
+  text: |
+    We often talk about self-service analytics.
+
+    It’s a way to democratize data access in a company. It focuses on all people.
+
+    But we forget to think about self-service for data-analysts.
+
+    Company people used to be dependent on data-analysts to access data. Self-service analytics changed that.
+
+    Data-analysts are still dependent on data-engineers to do their job. Self-service for data-analysts change that.
+
+    What if data engineers became data-platform engineers, building a catalog of tools that the data-analysts could pick to achieve their job?
+
+    Self-served data-analysts would not be dependent anymore.
+
+    It would open much more scalability to answer data needs.
+
+    It would foster creativity.
+
+    It would boost data activation.
+
+
+    What’s your opinion on this?
+
+
+    ———
+
+    BigFunctions was built to reach self-served data analysts. It provides them a catalog of services to do everything they need from SQL.
+
+- id: 2024-11-27_text_to_sql_may_not_be_the_answer_for_self_service
+  type: text
+  title: |
+    Text to SQL may not be the answer for self service analytics.
+  author: Paul Marcombes
+  date: "2024-11-27"
+  url: https://www.linkedin.com/posts/paul-marcombes_text-to-sql-may-not-be-the-answer-for-self-activity-7267466431506571264-ZiVe?utm_source=combined_share_message&utm_medium=member_desktop
+  likes: 137
+  reshares: 3
+  impressions: 17175
+  comments: 43
+  article_title: |
+    null
+  article_url: null
+  images: []
+  image_url: null
+  text: |
+    Text to SQL is great as a coding assistant for Data Analysts.
+
+    But it won’t help for business people to get trusted data answers.
+
+
+    The problem is that SQL can be quite complex. The LLM has too much freedom. It can generate incorrect stuff too easily.
+
+    It’s OK for a coding assistant. The data analyst will fix it and iterate. It is not acceptable for a CEO.
+
+    You have to constrain stuff.
+
+
+    We can make the LLM generate requests on a semantic layer instead of SQL.
+
+
+    Another way would be to have a set of templated queries with parameters.
+
+    The LLM would choose among the templates and guess the correct parameter values.
+
+    For example:
+
+    - A template sql query could be the select of an aggregate of a metric over time with a breakdown on a dimension.
+
+    - Parameters would be the table name, the aggregate function, the metric and the dimension.
+
+
+    Thanks David Jayatillake  & Naim Kosayyer for opening my eyes on this at Forward Data Conference.
+
+- id: 2024-11-25_bigfunctions_is_a_framework_like_dbt_to_supercharg
+  type: image
+  title: |
+    BigFunctions is a framework like dbt to supercharge your data-warehouse:
+  author: Paul Marcombes
+  date: "2024-11-25"
+  url: https://www.linkedin.com/posts/paul-marcombes_bigfunctions-is-a-framework-like-dbt-to-supercharge-activity-7266818186103214080-zFFk?utm_source=combined_share_message&utm_medium=member_desktop
+  likes: 269
+  reshares: 3
+  impressions: 19557
+  comments: 9
+  article_title: |
+    null
+  article_url: null
+  images: ['https://media.licdn.com/dms/image/v2/D4E22AQH3Kqo4WTx8PQ/feedshare-shrink_2048_1536/feedshare-shrink_2048_1536/0/1732544464803?e=1741219200&v=beta&t=EkzM-FWvKnuDKv9ZS1c-U7lXLBofeOdLd9O77m5slEI']
+  image_url: ../assets/blog/2024-11-25_bigfunctions_is_a_framework_like_dbt_to_supercharg
+  text: |
+    1/
+    - functions are deployed in yaml
+    - dbt models are declared in yaml/sql.
+
+    2/
+    - functions are tested and deployed with a command line.
+    - dbt models are tested and deployed with a command line.
+
+    3/
+    - in both frameworks the command line generates a documentation website.
+
+
+    > With dbt and bigfunctions you can then build a all-in-one data-platform as a declarative data stack.
+
+
+    Thanks Christophe Blefari, Hymaïa and Modern Data Network for having me at this great forward data conference.
+
+- id: 2024-11-24_its_been_2_years_i_publish_on_linkedin_but_i_never
+  type: text
+  title: |
+    It’s been 2 years I publish on LinkedIn. But I never introduced myself. 5 things you don’t know about me:
+  author: Paul Marcombes
+  date: "2024-11-24"
+  url: https://www.linkedin.com/posts/paul-marcombes_its-been-2-years-i-publish-on-linkedin-activity-7266538870266114048-Xv18?utm_source=combined_share_message&utm_medium=member_desktop
+  likes: 164
+  reshares: 0
+  impressions: 9168
+  comments: 9
+  article_title: |
+    null
+  article_url: null
+  images: []
+  image_url: null
+  text: |
+    1. I am father of 3 children of age 3, 8 and 10.
+
+    2. I started gymnastics 2 months ago. It feels like die and retry. It’s fun.
+
+    3. I lived one year in China. I worked in a machine learning research lab. It felt like pressing the pause button.
+
+    4. I need to escape one weekend a year. I take a night train. With my bike. And I ride for 48h.
+
+    5. My dream is to build data apps, quit my job and make a living from it.
+
+- id: 2024-11-12_well_im_nowhere_near_kestra_and_their_10000_stars
+  type: image
+  title: |
+    Well, I’m nowhere near Kestra and their 10000+ stars,
+  author: Paul Marcombes
+  date: "2024-11-12"
+  url: https://www.linkedin.com/posts/paul-marcombes_bigfunctions-activity-7262007470632390656-8UJm?utm_source=combined_share_message&utm_medium=member_desktop
+  likes: 69
+  reshares: 2
+  impressions: 5534
+  comments: 4
+  article_title: |
+    null
+  article_url: null
+  images: ['https://media.licdn.com/dms/image/v2/D5622AQFe-6DiipW63w/feedshare-shrink_2048_1536/feedshare-shrink_2048_1536/0/1730943320025?e=1741219200&v=beta&t=p8C7qYONkEUoOO_BFKaf52VQ3vYj1i6ddIqYPBRyOBM']
+  image_url: ../assets/blog/2024-11-12_well_im_nowhere_near_kestra_and_their_10000_stars
+  text: |
+    But it makes me something to have reached 600 ⭐️ with bigfunctions today 🥹
+
+    Slowly but surely.
+
+    Huge Thanks to the 30 contributors.
+
+
+    (The time I wrote this post you already have 12000+ stars Emmanuel Darras Ludovic DEHON. How fast!)
+
+
+    Do you think I should accelerate?
+
+
+    BigFunctions website: https://lnkd.in/eBzr3wfM
+
+- id: 2024-11-08_unify_batch__real_time_in_data_
+  type: linkedinVideo
+  title: |
+    Unify batch / real time in data 🤝
+  author: Paul Marcombes
+  date: "2024-11-08"
+  url: https://www.linkedin.com/posts/paul-marcombes_unify-batch-real-time-in-data-at-nickel-activity-7260557938962894848-PBK9?utm_source=combined_share_message&utm_medium=member_desktop
+  likes: 122
+  reshares: 4
+  impressions: 5972
+  comments: 2
+  article_title: |
+    null
+  article_url: null
+  images: []
+  image_url: null
+  text: |
+    At Nickel, we've built a configurable data engine:
+
+    ✅ that allows data analysts to deploy algorithms
+    ✅ in batch or real time
+    ✅ configured in SQL
+
+    on a wide range of use cases:
+
+    👉 real-time communications (sms, push, email, etc).
+    👉 fight against financial crime
+    👉 content personalization
+    👉 reversal of functionalities
+    👉 etc.
+
+
+    Do NOT deploy Algorithms!
+    —> Deploy configurable platforms!
+    Your impact will be 10x
+
+
+
+    Delighted to have been able to talk about it on iziday’s Boris Fievet  mic.
+
+- id: 2024-11-07_sqlmesh_vs_dbt
+  type: image
+  title: |
+    sqlmesh vs dbt?
+  author: Paul Marcombes
+  date: "2024-11-07"
+  url: https://www.linkedin.com/posts/paul-marcombes_sqlmesh-vs-dbt-i-bet-for-sqlmesh-simply-activity-7260195572647624706-Iwj3?utm_source=combined_share_message&utm_medium=member_desktop
+  likes: 138
+  reshares: 5
+  impressions: 18114
+  comments: 36
+  article_title: |
+    null
+  article_url: null
+  images: ['https://media.licdn.com/dms/image/v2/D5622AQGAV_T8Px1IUA/feedshare-shrink_2048_1536/feedshare-shrink_2048_1536/0/1730940548131?e=1741219200&v=beta&t=NemQyAu-b7wiYyPzqY13CUxSE9dnKUgj8w7fgBsMinI']
+  image_url: ../assets/blog/2024-11-07_sqlmesh_vs_dbt
+  text: |
+    I bet for sqlmesh.
+
+
+    Simply because sqlmesh paid product does not compete with their open-source product. It’s complementary.
+
+    While dbt has little interest in improving dbt-core, sqlmesh, as a challenger, has to be much better to be adopted.
+
+    Actually sqlmesh is already in the lead when it comes to developer experience, and it is just the beginning.
+
+    Go go go Tobias (Toby) Mao and Tobiko !
+
+
+    (Photo from Thomas Richard on unsplash)
+
+- id: 2024-11-06_unifions_le_batch__temps_rel_dans_la_data_
+  type: article
+  title: |
+    Unifions le batch / temps réel dans la data 🤝
+  author: Paul Marcombes
+  date: "2024-11-06"
+  url: https://www.linkedin.com/posts/paul-marcombes_la-data-en-temps-r%C3%A9el-chez-nickel-activity-7259852897339719680-dJdG?utm_source=combined_share_message&utm_medium=member_desktop
+  likes: 65
+  reshares: 2
+  impressions: 4720
+  comments: 1
+  article_title: |
+    📊 La data en temps réel chez Nickel
+  article_url: https://www.youtube.com/shorts/ysNHwndSjoE
+  images: []
+  image_url: null
+  text: |
+    Chez Nickel on a construit un moteur de calculs data configurable:
+
+    ✅  qui permet aux data-analystes de déployer des algos
+    ✅  batch ou temps réel
+    ✅  configurés en SQL
+
+    sur plein de cas d'usages:
+
+    👉 communications temps réel (sms, push, email, etc)
+    👉 lutte contre le crime financier
+    👉 personnalisation de contenu
+    👉 feature flipping
+    👉 etc
+
+
+    Ne déployez PAS des ALGOS 
+    --> Créez des PLATEFORMES multi-usages.
+    --> Et démultipliez le pouvoir data.
+
+
+    Ravi d'avoir pu en parler au micro de Boris Fievet de iziday.
+
+- id: 2024-11-06__nouveau_podcast_disponible_
+  type: article
+  title: |
+    🎧 NOUVEAU PODCAST DISPONIBLE !
+  author: iziday
+  date: "2024-11-06"
+  url: https://www.linkedin.com/posts/iziday_nickel-les-avantages-dune-plateforme-de-activity-7259841611243646979-9713?utm_source=combined_share_message&utm_medium=member_desktop
+  likes: 7
+  reshares: 1
+  impressions: null
+  comments: 2
+  article_title: |
+    Nickel : Les avantages d'une plateforme de données en temps réel ⚙️ (#7)
+  article_url: https://www.youtube.com/watch?v=G6qZe0ldfYk
+  images: []
+  image_url: null
+  text: |
+    Dans cet épisode, nous avons le plaisir de recevoir Paul Marcombes, Head of Data chez Nickel, afin d'échanger sur la plateforme de données en temps réel qu'ils ont mise en place et son impact dans le secteur bancaire.
+
+    🔥 Au programme :
+
+    > L’adoption du modèle de Data Mesh chez Nickel et son impact sur l’organisation de l’équipe data.
+    > Un tour d’horizon des technologies et outils utilisés, notamment l’architecture de la plateforme de données en temps réel.
+    > L’utilisation de cette plateforme pour répondre aux enjeux marketing et de conformité dans un contexte bancaire.
+
+    Pour l'écouter ça se passe ici 👇
+
+- id: 2024-10-28_speaker_announcement_were_thrilled_to_announce_tha
+  type: image
+  title: |
+    [SPEAKER ANNOUNCEMENT] We're thrilled to announce that Paul Marcombes from Nickel will be speaking at the Forward Data Conference!
+  author: Forward Data Conference
+  date: "2024-10-28"
+  url: https://www.linkedin.com/posts/forward-data-conference_speaker-announcement-were-thrilled-to-activity-7256571649079095296-i8RR?utm_source=combined_share_message&utm_medium=member_desktop
+  likes: 45
+  reshares: 2
+  impressions: null
+  comments: 3
+  article_title: |
+    null
+  article_url: null
+  images: ['https://media.licdn.com/dms/image/v2/D4E22AQFqBZaH1xkcug/feedshare-shrink_2048_1536/feedshare-shrink_2048_1536/0/1730097975021?e=1741219200&v=beta&t=KK90Qp27D7BKaRxqSyfv3MTal88OtALWYffNxxlks0A']
+  image_url: ../assets/blog/2024-10-28_speaker_announcement_were_thrilled_to_announce_tha
+  text: |
+    Paul is Head of Data at Nickel, and will how to unlock new SQL capabilities with BigFunctions, a framework for building and using 100+ powerful BigQuery functions to supercharge your data analysis.
+
+    We are so happy to have you among the speakers Paul Marcombes!
+
+    Get the full description of his talk here: https://lnkd.in/eFWY_zYQ
+
+    All talks are now available on our website: https://lnkd.in/eyndp6CW
+
+    A huge thanks to our amazing sponsors for this conference: CastorDoc, Mirakl, SYNQ, nibble.ai, Sparkline Human Finders, Omni and Corail Analytics ❤️
+
+    The Forward Data Conference is now sold out! Join the waitlist to be informed of the latest news: https://lnkd.in/d7QANz5B
+
+- id: 2024-10-25_replay_du_vendredi_comment_nickel_transforme_son_e
+  type: article
+  title: |
+    [Replay du vendredi] Comment Nickel transforme son entreprise grâce à l'IA
+  author: Hymaïa
+  date: "2024-10-25"
+  url: https://www.linkedin.com/posts/hymaia_comment-nickel-transforme-son-entreprise-activity-7255587097636474881-cjXW?utm_source=combined_share_message&utm_medium=member_desktop
+  likes: 25
+  reshares: 1
+  impressions: null
+  comments: 0
+  article_title: |
+    Comment Nickel transforme son entreprise grâce à l'IA | De l'analyse client à l'innovation produit
+  article_url: https://youtu.be/TVssX2k4TUg
+  images: []
+  image_url: null
+  text: |
+    🚀 Paul Marcombes, Head of Data de Nickel, présente comment l'entreprise utilise l'IA pour améliorer l’expérience client et les processus internes.
+
+    Il présente comment Nickel associe moteurs de recherche et génération de contenu pour créer des solutions IA adaptées.
+
+    Son message essentiel: Bien séparer la partie moteur de recherche de la partie génération de contenu. Les utilisateurs veulent voir la vraie data !
+
+    Avec ce retour d'expérience, Paul met en avant une solution simple permettant aux utilisateurs de questionner les retours des clients sur des plateformes comme l’App Store ou Trustpilot via du RAG et de la recherche hybride, adaptées à la gestion rapide et efficace des informations pour les équipes.
+
+    Nickel compte aujourd'hui 4 millions de comptes ouverts en 10 ans, une présence dans 5 pays et 11 000 points partenaires en Europe. L'entreprise a 200 utilisateurs SQL qui exploitent les insights des données.
+
+    Voici le lien : https://lnkd.in/etG5e9P3
+
+- id: 2024-10-15__new_bigfunctions__loadfileurl_filetype_destinatio
+  type: image
+  title: |
+    👨‍🔧 New BigFunctions : load_file(url, file_type, destination_table, options)
+  author: Antoine Giraud
+  date: "2024-10-15"
+  url: https://www.linkedin.com/posts/antgiraud_bigfunctions-activity-7251856908347699202-2UBB?utm_source=combined_share_message&utm_medium=member_desktop
+  likes: 228
+  reshares: 10
+  impressions: null
+  comments: 18
+  article_title: |
+    null
+  article_url: null
+  images: ['https://media.licdn.com/dms/image/v2/D4E22AQG9JjTVyNBaWw/feedshare-shrink_2048_1536/feedshare-shrink_2048_1536/0/1728913037122?e=1741219200&v=beta&t=-JZRTylI-BoDjmE_u-OciSAYsjYKNSdn2wzPk0n4FxU']
+  image_url: ../assets/blog/2024-10-15__new_bigfunctions__loadfileurl_filetype_destinatio
+  text: |
+    > Download web file into destination_table in BigQuery with SQL
+
+    Under the BigFunctions hood : DuckDB & Ibis 😍🦆
+
+    Great & enjoyable team work with Paul Marcombes 🙌
+
+    Documentation :
+    👉 https://lnkd.in/e9xNnHfv
+
+- id: 2024-10-04_do_you_have_a_lot_of_text_data__categorize_it_
+  type: image
+  title: |
+    Do you have a lot of text data? ➜ Categorize it! ✨
+  author: Paul Marcombes
+  date: "2024-10-04"
+  url: https://www.linkedin.com/posts/paul-marcombes_do-you-have-a-lot-of-text-data-categorize-activity-7247911268727029760-4kiA?utm_source=combined_share_message&utm_medium=member_desktop
+  likes: 54
+  reshares: 2
+  impressions: 5027
+  comments: 9
+  article_title: |
+    null
+  article_url: null
+  images: ['https://media.licdn.com/dms/image/v2/D4E22AQE6-m55Ry5xjQ/feedshare-shrink_2048_1536/feedshare-shrink_2048_1536/0/1728036704948?e=1741219200&v=beta&t=E8wbebx3T8IZp_NQHxJL_E3pkRUGKFdGLi4Tws49j1o']
+  image_url: ../assets/blog/2024-10-04_do_you_have_a_lot_of_text_data__categorize_it_
+  text: |
+    The easiest way to get a holistic view of your text data is to categorize it.
+
+    You'll instantly get:
+
+    ➜ the main topics,
+    ➜ the number of texts associated to each,
+    ➜ the evolution of these metrics over time
+
+
+    Here's an example of how I've categorized our user reviews at Nickel.
+    I'm impressed by the results.
+
+
+    It can also be applied to customer support tickets.
+
+    It can also be applied to the Information schema of your database to get a business classification of your tables.
+
+    What other use cases do you see?
+
+- id: 2024-09-26_easiest_way_to_get_a_public_csv_file_into_bigquery
+  type: image
+  title: |
+    Easiest way to Get a Public CSV file into BigQuery 📝
+  author: Paul Marcombes
+  date: "2024-09-26"
+  url: https://www.linkedin.com/posts/paul-marcombes_easiest-way-to-get-a-public-csv-file-into-activity-7245098813319712768-sJL3?utm_source=combined_share_message&utm_medium=member_desktop
+  likes: 99
+  reshares: 3
+  impressions: 7509
+  comments: 8
+  article_title: |
+    null
+  article_url: null
+  images: ['https://media.licdn.com/dms/image/v2/D4E22AQF9oYCEPnXKAA/feedshare-shrink_2048_1536/feedshare-shrink_2048_1536/0/1727366162927?e=1741219200&v=beta&t=Ti0sc8Ac444vr0y8mzDWW3hFazaw-6XywjnjReEPYwo']
+  image_url: ../assets/blog/2024-09-26_easiest_way_to_get_a_public_csv_file_into_bigquery
+  text: |
+    I had great fun to do live coding with Javier de la Torre from CARTO.
+
+    Within 20 minutes we could deploy this function that anyone can now use without install to get public csv data into their BigQuery project.
+
+    👏 Javier de la Torre
+
+    Function doc: https://lnkd.in/evJHfvaf
+
+- id: 2024-09-26_extract_webpage_data_with_sql_
+  type: image
+  title: |
+    Extract Webpage Data with SQL 🌐!
+  author: Paul Marcombes
+  date: "2024-09-26"
+  url: https://www.linkedin.com/posts/paul-marcombes_bigquery-bigfunctions-googlecloud-activity-7244970986381479937-CASX?utm_source=combined_share_message&utm_medium=member_desktop
+  likes: 70
+  reshares: 4
+  impressions: 6065
+  comments: 9
+  article_title: |
+    null
+  article_url: null
+  images: ['https://media.licdn.com/dms/image/v2/D4E22AQH_NQrpiCJfFg/feedshare-shrink_2048_1536/feedshare-shrink_2048_1536/0/1727335687006?e=1741219200&v=beta&t=UX3-PdfWhpbPPxpzY96gAdTcD_s5hJ1rxj_E5Yc6exU']
+  image_url: ../assets/blog/2024-09-26_extract_webpage_data_with_sql_
+  text: |
+    Get structured data.
+
+    Directly from webpages.
+
+    Into your data-warehouse.
+
+    Using a prompt embedded in a SQL query.
+
+
+    Hello SQL superpowers 😲...
+
+
+    ➡️ Copy and run the query in comments. It's all you need.
+
+
+    bigquery bigfunctions googlecloud dataengineering
+
+- id: 2024-09-24__new_contribution_to_bigfunctions__refreshpowerbi
+  type: image
+  title: |
+    👨‍🔧 New contribution to BigFunctions : `refresh_powerbi`
+  author: Antoine Giraud
+  date: "2024-09-24"
+  url: https://www.linkedin.com/posts/antgiraud_bigfunctions-powerbi-bigquery-activity-7244239220641251330-RBda?utm_source=combined_share_message&utm_medium=member_desktop
+  likes: 82
+  reshares: 5
+  impressions: null
+  comments: 12
+  article_title: |
+    null
+  article_url: null
+  images: ['https://media.licdn.com/dms/image/v2/D4E22AQGL-XtaYrSt8A/feedshare-shrink_2048_1536/feedshare-shrink_2048_1536/0/1727116638626?e=1741219200&v=beta&t=fVuTFDEdiW26gJorLmh46KUU7vbcliiGr0PK2Tl1_Ww']
+  image_url: ../assets/blog/2024-09-24__new_contribution_to_bigfunctions__refreshpowerbi
+  text: |
+    This function let you launch a PowerBI semantic model (dataset) refresh 📊
+    from BigQuery in SQL
+
+    Documentation here
+    👉 https://lnkd.in/e6BifCw4
+
+    Use it in your post-hook / post_operations / post-statements in your favorite SQL transformation tools 🥳
+    DBT, Dataform, SqlMesh
+
+    Thanks again Paul Marcombes for the review !
+
+- id: 2024-09-20_converse_with_your_user_feedbacks_inside_bigquery_
+  type: image
+  title: |
+    Converse with your User Feedbacks inside BigQuery ✨💬
+  author: Paul Marcombes
+  date: "2024-09-20"
+  url: https://www.linkedin.com/posts/paul-marcombes_noabrinstallabrneeded-bigfunctions-bigquery-activity-7242862602559655937-CSQU?utm_source=combined_share_message&utm_medium=member_desktop
+  likes: 55
+  reshares: 2
+  impressions: 3649
+  comments: 8
+  article_title: |
+    null
+  article_url: null
+  images: ['https://media.licdn.com/dms/image/v2/D4E22AQEuo3EcgXzVMA/feedshare-shrink_2048_1536/feedshare-shrink_2048_1536/0/1726833009639?e=1741219200&v=beta&t=RGX8rjztob0kBBQdSsHOrdYIa5Kgu_Iif-1Ky1ocX_0']
+  image_url: ../assets/blog/2024-09-20_converse_with_your_user_feedbacks_inside_bigquery_
+  text: |
+    Gen AI features provides new dimensions for data-analysis.
+
+    You can:
+    - Transform any text such as user feedbacks into quantified data.
+    - Identify your customers main topics.
+    - Identify their frustration & needs
+
+
+    Thanks to the new "get_playstore_reviews" function in BigQuery, you are "one click" away to load your user feedbacks and start digging for unexplored insights. no_install_needed
+
+
+    (Documentation in comments)
+
+    bigfunctions bigquery googlecloud dataengineering
+
+- id: 2024-09-18_i_just_tried_the_brand_new_conversational_analytic
+  type: image
+  title: |
+    I just tried the brand new Conversational Analytics from Looker Studio. Here's 👇 what I learnt
+  author: Paul Marcombes
+  date: "2024-09-18"
+  url: https://www.linkedin.com/posts/paul-marcombes_lida-opendataqna-conversationalanalytics-activity-7242134012910014465-3fUN?utm_source=combined_share_message&utm_medium=member_desktop
+  likes: 64
+  reshares: 1
+  impressions: 4604
+  comments: 18
+  article_title: |
+    null
+  article_url: null
+  images: ['https://media.licdn.com/dms/image/v2/D4E22AQFRA6po6iX8ug/feedshare-shrink_2048_1536/feedshare-shrink_2048_1536/0/1726659299688?e=1741219200&v=beta&t=qrD05ibV5uCghQwpw-SXlVwHl6Juj7vcgrm6ajNPqtc']
+  image_url: ../assets/blog/2024-09-18_i_just_tried_the_brand_new_conversational_analytic
+  text: |
+    All BI teams are working hard to enable users to get insights from natural language questions.
+
+    Looker Studio is no exception. Here's what I learnt trying their new Conversational Analytics UI:
+
+
+    Getting better!
+    ➡️  It works great to explore a table
+    ➡️  How was this calculated? exposes very clearly how AI provided the answer and quikly gives you trust in the answer.
+    ➡️  Insights exposes result interpretation in natural language which is great to copy paste in a presentation
+    ➡️  Questions Suggestions are interested to get started
+    ➡️  Suggestions for reformulation work very well
+
+
+    There's still a lot to do
+    ➡️  Charts are limited. I found no way for the Agent to result a chart showing the evolution of a metric with a break down on a dimension. Quite restricting for an analysis...
+    ➡️  Agent can give you a precise information contained in the table. But forget about asking advanced stuff such as making a feature impact analysis or compare distribution of a metric between two periods.
+    ➡️  Actually it can only answer one unique result at a time. You cannot generate multiple charts at once with analysis by different dimensions.
+
+
+    Should I use Looker Studio Conversational Analytics?
+    ➡️  I think it is already an interesting tool to expose some prepared data to end users who are not proficient in SQL nor dashboarding
+    ➡️  But if you're a data analyst you would prefer to use BigQuery Canvas which enables to tune your queries and better manage the flow between questions & answers.
+
+
+    Should I look for other tools?
+    The improvement of these tools to enable advanced analysis use cases is just a matter of time. You should definitely keep an eye on what's coming to be ready when it comes.
+
+    I won't we surprised if open-source wins.
+
+    If you're more from engineering here are two tools you want to have a look at:
+    - Lida from Microsoft to automate charts from data.
+    - opendataqna from Google to query your database in natural language.
+
+
+    What's you plan in your company?
+
+
+    conversationalanalytics bigquery lookerstudio genai
+
+    Photo by Guilherme Stecanella on Unsplash
+
+- id: 2024-09-14_i_am_stunned_by_the_quality_of_this_genai_created_
+  type: linkedinVideo
+  title: |
+    I am stunned by the quality of this genAI created podcast 😲
+  author: Paul Marcombes
+  date: "2024-09-14"
+  url: https://www.linkedin.com/posts/paul-marcombes_i-am-stunned-by-the-quality-of-this-genai-activity-7240717718746730497-mUi9?utm_source=combined_share_message&utm_medium=member_desktop
+  likes: 76
+  reshares: 2
+  impressions: 6787
+  comments: 15
+  article_title: |
+    null
+  article_url: null
+  images: []
+  image_url: null
+  text: |
+    I just gave NotebookLM (a new tool made available by google) two urls from BigFunctions website.
+
+    And here is the result.
+
+    Click on the video & Listen to it. It's impressive.
+
+
+    NotebookLM: https://lnkd.in/e9CqxKFG
+    BigFunctions: https://lnkd.in/eBzr3wfM
+
+- id: 2024-09-13_data_analysis_is_structured_data_enough
+  type: image
+  title: |
+    Data Analysis: Is Structured Data Enough?
+  author: Paul Marcombes
+  date: "2024-09-13"
+  url: https://www.linkedin.com/posts/paul-marcombes_data-analysis-is-structured-data-enough-activity-7240278912491028480-8U4A?utm_source=combined_share_message&utm_medium=member_desktop
+  likes: 39
+  reshares: 1
+  impressions: 2942
+  comments: 5
+  article_title: |
+    null
+  article_url: null
+  images: ['https://media.licdn.com/dms/image/v2/D4E22AQELOHwBUFSuBg/feedshare-shrink_2048_1536/feedshare-shrink_2048_1536/0/1726217009155?e=1741219200&v=beta&t=8MB3IpAAD6vCR_DZTuFIRm68qH22qYPbvKle0umaeIk']
+  image_url: ../assets/blog/2024-09-13_data_analysis_is_structured_data_enough
+  text: |
+    You can be the greatest data-analyst, you will never be able to uncover an insight for which you don't have the data.
+
+    Structured data is great: it shows you facts and correlations between phenomena that characterize your product's current situation.
+
+    But you're missing out a ton.
+
+    You can't see what your users are thinking, what they want, what frustrates them.
+
+
+    I think data analysts should incorporate the “voice of the customer” into their data and take their data analysis to a new level.
+
+
+    I'll be explaining how to do this in practice at a conference at the Salon Data IA in Nantes, France.
+
+
+    Come and join us!
+    ➡️ https://lnkd.in/eevGPnGc
+
+- id: 2024-09-12_surface_the_search_behind_the_rag__
+  type: image
+  title: |
+    Surface the search behind the RAG 🔎 !
+  author: Paul Marcombes
+  date: "2024-09-12"
+  url: https://www.linkedin.com/posts/paul-marcombes_surface-the-search-behind-the-rag-retrieval-activity-7239892809229504513-MxIu?utm_source=combined_share_message&utm_medium=member_desktop
+  likes: 88
+  reshares: 0
+  impressions: 5451
+  comments: 2
+  article_title: |
+    null
+  article_url: null
+  images: ['https://media.licdn.com/dms/image/v2/D4E22AQExvzwBC6oVjg/feedshare-shrink_2048_1536/feedshare-shrink_2048_1536/0/1726124955579?e=1741219200&v=beta&t=0diHXFHQZbfDVPlshWXDVoJ7Qjn_EsHKx6467X2rTZw']
+  image_url: ../assets/blog/2024-09-12_surface_the_search_behind_the_rag__
+  text: |
+    Retrieval Augmented Generation is one of the best way to get started with GenAI in a company.
+
+    Mathilde Gorieu made us realize at Nickel that while it's very powerful to help people find information from a knowledge base, it does not always offer the best user experience with regard to the use case.
+
+    So instead of embedding a hidden search engine into your RAG system, it's better to decouple search and RAG and offer a User Experience with both functionalities.
+
+
+
+    Thanks Isabella Busch & C2C for the invitation to share this at Google Paris Office with guillaume blaquiere Antoine Castex Mehdi Labassi Rhys Phillips Guillaume Gelin Josh S. Berman Fabrice SOLLAMI Kathy Sullivan @florian c.  Sherelle Farrington Mazlum Tosun Axel Thevenot Jean-Baptiste Braun Ivan Beauvais Arnaud Rolet Hakim Batata Alex Lheritier
+
+- id: 2024-09-10_lets_talk_about_nickel_genai_use_cases_at_google_p
+  type: image
+  title: |
+    Let's talk about Nickel GenAI use cases at Google Paris Office!
+  author: Paul Marcombes
+  date: "2024-09-10"
+  url: https://www.linkedin.com/posts/paul-marcombes_lets-talk-about-nickel-genai-use-cases-at-activity-7239181414254931968-aFPz?utm_source=combined_share_message&utm_medium=member_desktop
+  likes: 79
+  reshares: 2
+  impressions: 4418
+  comments: 3
+  article_title: |
+    null
+  article_url: null
+  images: ['https://media.licdn.com/dms/image/v2/D4E22AQGF2Hk7xmfBOQ/feedshare-shrink_2048_1536/feedshare-shrink_2048_1536/0/1725955346069?e=1741219200&v=beta&t=0UOGnniqQ93It9-rQhd503HIn_MS2_RjdBlSFVIFifI']
+  image_url: ../assets/blog/2024-09-10_lets_talk_about_nickel_genai_use_cases_at_google_p
+  text: |
+    With Mathilde Gorieu we're going to share today what we've learned at Nickel while implementing several RAG use cases.
+
+    We believe that search and RAG are complementary and search should not be hidden inside the RAG.
+
+
+    Happy to be attending at this C2C event from the Google Cloud community and looking forward to learning from guillaume blaquiere Antoine Castex Mehdi Labassi Guillaume Gelin Rhys Phillips Eric Djatsa Yota Fabrice SOLLAMI Josh S. Berman Sherelle Farrington Isabella Busch
+
+    Come and join us!
+
+    ➡️ Event Link: https://lnkd.in/ed69H8Bq
+
+- id: 2024-08-22__bigquery_champions_level_up_your_data_work_with_b
+  type: text
+  title: |
+    🦸 BigQuery Champions, Level Up Your Data Work with BigFunctions!
+  author: Masthead Data
+  date: "2024-08-22"
+  url: https://www.linkedin.com/posts/masthead-data_bigquery-champions-level-up-your-data-activity-7232297664124514305-q54g?utm_source=combined_share_message&utm_medium=member_desktop
+  likes: 27
+  reshares: 4
+  impressions: null
+  comments: 5
+  article_title: |
+    null
+  article_url: null
+  images: []
+  image_url: null
+  text: |
+    Data engineers, are you tired of manually building and managing BigQuery functions? 
+    BigFunctions is revolutionizing your workflow!
+
+    💡Created by data guru Paul Marcombes, the open-source project BigFunctions offers 100+ functions ready to implement for your BigQuery projects.
+
+    The most common BigFunctions use cases are:
+
+    • Expand functionality. Despite the array of functions available in BigQuery, there might be occasions where a specific function is needed but not included.
+    • Streamline your queries: UDFs act like reusable code snippets in BigQuery. Instead of rewriting the same complicated calculations over and over, define them once as a UDF and then simply reference them wherever needed.
+    • Standardization. UDFs act like a playbook for your queries. By creating a UDF for a particular calculation, you ensure everyone is using the same definition, promoting consistency across large teams or complex organizations.
+
+    Check out BigFunctions and what it help you do in our article (link in the comments)
+
+- id: 2024-08-01_refresh_a_tableau_workbook_with_a_sql_command
+  type: image
+  title: |
+    Refresh a Tableau Workbook with a SQL command
+  author: Paul Marcombes
+  date: "2024-08-01"
+  url: https://www.linkedin.com/posts/paul-marcombes_bigquery-bigfunctions-activity-7224670243372109825-hlMZ?utm_source=combined_share_message&utm_medium=member_desktop
+  likes: 48
+  reshares: 3
+  impressions: 4918
+  comments: 2
+  article_title: |
+    null
+  article_url: null
+  images: ['https://media.licdn.com/dms/image/v2/D4E22AQFffc8xiAJytA/feedshare-shrink_2048_1536/feedshare-shrink_2048_1536/0/1722014836482?e=1741219200&v=beta&t=Ll4CEubWLlEPDn9OkPiBHFyUqigduBs7tzjZYdUWpjI']
+  image_url: ../assets/blog/2024-08-01_refresh_a_tableau_workbook_with_a_sql_command
+  text: |
+    dbt provides post-hooks.
+
+    Post-hooks are SQL queries that run after model creation.
+
+    Refresh_tableau is a function available to anyone in BigQuery to trigger the refresh of a Tableau source with SQL.
+
+    One can then refresh a Tableau Workbook at the minute its dbt model is re-computed, thanks to a dbt post-hook.
+
+    Many Thanks Antoine Giraud for having created this function in BigFunctions
+
+
+    bigquery bigfunctions
+
+- id: 2024-07-30_the_stuff_no_one_will_tell_you_about_running_a_dat
+  type: text
+  title: |
+    The stuff no one will tell you about running a data team:
+  author: Ethan Aaron
+  date: "2024-07-30"
+  url: https://www.linkedin.com/posts/ethanaaron_the-stuff-no-one-will-tell-you-about-running-activity-7224048593538560002-dICF?utm_source=combined_share_message&utm_medium=member_desktop
+  likes: 493
+  reshares: 18
+  impressions: null
+  comments: 43
+  article_title: |
+    null
+  article_url: null
+  images: []
+  image_url: null
+  text: |
+    1. You'll might need to say NO to more stuff
+    2. You can say NO to more stuff
+    3. You should say NO to more stuff
+    4. You have to say NO to more stuff
+    5. You will fail if you don't say NO to more stuff
+
+    Everyone thinks they need to please everyone when they take on a role in data.
+
+    In reality, you need to get really great at saying NO to low-value requests.
+
+    Otherwise, your team will be a low-value team.
+
+    __
+
+    As a data leader this is your most important job.
+
+    Find the high-value stuff, and say NO to everything else.
+
+- id: 2024-07-29_put_the_right_label_to_a_value
+  type: image
+  title: |
+    Put the right label to a value
+  author: Paul Marcombes
+  date: "2024-07-29"
+  url: https://www.linkedin.com/posts/paul-marcombes_bigquery-bigfunctions-activity-7223583106891485184-U5-Y?utm_source=combined_share_message&utm_medium=member_desktop
+  likes: 32
+  reshares: 1
+  impressions: 4184
+  comments: 2
+  article_title: |
+    null
+  article_url: null
+  images: ['https://media.licdn.com/dms/image/v2/D4E22AQFDovroUkOgJQ/feedshare-shrink_2048_1536/feedshare-shrink_2048_1536/0/1722012926597?e=1741219200&v=beta&t=cNlFeadg61xiifDsq6iu38UCeoNcpSKBcfGDQR1iDfY']
+  image_url: ../assets/blog/2024-07-29_put_the_right_label_to_a_value
+  text: |
+    Available to anyone in BigQuery
+
+    Thanks Bartosz Figas for this great contribution to BigFunctions.
+
+    Function doc: https://lnkd.in/euCcMPhD
+
+    bigquery bigfunctions
+
+- id: 2024-07-25_load_data_from_250_sources_with_a_single_sql_query
+  type: image
+  title: |
+    Load data from 250+ Sources with a single SQL query!
+  author: Paul Marcombes
+  date: "2024-07-25"
+  url: https://www.linkedin.com/posts/paul-marcombes_bigfunctions-airbyte-bigquery-activity-7222133476475498496-W_BK?utm_source=combined_share_message&utm_medium=member_desktop
+  likes: 299
+  reshares: 18
+  impressions: 25491
+  comments: 42
+  article_title: |
+    null
+  article_url: null
+  images: ['https://media.licdn.com/dms/image/v2/D4E22AQFFeIVwoGb86g/feedshare-shrink_2048_1536/feedshare-shrink_2048_1536/0/1721839747978?e=1741219200&v=beta&t=XLN8hnE-tKy_bYwgb74oBxd7vyWj9ckw7D6aCTxaBck']
+  image_url: ../assets/blog/2024-07-25_load_data_from_250_sources_with_a_single_sql_query
+  text: |
+    `get_data` bigfunction is available in BigQuery.
+
+    It loads data from your favorite SAAS.
+
+    No install is needed.
+
+    It uses airbyte-serverless and airbyte python connectors.
+
+
+    BigFunctions:
+
+    BigFunctions is a framework to build a catalog of BigQuery functions.
+
+    It also comes with 100+ ready to call public functions.
+
+    `get_data` function is one of them.
+
+    Doc is in comments.
+
+
+    bigfunctions airbyte bigquery dataengineering googlecloud
+
+- id: 2024-06-04_banktech_day_organis_par_finance_innovation_se_dro
+  type: image
+  title: |
+    BankTech Day organisé par Finance Innovation se déroulera le 13 juin 2024 au Cloud Business Center !
+  author: Paul Marcombes
+  date: "2024-06-04"
+  url: https://www.linkedin.com/posts/paul-marcombes_banktech-day-organis%C3%A9-par-finance-innovation-activity-7203679225927647232-xdKo?utm_source=combined_share_message&utm_medium=member_desktop
+  likes: 98
+  reshares: 1
+  impressions: 6383
+  comments: 4
+  article_title: |
+    null
+  article_url: null
+  images: ['https://media.licdn.com/dms/image/v2/D4E22AQGfHVBUWMoYvA/feedshare-shrink_2048_1536/feedshare-shrink_2048_1536/0/1719199951783?e=1741219200&v=beta&t=w34PsWOFdLVZlwL_FsgcnYv9DelTe252sGyVuH4blyE']
+  image_url: ../assets/blog/2024-06-04_banktech_day_organis_par_finance_innovation_se_dro
+  text: |
+    Je participerai à l'atelier : L'Expérience client à l’ère de la data : banques & fintechs en quête d’hyperpersonnalisation
+
+    aux côtés de Pierre LECOMMANDEUR, Societe Generale, Vincent Boclé, namR, Brice Barouch, Provenir, Stéphane Nouy, Moneythor et animée par Solange DAHOME, Colombus Consulting
+
+    Le contexte concurrentiel actuel incite les banques à repenser leur stratégie pour attirer et fidéliser leur clientèle. Une des approches les plus efficaces consiste à déployer une stratégie de personnalisation de l'expérience client, permettant à  la banque d'adapter ses offres aux besoins spécifiques de chaque client.
+
+    L’utilisation des données à l'aide de nouveaux outils soutient cette stratégie d'hyperpersonnalisation. Elle constitue un levier pour enrichir sa proposition de valeur pour les clients et développer sa croissance.
+
+    ➡  Inscrivez-vous à l’événement  https://lnkd.in/eYH5zrW8
+
+- id: 2024-05-30_stop_struggling_with_nested_json_in_bigquery__flat
+  type: image
+  title: |
+    Stop struggling with nested JSON in BigQuery! 🤼‍♂️ Flatten your data 🚀
+  author: Paul Marcombes
+  date: "2024-05-30"
+  url: https://www.linkedin.com/posts/paul-marcombes_bigquery-bigfunctions-googlecloud-activity-7201971338377351168-DqGn?utm_source=combined_share_message&utm_medium=member_desktop
+  likes: 239
+  reshares: 15
+  impressions: 40818
+  comments: 43
+  article_title: |
+    null
+  article_url: null
+  images: ['https://media.licdn.com/dms/image/v2/D5622AQFDWi7vWtTE5w/feedshare-shrink_2048_1536/feedshare-shrink_2048_1536/0/1717083771621?e=1741219200&v=beta&t=1CUP5B2nbKeWdfOhN9e0vIqm8t0wPzrhsoLwdFVFoFU']
+  image_url: ../assets/blog/2024-05-30_stop_struggling_with_nested_json_in_bigquery__flat
+  text: |
+    Tired of endlessly navigating nested fields in your JSON data? 😩
+    You're not alone. It's like searching for a needle in a haystack...made of objects and arrays! 🤯
+
+
+    But what if I told you there's a better way? 🎉
+    Introducing the new BigQuery function sql_to_flatten_json_column which parses your json column, guesses the json schema and generates a SQL query to execute to flatten the json column.
+
+
+    ✨ Say goodbye to nested chaos: Transform complex JSON structures into easy-to-manage flat tables.
+    ✨ Query with confidence: Easily access any field without writing convoluted nested queries.
+    ✨ Boost your productivity: Spend less time wrangling data and more time extracting insights
+
+    Ready to ditch the JSON struggle?
+    ➡️  Function doc: https://lnkd.in/g8DBbwgD
+
+    BigFunctions is fully open-source and functions are available on your GCP project without install.
+
+    bigquery bigfunctions googlecloud
+
+- id: 2024-05-29_loading_data_into_bigquery_should_be_as_simple_as_
+  type: image
+  title: |
+    Loading data into BigQuery should be as simple as a SQL query 👅 !
+  author: Paul Marcombes
+  date: "2024-05-29"
+  url: https://www.linkedin.com/posts/paul-marcombes_bigquery-airbyte-bigfunctions-activity-7201509980221358080-zBHb?utm_source=combined_share_message&utm_medium=member_desktop
+  likes: 186
+  reshares: 6
+  impressions: 17564
+  comments: 26
+  article_title: |
+    null
+  article_url: null
+  images: ['https://media.licdn.com/dms/image/v2/D4E22AQHJ-c9Ihbkd0Q/feedshare-shrink_2048_1536/feedshare-shrink_2048_1536/0/1716973775963?e=1741219200&v=beta&t=q2fSXWfUFsbK7nhwE--Y3ZdyTcAwjRjpbFigxiY2YEc']
+  image_url: ../assets/blog/2024-05-29_loading_data_into_bigquery_should_be_as_simple_as_
+  text: |
+    Airbyte built awesome open-source connectors to move data into your warehouse.
+
+
+    What if we could run them via a simple SQL query?
+
+
+    That's what this function does. You can get data from any public GitHub Repo into your BigQuery project (no install required). It uses Airbyte Github connector under the hood.
+
+    This could work for any Airbyte python connectors.
+
+    Imagine that all you needed was an SQL query to obtain data from any source 😲
+
+    Which source should we prioritize?
+
+
+    Function documentation in comments.
+
+
+    bigquery airbyte bigfunctions googlecloud dataengineering
+
+- id: 2024-05-24_build_your_own_catalog_of_bigquery_functions_
+  type: article
+  title: |
+    Build your own catalog of BigQuery functions 🌌
+  author: Paul Marcombes
+  date: "2024-05-24"
+  url: https://www.linkedin.com/posts/paul-marcombes_supercharge-bigquery-with-bigfunctions-activity-7199683895712202753-lP_-?utm_source=combined_share_message&utm_medium=member_desktop
+  likes: 68
+  reshares: 4
+  impressions: 6057
+  comments: 0
+  article_title: |
+    Supercharge BigQuery with BigFunctions
+  article_url: https://medium.com/google-cloud/supercharge-bigquery-with-bigfunctions-2139a1bba620
+  images: []
+  image_url: null
+  text: |
+    I like this article from Jake Holmquist ☁️ as it describes the two sides of bigfunctions:
+
+    ➡️ Effortless access to advanced BigQuery functions: No installation. Just new SQL power at your fingertips. 🤯
+
+    ➡️ Build your own governed function catalog: Empower your team with a centralized, secure, and reusable function library. 🏗️
+
+
+    While the first side is well-known, I am not sure about the second one.
+
+    Yet the benefits of building a catalog of functions with BigFunctions are many:
+
+    ✅  Give new power to Data Analysts such as calling your company APIs
+    ✅  Promote consistency with a standard to define functions
+    ✅  Enable discoverability with a searchable web catalog
+    ✅  Use software engineering best practices
+
+
+    🙏 Jake Holmquist ☁️
+
+    https://lnkd.in/eJNs-6x5
+
+    bigquery bigfunctions googlecloud dataengineering
+
+- id: 2024-05-17_getting_public_data_into_bigquery_has_never_been_e
+  type: image
+  title: |
+    Getting public data into BigQuery has never been easier ☀️
+  author: Paul Marcombes
+  date: "2024-05-17"
+  url: https://www.linkedin.com/posts/paul-marcombes_bigquery-bigfunctions-dataengineering-activity-7197166459716804608-DvLS?utm_source=combined_share_message&utm_medium=member_desktop
+  likes: 117
+  reshares: 2
+  impressions: 8341
+  comments: 6
+  article_title: |
+    null
+  article_url: null
+  images: ['https://media.licdn.com/dms/image/v2/D4E22AQEhpoS9O1MDAg/feedshare-shrink_2048_1536/feedshare-shrink_2048_1536/0/1715938200061?e=1741219200&v=beta&t=2bTG0uOjxMt-AoxaTnhikTOl33wClvCh6JxXXRqn9N4']
+  image_url: ../assets/blog/2024-05-17_getting_public_data_into_bigquery_has_never_been_e
+  text: |
+    Thanks to remote functions, you can get data from any website into BigQuery with a simple SQL query 🤗
+
+    Here is an example to:
+
+    ✅  Download user reviews of Nickel App from App Store.
+    ✅  Translate them into English
+    ✅  You can then use GenAI functions & get actionable insights!
+
+
+    Functions are already available without install in your GCP project.
+
+    Documentation is in comments 👇
+
+
+
+    bigquery bigfunctions dataengineering googlecloud
+
+- id: 2024-05-16_its_been_a_while_since_ive_been_this_excited_about
+  type: image
+  title: |
+    It's been a while since I've been this excited about a BigQuery function! 🎢
+  author: Paul Marcombes
+  date: "2024-05-16"
+  url: https://www.linkedin.com/posts/paul-marcombes_bigquery-bigfunctions-dataanalysis-activity-7196774410429579264-M-xW?utm_source=combined_share_message&utm_medium=member_desktop
+  likes: 78
+  reshares: 2
+  impressions: 7185
+  comments: 18
+  article_title: |
+    null
+  article_url: null
+  images: ['https://media.licdn.com/dms/image/v2/D4E22AQFLbaHkECZxuQ/feedshare-shrink_2048_1536/feedshare-shrink_2048_1536/0/1715844727899?e=1741219200&v=beta&t=TtfKG2Z0BgmofbjWWUBjbX1OwdUXGb1MoCSrnl1eXtU']
+  image_url: ../assets/blog/2024-05-16_its_been_a_while_since_ive_been_this_excited_about
+  text: |
+    You can ask any question to the user reviews of an app (from the app store). 😮
+
+    1️⃣  The last 500 reviews are downloaded on the fly from the app store site
+    2️⃣  A prompt is generated from your question and the reviews
+    3️⃣  Gemini AI gives you insights into what our customers think.
+
+    Try it! 
+    It works on your BigQuery without install. 🤗
+
+    A gold mine of insights
+    Customer reviews are often an under-exploited in data-analysis.
+    With this function, BigQuery truely unify data-analysis between structured and unstructured data.
+
+
+    Documentation --> https://lnkd.in/eg4BcfGZ
+    GitHub --> https://lnkd.in/emfVXKjJ
+
+    BigFunctions is fully open-source. Any star is deeply appreciated. ⭐
+
+
+    bigquery bigfunctions dataanalysis AI gemini
+
+- id: 2024-05-13_great_contribution_to_bigfunctions__axel_thevenot
+  type: text
+  title: |
+    Great contribution to BigFunctions 👏 Axel Thevenot.
+  author: Paul Marcombes
+  date: "2024-05-13"
+  url: https://www.linkedin.com/posts/paul-marcombes_bigfunctions-now-supports-udaf-user-defined-activity-7195744263567990785-35Kt?utm_source=combined_share_message&utm_medium=member_desktop
+  likes: 26
+  reshares: 0
+  impressions: 2028
+  comments: 0
+  article_title: |
+    null
+  article_url: null
+  images: []
+  image_url: null
+  text: |
+    You made my day by adding support to UDAF + adding this great function.
+
+    🙌
+
+- id: 2024-03-01_i_am_quite_excited_with_pyairbyte___airbyte_connec
+  type: image
+  title: |
+    I am quite excited with PyAirbyte 😲  (Airbyte connectors available from python)
+  author: Paul Marcombes
+  date: "2024-03-01"
+  url: https://www.linkedin.com/posts/paul-marcombes_dataengineering-airbyte-activity-7169280585352335360-LVkv?utm_source=combined_share_message&utm_medium=member_desktop
+  likes: 234
+  reshares: 8
+  impressions: 22754
+  comments: 12
+  article_title: |
+    null
+  article_url: null
+  images: ['https://media.licdn.com/dms/image/v2/D4E22AQHbebiGPE55uQ/feedshare-shrink_2048_1536/feedshare-shrink_2048_1536/0/1709289688083?e=1741219200&v=beta&t=UMADToDWpRh68ndF0q43Stx9Y5htVl1m9KUd3fT6hQM']
+  image_url: ../assets/blog/2024-03-01_i_am_quite_excited_with_pyairbyte___airbyte_connec
+  text: |
+    Airbyte (the leading open-source solution to move your data to your data-warehouse) finally released their connectors as python packages. They even released a package (PyAirbyte) to easily use them from python.
+
+    This is great news as:
+
+    ✅  PyAirbyte is standalone: you don't need to install and run an airbyte server anymore!
+    ✅  Python practitioners only need to write < 10 line of code to move data from any source to the data-warehouse
+    ✅  Deployment can be done easily on serverless compute such as Github Actions, Gitlab CI, Cloud Run Jobs, Lambda functions, etc.
+
+
+    I created AirbyteServerless last year to solve these exact problems and I am very happy that Airbyte could take some inspiration of it to offer an even better solution. Great work Aaron ("AJ") Steers ! 👏 🎉
+
+
+    Announcement Blog Post: https://lnkd.in/eAc8TfS6
+
+    AirbyteServerless GitHub: https://lnkd.in/eYKPJtey
+
+
+    dataengineering airbyte
+
+    Photo from Alexander Krivitskiy from unsplash
+
+- id: 2024-02-06_what_is_a_staff_analyticsengineer_and_why_we_need_
+  type: image
+  title: |
+    What is a Staff Analytics-Engineer and why we need them?
+  author: Paul Marcombes
+  date: "2024-02-06"
+  url: https://www.linkedin.com/posts/paul-marcombes_datanalytics-analyticsengineering-dataengineering-activity-7160542653451816961-8PmJ?utm_source=combined_share_message&utm_medium=member_desktop
+  likes: 82
+  reshares: 6
+  impressions: 15662
+  comments: 7
+  article_title: |
+    null
+  article_url: null
+  images: ['https://media.licdn.com/dms/image/v2/D4E22AQGloFfuc4I_HA/feedshare-shrink_2048_1536/feedshare-shrink_2048_1536/0/1707155877235?e=1741219200&v=beta&t=ywRUbDHRERZmZsd21VEi5eu0_Ds2w2s1WDBbShcpyig']
+  image_url: ../assets/blog/2024-02-06_what_is_a_staff_analyticsengineer_and_why_we_need_
+  text: |
+    Embed data-people in teams to scale
+
+    One way to scale data analysis is to embed data people in teams, tribes, domains. You give them the autonomy on the whole data chain including transforms.
+
+    Because teams are autonomous to collect data, transform it and expose it to others, you avoid the bottleneck of depending on a central data-team for these tasks. It then gets easier to scale.
+
+
+    But doing so, you create a risk.
+
+    Data people in teams could come to work differently, with different tools. This can lead to silos with less shareable knowledge. It may become hard to maintain and not optimal.
+
+
+    One way to solve that is to build data guilds
+
+    Guilds are communities of data people with shared interests such as analytics engineering to share knowledge, tools code and practices.
+
+    While guilds are great you may want to have people working full time to improve practices.
+
+
+    The Staff Analytics Engineer Role
+
+    We had a great talk last week from Martin Lang et Dimitri Antakly from Decathlon Digital who introduced their role: Staff Analytics Engineer.
+
+
+    The Staff Analytics-Engineer is in the central data team and:
+
+    ✅  Takes a step back to improve the analytics engineering practices
+    ✅  Animates the community of data-people working on transforms
+    ✅  Helps data-people and Provides guidelines
+    ✅  Tests new tools
+
+    Martin and Dimitri gave a great example of their added value:
+
+    They identified a problem of re-work between tribes and they (with the community) decided to create a shared dbt zone with shared transforms between the sources and the tribes transforms.
+
+
+    🙏 Martin and Dimitri for this very inspiring talk.
+    🙏 Stéphane Heckel from DATANOSCO for organizing this great Modern-Data Stack conference
+    🙏 Criteo for hosting the conference
+
+
+    datanalytics analyticsengineering dataengineering
+
+- id: 2024-01-24_what_if_dataanalysts_could_take_actions_themselves
+  type: image
+  title: |
+    What if data-analysts could take actions themselves 🏀?
+  author: Paul Marcombes
+  date: "2024-01-24"
+  url: https://www.linkedin.com/posts/paul-marcombes_bigquery-bigfunctions-dataanalysis-activity-7155903739478904832-9W9m?utm_source=combined_share_message&utm_medium=member_desktop
+  likes: 43
+  reshares: 1
+  impressions: 4448
+  comments: 2
+  article_title: |
+    null
+  article_url: null
+  images: ['https://media.licdn.com/dms/image/v2/D4E22AQHWPDCHULOPig/feedshare-shrink_2048_1536/feedshare-shrink_2048_1536/0/1706100400358?e=1741219200&v=beta&t=PYiRVapG6KCavIf1Vppf0adxT69RHvaIR6KTb21FCxY']
+  image_url: ../assets/blog/2024-01-24_what_if_dataanalysts_could_take_actions_themselves
+  text: |
+    We had a great presentation from Tangi Gouez and Manuel Cellier from Dashlane last week at Nickel. They told us their tips to take the most of data-analysts in an organization:
+
+    💬 "They must deliver actionable insights at the right moment to generate value".
+
+
+    💬 "They should NOT start a data-analysis before knowing the actions that will be taken once done.
+
+
+    A key-factor of failure for data-analysts 📉
+    While these tips are great and inspirational, they highlight a key-factor of failure for data-analysts:
+
+    "If you deliver a great insight but the product/development team is not ready to develop the recommended changes, all your data-analysis work is lost and you bring no value" 😾.
+
+
+
+    What if data-analysts could take the actions themselves? 💡
+
+    At Nickel, when the team works on "out of stock" issues at points of sale, the data-analyst can, on his own:
+    - analyse the problem, quantify the lost value and decide to take actions,
+    - build a ML model to predict if a point of sale is "out of stock soon",
+    - automatically order some material when "out of stock soon" is predicted.
+
+    No data-engineers need to be involved nor product/development team.
+
+    This is, we believe, how you make your data-analysts impactful:
+
+    🏆  "You give them the power to take the actions themselves" 🏆
+
+
+
+    How to do this in your company too? 🚀
+
+    Your company probably built micro-services exposed in a catalog of apis (with one route to order material for one point of sale). What you need is to make these apis available to your data-warehouse.
+
+    That's exactly the purpose of BigFunctions: to build a catalog of advanced functions callable by data-analysts from your data-warehouse. The functions can call your company internal apis or public ones for your saas products.
+
+
+
+    Know More about BigFunctions here: https://lnkd.in/eBzr3wfM
+
+
+    👏  Congrats Hugo Mulheim for this work on out of stock issues.
+
+    Photo from August Phlieger on unsplash.
+
+    bigquery bigfunctions dataanalysis dataengineering googlecloud
+
+- id: 2024-01-23_when_to_use_bigquery_dataframes_over_sql_
+  type: image
+  title: |
+    When to use BigQuery Dataframes over SQL ?
+  author: Paul Marcombes
+  date: "2024-01-23"
+  url: https://www.linkedin.com/posts/paul-marcombes_bigquery-bigfunctions-bigframes-activity-7155499433772666881-kkur?utm_source=combined_share_message&utm_medium=member_desktop
+  likes: 206
+  reshares: 10
+  impressions: 19160
+  comments: 12
+  article_title: |
+    null
+  article_url: null
+  images: ['https://media.licdn.com/dms/image/v2/D4E22AQEEEFRxjtb0yA/feedshare-shrink_2048_1536/feedshare-shrink_2048_1536/0/1705704329961?e=1741219200&v=beta&t=kX30M1Mk7wBBJZQq-n2Wp90AVGgtD8K6FY7-UggR3BY']
+  image_url: ../assets/blog/2024-01-23_when_to_use_bigquery_dataframes_over_sql_
+  text: |
+    Querying your BigQuery data in SQL is very natural and efficient but you want to use BigQuery Dataframes (aka Bigframes) if:
+
+    ✅  You come from the pandas world.
+    ✅  Your sql becomes too verbose and hard to maintain and you want to group code in functions or to reuse code.
+    ✅  You want to write scripts as it is much easier to develop python scripts than stored procedures.
+
+    📢 Announcement
+    Every BigFunction (to do advanced transforms) is directly available from BigQuery Dataframes (no install needed!)
+
+
+    BigQuery Dataframes: https://lnkd.in/e4CMKT4w
+
+    BigFunctions: https://lnkd.in/eBzr3wfM
+
+    bigquery bigfunctions bigframes gcp dataengineering
+
+- id: 2023-12-21_get_the_country_of_an_ip_address_in_bigquery_
+  type: image
+  title: |
+    Get the Country of an IP address in BigQuery 🌐👀
+  author: Paul Marcombes
+  date: "2023-12-21"
+  url: https://www.linkedin.com/posts/paul-marcombes_bigquery-bigfunctions-gcp-activity-7143510443934826497-O2bg?utm_source=combined_share_message&utm_medium=member_desktop
+  likes: 116
+  reshares: 2
+  impressions: 11566
+  comments: 2
+  article_title: |
+    null
+  article_url: null
+  images: ['https://media.licdn.com/dms/image/v2/D4E22AQGUKVy0So12wg/feedshare-shrink_2048_1536/feedshare-shrink_2048_1536/0/1703117186204?e=1741219200&v=beta&t=Dg8hMn5gWOcp4t9ZNvJonDP4TkxrYaFXSEEZVQqH_DE']
+  image_url: ../assets/blog/2023-12-21_get_the_country_of_an_ip_address_in_bigquery_
+  text: |
+    Execute this query in your BigQuery :
+
+    select bigfunctions.eu.ip2country('152.216.7.110')
+
+    It will tell you the IP address is from the 'US'
+
+
+    ✅ This is just one of 100+ functions of BigFunctions 😲
+    ✅ BigFunctions is fully open-source! 🤗
+    ✅ You like it? Star the GitHub! ⭐
+
+    GitHub: https://lnkd.in/emfVXKjJ
+
+
+    IP address data powered by ipinfo.io
+
+    bigquery bigfunctions gcp dataengineering dataanalytics googlecloud
+
+- id: 2023-12-15_moving_data_to_your_datawarehouse_has_never_been_e
+  type: image
+  title: |
+    Moving data to your Data-Warehouse has never been easier 🏌‍♂️  !
+  author: Paul Marcombes
+  date: "2023-12-15"
+  url: https://www.linkedin.com/posts/paul-marcombes_airbyte-serverless-dataengineering-activity-7141404312785604608-a-lI?utm_source=combined_share_message&utm_medium=member_desktop
+  likes: 94
+  reshares: 3
+  impressions: 9606
+  comments: 11
+  article_title: |
+    null
+  article_url: null
+  images: ['https://media.licdn.com/dms/image/v2/D4E22AQH2NG52rtv8VA/feedshare-shrink_2048_1536/feedshare-shrink_2048_1536/0/1702643468041?e=1741219200&v=beta&t=MhU0rbzYxjyG--EaVKU1y-GUhsf7sN-do1zSGFUSxZQ']
+  image_url: ../assets/blog/2023-12-15_moving_data_to_your_datawarehouse_has_never_been_e
+  text: |
+    Every data project starts with moving data from different sources to your data-warehouse for analysis. To this end, Airbyte certainly provides the best open-source product with 300+ source connectors and a huge community👀.
+
+    I created a lightweight python package (airbyte-serverless) to manage these connectors in the yaml era and I felt really honored when Modeo contacted me to showcase it to the world during a webinar. 🧡
+
+    What surprised me is that Modeo went further than I anticipated as they used airbyte-serverless to run their own custom connectors. 💪
+
+    It was a real pleasure to meet you Ismael Goulani Lynn Farhat Matthieu Rousseau and build stuff together. I have been impressed by your teamwork actually.  🙌
+
+    I put the webinar video link in first comment.
+
+    You like it? Add a star to GitHub!
+    ⭐ ➜ https://lnkd.in/eYKPJtey
+
+     airbyte serverless dataengineering googlecloud bigquery
+
+- id: 2023-12-14_bigfunctions__steroids_for_bigquery
+  type: image
+  title: |
+    BigFunctions - steroids for BigQuery
+  author: Alex Ignatenko
+  date: "2023-12-14"
+  url: https://www.linkedin.com/posts/aleksandr-ignatenko_bigquery-sql-bigfunctions-activity-7141037483680591875-5PST?utm_source=combined_share_message&utm_medium=member_desktop
+  likes: 79
+  reshares: 4
+  impressions: null
+  comments: 2
+  article_title: |
+    null
+  article_url: null
+  images: ['https://media.licdn.com/dms/image/v2/D4D22AQH_ZKoyXSR-0A/feedshare-shrink_2048_1536/feedshare-shrink_2048_1536/0/1702556007321?e=1741219200&v=beta&t=FXJe5L8zEC47dB7FZ5UKHCo83isic9L_XVBeqF7lepA']
+  image_url: ../assets/blog/2023-12-14_bigfunctions__steroids_for_bigquery
+  text: |
+    If you're not familiar with or not using BigFunctions, be sure to check out the documentation – it's worth it. Thanks to this open-source library, you can add a bit of free magic to your queries.
+
+    Bookmark this post as a cheat sheet.
+
+    BigFunctions provides around 100+ operators for working with data. In terms of functionality, they go beyond standard SQL and cover several interesting use cases.
+
+    You can easily deploy BigFunctions in your Google Cloud project or use operators from this library directly in the BigQuery editor without any installation procedure.
+
+    There's a usage example of BigFunctions in the screenshot, and here are a few intriguing operators:
+
+    - ask_ai, ask_my_data – ask questions not limited to your own data;
+
+    - is_email_valid, is_phone_number_valid – validate contact information;
+
+    - parse_user_agent – parse the User_Agent string in BigQuery;
+
+    - phone_number_info – obtain available information about a phone number;
+
+    - replace_special_characters – remove special characters from a string;
+
+    - translate – translate text into a specified language;
+
+    - min_value, max_value, median_value, sum_values – array aggregation;
+
+    - explore_table, explore_dataset – get information about your table representations along with statistics;
+
+    - deidentify – hide sensitive information in your dataset;
+
+    Know any other cool functions? Share them in the comments.
+
+    Interested in learning more about working with marketing data in BigQuery? I have a mini-course on that topic - https://lnkd.in/dPhWNfkE
+
+    bigquery sql bigfunctions
+
+- id: 2023-12-14_testing_gemini_googles_latest_ai_model_from_bigque
+  type: image
+  title: |
+    Testing Gemini, Google's latest AI model, from BigQuery
+  author: Paul Marcombes
+  date: "2023-12-14"
+  url: https://www.linkedin.com/posts/paul-marcombes_bigquery-bigfunctions-dataengineering-activity-7141003906012082176-rCxd?utm_source=combined_share_message&utm_medium=member_desktop
+  likes: 208
+  reshares: 8
+  impressions: 18114
+  comments: 16
+  article_title: |
+    null
+  article_url: null
+  images: ['https://media.licdn.com/dms/image/v2/D4E22AQG9FTP1NJNf2w/feedshare-shrink_2048_1536/feedshare-shrink_2048_1536/0/1702505011288?e=1741219200&v=beta&t=SXwM3OHCFW7FRoGqioNDmHaH9UnhRC4BT25MxGkFxhg']
+  image_url: ../assets/blog/2023-12-14_testing_gemini_googles_latest_ai_model_from_bigque
+  text: |
+    Excited to explore Google's latest AI model, I compared Gemini with other Google AI models using the 'ask_ai' function in BigQuery.
+
+    Gemini's anwser was interesting compared to others.
+
+    Want to compare for yourself?
+    The 'ask_ai' function is available without installation from BigQuery.
+    Just call it!
+
+    Check out the function doc in the comments below.
+
+    bigquery bigfunctions dataengineering gemini genai googlecloud
+
+- id: 2023-12-11_bigquery_array_union__array_intersect_now_at_your_
+  type: image
+  title: |
+    BigQuery: Array Union & Array Intersect now at your fingertips! 🐣
+  author: Axel Thevenot
+  date: "2023-12-11"
+  url: https://www.linkedin.com/posts/axel-thevenot_bigquery-dataengineering-analytics-activity-7139876215447785472-tld3?utm_source=combined_share_message&utm_medium=member_desktop
+  likes: 168
+  reshares: 5
+  impressions: null
+  comments: 9
+  article_title: |
+    null
+  article_url: null
+  images: ['https://media.licdn.com/dms/image/v2/D4E22AQE1delljcIh5w/feedshare-shrink_2048_1536/feedshare-shrink_2048_1536/0/1702279140997?e=1741219200&v=beta&t=PcOy3vvHQzhR1VnqhJPHHGvXTCaKCsIaUBNo2rDeY1s']
+  image_url: ../assets/blog/2023-12-11_bigquery_array_union__array_intersect_now_at_your_
+  text: |
+    BigFunctions has just release two easy but useful functions to obtain the union and/or intersection of two arrays.
+
+    If you are not already familiar with BigFunctions, it is:
+    ✅ a framework to build a governed catalog of powerful BigQuery functions at YOUR company.
+    ✅ 100+ open-source functions to supercharge BigQuery that you can call directly or redeploy in YOUR catalog.
+
+    🧙🪄 No installations required - just copy, paste, and watch the magic happen!
+
+    As always, you can find detailed documentation in the comments 👇
+
+    And you can follow Paul Marcombes for more BigFunctions!
+
+    bigquery dataengineering analytics bigfunctions
+
+- id: 2023-12-06_want_a_demo_of_serverless_data_pipelines
+  type: text
+  title: |
+    Want a demo of Serverless Data Pipelines?
+  author: Paul Marcombes
+  date: "2023-12-06"
+  url: https://www.linkedin.com/posts/paul-marcombes_%F0%9D%97%A6%F0%9D%97%94%F0%9D%97%A9%F0%9D%97%98-%F0%9D%97%A7%F0%9D%97%9B%F0%9D%97%98-%F0%9D%97%97%F0%9D%97%94%F0%9D%97%A7%F0%9D%97%98-rejoignez-nous-activity-7138204518353203202-Pwuk?utm_source=combined_share_message&utm_medium=member_desktop
+  likes: 33
+  reshares: 2
+  impressions: 2845
+  comments: 10
+  article_title: |
+    null
+  article_url: null
+  images: []
+  image_url: null
+  text: |
+    ✅  Move data with Airbyte Serverless
+    ✅  Transform it with dbt
+    ✅  Orchestrate with Google Workflows
+
+
+    Airbyte is certainly the most advanced open-source system to move your data from any source to your data-warehouse.
+
+    But deploying Airbyte Core to manage connectors can be a hassle if you're not a Kubernetes expert.
+
+    That's why I created Airbyte-Serverless.
+
+    I am kind of proud that Lynn Farhat and Ismael Goulani from Modeo are organizing a live demo to showcase how they use it in production for their clients.
+
+    Register here for the online event: https://lnkd.in/dnxbYGhC
+
+    Airbyte-Serverless GitHub: https://lnkd.in/eYKPJtey
+
+    Feel free to leave a ⭐ on the GitHub repo 🤗
+
+
+    airbyte gcp dataengineering
+
+- id: 2023-11-24_extract_info_from_a_phone_number_in_bigquery_
+  type: image
+  title: |
+    Extract info from a phone number in BigQuery 📱👀
+  author: Paul Marcombes
+  date: "2023-11-24"
+  url: https://www.linkedin.com/posts/paul-marcombes_bigquery-bigfunctions-gcp-activity-7133848847801290753--ebl?utm_source=combined_share_message&utm_medium=member_desktop
+  likes: 198
+  reshares: 3
+  impressions: 17217
+  comments: 16
+  article_title: |
+    null
+  article_url: null
+  images: ['https://media.licdn.com/dms/image/v2/D4E22AQHazyXme65Rjg/feedshare-shrink_2048_1536/feedshare-shrink_2048_1536/0/1700842104138?e=1741219200&v=beta&t=NeJqKlNVqd2qH1jlxY7aSqvvbXEfe1Egqr8hVwsVmrU']
+  image_url: ../assets/blog/2023-11-24_extract_info_from_a_phone_number_in_bigquery_
+  text: |
+    Execute this query in your BigQuery :
+
+    select bigfunctions.eu.phone_number_info('+33123456789', null)
+
+    and you'll get:
+
+    ✅  if the phone number is valid
+    ✅  its country
+    ✅  its type: fixed or mobile
+
+
+    BigFunctions is fully open-source!
+    You like it? Star it!
+
+    https://lnkd.in/emfVXKjJ
+
+    bigquery bigfunctions gcp dataengineering dataanalytics  googlecloud
+
+- id: 2023-11-23_data_catalog_is_key_for_your_datamesh_strategy_why
+  type: image
+  title: |
+    Data catalog is key for your data-mesh strategy. Why building vs buying?
+  author: Paul Marcombes
+  date: "2023-11-23"
+  url: https://www.linkedin.com/posts/paul-marcombes_data-catalog-is-key-for-your-data-mesh-strategy-activity-7133393773518053376-weGa?utm_source=combined_share_message&utm_medium=member_desktop
+  likes: 166
+  reshares: 6
+  impressions: 23744
+  comments: 38
+  article_title: |
+    null
+  article_url: null
+  images: ['https://media.licdn.com/dms/image/v2/D4E22AQGUJUzBzWoFTA/feedshare-shrink_2048_1536/feedshare-shrink_2048_1536/0/1700703992601?e=1741219200&v=beta&t=MSvm9RT0vmB3ODkqsBj952XkZOwhJ43fhve4Kj5P_J0']
+  image_url: ../assets/blog/2023-11-23_data_catalog_is_key_for_your_datamesh_strategy_why
+  text: |
+    I was at a (great) c2c event last night and I realized two things:
+
+    1️⃣ Without a good catalog, your data-mesh strategy will be a failure as your useful and trusted data won’t be discoverable.
+    2️⃣ While there are many great vendors on this space, some companies keep building their own tool instead of buying.
+
+    - ADEO (Leroy Merlin+) built its data-finder
+    - Carrefour built its data-supermarket
+    - LinkedIn built Data-Hub
+    - Lyft built Amundsen
+    And the list goes on.
+
+
+    Why?
+
+
+    At Nickel, we also decided to build instead of buy. As an entry point of your data, your catalog can become much more than listing assets. And vendors won’t be able to suit the specific needs of your business or your tooling.
+
+    Actually even two of our most basic needs were not always considered:
+
+    1️⃣  Search results MUST be sorted by popularity. (And by popularity I mean usage, not an edited popularity on the catalog by some stewards via promotion or "thumb up").  When I type ˋcustomer` in my portal I have a hundred results. The most used table MUST be on top.
+
+    2️⃣ We use looker studio as BI tool, but most of the time, there’s no connector to it. Btw, I really don’t want to have all company dashboards here, only curated super dashboards with their metadata.
+
+
+    I’d love to know what you think. Do you build or buy your data-catalog? Why?
+
+
+    C2C guillaume blaquiere Antoine Castex Ivan Beauvais Florian Caringi  Jérémy Dessalines Alexandre Côté Guillaume Gelin Mazlum Tosun Axel TIFRANI Axel Thevenot  Johan Picard Antoine Guy Clément Morizot  Michelle Gurney Dimitris Petrakis Ilias Papachristos Lucy Jones
+
+    Photo from Alan Muntadas 🦎 Partner Certifié Google 🙌
+
+- id: 2023-11-10_famous_assists
+  type: linkedinVideo
+  title: |
+    Famous assists:
+  author: Google Cloud
+  date: "2023-11-10"
+  url: https://www.linkedin.com/posts/google-cloud_famous-assists-lionel-messi-with-argentina-ugcPost-7128849050732244993-J8TK?utm_source=combined_share_message&utm_medium=member_desktop
+  likes: 1012
+  reshares: 93
+  impressions: null
+  comments: 14
+  article_title: |
+    null
+  article_url: null
+  images: []
+  image_url: null
+  text: |
+    ⚽ Lionel Messi with Argentina
+    👠 Andy Sachs with Miranda Priestly
+    🇺🇸 Gary Walsh with Selina Meyer
+    ☁️ Duet AI with Google Cloud
+
+    Learn how Duet AI can write SQL or Python code to do things like customer segmentation in BigQuery Studio → https://goo.gle/3su73bv
+
+- id: 2023-10-25_heres_what_i_do_when_i_cant_find_a_bigquery_functi
+  type: image
+  title: |
+    Here’s what I do when I can’t find a BigQuery function to solve a problem 👇
+  author: Paul Marcombes
+  date: "2023-10-25"
+  url: https://www.linkedin.com/posts/paul-marcombes_bigquery-bigfunctions-dataengineering-activity-7122832228438478848-POer?utm_source=combined_share_message&utm_medium=member_desktop
+  likes: 90
+  reshares: 1
+  impressions: 11016
+  comments: 16
+  article_title: |
+    null
+  article_url: null
+  images: ['https://media.licdn.com/dms/image/v2/D5622AQEIxOv4jhfbOQ/feedshare-shrink_2048_1536/feedshare-shrink_2048_1536/0/1698215538320?e=1741219200&v=beta&t=VFHSYEaTSUpC6XVK80kJNFGM81tMq2uIHX6HYcIOg1M']
+  image_url: ../assets/blog/2023-10-25_heres_what_i_do_when_i_cant_find_a_bigquery_functi
+  text: |
+    Yesterday, again, I needed to do a transform for which 𝗜 𝗰𝗼𝘂𝗹𝗱 𝗻𝗼𝘁 𝗳𝗶𝗻𝗱 𝗮𝗻𝘆 𝗻𝗮𝘁𝗶𝘃𝗲 𝗕𝗶𝗴𝗤𝘂𝗲𝗿𝘆 𝗳𝘂𝗻𝗰𝘁𝗶𝗼𝗻. 🧐 (decode encoded-url query params from a logs table)
+
+
+
+    𝗛𝗲𝗿𝗲’𝘀 𝗵𝗼𝘄 𝗜 𝘄𝗲𝗻𝘁 :
+
+    1️⃣  𝙄 𝙥𝙧𝙤𝙢𝙥𝙩𝙚𝙙 𝙜𝙚𝙣𝙚𝙧𝙖𝙩𝙞𝙫𝙚 𝘼𝙄 𝙘𝙤𝙣𝙨𝙤𝙡𝙚𝙨 𝙩𝙤 𝙜𝙚𝙣𝙚𝙧𝙖𝙩𝙚 𝙨𝙤𝙢𝙚 𝙨𝙦𝙡 𝙘𝙤𝙙𝙚. 👨‍💻
+
+    Unfortunately, I failed, like often when I ask something not easy 😞.
+
+
+    2️⃣  𝙄 𝙡𝙤𝙤𝙠𝙚𝙙 𝙤𝙣 𝙨𝙩𝙖𝙘𝙠𝙤𝙫𝙚𝙧𝙛𝙡𝙤𝙬 👀
+
+    I felt lucky as I instantly found the answer from the brilliant Mikhail Berlyant (probably the guy who successfully answers the most questions about BigQuery).
+
+
+    3️⃣  𝙄 𝙚𝙣𝙙𝙚𝙙 𝙪𝙥 𝙘𝙧𝙚𝙖𝙩𝙞𝙣𝙜 𝙖 𝙛𝙪𝙣𝙘𝙩𝙞𝙤𝙣 by following Mikhail solution💡
+
+
+    👉 And  𝗜 𝗽𝘂𝗯𝗹𝗶𝘀𝗵𝗲𝗱 𝗶𝘁 𝗼𝗻 𝗕𝗶𝗴𝗙𝘂𝗻𝗰𝘁𝗶𝗼𝗻𝘀 𝘀𝗼 𝘁𝗵𝗮𝘁 𝗮𝗻𝘆𝗼𝗻𝗲 𝗰𝗮𝗻 𝗻𝗼𝘄 𝘂𝘀𝗲 𝗶𝘁. 😊
+
+
+
+    Just try it yourself ⬇️:
+
+    select bigfunctions.eu.url_decode('https://lnkd.in/gPqbxUtF%2Fhello%3Fv%3D12345')
+
+
+
+    𝗦𝗼 𝘄𝗲 𝗽𝗿𝗼𝗯𝗮𝗯𝗹𝘆 𝘀𝗵𝗼𝘂𝗹𝗱 𝗱𝗼 𝘁𝗵𝗶𝘀 𝗽𝗿𝗼𝗰𝗲𝘀𝘀 𝘁𝗵𝗲 𝗼𝘁𝗵𝗲𝗿 𝘄𝗮𝘆 𝗮𝗿𝗼𝘂𝗻𝗱!
+
+    1️⃣ Search in BigFunctions open-source catalog. If not found: submit an issue (so that someone creates the function for you) or contribute yourself.
+
+    Then no one will have to reinvent the wheel again !! 🚴
+
+
+    𝗬𝗼𝘂 𝗹𝗶𝗸𝗲 𝗶𝘁? Support ⭐️ the GitHub 👉 https://lnkd.in/emfVXKjJ
+
+    𝗧𝗵𝗲 𝗳𝘂𝗻𝗰𝘁𝗶𝗼𝗻 𝗱𝗼𝗰: https://lnkd.in/gHZjRg5y
+
+
+
+    bigquery bigfunctions dataengineering opensource gcp
+
+    Photo from christian buehner on unsplash
+
+- id: 2023-10-16_if_you_want_to_build_a_web_app_seamlessly_within_y
+  type: linkedinVideo
+  title: |
+    If you want to build a web app seamlessly within your Jupyter Notebook, use Mercury.
+  author: Khuyen Tran
+  date: "2023-10-16"
+  url: https://www.linkedin.com/posts/khuyen-tran-1401_if-you-want-to-build-a-web-app-seamlessly-ugcPost-7119688114297597952-CP2u?utm_source=combined_share_message&utm_medium=member_desktop
+  likes: 470
+  reshares: 48
+  impressions: null
+  comments: 16
+  article_title: |
+    null
+  article_url: null
+  images: []
+  image_url: null
+  text: |
+    Link to Mercury: https://lnkd.in/gpV3Sqk3
+
+- id: 2023-10-13_introducing_airbyteserverless_for_airbyte__serverl
+  type: article
+  title: |
+    Introducing Airbyte-Serverless for Airbyte & Serverless lovers ❤️
+  author: Paul Marcombes
+  date: "2023-10-13"
+  url: https://www.linkedin.com/posts/paul-marcombes_github-unyticsairbyteserverless-airbyte-activity-7118520351256391680-mRFa?utm_source=combined_share_message&utm_medium=member_desktop
+  likes: 198
+  reshares: 11
+  impressions: null
+  comments: 47
+  article_title: |
+    GitHub - unytics/airbyte_serverless: Airbyte made simple (no UI, no database, no cluster)
+  article_url: https://github.com/unytics/airbyte_serverless
+  images: []
+  image_url: null
+  text: |
+    Airbyte is a must-have in your data-stack with its 𝗰𝗮𝘁𝗮𝗹𝗼𝗴 𝗼𝗳 𝗼𝗽𝗲𝗻-𝘀𝗼𝘂𝗿𝗰𝗲 𝗰𝗼𝗻𝗻𝗲𝗰𝘁𝗼𝗿𝘀 𝘁𝗼 𝗺𝗼𝘃𝗲 𝘆𝗼𝘂𝗿 𝗱𝗮𝘁𝗮 𝗳𝗿𝗼𝗺 𝗮𝗻𝘆 𝘀𝗼𝘂𝗿𝗰𝗲 𝘁𝗼 𝘆𝗼𝘂𝗿 𝗱𝗮𝘁𝗮-𝘄𝗮𝗿𝗲𝗵𝗼𝘂𝘀𝗲.
+
+
+    When it comes to 𝗱𝗲𝗽𝗹𝗼𝘆 Airbyte you have several options:
+    1️⃣ use Airbyte Cloud if you want a managed service
+    2️⃣ deploy on an instance (quite easy but not robust)
+    3️⃣ deploy on kubernetes (hard except if you already have a cluster running).
+
+    This leaves you no choice if you’re a serverless aficionado who likes managed services but likes deploying yourself. 🧐
+
+    👉 Say hi to  𝗔𝗶𝗿𝗯𝘆𝘁𝗲𝗦𝗲𝗿𝘃𝗲𝗿𝗹𝗲𝘀𝘀  👀 !!
+
+
+    Airbyte Serverless:
+    ❌ has NO UI
+    ❌ has NO database
+    ❌ has NO transform layer
+
+    Airbyte Serverless:
+    ✅ is run from a CLI
+    ✅ is based of yaml files on git
+    ✅ can run on serverless compute
+
+    You’ll then have a robust and scalable solution at unbeatable cost with all benefits of cloud native serverless architectures.
+
+
+    𝗖𝘂𝗿𝗶𝗼𝘂𝘀? Get started here: https://lnkd.in/eYKPJtey
+
+    𝗟𝗶𝗸𝗲 𝗶𝘁? Please leave a ⭐️ on the repo!
+
+    𝗝𝗼𝗶𝗻 the discussion on slack! https://lnkd.in/ezVQQMAY
+
+
+    Warning: only bigquery and cloud run job are supported for now as destination and serverless compute. Any contribution is more than welcome. Join the slack for help getting started.
+
+
+    airbyte bigquery gcp cloudrun
+
+- id: 2023-10-10_introducing_airbyteserverless_for_airbyte__serverl
+  type: article
+  title: |
+    Introducing Airbyte-Serverless for Airbyte & Serverless lovers ❤️
+  author: Paul Marcombes
+  date: "2023-10-10"
+  url: https://www.linkedin.com/posts/paul-marcombes_github-unyticsairbyteserverless-airbyte-activity-7117595324566626305-XLjT?utm_source=combined_share_message&utm_medium=member_desktop
+  likes: 198
+  reshares: 11
+  impressions: 31783
+  comments: 47
+  article_title: |
+    GitHub - unytics/airbyte_serverless: Airbyte made simple (no UI, no database, no cluster)
+  article_url: https://github.com/unytics/airbyte_serverless
+  images: []
+  image_url: null
+  text: |
+    Airbyte is a must-have in your data-stack with its 𝗰𝗮𝘁𝗮𝗹𝗼𝗴 𝗼𝗳 𝗼𝗽𝗲𝗻-𝘀𝗼𝘂𝗿𝗰𝗲 𝗰𝗼𝗻𝗻𝗲𝗰𝘁𝗼𝗿𝘀 𝘁𝗼 𝗺𝗼𝘃𝗲 𝘆𝗼𝘂𝗿 𝗱𝗮𝘁𝗮 𝗳𝗿𝗼𝗺 𝗮𝗻𝘆 𝘀𝗼𝘂𝗿𝗰𝗲 𝘁𝗼 𝘆𝗼𝘂𝗿 𝗱𝗮𝘁𝗮-𝘄𝗮𝗿𝗲𝗵𝗼𝘂𝘀𝗲.
+
+
+    When it comes to 𝗱𝗲𝗽𝗹𝗼𝘆 Airbyte you have several options:
+    1️⃣ use Airbyte Cloud if you want a managed service
+    2️⃣ deploy on an instance (quite easy but not robust)
+    3️⃣ deploy on kubernetes (hard except if you already have a cluster running).
+
+    This leaves you no choice if you’re a serverless aficionado who likes managed services but likes deploying yourself. 🧐
+
+    👉 Say hi to  𝗔𝗶𝗿𝗯𝘆𝘁𝗲𝗦𝗲𝗿𝘃𝗲𝗿𝗹𝗲𝘀𝘀  👀 !!
+
+
+    Airbyte Serverless:
+    ❌ has NO UI
+    ❌ has NO database
+    ❌ has NO transform layer
+
+    Airbyte Serverless:
+    ✅ is run from a CLI
+    ✅ is based of yaml files on git
+    ✅ can run on serverless compute
+
+    You’ll then have a robust and scalable solution at unbeatable cost with all benefits of cloud native serverless architectures.
+
+
+    𝗖𝘂𝗿𝗶𝗼𝘂𝘀? Get started here: https://lnkd.in/eYKPJtey
+
+    𝗟𝗶𝗸𝗲 𝗶𝘁? Please leave a ⭐️ on the repo!
+
+    𝗝𝗼𝗶𝗻 the discussion on slack! https://lnkd.in/ezVQQMAY
+
+
+    Warning: only bigquery and cloud run job are supported for now as destination and serverless compute. Any contribution is more than welcome. Join the slack for help getting started.
+
+
+    airbyte bigquery gcp cloudrun
+
+- id: 2023-10-10_you_probably_have_too_many_dashboards
+  type: image
+  title: |
+    You probably have too many dashboards…
+  author: Paul Marcombes
+  date: "2023-10-10"
+  url: https://www.linkedin.com/posts/paul-marcombes_lessismore-data-activity-7117433624060116992-cqi9?utm_source=combined_share_message&utm_medium=member_desktop
+  likes: 151
+  reshares: 1
+  impressions: 25332
+  comments: 31
+  article_title: |
+    null
+  article_url: null
+  images: ['https://media.licdn.com/dms/image/v2/D4E22AQFAcbDbynBLeQ/feedshare-shrink_2048_1536/feedshare-shrink_2048_1536/0/1696884823888?e=1741219200&v=beta&t=WX9p1wCViy9Cya10VmbwdY4xok1DqXK6R9jOOc_24Uo']
+  image_url: ../assets/blog/2023-10-10_you_probably_have_too_many_dashboards
+  text: |
+    … how do you want people to find the information they need from this overcrowded space 🧐?
+
+
+    At Nickel, since we had "only one" dashboard per domain, we skyrocketed data discovery at the company. 🚀
+
+    We call them super-dashboards (🦸‍♂️) like our very few and large data-warehouse super-tables (🦸‍♀️) which ease table discovery a lot. 👀
+
+
+
+    Having a unique super-dashboard for each domain:
+
+    ✅ eases dramatically information discovery
+    ✅ then reduces significantly the data questions you receive
+    ✅ helps you to consider it as a product and to focus on building a community of users to collect needs and improve it constantly (while striving to keep it light and well organized).
+
+
+    Having a dedicated chat channel referenced in the dashboard is not a bad idea to collect feedback and make announcements. (👏Clément Pierson).
+
+
+
+    Thanks Ethan Aaron  for your yesterday post which recalled me this: https://lnkd.in/eGA73qwB
+
+    lessismore data
+
+    Photo from Michael Rivera on unsplash.
+
+- id: 2023-10-06_rule__1_for_reducing_bigquery_costs
+  type: image
+  title: |
+    Rule № 1️⃣ for reducing BigQuery costs:
+  author: Paul Marcombes
+  date: "2023-10-06"
+  url: https://www.linkedin.com/posts/paul-marcombes_bigquery-finops-gcp-activity-7115977007707893761-B_SO?utm_source=combined_share_message&utm_medium=member_desktop
+  likes: 129
+  reshares: 3
+  impressions: 17857
+  comments: 26
+  article_title: |
+    null
+  article_url: null
+  images: ['https://media.licdn.com/dms/image/v2/D4E22AQHMBUal2VHzxQ/feedshare-shrink_2048_1536/feedshare-shrink_2048_1536/0/1696581125798?e=1741219200&v=beta&t=fmSZT3MDgOxUg-Jm1O5r1kTOAV3FbCHtnJ3YtXxduh4']
+  image_url: ../assets/blog/2023-10-06_rule__1_for_reducing_bigquery_costs
+  text: |
+    The best data is the data you don’t store!
+
+    - I just deleted 3433 tables.
+    - And I instantly felt way better. 🤗
+    - Wanted to share the feeling. 😁
+
+
+    We should NOT keep data for 10 years for analytics purposes!
+    it's time to vacuum ✨!
+
+
+    Then:
+    1️⃣ You won't pay for storage
+    2️⃣ You'll pay much less for querying
+    3️⃣ Your queries will be more efficient  
+    4️⃣ You'll find your useful data more easily
+
+
+
+    For this, the most effective are:
+
+    1️⃣ Partition expiration 🧹
+    - Our biggest table at Nickel represented 30 % of our total storage.
+    - It happened that sometimes we had to fully rebuild downstream models. That hurt!
+    - We felt better when we put a 120 days partition expiration on it.
+    - I am sure you also have low hanging fruits.
+
+    2️⃣ Table expiration on Temp datasets ♻️
+
+    3️⃣ Drop tables you don’t read anymore ✨
+    👉 This is where the 3433 tables I just deleted came from 👀
+    (If it is not clear how to do I can explain in comments)
+
+
+
+    Details here https://lnkd.in/exAyPu_C
+    and there https://lnkd.in/eNG4_YPy
+
+
+
+    This blog post from Tinybird inspired me to name this Rule № 1️⃣.  https://lnkd.in/eeejA-j5
+
+    bigquery finops gcp googlecloud
+
+    Photo from Sandra Seitamaa on unsplash
+
+- id: 2023-10-05_beware_of_dbt_tests_your_money_may_disappear_
+  type: image
+  title: |
+    Beware of dbt tests…. your money may disappear 💸
+  author: Paul Marcombes
+  date: "2023-10-05"
+  url: https://www.linkedin.com/posts/paul-marcombes_dbt-finops-activity-7115625411715178497-H-kI?utm_source=combined_share_message&utm_medium=member_desktop
+  likes: 245
+  reshares: 2
+  impressions: 38783
+  comments: 49
+  article_title: |
+    null
+  article_url: null
+  images: ['https://media.licdn.com/dms/image/v2/D4E22AQFYTo7iwgr_vQ/feedshare-shrink_2048_1536/feedshare-shrink_2048_1536/0/1696461358128?e=1741219200&v=beta&t=dJ-G_sp2hahuRhYhsgXUV7gPCDytQw7eulSbfd2LMJ4']
+  image_url: ../assets/blog/2023-10-05_beware_of_dbt_tests_your_money_may_disappear_
+  text: |
+    At Nickel, as dbt jobs costs kept rising we decided to take action. ☝️
+
+    This is when the great Rémi BENOIST  decided to gamify the thing and created our "dbt cost killing championship"! 🏆
+
+
+    Thanks to his natural enthusiasm, periodic tips and the way he kept instilling rythm in the competition, it has been a tremendous success.
+
+    After a quarter we had reduced our dbt run costs by 30%, had a lot of fun, and our 30 dbt contributors had reached a new level of cost awareness. 💪🚀
+
+
+    It was only weeks after the awards ceremony that one of us walked into the office and said out loud:
+
+    "Wait, speaking of dbt, don’t dbt tests cost money?"
+
+    The championship focused on dbt models run and looked no further.
+
+    A few minutes later one replied:
+
+    "Well hhmmm, indeed… dbt tests represent half of our total dbt costs" 🤷‍♀️💥
+
+
+
+    In a single day, we could dramatically reduce dbt costs for by applying a new strategy to our testing: do not test everything everyday! Test more often the sources, less often the results of the transformations.
+
+    We learnt a lot of lessons that day.
+
+    If you need to remember one:
+    Beware of your dbt tests costs!!! 🤑
+
+
+    dbt finops
+
+    Photo from Blake Lisk on unsplash.
+
+- id: 2023-10-04_from_1400__to_1__a_month__my_best_bigquery_optimiz
+  type: image
+  title: |
+    From 1400 $ to 1 $ a month 👉 my best BigQuery optimization 🤑
+  author: Paul Marcombes
+  date: "2023-10-04"
+  url: https://www.linkedin.com/posts/paul-marcombes_bigquery-gcp-googlecloud-activity-7115268234395676672-GCtj?utm_source=combined_share_message&utm_medium=member_desktop
+  likes: 434
+  reshares: 16
+  impressions: 65583
+  comments: 52
+  article_title: |
+    null
+  article_url: null
+  images: ['https://media.licdn.com/dms/image/v2/D4E22AQGN_AfFdzc62Q/feedshare-shrink_2048_1536/feedshare-shrink_2048_1536/0/1696412138062?e=1741219200&v=beta&t=3gDo4jOeZxu4-Drct-WJCQR1KYwtkhBKonqqG9CiW4I']
+  image_url: ../assets/blog/2023-10-04_from_1400__to_1__a_month__my_best_bigquery_optimiz
+  text: |
+    If you are into reducing BigQuery costs you may have already explored:
+    1️⃣ partitioning your tables
+    2️⃣ requiring a partition filter on these tables
+    3️⃣ clustering your tables
+
+
+    BUT have you already explored SEARCH INDEX 🧐 ?
+
+
+    As you know, BigQuery is NOT designed to find one row in a fat table as:
+    - it will scan the entire table to find that row.
+    - it will be very expensive
+    - and very slow.
+
+    BUT sometimes you really need this use case.
+    You have worked hard to consolidate a 360° view of your customers and you want to expose a dashboard to your customer care deparment so that they can look for one particular customer at a time.
+
+    SEARCH INDEX enables you to do exactly this:
+    1️⃣ Create a search index on customer_id column of your table
+    2️⃣ Use SEARCH bigquery function to look for the data of one customer_id.
+
+
+    Now I can keep this use case for less than the cost of a cup of coffee! ☕
+
+
+    Details here: https://lnkd.in/ez2yBpfT
+    and there https://lnkd.in/eXHtWXqB
+
+    What's more, Google is expanding indexes use cases dramatically. Read this blog post! https://lnkd.in/egHEtakw
+
+    bigquery gcp googlecloud finops
+
+    Photo by Gian Cescon on Unsplash
+
+- id: 2023-09-15_composable_cdp_are_dead_long_live_datawarehouse_co
+  type: image
+  title: |
+    Composable CDP are dead, long live Data-Warehouse Connected Products 🔌?
+  author: Paul Marcombes
+  date: "2023-09-15"
+  url: https://www.linkedin.com/posts/paul-marcombes_composable-cdp-are-dead-long-live-data-warehouse-activity-7108467280665042945-oQUj?utm_source=combined_share_message&utm_medium=member_desktop
+  likes: 53
+  reshares: 2
+  impressions: 9944
+  comments: 19
+  article_title: |
+    null
+  article_url: null
+  images: ['https://media.licdn.com/dms/image/v2/D4E22AQFpCFZNvTQukQ/feedshare-shrink_2048_1536/feedshare-shrink_2048_1536/0/1694790667765?e=1741219200&v=beta&t=nRfKUxMtSfGrnFhJx8nmQiScSRocDtubQy_84VrI8AA']
+  image_url: ../assets/blog/2023-09-15_composable_cdp_are_dead_long_live_datawarehouse_co
+  text: |
+    It makes no sense to waste effort building a 360° Customer View several times over with several tools. 🧐
+
+    That's how Composable CDP were born!
+
+    You already have a 360° view of your customer in your Data-Warehouse. Use it instead of duplicating your data again! Composable CDP are products built on top of your data-warehouse to activate its data to downstreams tools.
+
+
+    But today, more and more products announce to be data-warehouse-connected 🔌.
+
+
+    1️⃣ Salesforce is now connected to your data-warehouse
+    2️⃣ Mixpanel is now connected to your data-warehouse
+
+
+    Are Composable CDP dead 🧛?
+
+    What do you think?
+    I'd love to read your comments!
+
+
+
+    Sources:
+
+    - Composable CDP definition from Hightouch: https://lnkd.in/eszsvUK6
+    - Mixpanel connected to data-warehouse: https://lnkd.in/edq9DEk2
+    - Salesforce and Snowflake real time data sharing: https://lnkd.in/eFEg-bMz
+
+- id: 2023-08-09_tout_sur_le_selfservice_analytics_ou_lautonomie_da
+  type: text
+  title: |
+    Tout sur le self-service analytics ou l’autonomie dans l’analyse de données.
+  author: Paul Marcombes
+  date: "2023-08-09"
+  url: https://www.linkedin.com/posts/paul-marcombes_self-service-r%C3%AAve-ou-r%C3%A9alit%C3%A9-cest-activity-7094969227513626624-yTga?utm_source=combined_share_message&utm_medium=member_desktop
+  likes: 21
+  reshares: 0
+  impressions: 2305
+  comments: 1
+  article_title: |
+    null
+  article_url: null
+  images: []
+  image_url: null
+  text: |
+    A écouter sur la plage ou au bord de la piscine sans modération.
+
+    Je retiens de cette discussion avec Christophe Blefari  et Pierre de Poulpiquet :
+
+
+    1️⃣ L’autonomie peut amener au chaos si chacun fait des choses dans son coin, avec des données différentes, des définitions différentes, des outils différents.
+
+    2️⃣ Il semble essentiel de structurer l’approche et de centraliser les données, les transformations, les définitions. Whaly ou dbt sont top pour cela. Des personnes doivent veiller au maintien de cohérence de l’ensemble et animer la communauté des utilisateurs.
+
+    3️⃣ Des super-tables (peu de tables mais larges et très bien documentées) et super-dashboards (peu de dashboards de référence mais bien fournis) permettent de centraliser la connaissance et sont un excellent moyen de limiter les mauvaises interprétations et diminuer la complexité afin de rendre autonome. Toute nouvelle connaissance devrait se matérialiser dans ces assets. Les animateurs aident chacun à faire cela: ce n’est pas naturel de faire ce travail en plus après une analyse.
+
+    4️⃣ Il y a plusieurs degrés d’autonomie. On peut aussi rendre les data analysts autonomes pour devenir indépendants des data engineers et activer eux mêmes les données.
+
+
+    Merci Christophe Blefari et Pierre de Poulpiquet , j’ai passé un très bon moment et cela m’a pas mal inspiré.
+
+    Bonnes vacances! 🏖️
+
+- id: 2023-07-17_dataengineering_practices_are_changing
+  type: text
+  title: |
+    Data-Engineering practices are changing!
+  author: Paul Marcombes
+  date: "2023-07-17"
+  url: https://www.linkedin.com/posts/paul-marcombes_bigquery-to-datastore-via-remote-functions-activity-7086646820033945600-Kqtg?utm_source=combined_share_message&utm_medium=member_desktop
+  likes: 73
+  reshares: 0
+  impressions: 6667
+  comments: 6
+  article_title: |
+    null
+  article_url: null
+  images: []
+  image_url: null
+  text: |
+    I love this very educational video from Richard Shenghua (升华) He which explains how a SQL query can export BigQuery data towards any other systems. 🤩
+
+
+    It means you can now send BigQuery data directly from your dbt models or dbt post hooks ⚡:
+
+    1️⃣ to a realtime database such as datastore for fast data serving
+    2️⃣ to chat systems such as slack, google chat
+    3️⃣ to excel files sent by emails
+    4️⃣ to literrally any API 👀
+
+
+    BigFunctions is a catalog of open-source functions to expand BigQuery capabilities.
+
+    If you like it, don't hesitate to star it ⭐  ! https://lnkd.in/emfVXKjJ
+
+
+    gcp dataengineering
+
+- id: 2023-06-20_expose_your_bigquery_data_in_a_realtime_database_f
+  type: image
+  title: |
+    Expose your BigQuery data in a real-time database from `dbt` 💎
+  author: Paul Marcombes
+  date: "2023-06-20"
+  url: https://www.linkedin.com/posts/paul-marcombes_bigquery-bigfunctions-dataengineering-activity-7076847468805550080-sENE?utm_source=combined_share_message&utm_medium=member_desktop
+  likes: 155
+  reshares: 9
+  impressions: 22303
+  comments: 8
+  article_title: |
+    null
+  article_url: null
+  images: ['https://media.licdn.com/dms/image/v2/D4E22AQGob6hht5px7w/feedshare-shrink_2048_1536/feedshare-shrink_2048_1536/0/1687246309021?e=1741219200&v=beta&t=ukOwg94lG7evvv0GAzpqQdFujLSAWkX_BL57y7qgwpM']
+  image_url: ../assets/blog/2023-06-20_expose_your_bigquery_data_in_a_realtime_database_f
+  text: |
+    BigQuery is perfect for massive calculations, but is not designed to obtain key-value data very quickly.
+
+    And in the following use cases, you'd love to be able to retrieve quickly customer-profiles pre-computed in BigQuery:
+
+    1️⃣  Content personalization 📄
+    2️⃣  Real-time notifications 💬
+    3️⃣  Embedded Analytics 📈
+    4️⃣  Fraud-fighting 🐱‍👤
+
+
+    Hopefully, El-Walid Ibrahim from Esmoz created a BigQuery function to export BigQuery data to Google Datastore which is specifically designed to obtain key-value data. 👀
+
+    You can even use a dbt post-hook (as seen in the image) to sync your dbt model to Datastore automatically at `dbt run`  😲
+
+
+    Actually, you don't event need dbt. It works in SQL ⚡.
+    So it will also work in your dataform, sqlmesh, scheduled queries, etc.
+
+    Just try this in your BigQuery 👇:
+    -------------------------------------------------
+    select bigfunctions.eu.export_to_datastore(
+        'your-project',
+        'your_namespace',
+        'your_kind',
+        'user1234',
+        json '{"score": 0.99}'
+    )
+
+
+    ---
+    - Function Doc: https://lnkd.in/eqHcUMmn
+    - BigFunctions is a catalog of open-source functions to supercharge BigQuery.
+
+    𝑩𝒆𝒄𝒐𝒎𝒆 𝒂 𝒔𝒕𝒂𝒓𝒈𝒂𝒛𝒆𝒓! ⭐!
+    Add a ⭐ to the GitHub: https://lnkd.in/emfVXKjJ
+
+
+    bigquery bigfunctions dataengineering gcp
+
+- id: 2023-06-16_run_any_python_code_in_bigquery__
+  type: image
+  title: |
+    Run any python code in BigQuery  🐍
+  author: Paul Marcombes
+  date: "2023-06-16"
+  url: https://www.linkedin.com/posts/paul-marcombes_bigquery-bigfunctions-dataengineering-activity-7075409796245381120-PIaU?utm_source=combined_share_message&utm_medium=member_desktop
+  likes: 241
+  reshares: 9
+  impressions: 18974
+  comments: 27
+  article_title: |
+    null
+  article_url: null
+  images: ['https://media.licdn.com/dms/image/v2/D4E22AQFAlqQSBEE2IA/feedshare-shrink_2048_1536/feedshare-shrink_2048_1536/0/1686909148683?e=1741219200&v=beta&t=H1-UWNif_eTnN6vwh0RBXby31DCVwnfjhxsG2iqkPOo']
+  image_url: ../assets/blog/2023-06-16_run_any_python_code_in_bigquery__
+  text: |
+    When Axel Thevenot from Devoteam came to me and told me:
+    👉 ❝ What if we had a function capable of executing any python code inside BigQuery? ❞
+
+    I was like:
+    1️⃣  Wow, this is potentially a game changer! 😲
+    2️⃣  Yes, but it raises a ton of security concerns 😈
+
+
+    Working together, we finally managed to create that function which enables anyone to execute arbitrary python code in BigQuery while keeping things secure (thanks to sandboxing). 🚀
+
+
+    Try it! (it works without install):
+    select bigfunctions.eu.run_python('return 1 + 1', null, null)
+
+    ---
+    - Function Doc: https://lnkd.in/e5PUJWcq
+    - BigFunctions is a catalog of open-source functions to supercharge BigQuery.
+
+    𝑩𝒆𝒄𝒐𝒎𝒆 𝒂 𝒔𝒕𝒂𝒓𝒈𝒂𝒛𝒆𝒓! ⭐!
+    Add a ⭐ to the GitHub: https://lnkd.in/emfVXKjJ
+
+
+    bigquery bigfunctions dataengineering gcp
+
+- id: 2023-06-08_sync_any_dbt_model_into_google_sheet_at_dbt_run__
+  type: image
+  title: |
+    Sync any dbt model into Google Sheet at `dbt run`  👌
+  author: Paul Marcombes
+  date: "2023-06-08"
+  url: https://www.linkedin.com/posts/paul-marcombes_bigquery-bigfunctions-dataengineering-activity-7072497509008334848-TNy6?utm_source=combined_share_message&utm_medium=member_desktop
+  likes: 213
+  reshares: 4
+  impressions: 22475
+  comments: 16
+  article_title: |
+    null
+  article_url: null
+  images: ['https://media.licdn.com/dms/image/v2/D4E22AQF61bWEnZxKmA/feedshare-shrink_2048_1536/feedshare-shrink_2048_1536/0/1686173086820?e=1741219200&v=beta&t=RInhjpPX-IBSsGLZIp4Xppq7vd4SI2bjavlFATj31Hg']
+  image_url: ../assets/blog/2023-06-08_sync_any_dbt_model_into_google_sheet_at_dbt_run__
+  text: |
+    Keep your finance team updated ✅ (or any other spreadsheet-lover ❤️) !
+
+    Thanks to dbt post-hooks and the brand-new BigQuery function from  Shivam Singh, any BigQuery dbt model can now be uploaded to a Google Sheet at the moment it is updated. 👀
+
+
+    Actually, you don't event need dbt. It works in SQL ⚡.
+    So it will also work in your dataform, sqlmesh, scheduled queries, etc.
+
+    Just try this in your BigQuery 👇:
+    -------------------------------------------------
+    call bigfunctions.eu.upload_table_to_gsheet(
+         '(select 1 as column1)',
+          1000,
+          'YOUR_SPREADSHEET_URL',
+          'a worksheet name',
+          'write_truncate'
+    );
+
+
+    ---
+    - Function Doc: https://lnkd.in/eJ2We3hh
+    - BigFunctions is a catalog of open-source functions to supercharge BigQuery.
+
+    𝑩𝒆𝒄𝒐𝒎𝒆 𝒂 𝒔𝒕𝒂𝒓𝒈𝒂𝒛𝒆𝒓! ⭐!
+    Add a ⭐  to the GitHub: https://lnkd.in/emfVXKjJ
+
+
+    bigquery bigfunctions dataengineering gcp
+
+- id: 2023-05-24__ask_questions_to_bigquery_in_english__
+  type: image
+  title: |
+    😲 Ask Questions to BigQuery in English  !
+  author: Paul Marcombes
+  date: "2023-05-24"
+  url: https://www.linkedin.com/posts/paul-marcombes_bigquery-bigfunctions-gcp-activity-7067172657221263360-cJaZ?utm_source=combined_share_message&utm_medium=member_desktop
+  likes: 151
+  reshares: 4
+  impressions: 15945
+  comments: 8
+  article_title: |
+    null
+  article_url: null
+  images: ['https://media.licdn.com/dms/image/v2/D4E22AQGKpWOThmvFKA/feedshare-shrink_2048_1536/feedshare-shrink_2048_1536/0/1684945261690?e=1741219200&v=beta&t=5Ri0nHVNI7MPTsrtGFf3lBIzipn0f-5o3asKBciowDY']
+  image_url: ../assets/blog/2023-05-24__ask_questions_to_bigquery_in_english__
+  text: |
+    Every BigQuery user can NOW ask questions over their data in English.
+
+    The BigQuery function 'ask_my_data' converts your English question into SQL adapted to your data and execute it.
+
+    To try it, simply execute the query written in first comment.
+    (no install required!)
+
+
+    ? How does it work?
+
+    1️⃣ The function retrieves the table schema from INFORMATION_SCHEMA
+    2️⃣ It asks a Google language model to generate the SQL code from your question and the table schema.
+    3️⃣ It executes the generated query 🚀
+
+
+    🐛 Does it always work?
+    Probably not.
+    Yet, I noted that if the names of your columns are self-explanatory, it works very often. And if it fails, the functions gives you details why and you can adjust your question.
+
+
+    ➕ How can I get more info?
+    -  BigFunctions is an open-source catalog of BigQuery functions.
+    -  Read 'ask_my_data' doc: https://lnkd.in/ePp9pYiv
+
+
+    ❤️ BigFunctions is fully Open-Source
+    If you like it, consider adding a ⭐  on the GitHub repo, and we'll build more!
+    👉 https://lnkd.in/emfVXKjJ
+
+
+    bigquery bigfunctions gcp dataengineering googlecloud
+
+- id: 2023-05-17_generating_pdf_invoices_from_bigquery__
+  type: image
+  title: |
+    Generating PDF invoices from BigQuery  📄
+  author: Paul Marcombes
+  date: "2023-05-17"
+  url: https://www.linkedin.com/posts/paul-marcombes_bigquery-bigfunctions-dataengineering-activity-7064560205765693440-aIbv?utm_source=combined_share_message&utm_medium=member_desktop
+  likes: 107
+  reshares: 3
+  impressions: 11610
+  comments: 4
+  article_title: |
+    null
+  article_url: null
+  images: ['https://media.licdn.com/dms/image/v2/D4E22AQGKC8OMFbB0pQ/feedshare-shrink_2048_1536/feedshare-shrink_2048_1536/0/1684322404524?e=1741219200&v=beta&t=aOsZTceyuYlyHk_QMm3krt6mf-HwSGENhRP4335kV1c']
+  image_url: ../assets/blog/2023-05-17_generating_pdf_invoices_from_bigquery__
+  text: |
+    You want to generate PDF files from BigQuery to:
+
+    1️⃣ Generate custom PDF reports with data
+    2️⃣ Generate customized PDF files by client
+
+
+    One good example is when you need to generate monthly pdf invoices based on client consumptions. 🧐
+
+
+    You can now do this with one BigQuery query 👀
+    Indeed, Guillaume Pivette from Neoxia created a function to convert html (built from user data) to pdf.  🙌
+
+
+    The following query will:
+    1️⃣ Get an invoice as html from internet
+    2️⃣ Convert it to pdf
+    3️⃣ Send it to YOUR_EMAIL_ADDRESS
+
+    Just try it, you'll be amazed! 😲
+    (it works in your own BigQuery without install)
+
+
+    ---
+
+    select 
+      bigfunctions.eu.send_mail(
+        'YOUR_EMAIL_ADDRESS',
+        'Email from BigQuery with PDF attached',
+        '''
+         BigQuery can send personalized emails!
+        Your PDF is attached!
+        ''',
+        'invoice.pdf',
+        (select 
+          bigfunctions.eu.html2pdf(
+            bigfunctions.eu.get(
+              'https://lnkd.in/eQd7wvDX', null
+            )
+        ))
+    )
+
+    ---
+
+    (in a real world example, you would not download the html through the internet of course, but build it in BigQuery from your customer data. You can check render_string bigfunction to help you with that).
+
+
+    ---
+    - Function Doc: https://lnkd.in/e8KXcpeH
+    - BigFunctions is a catalog of open-source functions to supercharge BigQuery.
+
+    You want more of these? 
+    Add a ⭐ on GitHub! 👉 https://lnkd.in/emfVXKjJ
+
+
+    bigquery bigfunctions dataengineering gcp
+
+- id: 2023-05-12_generative_ai_is_available_in_bigquery_and_i_just_
+  type: image
+  title: |
+    Generative AI is available in BigQuery and I just learned two things 🧠
+  author: Paul Marcombes
+  date: "2023-05-12"
+  url: https://www.linkedin.com/posts/paul-marcombes_palm2-bigquery-bigfunctions-activity-7062713193789300736-YU2h?utm_source=combined_share_message&utm_medium=member_desktop
+  likes: 1021
+  reshares: 62
+  impressions: 144227
+  comments: 50
+  article_title: |
+    null
+  article_url: null
+  images: ['https://media.licdn.com/dms/image/v2/D4E22AQGF9NY8Twr5UQ/feedshare-shrink_2048_1536/feedshare-shrink_2048_1536/0/1683882042913?e=1741219200&v=beta&t=idzM1Q8RPHbWf-XRwuG8_NpJKDkJAEHb9urPJAYmrUU']
+  image_url: ../assets/blog/2023-05-12_generative_ai_is_available_in_bigquery_and_i_just_
+  text: |
+    Google released new language models paLM2 this wednesday and I could not wait to add a bigquery integration. 😊
+
+    👉 You can now run in BigQuery:
+    select bigfunctions.eu.ask_bison('ANY QUESTION')  😲
+
+
+    So asking it the question in the image, I learned two SQL things that I didn't know:
+    1️⃣  We can compare timestamps with dates expressed in string.
+    2️⃣  In `order by` clause we can put the alias of the computed aggregate
+
+
+    Regardless of these tips, what amazed me the most was that I could improve my skills so easily. 👀
+
+    I'd be very happy to read in comments how you think generative AI will help you.
+
+
+    ---
+    - Function Doc: https://lnkd.in/ewWGdv8B
+    - BigFunctions is a catalog of open-source functions to supercharge BigQuery.
+
+    If you want more of these:
+    Please add a ⭐ to the GitHub: https://lnkd.in/emfVXKjJ
+
+    bigquery bigfunctions dataengineering gcp
+
+- id: 2023-05-10_bigquery_excel_report_in_your_inbox__the_easy_way
+  type: document
+  title: |
+    BigQuery Excel Report in your inbox ➜ the easy way!
+  author: Paul Marcombes
+  date: "2023-05-10"
+  url: https://www.linkedin.com/posts/paul-marcombes_bigquery-excel-report-the-easy-way-activity-7061995791602606080-hp60?utm_source=combined_share_message&utm_medium=member_desktop
+  likes: 124
+  reshares: 5
+  impressions: 16172
+  comments: 9
+  article_title: |
+    null
+  article_url: null
+  images: []
+  image_url: null
+  text: |
+    Sending a BigQuery table as an Excel file to your team simply requires the execution of a SQL query 👀.
+
+    (Thanks to Guillaume Pivette from Neoxia who created the open-source bigquery function send_mail 🙌🚀)
+
+
+    You can now send by email any dbt model as an Excel file thanks to dbt post-hooks. Or you can use scheduled queries, or dataform, or any data app you prefer 😁.
+
+
+    Try it now! 
+    Simply execute:
+
+    ----------------------------------------------
+    call bigfunctions.eu.send_mail_with_excel(
+      'YOUR_EMAIL_ADDRESS',
+      'Financial Report', 
+      '''
+       Monthly Report from BigQuery
+
+       KPIs
+
+      - **MRR**: 32,343 USD
+      - **Churn**: 4.2 %
+      - **Subscriptions**: +3452
+      ''', 
+      'report.xlsx', 
+      'bigfunctions.samples.natality'
+    )
+    ----------------------------------------------
+
+    𝒀𝒐𝒖 𝒘𝒂𝒏𝒕 𝑴𝑶𝑹𝑬?
+    Add a ⭐ on GitHub!
+    GitHub: https://lnkd.in/emfVXKjJ
+
+    Doc: https://lnkd.in/e_jeyrra
+
+    bigquery bigfunctions analyticsengineering gcp
+
+- id: 2023-05-04_zeroetl_in_bigquery_there_is_more_
+  type: image
+  title: |
+    Zero-ETL in BigQuery: there is More ➕
+  author: Paul Marcombes
+  date: "2023-05-04"
+  url: https://www.linkedin.com/posts/paul-marcombes_bigquery-bigfunctions-activity-7059821460420235264-jpDf?utm_source=combined_share_message&utm_medium=member_desktop
+  likes: 150
+  reshares: 7
+  impressions: 21501
+  comments: 14
+  article_title: |
+    null
+  article_url: null
+  images: ['https://media.licdn.com/dms/image/v2/D5622AQHy13f05v-ZMw/feedshare-shrink_2048_1536/feedshare-shrink_2048_1536/0/1683121739584?e=1741219200&v=beta&t=UO2DXR2pwuHOOQyhF4gA3oGquAIruKZtuLGYfYenDcE']
+  image_url: ../assets/blog/2023-05-04_zeroetl_in_bigquery_there_is_more_
+  text: |
+    Did you know you can query any API from BigQuery 👀?
+
+
+
+    By enabling data-practitioners to query data-sources without first moving the data to the data-warehouse, BigQuery has been a pioneer in Zero-ETL.
+
+    You probably know that you can query data from bigtable, spanner, cloud sql, google sheets, files, etc using BigQuery interface. But did you know you can also query data from any API using BigQuery 👀??
+
+    --------------------------------------------------
+    select bigfunctions.eu.get('ANY_API_URL', null)
+    --------------------------------------------------
+
+
+
+
+    👀 Johan PROTIN from Zenika went further by creating a function to get latest exchange rates.
+    Try it! 👇
+    --------------------------------------------------
+    select bigfunctions.eu.exchange_rate('USD', 'EUR')
+    --------------------------------------------------
+
+
+
+
+    Did I mention this is fully open-source?
+    Please add a ⭐ to the GitHub if you want more of these functions.
+    GitHub: https://lnkd.in/emfVXKjJ
+
+    Function Doc: https://lnkd.in/gFJcDg3F
+
+
+    (the exchange rates are provided by https://exchangerate.host)
+
+    bigquery bigfunctions
+
+- id: 2023-05-02_sending_slack_notifications_from_bigquery_
+  type: image
+  title: |
+    Sending Slack notifications from BigQuery 💬
+  author: Paul Marcombes
+  date: "2023-05-02"
+  url: https://www.linkedin.com/posts/paul-marcombes_bigquery-bigfunctions-activity-7059096700816089091-8N06?utm_source=combined_share_message&utm_medium=member_desktop
+  likes: 267
+  reshares: 10
+  impressions: 34606
+  comments: 18
+  article_title: |
+    null
+  article_url: null
+  images: ['https://media.licdn.com/dms/image/v2/D4E22AQF517wIcfFCNg/feedshare-shrink_2048_1536/feedshare-shrink_2048_1536/0/1682701185939?e=1741219200&v=beta&t=D-0_Esp40B9c6qo5HRcbJSfWQ5qDeNsiPI-AHrfKZ-s']
+  image_url: ../assets/blog/2023-05-02_sending_slack_notifications_from_bigquery_
+  text: |
+    👀 Guillaume Pivette from Neoxia just created a new function to send Slack messages with a simple BigQuery SQL query !
+
+    Try it! (no install needed)
+    👉 follow the doc: https://lnkd.in/e2bTfTeS
+
+
+    This was inspired by Shivam Singh function to send messages to Google Chat.  This shows what I really like about open-source: the power of a community 💪
+
+
+    Please add a ⭐ to the GitHub if you want more of these functions.
+
+    GitHub: https://lnkd.in/emfVXKjJ
+
+    bigquery bigfunctions
+
+- id: 2023-04-28_sending_notifications_from_bigquery_
+  type: image
+  title: |
+    Sending notifications from BigQuery 💌
+  author: Paul Marcombes
+  date: "2023-04-28"
+  url: https://www.linkedin.com/posts/paul-marcombes_bigquery-bigfunctions-activity-7057647104319442944-qEzb?utm_source=combined_share_message&utm_medium=member_desktop
+  likes: 510
+  reshares: 13
+  impressions: 67089
+  comments: 29
+  article_title: |
+    null
+  article_url: null
+  images: ['https://media.licdn.com/dms/image/v2/D4E22AQFDIrz6wBUSJw/feedshare-shrink_2048_1536/feedshare-shrink_2048_1536/0/1682674192785?e=1741219200&v=beta&t=0foNDL0m0LjxQO9BpJsctsJjNLBmyyKtb1LgMY8NWLQ']
+  image_url: ../assets/blog/2023-04-28_sending_notifications_from_bigquery_
+  text: |
+    Sending Google Chat notifications from BigQuery has never been easier.
+
+    👉 Shivam Singh created a simple BigQuery function that you can call in SQL without install. 👀
+
+
+    You will then be able to:
+
+    1️⃣ Notify Produt teams about KPIs
+    2️⃣ Alert when there is a drop in a metric
+    3️⃣ Schedule notifications from dbt or scheduled queries
+    4️⃣ Deploy this function in one-click in your own GCP project.
+     
+
+
+    Simply execute this query after replacing YOUR_CHAT_URL.
+    (follow the documentation to get YOUR_CHAT_URL:  https://lnkd.in/ehyZ5zbd )
+
+    -----------------------------------------------
+    select bigfunctions.eu.send_google_chat_message(
+        'Hello 👋',  
+        'YOUR_CHAT_URL'
+    )
+    -----------------------------------------------
+
+
+    Did I mention this is fully open-source?
+
+
+    Please add a ⭐ to the GitHub if you want more of these functions.
+
+    GitHub: https://lnkd.in/emfVXKjJ
+
+
+    bigquery bigfunctions
+
+- id: 2023-04-25_generate_fake_data_in_bigquery
+  type: image
+  title: |
+    Generate fake data in BigQuery
+  author: Paul Marcombes
+  date: "2023-04-25"
+  url: https://www.linkedin.com/posts/paul-marcombes_bigquery-bigfunctions-activity-7056559998029418496-sTRi?utm_source=combined_share_message&utm_medium=member_desktop
+  likes: 364
+  reshares: 20
+  impressions: 39437
+  comments: 20
+  article_title: |
+    null
+  article_url: null
+  images: ['https://media.licdn.com/dms/image/v2/D4E22AQEeO0OgTKF0Uw/feedshare-shrink_2048_1536/feedshare-shrink_2048_1536/0/1682406749932?e=1741219200&v=beta&t=ow7DAffgJL_QkrbbY4ub7HapaImQp2vjUWfcmq4nmwE']
+  image_url: ../assets/blog/2023-04-25_generate_fake_data_in_bigquery
+  text: |
+    While working in a non-production environment you may want to generate fake data for testing purposes.
+
+    Shivam Singh brought the great `faker` python library directly into BigQuery so that you can call it directly without install. 👀
+
+
+    Just try the following query:
+
+    ''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+    select
+      bigfunctions.eu.faker('first_name',   'it_IT')  as first_name,
+      bigfunctions.eu.faker('last_name',     null)    as last_name,
+      bigfunctions.eu.faker('email',         null)    as email,
+      bigfunctions.eu.faker('address',       null)    as address,
+      bigfunctions.eu.faker('date_of_birth', null)    as date_of_birth,
+    from unnest(generate_array(1, 100))
+    ''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+
+
+    You can also deploy the function in one-click in your own project. Follow the Readme in GitHub. 💡
+
+
+    Docs: https://lnkd.in/e3M6gjAG
+    GitHub: https://lnkd.in/emfVXKjJ
+
+
+    Please add a ⭐ to the GitHub if you want more of these functions.
+
+
+    bigquery bigfunctions
+
+- id: 2023-04-19_deidentifying_text_in_bigquery
+  type: image
+  title: |
+    De-identifying text in BigQuery
+  author: Paul Marcombes
+  date: "2023-04-19"
+  url: https://www.linkedin.com/posts/paul-marcombes_bigquery-bigfunctions-activity-7054363025339736064-zRQf?utm_source=combined_share_message&utm_medium=member_desktop
+  likes: 53
+  reshares: 5
+  impressions: 7549
+  comments: 10
+  article_title: |
+    null
+  article_url: null
+  images: ['https://media.licdn.com/dms/image/v2/D4E22AQGnTYEoZrzR8Q/feedshare-shrink_2048_1536/feedshare-shrink_2048_1536/0/1681858325989?e=1741219200&v=beta&t=T9gwoRoWbetEvyKMe8ftplTzoIuamh9Q4kz63jKtJfY']
+  image_url: ../assets/blog/2023-04-19_deidentifying_text_in_bigquery
+  text: |
+    ELT has a drawback over ETL.
+
+    As you get data without transform from your sources into you warehouse, (using fivetran, airbyte or any other modern-data-stack ingestion tool), your warehouse will contain personal data that you need to redact before exposing it to users.
+
+    This new BigQuery function from Shivam Singh that you can call without install from your project may then help you 👀.
+
+
+    Documentation Link in first comment 👇
+
+
+    bigquery bigfunctions
+
+- id: 2023-04-15_celebrating__10_contributors_to_help_data_practici
+  type: image
+  title: |
+    Celebrating 🥳 10 contributors to help data practicioners
+  author: Paul Marcombes
+  date: "2023-04-15"
+  url: https://www.linkedin.com/posts/paul-marcombes_bigfunctions-data-activity-7052963262488797184-BO1B?utm_source=combined_share_message&utm_medium=member_desktop
+  likes: 70
+  reshares: 3
+  impressions: 5776
+  comments: 4
+  article_title: |
+    null
+  article_url: null
+  images: ['https://media.licdn.com/dms/image/v2/D4E22AQGy7Aca2d8H2A/feedshare-shrink_2048_1536/feedshare-shrink_2048_1536/0/1681557477818?e=1741219200&v=beta&t=BaXjlGZ9UcYKCG8nFnb1S3YxigQVGydprSReX6ZeUbs']
+  image_url: ../assets/blog/2023-04-15_celebrating__10_contributors_to_help_data_practici
+  text: |
+    When I launched bigfunctions, an open-source product to help data analysts not reinvent the wheel, I wasn't even sure it would get noticed.
+
+    Today is a big milestone to me as we celebrate our 10th contributor.
+
+
+    Thanks 🙏 Furcy Pin  sid ali sadi Benjamin Tabet  Thomas Lepine Jason Tragakis Jihene Cherif Tom Ellyatt Shivam Singh Anatole Callies
+
+
+    Creating an open-source product is a great adventure. I advise you to go for it you’re hesitating. Or contribute to this one ☝️😁
+
+
+    BigFunctions repo link is 👇
+
+    data
+
+- id: 2023-04-13_tonight_i_met_felipe_hoffa_from_snowflake
+  type: image
+  title: |
+    Tonight I met Felipe Hoffa from snowflake
+  author: Paul Marcombes
+  date: "2023-04-13"
+  url: https://www.linkedin.com/posts/paul-marcombes_snowflake-bigfunctions-bigquery-activity-7052364212555173889-y7aH?utm_source=combined_share_message&utm_medium=member_desktop
+  likes: 41
+  reshares: 1
+  impressions: 4548
+  comments: 1
+  article_title: |
+    null
+  article_url: null
+  images: ['https://media.licdn.com/dms/image/v2/D5622AQHSvEw9GSEaOw/feedshare-shrink_2048_1536/feedshare-shrink_2048_1536/0/1681414652921?e=1741219200&v=beta&t=iT4EXq1Kub-HoJubjyYcCjTaC559QGekvkYvnVlOlCo']
+  image_url: ../assets/blog/2023-04-13_tonight_i_met_felipe_hoffa_from_snowflake
+  text: |
+    Felipe Hoffa inspired me for a long time by writing content about data-warehousing and in particular:
+    👉 how to create functions on top of your data-warehouse to give super-powers to your data-analysts . 💥
+
+
+    For instance:
+
+    1. geolocate IP address: https://lnkd.in/gTPdqfAi
+
+    2. send emails from your warehouse: https://lnkd.in/gFeTpuqk
+
+    3. various functions including text fuzzy matching: https://lnkd.in/gXar3_ZP
+
+
+    I'd even say it may have influenced me for my personal project:
+    👉 create a catalog of open-source functions so that data-analysts stop reinventing the wheel 👉  bigfunctions.
+
+
+    Thanks Felipe Hoffa for inspiring me.
+    You again inspired me tonight and I deployed this new open-source bigquery function for time-series forecasting using prophet.
+
+
+    - Felipe's article if you want to deploy the function in snowflake: https://lnkd.in/g3UTKvkh
+    - BigFunctions open-source repo ( 🙏  add a star if you like it): https://lnkd.in/emfVXKjJ
+    - prophet bigfunction documentation: https://lnkd.in/gVfndJUB
+
+
+    Thanks Didier Girard and Florent Legras for inviting me and make this meeting happen.
+
+- id: 2023-04-12_5_reasons_why_you_want_to_use_this_bigquery_functi
+  type: image
+  title: |
+    5 reasons why you want to use this bigquery function
+  author: Paul Marcombes
+  date: "2023-04-12"
+  url: https://www.linkedin.com/posts/paul-marcombes_bigquery-bigfunction-activity-7051947091337596928-FTwe?utm_source=combined_share_message&utm_medium=member_desktop
+  likes: 114
+  reshares: 3
+  impressions: 12281
+  comments: 8
+  article_title: |
+    null
+  article_url: null
+  images: ['https://media.licdn.com/dms/image/v2/D4E22AQE6RRE5p9nvRQ/feedshare-shrink_2048_1536/feedshare-shrink_2048_1536/0/1681246515500?e=1741219200&v=beta&t=87Cm1FgO40K25v3g3jHII8UV8hPG6DKlhzopG2Ww3xM']
+  image_url: ../assets/blog/2023-04-12_5_reasons_why_you_want_to_use_this_bigquery_functi
+  text: |
+    1️⃣ Check that addresses exist
+    2️⃣ Clean up typos in addresses
+    3️⃣ Get address hierarchy with address components
+    4️⃣ Match two addresses whose text is not strictly identical
+    5️⃣ Find the nearest point of sale using latitude and longitude
+
+    This bigfunction is available in your BigQuery project without install. Try it! (you can also redeploy it with one click).
+
+    If you like it, 🙏  add a ⭐  to the GitHub repo: https://lnkd.in/emfVXKjJ
+
+
+    Why would you use this function for?
+
+- id: 2023-04-11_elt_replaced_etl
+  type: image
+  title: |
+    ELT replaced ETL
+  author: Paul Marcombes
+  date: "2023-04-11"
+  url: https://www.linkedin.com/posts/paul-marcombes_bigquery-bigfunctions-activity-7051519957183913984-yr4J?utm_source=combined_share_message&utm_medium=member_desktop
+  likes: 92
+  reshares: 1
+  impressions: 6647
+  comments: 13
+  article_title: |
+    null
+  article_url: null
+  images: ['https://media.licdn.com/dms/image/v2/D4E22AQHw-cE22OeFDg/feedshare-shrink_2048_1536/feedshare-shrink_2048_1536/0/1681213367862?e=1741219200&v=beta&t=6wq2BVx4YHWFuKreEukF3VkEmHifKMIFQhEu7QkRhms']
+  image_url: ../assets/blog/2023-04-11_elt_replaced_etl
+  text: |
+    Most transformations are now performed in SQL in the data warehouse. For specific needs such as parsing xml data, however, this can be tedious.
+
+    🙏 Shivam Singh for bringing this xml2json function to the bigquery community who can use it directly, without install.
+
+    bigfunctions is open-source. Please support us by adding a ⭐ to the GitHub repo if you like it (links in first comment).
+
+- id: 2023-03-15_les_dataanalysts_ne_devraient_pas_se_contenter_de_
+  type: image
+  title: |
+    Les data-analysts ne devraient pas se contenter de faire des analyses de données pour obtenir des insights.
+  author: Paul Marcombes
+  date: "2023-03-15"
+  url: https://www.linkedin.com/posts/paul-marcombes_data-realtime-dataanalysts-activity-7041808042627092480-pXPO?utm_source=combined_share_message&utm_medium=member_desktop
+  likes: 204
+  reshares: 2
+  impressions: 21825
+  comments: 32
+  article_title: |
+    null
+  article_url: null
+  images: ['https://media.licdn.com/dms/image/v2/C4E22AQG45CMrFtqziw/feedshare-shrink_2048_1536/feedshare-shrink_2048_1536/0/1678897866966?e=1741219200&v=beta&t=C3imC6qneLAmRI52rlbMBN-C4R9qlHqYi5s2rHSA22s']
+  image_url: ../assets/blog/2023-03-15_les_dataanalysts_ne_devraient_pas_se_contenter_de_
+  text: |
+    @Data-Analysts,
+    🚀 Impactez directement l'experience utilisateur avec des algos data. 🚀
+
+
+    Je ne suis pas peu fier d'avoir présenté notre plateforme data realtime qui permet aux dataanalysts de Nickel, en toute autonomie, de:
+
+    ✅ envoyer des notifications personnalisées temps réel
+    ✅ faire de la personnalisation de contenu
+    ✅ lutter contre la fraude
+    ✅ faire de l'alerting
+    ✅ etc
+
+
+
+    👏  Josselin Pujo de SFEIR, Hachem LATRACH Charlotte Rudnik et toute les équipes data de Nickel pour ces réalisations 🙏
+
+    Merci SFEIR pour l'occasion de présenter cela à votre journée d'onboarding googlecloud
+
+
+    gcp moderndatastack bigquery bigtable cloudrun
+
+- id: 2022-12-21_the_modern_data_stack_was_founded_to_give_full_aut
+  type: image
+  title: |
+    The modern data stack was founded to give full autonomy to data-analysts BUT we miss essential features...
+  author: Paul Marcombes
+  date: "2022-12-21"
+  url: https://www.linkedin.com/posts/paul-marcombes_bigfunctions-bigquery-activity-7011289613080100865-Czif?utm_source=combined_share_message&utm_medium=member_desktop
+  likes: 75
+  reshares: 1
+  impressions: null
+  comments: 18
+  article_title: |
+    null
+  article_url: null
+  images: ['https://media.licdn.com/dms/image/v2/C4E22AQEI1AfO2VufaA/feedshare-shrink_2048_1536/feedshare-shrink_2048_1536/0/1671621705679?e=1741219200&v=beta&t=0RaEKdBupbzNg3gL-qQrCLovHmd4euvaoUiuOUrqz0U']
+  image_url: ../assets/blog/2022-12-21_the_modern_data_stack_was_founded_to_give_full_aut
+  text: |
+    What if a data-analyst needs to compute the sentiment score of a customer survey comment. He would ask a data-engineer.
+    Really?
+
+
+    BigFunctions is an open-source catalog of advanced bigquery functions callable from your GCP project.
+
+    Just try it with:
+    ```
+    select bigfunctions.eu.sentiment_score('I love your product!')
+    ```
+
+
+    We are looking for ⭐ !
+    If you like the project, please support us by adding a star to the GitHub repository: https://lnkd.in/emfVXKjJ
+
+
+    BigFunctions website: https://lnkd.in/eBzr3wfM
+
+- id: 2022-12-19_how_i_created_an_opensource_repository_after_meeti
+  type: image
+  title: |
+    How I created an open-source repository after meeting a Himalayan climber.
+  author: Paul Marcombes
+  date: "2022-12-19"
+  url: https://www.linkedin.com/posts/paul-marcombes_bigfunctions-bigquery-bigfunctions-activity-7010568101637332993-cnGD?utm_source=combined_share_message&utm_medium=member_desktop
+  likes: 75
+  reshares: 3
+  impressions: null
+  comments: 5
+  article_title: |
+    null
+  article_url: null
+  images: ['https://media.licdn.com/dms/image/v2/C4E22AQEaUSAPP80BNg/feedshare-shrink_2048_1536/feedshare-shrink_2048_1536/0/1671449684463?e=1741219200&v=beta&t=aU6ZY_SquQQXVgGQQ_tKXhrYR5_uLP1xKzwHEG86tng']
+  image_url: ../assets/blog/2022-12-19_how_i_created_an_opensource_repository_after_meeti
+  text: |
+    Like some of us, I have dreamed of creating a product for a long time. But every time I wanted to get started, I found an excuse not to do it.
+
+    Then I met Nacer Ibn Abdeljalil, the first Moroccan to successfully climb Everest and he gave me this advice:
+
+    Make your Everest public. Tell your relatives about your goal. This will make your idea more real and commit you to your friends and colleagues.
+
+
+    So I did. And soon after, the magic happened ✨. It was like I had already started. I then decided to make it real as a side-project.
+
+    I created BigFunctions an open-source project to empower data-analysts and bigquery  users and keep them from reinventing the wheel. I already had a lot of positive feedback from the data-community and this is already a great achievement.
+
+    👉 Make your Everest public
+
+
+    🙏 To help me to reach my goal of 200 stars on GitHub and make this open-source side-project a success, I'd be really thankful if you can add a ⭐ on GitHub here: https://lnkd.in/emfVXKjJ
+
+    BigFunctions website: https://lnkd.in/eBzr3wfM
+
+
+    (Thanks Nacer Ibn Abdeljalil 🙏 )
+
+- id: 2022-12-15_discretize_continuous_value_to_faster_dataanalysis
+  type: image
+  title: |
+    Discretize continuous value to faster Data-Analysis in bigquery
+  author: Paul Marcombes
+  date: "2022-12-15"
+  url: https://www.linkedin.com/posts/paul-marcombes_bigquery-bigquery-bigfunctions-activity-7009072015533854720-55Ib?utm_source=combined_share_message&utm_medium=member_desktop
+  likes: 37
+  reshares: 1
+  impressions: null
+  comments: 0
+  article_title: |
+    null
+  article_url: null
+  images: ['https://media.licdn.com/dms/image/v2/C4E22AQHmmTvu2V_vsA/feedshare-shrink_2048_1536/feedshare-shrink_2048_1536/0/1671092989857?e=1741219200&v=beta&t=mj1_zmw64VuAbgKq3gDznQKF-lmRV3z4mr2XdAJaEsI']
+  image_url: ../assets/blog/2022-12-15_discretize_continuous_value_to_faster_dataanalysis
+  text: |
+    To help your data-analysis you may want to discretize continuous values into bins of equal width.
+
+    1️⃣ You can then easily count how many values you have in each range and have a better understanding of your data. Hello histograms.
+
+    2️⃣ It may improve your machine-learning algorithms as a preprocessing test.
+
+
+    👉 This bigquery function is available to anyone without install. Here is the documentation to get started: https://lnkd.in/eRx8-NCq
+
+    bigfunctions is fully opensource. To support us 🚀, add a star to the GitHub repo: https://lnkd.in/emfVXKjJ
+
+- id: 2022-12-13___advanced_json_query_in_bigquery__
+  type: document
+  title: |
+    🔵  Advanced Json Query in BigQuery  👇
+  author: Paul Marcombes
+  date: "2022-12-13"
+  url: https://www.linkedin.com/posts/paul-marcombes_bigquery-advanced-json-queries-activity-7008339733281918977-eblE?utm_source=combined_share_message&utm_medium=member_desktop
+  likes: 73
+  reshares: 8
+  impressions: null
+  comments: 5
+  article_title: |
+    null
+  article_url: null
+  images: []
+  image_url: null
+  text: |
+    BigQuery native json support is nice but limited. We need more! 🚧
+
+    💥 sid ali sadi from Esmoz is bringing advanced json querying to any bigquery user through another open BigQuery function. 🧐
+
+    He managed to embed JMESPath, a reknowned multi-programming-language library for advanced json-querying, inside a BigFunction. The result is outstanding! 💚
+
+
+    - BigFunction Doc: https://lnkd.in/epA9Yc4U
+    - BigFunctions GitHub: https://lnkd.in/emfVXKjJ
+    - JMESPath Tutorial: https://lnkd.in/eJUtSwFB
+
+- id: 2022-12-09__bigquery_json_made_easy
+  type: image
+  title: |
+    🔵 BigQuery json made easy!
+  author: Paul Marcombes
+  date: "2022-12-09"
+  url: https://www.linkedin.com/posts/paul-marcombes_bigquery-bigfunctions-activity-7006941275996225536-ErDP?utm_source=combined_share_message&utm_medium=member_desktop
+  likes: 79
+  reshares: 2
+  impressions: null
+  comments: 8
+  article_title: |
+    null
+  article_url: null
+  images: ['https://media.licdn.com/dms/image/v2/C4E22AQG9OpH71AuwuQ/feedshare-shrink_2048_1536/feedshare-shrink_2048_1536/0/1670584981747?e=1741219200&v=beta&t=A_uAfLttr9lr30JvDEzM4m-voUxTewlKg2vae8TBiCs']
+  image_url: ../assets/blog/2022-12-09__bigquery_json_made_easy
+  text: |
+    Oups he did it again!
+
+    sid ali sadi from Esmoz created some very nice bigquery functions callable by anyone from their GCP project to simplify json handling.
+
+    Great job sid ali sadi 👏
+
+    Doc → https://lnkd.in/ePr4c6Bt
+
+    You like it? Star it! 🤗 → https://lnkd.in/emfVXKjJ
+
+    bigfunctions
+
+- id: 2022-12-08__where_will_this_end_yesterday_a_new_contributor_d
+  type: image
+  title: |
+    🔵 Where will this end? Yesterday, a new contributor deployed open BigQuery functions to clean up text. And...
+  author: Paul Marcombes
+  date: "2022-12-08"
+  url: https://www.linkedin.com/posts/paul-marcombes_bigquery-bigquery-bigfunctions-activity-7006666393081323520-M41Y?utm_source=combined_share_message&utm_medium=member_desktop
+  likes: 66
+  reshares: 3
+  impressions: null
+  comments: 11
+  article_title: |
+    null
+  article_url: null
+  images: ['https://media.licdn.com/dms/image/v2/C5622AQHNYqvUsTZerQ/feedshare-shrink_2048_1536/feedshare-shrink_2048_1536/0/1670519444360?e=1741219200&v=beta&t=xJgTwMYV7JqTF9FQ-awcxcZD-uKOqyoAhZ4FW3f56EM']
+  image_url: ../assets/blog/2022-12-08__where_will_this_end_yesterday_a_new_contributor_d
+  text: |
+    Today, another contributor deployed some more!
+
+    A big Thanks 🙏 Benjamin Tabet for this contribution that will benefit the global bigquery community.
+
+    bigquery bigfunctions
+
+- id: 2022-12-08__donnons_le_pouvoir_aux_dataanalysts
+  type: text
+  title: |
+    👉 Donnons le pouvoir aux data-analysts!
+  author: Paul Marcombes
+  date: "2022-12-08"
+  url: https://www.linkedin.com/posts/paul-marcombes_4-bonnes-raisons-de-larguer-sa-stack-data-activity-7006549739550703617-jUbE?utm_source=combined_share_message&utm_medium=member_desktop
+  likes: 15
+  reshares: 0
+  impressions: null
+  comments: 3
+  article_title: |
+    null
+  article_url: null
+  images: []
+  image_url: null
+  text: |
+    Complètement d'accord Robin Conquet.
+
+    Rendons les data-analysts autonomes sur toute la chaîne (de la collecte, aux transformations sur toutes les couches, à l'exploration, à la documentation, aux tests, au déploiement d'algos, etc).
+
+    C'est un peu la raison d'être de BigFunctions https://lnkd.in/eBzr3wfM 😉
+
+- id: 2022-12-07__bigquery_text_cleaning_and_text_comparison
+  type: image
+  title: |
+    🔵 BigQuery Text Cleaning and Text Comparison
+  author: Paul Marcombes
+  date: "2022-12-07"
+  url: https://www.linkedin.com/posts/paul-marcombes_bigquery-bigfunctions-activity-7006173879899414528-l-YR?utm_source=combined_share_message&utm_medium=member_desktop
+  likes: 95
+  reshares: 8
+  impressions: null
+  comments: 9
+  article_title: |
+    null
+  article_url: null
+  images: ['https://media.licdn.com/dms/image/v2/C4E22AQGkkVo7rjeIVw/feedshare-shrink_2048_1536/feedshare-shrink_2048_1536/0/1670402020357?e=1741219200&v=beta&t=Hs9NvZiElvsMKUosF81CXvULARIC4js5okU9bskLEEk']
+  image_url: ../assets/blog/2022-12-07__bigquery_text_cleaning_and_text_comparison
+  text: |
+    👀 sid ali sadi from Esmoz did a great job by adding the new `remove_accents` bigquery function callable by anyone without install from their BigQuery project.
+
+    I can't wait to see what Esmoz consultants will build next 😁
+
+    BigFunctions website: https://lnkd.in/eBzr3wfM
+
+    Any ⭐ to BigFunctions GitHub repo is 𝒓𝒆𝒂𝒍𝒍𝒚 appreciated 🙏🤗: 
+    https://lnkd.in/emfVXKjJ
+
+
+    bigquery bigfunctions
+
+- id: 2022-11-23_great_article_robert_yi_to_get_a_view_of_semantic_
+  type: text
+  title: |
+    Great article Robert Yi to get a view of semantic layer strategic choices.
+  author: Paul Marcombes
+  date: "2022-11-23"
+  url: https://www.linkedin.com/posts/paul-marcombes_why-dbts-semantic-layer-sucks-activity-7001074129462255616-9SHt?utm_source=combined_share_message&utm_medium=member_desktop
+  likes: 7
+  reshares: 0
+  impressions: null
+  comments: 2
+  article_title: |
+    null
+  article_url: null
+  images: []
+  image_url: null
+  text: |
+
+
+- id: 2022-11-18__bigquery_auto_date_cleaning
+  type: image
+  title: |
+    🔵 BigQuery Auto Date Cleaning!
+  author: Paul Marcombes
+  date: "2022-11-18"
+  url: https://www.linkedin.com/posts/paul-marcombes_bigquery-bigfunctions-activity-6999355772329467904-ift0?utm_source=combined_share_message&utm_medium=member_desktop
+  likes: 92
+  reshares: 2
+  impressions: null
+  comments: 0
+  article_title: |
+    null
+  article_url: null
+  images: ['https://media.licdn.com/dms/image/v2/C4E22AQF2V90opnePWw/feedshare-shrink_2048_1536/feedshare-shrink_2048_1536/0/1668776456231?e=1741219200&v=beta&t=zVyqsQd3jqF8iO0l_3yymV0pdGceztrSapAeIL3e2OE']
+  image_url: ../assets/blog/2022-11-18__bigquery_auto_date_cleaning
+  text: |
+    Sebabrata Banerjee   (Sebo) did a great video tutorial to use regex for date cleaning 👨‍💻.
+
+    What if you don't know about regex and still want to do date cleaning? 🤔
+
+    💡 We created a new BigQuery open-source function callable without install from your project.
+
+    How do you like it?
+    Tell us in a comment what is the next best function we should develop.
+
+
+    Sebabrata Video:
+    https://lnkd.in/eAkXmf6r
+
+    'BigFunctions' documentation:
+    https://lnkd.in/eTzuWDKu
+
+    'BigFunctions' GitHub repo (support us with a star ⭐ !):
+    https://lnkd.in/emfVXKjJ
+
+    bigquery bigfunctions
+
+- id: 2022-10-28__bigquery_arrays_made_easy
+  type: image
+  title: |
+    🔵 BigQuery arrays made easy!
+  author: Paul Marcombes
+  date: "2022-10-28"
+  url: https://www.linkedin.com/posts/paul-marcombes_bigquery-bigfunctions-activity-6991791325377404928-X4_C?utm_source=combined_share_message&utm_medium=member_desktop
+  likes: 186
+  reshares: 10
+  impressions: null
+  comments: 15
+  article_title: |
+    null
+  article_url: null
+  images: ['https://media.licdn.com/dms/image/v2/C4E22AQEtBx_YTofwRA/feedshare-shrink_2048_1536/feedshare-shrink_2048_1536/0/1666972952235?e=1741219200&v=beta&t=_L1VbyrCJ75A1CBNXMHKwryway2v4PrO7F80QwEoH1c']
+  image_url: ../assets/blog/2022-10-28__bigquery_arrays_made_easy
+  text: |
+    I recently discovered the great 'sql-snippets' open-source repository from Taylor Brownlow from Count.
+
+    I ❤️ the idea of sharing sql knowledge via open-source.
+
+    👀 It inspired me to create some new BigQuery open-source functions callable from anyone without install from their project.
+
+
+    'sql-snippets' GitHub repo:
+    https://lnkd.in/e74tB4e8
+
+    'BigFunctions' documentation:
+    https://lnkd.in/egAkecUg
+
+    'BigFunctions' GitHub repo (support us with a star ⭐ !):
+    https://lnkd.in/emfVXKjJ
+
+    bigquery bigfunctions
+
+- id: 2022-10-25_totally_agree_with_you_madison_schott___opensource
+  type: text
+  title: |
+    Totally agree with you @Madison Schott!  ➜ opensource for data is great to avoid reinventing the wheel and to share efforts 👇
+  author: Paul Marcombes
+  date: "2022-10-25"
+  url: https://www.linkedin.com/posts/paul-marcombes_datacleaning-sql-dbt-activity-6990801218084253696-m1RJ?utm_source=combined_share_message&utm_medium=member_desktop
+  likes: 10
+  reshares: 0
+  impressions: null
+  comments: 4
+  article_title: |
+    null
+  article_url: null
+  images: []
+  image_url: null
+  text: |
+    Mateusz Klimek: I took the liberty of re-developing your `clean_additional_whitespaces` dbt macro as a public BigQuery function callable by anyone without install from their BigQuery project .
+
+    To use it, simply call from your BigQuery console:
+    ```
+    select bigfunctions.us.remove_extra_whitespaces('Hello  \n   world!')
+    ```
+    You'll get ➜ 'Hello world!'
+
+
+    Documentation 👉 https://lnkd.in/gQw7stGU
+    To give a star on GitHub 👉 https://lnkd.in/gb7jme_V
+    bigquery bigfunctions
+
+- id: 2022-10-14_rejoignezmoi_lundi__google_next_recap_france
+  type: image
+  title: |
+    Rejoignez-moi lundi à Google Next Recap France:
+  author: Paul Marcombes
+  date: "2022-10-14"
+  url: https://www.linkedin.com/posts/paul-marcombes_%F0%9D%90%91%F0%9D%90%9E%F0%9D%90%A3%F0%9D%90%A8%F0%9D%90%A2%F0%9D%90%A0%F0%9D%90%A7%F0%9D%90%9E%F0%9D%90%B3-%F0%9D%90%A6%F0%9D%90%A8%F0%9D%90%A2-%F0%9D%90%A5%F0%9D%90%AE%F0%9D%90%A7%F0%9D%90%9D%F0%9D%90%A2-%C3%A0-%F0%9D%90%86-activity-6986619669633716224-WNUJ?utm_source=combined_share_message&utm_medium=member_desktop
+  likes: 82
+  reshares: 4
+  impressions: null
+  comments: 3
+  article_title: |
+    null
+  article_url: null
+  images: ['https://media.licdn.com/dms/image/v2/C4E22AQFMkYf9oobYEA/feedshare-shrink_2048_1536/feedshare-shrink_2048_1536/0/1665739933446?e=1741219200&v=beta&t=UssSHQBqOgMWN9YcAg4wqERpgICpar_0JH06X55u5No']
+  image_url: ../assets/blog/2022-10-14_rejoignezmoi_lundi__google_next_recap_france
+  text: |
+    - si vous voulez tout savoir sur le scaling des usages data chez Nickel grâce à GCP.
+
+    - si vous êtes intrigués par le nouveau projet open-source BigFunctions qui booste les capacités de BigQuery.
+
+
+    Google Next Recap France
+    https://lnkd.in/eMrczFZP
+
+    BigFunctions
+    https://lnkd.in/eBzr3wfM
+
+- id: 2022-10-10__furcy_pin_brings_graph_algorithms_to_bigquery
+  type: image
+  title: |
+    🌐 Furcy Pin brings Graph Algorithms to BigQuery!
+  author: Paul Marcombes
+  date: "2022-10-10"
+  url: https://www.linkedin.com/posts/paul-marcombes_bigquery-bigfunctions-data-activity-6985143660828844032-X5oe?utm_source=combined_share_message&utm_medium=member_desktop
+  likes: 87
+  reshares: 2
+  impressions: null
+  comments: 2
+  article_title: |
+    null
+  article_url: null
+  images: ['https://media.licdn.com/dms/image/v2/C4E22AQFRlsYYlTj8ag/feedshare-shrink_2048_1536/feedshare-shrink_2048_1536/0/1665388025743?e=1741219200&v=beta&t=_TRtCJYrB77FyyXST7UgyGtTohwaZAJ62JfGphrM5LY']
+  image_url: ../assets/blog/2022-10-10__furcy_pin_brings_graph_algorithms_to_bigquery
+  text: |
+    What a pleasure to see Furcy brings the first Graph Algorithm to BigQuery as an open function callable by anyone without install.
+
+    This connected components algorithm which detect communities in graphs is great for recommendation, fraud ring detections or data-explorations.
+
+    To use it 👉 https://lnkd.in/e55DreiB
+
+    To support BigFunctions:
+    Give us a star on GitHub 👉 https://lnkd.in/emfVXKjJ
+
+    bigquery bigfunctions data opensource
+
+- id: 2022-10-03__what_if_common_bigquery_functions_were_available_
+  type: image
+  title: |
+    👀 What if common BigQuery functions were available from a unique place?
+  author: Paul Marcombes
+  date: "2022-10-03"
+  url: https://www.linkedin.com/posts/paul-marcombes_data-bigquery-opensource-activity-6982620263657938945-A1QC?utm_source=combined_share_message&utm_medium=member_desktop
+  likes: 57
+  reshares: 1
+  impressions: null
+  comments: 9
+  article_title: |
+    null
+  article_url: null
+  images: ['https://media.licdn.com/dms/image/v2/C4E22AQGUcbpQbvj8-A/feedshare-shrink_2048_1536/feedshare-shrink_2048_1536/0/1664786400863?e=1741219200&v=beta&t=o3kuUCgZSFnDS2TQJaPM5A4Zp_BoNTCMrRFr7HQ4RNg']
+  image_url: ../assets/blog/2022-10-03__what_if_common_bigquery_functions_were_available_
+  text: |
+    Last week, a question was asked in our modern-data-stack slack-community: 
+    "how do you get if a date is a public-holiday in your data-warehouse?"
+
+    I realized this is a very common question. 
+
+    Why should all data-teams implement their own implementation of such a basic function?
+
+    Why not to have a common git repo where all data-teams would contribute to build a common library of useful functions callable from any BigQuery project for free?
+
+
+    This is exactly one of the reason of existence of BigFunctions.
+    👉 https://lnkd.in/eHQ-2spu
+
+    If you like it, support it!
+    - tell us in a comment what next BigFunction should be implemented
+    - add a star in our GitHub repo. This helps us a LOT!
+    👉 https://lnkd.in/emfVXKjJ
+    - contribute to the repo y adding your own function.
+
+    data bigquery opensource bigfunctions community
+
+- id: 2022-09-26_et_si_on_pouvait_voir_le_profiling_des_donnes_dans
+  type: image
+  title: |
+    Et si on pouvait voir le profiling des données dans BigQuery ?
+  author: Paul Marcombes
+  date: "2022-09-26"
+  url: https://www.linkedin.com/posts/paul-marcombes_bigquery-data-dataanalytics-activity-6980085040453980161-QRwu?utm_source=combined_share_message&utm_medium=member_desktop
+  likes: 233
+  reshares: 10
+  impressions: null
+  comments: 30
+  article_title: |
+    null
+  article_url: null
+  images: ['https://media.licdn.com/dms/image/v2/C4E22AQFj9iqwsDqUkA/feedshare-shrink_2048_1536/feedshare-shrink_2048_1536/0/1664181955701?e=1741219200&v=beta&t=HcKGpqzg-QPHezk5qwvzccEjfF-T6kaPyVkvrqWS5ts']
+  image_url: ../assets/blog/2022-09-26_et_si_on_pouvait_voir_le_profiling_des_donnes_dans
+  text: |
+    C'est important quand on commence un projet data de:
+    - 👃 sentir les données, 
+    - 👀 savoir s'il y a des outliers,
+    - 🌊 connaître le nombre de null,
+    - 📊 avoir une idée de la distribution ?
+     
+    C'est maintenant possible de faire le profiling des données directement dans la console BigQuery!
+    (sans installation, sans avoir à télécharger de donnnées, sans faire de python, sans créer de compte de service ni filer l'accès à vos données à un tiers)
+
+    Je viens de lancer un projet open-source pour cela
+    👉 https://lnkd.in/eBzr3wfM
+
+
+    bigquery data dataanalytics dataprofiling bigfunctions
+
+- id: 2022-09-07_ravi_de_pouvoir_exposer_comment_dbt_permet_de_mett
+  type: text
+  title: |
+    Ravi de pouvoir exposer comment dbt permet de mettre le data-warehouse cloud tel que BigQuery ou Snowflake au centre du SI d’entreprise:
+  author: Paul Marcombes
+  date: "2022-09-07"
+  url: https://www.linkedin.com/posts/paul-marcombes_ai-engineering-10-dbt-et-la-modern-data-activity-6973190711496097792-LJzC?utm_source=combined_share_message&utm_medium=member_desktop
+  likes: 41
+  reshares: 0
+  impressions: null
+  comments: 4
+  article_title: |
+    null
+  article_url: null
+  images: []
+  image_url: null
+  text: |
+    - en rendant possible l’autonomie des data-analysts sur toute la chaîne: de l’ingestion des données à l’activation en passant par les transformations ou le déploiement de machine learning.
+    - en apportant les bonnes pratiques de software engineering / Devops à la data
+    - en créant un standard de la modern-data-stack permettant de connecter les données avec tous les services SAAS pour ingérer les données mais aussi pour les utiliser et générer des actions (envoi de notifications, personnalisation, etc).
