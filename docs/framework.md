@@ -555,7 +555,7 @@ select PROJECT.DATASET.faker("name", "it_IT")
 
     You can also put the same config in your `config.yaml` file to define default values
     (useful for defining a default service account for functions).
-    The arguments defined in `config.yaml` will be overriden by the arguments (if defined)
+    The arguments defined in `config.yaml` will be overridden by the arguments (if defined)
     in the function yaml files.
 
 
