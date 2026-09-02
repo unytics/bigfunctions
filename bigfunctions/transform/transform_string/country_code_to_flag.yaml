@@ -1,0 +1,54 @@
+type: function_sql
+author: "Rasmus Engelbrecht Sommer"
+description: |-
+  Converts a 2-letter ISO country code to a flag emoji
+
+  A flag emoji is a pair of [regional indicator symbols](https://en.wikipedia.org/wiki/Regional_indicator_symbol),
+  which sit `127397` code points above the ASCII letters they correspond to. So `US`
+  becomes the pair `🇺` + `🇸`, which renders as a single flag.
+
+  Returns `null` rather than a broken glyph when `country_code` is not exactly two
+  characters: anything else would produce an emoji pair the reader cannot interpret.
+arguments:
+  - name: country_code
+    type: string
+output:
+  name: country_code_to_flag
+  type: string
+examples:
+  - description: "with US country code"
+    arguments:
+      - "US"
+    output: "🇺🇸"
+  - description: "with DK country code"
+    arguments:
+      - "DK"
+    output: "🇩🇰"
+  - description: "with DE country code"
+    arguments:
+      - "DE"
+    output: "🇩🇪"
+  - description: "with lowercase country code"
+    arguments:
+      - "fr"
+    output: "🇫🇷"
+  - description: "with NULL input"
+    arguments:
+      - "null"
+    output: "null"
+  - description: "with empty string"
+    arguments:
+      - ""
+    output: "null"
+  - description: "with single character"
+    arguments:
+      - "A"
+    output: "null"
+code: |
+  case
+    when country_code is null or length(trim(country_code)) != 2 then null
+    else concat(
+      chr(127397 + to_code_points(substr(upper(trim(country_code)), 1, 1))[offset(0)]),
+      chr(127397 + to_code_points(substr(upper(trim(country_code)), 2, 1))[offset(0)])
+    )
+  end
